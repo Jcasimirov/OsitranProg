@@ -193,6 +193,18 @@
             <value n="id" v="primefaces-3.5.RC1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Spring-web-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -222,6 +234,32 @@
                <value n="description" v="primefaces-3.5.RC1.jar"/>
                <value n="id" v="primefaces-3.5.RC1.jar"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/spring-web-3.2.0.RELEASE.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Spring-web-3.2.0.RELEASE.jar"/>
+               <value n="id" v="Spring-web-3.2.0.RELEASE.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
+               <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+               <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -247,6 +285,18 @@
          </hash>
          <hash>
             <value n="id" v="primefaces-3.5.RC1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Spring-web-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -373,6 +423,52 @@
             <value n="tldURL" v="@oracle.home@../oracle_common/modules/oracle.jsf_2.1/jsf-impl.jar!/META-INF/html_basic.tld"/>
             <value n="URI" v="http://java.sun.com/jsf/html"/>
             <value n="version" v="2.1"/>
+         </hash>
+         <hash>
+            <value n="jspVersion" v="2.0"/>
+            <value n="libraries" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="name" v="form"/>
+            <value n="prefix" v="form"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="@project@public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar!/META-INF/spring-form.tld"/>
+            <value n="URI" v="http://www.springframework.org/tags/form"/>
+            <value n="version" v="3.0"/>
+         </hash>
+         <hash>
+            <value n="jspVersion" v="2.0"/>
+            <value n="libraries" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="name" v="spring"/>
+            <value n="prefix" v="spring"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="@project@public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar!/META-INF/spring.tld"/>
+            <value n="URI" v="http://www.springframework.org/tags"/>
+            <value n="version" v="3.0"/>
+         </hash>
+      </list>
+      <list n="tag-libraries-internalDefinitions">
+         <hash>
+            <value n="jspVersion" v="2.0"/>
+            <value n="libraries" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="name" v="form"/>
+            <value n="prefix" v="form"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="@project@public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar!/META-INF/spring-form.tld"/>
+            <value n="URI" v="http://www.springframework.org/tags/form"/>
+            <value n="version" v="3.0"/>
+         </hash>
+         <hash>
+            <value n="jspVersion" v="2.0"/>
+            <value n="libraries" v="spring-webmvc-3.2.0.RELEASE.jar"/>
+            <value n="name" v="spring"/>
+            <value n="prefix" v="spring"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="@project@public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar!/META-INF/spring.tld"/>
+            <value n="URI" v="http://www.springframework.org/tags"/>
+            <value n="version" v="3.0"/>
          </hash>
       </list>
    </hash>
