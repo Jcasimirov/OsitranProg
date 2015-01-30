@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+      
+<h:head>
+	<style type="text/css">
+	</style>
+	<!--Todo el contenido de CSS y JAVA SCRIPT -->
+</h:head>
+<body>
+
+<p:layout style="min-width:400px;min-height:500px;font-size:11px">
+
+<p:layoutUnit position="north">
+<div style="text-align: center;">
+	<h:outputLabel value=" #{msg.titulo_REGOPCSIS} "/>
+</div>
+
+</p:layoutUnit> 
+
+<p:layoutUnit position="center">
+	<CENTER>
+	<TABLE>
+		<tr><td height="40" width="200">#{etq.etq_ros_nom}</td><td><p:inputText/></td></tr>
+		<tr><td height="40" width="200">#{etq.etq_ros_des}</td> <td><p:inputTextarea/></td> </tr>
+		<tr><td height="40" width="200">#{etq.etq_ros_nfo}</td> <td><p:inputText/></td> </tr>
+		<tr><td height="40" width="200">#{etq.etq_ros_mod}</td> 
+			<td>
+			<p:selectOneMenu>
+			<f:selectItem  itemLabel="Selecciona" itemValue="0"/>
+			</p:selectOneMenu>
+			</td>
+		</tr>
+	</TABLE>
+	</CENTER>
+</p:layoutUnit>
+
+<p:layoutUnit position="south">
+	<CENTER><TABLE>
+		<tr><td><p:commandButton value="#{btn.btn_guardar}"/>
+		 </td> <td><p:commandButton value="#{btn.btn_salir}"/> </td> </tr>
+	</TABLE></CENTER>
+</p:layoutUnit>
+
+</p:layout>
+
+</body>
+</html>
