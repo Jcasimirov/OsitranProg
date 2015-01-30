@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee">
-
+   <application>
+	<resource-bundle>
+		<base-name>titulosproyecto.titulos</base-name>
+		<var>msg</var>			
+	</resource-bundle>
+	<resource-bundle>
+		<base-name>titulosproyecto.botones</base-name>
+		<var>btn</var>			
+	</resource-bundle>
+	<resource-bundle>
+		<base-name>titulosproyecto.etiquetas</base-name>
+		<var>etq</var>			
+	</resource-bundle>
+	<resource-bundle>
+		<base-name>titulosproyecto.legend</base-name>
+		<var>leg</var>			
+	</resource-bundle>
+		<resource-bundle>
+		<base-name>titulosproyecto.campo</base-name>
+		<var>cam</var>			
+	</resource-bundle>
+	<resource-bundle>
+		<base-name>titulosproyecto.datatable</base-name>
+		<var>tab</var>			
+	</resource-bundle>
+	</application>
 </faces-config>
