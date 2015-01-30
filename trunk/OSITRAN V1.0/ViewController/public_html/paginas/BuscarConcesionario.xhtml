@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui" >
+<h:head>
+	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+<h:form>
+<p:layout fullPage="true" style="border:none">
+	<p:layoutUnit position="north"  style="border:0px"  resizable="true" closable="true" collapsible="true">
+		<p:panel header="#{msg.tituloBC}"  style="text-align:center;text-decoration:blink;width:99%">
+		</p:panel>
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="center"  style="border:0px">   
+				<div align="center">
+    <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}"  style="margin-bottom:5px;font-size: 11px;width:70%">
+        <table  style="font-size:11px">
+        	<tr>
+        			<td align="left">#{cam.nomConce}</td>
+        			<td align="left" colspan="5"><p:inputText value="" ></p:inputText></td>       			
+        	</tr>
+        	<tr>
+        			<td align="left">#{cam.sigNom}</td>
+        			<td  align="left"><p:inputText value="" ></p:inputText></td>
+        			<td>#{cam.tipDoc}</td>
+        			<td style="width: 90px" >
+        					<p:selectOneMenu  value="">
+        					<f:selectItem id="Seleccione" itemLabel="-Seleccione-" itemValue="4" />
+					        <f:selectItem id="DNI" itemLabel="DNI" itemValue="1" />
+					        <f:selectItem id="CARNET" itemLabel="CARNET" itemValue="2" />
+					        <f:selectItem id="RUC" itemLabel="RUC" itemValue="3" />
+    						</p:selectOneMenu></td>
+        			<td></td>
+        			<td ><p:inputText value="#{cam.numDoc}" ></p:inputText></td>        			
+        	</tr>
+        	<tr>
+        		<td colspan="6" align="right" ><p:commandButton value="#{btn.btn_buscar}"></p:commandButton></td>
+        	</tr>
+        </table>   
+    </p:fieldset>
+    <br></br>
+     <br></br>
+       <p:fieldset  styleClass="fielsetinterno"  legend="#{leg.rb}" style="margin-bottom:5px;font-size: 11px;width:70%">
+			      <p:dataTable>
+			    <p:column headerText="#{tab.nom}">
+			        <h:outputText value="" />
+			    </p:column>
+			 
+			    <p:column headerText="#{tab.sig}">
+			        <h:outputText value="" />
+			    </p:column>
+			 
+			    <p:column headerText="#{tab.tipDoc}">
+			        <h:outputText value="" />
+			    </p:column>
+			    <p:column headerText="#{tab.numDoc}">
+			        <h:outputText value="" />
+			    </p:column>
+			     <p:column headerText="#{tab.correo}">
+			        <h:outputText value="" />
+			    </p:column>
+					</p:dataTable>  
+    </p:fieldset>
+    </div>		
+		</p:layoutUnit>
+	</p:layout>
+</h:form>
+</h:body>
+</html>
