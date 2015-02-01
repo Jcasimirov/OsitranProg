@@ -8,17 +8,27 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * To create ID generator sequence "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
 @NamedQueries({ @NamedQuery(name = "InfraestructuraTipo.findAll", query = "select o from InfraestructuraTipo o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
+@SequenceGenerator(name = "InfraestructuraTipo_Id_Seq_Gen", sequenceName = "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN",
+                   allocationSize = 50, initialValue = 50)
 public class InfraestructuraTipo implements Serializable {
-    private static final long serialVersionUID = 1543529251769475354L;
+    private static final long serialVersionUID = -9018333581388462967L;
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
     private String tinDescripcion;
     @Column(name = "TIN_ESTADO", nullable = false)
@@ -32,7 +42,9 @@ public class InfraestructuraTipo implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "TIN_FECHA_CAMBIO")
     private Date tinFechaCambio;
+    @Id
     @Column(name = "TIN_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InfraestructuraTipo_Id_Seq_Gen")
     private BigDecimal tinId;
     @Column(name = "TIN_NOMBRE", nullable = false, length = 50)
     private String tinNombre;
@@ -106,10 +118,6 @@ public class InfraestructuraTipo implements Serializable {
 
     public BigDecimal getTinId() {
         return tinId;
-    }
-
-    public void setTinId(BigDecimal tinId) {
-        this.tinId = tinId;
     }
 
     public String getTinNombre() {

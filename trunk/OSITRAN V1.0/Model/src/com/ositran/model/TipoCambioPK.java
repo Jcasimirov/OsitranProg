@@ -7,15 +7,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class TipoCambioPK implements Serializable {
+    private BigDecimal monId;
     private Date tdcFecha;
-    private BigDecimal TMoneda;
 
     public TipoCambioPK() {
     }
 
-    public TipoCambioPK(Date tdcFecha, BigDecimal TMoneda) {
+    public TipoCambioPK(BigDecimal monId, Date tdcFecha) {
+        this.monId = monId;
         this.tdcFecha = tdcFecha;
-        this.TMoneda = TMoneda;
     }
 
     public boolean equals(Object other) {
@@ -31,19 +31,19 @@ public class TipoCambioPK implements Serializable {
         return super.hashCode();
     }
 
+    public BigDecimal getMonId() {
+        return monId;
+    }
+
+    public void setMonId(BigDecimal monId) {
+        this.monId = monId;
+    }
+
     public Date getTdcFecha() {
         return tdcFecha;
     }
 
     public void setTdcFecha(Date tdcFecha) {
         this.tdcFecha = tdcFecha;
-    }
-
-    public BigDecimal getTMoneda() {
-        return TMoneda;
-    }
-
-    public void setTMoneda(BigDecimal TMoneda) {
-        this.TMoneda = TMoneda;
     }
 }

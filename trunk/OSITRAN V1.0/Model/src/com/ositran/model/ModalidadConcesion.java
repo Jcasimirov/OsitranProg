@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +28,7 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "ModalidadConcesion_Id_Seq_Gen", sequenceName = "T_MODALIDAD_CONCESION_ID_SEQ_GEN",
                    allocationSize = 50, initialValue = 50)
 public class ModalidadConcesion implements Serializable {
-    private static final long serialVersionUID = 4461723563580619101L;
+    private static final long serialVersionUID = 4435829443044178951L;
     @Column(name = "MCO_DESCRIPCION", nullable = false, length = 100)
     private String mcoDescripcion;
     @Column(name = "MCO_ESTADO", nullable = false)
@@ -60,8 +56,6 @@ public class ModalidadConcesion implements Serializable {
     private String mcoUsuarioBaja;
     @Column(name = "MCO_USUARIO_CAMBIO", length = 20)
     private String mcoUsuarioCambio;
-    @OneToMany(mappedBy = "TModalidadConcesion", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Contrato> TContratoList2;
 
     public ModalidadConcesion() {
     }
@@ -164,25 +158,5 @@ public class ModalidadConcesion implements Serializable {
 
     public void setMcoUsuarioCambio(String mcoUsuarioCambio) {
         this.mcoUsuarioCambio = mcoUsuarioCambio;
-    }
-
-    public List<Contrato> getTContratoList2() {
-        return TContratoList2;
-    }
-
-    public void setTContratoList2(List<Contrato> TContratoList2) {
-        this.TContratoList2 = TContratoList2;
-    }
-
-    public Contrato addContrato(Contrato contrato) {
-        getTContratoList2().add(contrato);
-        contrato.setTModalidadConcesion(this);
-        return contrato;
-    }
-
-    public Contrato removeContrato(Contrato contrato) {
-        getTContratoList2().remove(contrato);
-        contrato.setTModalidadConcesion(null);
-        return contrato;
     }
 }

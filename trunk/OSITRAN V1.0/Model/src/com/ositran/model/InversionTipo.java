@@ -8,17 +8,27 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * To create ID generator sequence "T_INVERSION_TIPO_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_INVERSION_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
 @NamedQueries({ @NamedQuery(name = "InversionTipo.findAll", query = "select o from InversionTipo o") })
 @Table(name = "T_INVERSION_TIPO")
+@SequenceGenerator(name = "InversionTipo_Id_Seq_Gen", sequenceName = "T_INVERSION_TIPO_ID_SEQ_GEN", allocationSize = 50,
+                   initialValue = 50)
 public class InversionTipo implements Serializable {
-    private static final long serialVersionUID = 4518793286156267528L;
+    private static final long serialVersionUID = -8103932004553759425L;
     @Column(name = "TIV_DESCRIPCION", nullable = false, length = 100)
     private String tivDescripcion;
     @Column(name = "TIV_ESTADO", nullable = false)
@@ -32,7 +42,9 @@ public class InversionTipo implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "TIV_FECHA_CAMBIO")
     private Date tivFechaCambio;
+    @Id
     @Column(name = "TIV_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InversionTipo_Id_Seq_Gen")
     private BigDecimal tivId;
     @Column(name = "TIV_NOMBRE", nullable = false, length = 100)
     private String tivNombre;
@@ -106,10 +118,6 @@ public class InversionTipo implements Serializable {
 
     public BigDecimal getTivId() {
         return tivId;
-    }
-
-    public void setTivId(BigDecimal tivId) {
-        this.tivId = tivId;
     }
 
     public String getTivNombre() {

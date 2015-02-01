@@ -8,20 +8,31 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * To create ID generator sequence "T_USUARIO_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_USUARIO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
 @NamedQueries({ @NamedQuery(name = "Usuario.findAll", query = "select o from Usuario o") })
 @Table(name = "T_USUARIO")
+@SequenceGenerator(name = "Usuario_Id_Seq_Gen", sequenceName = "T_USUARIO_ID_SEQ_GEN", allocationSize = 50,
+                   initialValue = 50)
 public class Usuario implements Serializable {
-    private static final long serialVersionUID = -4566870633849833918L;
+    private static final long serialVersionUID = 616782273879451829L;
+    @Column(name = "CRG_ID")
+    private BigDecimal crgId;
+    @Column(name = "ROL_ID", nullable = false)
+    private BigDecimal rolId;
     @Column(name = "USU_CONTRASENYA", nullable = false, length = 20)
     private String usuContrasenya;
     @Column(name = "USU_ESEXTERNO", nullable = false)
@@ -38,8 +49,9 @@ public class Usuario implements Serializable {
     @Column(name = "USU_FECHA_CAMBIO")
     private Date usuFechaCambio;
     @Id
-    @Column(name = "USU_ID", nullable = false, length = 20)
-    private String usuId;
+    @Column(name = "USU_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Usuario_Id_Seq_Gen")
+    private BigDecimal usuId;
     @Column(name = "USU_NOMBRE", nullable = false, length = 100)
     private String usuNombre;
     @Column(name = "USU_TERMINAL", length = 20)
@@ -50,21 +62,16 @@ public class Usuario implements Serializable {
     private String usuUsuarioBaja;
     @Column(name = "USU_USUARIO_CAMBIO", length = 20)
     private String usuUsuarioCambio;
-    @ManyToOne
-    @JoinColumn(name = "CRG_ID")
-    private Cargo cargo;
-    @ManyToOne
-    @JoinColumn(name = "ROL_ID")
-    private Rol TRol;
 
     public Usuario() {
     }
 
-    public Usuario(Cargo cargo, Rol TRol, String usuContrasenya, BigDecimal usuEsexterno, BigDecimal usuEstado,
-                   Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, String usuId, String usuNombre,
-                   String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja, String usuUsuarioCambio) {
-        this.cargo = cargo;
-        this.TRol = TRol;
+    public Usuario(BigDecimal crgId, BigDecimal rolId, String usuContrasenya, BigDecimal usuEsexterno,
+                   BigDecimal usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, BigDecimal usuId,
+                   String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
+                   String usuUsuarioCambio) {
+        this.crgId = crgId;
+        this.rolId = rolId;
         this.usuContrasenya = usuContrasenya;
         this.usuEsexterno = usuEsexterno;
         this.usuEstado = usuEstado;
@@ -79,6 +86,21 @@ public class Usuario implements Serializable {
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
 
+    public BigDecimal getCrgId() {
+        return crgId;
+    }
+
+    public void setCrgId(BigDecimal crgId) {
+        this.crgId = crgId;
+    }
+
+    public BigDecimal getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(BigDecimal rolId) {
+        this.rolId = rolId;
+    }
 
     public String getUsuContrasenya() {
         return usuContrasenya;
@@ -128,12 +150,8 @@ public class Usuario implements Serializable {
         this.usuFechaCambio = usuFechaCambio;
     }
 
-    public String getUsuId() {
+    public BigDecimal getUsuId() {
         return usuId;
-    }
-
-    public void setUsuId(String usuId) {
-        this.usuId = usuId;
     }
 
     public String getUsuNombre() {
@@ -174,21 +192,5 @@ public class Usuario implements Serializable {
 
     public void setUsuUsuarioCambio(String usuUsuarioCambio) {
         this.usuUsuarioCambio = usuUsuarioCambio;
-    }
-
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
-    public Rol getTRol() {
-        return TRol;
-    }
-
-    public void setTRol(Rol TRol) {
-        this.TRol = TRol;
     }
 }

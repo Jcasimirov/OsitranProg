@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,12 +23,12 @@ import javax.persistence.TemporalType;
  * CREATE SEQUENCE "T_CONCEPTO_VALORIZACION_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "ConceptoValorizacion.findAll", query = "select o from ConceptoValorizacion o") })
+@NamedQueries({ @NamedQuery(name = "TConceptoValorizacion.findAll", query = "select o from TConceptoValorizacion o") })
 @Table(name = "T_CONCEPTO_VALORIZACION")
-@SequenceGenerator(name = "ConceptoValorizacion_Id_Seq_Gen", sequenceName = "T_CONCEPTO_VALORIZACION_ID_SEQ_GEN",
+@SequenceGenerator(name = "TConceptoValorizacion_Id_Seq_Gen", sequenceName = "T_CONCEPTO_VALORIZACION_ID_SEQ_GEN",
                    allocationSize = 50, initialValue = 50)
 public class ConceptoValorizacion implements Serializable {
-    private static final long serialVersionUID = 2941433165915685195L;
+    private static final long serialVersionUID = -367199530033428075L;
     @Column(name = "CVA_DESCRIPCION", nullable = false, length = 100)
     private String cvaDescripcion;
     @Column(name = "CVA_ESTADO", nullable = false)
@@ -48,7 +44,7 @@ public class ConceptoValorizacion implements Serializable {
     private Date cvaFechaCambio;
     @Id
     @Column(name = "CVA_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ConceptoValorizacion_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TConceptoValorizacion_Id_Seq_Gen")
     private BigDecimal cvaId;
     @Column(name = "CVA_NOMBRE", nullable = false, length = 100)
     private String cvaNombre;
@@ -60,15 +56,13 @@ public class ConceptoValorizacion implements Serializable {
     private String cvaUsuarioBaja;
     @Column(name = "CVA_USUARIO_CAMBIO", length = 20)
     private String cvaUsuarioCambio;
-    @OneToMany(mappedBy = "TConceptoValorizacion", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ContratoValorizacion> TContratoValorizacionList;
 
     public ConceptoValorizacion() {
     }
 
     public ConceptoValorizacion(String cvaDescripcion, BigDecimal cvaEstado, Date cvaFechaAlta, Date cvaFechaBaja,
-                                Date cvaFechaCambio, BigDecimal cvaId, String cvaNombre, String cvaTerminal,
-                                String cvaUsuarioAlta, String cvaUsuarioBaja, String cvaUsuarioCambio) {
+                                 Date cvaFechaCambio, BigDecimal cvaId, String cvaNombre, String cvaTerminal,
+                                 String cvaUsuarioAlta, String cvaUsuarioBaja, String cvaUsuarioCambio) {
         this.cvaDescripcion = cvaDescripcion;
         this.cvaEstado = cvaEstado;
         this.cvaFechaAlta = cvaFechaAlta;
@@ -164,25 +158,5 @@ public class ConceptoValorizacion implements Serializable {
 
     public void setCvaUsuarioCambio(String cvaUsuarioCambio) {
         this.cvaUsuarioCambio = cvaUsuarioCambio;
-    }
-
-    public List<ContratoValorizacion> getTContratoValorizacionList() {
-        return TContratoValorizacionList;
-    }
-
-    public void setTContratoValorizacionList(List<ContratoValorizacion> TContratoValorizacionList) {
-        this.TContratoValorizacionList = TContratoValorizacionList;
-    }
-
-    public ContratoValorizacion addContratoValorizacion(ContratoValorizacion contratoValorizacion) {
-        getTContratoValorizacionList().add(contratoValorizacion);
-        contratoValorizacion.setTConceptoValorizacion(this);
-        return contratoValorizacion;
-    }
-
-    public ContratoValorizacion removeContratoValorizacion(ContratoValorizacion contratoValorizacion) {
-        getTContratoValorizacionList().remove(contratoValorizacion);
-        contratoValorizacion.setTConceptoValorizacion(null);
-        return contratoValorizacion;
     }
 }

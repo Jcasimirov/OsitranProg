@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -30,7 +28,11 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "RolOpciones_Id_Seq_Gen", sequenceName = "T_ROL_OPCIONES_ID_SEQ_GEN", allocationSize = 50,
                    initialValue = 50)
 public class RolOpciones implements Serializable {
-    private static final long serialVersionUID = 3304670110087025994L;
+    private static final long serialVersionUID = 4090813506078356308L;
+    @Column(name = "MEN_ID", nullable = false)
+    private BigDecimal menId;
+    @Column(name = "ROL_ID", nullable = false)
+    private BigDecimal rolId;
     @Id
     @Column(name = "RXO_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RolOpciones_Id_Seq_Gen")
@@ -62,22 +64,16 @@ public class RolOpciones implements Serializable {
     private String troUsuarioBaja;
     @Column(name = "TRO_USUARIO_CAMBIO", length = 20)
     private String troUsuarioCambio;
-    @ManyToOne
-    @JoinColumn(name = "MEN_ID")
-    private Men TMen;
-    @ManyToOne
-    @JoinColumn(name = "ROL_ID")
-    private Rol TRol1;
 
     public RolOpciones() {
     }
 
-    public RolOpciones(Men TMen, Rol TRol1, BigDecimal rxoId, BigDecimal troAgregar, BigDecimal troConsultar,
-                       BigDecimal troEliminar, BigDecimal troEstado, Date troFechaAlta, Date troFechaBaja,
-                       Date troFechaCambio, BigDecimal troModificar, String troTerminal, String troUsuarioAlta,
-                       String troUsuarioBaja, String troUsuarioCambio) {
-        this.TMen = TMen;
-        this.TRol1 = TRol1;
+    public RolOpciones(BigDecimal menId, BigDecimal rolId, BigDecimal rxoId, BigDecimal troAgregar,
+                       BigDecimal troConsultar, BigDecimal troEliminar, BigDecimal troEstado, Date troFechaAlta,
+                       Date troFechaBaja, Date troFechaCambio, BigDecimal troModificar, String troTerminal,
+                       String troUsuarioAlta, String troUsuarioBaja, String troUsuarioCambio) {
+        this.menId = menId;
+        this.rolId = rolId;
         this.rxoId = rxoId;
         this.troAgregar = troAgregar;
         this.troConsultar = troConsultar;
@@ -93,6 +89,21 @@ public class RolOpciones implements Serializable {
         this.troUsuarioCambio = troUsuarioCambio;
     }
 
+    public BigDecimal getMenId() {
+        return menId;
+    }
+
+    public void setMenId(BigDecimal menId) {
+        this.menId = menId;
+    }
+
+    public BigDecimal getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(BigDecimal rolId) {
+        this.rolId = rolId;
+    }
 
     public BigDecimal getRxoId() {
         return rxoId;
@@ -192,21 +203,5 @@ public class RolOpciones implements Serializable {
 
     public void setTroUsuarioCambio(String troUsuarioCambio) {
         this.troUsuarioCambio = troUsuarioCambio;
-    }
-
-    public Men getTMen() {
-        return TMen;
-    }
-
-    public void setTMen(Men TMen) {
-        this.TMen = TMen;
-    }
-
-    public Rol getTRol1() {
-        return TRol1;
-    }
-
-    public void setTRol1(Rol TRol1) {
-        this.TRol1 = TRol1;
     }
 }

@@ -6,19 +6,13 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,12 +23,12 @@ import javax.persistence.TemporalType;
  * CREATE SEQUENCE "T_CONCESIONARIO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Concesionario.findAll", query = "select o from Concesionario o") })
+@NamedQueries({ @NamedQuery(name = "TConcesionario.findAll", query = "select o from TConcesionario o") })
 @Table(name = "T_CONCESIONARIO")
-@SequenceGenerator(name = "Concesionario_Id_Seq_Gen", sequenceName = "T_CONCESIONARIO_ID_SEQ_GEN", allocationSize = 50,
+@SequenceGenerator(name = "TConcesionario_Id_Seq_Gen", sequenceName = "T_CONCESIONARIO_ID_SEQ_GEN", allocationSize = 50,
                    initialValue = 50)
 public class Concesionario implements Serializable {
-    private static final long serialVersionUID = -1146886847274353223L;
+    private static final long serialVersionUID = -5209185194740198073L;
     @Column(name = "CNC_CORREO", length = 20)
     private String cncCorreo;
     @Column(name = "CNC_DESCRIPCION", nullable = false, length = 100)
@@ -54,7 +48,7 @@ public class Concesionario implements Serializable {
     private Date cncFechaCambio;
     @Id
     @Column(name = "CNC_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Concesionario_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TConcesionario_Id_Seq_Gen")
     private BigDecimal cncId;
     @Column(name = "CNC_NOMBRE", nullable = false, length = 100)
     private String cncNombre;
@@ -72,23 +66,19 @@ public class Concesionario implements Serializable {
     private String cncUsuarioBaja;
     @Column(name = "CNC_USUARIO_CAMBIO", length = 20)
     private String cncUsuarioCambio;
-    @ManyToOne
-    @JoinColumn(name = "CRG_ID")
-    private Cargo cargo2;
-    @OneToMany(mappedBy = "TConcesionario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Contrato> TContratoList;
-    @ManyToOne
-    @JoinColumn(name = "TDO_ID")
-    private TipoDocumento TTipoDocumento;
+    @Column(name = "CRG_ID")
+    private BigDecimal crgId;
+    @Column(name = "TDO_ID")
+    private BigDecimal tdoId;
 
     public Concesionario() {
     }
 
     public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, BigDecimal cncEstado,
-                         Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, BigDecimal cncId, String cncNombre,
-                         String cncNroDocumento, String cncRepresentanteLegal, String cncTelefono, String cncTerminal,
-                         String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, Cargo cargo2,
-                         TipoDocumento TTipoDocumento) {
+                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, BigDecimal cncId, String cncNombre,
+                          String cncNroDocumento, String cncRepresentanteLegal, String cncTelefono, String cncTerminal,
+                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, BigDecimal crgId,
+                          BigDecimal tdoId) {
         this.cncCorreo = cncCorreo;
         this.cncDescripcion = cncDescripcion;
         this.cncDireccion = cncDireccion;
@@ -105,8 +95,8 @@ public class Concesionario implements Serializable {
         this.cncUsuarioAlta = cncUsuarioAlta;
         this.cncUsuarioBaja = cncUsuarioBaja;
         this.cncUsuarioCambio = cncUsuarioCambio;
-        this.cargo2 = cargo2;
-        this.TTipoDocumento = TTipoDocumento;
+        this.crgId = crgId;
+        this.tdoId = tdoId;
     }
 
     public String getCncCorreo() {
@@ -233,40 +223,19 @@ public class Concesionario implements Serializable {
         this.cncUsuarioCambio = cncUsuarioCambio;
     }
 
-
-    public Cargo getCargo2() {
-        return cargo2;
+    public BigDecimal getCrgId() {
+        return crgId;
     }
 
-    public void setCargo2(Cargo cargo2) {
-        this.cargo2 = cargo2;
+    public void setCrgId(BigDecimal crgId) {
+        this.crgId = crgId;
     }
 
-    public List<Contrato> getTContratoList() {
-        return TContratoList;
+    public BigDecimal getTdoId() {
+        return tdoId;
     }
 
-    public void setTContratoList(List<Contrato> TContratoList) {
-        this.TContratoList = TContratoList;
-    }
-
-    public Contrato addContrato(Contrato contrato) {
-        getTContratoList().add(contrato);
-        contrato.setTConcesionario(this);
-        return contrato;
-    }
-
-    public Contrato removeContrato(Contrato contrato) {
-        getTContratoList().remove(contrato);
-        contrato.setTConcesionario(null);
-        return contrato;
-    }
-
-    public TipoDocumento getTTipoDocumento() {
-        return TTipoDocumento;
-    }
-
-    public void setTTipoDocumento(TipoDocumento TTipoDocumento) {
-        this.TTipoDocumento = TTipoDocumento;
+    public void setTdoId(BigDecimal tdoId) {
+        this.tdoId = tdoId;
     }
 }

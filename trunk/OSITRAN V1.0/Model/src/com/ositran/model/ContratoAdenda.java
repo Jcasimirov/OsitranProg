@@ -8,9 +8,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,32 +17,36 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "ContratoAdenda.findAll", query = "select o from ContratoAdenda o") })
+@NamedQueries({ @NamedQuery(name = "TContratoAdenda.findAll", query = "select o from TContratoAdenda o") })
 @Table(name = "T_CONTRATO_ADENDA")
+@IdClass(TContratoAdendaPK.class)
 public class ContratoAdenda implements Serializable {
-    private static final long serialVersionUID = -6311343627610219850L;
+    private static final long serialVersionUID = 7186127727239284151L;
     @Column(name = "CAD_DOCUMENTO_FISICO")
     private String cadDocumentoFisico;
     @Temporal(TemporalType.DATE)
     @Column(name = "CAD_FECHA")
     private Date cadFecha;
+    @Id
     @Column(name = "CAD_ID", nullable = false)
     private BigDecimal cadId;
-    @ManyToOne
-    @JoinColumns({
-                 @JoinColumn(name = "CON_ID", referencedColumnName = "CON_ID"),
-                 @JoinColumn(name = "TIN_ID", referencedColumnName = "TIN_ID")
-        })
-    private Contrato TContrato5;
+    @Id
+    @Column(name = "CON_ID", nullable = false)
+    private BigDecimal conId;
+    @Id
+    @Column(name = "TIN_ID", nullable = false)
+    private BigDecimal tinId;
 
     public ContratoAdenda() {
     }
 
-    public ContratoAdenda(String cadDocumentoFisico, Date cadFecha, BigDecimal cadId, Contrato TContrato5) {
+    public ContratoAdenda(String cadDocumentoFisico, Date cadFecha, BigDecimal cadId, BigDecimal conId,
+                           BigDecimal tinId) {
         this.cadDocumentoFisico = cadDocumentoFisico;
         this.cadFecha = cadFecha;
         this.cadId = cadId;
-        this.TContrato5 = TContrato5;
+        this.conId = conId;
+        this.tinId = tinId;
     }
 
     public String getCadDocumentoFisico() {
@@ -70,12 +73,19 @@ public class ContratoAdenda implements Serializable {
         this.cadId = cadId;
     }
 
-
-    public Contrato getTContrato5() {
-        return TContrato5;
+    public BigDecimal getConId() {
+        return conId;
     }
 
-    public void setTContrato5(Contrato TContrato5) {
-        this.TContrato5 = TContrato5;
+    public void setConId(BigDecimal conId) {
+        this.conId = conId;
+    }
+
+    public BigDecimal getTinId() {
+        return tinId;
+    }
+
+    public void setTinId(BigDecimal tinId) {
+        this.tinId = tinId;
     }
 }

@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +28,7 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "TipoDocumento_Id_Seq_Gen", sequenceName = "T_TIPO_DOCUMENTO_ID_SEQ_GEN", allocationSize = 50,
                    initialValue = 50)
 public class TipoDocumento implements Serializable {
-    private static final long serialVersionUID = -3774790758164768725L;
+    private static final long serialVersionUID = 5818531903952105836L;
     @Column(name = "TDO_DESCRIPCION", nullable = false, length = 100)
     private String tdoDescripcion;
     @Column(name = "TDO_ESTADO", nullable = false)
@@ -60,10 +56,6 @@ public class TipoDocumento implements Serializable {
     private String tdoUsuarioBaja;
     @Column(name = "TDO_USUARIO_CAMBIO", length = 20)
     private String tdoUsuarioCambio;
-    @OneToMany(mappedBy = "TTipoDocumento", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Concesionario> TConcesionarioList1;
-    @OneToMany(mappedBy = "TTipoDocumento1", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<EmpresaSupervisora> TEmpresaSupervisoraList1;
 
     public TipoDocumento() {
     }
@@ -166,45 +158,5 @@ public class TipoDocumento implements Serializable {
 
     public void setTdoUsuarioCambio(String tdoUsuarioCambio) {
         this.tdoUsuarioCambio = tdoUsuarioCambio;
-    }
-
-    public List<Concesionario> getTConcesionarioList1() {
-        return TConcesionarioList1;
-    }
-
-    public void setTConcesionarioList1(List<Concesionario> TConcesionarioList1) {
-        this.TConcesionarioList1 = TConcesionarioList1;
-    }
-
-    public Concesionario addConcesionario(Concesionario concesionario) {
-        getTConcesionarioList1().add(concesionario);
-        concesionario.setTTipoDocumento(this);
-        return concesionario;
-    }
-
-    public Concesionario removeConcesionario(Concesionario concesionario) {
-        getTConcesionarioList1().remove(concesionario);
-        concesionario.setTTipoDocumento(null);
-        return concesionario;
-    }
-
-    public List<EmpresaSupervisora> getTEmpresaSupervisoraList1() {
-        return TEmpresaSupervisoraList1;
-    }
-
-    public void setTEmpresaSupervisoraList1(List<EmpresaSupervisora> TEmpresaSupervisoraList1) {
-        this.TEmpresaSupervisoraList1 = TEmpresaSupervisoraList1;
-    }
-
-    public EmpresaSupervisora addEmpresaSupervisora(EmpresaSupervisora empresaSupervisora) {
-        getTEmpresaSupervisoraList1().add(empresaSupervisora);
-        empresaSupervisora.setTTipoDocumento1(this);
-        return empresaSupervisora;
-    }
-
-    public EmpresaSupervisora removeEmpresaSupervisora(EmpresaSupervisora empresaSupervisora) {
-        getTEmpresaSupervisoraList1().remove(empresaSupervisora);
-        empresaSupervisora.setTTipoDocumento1(null);
-        return empresaSupervisora;
     }
 }

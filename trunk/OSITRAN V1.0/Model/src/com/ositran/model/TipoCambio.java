@@ -10,8 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +21,10 @@ import javax.persistence.TemporalType;
 @Table(name = "T_TIPO_CAMBIO")
 @IdClass(TipoCambioPK.class)
 public class TipoCambio implements Serializable {
-    private static final long serialVersionUID = -7830944388992988283L;
+    private static final long serialVersionUID = 4606476381038845547L;
+    @Id
+    @Column(name = "MON_ID", nullable = false)
+    private BigDecimal monId;
     @Column(name = "TDC_ESTADO", nullable = false)
     private BigDecimal tdcEstado;
     @Id
@@ -51,18 +52,14 @@ public class TipoCambio implements Serializable {
     private String tdcUsuarioBaja;
     @Column(name = "TDC_USUARIO_CAMBIO", length = 20)
     private String tdcUsuarioCambio;
-    @ManyToOne
-    @Id
-    @JoinColumn(name = "MON_ID")
-    private Moneda TMoneda;
 
     public TipoCambio() {
     }
 
-    public TipoCambio(Moneda TMoneda, BigDecimal tdcEstado, Date tdcFecha, Date tdcFechaAlta, Date tdcFechaBaja,
+    public TipoCambio(BigDecimal monId, BigDecimal tdcEstado, Date tdcFecha, Date tdcFechaAlta, Date tdcFechaBaja,
                       Date tdcFechaCambio, Long tdcImporteCompra, Long tdcImporteVenta, String tdcTerminal,
                       String tdcUsuarioAlta, String tdcUsuarioBaja, String tdcUsuarioCambio) {
-        this.TMoneda = TMoneda;
+        this.monId = monId;
         this.tdcEstado = tdcEstado;
         this.tdcFecha = tdcFecha;
         this.tdcFechaAlta = tdcFechaAlta;
@@ -76,6 +73,13 @@ public class TipoCambio implements Serializable {
         this.tdcUsuarioCambio = tdcUsuarioCambio;
     }
 
+    public BigDecimal getMonId() {
+        return monId;
+    }
+
+    public void setMonId(BigDecimal monId) {
+        this.monId = monId;
+    }
 
     public BigDecimal getTdcEstado() {
         return tdcEstado;
@@ -163,13 +167,5 @@ public class TipoCambio implements Serializable {
 
     public void setTdcUsuarioCambio(String tdcUsuarioCambio) {
         this.tdcUsuarioCambio = tdcUsuarioCambio;
-    }
-
-    public Moneda getTMoneda() {
-        return TMoneda;
-    }
-
-    public void setTMoneda(Moneda TMoneda) {
-        this.TMoneda = TMoneda;
     }
 }

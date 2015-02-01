@@ -8,9 +8,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,44 +19,46 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoValorizacion.findAll", query = "select o from ContratoValorizacion o") })
 @Table(name = "T_CONTRATO_VALORIZACION")
+@IdClass(ContratoValorizacionPK.class)
 public class ContratoValorizacion implements Serializable {
-    private static final long serialVersionUID = -2594529446434159711L;
+    private static final long serialVersionUID = 3454886805327416604L;
     @Column(length = 20)
     private String alcance;
+    @Id
+    @Column(name = "CON_ID", nullable = false)
+    private BigDecimal conId;
+    @Column(name = "CVA_ID")
+    private BigDecimal cvaId;
     @Column(name = "CVA_MONTO", nullable = false)
     private Long cvaMonto;
     @Temporal(TemporalType.DATE)
     @Column(name = "CVL_FECHA")
     private Date cvlFecha;
+    @Id
     @Column(name = "CVL_ID", nullable = false)
     private BigDecimal cvlId;
     private BigDecimal duración;
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_INICIO")
     private Date fechaInicio;
-    @ManyToOne
-    @JoinColumn(name = "CVA_ID")
-    private ConceptoValorizacion TConceptoValorizacion;
-    @ManyToOne
-    @JoinColumns({
-                 @JoinColumn(name = "CON_ID", referencedColumnName = "CON_ID"),
-                 @JoinColumn(name = "TIN_ID", referencedColumnName = "TIN_ID")
-        })
-    private Contrato TContrato3;
+    @Id
+    @Column(name = "TIN_ID", nullable = false)
+    private BigDecimal tinId;
 
     public ContratoValorizacion() {
     }
 
-    public ContratoValorizacion(String alcance, Contrato TContrato3, ConceptoValorizacion TConceptoValorizacion,
-                                Long cvaMonto, Date cvlFecha, BigDecimal cvlId, BigDecimal duración, Date fechaInicio) {
+    public ContratoValorizacion(String alcance, BigDecimal conId, BigDecimal cvaId, Long cvaMonto, Date cvlFecha,
+                                BigDecimal cvlId, BigDecimal duración, Date fechaInicio, BigDecimal tinId) {
         this.alcance = alcance;
-        this.TContrato3 = TContrato3;
-        this.TConceptoValorizacion = TConceptoValorizacion;
+        this.conId = conId;
+        this.cvaId = cvaId;
         this.cvaMonto = cvaMonto;
         this.cvlFecha = cvlFecha;
         this.cvlId = cvlId;
         this.duración = duración;
         this.fechaInicio = fechaInicio;
+        this.tinId = tinId;
     }
 
     public String getAlcance() {
@@ -68,6 +69,21 @@ public class ContratoValorizacion implements Serializable {
         this.alcance = alcance;
     }
 
+    public BigDecimal getConId() {
+        return conId;
+    }
+
+    public void setConId(BigDecimal conId) {
+        this.conId = conId;
+    }
+
+    public BigDecimal getCvaId() {
+        return cvaId;
+    }
+
+    public void setCvaId(BigDecimal cvaId) {
+        this.cvaId = cvaId;
+    }
 
     public Long getCvaMonto() {
         return cvaMonto;
@@ -109,20 +125,11 @@ public class ContratoValorizacion implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-
-    public ConceptoValorizacion getTConceptoValorizacion() {
-        return TConceptoValorizacion;
+    public BigDecimal getTinId() {
+        return tinId;
     }
 
-    public void setTConceptoValorizacion(ConceptoValorizacion TConceptoValorizacion) {
-        this.TConceptoValorizacion = TConceptoValorizacion;
-    }
-
-    public Contrato getTContrato3() {
-        return TContrato3;
-    }
-
-    public void setTContrato3(Contrato TContrato3) {
-        this.TContrato3 = TContrato3;
+    public void setTinId(BigDecimal tinId) {
+        this.tinId = tinId;
     }
 }
