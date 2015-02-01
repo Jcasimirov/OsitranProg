@@ -6,28 +6,24 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "Contrato.findAll", query = "select o from Contrato o") })
+@NamedQueries({ @NamedQuery(name = "TContrato.findAll", query = "select o from TContrato o") })
 @Table(name = "T_CONTRATO")
-@IdClass(ContratoPK.class)
+@IdClass(TContratoPK.class)
 public class Contrato implements Serializable {
-    private static final long serialVersionUID = -6903223429923833848L;
+    private static final long serialVersionUID = -6231748415809997361L;
+    @Column(name = "CNC_ID")
+    private BigDecimal cncId;
     @Column(name = "CON_CONCESION", nullable = false, length = 4000)
     private String conConcesion;
     @Column(name = "CON_ESTADO", nullable = false)
@@ -52,6 +48,10 @@ public class Contrato implements Serializable {
     private String conUsuarioBaja;
     @Column(name = "CON_USUARIO_CAMBIO", length = 20)
     private String conUsuarioCambio;
+    @Column(name = "MCO_ID", nullable = false)
+    private BigDecimal mcoId;
+    @Column(name = "MON_ID")
+    private BigDecimal monId;
     @Id
     @Column(name = "TIN_ID", nullable = false)
     private BigDecimal tinId;
@@ -59,30 +59,15 @@ public class Contrato implements Serializable {
     private BigDecimal tivId;
     @Column(name = "TOTAL_DE_LA_VALORIZACIÓN")
     private BigDecimal totalDeLaValorización;
-    @ManyToOne
-    @JoinColumn(name = "CNC_ID")
-    private Concesionario TConcesionario;
-    @OneToMany(mappedBy = "TContrato1", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ContratoAnexo> TContratoAnexoList1;
-    @OneToMany(mappedBy = "TContrato3", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ContratoValorizacion> TContratoValorizacionList2;
-    @ManyToOne
-    @JoinColumn(name = "MON_ID")
-    private Moneda TMoneda1;
-    @ManyToOne
-    @JoinColumn(name = "MCO_ID")
-    private ModalidadConcesion TModalidadConcesion;
-    @OneToMany(mappedBy = "TContrato5", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ContratoAdenda> TContratoAdendaList1;
 
     public Contrato() {
     }
 
-    public Contrato(Concesionario TConcesionario, String conConcesion, BigDecimal conEstado, Date conFechaAlta,
-                    Date conFechaBaja, Date conFechaCambio, BigDecimal conId, String conTerminal, String conUsuarioAlta,
-                    String conUsuarioBaja, String conUsuarioCambio, ModalidadConcesion TModalidadConcesion,
-                    Moneda TMoneda1, BigDecimal tinId, BigDecimal tivId, BigDecimal totalDeLaValorización) {
-        this.TConcesionario = TConcesionario;
+    public Contrato(BigDecimal cncId, String conConcesion, BigDecimal conEstado, Date conFechaAlta, Date conFechaBaja,
+                     Date conFechaCambio, BigDecimal conId, String conTerminal, String conUsuarioAlta,
+                     String conUsuarioBaja, String conUsuarioCambio, BigDecimal mcoId, BigDecimal monId,
+                     BigDecimal tinId, BigDecimal tivId, BigDecimal totalDeLaValorización) {
+        this.cncId = cncId;
         this.conConcesion = conConcesion;
         this.conEstado = conEstado;
         this.conFechaAlta = conFechaAlta;
@@ -93,13 +78,20 @@ public class Contrato implements Serializable {
         this.conUsuarioAlta = conUsuarioAlta;
         this.conUsuarioBaja = conUsuarioBaja;
         this.conUsuarioCambio = conUsuarioCambio;
-        this.TModalidadConcesion = TModalidadConcesion;
-        this.TMoneda1 = TMoneda1;
+        this.mcoId = mcoId;
+        this.monId = monId;
         this.tinId = tinId;
         this.tivId = tivId;
         this.totalDeLaValorización = totalDeLaValorización;
     }
 
+    public BigDecimal getCncId() {
+        return cncId;
+    }
+
+    public void setCncId(BigDecimal cncId) {
+        this.cncId = cncId;
+    }
 
     public String getConConcesion() {
         return conConcesion;
@@ -181,6 +173,21 @@ public class Contrato implements Serializable {
         this.conUsuarioCambio = conUsuarioCambio;
     }
 
+    public BigDecimal getMcoId() {
+        return mcoId;
+    }
+
+    public void setMcoId(BigDecimal mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public BigDecimal getMonId() {
+        return monId;
+    }
+
+    public void setMonId(BigDecimal monId) {
+        this.monId = monId;
+    }
 
     public BigDecimal getTinId() {
         return tinId;
@@ -204,89 +211,5 @@ public class Contrato implements Serializable {
 
     public void setTotalDeLaValorización(BigDecimal totalDeLaValorización) {
         this.totalDeLaValorización = totalDeLaValorización;
-    }
-
-    public Concesionario getTConcesionario() {
-        return TConcesionario;
-    }
-
-    public void setTConcesionario(Concesionario TConcesionario) {
-        this.TConcesionario = TConcesionario;
-    }
-
-    public List<ContratoAnexo> getTContratoAnexoList1() {
-        return TContratoAnexoList1;
-    }
-
-    public void setTContratoAnexoList1(List<ContratoAnexo> TContratoAnexoList1) {
-        this.TContratoAnexoList1 = TContratoAnexoList1;
-    }
-
-    public ContratoAnexo addContratoAnexo(ContratoAnexo contratoAnexo) {
-        getTContratoAnexoList1().add(contratoAnexo);
-        contratoAnexo.setTContrato1(this);
-        return contratoAnexo;
-    }
-
-    public ContratoAnexo removeContratoAnexo(ContratoAnexo contratoAnexo) {
-        getTContratoAnexoList1().remove(contratoAnexo);
-        contratoAnexo.setTContrato1(null);
-        return contratoAnexo;
-    }
-
-    public List<ContratoValorizacion> getTContratoValorizacionList2() {
-        return TContratoValorizacionList2;
-    }
-
-    public void setTContratoValorizacionList2(List<ContratoValorizacion> TContratoValorizacionList2) {
-        this.TContratoValorizacionList2 = TContratoValorizacionList2;
-    }
-
-    public ContratoValorizacion addContratoValorizacion(ContratoValorizacion contratoValorizacion) {
-        getTContratoValorizacionList2().add(contratoValorizacion);
-        contratoValorizacion.setTContrato3(this);
-        return contratoValorizacion;
-    }
-
-    public ContratoValorizacion removeContratoValorizacion(ContratoValorizacion contratoValorizacion) {
-        getTContratoValorizacionList2().remove(contratoValorizacion);
-        contratoValorizacion.setTContrato3(null);
-        return contratoValorizacion;
-    }
-
-    public Moneda getTMoneda1() {
-        return TMoneda1;
-    }
-
-    public void setTMoneda1(Moneda TMoneda1) {
-        this.TMoneda1 = TMoneda1;
-    }
-
-    public ModalidadConcesion getTModalidadConcesion() {
-        return TModalidadConcesion;
-    }
-
-    public void setTModalidadConcesion(ModalidadConcesion TModalidadConcesion) {
-        this.TModalidadConcesion = TModalidadConcesion;
-    }
-
-    public List<ContratoAdenda> getTContratoAdendaList1() {
-        return TContratoAdendaList1;
-    }
-
-    public void setTContratoAdendaList1(List<ContratoAdenda> TContratoAdendaList1) {
-        this.TContratoAdendaList1 = TContratoAdendaList1;
-    }
-
-    public ContratoAdenda addContratoAdenda(ContratoAdenda contratoAdenda) {
-        getTContratoAdendaList1().add(contratoAdenda);
-        contratoAdenda.setTContrato5(this);
-        return contratoAdenda;
-    }
-
-    public ContratoAdenda removeContratoAdenda(ContratoAdenda contratoAdenda) {
-        getTContratoAdendaList1().remove(contratoAdenda);
-        contratoAdenda.setTContrato5(null);
-        return contratoAdenda;
     }
 }

@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,12 +23,12 @@ import javax.persistence.TemporalType;
  * CREATE SEQUENCE "T_CARGO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Cargo.findAll", query = "select o from Cargo o") })
+@NamedQueries({ @NamedQuery(name = "TCargo.findAll", query = "select o from TCargo o") })
 @Table(name = "T_CARGO")
-@SequenceGenerator(name = "Cargo_Id_Seq_Gen", sequenceName = "T_CARGO_ID_SEQ_GEN", allocationSize = 50,
+@SequenceGenerator(name = "TCargo_Id_Seq_Gen", sequenceName = "T_CARGO_ID_SEQ_GEN", allocationSize = 50,
                    initialValue = 50)
 public class Cargo implements Serializable {
-    private static final long serialVersionUID = 3373119794034213826L;
+    private static final long serialVersionUID = -8206359419423189848L;
     @Column(name = "CRG_DESCRIPCION", nullable = false, length = 100)
     private String crgDescripcion;
     @Column(name = "CRG_ESTADO", nullable = false)
@@ -48,7 +44,7 @@ public class Cargo implements Serializable {
     private Date crgFechaCambio;
     @Id
     @Column(name = "CRG_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Cargo_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TCargo_Id_Seq_Gen")
     private BigDecimal crgId;
     @Column(name = "CRG_NOMBRE", nullable = false, length = 100)
     private String crgNombre;
@@ -60,19 +56,13 @@ public class Cargo implements Serializable {
     private String crgUsuarioBaja;
     @Column(name = "CRG_USUARIO_CAMBIO", length = 20)
     private String crgUsuarioCambio;
-    @OneToMany(mappedBy = "cargo2", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Concesionario> TConcesionarioList;
-    @OneToMany(mappedBy = "cargo", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Usuario> TUsuarioList;
-    @OneToMany(mappedBy = "cargo1", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<EmpresaSupervisora> TEmpresaSupervisoraList;
 
     public Cargo() {
     }
 
-    public Cargo(String crgDescripcion, BigDecimal crgEstado, Date crgFechaAlta, Date crgFechaBaja, Date crgFechaCambio,
-                 BigDecimal crgId, String crgNombre, String crgTerminal, String crgUsuarioAlta, String crgUsuarioBaja,
-                 String crgUsuarioCambio) {
+    public Cargo(String crgDescripcion, BigDecimal crgEstado, Date crgFechaAlta, Date crgFechaBaja,
+                  Date crgFechaCambio, BigDecimal crgId, String crgNombre, String crgTerminal, String crgUsuarioAlta,
+                  String crgUsuarioBaja, String crgUsuarioCambio) {
         this.crgDescripcion = crgDescripcion;
         this.crgEstado = crgEstado;
         this.crgFechaAlta = crgFechaAlta;
@@ -168,65 +158,5 @@ public class Cargo implements Serializable {
 
     public void setCrgUsuarioCambio(String crgUsuarioCambio) {
         this.crgUsuarioCambio = crgUsuarioCambio;
-    }
-
-    public List<Concesionario> getTConcesionarioList() {
-        return TConcesionarioList;
-    }
-
-    public void setTConcesionarioList(List<Concesionario> TConcesionarioList) {
-        this.TConcesionarioList = TConcesionarioList;
-    }
-
-    public Concesionario addConcesionario(Concesionario concesionario) {
-        getTConcesionarioList().add(concesionario);
-        concesionario.setCargo2(this);
-        return concesionario;
-    }
-
-    public Concesionario removeConcesionario(Concesionario concesionario) {
-        getTConcesionarioList().remove(concesionario);
-        concesionario.setCargo2(null);
-        return concesionario;
-    }
-
-    public List<Usuario> getTUsuarioList() {
-        return TUsuarioList;
-    }
-
-    public void setTUsuarioList(List<Usuario> TUsuarioList) {
-        this.TUsuarioList = TUsuarioList;
-    }
-
-    public Usuario addUsuario(Usuario usuario) {
-        getTUsuarioList().add(usuario);
-        usuario.setCargo(this);
-        return usuario;
-    }
-
-    public Usuario removeUsuario(Usuario usuario) {
-        getTUsuarioList().remove(usuario);
-        usuario.setCargo(null);
-        return usuario;
-    }
-
-    public List<EmpresaSupervisora> getTEmpresaSupervisoraList() {
-        return TEmpresaSupervisoraList;
-    }
-
-    public void setTEmpresaSupervisoraList(List<EmpresaSupervisora> TEmpresaSupervisoraList) {
-        this.TEmpresaSupervisoraList = TEmpresaSupervisoraList;
-    }
-
-    public EmpresaSupervisora addEmpresaSupervisora(EmpresaSupervisora empresaSupervisora) {
-        getTEmpresaSupervisoraList().add(empresaSupervisora);
-        empresaSupervisora.setCargo1(this);
-        return empresaSupervisora;
-    }
-
-    public EmpresaSupervisora removeEmpresaSupervisora(EmpresaSupervisora empresaSupervisora) {
-        getTEmpresaSupervisoraList().remove(empresaSupervisora);
-        empresaSupervisora.setCargo1(null);
-        return empresaSupervisora;
     }
 }

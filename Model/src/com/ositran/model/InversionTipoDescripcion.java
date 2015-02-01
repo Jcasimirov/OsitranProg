@@ -8,6 +8,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -19,6 +21,7 @@ import javax.persistence.TemporalType;
               @NamedQuery(name = "InversionTipoDescripcion.findAll",
                           query = "select o from InversionTipoDescripcion o") })
 @Table(name = "T_INVERSION_TIPO_DESCRIPCION")
+@IdClass(InversionTipoDescripcionPK.class)
 public class InversionTipoDescripcion implements Serializable {
     private static final long serialVersionUID = 35556266185801467L;
     @Column(name = "ITD_DESCRIPCION", nullable = false, length = 100)
@@ -34,6 +37,7 @@ public class InversionTipoDescripcion implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "ITD_FECHA_CAMBIO")
     private Date itdFechaCambio;
+    @Id
     @Column(name = "ITD_ID", nullable = false)
     private BigDecimal itdId;
     @Column(name = "ITD_NOMBRE", nullable = false, length = 100)
@@ -46,6 +50,7 @@ public class InversionTipoDescripcion implements Serializable {
     private String itdUsuarioBaja;
     @Column(name = "ITD_USUARIO_CAMBIO", length = 20)
     private String itdUsuarioCambio;
+    @Id
     @Column(name = "TIV_ID", nullable = false)
     private BigDecimal tivId;
 

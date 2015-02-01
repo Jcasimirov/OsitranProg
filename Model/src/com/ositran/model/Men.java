@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +27,7 @@ import javax.persistence.TemporalType;
 @Table(name = "T_MEN")
 @SequenceGenerator(name = "Men_Id_Seq_Gen", sequenceName = "T_MEN_ID_SEQ_GEN", allocationSize = 50, initialValue = 50)
 public class Men implements Serializable {
-    private static final long serialVersionUID = 7787935427342357674L;
+    private static final long serialVersionUID = 7895582654359795714L;
     @Column(nullable = false, length = 4000)
     private String descripcion;
     @Column(name = "MEN_ESTADO", nullable = false)
@@ -63,8 +59,6 @@ public class Men implements Serializable {
     private String menUsuarioBaja;
     @Column(name = "MEN_USUARIO_CAMBIO", length = 20)
     private String menUsuarioCambio;
-    @OneToMany(mappedBy = "TMen", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<RolOpciones> TRolOpcionesList;
 
     public Men() {
     }
@@ -185,25 +179,5 @@ public class Men implements Serializable {
 
     public void setMenUsuarioCambio(String menUsuarioCambio) {
         this.menUsuarioCambio = menUsuarioCambio;
-    }
-
-    public List<RolOpciones> getTRolOpcionesList() {
-        return TRolOpcionesList;
-    }
-
-    public void setTRolOpcionesList(List<RolOpciones> TRolOpcionesList) {
-        this.TRolOpcionesList = TRolOpcionesList;
-    }
-
-    public RolOpciones addRolOpciones(RolOpciones rolOpciones) {
-        getTRolOpcionesList().add(rolOpciones);
-        rolOpciones.setTMen(this);
-        return rolOpciones;
-    }
-
-    public RolOpciones removeRolOpciones(RolOpciones rolOpciones) {
-        getTRolOpcionesList().remove(rolOpciones);
-        rolOpciones.setTMen(null);
-        return rolOpciones;
     }
 }

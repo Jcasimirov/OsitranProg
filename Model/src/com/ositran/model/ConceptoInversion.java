@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,12 +23,12 @@ import javax.persistence.TemporalType;
  * CREATE SEQUENCE "T_CONCEPTO_INVERSION_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "ConceptoInversion.findAll", query = "select o from ConceptoInversion o") })
+@NamedQueries({ @NamedQuery(name = "TConceptoInversion.findAll", query = "select o from TConceptoInversion o") })
 @Table(name = "T_CONCEPTO_INVERSION")
-@SequenceGenerator(name = "ConceptoInversion_Id_Seq_Gen", sequenceName = "T_CONCEPTO_INVERSION_ID_SEQ_GEN",
+@SequenceGenerator(name = "TConceptoInversion_Id_Seq_Gen", sequenceName = "T_CONCEPTO_INVERSION_ID_SEQ_GEN",
                    allocationSize = 50, initialValue = 50)
 public class ConceptoInversion implements Serializable {
-    private static final long serialVersionUID = 2208225143211954579L;
+    private static final long serialVersionUID = -5887686883945486858L;
     @Column(name = "CNV_DESCRIPCION", nullable = false, length = 100)
     private String cnvDescripcion;
     @Column(name = "CNV_ESTADO", nullable = false)
@@ -48,7 +44,7 @@ public class ConceptoInversion implements Serializable {
     private Date cnvFechaCambio;
     @Id
     @Column(name = "CNV_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ConceptoInversion_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TConceptoInversion_Id_Seq_Gen")
     private BigDecimal cnvId;
     @Column(name = "CNV_NOMBRE", nullable = false, length = 50)
     private String cnvNombre;
@@ -60,15 +56,13 @@ public class ConceptoInversion implements Serializable {
     private String cnvUsuarioBaja;
     @Column(name = "CNV_USUARIO_CAMBIO", length = 20)
     private String cnvUsuarioCambio;
-    @OneToMany(mappedBy = "TConceptoInversion", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ExpReconocimientoDetalle> TExpReconocimientoDetalleList1;
 
     public ConceptoInversion() {
     }
 
     public ConceptoInversion(String cnvDescripcion, BigDecimal cnvEstado, Date cnvFechaAlta, Date cnvFechaBaja,
-                             Date cnvFechaCambio, BigDecimal cnvId, String cnvNombre, String cnvTerminal,
-                             String cnvUsuarioAlta, String cnvUsuarioBaja, String cnvUsuarioCambio) {
+                              Date cnvFechaCambio, BigDecimal cnvId, String cnvNombre, String cnvTerminal,
+                              String cnvUsuarioAlta, String cnvUsuarioBaja, String cnvUsuarioCambio) {
         this.cnvDescripcion = cnvDescripcion;
         this.cnvEstado = cnvEstado;
         this.cnvFechaAlta = cnvFechaAlta;
@@ -164,25 +158,5 @@ public class ConceptoInversion implements Serializable {
 
     public void setCnvUsuarioCambio(String cnvUsuarioCambio) {
         this.cnvUsuarioCambio = cnvUsuarioCambio;
-    }
-
-    public List<ExpReconocimientoDetalle> getTExpReconocimientoDetalleList1() {
-        return TExpReconocimientoDetalleList1;
-    }
-
-    public void setTExpReconocimientoDetalleList1(List<ExpReconocimientoDetalle> TExpReconocimientoDetalleList1) {
-        this.TExpReconocimientoDetalleList1 = TExpReconocimientoDetalleList1;
-    }
-
-    public ExpReconocimientoDetalle addExpReconocimientoDetalle(ExpReconocimientoDetalle expReconocimientoDetalle) {
-        getTExpReconocimientoDetalleList1().add(expReconocimientoDetalle);
-        expReconocimientoDetalle.setTConceptoInversion(this);
-        return expReconocimientoDetalle;
-    }
-
-    public ExpReconocimientoDetalle removeExpReconocimientoDetalle(ExpReconocimientoDetalle expReconocimientoDetalle) {
-        getTExpReconocimientoDetalleList1().remove(expReconocimientoDetalle);
-        expReconocimientoDetalle.setTConceptoInversion(null);
-        return expReconocimientoDetalle;
     }
 }

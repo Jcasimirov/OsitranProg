@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +27,7 @@ import javax.persistence.TemporalType;
 @Table(name = "T_ROL")
 @SequenceGenerator(name = "Rol_Id_Seq_Gen", sequenceName = "T_ROL_ID_SEQ_GEN", allocationSize = 50, initialValue = 50)
 public class Rol implements Serializable {
-    private static final long serialVersionUID = 8317917103857394003L;
+    private static final long serialVersionUID = 6192435439624100845L;
     @Column(name = "ROL_DESCRIPCION", nullable = false, length = 100)
     private String rolDescripcion;
     @Column(name = "ROL_ESTADO", nullable = false)
@@ -59,10 +55,6 @@ public class Rol implements Serializable {
     private String rolUsuarioBaja;
     @Column(name = "ROL_USUARIO_CAMBIO", length = 20)
     private String rolUsuarioCambio;
-    @OneToMany(mappedBy = "TRol", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Usuario> TUsuarioList1;
-    @OneToMany(mappedBy = "TRol1", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<RolOpciones> TRolOpcionesList1;
 
     public Rol() {
     }
@@ -165,45 +157,5 @@ public class Rol implements Serializable {
 
     public void setRolUsuarioCambio(String rolUsuarioCambio) {
         this.rolUsuarioCambio = rolUsuarioCambio;
-    }
-
-    public List<Usuario> getTUsuarioList1() {
-        return TUsuarioList1;
-    }
-
-    public void setTUsuarioList1(List<Usuario> TUsuarioList1) {
-        this.TUsuarioList1 = TUsuarioList1;
-    }
-
-    public Usuario addUsuario(Usuario usuario) {
-        getTUsuarioList1().add(usuario);
-        usuario.setTRol(this);
-        return usuario;
-    }
-
-    public Usuario removeUsuario(Usuario usuario) {
-        getTUsuarioList1().remove(usuario);
-        usuario.setTRol(null);
-        return usuario;
-    }
-
-    public List<RolOpciones> getTRolOpcionesList1() {
-        return TRolOpcionesList1;
-    }
-
-    public void setTRolOpcionesList1(List<RolOpciones> TRolOpcionesList1) {
-        this.TRolOpcionesList1 = TRolOpcionesList1;
-    }
-
-    public RolOpciones addRolOpciones(RolOpciones rolOpciones) {
-        getTRolOpcionesList1().add(rolOpciones);
-        rolOpciones.setTRol1(this);
-        return rolOpciones;
-    }
-
-    public RolOpciones removeRolOpciones(RolOpciones rolOpciones) {
-        getTRolOpcionesList1().remove(rolOpciones);
-        rolOpciones.setTRol1(null);
-        return rolOpciones;
     }
 }

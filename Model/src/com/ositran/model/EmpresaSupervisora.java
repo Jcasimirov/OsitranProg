@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -30,7 +28,9 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "EmpresaSupervisora_Id_Seq_Gen", sequenceName = "T_EMPRESA_SUPERVISORA_ID_SEQ_GEN",
                    allocationSize = 50, initialValue = 50)
 public class EmpresaSupervisora implements Serializable {
-    private static final long serialVersionUID = 7319409638949689687L;
+    private static final long serialVersionUID = -5138390938685448144L;
+    @Column(name = "CRG_ID")
+    private BigDecimal crgId;
     @Column(name = "SUP_CORREO", length = 20)
     private String supCorreo;
     @Column(name = "SUP_DESCRIPCION", nullable = false, length = 100)
@@ -68,22 +68,18 @@ public class EmpresaSupervisora implements Serializable {
     private String supUsuarioBaja;
     @Column(name = "SUP_USUARIO_CAMBIO", length = 20)
     private String supUsuarioCambio;
-    @ManyToOne
-    @JoinColumn(name = "CRG_ID")
-    private Cargo cargo1;
-    @ManyToOne
-    @JoinColumn(name = "TDO_ID")
-    private TipoDocumento TTipoDocumento1;
+    @Column(name = "TDO_ID")
+    private BigDecimal tdoId;
 
     public EmpresaSupervisora() {
     }
 
-    public EmpresaSupervisora(Cargo cargo1, String supCorreo, String supDescripcion, String supDireccion,
+    public EmpresaSupervisora(BigDecimal crgId, String supCorreo, String supDescripcion, String supDireccion,
                               BigDecimal supEstado, Date supFechaAlta, Date supFechaBaja, Date supFechaCambio,
                               BigDecimal supId, String supNombre, String supNroDocumento, String supRepresentanteLegal,
                               String supTelefono, String supTerminal, String supUsuarioAlta, String supUsuarioBaja,
-                              String supUsuarioCambio, TipoDocumento TTipoDocumento1) {
-        this.cargo1 = cargo1;
+                              String supUsuarioCambio, BigDecimal tdoId) {
+        this.crgId = crgId;
         this.supCorreo = supCorreo;
         this.supDescripcion = supDescripcion;
         this.supDireccion = supDireccion;
@@ -100,9 +96,16 @@ public class EmpresaSupervisora implements Serializable {
         this.supUsuarioAlta = supUsuarioAlta;
         this.supUsuarioBaja = supUsuarioBaja;
         this.supUsuarioCambio = supUsuarioCambio;
-        this.TTipoDocumento1 = TTipoDocumento1;
+        this.tdoId = tdoId;
     }
 
+    public BigDecimal getCrgId() {
+        return crgId;
+    }
+
+    public void setCrgId(BigDecimal crgId) {
+        this.crgId = crgId;
+    }
 
     public String getSupCorreo() {
         return supCorreo;
@@ -228,20 +231,11 @@ public class EmpresaSupervisora implements Serializable {
         this.supUsuarioCambio = supUsuarioCambio;
     }
 
-
-    public Cargo getCargo1() {
-        return cargo1;
+    public BigDecimal getTdoId() {
+        return tdoId;
     }
 
-    public void setCargo1(Cargo cargo1) {
-        this.cargo1 = cargo1;
-    }
-
-    public TipoDocumento getTTipoDocumento1() {
-        return TTipoDocumento1;
-    }
-
-    public void setTTipoDocumento1(TipoDocumento TTipoDocumento1) {
-        this.TTipoDocumento1 = TTipoDocumento1;
+    public void setTdoId(BigDecimal tdoId) {
+        this.tdoId = tdoId;
     }
 }

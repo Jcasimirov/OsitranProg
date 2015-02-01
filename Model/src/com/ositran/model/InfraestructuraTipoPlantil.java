@@ -8,6 +8,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -19,8 +21,10 @@ import javax.persistence.TemporalType;
               @NamedQuery(name = "InfraestructuraTipoPlantil.findAll",
                           query = "select o from InfraestructuraTipoPlantil o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO_PLANTIL")
+@IdClass(InfraestructuraTipoPlantilPK.class)
 public class InfraestructuraTipoPlantil implements Serializable {
     private static final long serialVersionUID = -6424775326177344157L;
+    @Id
     @Column(name = "TIN_ID", nullable = false)
     private BigDecimal tinId;
     @Column(name = "UTC_ESTADO", nullable = false)
@@ -34,6 +38,7 @@ public class InfraestructuraTipoPlantil implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "UTC_FECHA_CAMBIO")
     private Date utcFechaCambio;
+    @Id
     @Column(name = "UTC_ID", nullable = false)
     private BigDecimal utcId;
     @Column(name = "UTC_TERMINAL", length = 20)
