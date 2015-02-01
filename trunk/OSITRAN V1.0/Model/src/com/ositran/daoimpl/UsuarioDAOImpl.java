@@ -45,7 +45,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	private static final Logger logger = LoggerFactory.getLogger(UsuarioDAOImpl.class);
 
 	//private SessionFactory sessionFactory;
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
@@ -54,14 +54,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
 	public void addUsuario(Usuario u) {
-            EntityManagerFactory emf=Persistence.createEntityManagerFactory("USUARIO");
+	    sessionFactory.getCurrentSession().save(u);
+            
+            /*EntityManagerFactory emf=Persistence.createEntityManagerFactory("USUARIO");
             EntityManager em=emf.createEntityManager();
             EntityTransaction tx=em.getTransaction();
             tx.begin();
             em.persist(u);
             tx.commit();
             em.close();
-            emf.close();
+            emf.close();*/
 		/*Session session = this.sessionFactory.getCurrentSession();
 		session.persist(p);
 	    Transaction tx = session.beginTransaction();
@@ -78,16 +80,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		logger.info("Person updated successfully, Person Details="+p);
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> listUsuarios() {
-	    System.out.println("lista de usuarios DAO impl");
+        return sessionFactory.getCurrentSession().createQuery("from Usuario").list();
+        /*System.out.println("lista de usuarios DAO impl");
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Usuario> personsList = session.createQuery("from Usuario").list();
 		for(Usuario p : personsList){
 			logger.info("Person List::"+p);
 		}
 		return personsList;
+            */
 	}
 
 	@Override
