@@ -1,6 +1,9 @@
 package com.ositran.dao;
 
 import com.ositran.model.Usuario;
+
+import java.math.BigDecimal;
+
 import java.util.List;
 
 public interface UsuarioDAO {
@@ -14,6 +17,6 @@ public interface UsuarioDAO {
         public void updateUsuario(Usuario p);
         public List<Usuario> listUsuarios();
         public Usuario getUsuarioById(int id);
-        public void removeUsuario(int id);
+        public void removeUsuario(BigDecimal id);
         
 }
