@@ -46,13 +46,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public Usuario getUsuarioById(int id) {
+	public Usuario getUsuarioById(BigDecimal id) {
 		return this.usuarioDAO.getUsuarioById(id);
 	}
 
 	@Override
 	@Transactional
-	public void removeUsuario(int id) {
+	public void removeUsuario(BigDecimal id) {
 		this.usuarioDAO.removeUsuario(id);
 	}
 
@@ -75,7 +75,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(BigDecimal id) {
         String result=usuarioDAOImpl.delete(id);
         return result;
     }

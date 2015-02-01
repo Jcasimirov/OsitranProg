@@ -90,17 +90,19 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	@Override
-	public Usuario getUsuarioById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();		
-		Usuario p = (Usuario) session.load(Usuario.class, new Integer(id));
+	public Usuario getUsuarioById(BigDecimal id) {
+		Session session = this.sessionFactory.getCurrentSession();	
+	    Usuario p = (Usuario) session.load(Usuario.class, id);
+		//Usuario p = (Usuario) session.load(Usuario.class, new java.math.BigDecimal(id));
 		logger.info("Person loaded successfully, Person details="+p);
 		return p;
 	}
 
 	@Override
-	public void removeUsuario(int id) {
+	public void removeUsuario(BigDecimal id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Usuario p = (Usuario) session.load(Usuario.class, new Integer(id));
+		Usuario p = (Usuario) session.load(Usuario.class, id);
+                //Usuario p = (Usuario) session.load(Usuario.class, new Integer(id));
 		if(null != p){
 			session.delete(p);
 		}
@@ -124,12 +126,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         @Override
-        public String delete(Integer id) {
+        public String delete(BigDecimal id) {
             String result=null;
             Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             try {
                 session.beginTransaction();
-                Usuario usuario=(Usuario)session.get(Usuario.class, Integer.valueOf(id));
+                Usuario usuario=(Usuario)session.get(Usuario.class, id);
                 session.delete(usuario);
                 session.getTransaction().commit();
             } catch (Exception e) {
