@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="Usuario" table="T_USUARIO">
+        <id name="usuId" type="java.lang.Integer" access="field">
+            <column name="USU_ID" />
+                <generator class="native">
+                </generator>
+        </id>
+        <property name="usuContrasenya" type="string" column="USU_CONTRASENYA"/>
+        <property name="usuEsexterno" type="java.lang.Integer" column="USU_ESEXTERNO"/>
+        <property name="usuEstado" type="java.lang.Integer" column="USU_ESTADO"/>
+        <property name="usuFechaAlta" type="java.util.Date" column="USU_FECHA_ALTA"/>
+        <property name="usuFechaBaja" type="java.util.Date" column="USU_FECHA_BAJA"/>
+        <property name="usuFechaCambio" type="java.util.Date" column="USU_FECHA_CAMBIO"/>
+        <property name="usuNombre" type="string" column="USU_NOMBRE"/>
+        <property name="usuTerminal" type="string" column="USU_TERMINAL"/>
+        <property name="usuUsuarioAlta" type="string" column="USU_USUARIO_ALTA"/>
+        <property name="usuUsuarioBaja" type="string" column="USU_USUARIO_BAJA"/>
+        <property name="usuUsuarioCambio" type="string" column="USU_USUARIO_CAMBIO"/>
+        <property name="crgId" type="java.lang.Integer" column="CRG_ID"/>
+        <property name="rolId" type="java.lang.Integer" column="ROL_ID"/>
+    </class>
+</hibernate-mapping>
