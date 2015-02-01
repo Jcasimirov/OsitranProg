@@ -2,6 +2,8 @@ package com.ositran.service;
 
 import com.ositran.model.Usuario;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 
 public interface UsuarioService {
@@ -14,7 +16,7 @@ public interface UsuarioService {
 	public void addUsuario(Usuario p);
 	public void updateUsuario(Usuario p);
 	public List<Usuario> listUsuarios();
-	public Usuario getUsuarioById(int id);
+	public Usuario getUsuarioById(BigDecimal id);
 	public void removeUsuario(int id);
 	
 }

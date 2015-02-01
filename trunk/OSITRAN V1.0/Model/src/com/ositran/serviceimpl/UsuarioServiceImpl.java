@@ -5,6 +5,8 @@ import com.ositran.daoimpl.UsuarioDAOImpl;
 import com.ositran.model.Usuario;
 import com.ositran.service.UsuarioService;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +87,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario get(Integer id) {
+    public Usuario get(BigDecimal id) {
         Usuario usuario=usuarioDAOImpl.get(id);
         return usuario;
     }

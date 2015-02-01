@@ -12,14 +12,9 @@ import com.ositran.model.Event;
 import com.ositran.model.Usuario;
 import com.ositran.model.hibernate.HibernateUtil;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import java.math.BigDecimal;
 
 import javax.sql.DataSource;
-
-import org.hibernate.Transaction;
 
 import org.hibernate.cfg.Configuration;
 
@@ -160,7 +155,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         @Override
-        public Usuario get(Integer id) {
+        public Usuario get(BigDecimal id) {
             Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             session.beginTransaction();
             Usuario usuario=(Usuario)session.get(Usuario.class, id);
