@@ -5,6 +5,8 @@ import com.ositran.service.UsuarioService;
 import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.UsuarioValidator;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,7 +81,7 @@ public class UsuarioController {
         String id=request.getParameter("id");
         String result=null;
         if(id!=null){
-            result=usuarioServiceImpl.delete(Integer.valueOf(id));
+            result=usuarioServiceImpl.delete(BigDecimal.valueOf(Long.valueOf(id)));
         }
         if(result==null){
             result="Solicitud atendida";
@@ -95,7 +97,7 @@ public class UsuarioController {
         Usuario usuario=null;
         ModelAndView mav=null;
         if(id!=null){
-            usuario=usuarioServiceImpl.get(Integer.valueOf(id));
+            usuario=usuarioServiceImpl.get(BigDecimal.valueOf(Long.valueOf(id)));
         }
         if(usuario==null){
             mav=new ModelAndView("mensaje");
