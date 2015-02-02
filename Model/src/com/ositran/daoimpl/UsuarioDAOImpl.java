@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Query;
 import org.hibernate.cfg.Configuration;
 
 import org.slf4j.Logger;
@@ -90,7 +91,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	@Override
-	public Usuario getUsuarioById(BigDecimal id) {
+	public Usuario getUsuarioById(Integer id) {
 		Session session = this.sessionFactory.getCurrentSession();	
 	    Usuario p = (Usuario) session.load(Usuario.class, id);
 		//Usuario p = (Usuario) session.load(Usuario.class, new java.math.BigDecimal(id));
@@ -99,7 +100,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	@Override
-	public void removeUsuario(BigDecimal id) {
+	public void removeUsuario(Integer id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Usuario p = (Usuario) session.load(Usuario.class, id);
                 //Usuario p = (Usuario) session.load(Usuario.class, new Integer(id));
@@ -113,7 +114,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         @Override
         public String insert(Usuario usuario) {
             String result=null;
-            Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
                 session.persist(usuario);
@@ -126,9 +128,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         @Override
-        public String delete(BigDecimal id) {
+        public String delete(Integer id) {
             String result=null;
-            Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
                 Usuario usuario=(Usuario)session.get(Usuario.class, id);
@@ -144,11 +147,26 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         @Override
         public String update(Usuario usuario) {
             String result=null;
-            Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            //Session session = this.sessionFactory.getCurrentSession();
+            Session session = sessionFactory.openSession();
+            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             try {
                 session.beginTransaction();
+                /*Query q = session.createQuery("update com.ositran.model.Usuario set usuNombre=:usuNombre, usuTerminal=:usuTerminal where " +
+                        "usuId=:id");
+                q.setString("usuNombre", usuNombre);
+                q.setString("lastName", lastName);
+                q.setString("address", address);
+                q.setInteger("usuId", id);
+                int rowCount = q.executeUpdate();
+                session.getTransaction().commit();                
+                currentStudent = updateStudent;
+                updateStudent.clear();
+                System.out.println(rowCount);                
+*/
                 session.update(usuario);
                 session.getTransaction().commit();
+                logger.info("Usuario updated successfully, Usuario Details="+usuario);
             } catch (Exception e) {
                 session.getTransaction().rollback();
                 result=e.getMessage();
@@ -157,8 +175,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         @Override
-        public Usuario get(BigDecimal id) {
-            Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+        public Usuario get(Integer id) {
+            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session = sessionFactory.openSession();
             session.beginTransaction();
             Usuario usuario=(Usuario)session.get(Usuario.class, id);
             session.getTransaction().commit();
@@ -167,14 +186,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         @Override
         public List query() {
-            System.out.println("- - - - ------------------------------------------------------");
-            ///Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            System.out.println("----------------------------------------------------------");
             List list=session.createQuery("select o from Usuario o").list();
             System.out.println("LISTA = "+list);
-            System.out.println("----------------------------------------------------------");
             session.getTransaction().commit();
             return list;
         }
