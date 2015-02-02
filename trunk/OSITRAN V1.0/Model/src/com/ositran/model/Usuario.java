@@ -51,7 +51,7 @@ public class Usuario implements Serializable {
     @Id
     @Column(name = "USU_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Usuario_Id_Seq_Gen")
-    private BigDecimal usuId;
+    private Integer usuId;
     @Column(name = "USU_NOMBRE", nullable = false, length = 100)
     private String usuNombre;
     @Column(name = "USU_TERMINAL", length = 20)
@@ -67,7 +67,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario(BigDecimal crgId, BigDecimal rolId, String usuContrasenya, BigDecimal usuEsexterno,
-                   BigDecimal usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, BigDecimal usuId,
+                   BigDecimal usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId,
                    String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
                    String usuUsuarioCambio) {
         this.crgId = crgId;
@@ -150,7 +150,7 @@ public class Usuario implements Serializable {
         this.usuFechaCambio = usuFechaCambio;
     }
 
-    public BigDecimal getUsuId() {
+    public Integer getUsuId() {
         return usuId;
     }
 
@@ -180,6 +180,10 @@ public class Usuario implements Serializable {
 
     public String getUsuUsuarioBaja() {
         return usuUsuarioBaja;
+    }
+
+    public void setUsuId(Integer usuId) {
+        this.usuId = usuId;
     }
 
     public void setUsuUsuarioBaja(String usuUsuarioBaja) {

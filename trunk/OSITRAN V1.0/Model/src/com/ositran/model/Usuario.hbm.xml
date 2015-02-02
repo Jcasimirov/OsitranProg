@@ -4,10 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.ositran.model">
     <class name="Usuario" table="T_USUARIO">
-        <id name="usuId" type="java.math.BigDecimal" access="field">
+        <id name="usuId" type="java.lang.Integer" access="field">
             <column name="USU_ID" />
-                <generator class="native">
-                </generator>
+            <generator class="increment">
+                <param name="sequence">T_USUARIO_ID_SEQ_GEN</param>
+            </generator>
         </id>
         <property name="usuContrasenya" type="string" column="USU_CONTRASENYA"/>
         <property name="usuEsexterno" type="java.math.BigDecimal" column="USU_ESEXTERNO"/>
