@@ -23,7 +23,7 @@
                         <a href="usuario.htm?accion=upd1&amp;id=${user.usuId}">${user.usuId}</a>
                     </th>
                     <th>
-                        <a href="usuario.htm?accion=upd&amp;id=${user.usuId}">${user.usuId}</a>
+                        <a href="usuario.htm?accion=del&amp;id=${user.usuId}">${user.usuId}</a>
                     </th>
                 </tr>
             </c:forEach>
