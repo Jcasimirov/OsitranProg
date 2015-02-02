@@ -81,7 +81,7 @@ public class UsuarioController {
         String id=request.getParameter("id");
         String result=null;
         if(id!=null){
-            result=usuarioServiceImpl.delete(BigDecimal.valueOf(Long.valueOf(id)));
+            result=usuarioServiceImpl.delete(Integer.valueOf(id));
         }
         if(result==null){
             result="Solicitud atendida";
@@ -97,7 +97,7 @@ public class UsuarioController {
         Usuario usuario=null;
         ModelAndView mav=null;
         if(id!=null){
-            usuario=usuarioServiceImpl.get(BigDecimal.valueOf(Long.valueOf(id)));
+            usuario=usuarioServiceImpl.get(Integer.valueOf(id));
         }
         if(usuario==null){
             mav=new ModelAndView("mensaje");
@@ -110,7 +110,8 @@ public class UsuarioController {
     }                                                                                                                                                                                                                                                                                                                                                                                                           
 
     @RequestMapping(params="accion=upd2")
-    public ModelAndView update2(@ModelAttribute Usuario usuario){
+    public ModelAndView update2(@ModelAttribute("usuario") Usuario usuario){
+        System.out.println("usuario.getUsuId() : "+usuario.getUsuId());
         String result=usuarioServiceImpl.update(usuario);
         if(result==null){
             result="Solicitud atendida";
