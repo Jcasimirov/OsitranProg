@@ -19,8 +19,8 @@ import org.primefaces.component.password.Password;
 @Generated(value = "1seguridad/login.jsf", comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class Login {
     private HtmlForm form1;
-    private InputText usuario;
-    private Password contrasennia;
+    private InputText usuario=new InputText();
+    private Password contrasennia=new Password();
     private CommandButton cbIngresar;
     private CommandButton cbSalir;
     private static final String[] users = {"admin:12345","admin:12345"}; 
@@ -75,16 +75,14 @@ public class Login {
     
     public String doLogin(){
         // Get every user from our sample database :)
-                for (String user: users) {
-                    String dbUsername = user.split(":")[0];
-                    String dbPassword = user.split(":")[1];
-                     
-                    // Successful login
-                    //si ingresa pero no es el string
-                    if (dbUsername.equals(username) && dbPassword.equals(password)) {
-                        loggedIn = true;
-                        return navigationBean.redirectToWelcome();
-                    }
+                String dbUsername = (String)this.usuario.getValue();
+                String dbPassword = (String)this.contrasennia.getValue();
+                 
+                // Successful login
+                //si ingresa pero no es el string
+                if (dbUsername.equals("admin") && dbPassword.equals("12345")) {
+                    loggedIn = true;
+                    return navigationBean.redirectToWelcome();
                 }
         // Set login ERROR
                 FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
