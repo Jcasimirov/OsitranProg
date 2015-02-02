@@ -26,7 +26,5 @@
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
         <mapping resource="./com/ositran/model/Usuario.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Course.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Student.hbm.xml"/>        
     </session-factory>
 </hibernate-configuration>
