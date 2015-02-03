@@ -40,81 +40,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UsuarioDAOImpl.class);
 
-	//private SessionFactory sessionFactory;
         private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
 	}
 
-
-	@Override
-	public void addUsuario(Usuario u) {
-	    sessionFactory.getCurrentSession().save(u);
-            
-            /*EntityManagerFactory emf=Persistence.createEntityManagerFactory("USUARIO");
-            EntityManager em=emf.createEntityManager();
-            EntityTransaction tx=em.getTransaction();
-            tx.begin();
-            em.persist(u);
-            tx.commit();
-            em.close();
-            emf.close();*/
-		/*Session session = this.sessionFactory.getCurrentSession();
-		session.persist(p);
-	    Transaction tx = session.beginTransaction();
-	    session.flush();
-	    session.getTransaction().commit();
-	    tx.commit();
-		logger.info("Person saved successfully, Person Details="+p);*/
-	}
-
-	@Override
-	public void updateUsuario(Usuario p) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(p);
-		logger.info("Person updated successfully, Person Details="+p);
-	}
-
-	//@SuppressWarnings("unchecked")
-	@Override
-	public List<Usuario> listUsuarios() {
-        return sessionFactory.getCurrentSession().createQuery("from Usuario").list();
-        /*System.out.println("lista de usuarios DAO impl");
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Usuario> personsList = session.createQuery("from Usuario").list();
-		for(Usuario p : personsList){
-			logger.info("Person List::"+p);
-		}
-		return personsList;
-            */
-	}
-
-	@Override
-	public Usuario getUsuarioById(Integer id) {
-		Session session = this.sessionFactory.getCurrentSession();	
-	    Usuario p = (Usuario) session.load(Usuario.class, id);
-		//Usuario p = (Usuario) session.load(Usuario.class, new java.math.BigDecimal(id));
-		logger.info("Person loaded successfully, Person details="+p);
-		return p;
-	}
-
-	@Override
-	public void removeUsuario(Integer id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Usuario p = (Usuario) session.load(Usuario.class, id);
-                //Usuario p = (Usuario) session.load(Usuario.class, new Integer(id));
-		if(null != p){
-			session.delete(p);
-		}
-		logger.info("Person deleted successfully, person details="+p);
-	}
-
-
         @Override
         public String insert(Usuario usuario) {
             String result=null;
-            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
@@ -147,23 +81,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         @Override
         public String update(Usuario usuario) {
             String result=null;
-            //Session session = this.sessionFactory.getCurrentSession();
             Session session = sessionFactory.openSession();
-            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             try {
                 session.beginTransaction();
-                /*Query q = session.createQuery("update com.ositran.model.Usuario set usuNombre=:usuNombre, usuTerminal=:usuTerminal where " +
-                        "usuId=:id");
-                q.setString("usuNombre", usuNombre);
-                q.setString("lastName", lastName);
-                q.setString("address", address);
-                q.setInteger("usuId", id);
-                int rowCount = q.executeUpdate();
-                session.getTransaction().commit();                
-                currentStudent = updateStudent;
-                updateStudent.clear();
-                System.out.println(rowCount);                
-*/
                 session.update(usuario);
                 session.getTransaction().commit();
                 logger.info("Usuario updated successfully, Usuario Details="+usuario);
