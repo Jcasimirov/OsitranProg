@@ -19,22 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioServiceImpl implements UsuarioService {
 	
 	private UsuarioDAOImpl usuarioDAOImpl=new UsuarioDAOImpl();
-        private UsuarioDAO usuarioDAO;
+        //private UsuarioDAO usuarioDAO;
 
 	public void setUsuarioDAOImpl(UsuarioDAOImpl usuarioDAOImpl) {
-		this.usuarioDAO = usuarioDAOImpl;
+		this.usuarioDAOImpl = usuarioDAOImpl;
 	}
 
 
         @Override
         public List<Usuario> query() {
-            /*Usuario u=new Usuario();
-            u.setId(1);
-            u.setNombre("nombre");
-            u.setCountry("country");*/
-            //List<Usuario> list=new ArrayList<Usuario>();//usuarioDAOImpl.query();
             List<Usuario> list=usuarioDAOImpl.query();
-            ///list.add(u);
             return list;
         }
     
