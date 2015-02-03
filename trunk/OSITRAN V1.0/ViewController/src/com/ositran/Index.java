@@ -1,0 +1,26 @@
+package com.ositran;
+
+import java.io.IOException;
+
+import javax.annotation.Generated;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import javax.servlet.ServletContext;
+
+@ManagedBean(name = "backing_index")
+@RequestScoped
+@Generated(value = "1index.jsf", comments = "oracle-jdev-comment:managed-bean-jsp-link")
+public class Index {
+    public void redirigir() throws IOException{
+        FacesContext context=FacesContext.getCurrentInstance();
+        ExternalContext externalContext=context.getExternalContext();
+        ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+        System.out.println("servletContext.getContextPath() = "+servletContext.getContextPath());
+        String redirectPath="/faces/seguridad/login.jsf";
+        externalContext.redirect(servletContext.getContextPath()+redirectPath);
+    }    
+}
