@@ -10,6 +10,7 @@
     </bean>
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <!--property name="jndiName" value="java:comp/env/jdbc/JDBC Data Source-0"/-->
             <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="username" value="ositran"/>
