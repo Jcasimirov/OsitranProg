@@ -35,5 +35,37 @@
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
-    </application>    
+    </application>
+     <navigation-rule>
+      <from-view-id>/ositran/seguridad/mantenimientoUsuario.jsf</from-view-id>
+      <navigation-case>
+       <from-outcome>usuarioUpd</from-outcome>
+       <to-view-id>/ositran/seguridad/usuarioUpd.jsf</to-view-id>
+      </navigation-case>
+     </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/ositran/logueo.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>success</from-outcome>
+   <to-view-id>/ositran/seguridad/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>error</from-outcome>
+   <to-view-id>/error.jsf</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/ositran/seguridad/menu.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>crudTipInf</from-outcome>
+   <to-view-id>/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>regTipInf</from-outcome>
+   <to-view-id>/ositran/parametros/registrarTipoInfraestructura.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
 </faces-config>
