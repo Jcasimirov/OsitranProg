@@ -64,8 +64,7 @@
         <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
-        <!--welcome-file>faces/index.xhtml</welcome-file-->
-        <welcome-file>/redirect.jsp</welcome-file>
+        <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>    
     <mime-mapping>
         <extension>xhtml</extension>
