@@ -10,24 +10,37 @@
     </bean>
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-            <!--property name="jndiName" value="java:comp/env/jdbc/JDBC Data Source-0"/-->
             <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="username" value="ositran"/>
             <property name="password" value="ositran"/>
     </bean>
+
+        
+        
     <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl">
         <!--property name="dataSource" ref="dataSource"/-->
     </bean>
     <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
         <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
-    </bean>    
-    <bean id="usuarioController" class="com.ositran.controller.UsuarioController">
+    </bean> 
+    <bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
         <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
     </bean>
     
-    <!--bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="resources/messages"/>
+    
+        <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl">
+        <!--property name="dataSource" ref="dataSource"/-->
+    </bean>
+    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
+        <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
+    </bean> 
+    <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+    </bean>
+    
+    <!--bean id="usuarioController" class="com.ositran.controller.UsuarioController">
+        <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
     </bean-->
     
 </beans>
