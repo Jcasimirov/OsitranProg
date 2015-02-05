@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui">
+        <h:head></h:head>
+        <h:body>
+         <h:form binding="#{backing_ositran_logueo.form1}" id="form1">
+                <p:layout style="min-width:300px;min-height:400px;font-size:10px">
+                    <p:layoutUnit position="center" style="min-width:200px; min-height:300px;">
+                        <p:panel id="panel"
+                                 style="background:url(./../imagenes/ositranfoto.jpg) no-repeat;min-height:400px;">
+                            <div id="login">
+                                <table style="position:absolute; top:180px;left:20px">
+                                    <tr>
+                                        <td id="user" width="100" height="40">
+                                            <font color="navy">#{etq.etq_log_usu}</font>
+                                        </td>
+                                        <td>
+                                            <p:inputText size="30" binding="#{backing_ositran_logueo.usuario}" id="usuario"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td width="100" height="40">
+                                            <font color="navy">#{etq.etq_log_pas}</font>
+                                        </td>
+                                        <td>
+                                            <p:password size="30" binding="#{backing_ositran_logueo.pass}" id="pass"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <!-- botones login-->
+                                        <td align="center" colspan="2">
+                                            <p:commandButton value="#{btn.btn_ingresar}" binding="#{backing_ositran_logueo.commandButton1}"
+                                                             id="commandButton1" action="#{backing_ositran_logueo.logear}"/>
+                                             
+                                            <p:commandButton value="#{btn.btn_salir}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <img height="320" width="450" src="imagenes/ositran foto.jpg"/>
+                        </p:panel>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_logueo-->
+</f:view>
