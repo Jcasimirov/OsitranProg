@@ -72,7 +72,7 @@ public class Login {
     }
     
     
-    
+    /*
     public String doLogin(){
         // Get every user from our sample database :)
                 String dbUsername = (String)this.usuario.getValue();
@@ -93,10 +93,10 @@ public class Login {
                 return navigationBean.toLogin();
     }
     
-    /**
+    / **
          * Logout operation.
          * @return
-         */
+         * /
         public String doLogout() {
             // Set the paremeter indicating that user is logged in to false
             loggedIn = false;
@@ -107,7 +107,7 @@ public class Login {
             FacesContext.getCurrentInstance().addMessage(null, msg);
              
             return navigationBean.toLogin();
-        }
+        }*/
 
 
     public void setUsername(String username) {
