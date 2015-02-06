@@ -130,14 +130,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="EJB"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="TopLink"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Commons-dbcp-1.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -561,14 +553,6 @@
       <list n="libraryReferences">
          <hash>
             <value n="id" v="Java EE"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="EJB"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="TopLink"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
