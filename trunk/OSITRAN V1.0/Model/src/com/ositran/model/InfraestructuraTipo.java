@@ -2,7 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
 
 import java.util.Date;
 
@@ -32,7 +31,7 @@ public class InfraestructuraTipo implements Serializable {
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
     private String tinDescripcion;
     @Column(name = "TIN_ESTADO", nullable = false)
-    private BigDecimal tinEstado;
+    private Integer tinEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "TIN_FECHA_ALTA")
     private Date tinFechaAlta;
@@ -45,7 +44,7 @@ public class InfraestructuraTipo implements Serializable {
     @Id
     @Column(name = "TIN_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InfraestructuraTipo_Id_Seq_Gen")
-    private BigDecimal tinId;
+    private Integer tinId;
     @Column(name = "TIN_NOMBRE", nullable = false, length = 50)
     private String tinNombre;
     @Column(name = "TIN_TERMINAL", length = 20)
@@ -60,8 +59,8 @@ public class InfraestructuraTipo implements Serializable {
     public InfraestructuraTipo() {
     }
 
-    public InfraestructuraTipo(String tinDescripcion, BigDecimal tinEstado, Date tinFechaAlta, Date tinFechaBaja,
-                               Date tinFechaCambio, BigDecimal tinId, String tinNombre, String tinTerminal,
+    public InfraestructuraTipo(String tinDescripcion, Integer tinEstado, Date tinFechaAlta, Date tinFechaBaja,
+                               Date tinFechaCambio, Integer tinId, String tinNombre, String tinTerminal,
                                String tinUsuarioAlta, String tinUsuarioBaja, String tinUsuarioCambio) {
         this.tinDescripcion = tinDescripcion;
         this.tinEstado = tinEstado;
@@ -84,11 +83,11 @@ public class InfraestructuraTipo implements Serializable {
         this.tinDescripcion = tinDescripcion;
     }
 
-    public BigDecimal getTinEstado() {
+    public Integer getTinEstado() {
         return tinEstado;
     }
 
-    public void setTinEstado(BigDecimal tinEstado) {
+    public void setTinEstado(Integer tinEstado) {
         this.tinEstado = tinEstado;
     }
 
@@ -116,7 +115,7 @@ public class InfraestructuraTipo implements Serializable {
         this.tinFechaCambio = tinFechaCambio;
     }
 
-    public BigDecimal getTinId() {
+    public Integer getTinId() {
         return tinId;
     }
 
@@ -158,5 +157,9 @@ public class InfraestructuraTipo implements Serializable {
 
     public void setTinUsuarioCambio(String tinUsuarioCambio) {
         this.tinUsuarioCambio = tinUsuarioCambio;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
     }
 }
