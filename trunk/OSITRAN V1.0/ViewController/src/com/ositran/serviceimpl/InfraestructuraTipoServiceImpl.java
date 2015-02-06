@@ -1,0 +1,105 @@
+package com.ositran.serviceimpl;
+
+import com.ositran.daoimpl.InfraestructuraTipoDAOImpl;
+import com.ositran.model.InfraestructuraTipo;
+import com.ositran.service.InfraestructuraTipoService;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoService{
+    public InfraestructuraTipoServiceImpl() {
+        super();
+    }
+    
+    private InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl;
+
+    public void setInfraestructuraTipoDAOImpl(InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl) {
+        this.infraestructuraTipoDAOImpl = infraestructuraTipoDAOImpl;
+    }
+
+    @Override
+    public List<InfraestructuraTipoVO> query() {
+        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.query();
+        List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
+        return listVO;
+    }
+
+    @Override
+    public String insert(InfraestructuraTipoVO infraestructuraTipoVO) {
+        InfraestructuraTipo infraestructuraTipo=toInfraestructuraTipo(infraestructuraTipoVO);
+        String result=infraestructuraTipoDAOImpl.insert(infraestructuraTipo);
+        return result;
+    }
+
+    @Override
+    public String delete(Integer id) {
+        String result=this.infraestructuraTipoDAOImpl.delete(id);
+        return result;
+    }
+
+    @Override
+    public String update(InfraestructuraTipoVO infraestructuraTipoVO) {
+        InfraestructuraTipo infraestructuraTipo=toInfraestructuraTipo(infraestructuraTipoVO);
+        String result=this.infraestructuraTipoDAOImpl.update(infraestructuraTipo);
+        return result;
+    }
+
+    @Override
+    public InfraestructuraTipoVO get(Integer id) {
+        InfraestructuraTipo infraestructuraTipo=this.infraestructuraTipoDAOImpl.get(id);
+        InfraestructuraTipoVO infraestructuraTipoVO=toInfraestructuraTipoVO(infraestructuraTipo);
+        return infraestructuraTipoVO;
+    }
+    
+    //conversiones
+    private List<InfraestructuraTipoVO> toListInfraestructuraTiposVO(List<InfraestructuraTipo> list){
+        List<InfraestructuraTipoVO> listVO=new ArrayList<InfraestructuraTipoVO>();
+        for(int i=0;i<list.size();i++){
+            InfraestructuraTipo infraestructuraTipo=(InfraestructuraTipo)list.get(i);
+            InfraestructuraTipoVO infraestructuraTipoVO=toInfraestructuraTipoVO(infraestructuraTipo);
+            listVO.add(infraestructuraTipoVO);
+        }
+        return listVO;
+    }
+    private InfraestructuraTipoVO toInfraestructuraTipoVO(InfraestructuraTipo infraestructuraTipo){
+        InfraestructuraTipoVO infraestructuraTipoVO=new InfraestructuraTipoVO();
+        infraestructuraTipoVO.setTinId(infraestructuraTipo.getTinId());
+        infraestructuraTipoVO.setTinDescripcion(infraestructuraTipo.getTinDescripcion());
+        infraestructuraTipoVO.setTinEstado(infraestructuraTipo.getTinEstado());
+        infraestructuraTipoVO.setTinFechaAlta(infraestructuraTipo.getTinFechaAlta());
+        infraestructuraTipoVO.setTinFechaBaja(infraestructuraTipo.getTinFechaBaja());
+        infraestructuraTipoVO.setTinFechaCambio(infraestructuraTipo.getTinFechaCambio());
+        infraestructuraTipoVO.setTinNombre(infraestructuraTipo.getTinNombre());
+        infraestructuraTipoVO.setTinTerminal(infraestructuraTipo.getTinTerminal());
+        infraestructuraTipoVO.setTinUsuarioAlta(infraestructuraTipo.getTinUsuarioAlta());
+        infraestructuraTipoVO.setTinUsuarioBaja(infraestructuraTipo.getTinUsuarioBaja());
+        infraestructuraTipoVO.setTinUsuarioCambio(infraestructuraTipo.getTinUsuarioCambio());
+        
+            
+            
+            
+       
+        return infraestructuraTipoVO;
+    }
+    private InfraestructuraTipo toInfraestructuraTipo(InfraestructuraTipoVO infraestructuraTipoVO){
+        InfraestructuraTipo infraestructuraTipo=new InfraestructuraTipo();
+        infraestructuraTipo.setTinId(infraestructuraTipoVO.getTinId());
+        infraestructuraTipo.setTinDescripcion(infraestructuraTipoVO.getTinDescripcion());
+        infraestructuraTipo.setTinEstado(infraestructuraTipoVO.getTinEstado());
+        infraestructuraTipo.setTinFechaAlta(infraestructuraTipoVO.getTinFechaAlta());
+        infraestructuraTipo.setTinFechaBaja(infraestructuraTipoVO.getTinFechaBaja());
+        infraestructuraTipo.setTinFechaCambio(infraestructuraTipoVO.getTinFechaCambio());
+        infraestructuraTipo.setTinNombre(infraestructuraTipoVO.getTinNombre());
+        infraestructuraTipo.setTinTerminal(infraestructuraTipoVO.getTinTerminal());
+        infraestructuraTipo.setTinUsuarioAlta(infraestructuraTipoVO.getTinUsuarioAlta());
+        infraestructuraTipo.setTinUsuarioBaja(infraestructuraTipoVO.getTinUsuarioBaja());
+        infraestructuraTipo.setTinUsuarioCambio(infraestructuraTipoVO.getTinUsuarioCambio());
+        
+        return infraestructuraTipo;
+        
+    }
+
+    
+}
