@@ -72,9 +72,12 @@
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
+         <string v="HTML"/>
+         <string v="JAVASCRIPT"/>
          <string v="JSF"/>
          <string v="JSP"/>
          <string v="Java"/>
+         <string v="Spring"/>
          <string v="XML"/>
       </list>
    </hash>
@@ -190,19 +193,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="primefaces-3.5.RC1.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Spring-web-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -240,14 +235,6 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/primefaces-3.5.RC1.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="primefaces-3.5.RC1.jar"/>
-               <value n="id" v="primefaces-3.5.RC1.jar"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="public_html/WEB-INF/lib/spring-web-3.2.0.RELEASE.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -263,14 +250,6 @@
                <value n="description" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
                <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
                <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="spring-webmvc-3.2.0.RELEASE.jar"/>
-               <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
             </hash>
          </list>
       </hash>
@@ -296,19 +275,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="primefaces-3.5.RC1.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Spring-web-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Spring-webmvc-3.2.0.RELEASE.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="spring-webmvc-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
