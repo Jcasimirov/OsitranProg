@@ -2,27 +2,27 @@
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee">
    <application>
 	<resource-bundle>
-		<base-name>titulosproyecto.titulos</base-name>
+		<base-name>com.ositran.bundle.titulos</base-name>
 		<var>msg</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>titulosproyecto.botones</base-name>
+		<base-name>com.ositran.bundle.botones</base-name>
 		<var>btn</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>titulosproyecto.etiquetas</base-name>
+		<base-name>com.ositran.bundle.etiquetas</base-name>
 		<var>etq</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>titulosproyecto.legend</base-name>
+		<base-name>com.ositran.bundle.legend</base-name>
 		<var>leg</var>			
 	</resource-bundle>
 		<resource-bundle>
-		<base-name>titulosproyecto.campo</base-name>
+		<base-name>com.ositran.bundle.campo</base-name>
 		<var>cam</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>titulosproyecto.datatable</base-name>
+		<base-name>com.ositran.bundle.datatable</base-name>
 		<var>tab</var>			
 	</resource-bundle>
     </application>

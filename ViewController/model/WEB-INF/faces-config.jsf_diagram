@@ -105,9 +105,9 @@
       <property
          name="wildcard">false</property>
       <property
-         name="y">-192.25293</property>
+         name="y">-126.603516</property>
       <property
-         name="x">474.06738</property>
+         name="x">537.0674</property>
       <property
          name="jspName">/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</property>
    </Page>
@@ -121,7 +121,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">T50,256.0,-48.103516,433.06738,-192.60352,L50</property>
+         name="sdm:polyPoints">R50,297.0,5.8964844,496.06738,-126.603516,L50</property>
    </NavigationCase>
    <NavigationCase
       islink="true"
@@ -133,6 +133,6 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,515.0674,-192.60352,684.0,-38.4541,L50</property>
+         name="sdm:polyPoints">R50,578.0674,-126.603516,684.0,-38.4541,L50</property>
    </NavigationCase>
 </SDM>
