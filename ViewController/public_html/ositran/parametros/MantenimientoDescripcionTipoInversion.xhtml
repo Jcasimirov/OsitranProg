@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+      
+<h:head>
+	<style type="text/css">
+	</style>
+	<!--Todo el contenido de CSS y JAVA SCRIPT -->
+</h:head>
+<body>
+
+<p:layout style="min-width:400px;min-height:500px;font-size:11px">
+<p:layoutUnit position="north">
+<div style="text-align: center;">
+	<h:outputLabel value=" #{msg.titulo_MANTDESTIPINV}"/>
+</div>
+
+</p:layoutUnit>
+<p:layoutUnit position="center">
+<center>
+<p:dataTable>
+<p:column><f:facet name="header">#{etq.etq_mdti_nom}</f:facet></p:column>
+<p:column><f:facet name="header">#{etq.etq_mdti_des}</f:facet></p:column>
+<p:column><f:facet name="header">#{etq.etq_mdti_tin}</f:facet></p:column>
+<p:column><f:facet name="header">#{etq.etq_mdti_act}</f:facet></p:column>
+<p:column><f:facet name="header">#{etq.etq_mdti_eli}</f:facet></p:column>
+<p:column><f:facet name="header">#{etq.etq_mdti_sel}</f:facet></p:column>
+</p:dataTable>
+</center>
+</p:layoutUnit>
+<p:layoutUnit position="south">
+<center>
+<TABLE>
+<tr>
+<td><p:commandButton value="#{btn.btn_nuevo}"/> </td>
+<td><p:commandButton value="#{btn.btn_eliminar}"/> </td>
+<td><p:commandButton value="#{btn.btn_salir}"/> </td>
+</tr>
+</TABLE>
+</center>
+</p:layoutUnit>
+
+</p:layout>
+
+
+
+
+</body>
+</html>

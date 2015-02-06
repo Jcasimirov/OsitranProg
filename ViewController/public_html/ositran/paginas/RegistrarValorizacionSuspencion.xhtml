@@ -1,0 +1,253 @@
+	<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+      
+<h:head>
+		<script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Sólo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'Día',
+			    allDayText : 'Todo el día'
+			};
+		</script>
+	<style type="text/css">
+		
+	</style>
+</h:head>
+<h:body>
+<p:panel header="#{msg.tituloRVS}" style="text-align:center;text-decoration:blink;width:100%">
+	<h:form>
+	<div align="center">
+		<table style="font-size:11px">
+			<tr>
+				<td>
+				<p:fieldset legend="Datos contrato de Concesion">
+					<table>
+						<tr>
+							<td>
+								<p:fieldset legend="Criterios de Busqueda">	
+								<p:inputText id="cb" style="width:200px"/>
+								<p:watermark for="cb" value="Buscar Contrato de Concesion" />											
+								<p:commandButton image="ui-icon-search" ></p:commandButton>							
+								</p:fieldset>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<p:fieldset legend="Datos Contrato de Concesion">
+								<table>
+									<tr>
+										<td align="left">Número de contrato de concesion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo de infraestructura</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Infraestructura</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo de inversion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Modelaidad de inversion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Nombre de concesionario</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Infraestructura</td>
+										<td>
+												<p:selectOneMenu  value="">
+					        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+										        <f:selectItem  itemLabel="Infraestructura1" itemValue="1" />
+										        <f:selectItem  itemLabel="Infraestructura2" itemValue="2" />
+										        <f:selectItem  itemLabel="Infraestructura3" itemValue="3" />
+					    						</p:selectOneMenu>
+										</td>
+									</tr>
+								</table>
+							</p:fieldset>	
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:fieldset legend="Etapa Concesión">
+								<table>
+									<tr>
+										<td colspan="2" align="left">Seleccione Etapa</td>
+										<td colspan="2" align="left">
+												<p:selectOneMenu  value="">
+					        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+										        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+										        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+										        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+					    						</p:selectOneMenu>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">Alcance</td>
+										<td colspan="3" align="left" ><p:inputText style="width: 300px" disabled="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Inicio</td>
+										<td align="left"><p:calendar  locale="es" pattern="yyyy-MMM-dd " /></td>
+										<td align="left">Fin</td>
+										<td align="left"><p:calendar  locale="es" pattern="yyyy-MMM-dd" /></td>
+									</tr>
+									<tr>
+										<td align="left">Total</td>
+										<td align="left" disabled="true"><p:inputText></p:inputText></td>
+										<td align="left">Moneda</td>
+										<td align="left" disabled="true"><p:inputText></p:inputText></td>
+									</tr>
+									
+								</table>
+							</p:fieldset>
+							</td>
+							
+						</tr>
+					</table>
+					</p:fieldset>
+				</td>
+				<td valign="top">
+					
+					
+					<p:fieldset  legend="Supervición Encargada">
+					<table>
+							<tr>
+								<td>Nombre del Supervisor</td>
+								<td><p:inputText disabled="true"></p:inputText></td>
+								<td>Tic Doc</td>
+								<td><p:inputText disabled="true"></p:inputText></td>
+								<td>Numero Doc:</td>
+								<td><p:inputText disabled="true"></p:inputText></td>								
+							</tr>
+						</table>
+					</p:fieldset>
+					
+					<p:fieldset legend="Datos STD ">
+					<table>
+							<tr>
+								<td>Numero de STD:</td>
+								<td ><p:inputText></p:inputText></td>
+								<td ><p:commandButton image="ui-icon-search"  style="width:25px"/></td>
+								<td>Fecha Registro</td>
+								<td colspan="3"><p:calendar  locale="es" pattern="yyyy-MMM-dd "/></td>								
+							</tr>
+							
+							<tr>
+								<td>Asunto:</td>
+								<td colspan="4"><p:inputTextarea style="width:300px"></p:inputTextarea></td>						
+							</tr>
+						</table>
+					</p:fieldset>
+					<table>
+						<tr>
+								<td align="left">Concepto:</td>
+								<td align="left">
+										<p:selectOneMenu >
+					        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+										        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+										        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+										        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+					    						</p:selectOneMenu>
+								
+								<p:commandButton value="Nuevo"/></td>
+								<td align="left">Neto Presentado</td>
+								<td align="left"><p:inputText></p:inputText></td>
+								
+						</tr>
+						
+							<tr>
+								<td align="left">Total Presentado</td>
+								<td align="left"><p:inputText></p:inputText></td>
+								<td align="left">Total Presentado</td>
+								<td align="left"><p:inputText></p:inputText></td>
+								
+						</tr>
+					</table>
+					<br></br>	
+					<p:fieldset legend="Datos Valorizacion">
+							<p:dataTable editable="true">
+						       			 <p:column headerText="Descripcion Concepto" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	 
+						       			 <p:column headerText="Moneda" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Neto " style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Igv" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Total" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+							</p:dataTable>
+					</p:fieldset>	
+							
+				</td>
+			</tr>
+		</table>
+		
+		<div align="center" style="font-size: 11px">
+		<table>
+			<tr>
+				<td><p:commandButton value="Guardar"/></td>	
+				<td><p:commandButton value="Activar"/></td>	
+				<td><p:commandButton value="Desactivar" onclick="alerta.show();"
+				/></td>	
+				<td><p:commandButton value="Salir"/></td>	
+			</tr>
+			
+		</table>
+		</div>
+		</div>
+		
+		<p:dialog widgetVar="alerta" header="Confirmar" modal="true">
+		<table style="font-size: 11px">
+			<tr>
+					<td colspan="2">Desea Desactivar El(los) ususarios Seleccionados</td>
+			</tr>
+			<tr>
+					<td align="right"><p:commandButton value="Aceptar" /></td>
+					<td align="left"><p:commandButton value="Cancelar" onclick="alerta.hide();" /></td>
+					
+			</tr>
+		</table>
+		</p:dialog>
+	</h:form>	
+</p:panel>
+</h:body>
+</html>
