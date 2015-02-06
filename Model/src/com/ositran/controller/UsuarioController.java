@@ -1,8 +1,6 @@
 package com.ositran.controller;
 
 import com.ositran.model.Usuario;
-import com.ositran.service.UsuarioService;
-import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.UsuarioValidator;
 
 import java.math.BigDecimal;
@@ -24,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UsuarioController {
-    private UsuarioServiceImpl usuarioServiceImpl;
+    /*private UsuarioServiceImpl usuarioServiceImpl;
     private UsuarioService usuarioService;
     
     public UsuarioController() {
@@ -48,7 +46,7 @@ public class UsuarioController {
             return "usuario";
     }
     */
-    @RequestMapping(params="accion=qry")
+    /*@RequestMapping(params="accion=qry")
     public ModelAndView query(){
         List<Usuario> list=usuarioServiceImpl.query();
         System.out.println("controller query");
@@ -119,7 +117,7 @@ public class UsuarioController {
         ModelAndView mav=new ModelAndView("mensaje");
         mav.addObject("msg", result);
         return mav;
-    }                                                                                                                                                                                                                                                                                                                                                                                                           
+    }                     */
 
     /*
     //For add and update person both
