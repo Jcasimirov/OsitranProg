@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="Igv" table="T_IGV">
+        <id name="igvId" type="java.lang.Integer" access="field">
+            <column name="IGV_ID" />
+            <generator class="increment">
+                <param name="sequence">IGV_ID_SEQ_GEN</param>
+            </generator>
+        </id>
+        <property name="igvDescrip" type="string" column="IGV_DESCRIP"/>
+        <property name="igvPercent" type="java.math.Double" column="IGV_PERCENT"/>
+       
+    </class>
+</hibernate-mapping>
