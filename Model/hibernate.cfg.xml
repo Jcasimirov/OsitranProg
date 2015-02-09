@@ -10,7 +10,7 @@
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
         <property name="connection.username">ositran</property>
-        <property name="connection.password">123456</property>
+        <property name="connection.password">ositran</property>
         <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
@@ -21,11 +21,13 @@
         <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.Rol"/>
         <mapping class="com.ositran.model.Usuario"/>
-        <mapping class="com.ositran.model.InfraestructuraTipo"/>
+        <mapping class="com.ositran.model.InfraestructuraTipo"/>}
+        <mapping class="com.ositran.model.Igv"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
         <mapping resource="./com/ositran/model/Usuario.hbm.xml"/>
          <mapping resource="./com/ositran/model/InfraestructuraTipo.hbm.xml"/>
+         <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
