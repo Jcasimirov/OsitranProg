@@ -13,7 +13,7 @@
             <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="username" value="ositran"/>
-            <property name="password" value="ositran"/>
+            <property name="password" value="123456"/>
     </bean>
 
         
@@ -29,15 +29,24 @@
     </bean>
     
     
-        <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl">
-        <!--property name="dataSource" ref="dataSource"/-->
-    </bean>
-    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
+        <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl"/>
+            <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
         <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
     </bean> 
     <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
     </bean>
+    
+    
+     <bean id="igvDAOImpl" class="com.ositran.daoimpl.IgvDAOImpl"/>
+            <bean id="igvServiceImpl" class="com.ositran.serviceimpl.IgvServiceImpl">
+        <property name="igvDAOImpl" ref="igvDAOImpl"/>
+    </bean> 
+    <bean id="mantenimientoIgv" class="com.ositran.parametros.MantenimientoIgv">
+        <property name="igvServiceImpl" ref="igvServiceImpl"/>
+    </bean>
+    
+    
     
     <!--bean id="usuarioController" class="com.ositran.controller.UsuarioController">
         <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
