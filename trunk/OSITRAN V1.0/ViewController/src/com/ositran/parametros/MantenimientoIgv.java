@@ -25,6 +25,7 @@ public class MantenimientoIgv {
     private HtmlForm form1;
     private CommandButton commandButton1;
     private CommandButton commandButtonNuevo;
+    private CommandButton nuevo;
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -100,5 +101,13 @@ public class MantenimientoIgv {
 
     public CommandButton getCommandButtonNuevo() {
         return commandButtonNuevo;
+    }
+
+    public void setNuevo(CommandButton commandButton2) {
+        this.nuevo = commandButton2;
+    }
+
+    public CommandButton getNuevo() {
+        return nuevo;
     }
 }
