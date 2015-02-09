@@ -21,7 +21,7 @@
         <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.Rol"/>
         <mapping class="com.ositran.model.Usuario"/>
-        <mapping class="com.ositran.model.InfraestructuraTipo"/>}
+        <mapping class="com.ositran.model.InfraestructuraTipo"/>
         <mapping class="com.ositran.model.Igv"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
