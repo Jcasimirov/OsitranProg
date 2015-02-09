@@ -133,6 +133,40 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,578.0674,-126.603516,684.0,-38.4541,L50</property>
+         name="sdm:polyPoints">R50,578.0674,-126.9541,684.0,-38.4541,L50</property>
+   </NavigationCase>
+   <Page
+      id="Page21">
+      <property
+         name="wildcard">false</property>
+      <property
+         name="y">264.67264</property>
+      <property
+         name="x">93.582054</property>
+      <property
+         name="jspName">/ositran/parametros/mantenimientoIgv.xhtml</property>
+   </Page>
+   <Page
+      id="Page22">
+      <property
+         name="wildcard">false</property>
+      <property
+         name="y">223.6543</property>
+      <property
+         name="x">466.35217</property>
+      <property
+         name="jspName">/ositran/parametros/registrarIgv.xhtml</property>
+   </Page>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase23"
+      from="Page21"
+      to="Page22">
+      <property
+         name="fromOutcome">nuevoIgv</property>
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="sdm:polyPoints">R50,134.58206,264.32205,425.35217,223.30371,L50</property>
    </NavigationCase>
 </SDM>
