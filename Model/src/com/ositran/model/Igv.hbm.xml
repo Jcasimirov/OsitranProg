@@ -11,7 +11,7 @@
             </generator>
         </id>
         <property name="igvDescrip" type="string" column="IGV_DESCRIP"/>
-        <property name="igvPercent" type="java.math.Double" column="IGV_PERCENT"/>
+        <property name="igvPercent" type="java.lang.Double" column="IGV_PERCENT"/>
        
     </class>
 </hibernate-mapping>
