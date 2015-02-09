@@ -9,11 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Igv.findAll", query = "select o from Igv o") })
 @Table(name = "T_IGV")
+@SequenceGenerator(name = "IGV_ID_SEQ_GEN", sequenceName = "T_IGV_ID_SEQ_GEN", allocationSize = 50,
+                   initialValue = 50)
 public class Igv implements Serializable {
     private static final long serialVersionUID = -4845809735559799973L;
     @Column(name = "IGV_DESCRIP", length = 100)
