@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+    
+        <h:head>
+            <title>mantenimientoIgv</title>
+        </h:head>
+       <ui:include src="/ositran/util/menu_cabecera.xhtml"/>
+       <h:body>
+            <h:form binding="#{backing_parametros_mantenimientoIgv.form1}" id="form1">
+                <p:panel header="Mantenimiento de IGV" style="text-align:center;text-decoration:blink;width:100%">
+                    <div align="center">
+                        <table style="width:70% ;font-size:11px;">
+                            <tr>
+                                <td colspan="3">
+                                
+                                
+                <p:dataTable value="#{backing_parametros_mantenimientoIgv.query}" var="igv" selectionMode="single"
+                 style="font-size:0.62em;width:600px;margin:auto" rowKey="#{igv.igvId}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Porcentaje:"/>
+                        </f:facet>
+                        <h:outputText value="#{igv.igvPercent}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descripción:"/>
+                        </f:facet>
+                        <h:outputText value="#{igv.igvDescrip}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value=""/>
+                        </f:facet>
+                        <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvUpd1}" value="Editar" style="width:25px">
+                            <f:param id="id2" name="id2" value="#{igv.igvId}"/>
+                        </h:commandLink>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value=""/>
+                        </f:facet>
+                        <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvDel}" value="Eliminar" style="width:25px">
+                            <f:param id="id1" value="#{igv.igvId}"/>
+                        </h:commandLink>
+                    </p:column>
+                    <p:column headerText="Selecionar" style="width:25px">
+                                            <p:selectBooleanCheckbox/>
+                    </p:column>
+                    
+                    <p style="text-align:center">
+                        <h:commandLink action="igvIns" value="Nuevo Igv"/>
+                    </p>
+                    <p style="text-align:center">
+                        <h:commandLink action="/index?faces-redirect=true" value="Volver"/>
+                    </p>                    
+                </p:dataTable>                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td align="right">
+                                    <p:commandButton binding="#{backing_parametros_mantenimientoIgv.commandButtonNuevo}"  value="#{btn.btn_nuevo}" action="nuevoIgv"
+                                                     id="commandButtonNuevo"/>
+                                     
+                                    <p:commandButton value="Eliminar"></p:commandButton>
+                                     
+                                    <p:commandButton value="Salir"></p:commandButton>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </p:panel>
+            </h:form>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_parametros_mantenimientoIgv-->
+</f:view>
