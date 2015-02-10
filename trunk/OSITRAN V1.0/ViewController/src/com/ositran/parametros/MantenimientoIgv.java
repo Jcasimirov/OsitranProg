@@ -59,11 +59,7 @@ public class MantenimientoIgv {
         return list;
     }
     
-    public String igvIns(){
-       
-        this.igvServiceImpl.insert(igvVO);
-        return "/index?faces-redirect=true";
-    }
+   
     
     public String igvDel(ActionEvent event){
         UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
