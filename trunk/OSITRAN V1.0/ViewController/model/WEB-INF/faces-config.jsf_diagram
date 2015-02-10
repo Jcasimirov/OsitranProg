@@ -34,16 +34,16 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,-80.7334,135.39648,417.92285,133.79883,L50</property>
+         name="sdm:polyPoints">R50,-80.54753,135.39648,417.73703,133.79881,L50</property>
    </NavigationCase>
    <Page
       id="Page12">
       <property
          name="wildcard">false</property>
       <property
-         name="y">-153.60352</property>
+         name="y">30.17929</property>
       <property
-         name="x">235.5</property>
+         name="x">220.41084</property>
       <property
          name="jspName">/error.jsf</property>
    </Page>
@@ -57,7 +57,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">T50,20.0,-21.0,194.5,-153.9541,L50</property>
+         name="sdm:polyPoints">R50,61.18586,33.000008,179.22498,29.828712,L50</property>
    </NavigationCase>
    <Page
       id="Page16">
@@ -75,24 +75,12 @@
       <property
          name="wildcard">false</property>
       <property
-         name="y">6.2470703</property>
+         name="y">-33.56404</property>
       <property
-         name="x">256.0</property>
+         name="x">354.76547</property>
       <property
          name="jspName">/ositran/seguridad/menu.xhtml</property>
    </Page>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase18"
-      from="Page20"
-      to="Page17">
-      <property
-         name="fromOutcome">success</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">R50,61.0,33.0,215.0,5.8964844,L50</property>
-   </NavigationCase>
    <Page
       id="Page20">
       <property
@@ -113,18 +101,6 @@
    </Page>
    <NavigationCase
       islink="true"
-      id="NavigationCase15"
-      from="Page17"
-      to="Page13">
-      <property
-         name="fromOutcome">crudTipInf</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">R50,297.0,5.8964844,496.06738,-126.603516,L50</property>
-   </NavigationCase>
-   <NavigationCase
-      islink="true"
       id="NavigationCase16"
       from="Page13"
       to="Page16">
@@ -133,7 +109,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,578.0674,-126.9541,684.0,-38.4541,L50</property>
+         name="sdm:polyPoints">R50,578.25323,-126.9541,683.8142,-38.4541,L50</property>
    </NavigationCase>
    <Page
       id="Page21">
@@ -167,6 +143,41 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,134.58206,264.32205,425.35217,223.30371,L50</property>
+         name="sdm:polyPoints">R50,134.76793,264.32202,425.16626,223.30371,L50</property>
+   </NavigationCase>
+   <Page
+      id="Page18">
+      <property
+         name="wildcard">false</property>
+      <property
+         name="y">-118.05176</property>
+      <property
+         name="x">20.0</property>
+      <property
+         name="jspName">/ositran/seguridad/paginaPrincipal.xhtml</property>
+   </Page>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase19"
+      from="Page20"
+      to="Page18">
+      <property
+         name="fromOutcome">success</property>
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="sdm:polyPoints">T50,19.999989,-21.185863,19.999989,-64.21648,B50</property>
+   </NavigationCase>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase20"
+      from="Page18"
+      to="Page13">
+      <property
+         name="fromOutcome">crudTipInf</property>
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="sdm:polyPoints">R50,61.18586,-118.40234,495.88147,-126.9541,L50</property>
    </NavigationCase>
 </SDM>
