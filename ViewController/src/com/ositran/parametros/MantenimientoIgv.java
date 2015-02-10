@@ -99,8 +99,8 @@ public class MantenimientoIgv {
         return commandButtonNuevo;
     }
 
-    public void setNuevo(CommandButton commandButton2) {
-        this.nuevo = commandButton2;
+    public void setNuevo(CommandButton commandButtonNuevo) {
+        this.nuevo = commandButtonNuevo;
     }
 
     public CommandButton getNuevo() {
