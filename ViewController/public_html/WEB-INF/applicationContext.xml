@@ -13,7 +13,7 @@
             <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="username" value="ositran"/>
-            <property name="password" value="123456"/>
+            <property name="password" value="ositran"/>
     </bean>
 
         
