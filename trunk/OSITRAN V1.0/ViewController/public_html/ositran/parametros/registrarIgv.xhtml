@@ -19,7 +19,7 @@
              <p:layout style="min-width:400px;min-height:500px;">
                     <p:layoutUnit position="north">
                         <div style="text-align: center;">
-                            <p:outputLabel value="#{msg.tituloRTDI}"/>
+                            <p:outputLabel value="#{msg.titulo_RIGV}"/>
                         </div>
                     </p:layoutUnit>
                     <p:layoutUnit position="south"></p:layoutUnit>
@@ -30,21 +30,21 @@
                             <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                 <tr>
                                     <td align="left">
-                                        #{etq.etq_ntinfra}
+                                        #{etq.etq_porcentaje}
                                     </td>
                                     <td align="left">
-                                        <h:inputText value="#{backing_parametros_registrarIgv.igvVO.igvPercent}"
+                                        <h:inputText value="#{backing_parametros_registrarIgv.igvVO.igvPorcentaje}"
                                                      required="true" size="30" maxlength="50"/>
                                     </td>
                                 </tr>
                                  
                                 <tr>
                                     <td align="left">
-                                        #{etq.etq_dtinfra}
+                                        #{etq.etq_fvigencia}
                                     </td>
                                     <td align="left">
-                                        <p:inputTextarea value="#{backing_parametros_registrarIgv.igvVO.igvDescrip}"
-                                                         style="width:250px"></p:inputTextarea>
+                                    <p:calendar  locale="es" pattern="dd/mm/yyyy" value="#{backing_parametros_registrarIgv.igvVO.igvFechavigencia}" />
+                                       
                                     </td>
                                 </tr>
                                  
