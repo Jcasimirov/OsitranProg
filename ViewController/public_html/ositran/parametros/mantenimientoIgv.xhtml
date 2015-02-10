@@ -19,15 +19,27 @@
                                                  rowKey="#{igv.igvId}">
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="Porcentaje:"/>
+                                                <h:outputText value="Porcentaje Igv"/>
                                             </f:facet>
-                                            <h:outputText value="#{igv.igvPercent}"/>
+                                            <h:outputText value="#{igv.igvPorcentaje}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="Descripción:"/>
+                                                <h:outputText value="Fecha Vigencia"/>
                                             </f:facet>
-                                            <h:outputText value="#{igv.igvDescrip}"/>
+                                            <h:outputText value="#{igv.igvFechavigencia}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Fecha Caducidad"/>
+                                            </f:facet>
+                                            <h:outputText value="#{igv.igvFechacaducidad}"/>
+                                        </p:column>
+                                         <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Estado"/>
+                                            </f:facet>
+                                            <h:outputText value="#{igv.igvEstado}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
@@ -66,7 +78,8 @@
                             <tr>
                                 <td align="right">
                                     <p:commandButton binding="#{backing_parametros_mantenimientoIgv.commandButtonNuevo}"
-                                                     value="#{btn.btn_nuevo}" action="nuevoIgv"
+                                                     value="#{btn.btn_nuevo}" 
+                                                     action="newigv"                                                     
                                                      id="commandButtonNuevo"/>
                                      
                                     <p:commandButton value="Eliminar"></p:commandButton>

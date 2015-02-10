@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="EmpresaSupervisora" table="T_EMPRESA_SUPERVISORA">
+        <id name="supId" type="java.lang.Integer" access="field">
+            <column name="SUP_ID" />
+            <generator class="increment">
+                <param name="sequence">EMPRESASUPERVISORA_ID_SEQ_GEN</param>
+            </generator>
+        </id>
+        <property name="supCorreo" type="string" column="SUP_CORREO"/>
+        <property name="supDescripcion" type="string" column="SUP_DESCRIPCION"/>        
+        <property name="supDireccion" type="string" column="SUP_DIRECCION"/>
+        <property name="supEstado" type="java.lang.Integer" column="SUP_ESTADO"/>
+        <property name="supFechaAlta" type="java.util.Date" column="SUP_FECHA_ALTA"/>
+        <property name="supFechaBaja" type="java.util.Date" column="SUP_FECHA_BAJA"/>
+        <property name="supFechaCambio" type="java.util.Date" column="SUP_FECHA_CAMBIO"/>        
+        <property name="supNombre" type="string" column="SUP_NOMBRE"/>
+        <property name="supNroDocumento" type="string" column="SUP_NRO_DOCUMENTO"/>
+        <property name="supRepresentanteLegal" type="string" column="SUP_REPRESENTANTE_LEGAL"/>
+        <property name="supTelefono" type="string" column="SUP_TELEFONO"/>
+        <property name="supTerminal" type="string" column="SUP_TERMINAL"/>
+        <property name="supUsuarioAlta" type="string" column="SUP_USUARIO_ALTA"/>
+        <property name="supUsuarioBaja" type="string" column="SUP_USUARIO_BAJA"/>
+        <property name="supUsuarioCambio" type="string" column="SUP_USUARIO_CAMBIO"/>
+        
+    </class>
+</hibernate-mapping>

@@ -79,16 +79,37 @@ public class IgvServiceImpl implements IgvService{
     }
     private IgvVO toIgvVO(Igv igv){
         IgvVO igvVO=new IgvVO();
-        igvVO.setIgvDescrip(igv.getIgvDescrip());
+        igvVO.setIgvEstado(igv.getIgvEstado());
+        igvVO.setIgvFechaAlta(igv.getIgvFechaAlta());
+        igvVO.setIgvFechaBaja(igv.getIgvFechaBaja());
+        igvVO.setIgvFechaCambio(igv.getIgvFechaCambio());
+        igvVO.setIgvFechacaducidad(igv.getIgvFechacaducidad());
+        igvVO.setIgvFechavigencia(igv.getIgvFechavigencia());
+        igvVO.setIgvPorcentaje(igv.getIgvPorcentaje());
+        igvVO.setIgvTerminal(igv.getIgvTerminal());
+        igvVO.setIgvUsuarioAlta(igv.getIgvUsuarioAlta());
+        igvVO.setIgvUsuarioBaja(igv.getIgvUsuarioBaja());
+        igvVO.setIgvUsuarioCambio(igv.getIgvUsuarioCambio());   
         igvVO.setIgvId(igv.getIgvId());
-        igvVO.setIgvPercent(igv.getIgvPercent());
+        
         return igvVO;
     }
     private Igv toIgv(IgvVO igvVO){
         Igv igv=new Igv();
-        igv.setIgvDescrip(igvVO.getIgvDescrip());
+     
+        igv.setIgvEstado(igvVO.getIgvEstado());
+        igv.setIgvFechaAlta(igvVO.getIgvFechaAlta());
+        igv.setIgvFechaBaja(igvVO.getIgvFechaBaja());
+        igv.setIgvFechaCambio(igvVO.getIgvFechaCambio());
+        igv.setIgvFechacaducidad(igvVO.getIgvFechacaducidad());
+        igv.setIgvFechavigencia(igvVO.getIgvFechavigencia());
+        igv.setIgvPorcentaje(igvVO.getIgvPorcentaje());
+        igv.setIgvTerminal(igvVO.getIgvTerminal());
+        igv.setIgvUsuarioAlta(igvVO.getIgvUsuarioAlta());
+        igv.setIgvUsuarioBaja(igvVO.getIgvUsuarioBaja());
+        igv.setIgvUsuarioCambio(igvVO.getIgvUsuarioCambio());   
         igv.setIgvId(igvVO.getIgvId());
-        igv.setIgvPercent(igvVO.getIgvPercent());
+        
         return igv;
         
     }
