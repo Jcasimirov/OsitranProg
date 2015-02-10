@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head></h:head>
+        <h:body>
+            <h:form id="form">
+                <ui:include src="../util/menu.xhtml"/>
+                
+                <p:galleria value="#{imagenesMB.imagenes}" var="image" >
+    <img src="../imagenes#{image}" height="100%" width="100%" alt="imagen#{imagen}" title="#{image}" ></img>
+	</p:galleria>
+            </h:form>
+            
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_seguridad_menu-->
+</f:view>
