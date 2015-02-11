@@ -81,5 +81,9 @@
    <from-outcome>listarIgv</from-outcome>
    <to-view-id>/ositran/parametros/mantenimientoIgv.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>validar</from-outcome>
+   <to-view-id>/ositran/parametros/registrarIgv.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
 </faces-config>
