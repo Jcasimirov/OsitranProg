@@ -1,22 +1,24 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        >
     <html xmlns="http://www.w3.org/1999/xhtml">
-    
         <h:head>
-        <style type="text/css">
-		.ui-panel .ui-panel-titlebar {
-		color: #333333;
-		font-family: Arial, sans-serif;
-		}
-
-	</style>
-        
+            <style type="text/css">
+                .ui-panel .ui-panel-titlebar {
+                    color: #333333;
+                    font-family: Arial, sans-serif;
+                }
+            </style>
         </h:head>
+        
+        
+        
         <h:body>
             <h:form binding="#{backing_parametros_registrarIgv.form1}" id="form1">
-            
-             <p:layout style="min-width:400px;min-height:500px;">
+                
+                <p:layout style="min-width:400px;min-height:500px;">
+                
                     <p:layoutUnit position="north">
                         <div style="text-align: center;">
                             <p:outputLabel value="#{msg.titulo_RIGV}"/>
@@ -27,42 +29,51 @@
                         <!-- <p:panel header="Registrar Tipo de Infraestructura" style=";text-align:center;text-decoration:blink;font-size:19px"> -->
                         <div align="center" style="width: 100%">
                             
-                            <table style="margin-bottom:5px;font-size: 11px;text-align:center">
-                                <tr>
-                                    <td align="left">
-                                        #{etq.etq_porcentaje}
-                                    </td>
-                                    <td align="left">
-                                        <h:inputText value="#{backing_parametros_registrarIgv.igvVO.igvPorcentaje}"
-                                                     required="true" size="30" maxlength="50"/>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="left">
-                                        #{etq.etq_fvigencia}
-                                    </td>
-                                    <td align="left">
-                                    <p:calendar  locale="es" pattern="dd/mm/yyyy" value="#{backing_parametros_registrarIgv.igvVO.igvFechavigencia}" />
-                                       
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="center" colspan="2">
-                                        <h:commandButton value="Grabar Datos"
-                                                         action="#{backing_parametros_registrarIgv.igvIns}"/>
-                                         
-                                        <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
-                                    </td>
-                                </tr>
-                            </table>
+                            <p:panelGrid binding="#{backing_parametros_registrarIgv.panelGrid1}" id="panelGrid1"
+                                         columns="3">
+                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelPorcentaje}"
+                                               id="outputLabelPorcentaje" value="#{etq.etq_porcentaje}"/>
+                                <p:inputText binding="#{backing_parametros_registrarIgv.inputTextPorcentaje}"
+                                             id="inputTextPorcentaje"
+                                             value="#{backing_parametros_registrarIgv.igvVO.igvPorcentaje}"/>
+                                            <!-- requiredMessage="Please enter a percent value."
+                                            validatorMessage="Invalid format">
+                                             <f:validateRegex pattern="^(0*100{1,1}\.?((?=\.)0*)?%?$)|(^0*\d{0,2}\.?((?=\.)\d*)?%?)$" />-->
+                              
+                              <!--  <p:message binding="#{backing_parametros_registrarIgv.message1}" id="message1" for="inputTextPorcentaje"/> -->
+                                
+                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelFechavigencia}"
+                                               id="outputLabelFechavigencia" value="#{etq.etq_fvigencia}"/>
+                                <p:calendar binding="#{backing_parametros_registrarIgv.calendarFechaVigencia}"
+                                            id="calendarFechaVigencia" locale="es" pattern="dd/mm/yyyy"
+                                            value="#{backing_parametros_registrarIgv.igvVO.igvFechavigencia}"/>
+                                 <!-- <p:message binding="#{backing_parametros_registrarIgv.message2}" id="message2"
+                                           for="calendarFechaVigencia"/> -->
+                                
+                                
+                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelFechaCaducidad}"
+                                               id="outputLabelFechaCaducidad" value="#{etq.etq_fcaducidad}"/>
+                                <p:calendar binding="#{backing_parametros_registrarIgv.calendarFechaCaducidad}"
+                                            id="calendarFechaCaducidad" locale="es" pattern="dd/mm/yyyy"
+                                            value="#{backing_parametros_registrarIgv.igvVO.igvFechacaducidad}" 
+                                            />
+                                 <!-- <p:message binding="#{backing_parametros_registrarIgv.message3}" id="message3"
+                                           for="calendarFechaCaducidad"/>-->
+                                
+                       
+                                  
+                                             
+                                <h:commandButton value="Grabar Datos"
+                                                 actionListener="#{backing_parametros_registrarIgv.igvInsertar}" 
+                                                 action="listarIgv"/>
+                   
+                                                 
+                                <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
+                            </p:panelGrid>
                         </div>
                         <!-- </p:panel> -->
                     </p:layoutUnit>
                 </p:layout>
-            
-            
             </h:form>
         </h:body>
     </html>

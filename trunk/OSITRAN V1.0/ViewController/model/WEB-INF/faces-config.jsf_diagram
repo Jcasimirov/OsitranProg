@@ -192,4 +192,16 @@
       <property
          name="sdm:polyPoints">L54,337.3662,269.1953,2.6178427,272.61502,R54</property>
    </NavigationCase>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase24"
+      from="Page22"
+      to="Page22">
+      <property
+         name="fromOutcome">validar</property>
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="sdm:polyPoints">T44,374.8662,211.69531,381.8662,211.69531,T56</property>
+   </NavigationCase>
 </SDM>
