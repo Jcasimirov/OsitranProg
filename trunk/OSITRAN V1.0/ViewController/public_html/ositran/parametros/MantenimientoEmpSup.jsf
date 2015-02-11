@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head></h:head>
+        <ui:include src="/ositran/util/menu.xhtml"/>
+        <h:body>
+            <h:form binding="#{backing_ositran_parametros_MantenimientoEmpSup.form1}" id="form1">
+                <p:layout style="min-width:400px;min-height:500px;">
+                    <p:layoutUnit position="north">
+                        <div style="text-align: center;">
+                            <p:outputLabel value="#{msg.tituloMES}"/>
+                        </div>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south"></p:layoutUnit>
+                    <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
+                        <div align="center" style="font-size: 11px">
+                            <div align="center" style="width:75%">
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                    <tr>
+                                        <td>
+                                            #{etq.etq_nombre_empsup}
+                                        </td>
+                                        <td>
+                                            <p:inputText></p:inputText>
+                                        </td>
+                                        
+                                        <td>
+                                            <p:commandButton value="#{btn.btn_buscar}"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td>
+                                            #{etq.etq_nrocontrato}
+                                        </td>
+                                        <td>
+                                            <p:inputText></p:inputText>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <p:commandButton value="#{btn.btn_limpiar}"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left"></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.query}" var="empsup"
+                                                 selectionMode="single" style="font-size:0.62em;width:600px;margin:auto"
+                                                 rowKey="#{empsup.igvId}">
+                                            <p:column headerText="Nro. Contrato">
+                                                <h:outputText value="empsup.supNroDocumento"/>
+                                            </p:column>
+                                            <p:column headerText="Empresa Supervisora">
+                                                <h:outputText value="empsup.supNombre"/>
+                                            </p:column>
+                                            <p:column headerText="Representante Legal">
+                                                <h:outputText value="empsup.supRepresentanteLegal"/>
+                                            </p:column>
+                                            <p:column headerText="Ver">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Modificar">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Eliminar">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </tr>
+                                     
+                                    <tr style="font-size: 11px">
+                                        <td align="left">
+                                            <p:commandButton value="#{btn.btn_nuevo}"></p:commandButton>
+                                        </td>
+                                        <td colspan="3">
+                                            <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_parametros_MantenimientoEmpSup-->
+</f:view>
