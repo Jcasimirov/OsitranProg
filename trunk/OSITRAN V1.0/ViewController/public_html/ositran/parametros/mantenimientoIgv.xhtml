@@ -16,7 +16,14 @@
                                 <td colspan="3">
                                     <p:dataTable value="#{backing_parametros_mantenimientoIgv.query}" var="igv"
                                                  selectionMode="single" style="font-size:0.62em;width:600px;margin:auto"
-                                                 rowKey="#{igv.igvId}">
+                                                 rowKey="#{igv.igvId}"
+                                   rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"              
+                                                 
+                                                 
+                                                 >
                                         <p:column headerText="Porcentaje Igv">
                                             <h:outputText value="#{igv.igvPorcentaje}"/>
                                         </p:column>
