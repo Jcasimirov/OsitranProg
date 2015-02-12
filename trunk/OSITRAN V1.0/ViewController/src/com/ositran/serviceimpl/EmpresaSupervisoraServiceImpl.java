@@ -26,6 +26,7 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.query();
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;
+        
     }
 
     @Override
@@ -58,8 +59,8 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     //conversiones
     private List<EmpresaSupervisoraVO> toListEmpresaSupervisoraVO(List<EmpresaSupervisora> list){
         List<EmpresaSupervisoraVO> listVO=new ArrayList<EmpresaSupervisoraVO>();
-        for(int i=0;i<list.size();i++){
-            EmpresaSupervisora empresaSupervisora=(EmpresaSupervisora)list.get(i);
+        for(int i=0;i<list.size();i++){           
+            EmpresaSupervisora empresaSupervisora=(EmpresaSupervisora)list.get(i);            
             EmpresaSupervisoraVO empresaSupervisoraVO=toEmpresaSupervisoraVO(empresaSupervisora);
             listVO.add(empresaSupervisoraVO);
         }
