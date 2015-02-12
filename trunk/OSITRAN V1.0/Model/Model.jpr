@@ -60,7 +60,6 @@
    </list>
    <value n="defaultPackage" v="model"/>
    <hash n="ejbModuleContainer">
-      <value n="dbConnection" v="Connection1"/>
       <value n="ejbMetaDataPrefs" v="PREFASANNON"/>
       <value n="ejbVersion" v="3.0"/>
       <value n="ejbVersionMinor" v="0.1"/>
