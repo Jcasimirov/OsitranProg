@@ -67,8 +67,7 @@ public class Logueo {
             String usu = (String)usuario.getValue();
             String passw = (String)pass.getValue();
             if (usu.equals("admin") && passw.equals("admin")) {
-
-                return "success";
+                return "login";
             } else {
                 return "error";
             }
