@@ -27,32 +27,36 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Fecha Vigencia"/>
                                             </f:facet>
-                                            <h:outputText value="#{igv.igvFechavigencia}"/>
+                                            <h:outputText value="#{igv.igvFechavigencia}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                             </h:outputText>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Fecha Caducidad"/>
                                             </f:facet>
-                                            <h:outputText value="#{igv.igvFechacaducidad}"/>
+                                            <h:outputText value="#{igv.igvFechacaducidad}">
+                                             <f:convertDateTime pattern="dd/MM/yyyy" />
+                                             </h:outputText>
                                         </p:column>
                                          <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Estado"/>
                                             </f:facet>
-                                            <h:outputText value="#{igv.igvEstado}"/>
+                                            <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}" />
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value=""/>
+                                                <h:outputText value="Actualizar"/>
                                             </f:facet>
-                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvUpd1}"
-                                                           value="Editar" style="width:25px">
+                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvActualizarEstado}"
+                                                           value="Actualizar" style="width:25px">
                                                 <f:param id="id2" name="id2" value="#{igv.igvId}"/>
                                             </h:commandLink>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value=""/>
+                                                <h:outputText value="Eliminar"/>
                                             </f:facet>
                                             <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvDel}"
                                                            value="Eliminar" style="width:25px">
