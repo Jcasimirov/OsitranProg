@@ -17,38 +17,23 @@
                                     <p:dataTable value="#{backing_parametros_mantenimientoIgv.query}" var="igv"
                                                  selectionMode="single" style="font-size:0.62em;width:600px;margin:auto"
                                                  rowKey="#{igv.igvId}">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Porcentaje Igv"/>
-                                            </f:facet>
+                                        <p:column headerText="Porcentaje Igv">
                                             <h:outputText value="#{igv.igvPorcentaje}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Fecha Vigencia"/>
-                                            </f:facet>
+                                        <p:column headerText="Fecha Vigencia">
                                             <h:outputText value="#{igv.igvFechavigencia}">
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                              </h:outputText>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Fecha Caducidad"/>
-                                            </f:facet>
+                                        </p:column >
+                                        <p:column headerText="Fecha Caducidad">
                                             <h:outputText value="#{igv.igvFechacaducidad}">
                                              <f:convertDateTime pattern="dd/MM/yyyy" />
                                              </h:outputText>
                                         </p:column>
-                                         <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Estado"/>
-                                            </f:facet>
+                                         <p:column headerText="Estado">
                                             <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}" />
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Actualizar"/>
-                                            </f:facet>
+                                        <p:column headerText="Actualizar" >
                                             <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvActualizarEstado}"
                                                            value="Actualizar" style="width:25px">
                                                 <f:param id="id2" name="id2" value="#{igv.igvId}"/>
