@@ -34,7 +34,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,-121.88565,18.097248,297.20953,17.871275,L50</property>
+         name="sdm:polyPoints">T50,-162.88565,-35.902752,338.20953,-36.128723,T50</property>
    </NavigationCase>
    <Page
       id="Page12">
@@ -69,17 +69,6 @@
          name="x">555.62964</property>
       <property
          name="jspName">/ositran/parametros/registrarTipoInfraestructura.xhtml</property>
-   </Page>
-   <Page
-      id="Page17">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">-75.836075</property>
-      <property
-         name="x">57.06038</property>
-      <property
-         name="jspName">/ositran/seguridad/menu.xhtml</property>
    </Page>
    <Page
       id="Page20">
@@ -136,7 +125,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,-38.310547,-214.60352,219.34314,-271.77884,L50</property>
+         name="sdm:polyPoints">R50,-28.310547,-230.30469,219.34314,-271.77884,L50</property>
    </NavigationCase>
    <Page
       id="Page22">
@@ -190,9 +179,9 @@
       <property
          name="wildcard">false</property>
       <property
-         name="y">-214.25293</property>
+         name="y">-229.9541</property>
       <property
-         name="x">-79.31055</property>
+         name="x">-69.31055</property>
       <property
          name="jspName">/ositran/principal.xhtml</property>
    </Page>
@@ -206,6 +195,6 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,-245.6872,-108.388855,-120.31055,-214.60352,L50</property>
+         name="sdm:polyPoints">R50,-245.6872,-108.388855,-110.31055,-230.30469,L50</property>
    </NavigationCase>
 </SDM>
