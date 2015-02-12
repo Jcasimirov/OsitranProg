@@ -44,14 +44,16 @@ public class RegistrarTipoInfraestructura {
         return list;
     }
     
-    public String infraestructuraTipoIns(){
-        System.out.println("id = "+infraestructuraTipoVO.getTinId());
+    public void infraestructuraTipoIns(){
+        this.infraestructuraTipoServiceImpl.insert(infraestructuraTipoVO);
+           
+        /*   System.out.println("id = "+infraestructuraTipoVO.getTinId());
         System.out.println("Nombre = "+infraestructuraTipoVO.getTinNombre());
         System.out.println("Descripcion = "+infraestructuraTipoVO.getTinDescripcion());
         System.out.println("infraestructuraTipoVO: "+infraestructuraTipoVO);
         System.out.println("infraestructuraTipoServiceImpl ="+infraestructuraTipoServiceImpl);
         this.infraestructuraTipoServiceImpl.insert(infraestructuraTipoVO);
-        return "/index?faces-redirect=true";
+        return "/index?faces-redirect=true"; */
     }
     
     public String infraestructuraTipoDel(ActionEvent event){
