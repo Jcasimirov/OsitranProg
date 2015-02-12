@@ -3,6 +3,7 @@ package com.ositran.parametros;
 import com.ositran.serviceimpl.IgvServiceImpl;
 import com.ositran.vo.bean.IgvVO;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,12 +65,28 @@ public class MantenimientoIgv {
    
     
     public String igvDel(ActionEvent event){
-        UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
+        UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
         Integer idigv=(Integer)parameter.getValue();
         this.igvServiceImpl.delete(idigv);
         return "/index?faces-redirect=true";
     }
     
+
+    public Date getObtenerFechaHoy(){
+        Date date=null;
+        try{
+            date=new Date();
+        }catch(Exception e){
+            e.getMessage();
+        }
+        return date;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new RegistrarIgv().getObtenerFechaHoy());
+        ;
+    }
+
 
 
     public String igvActualizarEstado(){
@@ -79,9 +96,23 @@ public class MantenimientoIgv {
         Integer idigv=Integer.valueOf(str.toString());
         igvVO=this.igvServiceImpl.get(idigv);
         igvVO.setIgvEstado(0);
+        igvVO.setIgvFechaCambio(getObtenerFechaHoy());
         this.igvServiceImpl.update(igvVO);
         return "listarIgv";
     }
+    
+    public String igvEliminar(){
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("id1");
+        Integer idigv=Integer.valueOf(str.toString());
+        igvVO=this.igvServiceImpl.get(idigv);
+        igvVO.setIgvEstado(2);
+        igvVO.setIgvFechaBaja(getObtenerFechaHoy());
+        this.igvServiceImpl.update(igvVO);
+        return "listarIgv";
+    }
+    
 
 
 
