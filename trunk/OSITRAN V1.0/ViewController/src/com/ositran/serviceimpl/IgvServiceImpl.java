@@ -14,6 +14,9 @@ import com.ositran.vo.bean.IgvVO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
 
 public class IgvServiceImpl implements IgvService{
     private IgvDAOImpl igvDAOImpl;
@@ -50,6 +53,12 @@ public class IgvServiceImpl implements IgvService{
         String result=this.igvDAOImpl.delete(id);
         return result;
     }
+    
+     
+    /*   public Integer cambiarEstado(Integer estado) {
+        Integer result=this.igvDAOImpl.update(estado);
+        return result;
+    }  */
 
     @Override
     public String update(IgvVO igvVO) {
@@ -114,5 +123,11 @@ public class IgvServiceImpl implements IgvService{
         
     }
 
-    
+
+
+
+
+
+
+   
 }
