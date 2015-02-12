@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import java.math.BigDecimal;
 
+import java.net.InetAddress;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,6 +17,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+
+import java.net.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Igv.findAll", query = "select o from Igv o") })
@@ -140,7 +147,7 @@ public class Igv implements Serializable {
 
     public void setIgvTerminal(String igvTerminal) {
         this.igvTerminal = igvTerminal;
-    }
+        }
 
     public String getIgvTerminal() {
         return igvTerminal;
@@ -169,5 +176,4 @@ public class Igv implements Serializable {
     public String getIgvUsuarioCambio() {
         return igvUsuarioCambio;
     }
-
 }
