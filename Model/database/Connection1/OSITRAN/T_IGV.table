@@ -32,7 +32,7 @@
         <attributeValues>
           <entry>
             <key>precision</key>
-            <value class="java.lang.String">2</value>
+            <value class="java.lang.String">5</value>
           </entry>
           <entry>
             <key>scale</key>
@@ -347,127 +347,6 @@
       </properties>
     </column>
   </columns>
-  <constraints>
-    <constraint class="oracle.javatools.db.PKConstraint">
-      <name>SYS_C007636</name>
-      <columnIDs>
-        <columnID class="oracle.javatools.db.NameBasedID">
-          <name>IGV_ID</name>
-          <parent class="oracle.javatools.db.NameBasedID">
-            <name>T_IGV</name>
-            <schemaName>OSITRAN</schemaName>
-            <type>TABLE</type>
-          </parent>
-          <schemaName>OSITRAN</schemaName>
-          <type>COLUMN</type>
-        </columnID>
-      </columnIDs>
-      <enabled>true</enabled>
-      <indexID class="oracle.javatools.db.NameBasedID">
-        <name>SYS_C007636</name>
-        <parent class="oracle.javatools.db.NameBasedID">
-          <name>T_IGV</name>
-          <schemaName>OSITRAN</schemaName>
-          <type>TABLE</type>
-        </parent>
-        <schemaName>OSITRAN</schemaName>
-        <type>INDEX</type>
-      </indexID>
-      <properties>
-        <entry>
-          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
-          <value class="oracle.javatools.db.ReferenceID">
-            <name>SYS_C007636</name>
-            <childObjectNames>
-              <childObjectName>IGV_ID</childObjectName>
-            </childObjectNames>
-            <parent class="oracle.javatools.db.ReferenceID">
-              <name>T_IGV</name>
-              <identifier class="java.math.BigDecimal">20523</identifier>
-              <schemaName>OSITRAN</schemaName>
-              <type>TABLE</type>
-            </parent>
-            <subType>PKConstraint</subType>
-            <type>CONSTRAINT</type>
-          </value>
-        </entry>
-      </properties>
-    </constraint>
-  </constraints>
-  <indexes>
-    <index>
-      <name>SYS_C007636</name>
-      <columnExpressions>
-        <columnExpression>
-          <expressionSource>IGV_ID</expressionSource>
-          <orderType>ASC</orderType>
-          <properties>
-            <entry>
-              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
-              <value class="oracle.javatools.db.ReferenceID">
-                <name>IGV_ID</name>
-                <parent class="oracle.javatools.db.ReferenceID">
-                  <name>SYS_C007636</name>
-                  <identifier class="java.math.BigDecimal">20524</identifier>
-                  <parent class="oracle.javatools.db.ReferenceID">
-                    <name>T_IGV</name>
-                    <identifier class="java.math.BigDecimal">20523</identifier>
-                    <schemaName>OSITRAN</schemaName>
-                    <type>TABLE</type>
-                  </parent>
-                  <schemaName>OSITRAN</schemaName>
-                  <type>INDEX</type>
-                </parent>
-                <type>IndexObject</type>
-              </value>
-            </entry>
-          </properties>
-        </columnExpression>
-      </columnExpressions>
-      <indexType>UNIQUE</indexType>
-      <parallelDegree>1</parallelDegree>
-      <properties>
-        <entry>
-          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
-          <value class="oracle.javatools.db.ReferenceID">
-            <name>SYS_C007636</name>
-            <identifier class="java.math.BigDecimal">20524</identifier>
-            <parent class="oracle.javatools.db.ReferenceID">
-              <name>T_IGV</name>
-              <identifier class="java.math.BigDecimal">20523</identifier>
-              <schemaName>OSITRAN</schemaName>
-              <type>TABLE</type>
-            </parent>
-            <schemaName>OSITRAN</schemaName>
-            <type>INDEX</type>
-          </value>
-        </entry>
-        <entry>
-          <key>OracleStorageProperties</key>
-          <value class="oracle.javatools.db.ora.OracleStorageProperties">
-            <bufferMode>DEFAULT</bufferMode>
-            <freelistGroups>1</freelistGroups>
-            <freelists>1</freelists>
-            <initialExtent>65536</initialExtent>
-            <initrans>2</initrans>
-            <logging>true</logging>
-            <maxExtent>0</maxExtent>
-            <minExtent>1</minExtent>
-            <nextExtent>1048576</nextExtent>
-            <percentFree>10</percentFree>
-            <tablespaceID class="oracle.javatools.db.ReferenceID">
-              <name>SYSTEM</name>
-              <type>TABLESPACE</type>
-            </tablespaceID>
-          </value>
-        </entry>
-      </properties>
-      <schema>
-        <name>OSITRAN</name>
-      </schema>
-      <systemGenerated>true</systemGenerated>
-    </index>
-  </indexes>
   <properties>
     <entry>
       <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
