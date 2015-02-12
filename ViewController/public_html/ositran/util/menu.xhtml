@@ -41,25 +41,7 @@
                                 <img src="../../imagenes/ositranfoto.jpg" width="150px" height="150px"/>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Parametros" icon="ui-icon-document">
-                            <p:column>
-                                <p:submenu label="Concesionario">
-                                    <p:menuitem value="Mantenimiento Concesionario" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
-                                </p:submenu>
-                                <p:submenu label="Infraestructura">
-                                    <p:menuitem value="#{menu.menuMTI}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
-                                </p:submenu>
-                                <p:submenu label="IGV">
-                                    <p:menuitem value="Mantenimiento Igv" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
-                                </p:submenu>
-                                <p:submenu label="Empresa Supervisora">
-                                    <p:menuitem value="Mantenimiento Empresa Supervisora" url="/faces/ositran/parametros/MantenimientoEmpSup.jsf"/>
-                                </p:submenu>
-                            </p:column>
-                            <p:column>
-                                <img src="../../imagenes/parametros.png" width="150px" height="150px"/>
-                            </p:column>
-                        </p:submenu>
+                        
                         <p:submenu label="Reporte" icon="ui-icon-pencil">
                             <p:column>
                                 <p:submenu label="Entertainment.1">
@@ -91,7 +73,30 @@
                                     <p:menuitem value="Tech.4.2" url="#"/>
                                 </p:submenu>
                             </p:column>
+                        </p:submenu>                        
+                        <p:submenu label="Parametros" icon="ui-icon-document">
+                            <p:column>
+                                <p:submenu label="Concesionario">
+                                    <p:menuitem value="Mantenimiento Concesionario" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="Empresa Supervisora">
+                                    <p:menuitem value="Mantenimiento Empresa Supervisora" url="/faces/ositran/parametros/MantenimientoEmpSup.jsf"/>
+                                </p:submenu>
+                                <p:submenu label="IGV">
+                                    <p:menuitem value="Mantenimiento Igv" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="Infraestructura">
+                                    <p:menuitem value="#{menu.menuMTI}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="Inversion">
+                                    <p:menuitem value="Mantenimiento Tipo de Inversión" url="/faces/ositran/parametros/mantenimientoTipoInversion.xhtml"/>
+                                </p:submenu>
+                            </p:column>
+                            <p:column>
+                                <img src="../../imagenes/parametros.png" width="150px" height="150px"/>
+                            </p:column>
                         </p:submenu>
+
                         <p:menuitem value="Cerrar Sesion" url="http://www.primefaces.org" icon="ui-icon-close"/>
                     </p:megaMenu>
             
