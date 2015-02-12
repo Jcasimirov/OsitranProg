@@ -21,6 +21,7 @@ import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.datagrid.DataGrid;
+import org.primefaces.component.dialog.Dialog;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.message.Message;
 import org.primefaces.component.messages.Messages;
@@ -48,6 +49,7 @@ public class RegistrarIgv {
    
    
     private CommandButton commandButton1;
+    private Dialog dialog1;
 
     public void setigvServiceImpl(IgvServiceImpl igvServiceImpl) {
         this.igvServiceImpl = igvServiceImpl;
@@ -196,5 +198,13 @@ public class RegistrarIgv {
 
     public CommandButton getCommandButton1() {
         return commandButton1;
+    }
+
+    public void setDialog1(Dialog dialog1) {
+        this.dialog1 = dialog1;
+    }
+
+    public Dialog getDialog1() {
+        return dialog1;
     }
 }
