@@ -2,8 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,7 +34,7 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_DIRECCION", length = 20)
     private String cncDireccion;
     @Column(name = "CNC_ESTADO", nullable = false)
-    private BigDecimal cncEstado;
+    private Integer cncEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CNC_FECHA_ALTA")
     private Date cncFechaAlta;
@@ -49,7 +47,7 @@ public class Concesionario implements Serializable {
     @Id
     @Column(name = "CNC_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TConcesionario_Id_Seq_Gen")
-    private BigDecimal cncId;
+    private Integer cncId;
     @Column(name = "CNC_NOMBRE", nullable = false, length = 100)
     private String cncNombre;
     @Column(name = "CNC_NRO_DOCUMENTO", length = 20)
@@ -67,18 +65,18 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_USUARIO_CAMBIO", length = 20)
     private String cncUsuarioCambio;
     @Column(name = "CRG_ID")
-    private BigDecimal crgId;
+    private Integer crgId;
     @Column(name = "TDO_ID")
-    private BigDecimal tdoId;
+    private Integer tdoId;
 
     public Concesionario() {
     }
 
-    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, BigDecimal cncEstado,
-                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, BigDecimal cncId, String cncNombre,
+    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, Integer cncEstado,
+                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, Integer cncId, String cncNombre,
                           String cncNroDocumento, String cncRepresentanteLegal, String cncTelefono, String cncTerminal,
-                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, BigDecimal crgId,
-                          BigDecimal tdoId) {
+                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, Integer crgId,
+                          Integer tdoId) {
         this.cncCorreo = cncCorreo;
         this.cncDescripcion = cncDescripcion;
         this.cncDireccion = cncDireccion;
@@ -123,11 +121,11 @@ public class Concesionario implements Serializable {
         this.cncDireccion = cncDireccion;
     }
 
-    public BigDecimal getCncEstado() {
+    public Integer getCncEstado() {
         return cncEstado;
     }
 
-    public void setCncEstado(BigDecimal cncEstado) {
+    public void setCncEstado(Integer cncEstado) {
         this.cncEstado = cncEstado;
     }
 
@@ -155,8 +153,12 @@ public class Concesionario implements Serializable {
         this.cncFechaCambio = cncFechaCambio;
     }
 
-    public BigDecimal getCncId() {
+    public Integer getCncId() {
         return cncId;
+    }
+
+    public void setCncId(Integer cncId) {
+        this.cncId = cncId;
     }
 
     public String getCncNombre() {
@@ -223,19 +225,19 @@ public class Concesionario implements Serializable {
         this.cncUsuarioCambio = cncUsuarioCambio;
     }
 
-    public BigDecimal getCrgId() {
+    public Integer getCrgId() {
         return crgId;
     }
 
-    public void setCrgId(BigDecimal crgId) {
+    public void setCrgId(Integer crgId) {
         this.crgId = crgId;
     }
 
-    public BigDecimal getTdoId() {
+    public Integer getTdoId() {
         return tdoId;
     }
 
-    public void setTdoId(BigDecimal tdoId) {
+    public void setTdoId(Integer tdoId) {
         this.tdoId = tdoId;
     }
 }
