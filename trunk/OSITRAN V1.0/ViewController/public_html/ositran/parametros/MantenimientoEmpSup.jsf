@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
+          xmlns:ui="http://java.sun.com/jsf/facelets">
         <h:head></h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
@@ -24,7 +25,6 @@
                                         <td>
                                             <p:inputText></p:inputText>
                                         </td>
-                                        
                                         <td>
                                             <p:commandButton value="#{btn.btn_buscar}"/>
                                         </td>
@@ -52,25 +52,38 @@
                                     </tr>
                                      
                                     <tr>
-                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.query}" var="empsup"
-                                                 selectionMode="single" style="font-size:0.62em;width:600px;margin:auto"
-                                                 rowKey="#{empsup.igvId}">
-                                            <p:column headerText="Nro. Contrato">
-                                                <h:outputText value="empsup.supNroDocumento"/>
+                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.query}"
+                                                     var="empSup" selectionMode="single"
+                                                     style="font-size:0.62em;width:600px;margin:auto"
+                                                     rowKey="#{empSup.supId}">
+                                            <p:column headerText="Nro. Documento">
+                                                <h:outputText value="#{empSup.supNroDocumento}"/>
                                             </p:column>
                                             <p:column headerText="Empresa Supervisora">
-                                                <h:outputText value="empsup.supNombre"/>
+                                                <h:outputText value="#{empSup.supNombre}"/>
                                             </p:column>
                                             <p:column headerText="Representante Legal">
-                                                <h:outputText value="empsup.supRepresentanteLegal"/>
+                                                <h:outputText value="#{empSup.supRepresentanteLegal}"/>
                                             </p:column>
                                             <p:column headerText="Ver">
+                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
+                                                               value="Ver" style="width:25px">
+                                                    <f:param id="id2" name="id2" value="#{empSup.supId}"/>
+                                                </h:commandLink>
                                                 <h:outputText value=""/>
                                             </p:column>
                                             <p:column headerText="Modificar">
+                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
+                                                               value="Ver" style="width:25px">
+                                                    <f:param id="id3" name="id3" value="#{empSup.supId}"/>
+                                                </h:commandLink>
                                                 <h:outputText value=""/>
                                             </p:column>
                                             <p:column headerText="Eliminar">
+                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupDel}"
+                                                               value="Eliminar" style="width:25px">
+                                                    <f:param id="id1" value="#{empSup.supId}"/>
+                                                </h:commandLink>
                                                 <h:outputText value=""/>
                                             </p:column>
                                         </p:dataTable>
