@@ -3,7 +3,6 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
@@ -23,13 +22,15 @@
         <mapping class="com.ositran.model.Usuario"/>
         <mapping class="com.ositran.model.InfraestructuraTipo"/>
         <mapping class="com.ositran.model.Igv"/>
+        <mapping class="com.ositran.model.Concesion"/>
         <mapping class="com.ositran.model.EmpresaSupervisora"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
         <mapping resource="./com/ositran/model/Usuario.hbm.xml"/>
-         <mapping resource="./com/ositran/model/InfraestructuraTipo.hbm.xml"/>
-         <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
-         <mapping resource="./com/ositran/model/EmpresaSupervisora.hbm.xml"/>
+        <mapping resource="./com/ositran/model/InfraestructuraTipo.hbm.xml"/>
+        <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
+        <mapping resource="./com/ositran/model/Concesion.hbm.xml"/>
+        <mapping resource="./com/ositran/model/EmpresaSupervisora.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
