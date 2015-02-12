@@ -25,6 +25,10 @@
 		<base-name>com.ositran.bundle.datatable</base-name>
 		<var>tab</var>			
 	</resource-bundle>
+	<resource-bundle>
+		<base-name>com.ositran.bundle.menu</base-name>
+		<var>menu</var>			
+	</resource-bundle>        
     </application>
     <application>
         <variable-resolver>
