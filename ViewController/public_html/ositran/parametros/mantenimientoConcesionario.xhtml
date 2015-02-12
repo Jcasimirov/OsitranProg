@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <style type="text/css">
+                .ui-panel .ui-panel-titlebar {
+                    color: #333333;
+                    font-family: Arial, sans-serif;
+                }
+            </style>
+        </h:head>
+        <h:body>
+            <ui:include src="/ositran/util/menu_cabecera.xhtml"/>
+            <p:layout style="min-width:400px;min-height:500px;">
+                <p:layoutUnit position="north">
+                    <div style="text-align: center;">
+                        <p:outputLabel value="#{msg.tituloMCRIO}"/>
+                    </div>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
+                    <h:form>
+                        <div align="center" style="font-size: 11px">
+                            <div align="center" style="width:75%">
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                    <tr>
+                                        <td align="left">
+                                            #{etq.etq_nombre}
+                                        </td>
+                                        <td>
+                                            <p:inputText></p:inputText>
+                                        </td>
+                                        <td>
+                                            #{etq.etq_tipoInfra}
+                                        </td>
+                                        <td>
+                                            <p:inputText></p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:commandButton value="#{btn.btn_buscar}"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="left">
+                                            #{etq.etq_concesion}
+                                        </td>
+                                        <td colspan="3" align="left">
+                                            <p:selectOneMenu>
+                                                <f:selectItem itemLabel="	-Seleccione-" itemValue="1"/>
+                                                <f:selectItem itemLabel="Tipo1" itemValue="1"/>
+                                                <f:selectItem itemLabel="Tipo2" itemValue="2"/>
+                                                <f:selectItem itemLabel="Tipo3" itemValue="3"/>
+                                            </p:selectOneMenu>
+                                        </td>
+                                        <td>
+                                            <p:commandButton value="#{btn.btn_limpiar}"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left"></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <p:dataTable>
+                                            <p:column headerText="Nombre Concesionario">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Concesion">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Tipo Infraestructura">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Ver">
+                                                <h:outputText value=""/>
+                                            </p:column>                                            
+                                            <p:column headerText="Modificar">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                            <p:column headerText="Eliminar">
+                                                <h:outputText value=""/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </tr>
+                                     
+                                    <tr style="font-size: 11px">
+                                        <td align="left">
+                                            <p:commandButton value="#{btn.btn_nuevo}"></p:commandButton>
+                                        </td>
+                                        <td colspan="3">
+                                            <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south"></p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_parametros_mantenimientoConcesionario-->
+</f:view>
