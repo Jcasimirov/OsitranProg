@@ -12,10 +12,13 @@ import org.springframework.stereotype.Repository;
 import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.EmpresaSupervisora;
 import com.ositran.model.Event;
+import com.ositran.model.Igv;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.hibernate.HibernateUtil;
 
 import java.math.BigDecimal;
+
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -48,6 +51,20 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
 	}
+        
+    public EmpresaSupervisoraDAOImpl() {
+        super();
+    }
+    
+    @Override
+    public List<EmpresaSupervisora> query() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List list= session.createQuery("select o from EmpresaSupervisora o").list();            
+        System.out.println("LISTA = "+list);
+        session.getTransaction().commit();
+        return list;
+    }
 
         @Override
         public String insert(EmpresaSupervisora empresaSupervisora) {
@@ -90,7 +107,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
                 session.beginTransaction();
                 session.update(empresaSupervisora);
                 session.getTransaction().commit();
-                logger.info("InfraestructuraTipo updated successfully, InfraestructuraTipo Details="+empresaSupervisora);
+                logger.info("EmpresaSupervisora updated successfully, EmpresaSupervisora Details="+empresaSupervisora);
             } catch (Exception e) {
                 session.getTransaction().rollback();
                 result=e.getMessage();
@@ -108,54 +125,4 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
             return empresaSupervisora;
         }
 
-        @Override
-        public List query() {
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-            List list=session.createQuery("select o from EmpresaSupervisora o").list();
-            System.out.println("LISTA = "+list);
-            session.getTransaction().commit();
-            return list;
-        }
-        
-        public static void main(String[] args) {
-            EmpresaSupervisoraDAOImpl daoImpl=new EmpresaSupervisoraDAOImpl();
-            //daoImpl.query();
-            /*
-             * Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            session.beginTransaction();
-            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(); // NPE
-            session = sessionFactory.openSession();
-            System.out.println("Inserting Record");
-            Event contact = new Event();
-            contact.setTitle("Deepak3");
-            session.save(contact);
-            System.out.println("Done");
-            Transaction tx = session.beginTransaction();
-            session.flush();
-            session.getTransaction().commit();
-            tx.commit();
-            session.close();
-            */
-            Resource resource = new FileSystemResource("src/spring-hibernate.xml");
-            BeanFactory factory = new XmlBeanFactory(resource);
-            System.out.println(factory);
-            /*InfraestructuraTipoDAOImpl servicio=(InfraestructuraTipoDAOImpl)factory.getBean("InfraestructuraTipoDAO");
-            
-            InfraestructuraTipo u=new InfraestructuraTipo();
-            u.setId(2);
-            u.setNombre("nombre");
-            u.setCountry("country");
-            servicio.insert(u);
-            /*
-            servicio.insertarEvent(event2);
-            servicio.insertarEvent(event3);
-            servicio.insertarEvent(event4);
-            servicio.insertarEvent(event5);
-            */
-            //Event e4=servicio.obtenerEvent(event4.getId());
-            //System.out.println(e4.getId()+" "+e4.getTitle());
-            
-        ;
-        }
 }
