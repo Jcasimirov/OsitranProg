@@ -22,18 +22,18 @@
                                         </p:column>
                                         <p:column headerText="Fecha Vigencia">
                                             <h:outputText value="#{igv.igvFechavigencia}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                             </h:outputText>
-                                        </p:column >
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
                                         <p:column headerText="Fecha Caducidad">
                                             <h:outputText value="#{igv.igvFechacaducidad}">
-                                             <f:convertDateTime pattern="dd/MM/yyyy" />
-                                             </h:outputText>
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
                                         </p:column>
-                                         <p:column headerText="Estado">
-                                            <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}" />
+                                        <p:column headerText="Estado">
+                                            <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}"/>
                                         </p:column>
-                                        <p:column headerText="Actualizar" >
+                                        <p:column headerText="Actualizar">
                                             <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvActualizarEstado}"
                                                            value="Actualizar" style="width:25px">
                                                 <f:param id="id2" name="id2" value="#{igv.igvId}"/>
@@ -43,16 +43,14 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Eliminar"/>
                                             </f:facet>
-                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvDel}"
+                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvEliminar}"
                                                            value="Eliminar" style="width:25px">
-                                                <f:param id="id1" value="#{igv.igvId}"/>
+                                                <f:param id="id1" name="id1" value="#{igv.igvId}"/>
                                             </h:commandLink>
                                         </p:column>
-                                      
                                         <p style="text-align:center">
                                             <p:commandButton binding="#{backing_parametros_mantenimientoIgv.nuevo}"
                                                              id="nuevo" action="newigv" value="Nuevo Registro"/>
-                                             
                                             <!--<h:commandLink action="igvIns" value="Nuevo Igv"/-->
                                         </p>
                                         <p style="text-align:center">
@@ -61,17 +59,12 @@
                                     </p:dataTable>
                                 </td>
                             </tr>
-                             
                             <tr>
                                 <td align="right">
                                     <p:commandButton binding="#{backing_parametros_mantenimientoIgv.commandButtonNuevo}"
-                                                     value="#{btn.btn_nuevo}" 
-                                                     action="newigv"                                                     
-                                                     id="commandButtonNuevo"/>
-                                     
-                                    <p:commandButton value="Eliminar"></p:commandButton>
-                                     
-                                    <p:commandButton value="Salir"></p:commandButton>
+                                                     value="#{btn.btn_nuevo}" action="newigv" id="commandButtonNuevo"/>
+                                    <p:commandButton value="Eliminar"/>
+                                    <p:commandButton value="Salir"/>
                                 </td>
                             </tr>
                         </table>
