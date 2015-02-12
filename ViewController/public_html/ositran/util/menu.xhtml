@@ -6,6 +6,9 @@
                 <img src="../../imagenes/logo.png" width="249" height="56"/>
                 <div align="center">
                     <p:megaMenu style="margin-top:20px;width:98%">
+                        <p:submenu label="Home" icon="ui-icon-check">
+                        </p:submenu>
+                    
                         <p:submenu label="Contratos" icon="ui-icon-check">
                             <p:column>
                                 <p:submenu label="TV.1">
@@ -40,22 +43,18 @@
                         </p:submenu>
                         <p:submenu label="Parametros" icon="ui-icon-document">
                             <p:column>
-                                <p:submenu label="Tipo de Infraestructura">
-                                    <p:menuitem value="#{msg.tituloMTI}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml">
-                                       
-                                    </p:menuitem>
-                                    <p:menuitem value="Sports.1.2" url="#"/>
+                                <p:submenu label="Concesionario">
+                                    <p:menuitem value="Mantenimiento Concesionario" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="Infraestructura">
+                                    <p:menuitem value="#{menu.menuMTI}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="IGV">
                                     <p:menuitem value="Mantenimiento Igv" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
-                                    <p:menuitem value="Sports.2.2" url="#"/>
-                                    <p:menuitem value="Sports.2.3" url="#"/>
                                 </p:submenu>
                                 <p:submenu label="Empresa Supervisora">
                                     <p:menuitem value="Mantenimiento Empresa Supervisora" url="/faces/ositran/parametros/MantenimientoEmpSup.jsf"/>
-                                    <p:menuitem value="Sports.2.2" url="#"/>
-                                    <p:menuitem value="Sports.2.3" url="#"/>
-                        </p:submenu>
+                                </p:submenu>
                             </p:column>
                             <p:column>
                                 <img src="../../imagenes/parametros.png" width="150px" height="150px"/>
