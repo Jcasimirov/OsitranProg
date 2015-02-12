@@ -16,6 +16,8 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.primefaces.component.commandbutton.CommandButton;
 
 @ManagedBean(name = "backing_parametros_mantenimientoIgv")
@@ -68,19 +70,20 @@ public class MantenimientoIgv {
         return "/index?faces-redirect=true";
     }
     
-    public String igvUpd1(){
+
+
+    public String igvActualizarEstado(){
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("id2");
         Integer idigv=Integer.valueOf(str.toString());
         igvVO=this.igvServiceImpl.get(idigv);
-        return "infraestructuraUpd";
-    }
-    
-    public String igvUpd2(){
+        igvVO.setIgvEstado(0);
         this.igvServiceImpl.update(igvVO);
-        return "/index?faces-redirect=true";
+        return "listarIgv";
     }
+
+
 
 
     public void setCommandButton1(CommandButton commandButton1) {
@@ -106,4 +109,6 @@ public class MantenimientoIgv {
     public CommandButton getNuevo() {
         return nuevo;
     }
+    
+
 }

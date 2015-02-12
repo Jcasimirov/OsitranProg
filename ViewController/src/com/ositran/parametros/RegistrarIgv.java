@@ -7,11 +7,15 @@ import java.util.Date;
 
 import javax.annotation.Generated;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.column.Column;
@@ -40,9 +44,9 @@ public class RegistrarIgv {
     private OutputLabel outputLabelFechaCaducidad;
     private Calendar calendarFechaCaducidad=new Calendar();
     private PanelGrid panelGrid1;
-    private Message message1=new Message();
-    private Message message2;
-    private Message message3;
+  
+   
+   
     private CommandButton commandButton1;
 
     public void setigvServiceImpl(IgvServiceImpl igvServiceImpl) {
@@ -78,15 +82,41 @@ public class RegistrarIgv {
             this.message1.setDisplay("El rango de fechas tiene que ser diferentes");
         }
     } */
+    
+    public Date getObtenerFechaHoy(){
+        Date date=null;
+        try{
+            date=new Date();
+        }catch(Exception e){
+            e.getMessage();
+        }
+        return date;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new RegistrarIgv().getObtenerFechaHoy());
+        ;
+   }
 
     public void igvInsertar(ActionEvent actionEvent) {
+        igvVO.setIgvEstado(1);
+        igvVO.setIgvFechaAlta(getObtenerFechaHoy());
+        igvVO.setIgvTerminal(obtenerIpCliente());
         this.igvServiceImpl.insert(igvVO);
-       
+      
     }
-
-
-
-
+    
+    public String obtenerIpCliente(){
+        String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr(); 
+        return remoteAddr;
+    }
+    
+    
+    
+    public void addMessage(String summary) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+    }
   
 
     public void setOutputLabelPorcentaje(OutputLabel outputLabel1) {
@@ -159,29 +189,6 @@ public class RegistrarIgv {
 
 
 
-    public void setMessage1(Message message1) {
-        this.message1 = message1;
-    }
-
-    public Message getMessage1() {
-        return message1;
-    }
-
-    public void setMessage2(Message message2) {
-        this.message2 = message2;
-    }
-
-    public Message getMessage2() {
-        return message2;
-    }
-
-    public void setMessage3(Message message3) {
-        this.message3 = message3;
-    }
-
-    public Message getMessage3() {
-        return message3;
-    }
 
     public void setCommandButton1(CommandButton commandButton1) {
         this.commandButton1 = commandButton1;
