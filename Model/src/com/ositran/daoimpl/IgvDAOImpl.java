@@ -44,7 +44,7 @@ public class IgvDAOImpl implements IgvDAO {
     public List<Igv> query() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from Igv o").list();
+        List list=session.createQuery("select o from Igv o where o.igvEstado <> 2").list();
         session.getTransaction().commit();
         return list;
     }
