@@ -20,19 +20,19 @@
         <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.Concesion"/>
         <mapping class="com.ositran.model.EmpresaSupervisora"/>
-        <mapping class="com.ositran.model.Rol"/>
-        <mapping class="com.ositran.model.Usuario"/>
         <mapping class="com.ositran.model.InfraestructuraTipo"/>
         <mapping class="com.ositran.model.Igv"/>
         <mapping class="com.ositran.model.InversionTipo" />
+        <mapping class="com.ositran.model.Rol"/>
+        <mapping class="com.ositran.model.Usuario"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Concesion.hbm.xml"/>
         <mapping resource="./com/ositran/model/EmpresaSupervisora.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Usuario.hbm.xml"/>
         <mapping resource="./com/ositran/model/InfraestructuraTipo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
         <mapping resource="./com/ositran/model/InversionTipo.hbm.xml"/>        
+        <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
+        <mapping resource="./com/ositran/model/Usuario.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
