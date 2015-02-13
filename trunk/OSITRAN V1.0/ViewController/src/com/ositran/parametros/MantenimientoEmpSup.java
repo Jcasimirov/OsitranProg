@@ -19,6 +19,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ComponentSystemEvent;
 
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
 @RequestScoped
@@ -26,6 +27,17 @@ import javax.faces.event.ActionEvent;
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoEmpSup {
     private HtmlForm form1;
+    
+    List<EmpresaSupervisoraVO> listaEmpSup;
+
+
+    public void setListaEmpSup(List<EmpresaSupervisoraVO> listaEmpSup) {
+        this.listaEmpSup = listaEmpSup;
+    }
+
+    public List<EmpresaSupervisoraVO> getListaEmpSup() {
+        return listaEmpSup;
+    }
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -58,16 +70,19 @@ public class MantenimientoEmpSup {
     }
     
     public List<EmpresaSupervisoraVO> getQuery(){
-        List<EmpresaSupervisoraVO> list=this.empSupServiceImp.query();        
-        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+list.size());
-        return list; 
+        listaEmpSup=this.empSupServiceImp.query();        
+        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+listaEmpSup.size());
+        return listaEmpSup; 
     }
     
     public String EmpSupDel(ActionEvent event){
+        System.out.println("Llegooooooooooooooooooooooooooooo");
         UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
         Integer idEmpSup=(Integer)parameter.getValue();
         this.empSupServiceImp.delete(idEmpSup);
+        getQuery();
         return "/index?faces-redirect=true";
+        
     }
     
     public String EmpSupUpd1(){
@@ -84,4 +99,7 @@ public class MantenimientoEmpSup {
         return "/index?faces-redirect=true";
     }
 
+    public void getQuery(ComponentSystemEvent componentSystemEvent) {
+        // Add event code here...
+    }
 }
