@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="InversionTipo" table="T_INVERSION_TIPO">
+        <id name="tivId" type="java.lang.Integer" access="field">
+            <column name="TIV_ID" />
+            <generator class="increment">
+                <param name="sequence">EmpresaSupervisora_Id_Seq_Gen</param>
+            </generator>
+        </id>
+             <property name="tivDescripcion" type="string" column="TIV_DESCRIPCION"/>
+             <property name="tivEstado" type="java.lang.Integer" column="TIV_ESTADO"/> 
+            <property name="tivFechaAlta" type="java.util.Date" column="TIV_FECHA_ALTA"/> 
+            <property name="tivFechaBaja" type="java.util.Date" column="TIV_FECHA_BAJA"/> 
+            <property name="tivFechaCambio" type="java.util.Date" column="TIV_FECHA_CAMBIO"/> 
+            <property name="tivNombre" type="string" column="TIV_NOMBRE"/> 
+            <property name="tivTerminal" type="string" column="TIV_TERMINAL"/> 
+            <property name="tivUsuarioBaja" type="string" column="TIV_USUARIO_BAJA"/>   
+            <property name="tivUsuarioCambio" type="string" column="TIV_USUARIO_CAMBIO"/>
+            <property name="tivUsuarioAlta" type="string" column="TIV_USUARIO_ALTA"/>
+       
+    </class>
+</hibernate-mapping>
