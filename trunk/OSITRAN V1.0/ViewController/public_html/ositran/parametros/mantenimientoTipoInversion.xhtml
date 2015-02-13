@@ -4,26 +4,23 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
 
-        <h:head>
+<h:head>
       
-<style type="text/css">
+    <style type="text/css">
 	.ui-dialog-titlebar{
              font-size: 13px;
 	  font-family: sans-serif;
 	}
-        
-</style>
+    </style>
 </h:head>
-        <ui:include src="/ositran/util/menu.xhtml"/>
+        
         <h:body>
-    <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
+            <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
 <h:form id="form" >
-    <p:layout fullPage="true" style="border:none" >
+    <p:layout fullPage="true"  style="border:none" >
         <p:layoutUnit position="center"  style="border:0px"> 
-                
+                <ui:include src="/ositran/util/menu.xhtml"/>
                 <div align="center"><h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >#{msg.titulo_MANTTIPINV}</h3></div>
-               
-                
                 <center>
                 <div style="width:60%">
             <div align="left" style="font-size: 11px">
@@ -45,11 +42,11 @@
                              <p:column headerText="Usuario Registro">
                                 <h:outputText value="#{inversion.tivUsuarioAlta}" />
                             </p:column> 
+                             <p:column headerText="Edi">
+                                <p:commandButton update=":form:editarPanel" actionListener="#{tipoInversionMB.cargarEditar(inversion)}" oncomplete="editarPanel.show()" image="ui-icon-document" style="width:25px;height:25px" />
+                            </p:column>
                              <p:column headerText="Eli">
                                 <p:commandButton update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
-                            </p:column>
-                             <p:column headerText="Edi">
-                                <p:commandButton update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEditar(inversion)}" oncomplete="confirEliminar.show()" image="ui-icon-document" style="width:25px;height:25px" />
                             </p:column>
                         </p:dataTable>
                 </div>
@@ -58,9 +55,9 @@
         <p:layoutUnit position="south"  style="border:0px"  resizable="true" closable="true" collapsible="true">
           <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
         </p:layoutUnit>
-       
-    </p:layout>
-    <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar" />
+       <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar" />
+       </p:layout>
+   
             <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                 <table style="font-size: 11px">
                                     <tr>
@@ -72,6 +69,8 @@
                                     </tr>
                 </table>
             </p:dialog>
+            
+            
             <p:dialog header="Registrar" widgetVar="insertarPanel"  modal="true" style="text-align:center;">
 	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
 	 		
@@ -90,10 +89,31 @@
 	 		</tr>
 	 	</table>
 		</p:dialog>
+                
+                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel"  modal="true" style="text-align:center;">
+	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
+	 		<tr>
+	 			<td align="right">ID:</td>
+	 			<td align="left" ><p:inputText disabled="true" value="#{tipoInversionMB.codigoE}" style="width:30px" /> </td>
+	 		</tr>
+			<tr>
+	 			<td align="left">#{etq.etq_rti_inti}</td>
+	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombreE}" style="width:300px" /> </td>
+	 		</tr>
+	 		<tr>
+	 			<td align="left">#{etq.etq_rti_idti}</td>
+	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcionE}"  style="width:300px" /> </td>
+	 		</tr>
+	 		
+	 		<tr>
+	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="insertarPanel.hide()" action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
+	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="insertarPanel.hide ()" /></td>
+	 		</tr>
+	 	</table>
+		</p:dialog>
           </h:form>
         </h:body>
     </html>
-    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_parametros_mantenimientoIgv-->
 </f:view>
 
 
