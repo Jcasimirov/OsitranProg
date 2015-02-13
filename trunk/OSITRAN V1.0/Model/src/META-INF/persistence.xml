@@ -6,6 +6,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:/app/jdbc/jdbc/Connection1DS</jta-data-source>
     <class>com.ositran.model.Igv</class>
+    <class>com.ositran.model.Concesion</class>
     <properties>
       <property name="eclipselink.target-server" value="WebLogic_10"/>
       <property name="javax.persistence.jtaDataSource" value="java:/app/jdbc/jdbc/Connection1DS"/>
