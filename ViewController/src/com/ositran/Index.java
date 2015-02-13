@@ -20,9 +20,6 @@ public class Index {
         ExternalContext externalContext=context.getExternalContext();
         ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
         String redirectPath="/faces/ositran/logueo.xhtml";
-        //String redirectPath="/login?faces-redirect=true";
-        //String redirectPath="/com/ositran/seguridad/login?faces-redirect=true";
-        //String redirectPath="com/ositran/seguridad/usuarioLista?faces-redirect=true";
         externalContext.redirect(servletContext.getContextPath()+redirectPath);
     }    
 }
