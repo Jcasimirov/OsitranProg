@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="TipoDocumento" table="T_TIPO_DOCUMENTO_ID_SEQ_GEN">
+        <id name="tdoId" type="java.lang.Integer" access="field">
+            <column name="TDO_ID" />
+            <generator class="increment">
+                <param name="sequence">T_TIPO_DOCUMENTO_ID_SEQ_GEN</param>
+            </generator>
+        </id>
+        <property name="tdoDescripcion" type="string" column="TDO_DESCRIPCION"/>
+        <property name="tdoEstado" type="java.lang.Integer" column="TDO_ESTADO"/>
+        <property name="tdoFechaAlta" type="java.util.Date" column="TDO_FECHA_ALTA"/>
+        <property name="tdoFechaBaja" type="java.util.Date" column="TDO_FECHA_BAJA"/>
+        <property name="tdoFechaCambio" type="java.util.Date" column="TDO_FECHA_CAMBIO"/>
+        <property name="tdoNombre" type="string" column="TDO_NOMBRE"/>
+        <property name="tdoTerminal" type="string" column="TDO_TERMINAL"/>
+        <property name="tdoUsuarioAlta" type="string" column="TDO_USUARIO_ALTA"/>
+        <property name="tdoUsuarioBaja" type="string" column="TDO_USUARIO_BAJA"/>
+        <property name="tdoUsuarioCambio" type="string" column="TDO_USUARIO_CAMBIO"/>
+
+    </class>
+</hibernate-mapping>
