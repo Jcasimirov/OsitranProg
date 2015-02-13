@@ -1,10 +1,17 @@
 package com.ositran;
 
+import java.io.IOException;
+
 import javax.annotation.Generated;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlForm;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import javax.servlet.ServletContext;
 
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
@@ -63,13 +70,18 @@ public class Logueo {
         return pass;
     }
     
-    public String logear() {
+    public void logear() throws IOException{
             String usu = (String)usuario.getValue();
             String passw = (String)pass.getValue();
+            FacesContext context=FacesContext.getCurrentInstance();
+            ExternalContext externalContext=context.getExternalContext();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
             if (usu.equals("admin") && passw.equals("admin")) {
-                return "login";
+                String redirectPath="/faces/ositran/principal.xhtml";
+                externalContext.redirect(servletContext.getContextPath()+redirectPath);
             } else {
-                return "error";
+                String redirectPath="/faces/error.jsf";
+                externalContext.redirect(servletContext.getContextPath()+redirectPath);
             }
         }
 }
