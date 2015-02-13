@@ -2,8 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,6 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 /**
  * To create ID generator sequence "T_INVERSION_TIPO_ID_SEQ_GEN":
  * CREATE SEQUENCE "T_INVERSION_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
@@ -25,14 +26,15 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "InversionTipo.findAll", query = "select o from InversionTipo o") })
 @Table(name = "T_INVERSION_TIPO")
-@SequenceGenerator(name = "InversionTipo_Id_Seq_Gen", sequenceName = "T_INVERSION_TIPO_ID_SEQ_GEN", allocationSize = 50,
-                   initialValue = 50)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+                 
 public class InversionTipo implements Serializable {
+  
     private static final long serialVersionUID = -8103932004553759425L;
     @Column(name = "TIV_DESCRIPCION", nullable = false, length = 100)
     private String tivDescripcion;
     @Column(name = "TIV_ESTADO", nullable = false)
-    private BigDecimal tivEstado;
+    private int tivEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "TIV_FECHA_ALTA")
     private Date tivFechaAlta;
@@ -43,9 +45,9 @@ public class InversionTipo implements Serializable {
     @Column(name = "TIV_FECHA_CAMBIO")
     private Date tivFechaCambio;
     @Id
+    @GeneratedValue(generator = "generator")
     @Column(name = "TIV_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InversionTipo_Id_Seq_Gen")
-    private BigDecimal tivId;
+    private int tivId;
     @Column(name = "TIV_NOMBRE", nullable = false, length = 100)
     private String tivNombre;
     @Column(name = "TIV_TERMINAL", length = 20)
@@ -60,8 +62,8 @@ public class InversionTipo implements Serializable {
     public InversionTipo() {
     }
 
-    public InversionTipo(String tivDescripcion, BigDecimal tivEstado, Date tivFechaAlta, Date tivFechaBaja,
-                         Date tivFechaCambio, BigDecimal tivId, String tivNombre, String tivTerminal,
+    public InversionTipo(String tivDescripcion, int tivEstado, Date tivFechaAlta, Date tivFechaBaja,
+                         Date tivFechaCambio, int tivId, String tivNombre, String tivTerminal,
                          String tivUsuarioAlta, String tivUsuarioBaja, String tivUsuarioCambio) {
         this.tivDescripcion = tivDescripcion;
         this.tivEstado = tivEstado;
@@ -84,11 +86,11 @@ public class InversionTipo implements Serializable {
         this.tivDescripcion = tivDescripcion;
     }
 
-    public BigDecimal getTivEstado() {
+    public int getTivEstado() {
         return tivEstado;
     }
 
-    public void setTivEstado(BigDecimal tivEstado) {
+    public void setTivEstado(int tivEstado) {
         this.tivEstado = tivEstado;
     }
 
@@ -116,7 +118,7 @@ public class InversionTipo implements Serializable {
         this.tivFechaCambio = tivFechaCambio;
     }
 
-    public BigDecimal getTivId() {
+    public int getTivId() {
         return tivId;
     }
 
@@ -158,5 +160,8 @@ public class InversionTipo implements Serializable {
 
     public void setTivUsuarioCambio(String tivUsuarioCambio) {
         this.tivUsuarioCambio = tivUsuarioCambio;
+    }
+    public void setTivId(int tivId) {
+        this.tivId = tivId;
     }
 }
