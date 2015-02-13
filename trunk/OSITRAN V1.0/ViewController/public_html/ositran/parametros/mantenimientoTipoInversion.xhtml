@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+<f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
+<h:form id="form" >
+    <p:layout fullPage="true" style="border:none" >
+        <p:layoutUnit position="center"  style="border:0px"> 
+ <table style="width:100%">
+    <tr>
+        <td  >
+ <p:menubar style="font-size:11px;color:#070708;font-weight:bold;width:550px;">
+        <p:submenu label="Contratos" icon="ui-icon-document">
+            <p:submenu label="CONTRATOS" icon="ui-icon-contact">
+                <p:menuitem value="Project" url="#" />
+                <p:menuitem value="Other" url="#" />
+            </p:submenu>
+            <p:menuitem value="Open" url="#" />
+            <p:separator />
+            <p:menuitem value="Quit" url="#" />
+        </p:submenu>
+ 
+        <p:submenu label="Validaciones" icon="ui-icon-pencil">
+            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+ 
+        <p:submenu label="Mantenimientos" icon="ui-icon-help">
+            <p:menuitem value="Contents" url="#" />
+            <p:submenu label="Search" icon="ui-icon-search">
+                <p:submenu label="Text">
+                    <p:menuitem value="Workfsdfsfsfse" url="#" />
+                </p:submenu>
+                <p:menuitem value="File" url="#" />
+            </p:submenu>
+        </p:submenu>
+ 
+        <p:submenu label="Reporte" icon="ui-icon-gear">
+            <p:submenu label="Ajax" icon="ui-icon-refresh">
+                <p:menuitem value="Save" icon="ui-icon-disk" />
+                <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w" />
+            </p:submenu>
+            <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+                <p:menuitem value="Delete" icon="ui-icon-close" update="messages" ajax="false"/>
+            </p:submenu>
+        </p:submenu>
+        <p:submenu label="Seguridad" icon="ui-icon-gear">
+            <p:submenu label="Ajax" icon="ui-icon-refresh">
+                <p:menuitem value="Save" icon="ui-icon-disk" />
+                <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w" />
+            </p:submenu>
+            <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+                <p:menuitem value="Delete" icon="ui-icon-close" update="messages" ajax="false"/>
+            </p:submenu>
+        </p:submenu>
+    </p:menubar>
+            </td>
+        <td   align="right">
+            <img src="../../imagenes/logo1.png" />
+        </td>
+    </tr>
+
+</table>
+                <div align="center"><h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >#{msg.titulo_REGTIPINV}</h3></div>
+                <div align="center" style="width:100%">
+	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center;width:60%">
+	 		<tr>
+	 			<td align="left">#{etq.etq_rti_inti}</td>
+	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombre}" style="width:300px" /> </td>
+	 		</tr>
+	 		<tr>
+	 			<td align="left">#{etq.etq_rti_idti}</td>
+	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcion}"  style="width:300px" /> </td>
+	 		</tr>
+	 		
+	 		<tr>
+	 			<td align="right"><p:commandButton update=":form:tablaES"  action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
+	 			<td align="left"><p:commandButton action="#{tipoInversionMB.listarInversiones}" style="width:70px" value="#{btn.btn_limpiar}" /></td>
+	 		</tr>
+	 	</table>
+	 	</div>
+                <p:separator />
+                <center>
+                <div style="width:60%">
+                <p:dataTable style="font-size:11px;"   id="tablaES" var="inversion" 
+                            value="#{tipoInversionMB.listaInversiones}"  >
+                              <p:column headerText="ID">
+                                <h:outputText value="#{inversion.tivId}" />
+                             </p:column>
+                             <p:column headerText="Nombre">
+                                <h:outputText value="#{inversion.tivNombre}" />
+                            </p:column>
+                             <p:column headerText="Descripcion">
+                                <h:outputText value="#{inversion.tivDescripcion}" />
+                            </p:column>
+                             <p:column headerText="Fecha Registro">
+                                <h:outputText value="#{inversion.tivFechaAlta}" />
+                            </p:column>
+                             <p:column headerText="Usuario Registro">
+                                <h:outputText value="#{inversion.tivUsuarioAlta}" />
+                            </p:column> 
+                             <p:column headerText="Eli">
+                                <p:commandButton update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
+                            </p:column>
+                            
+                        </p:dataTable>
+                </div>
+            </center>    
+        </p:layoutUnit>
+        <p:layoutUnit position="south"  style="border:0px"  resizable="true" closable="true" collapsible="true">
+          <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
+        </p:layoutUnit>
+    </p:layout>
+    <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar" />
+            <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <table style="font-size: 11px">
+                                    <tr>
+                                            <td colspan="2"> Eliminar el tipo de inversion: "#{tipoInversionMB.nombreEliminar}" </td>
+                                    </tr>
+                                    <tr>
+                                            <td align="right"><p:commandButton update=":form:tablaES" value="Eliminar" actionListener="#{tipoInversionMB.eliminar}" oncomplete="confirEliminar.hide()"></p:commandButton></td>
+                                            <td align="left"><p:commandButton value="Cancelar"  onclick="confirEliminar.hide()"></p:commandButton></td>
+                                    </tr>
+                </table>
+            </p:dialog>
+</h:form>	
+</h:body>
+</html>
+
+
+
