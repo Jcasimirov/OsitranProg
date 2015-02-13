@@ -69,26 +69,15 @@
 
 </table>
                 <div align="center"><h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >#{msg.titulo_REGTIPINV}</h3></div>
-                <div align="center" style="width:100%">
-	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center;width:60%">
-	 		<tr>
-	 			<td align="left">#{etq.etq_rti_inti}</td>
-	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombre}" style="width:300px" /> </td>
-	 		</tr>
-	 		<tr>
-	 			<td align="left">#{etq.etq_rti_idti}</td>
-	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcion}"  style="width:300px" /> </td>
-	 		</tr>
-	 		
-	 		<tr>
-	 			<td align="right"><p:commandButton update=":form:tablaES"  action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
-	 			<td align="left"><p:commandButton action="#{tipoInversionMB.listarInversiones}" style="width:70px" value="#{btn.btn_limpiar}" /></td>
-	 		</tr>
-	 	</table>
-	 	</div>
-                <p:separator />
+               
+                
                 <center>
                 <div style="width:60%">
+            <div align="left" style="font-size: 11px">
+			<p:commandButton   onclick="insertarPanel.show()" value=" Nueva Inversion" />
+			</div>
+			<br></br>
+			
                 <p:dataTable style="font-size:11px;"   id="tablaES" var="inversion" 
                             value="#{tipoInversionMB.listaInversiones}"  >
                               <p:column headerText="ID">
@@ -109,7 +98,6 @@
                              <p:column headerText="Eli">
                                 <p:commandButton update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
                             </p:column>
-                            
                         </p:dataTable>
                 </div>
             </center>    
@@ -130,6 +118,25 @@
                                     </tr>
                 </table>
             </p:dialog>
+            <p:dialog header="Registrar" widgetVar="insertarPanel"  modal="true">
+	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
+	 		
+			<tr>
+	 			<td align="left">#{etq.etq_rti_inti}</td>
+	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombre}" style="width:300px" /> </td>
+	 		</tr>
+	 		<tr>
+	 			<td align="left">#{etq.etq_rti_idti}</td>
+	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcion}"  style="width:300px" /> </td>
+	 		</tr>
+	 		
+	 		<tr>
+				
+	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="insertarPanel.hide()" action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
+	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="insertarPanel.hide ()" /></td>
+	 		</tr>
+	 	</table>
+		</p:dialog>
 </h:form>	
 </h:body>
 </html>
