@@ -2,8 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,7 +30,7 @@ public class TipoDocumento implements Serializable {
     @Column(name = "TDO_DESCRIPCION", nullable = false, length = 100)
     private String tdoDescripcion;
     @Column(name = "TDO_ESTADO", nullable = false)
-    private BigDecimal tdoEstado;
+    private Integer tdoEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "TDO_FECHA_ALTA")
     private Date tdoFechaAlta;
@@ -45,7 +43,7 @@ public class TipoDocumento implements Serializable {
     @Id
     @Column(name = "TDO_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TipoDocumento_Id_Seq_Gen")
-    private BigDecimal tdoId;
+    private Integer tdoId;
     @Column(name = "TDO_NOMBRE", nullable = false, length = 100)
     private String tdoNombre;
     @Column(name = "TDO_TERMINAL", length = 20)
@@ -60,8 +58,8 @@ public class TipoDocumento implements Serializable {
     public TipoDocumento() {
     }
 
-    public TipoDocumento(String tdoDescripcion, BigDecimal tdoEstado, Date tdoFechaAlta, Date tdoFechaBaja,
-                         Date tdoFechaCambio, BigDecimal tdoId, String tdoNombre, String tdoTerminal,
+    public TipoDocumento(String tdoDescripcion, Integer tdoEstado, Date tdoFechaAlta, Date tdoFechaBaja,
+                         Date tdoFechaCambio, Integer tdoId, String tdoNombre, String tdoTerminal,
                          String tdoUsuarioAlta, String tdoUsuarioBaja, String tdoUsuarioCambio) {
         this.tdoDescripcion = tdoDescripcion;
         this.tdoEstado = tdoEstado;
@@ -84,11 +82,11 @@ public class TipoDocumento implements Serializable {
         this.tdoDescripcion = tdoDescripcion;
     }
 
-    public BigDecimal getTdoEstado() {
+    public Integer getTdoEstado() {
         return tdoEstado;
     }
 
-    public void setTdoEstado(BigDecimal tdoEstado) {
+    public void setTdoEstado(Integer tdoEstado) {
         this.tdoEstado = tdoEstado;
     }
 
@@ -116,7 +114,7 @@ public class TipoDocumento implements Serializable {
         this.tdoFechaCambio = tdoFechaCambio;
     }
 
-    public BigDecimal getTdoId() {
+    public Integer getTdoId() {
         return tdoId;
     }
 
@@ -158,5 +156,9 @@ public class TipoDocumento implements Serializable {
 
     public void setTdoUsuarioCambio(String tdoUsuarioCambio) {
         this.tdoUsuarioCambio = tdoUsuarioCambio;
+    }
+
+    public void setTdoId(Integer tdoId) {
+        this.tdoId = tdoId;
     }
 }
