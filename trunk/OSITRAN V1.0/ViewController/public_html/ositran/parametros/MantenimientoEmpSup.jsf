@@ -6,6 +6,8 @@
         <h:head></h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
+            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getQuery}" type="postAddToView"/>
+             
             <h:form binding="#{backing_ositran_parametros_MantenimientoEmpSup.form1}" id="form1">
                 <p:layout style="min-width:400px;min-height:500px;">
                     <p:layoutUnit position="north">
@@ -52,7 +54,7 @@
                                     </tr>
                                      
                                     <tr>
-                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.query}"
+                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.listaEmpSup}"
                                                      var="empSup" selectionMode="single"
                                                      style="font-size:0.62em;width:600px;margin:auto"
                                                      rowKey="#{empSup.supId}">
@@ -91,7 +93,8 @@
                                      
                                     <tr style="font-size: 11px">
                                         <td align="left">
-                                            <p:commandButton value="#{btn.btn_nuevo}"></p:commandButton>
+                                            <p:commandButton value="#{btn.btn_nuevo}" type="button"
+                                                             onclick="regEmpSup.show()"></p:commandButton>
                                         </td>
                                         <td colspan="3">
                                             <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
@@ -102,6 +105,83 @@
                         </div>
                     </p:layoutUnit>
                 </p:layout>
+                <p:dialog header="Registrar Empresa Supervisora" widgetVar="regEmpSup" modal="true" height="250px" width="760px">
+                   
+                        <p:growl id="mensaje" showDetail="true"/>
+                        <div align="center" style="width: 85%">
+                            <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                                <tr>
+                                    <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
+                                    <td colspan="2" align="left">
+                                        <p:inputText style="width:400px"></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="2" align="left">Direccion:</td>
+                                    <td colspan="2" align="left">
+                                        <p:inputText style="width: 400px"></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="2" align="left">Representante Legal</td>
+                                    <td colspan="2" align="left">
+                                        <p:inputText style="width: 400px"></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="left">Cargo</td>
+                                    <td align="left">
+                                        <p:inputText></p:inputText>
+                                    </td>
+                                    <td align="left">Telefono</td>
+                                    <td align="left">
+                                        <p:inputText></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="left">Tipo Documento</td>
+                                    <td align="left">
+                                        <p:selectOneMenu id="documentos1">
+                                            <f:selectItem id="Seleccione1" itemLabel="-Seleccione-" itemValue="4"/>
+                                            <f:selectItem itemLabel="Estado1" itemValue="1"/>
+                                            <f:selectItem itemLabel="Estado2" itemValue="2"/>
+                                            <f:selectItem itemLabel="Estado3" itemValue="3"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td align="left">Numero doc Identidad:</td>
+                                    <td align="left">
+                                        <p:inputText></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="left">Correo</td>
+                                    <td align="left">
+                                        <p:inputText></p:inputText>
+                                    </td>
+                                    <td align="left">Siglas de Nombre</td>
+                                    <td align="left">
+                                        <p:inputText></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <!--tr>
+                                    <td colspan="2" align="right">
+                                        <p:commandButton value="Guardar" actionListener="#{ositranMB.guardar()}"
+                                                         update=":form:mensaje"></p:commandButton>
+                                    </td>
+                                    <td colspan="2" align="left">
+                                        <p:commandButton action="#{ositranMB.validar()}" value="Salir"
+                                                         update=":form:mensaje"></p:commandButton>
+                                    </td>
+                                </tr-->
+                            </table>
+                        </div>            
+                </p:dialog>
             </h:form>
         </h:body>
     </html>
