@@ -42,11 +42,17 @@
                              <p:column headerText="Usuario Registro">
                                 <h:outputText value="#{inversion.tivUsuarioAlta}" />
                             </p:column> 
+                             <p:column headerText="Creacion:">
+                                <h:outputText value="#{inversion.tivFechaAlta}" />
+                            </p:column> 
+                             <p:column headerText="Modificacion:">
+                                <h:outputText value="#{inversion.tivFechaCambio}" />
+                            </p:column> 
                              <p:column headerText="Edi">
                                 <p:commandButton update=":form:editarPanel" actionListener="#{tipoInversionMB.cargarEditar(inversion)}" oncomplete="editarPanel.show()" image="ui-icon-document" style="width:25px;height:25px" />
                             </p:column>
                              <p:column headerText="Eli">
-                                <p:commandButton update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
+                                <p:commandButton  update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
                             </p:column>
                         </p:dataTable>
                 </div>
@@ -56,6 +62,7 @@
           <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
         </p:layoutUnit>
        <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar" />
+       
        </p:layout>
    
             <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
@@ -94,7 +101,7 @@
 	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
 	 		<tr>
 	 			<td align="right">ID:</td>
-	 			<td align="left" ><p:inputText disabled="true" value="#{tipoInversionMB.codigoE}" style="width:30px" /> </td>
+	 			<td align="left" ><p:inputText value="#{tipoInversionMB.codigoE}" style="width:30px" /> </td>
 	 		</tr>
 			<tr>
 	 			<td align="left">#{etq.etq_rti_inti}</td>
@@ -106,8 +113,8 @@
 	 		</tr>
 	 		
 	 		<tr>
-	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="insertarPanel.hide()" action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
-	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="insertarPanel.hide ()" /></td>
+	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="editarPanel.hide()" action="#{tipoInversionMB.editar}" style="width:70px" value="#{btn.btn_modificar}" /></td>
+	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="editarPanel.hide ()" /></td>
 	 		</tr>
 	 	</table>
 		</p:dialog>
