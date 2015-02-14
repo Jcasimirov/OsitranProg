@@ -52,14 +52,36 @@ public class TipoInversionDAOImpl implements TipoInversionDAO{
 
     @Override
     public String delete(Integer id) {
-        
-        return null;
+        System.out.println(id);
+        String result=null;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            InversionTipo inversionTipo=(InversionTipo)session.get(InversionTipo.class, id);
+            session.delete(inversionTipo);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+        }
+        return result;
     }
 
     @Override
     public String update(InversionTipo inversionTipo) {
         
-        return null;
+        String result=null;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(inversionTipo);
+            session.getTransaction().commit();
+            
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+        }
+        return result;
     }
 
     @Override
