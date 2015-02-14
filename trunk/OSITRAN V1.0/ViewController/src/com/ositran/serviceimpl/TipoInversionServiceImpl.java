@@ -2,6 +2,7 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.TipoInversionDAO;
 import com.ositran.daoimpl.TipoInversionDAOImpl;
+import com.ositran.model.Igv;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.model.InversionTipo;
@@ -37,25 +38,23 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
 
     @Override
     public String insert(TipoInversionVO tipoInversionVO) {
-        System.out.println("llego al services");
         InversionTipo inversionTipo=toTipoInversion(tipoInversionVO);
-        System.out.println("llego al services1");
         String result=tipoInversionDAOImpl.insert(inversionTipo);
-        System.out.println("llego al services2");
         return result;
        
     }
 
     @Override
     public String delete(Integer id) {
-        
-        return null;
+        String result=this.getTipoInversionDAOImpl().delete(id);
+        return result;
     }
 
     @Override
     public String update(TipoInversionVO tipoInversionVO) {
-        
-        return null;
+        InversionTipo inversionTipo=toTipoInversion(tipoInversionVO);
+        String result=this.getTipoInversionDAOImpl().update(inversionTipo);
+        return result;
     }
 
     @Override
@@ -63,9 +62,6 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         
         return null;
     }
-    
-     
-    
      //conversiones
     private List<TipoInversionVO> toListTipoInversionVO(List<InversionTipo> list){
         List<TipoInversionVO> listVO=new ArrayList<TipoInversionVO>();
@@ -85,7 +81,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         tipoInversionVO.setTivFechaCambio(inversionTipo.getTivFechaCambio());
         tipoInversionVO.setTivNombre(inversionTipo.getTivNombre());
         tipoInversionVO.setTivTerminal(inversionTipo.getTivTerminal());
-        tipoInversionVO.setTivUsuarioAlta(inversionTipo.getTivTerminal());
+        tipoInversionVO.setTivUsuarioAlta(inversionTipo.getTivUsuarioAlta());
         tipoInversionVO.setTivUsuarioBaja(inversionTipo.getTivUsuarioBaja());
         tipoInversionVO.setTivUsuarioCambio(inversionTipo.getTivUsuarioCambio());
         tipoInversionVO.setTivId(inversionTipo.getTivId());
@@ -100,7 +96,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         inversionTipo.setTivFechaCambio(tipoInversionVO.getTivFechaCambio());
         inversionTipo.setTivNombre(tipoInversionVO.getTivNombre());
         inversionTipo.setTivTerminal(tipoInversionVO.getTivTerminal());
-        inversionTipo.setTivUsuarioAlta(tipoInversionVO.getTivTerminal());
+        inversionTipo.setTivUsuarioAlta(tipoInversionVO.getTivUsuarioAlta());
         inversionTipo.setTivUsuarioBaja(tipoInversionVO.getTivUsuarioBaja());
         inversionTipo.setTivUsuarioCambio(tipoInversionVO.getTivUsuarioCambio());
         
