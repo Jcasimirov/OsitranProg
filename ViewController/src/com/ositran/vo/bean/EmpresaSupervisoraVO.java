@@ -1,12 +1,10 @@
 package com.ositran.vo.bean;
 
-import java.io.Serializable;
 
 import java.util.Date;
 
 
-public class EmpresaSupervisoraVO implements Serializable {
-    private static final long serialVersionUID = -9018333581388462967L;
+public class EmpresaSupervisoraVO {
     
     private Integer crgId;   
     private String supCorreo;    
@@ -171,4 +169,5 @@ public class EmpresaSupervisoraVO implements Serializable {
     public Integer getTdoId() {
         return tdoId;
     }
+
 }
