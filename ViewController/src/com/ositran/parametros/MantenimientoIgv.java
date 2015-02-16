@@ -1,5 +1,4 @@
 package com.ositran.parametros;
-
 import com.ositran.serviceimpl.IgvServiceImpl;
 import com.ositran.vo.bean.IgvVO;
 
@@ -20,7 +19,6 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.component.commandbutton.CommandButton;
-
 @ManagedBean(name = "backing_parametros_mantenimientoIgv")
 @RequestScoped
 @Generated(value = "1parametros/mantenimientoIgv.jsf", comments = "oracle-jdev-comment:managed-bean-jsp-link")
