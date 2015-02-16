@@ -1,22 +1,10 @@
 package com.ositran.serviceimpl;
-
 import com.ositran.daoimpl.IgvDAOImpl;
-import com.ositran.daoimpl.IgvDAOImpl;
-import com.ositran.model.Igv;
 import com.ositran.model.Igv;
 import com.ositran.service.IgvService;
 import com.ositran.vo.bean.IgvVO;
-
-import com.ositran.vo.bean.IgvVO;
-
-import com.ositran.vo.bean.IgvVO;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 public class IgvServiceImpl implements IgvService{
     private IgvDAOImpl igvDAOImpl;
@@ -81,7 +69,7 @@ public class IgvServiceImpl implements IgvService{
         List<IgvVO> listVO=new ArrayList<IgvVO>();
         for(int i=0;i<list.size();i++){
             Igv igv=(Igv)list.get(i);
-            IgvVO igvVO=toIgvVO(igv);
+            IgvVO igvVO=toIgvVO(igv);//enviando a la clase IgvVO el arreglo
             listVO.add(igvVO);
         }
         return listVO;
