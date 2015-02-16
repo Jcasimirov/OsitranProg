@@ -1,19 +1,13 @@
 package com.ositran.daoimpl;
-
 import com.ositran.dao.IgvDAO;
 import com.ositran.model.Igv;
-
 import com.ositran.model.InfraestructuraTipo;
-
 import java.util.Collections;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +21,7 @@ public class IgvDAOImpl implements IgvDAO {
         this.jdbcTemplate=new JdbcTemplate(ds);
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(InfraestructuraTipoDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(IgvDAOImpl.class);
 
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     
