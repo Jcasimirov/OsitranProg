@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="Concesion" table="T_CONCESION">
+        <id name="tcoId" type="java.lang.Integer" access="field">
+            <column name="TCO_ID" />
+            <generator class="increment">
+                <param name="sequence">SEQ_CONCESION</param>
+            </generator>
+        </id>
+        
+        <property name="tcoNombre" type="string" column="TCO_NOMBRE"/>
+        
+        <property name="tcoFechaAlta" type="java.util.Date" column="TCO_FECHA_ALTA"/>
+        <property name="tcoUsuarioAlta" type="string" column="TCO_USUARIO_ALTA"/>
+        <property name="tcoFechaCambio" type="java.util.Date" column="TCO_FECHA_CAMBIO"/>
+        <property name="tcoUsuarioCambio" type="string" column="TCO_USUARIO_CAMBIO"/>	
+        <property name="tcoFechaBaja" type="java.util.Date" column="TCO_FECHA_BAJA"/>
+        <property name="tcoUsuarioBaja" type="string" column="TCO_USUARIO_BAJA"/>
+	<property name="tcoTerminal" type="string" column="TCO_TERMINAL"/>	
+   
+		
+		
+		
+		
+       
+    </class>
+</hibernate-mapping>
