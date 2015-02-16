@@ -3,11 +3,11 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.ositran.model">
-    <class name="TipoDocumento" table="T_TIPO_DOCUMENTO_ID_SEQ_GEN">
+    <class name="TipoDocumento" table="T_TIPO_DOCUMENTO">
         <id name="tdoId" type="java.lang.Integer" access="field">
             <column name="TDO_ID" />
             <generator class="increment">
-                <param name="sequence">T_TIPO_DOCUMENTO_ID_SEQ_GEN</param>
+                <param name="sequence">TIPO_DOCUMENTO_ID_SEQ_GEN</param>
             </generator>
         </id>
         <property name="tdoDescripcion" type="string" column="TDO_DESCRIPCION"/>
