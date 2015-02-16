@@ -1,12 +1,21 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
-          xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head></h:head>
+        <style type="text/css">
+            .ui-dialog-titlebar {
+                font-size: 13px;
+                font-family: sans-serif;
+            }
+        </style>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
             <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getQuery}" type="postAddToView"/>
+             
+            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaTipoDocumento}"
+                     type="postAddToView"/>
              
             <h:form binding="#{backing_ositran_parametros_MantenimientoEmpSup.form1}" id="form1">
                 <p:layout style="min-width:400px;min-height:500px;">
@@ -52,45 +61,44 @@
                                         <td align="left"></td>
                                         <td colspan="3"></td>
                                     </tr>
-                                     
-                                    <tr>
-                                        <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.listaEmpSup}"
-                                                     var="empSup" selectionMode="single"
-                                                     style="font-size:0.62em;width:600px;margin:auto"
-                                                     rowKey="#{empSup.supId}">
-                                            <p:column headerText="Nro. Documento">
-                                                <h:outputText value="#{empSup.supNroDocumento}"/>
-                                            </p:column>
-                                            <p:column headerText="Empresa Supervisora">
-                                                <h:outputText value="#{empSup.supNombre}"/>
-                                            </p:column>
-                                            <p:column headerText="Representante Legal">
-                                                <h:outputText value="#{empSup.supRepresentanteLegal}"/>
-                                            </p:column>
-                                            <p:column headerText="Ver">
-                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
-                                                               value="Ver" style="width:25px">
-                                                    <f:param id="id2" name="id2" value="#{empSup.supId}"/>
-                                                </h:commandLink>
-                                                <h:outputText value=""/>
-                                            </p:column>
-                                            <p:column headerText="Modificar">
-                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
-                                                               value="Ver" style="width:25px">
-                                                    <f:param id="id3" name="id3" value="#{empSup.supId}"/>
-                                                </h:commandLink>
-                                                <h:outputText value=""/>
-                                            </p:column>
-                                            <p:column headerText="Eliminar">
-                                                <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupDel}"
-                                                               value="Eliminar" style="width:25px">
-                                                    <f:param id="id1" value="#{empSup.supId}"/>
-                                                </h:commandLink>
-                                                <h:outputText value=""/>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </tr>
-                                     
+                                </table>
+                                <div style="width:60%">
+                                    <p:dataTable value="#{backing_ositran_parametros_MantenimientoEmpSup.listaEmpSup}"
+                                                 var="empSup" selectionMode="single" style="font-size:11px;"
+                                                 rowKey="#{empSup.supId}" rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column headerText="Nro. Documento">
+                                            <h:outputText value="#{empSup.supNroDocumento}"/>
+                                        </p:column>
+                                        <p:column headerText="Empresa Supervisora">
+                                            <h:outputText value="#{empSup.supNombre}"/>
+                                        </p:column>
+                                        <p:column headerText="Representante Legal">
+                                            <h:outputText value="#{empSup.supRepresentanteLegal}"/>
+                                        </p:column>
+                                        <p:column headerText="Ver">
+                                            <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
+                                                           value="Ver" style="width:25px">
+                                                <f:param id="id2" name="id2" value="#{empSup.supId}"/>
+                                            </h:commandLink>
+                                            <h:outputText value=""/>
+                                        </p:column>
+                                        <p:column headerText="Modificar">
+                                            <h:commandLink actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
+                                                           value="Ver" style="width:25px">
+                                                <f:param id="id3" name="id3" value="#{empSup.supId}"/>
+                                            </h:commandLink>
+                                            <h:outputText value=""/>
+                                        </p:column>
+                                        <p:column headerText="Eliminar">
+                                        <p:commandButton onclick="return confirm('¿Esta Seguro de Eliminar a la Empresa Supervisora: #{empSup.supNombre}?' );"  image="ui-icon-trash" actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupDel}"/>
+                                            <f:param id="id1" name="id3" value="#{empSup.supId}"/>                                          
+                                            <h:outputText value=""/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                                <table style="font-size: 11px">
                                     <tr style="font-size: 11px">
                                         <td align="left">
                                             <p:commandButton value="#{btn.btn_nuevo}" type="button"
@@ -105,85 +113,91 @@
                         </div>
                     </p:layoutUnit>
                 </p:layout>
-                <p:dialog header="Registrar Empresa Supervisora" widgetVar="regEmpSup" modal="true" height="250px" width="760px">
-                   
-                        <p:growl id="mensaje" showDetail="true"/>
-                        <div align="center" style="width: 85%">
-                            <table style="margin-bottom:5px;font-size: 11px;text-align:center">
-                                <tr>
-                                    <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
-                                    <td colspan="2" align="left">
-                                        <p:inputText style="width:400px"></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td colspan="2" align="left">Direccion:</td>
-                                    <td colspan="2" align="left">
-                                        <p:inputText style="width: 400px"></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td colspan="2" align="left">Representante Legal</td>
-                                    <td colspan="2" align="left">
-                                        <p:inputText style="width: 400px"></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="left">Cargo</td>
-                                    <td align="left">
-                                        <p:inputText></p:inputText>
-                                    </td>
-                                    <td align="left">Telefono</td>
-                                    <td align="left">
-                                        <p:inputText></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="left">Tipo Documento</td>
-                                    <td align="left">
-                                        <p:selectOneMenu id="documentos1">
-                                            <f:selectItem id="Seleccione1" itemLabel="-Seleccione-" itemValue="4"/>
-                                            <f:selectItem itemLabel="Estado1" itemValue="1"/>
-                                            <f:selectItem itemLabel="Estado2" itemValue="2"/>
-                                            <f:selectItem itemLabel="Estado3" itemValue="3"/>
-                                        </p:selectOneMenu>
-                                    </td>
-                                    <td align="left">Numero doc Identidad:</td>
-                                    <td align="left">
-                                        <p:inputText></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="left">Correo</td>
-                                    <td align="left">
-                                        <p:inputText></p:inputText>
-                                    </td>
-                                    <td align="left">Siglas de Nombre</td>
-                                    <td align="left">
-                                        <p:inputText></p:inputText>
-                                    </td>
-                                </tr>
-                                 
-                                <!--tr>
-                                    <td colspan="2" align="right">
-                                        <p:commandButton value="Guardar" actionListener="#{ositranMB.guardar()}"
-                                                         update=":form:mensaje"></p:commandButton>
-                                    </td>
-                                    <td colspan="2" align="left">
-                                        <p:commandButton action="#{ositranMB.validar()}" value="Salir"
-                                                         update=":form:mensaje"></p:commandButton>
-                                    </td>
-                                </tr-->
-                            </table>
-                        </div>            
+
+                <p:dialog header="Registrar Empresa Supervisora" widgetVar="regEmpSup" modal="true" height="250px"
+                          width="760px">
+                    <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                        <tr>
+                            <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width:400px" id="nomEmpSup"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSup}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="left">Direccion:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px" id="dirEmpSup"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="left">Representante Legal</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px" id="repLegal"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegal}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Cargo</td>
+                            <td align="left">
+                                <p:inputText id="cargo" value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}"></p:inputText>
+                            </td>
+                            <td align="left">Telefono</td>
+                            <td align="left">
+                                <p:inputText id="telefono"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.telefono}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Tipo Documento</td>
+                            <td align="left">
+                                <p:selectOneMenu id="tipoDocumento"
+                                                 value="#{backing_ositran_parametros_MantenimientoEmpSup.tipoDocumento}">
+                                    <f:selectItems value="#{backing_ositran_parametros_MantenimientoEmpSup.listaTipoDocumento}"
+                                                   var="lisTipoDoc" itemLabel="#{lisTipoDoc.tdoNombre}"
+                                                   itemValue="#{lisTipoDoc.tdoId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                            <td align="left">Numero doc Identidad:</td>
+                            <td align="left">
+                                <p:inputText id="nroDoc"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDoc}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Correo</td>
+                            <td align="left">
+                                <p:inputText id="correo"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.correo}"></p:inputText>
+                            </td>
+                            <td align="left">Siglas de Nombre</td>
+                            <td align="left">
+                                <p:inputText id="siglasNom"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="right">
+                                <p:commandButton value="Guardar"
+                                                 action="#{backing_ositran_parametros_MantenimientoEmpSup.guardar}"
+                                                 oncomplete="#{backing_ositran_parametros_MantenimientoEmpSup.query}; regEmpSup.hide()"></p:commandButton>
+                            </td>
+                            <td colspan="2" align="left">
+                                <p:commandButton onclick="regEmpSup.hide()" value="Salir"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
                 </p:dialog>
             </h:form>
         </h:body>
     </html>
-    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_parametros_MantenimientoEmpSup-->
 </f:view>
+
+
