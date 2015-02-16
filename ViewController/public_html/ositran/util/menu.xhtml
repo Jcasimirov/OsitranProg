@@ -6,10 +6,10 @@
                 <img src="../../imagenes/logo.png" width="249" height="56"/>
                 <div align="center">
                     <p:megaMenu style="margin-top:15px;width:100%;font-size:small">
-                        <p:submenu label="Home" icon="ui-icon-check">
+                        <p:submenu label="#{menu.m_home}" icon="ui-icon-check">
                         </p:submenu>
                     
-                        <p:submenu label="Contratos" icon="ui-icon-check">
+                        <p:submenu label="#{menu.m_cont}" icon="ui-icon-check">
                             <p:column>
                                 <p:submenu label="TV.1">
                                     <p:menuitem value="TV.1.1" url="#"/>
@@ -25,7 +25,7 @@
                                 <img src="../../imagenes/ositranfoto.jpg" width="150px" height="150px"/>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Valorizaciones" icon="ui-icon-check">
+                        <p:submenu label="#{menu.m_val}" icon="ui-icon-check">
                             <p:column>
                                 <p:submenu label="TV.1">
                                     <p:menuitem value="TV.1.1" url="#"/>
@@ -42,7 +42,7 @@
                             </p:column>
                         </p:submenu>
                         
-                        <p:submenu label="Reporte" icon="ui-icon-pencil">
+                        <p:submenu label="#{menu.m_rep}" icon="ui-icon-pencil">
                             <p:column>
                                 <p:submenu label="Entertainment.1">
                                     <p:menuitem value="Entertainment.1.1" url="#"/>
@@ -55,7 +55,7 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Seguridad" icon="ui-icon-contact">
+                        <p:submenu label="#{menu.m_seg}" icon="ui-icon-contact">
                             <p:column>
                                 <p:submenu label="Tech.1">
                                     <p:menuitem value="Tech.1.1" url="#"/>
@@ -74,29 +74,29 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>                        
-                        <p:submenu label="Parametros" icon="ui-icon-document">
+                        <p:submenu label="#{menu.m_par}" icon="ui-icon-document">
                             <p:column>
                                 <p:submenu label="Concesionario">
-                                    <p:menuitem value="Mantenimiento Concesionario" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
+                                    <p:menuitem value="#{menu.man_con}" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Empresa Supervisora">
-                                    <p:menuitem value="Mantenimiento Empresa Supervisora" url="/faces/ositran/parametros/MantenimientoEmpSup.jsf"/>
+                                    <p:menuitem value="#{menu.man_emsu}" url="/faces/ositran/parametros/MantenimientoEmpSup.jsf"/>
                                 </p:submenu>
                                 <p:submenu label="IGV">
-                                    <p:menuitem value="Mantenimiento Igv" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
+                                    <p:menuitem value="#{menu.man_igv}" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Infraestructura">
-                                    <p:menuitem value="#{menu.menuMTI}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
+                                    <p:menuitem value="#{menu.man_tipinf}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Inversion">
-                                    <p:menuitem value="Mantenimiento Tipo de Inversión" url="/faces/ositran/parametros/mantenimientoTipoInversion.xhtml"/>
+                                    <p:menuitem value="#{menu.man_tipinv}" url="/faces/ositran/parametros/mantenimientoTipoInversion.xhtml"/>
                                 </p:submenu>
                             </p:column>
                             <p:column>
                                 <img src="../../imagenes/parametros.png" width="150px" height="150px"/>
                             </p:column>
                         </p:submenu>
-                        <p:menuitem value="Cerrar Sesion" url="/faces/ositran/logueo.xhtml" icon="ui-icon-close"/>
+                        <p:menuitem value="#{menu.m_exit}" url="/faces/ositran/logueo.xhtml" icon="ui-icon-close"/>
                     </p:megaMenu>
             
                 </div>
