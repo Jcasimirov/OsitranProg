@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "EmpresaSupervisora.findAll", query = "select o from EmpresaSupervisora o") })
 @Table(name = "T_EMPRESA_SUPERVISORA")
-@SequenceGenerator(name = "EMPRESASUPERVISORA_ID_SEQ_GEN", sequenceName = "T_EMPRESA_SUPERVISORA_ID_SEQ_GEN",
+@SequenceGenerator(name = "EMPRESASUPERVISORA_ID_SEQ_GEN", sequenceName = "EMPRESA_SUPERVISORA_ID_SEQ_GEN",
                    allocationSize = 50, initialValue = 50)
 public class EmpresaSupervisora implements Serializable {
     private static final long serialVersionUID = -5138390938685448144L;
