@@ -49,12 +49,11 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         @Override
         public String delete(Integer id) {
             String result=null;
-            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
-                InfraestructuraTipo InfraestructuraTipo=(InfraestructuraTipo)session.get(InfraestructuraTipo.class, id);
-                session.delete(InfraestructuraTipo);
+                InfraestructuraTipo infraestructuraTipo=(InfraestructuraTipo)session.get(InfraestructuraTipo.class, id);
+                session.delete(infraestructuraTipo);
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -64,14 +63,14 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         }
         
         @Override
-        public String update(InfraestructuraTipo InfraestructuraTipo) {
+        public String update(InfraestructuraTipo infraestructuraTipo) {
             String result=null;
             Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
-                session.update(InfraestructuraTipo);
+                session.update(infraestructuraTipo);
                 session.getTransaction().commit();
-                logger.info("InfraestructuraTipo updated successfully, InfraestructuraTipo Details="+InfraestructuraTipo);
+                logger.info("InfraestructuraTipo updated successfully, InfraestructuraTipo Details="+infraestructuraTipo);
             } catch (Exception e) {
                 session.getTransaction().rollback();
                 result=e.getMessage();
@@ -81,12 +80,11 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         
         @Override
         public InfraestructuraTipo get(Integer id) {
-            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            InfraestructuraTipo InfraestructuraTipo=(InfraestructuraTipo)session.get(InfraestructuraTipo.class, id);
+            InfraestructuraTipo infraestructuraTipo=(InfraestructuraTipo)session.get(InfraestructuraTipo.class, id);
             session.getTransaction().commit();
-            return InfraestructuraTipo;
+            return infraestructuraTipo;
         }
 
         @Override
