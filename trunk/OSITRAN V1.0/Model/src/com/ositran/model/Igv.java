@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Entity
 @NamedQueries({ @NamedQuery(name = "Igv.findAll", query = "select o from Igv o") })
 @Table(name = "T_IGV")
-@SequenceGenerator(name = "IGV_ID_SEQ_GEN", sequenceName = "T_IGV_ID_SEQ_GEN", allocationSize = 50,
+@SequenceGenerator(name = "SEQ_IGV", sequenceName = "T_SEQ_IGV", allocationSize = 50,
                    initialValue = 50)
 public class Igv implements Serializable {
     private static final long serialVersionUID = -5795321833849861310L;
