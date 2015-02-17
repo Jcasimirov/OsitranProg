@@ -2,65 +2,213 @@
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
-    <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:p="http://primefaces.org/ui">
-        <h:head><style type="text/css">
-	.ui-panel .ui-panel-titlebar {
-        color: #333333;
-		font-family: Arial, sans-serif;
-	}
-	
-	</style></h:head>
-        <ui:include src="/ositran/util/menu.xhtml"/>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <style type="text/css">
+                .ui-dialog-titlebar {
+                    font-size: 13px;
+                    font-family: sans-serif;
+                }
+            </style>
+        </h:head>
         <h:body>
-            <h:form binding="#{backing_ositran_parametros_mantenimientoTipoInfraestructura.form1}" id="form1">
-            
-            <p:panel header="#{msg.tituloMTI}" style="text-align:center;text-decoration:blink;width:100%">
-	<div align="center">
-	<table style="width:70% ;font-size:11px;">
-		<tr>
-		<td colspan="3">
-	     <p:dataTable editable="true">
-	     <p:ajax event="rowEdit"  />
-         <p:ajax event="rowEditCancel"	/>
-			    <p:column headerText="Nombres">
-			     <p:cellEditor>
-               		<f:facet name="output"><h:outputText value="" /></f:facet>
-               		<f:facet name="input"><h:outputText value="" /></f:facet>
-           		</p:cellEditor>
-			        
-			    </p:column>			 
-			    <p:column headerText="Descripcion">
-			       <p:cellEditor>
-               		<f:facet name="output"><h:outputText value="" /></f:facet>
-               		<f:facet name="input"><h:outputText value="" /></f:facet>
-           		</p:cellEditor>
-			    </p:column>		
-			    <p:column headerText="Editar" style="width:25px">
-          			 <p:rowEditor />
-       			</p:column>	
-       			 <p:column headerText="Eliminar" style="width:25px">
-          			 <p:commandButton icon=".ui-icon-closethick"></p:commandButton>
-       			</p:column>	
-       			 <p:column headerText="Selecionar" style="width:25px">
-          			 <p:selectBooleanCheckbox />
-       			</p:column>	 
-			</p:dataTable>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-                                    <p:commandButton binding="#{backing_ositran_parametros_mantenimientoTipoInfraestructura.commandButtonCrear}"
-                                                     id="commandButtonCrear" value="#{btn.btn_nuevo}" action="regTipInf"/>
-                                                     <p:commandButton value="Eliminar"></p:commandButton>
-							  <p:commandButton value="Salir"></p:commandButton></td>
-		</tr>		
-	</table> 
-	
-	</div>   
-		
-</p:panel>
-            
+        
+            <f:event listener="#{infraestructuraMB.ListarInfraestructura}" type="postAddToView"></f:event>
+            <h:form id="form">
+                <p:panel header="#{msg.tituloMTI}" style="text-align:center;text-decoration:blink;width:100%">
+                    <div align="center">
+                        <table style="width:70% ;font-size:11px;">
+                            <tr>
+                                <td>
+                                    <p:dataTable style="font-size:11px;" id="tablaMTI" var="mti"
+                                                value="#{infraestructuraMB.listaInfraestructura}">
+                                        
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nombres"/>
+                                            </f:facet>
+                                            <h:outputText value="#{mti.tinNombre}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripcion"/>
+                                            </f:facet>
+                                            <h:outputText value="#{mti.tinDescripcion}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Actualizar"/>
+                                            </f:facet>
+                                            <p:commandButton update=":form:popupeditar"
+                                                             action="#{infraestructuraMB.cargarEditar(mti)}"
+                                                             oncomplete="popupeditar.show()"
+                                                             image="ui-icon-document"
+                                                             style="width:25px;height:25px"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Eliminar"/>
+                                            </f:facet>
+                                            <p:commandButton update=":form:popupeliminar :form:popupeliminar"
+                                                             actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId, mti.tinNombre )}"       
+                                                             oncomplete="popupeliminar.show()"
+                                                             image="ui-icon-closethick"
+                                                             style="width:25px;height:25px"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </td>
+                            </tr>
+                        
+                        
+                        
+                            <tr>
+                                <td align="center">
+                                    <p:commandButton value="#{btn.btn_nuevo}" 
+                                                     oncomplete="popupagregar.show()"/>
+                                     
+                                    <p:commandButton value="#{btn.btn_salir}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </p:panel>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <!-- pdialog para boton agregar -->
+                <p:dialog   id="popupagregar" 
+                            header="Agregar Tipo de Infraestructura"
+                            widgetVar="popupagregar"
+                            modal="true" 
+                            resizable="false"
+                            minWidth="200">
+                    <div align="center" style="width: 100%">
+                        <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                            <tr>
+                                <td align="left">
+                                    #{etq.etq_ntinfra}
+                                </td>
+                                <td align="left">
+                                    <p:inputText id="tinNombre" value="#{infraestructuraMB.tinNombre}" required="true"
+                                                 size="30" maxlength="50"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td align="left">
+                                    #{etq.etq_dtinfra}
+                                </td>
+                                <td align="left">
+                                    <p:inputTextarea id="tinDescripcion" value="#{infraestructuraMB.tinDescripcion}"
+                                                     style="width:250px"></p:inputTextarea>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <p:commandButton    update=":form:tablaMTI"
+                                                        actionListener="#{infraestructuraMB.guardar}"
+                                                        oncomplete="popupagregar.hide()"
+                                                        style="width:70px"
+                                                        value="#{btn.btn_guardar}"/>
+                                     
+                                    <p:commandButton value="#{btn.btn_salir}" oncomplete="popupagregar.hide()"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </p:dialog>
+                <!-- fin pdialog para boton agregar -->
+                
+                <!-- pdialog para boton editar -->
+                <p:dialog   id="popupeditar" 
+                            header="Modificar Tipo de Infraestructura"
+                            widgetVar="popupeditar"
+                            modal="true"
+                            resizable="false"
+                            minWidth="200">
+                    <div align="center" style="width: 100%">
+                        <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                            <tr>
+                                <td align="left">
+                                    ID:
+                                </td>
+                                <td align="left">
+                                    <p:inputText value="#{infraestructuraMB.codigoE}" size="30" maxlength="50"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td align="left">
+                                    #{etq.etq_ntinfra}
+                                </td>
+                                <td align="left">
+                                    <p:inputText value="#{infraestructuraMB.tinNombreE}" size="30" maxlength="50"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td align="left">
+                                    #{etq.etq_dtinfra}
+                                </td>
+                                <td align="left">
+                                    <p:inputTextarea value="#{infraestructuraMB.tinDescripcionE}" style="width:250px"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <p:commandButton update=":form:tablaMTI"
+                                                     oncomplete="popupeditar.hide()"
+                                                     action="#{infraestructuraMB.editar}"
+                                                     style="width:70px"
+                                                     value="#{btn.btn_modificar}"/>
+                                     
+                                    <p:commandButton value="#{btn.btn_salir}" oncomplete="popupeditar.hide()"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </p:dialog>
+                <!-- fin pdialog para boton editar -->
+                
+                <!-- pdialog para boton eliminar -->
+                <p:dialog   id="popupeliminar"
+                            widgetVar="popupeliminar"
+                            header="Confirmar"
+                            resizable="false"
+                            modal="true">
+                            
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Eliminar el tipo de infraestructura: 
+                                "#{infraestructuraMB.nombreEliminar}"
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton    update=":form:tablaMTI"
+                                                    actionListener="#{infraestructuraMB.eliminar}"
+                                                    value="Eliminar"                                                 
+                                                    oncomplete="popupeliminar.hide()"/>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="Cancelar" onclick="popupeliminar.hide()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>                
+                <!-- fin pdialog para boton eliminar -->
+                
+                
             </h:form>
         </h:body>
     </html>
