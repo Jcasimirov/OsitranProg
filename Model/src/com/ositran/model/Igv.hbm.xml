@@ -7,7 +7,7 @@
         <id name="igvId" type="java.lang.Integer" access="field">
             <column name="IGV_ID" />
             <generator class="increment">
-                <param name="sequence">IGV_ID_SEQ_GEN</param>
+                <param name="sequence">SEQ_IGV</param>
             </generator>
         </id>
         <property name="igvEstado" type="java.lang.Integer" column="IGV_ESTADO"/>
