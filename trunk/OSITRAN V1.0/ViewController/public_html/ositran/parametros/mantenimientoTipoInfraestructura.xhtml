@@ -65,8 +65,8 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Eliminar"/>
                                             </f:facet>
-                                            <p:commandButton update=":form:popupeliminar :form:popupeliminar"
-                                                             actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId, mti.tinNombre )}"       
+                                            <p:commandButton update=":form:popupeliminar :form:codEliminar"
+                                                             actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"       
                                                              oncomplete="popupeliminar.show()"
                                                              image="ui-icon-closethick"
                                                              style="width:25px;height:25px"/>
@@ -85,8 +85,7 @@
                         </table>
                     </div>
                 </p:layoutUnit>
-                
-                
+                <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar" />
                 </p:layout>
                 
                 
@@ -202,8 +201,7 @@
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Eliminar el tipo de infraestructura: 
-                                "#{infraestructuraMB.nombreEliminar}"
+                                Eliminar el tipo de infraestructura: "#{infraestructuraMB.nombreEliminar}"
                             </td>
                         </tr>
                          
