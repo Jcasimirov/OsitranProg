@@ -24,8 +24,10 @@
                     <div align="center">
                         <table style="width:70% ;font-size:11px;">
                             <tr>
-                                <td>Nombre: </td>
-                                <td> <p:inputText/></td>
+                                <td> #{etq.etq_nombre} </td>
+                                <td> 
+                                    <p:inputText id="buscar" value="#{infraestructuraMB.buscar}"/>
+                                </td>
                                 <td><p:commandButton value="#{btn.btn_buscar}" /></td>
                             </tr>
                             <tr>
@@ -87,12 +89,6 @@
                 </p:layoutUnit>
                 <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar" />
                 </p:layout>
-                
-                
-                
-                
-                
-                
                 
                 <!-- pdialog para boton agregar -->
                 <p:dialog   id="popupagregar" 
