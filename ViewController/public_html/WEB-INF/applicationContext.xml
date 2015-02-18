@@ -22,13 +22,15 @@
     <bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
         <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
     </bean>
-    <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl"/>
-    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
-        <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
+    <!--Concesionario-->
+    <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl"/>
+    <bean id="concesionarioServiceImpl" class="com.ositran.serviceimpl.ConcesionarioServiceImpl">
+        <property name="concesionarioDAOImpl" ref="concesionarioDAOImpl"/>
     </bean>
-    <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
-        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
-    </bean>
+    <bean id="registrarConcesionario" class="com.ositran.parametros.RegistrarConcesionario">
+        <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
+    </bean>    
+    <!--Igv-->
     <bean id="igvDAOImpl" class="com.ositran.daoimpl.IgvDAOImpl"/>
     <bean id="igvServiceImpl" class="com.ositran.serviceimpl.IgvServiceImpl">
         <property name="igvDAOImpl" ref="igvDAOImpl"/>
@@ -36,6 +38,7 @@
     <bean id="mantenimientoIgv" class="com.ositran.parametros.MantenimientoIgv">
         <property name="igvServiceImpl" ref="igvServiceImpl"/>
     </bean>
+    <!--Empresa supervisora-->
     <bean id="empresaSupervisoraDAOImpl" class="com.ositran.daoimpl.EmpresaSupervisoraDAOImpl"/>
     <bean id="empSupServiceImp" class="com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl">
         <property name="empresaSupervisoraDAOImpl" ref="empresaSupervisoraDAOImpl"/>
@@ -43,6 +46,7 @@
     <bean id="mantenimientoEmpSup" class="com.ositran.parametros.MantenimientoEmpSup">
         <property name="empSupServiceImp" ref="empSupServiceImp"/>
     </bean>
+    <!--Tipo de inversión-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl"/>
     <bean id="tipoInversionServicesImpl" class="com.ositran.serviceimpl.TipoInversionServiceImpl">
         <property name="tipoInversionDAOImpl" ref="tipoInversionDAOImpl"/>
@@ -50,4 +54,12 @@
     <bean id="mantenimientoTipoInversion" class="com.ositran.parametros.TipoInversionMB">
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
     </bean>
+    <!--Tipo de infraestructura-->
+    <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl"/>
+    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
+        <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
+    </bean>
+    <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+    </bean>    
 </beans>
