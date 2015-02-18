@@ -4,69 +4,74 @@
         xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:primefaces-p="http://primefaces.org/ui">
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head>
-<style type="text/css">
-        .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
-            border: none;
-        }
-        .ui-widget-content, .ui-corner-all, .ui-layout-content{
-            border: none;
-        }
-    </style>        
+            <style type="text/css">
+                .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+                    border: none;
+                }
+
+                .ui-widget-content, .ui-corner-all, .ui-layout-content {
+                    border: none;
+                }
+            </style>
         </h:head>
         <h:body>
             <ui:include src="/ositran/util/menu.xhtml"/>
-            <primefaces-p:layout binding="#{backing_ositran_parametros_mantenimientoConcesionario.layout1}"
-                                                                             id="layout1" style="min-width:400px;min-height:500px;">
+             
+            <primefaces-p:layout binding="#{backing_ositran_parametros_mantenimientoConcesionario.layout1}" id="layout1"
+                                 style="min-width:400px;min-height:500px;">
                 <primefaces-p:layoutUnit position="north"
                                          binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit2}"
                                          id="layoutUnit2" style="width:0px; display:none;">
-                                         <div style="text-align:center;">
-                                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel1}"
-                                              id="outputLabel1" value="#{msg.tituloMCRIO}" style="text-aling:center;"/>
-                                              </div>
+                    <div style="text-align:center;">
+                        <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel1}"
+                                                  id="outputLabel1" value="#{msg.tituloMCRIO}"
+                                                  style="text-aling:center;"/>
+                    </div>
                 </primefaces-p:layoutUnit>
-                <primefaces-p:layoutUnit position="east"  minSize="150"
+                <primefaces-p:layoutUnit position="east" minSize="150"
                                          binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit5}"
                                          id="layoutUnit5"/>
                 <primefaces-p:layoutUnit position="center"
                                          binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit1}"
-                                         id="layoutUnit1"
-                                         minSize="200" visible="true" style="text-aling:center;">
-                                         <div>
-                                         <h:form>
-                    <primefaces-p:dataGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataGrid1}"
-                                           id="dataGrid1" columns="5">
-                        <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel2}"
-                                                  id="outputLabel2" value="#{etq.etq_nombre}"/>
-                        <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText1}"
-                                                id="inputText1"/>
-                        <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel3}"
-                                                  id="outputLabel3" value="#{etq.etq_tipoInfra}"/>
-                        <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText2}"
-                                                id="inputText2"/>
-                        <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton1}"
-                                                    id="commandButton1" value="#{btn.btn_buscar}"/>
-                        <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel4}"
-                                                  id="outputLabel4" value="#{etq.etq_concesion}"/>
-                        <primefaces-p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoConcesionario.selectOneMenu1}"
-                                                    id="selectOneMenu1"/>
-                    </primefaces-p:dataGrid>
-                    <primefaces-p:dataTable binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataTable1}"
-                                            id="dataTable1">
-                        <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column1}"
-                                             id="column1"/>
-                        <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column2}"
-                                             id="column2"/>
-                        <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column3}"
-                                             id="column3"/>
-                        <primefaces-p:column headerText="Ver" binding="#{backing_ositran_parametros_mantenimientoConcesionario.column4}"
-                                             id="column4"/>
-                        <primefaces-p:column headerText="Modificar" binding="#{backing_ositran_parametros_mantenimientoConcesionario.column5}"
-                                             id="column5"/>
-                        <primefaces-p:column  headerText="Eliminar" binding="#{backing_ositran_parametros_mantenimientoConcesionario.column6}"
-                                             id="column6"/>
-                    </primefaces-p:dataTable>
-                    </h:form>
+                                         id="layoutUnit1" minSize="200" visible="true" style="text-aling:center;">
+                    <div>
+                        <h:form>
+                            <primefaces-p:dataGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataGrid1}"
+                                                   id="dataGrid1" columns="5">
+                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel2}"
+                                                          id="outputLabel2" value="#{etq.etq_nombre}"/>
+                                <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText1}"
+                                                        id="inputText1"/>
+                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel3}"
+                                                          id="outputLabel3" value="#{etq.etq_tipoInfra}"/>
+                                <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText2}"
+                                                        id="inputText2"/>
+                                <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton1}"
+                                                            id="commandButton1" value="#{btn.btn_buscar}"/>
+                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel4}"
+                                                          id="outputLabel4" value="#{etq.etq_concesion}"/>
+                                <primefaces-p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoConcesionario.selectOneMenu1}"
+                                                            id="selectOneMenu1"/>
+                            </primefaces-p:dataGrid>
+                            <primefaces-p:dataTable binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataTable1}"
+                                                    id="dataTable1">
+                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column1}"
+                                                     id="column1"/>
+                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column2}"
+                                                     id="column2"/>
+                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column3}"
+                                                     id="column3"/>
+                                <primefaces-p:column headerText="Ver"
+                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column4}"
+                                                     id="column4"/>
+                                <primefaces-p:column headerText="Modificar"
+                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column5}"
+                                                     id="column5"/>
+                                <primefaces-p:column headerText="Eliminar"
+                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column6}"
+                                                     id="column6"/>
+                            </primefaces-p:dataTable>
+                        </h:form>
                     </div>
                 </primefaces-p:layoutUnit>
                 <primefaces-p:layoutUnit position="west" style="width:0px; display:none;"
@@ -78,14 +83,16 @@
                     <primefaces-p:panelGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.panelGrid1}"
                                             id="panelGrid1" columns="2" style="align:center;">
                         <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton2}"
-                                                id="commandButton2" value="Nuevo" onclick="dlg.show();" type="button"/>
+                                                    id="commandButton2" value="Nuevo" onclick="dlg.show();"
+                                                    type="button"/>
                         <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton3}"
                                                     id="commandButton3" value="Salir"/>
                     </primefaces-p:panelGrid>
                 </primefaces-p:layoutUnit>
             </primefaces-p:layout>
-            <primefaces-p:dialog header="#{msg.tituloRCON}" widgetVar="dlg" showEffect="fade"
-                        hideEffect="fade" height="450" width="600">
+             
+            <primefaces-p:dialog header="#{msg.tituloRCON}" widgetVar="dlg" showEffect="fade" hideEffect="fade"
+                                 height="450" width="600">
                 <ui:include src="/ositran/parametros/registrarConcesionario.xhtml"/>
                 <primefaces-p:commandButton/>
             </primefaces-p:dialog>
