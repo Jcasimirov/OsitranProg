@@ -1,3 +1,4 @@
+
 package com.ositran.dao;
 
 import com.ositran.model.InfraestructuraTipo;
@@ -10,4 +11,5 @@ public interface InfraestructuraTipoDAO {
         public String delete(Integer id);
         public String update(InfraestructuraTipo infraestructuraTipo);
         public InfraestructuraTipo get(Integer id);
+        public List<InfraestructuraTipo> AllSearch(String a); 
 }
