@@ -1,4 +1,8 @@
 package com.ositran.vo.bean;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 
@@ -51,7 +55,7 @@ public class TipoInversionVO {
         this.tivEstado = tivEstado;
     }
 
-    public Date getTivFechaAlta() {
+    public Date getTivFechaAlta()  { 
         return tivFechaAlta;
     }
 
