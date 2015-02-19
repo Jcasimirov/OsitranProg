@@ -1,0 +1,15 @@
+
+.ui-dialog-titlebar{
+    font-size: 13px;
+    font-family: sans-serif;
+	}
+        .ui-datatable-odd {
+    background: #FFFFFF;
+}
+.negrita{
+ font-weight: bold;
+}
+.ui-datatable-even {
+    background: #D5F8FE;
+}
+
