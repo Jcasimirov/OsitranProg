@@ -13,6 +13,16 @@
         <property name="username" value="ositran"/>
         <property name="password" value="ositran"/>
     </bean>
+    <!--Concesion-->
+    <bean id="concesionDAOImpl" class="com.ositran.daoimpl.ConcesionDAOImpl"/>
+    <bean id="concesionServicesImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
+        <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
+    </bean>
+    <bean id="mantenimientoConcesion" class="com.ositran.parametros.MantenimientoConcesion">
+        <property name="concesionServicesImpl" ref="concesionServicesImpl"/>
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
+    </bean>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl"/>
     <bean id="concesionarioServiceImpl" class="com.ositran.serviceimpl.ConcesionarioServiceImpl">
@@ -36,6 +46,11 @@
     </bean>
     <bean id="mantenimientoEmpSup" class="com.ositran.parametros.MantenimientoEmpSup">
         <property name="empSupServiceImp" ref="empSupServiceImp"/>
+    </bean>
+    <!--Infraestructura-->
+    <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
+    <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
+        <property name="infraestructuraDAOImpl" ref="infraestructuraDAOImpl"/>
     </bean>
     <!--Tipo de inversión-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl"/>
