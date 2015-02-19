@@ -10,4 +10,5 @@ public interface ConcesionService {
     public String delete(Integer id);
     public String update(ConcesionVO concesionVO);
     public ConcesionVO get(Integer id);
+    public int idConcesion (ConcesionVO concesionVO);
 }
