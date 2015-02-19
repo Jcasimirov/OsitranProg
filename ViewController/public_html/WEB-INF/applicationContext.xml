@@ -52,6 +52,15 @@
     <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
         <property name="infraestructuraDAOImpl" ref="infraestructuraDAOImpl"/>
     </bean>
+    <!--Inversion descripcion-->
+    <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl"/>
+    <bean id="inversionDescripcionServicesImpl" class="com.ositran.serviceimpl.InversionDescripcionServicesImpl">
+        <property name="inversionDescripcionDAOimpl" ref="inversionDescripcionDAOimpl"/>
+    </bean> 
+    <bean id="mantenimientoTipoInversionDescripcion" class="com.ositran.parametros.DescripcionTipoInversion">
+        <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
+        <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
+    </bean>    
     <!--Tipo de inversión-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl"/>
     <bean id="tipoInversionServicesImpl" class="com.ositran.serviceimpl.TipoInversionServiceImpl">
