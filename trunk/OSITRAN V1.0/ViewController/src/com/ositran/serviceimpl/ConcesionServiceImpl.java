@@ -1,17 +1,12 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ConcesionDAOImpl;
-
 import com.ositran.model.Concesion;
 import com.ositran.service.ConcesionService;
 import com.ositran.vo.bean.ConcesionVO;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.context.FacesContext;
 
 public class ConcesionServiceImpl implements ConcesionService{
     private ConcesionDAOImpl concesionDAOImpl;
@@ -31,6 +26,8 @@ public class ConcesionServiceImpl implements ConcesionService{
 
     @Override
     public List<ConcesionVO> query() {
+        
+        System.out.println("Services");
         List<Concesion> list=concesionDAOImpl.query();
         List<ConcesionVO> listVO=toListConcesionVO(list);
         return listVO;
@@ -43,6 +40,12 @@ public class ConcesionServiceImpl implements ConcesionService{
         return result;
     }
 
+    @Override
+    public int idConcesion(ConcesionVO concesionVO) {
+        Concesion concesion=toConcesion(concesionVO);
+        int result=concesionDAOImpl.idConcesion(concesion);
+        return result;
+    }
     @Override
     public String delete(Integer id) {
         String result=this.concesionDAOImpl.delete(id);
@@ -84,42 +87,36 @@ public class ConcesionServiceImpl implements ConcesionService{
     private ConcesionVO toConcesionVO(Concesion concesion){
         ConcesionVO concesionVO=new ConcesionVO();
        
-         concesionVO.setTcoFechaAlta(concesion.getTcoFechaAlta());
-        concesionVO.setTcoFechaBaja(concesion.getTcoFechaBaja());
-        concesionVO.setTcoFechaCambio(concesion.getTcoFechaCambio());
-        concesionVO.setTcoTerminal(concesion.getTcoTerminal());
-        concesionVO.setTcoUsuarioAlta(concesion.getTcoUsuarioAlta());
-        concesionVO.setTcoUsuarioBaja(concesion.getTcoUsuarioBaja());
-        concesionVO.setTcoUsuarioCambio(concesion.getTcoUsuarioCambio());   
-        concesionVO.setTcoId(concesion.getTcoId());
+         concesionVO.setCsiFechaAlta(concesion.getCsiFechaAlta());
+        concesionVO.setCsiFechaBaja(concesion.getCsiFechaBaja());
+        concesionVO.setCsiFechaCambio(concesion.getCsiFechaCambio());
+        concesionVO.setCsiTerminal(concesion.getCsiTerminal());
+        concesionVO.setCsiUsuarioAlta(concesion.getCsiUsuarioAlta());
+        concesionVO.setCsiUsuarioBaja(concesion.getCsiUsuarioBaja());
+        concesionVO.setCsiUsuarioCambio(concesion.getCsiUsuarioCambio());   
+        concesionVO.setCsiId(concesion.getCsiId());
         concesionVO.setTinId(concesion.getTinId());
-        concesionVO.setTcoNombre(concesion.getTcoNombre());
+        concesionVO.setCsiNombre(concesion.getCsiNombre());
        
         return concesionVO;
     }
     private Concesion toConcesion(ConcesionVO concesionVO){
         Concesion concesion=new Concesion();
      
-          concesion.setTcoFechaAlta(concesionVO.getTcoFechaAlta());
-        concesion.setTcoFechaBaja(concesionVO.getTcoFechaBaja());
-        concesion.setTcoFechaCambio(concesionVO.getTcoFechaCambio());
-        concesion.setTcoTerminal(concesionVO.getTcoTerminal());
-        concesion.setTcoUsuarioAlta(concesionVO.getTcoUsuarioAlta());
-        concesion.setTcoUsuarioBaja(concesionVO.getTcoUsuarioBaja());
-        concesion.setTcoUsuarioCambio(concesionVO.getTcoUsuarioCambio());
-        concesion.setTcoId(concesionVO.getTcoId());
+        concesion.setCsiFechaAlta(concesionVO.getCsiFechaAlta());
+        concesion.setCsiFechaBaja(concesionVO.getCsiFechaBaja());
+        concesion.setCsiFechaCambio(concesionVO.getCsiFechaCambio());
+        concesion.setCsiTerminal(concesionVO.getCsiTerminal());
+        concesion.setCsiUsuarioAlta(concesionVO.getCsiUsuarioAlta());
+        concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
+        concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());
+        concesion.setCsiId(concesionVO.getCsiId());
         concesion.setTinId(concesionVO.getTinId());   
-        concesion.setTcoNombre(concesionVO.getTcoNombre());
+        concesion.setCsiNombre(concesionVO.getCsiNombre());
        
         return concesion; 
         
     }
 
 
-
-
-
-
-
-   
 }
