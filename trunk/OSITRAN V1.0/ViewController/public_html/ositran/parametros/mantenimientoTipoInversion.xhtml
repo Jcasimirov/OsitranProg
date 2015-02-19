@@ -5,27 +5,31 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-      
-    <style type="text/css">
-	.ui-dialog-titlebar{
-             font-size: 13px;
-	  font-family: sans-serif;
-	}
-    </style>
+    <link href="#{request.contextPath}/CSS/diseño.css" rel="stylesheet" type="text/css"/>
 </h:head>
         
-        <h:body>
-            <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
+<h:body>
+    <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
 <h:form id="form" >
-    <p:layout fullPage="true"  style="border:none" >
+<p:growl id="mensaje" showDetail="true"  life="10000" /> 
+ <p:messages autoUpdate="true"/>
+
+        <p:layout fullPage="true"  style="border:none" >
         <p:layoutUnit position="center"  style="border:0px"> 
                 <ui:include src="/ositran/util/menu.xhtml"/>
-                <div align="center"><h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >#{msg.titulo_MANTTIPINV}</h3></div>
-                <center>
-                <div style="width:60%">
+                 <div align="center">
+                <h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >#{msg.titulo_MANTTIPINV}</h3>
+               
+                <div style="width:60%" >
             <div align="left" style="font-size: 11px">
-			<p:commandButton   onclick="insertarPanel.show()" value=" Nueva Inversion" />
-			</div>
+            <table width="100%">
+                <tr>    
+                    <td align="left"><p:commandButton image="ui-icon-circle-plus"  onclick="insertarPanel.show()" value=" Nueva Inversion" /></td>
+                    <td align="right">Ingrese Criterio Busqueda: <p:inputText value="#{tipoInversionMB.buscar}" /><h:outputText value="&#160;" /><p:commandButton value="Buscar" actionListener="#{tipoInversionMB.busqueda}" image="ui-icon-search" /></td>
+                    
+                </tr>
+            </table>			
+            </div>
 			<br></br>
 			
                 <p:dataTable style="font-size:11px;"   id="tablaES" var="inversion" 
@@ -40,13 +44,18 @@
                                 <h:outputText value="#{inversion.tivDescripcion}" />
                             </p:column>                         
                              <p:column headerText="Usuario Registro">
-                                <h:outputText value="#{inversion.tivUsuarioAlta}" />
+                                <h:outputText value="#{inversion.tivUsuarioAlta}">                           
+                                </h:outputText>
                             </p:column> 
                              <p:column headerText="Creacion:">
-                                <h:outputText value="#{inversion.tivFechaAlta}" />
+                                <h:outputText value="#{inversion.tivFechaAlta}" >
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
                             </p:column> 
                              <p:column headerText="Modificacion:">
-                                <h:outputText value="#{inversion.tivFechaCambio}" />
+                                <h:outputText value="#{inversion.tivFechaCambio}" >
+                                 <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
                             </p:column> 
                              <p:column headerText="Edi">
                                 <p:commandButton update=":form:editarPanel" actionListener="#{tipoInversionMB.cargarEditar(inversion)}" oncomplete="editarPanel.show()" image="ui-icon-document" style="width:25px;height:25px" />
@@ -55,10 +64,10 @@
                                 <p:commandButton  update=":form:confirEliminar :form:codEliminar" actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}" oncomplete="confirEliminar.show()" image="ui-icon-closethick" style="width:25px;height:25px" />
                             </p:column>
                         </p:dataTable>
+                </div>   
                 </div>
-            </center>    
         </p:layoutUnit>
-        <p:layoutUnit position="south"  style="border:0px"  resizable="true" closable="true" collapsible="true">
+        <p:layoutUnit position="south"  style="border:0px;width:98%"  resizable="true" closable="true" collapsible="true">
           <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
         </p:layoutUnit>
        <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar" />
@@ -71,7 +80,7 @@
                                             <td colspan="2"> Eliminar el tipo de inversion: "#{tipoInversionMB.nombreEliminar}" </td>
                                     </tr>
                                     <tr>
-                                            <td align="right"><p:commandButton update=":form:tablaES" value="Eliminar" actionListener="#{tipoInversionMB.eliminar}" oncomplete="confirEliminar.hide()"></p:commandButton></td>
+                                            <td align="right"><p:commandButton  update=":form:tablaES :form:mensaje" value="Eliminar" actionListener="#{tipoInversionMB.eliminar}" oncomplete="confirEliminar.hide()"></p:commandButton></td>
                                             <td align="left"><p:commandButton value="Cancelar"  onclick="confirEliminar.hide()"></p:commandButton></td>
                                     </tr>
                 </table>
@@ -82,16 +91,20 @@
 	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
 	 		
 			<tr>
-	 			<td align="left">#{etq.etq_rti_inti}</td>
-	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombre}" style="width:300px" /> </td>
-	 		</tr>
+	 			<td align="left" class="negrita" >#{etq.etq_rti_inti}</td>
+	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombre}"  label="Nombre"  id="nombre" style="width:300px" /> </td>
+                                    
+                                
+                                
+                                
+                        </tr>
 	 		<tr>
-	 			<td align="left">#{etq.etq_rti_idti}</td>
+	 			<td align="left" class="negrita">#{etq.etq_rti_idti}</td>
 	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcion}"  style="width:300px" /> </td>
 	 		</tr>
 	 		
 	 		<tr>
-	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="insertarPanel.hide()" action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
+	 			<td align="right"><p:commandButton  update=":form:tablaES :form:mensaje"  oncomplete="insertarPanel.hide()" action="#{tipoInversionMB.guardar}" style="width:70px" value="#{btn.btn_guardar}" /></td>
 	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="insertarPanel.hide ()" /></td>
 	 		</tr>
 	 	</table>
@@ -100,20 +113,20 @@
                  <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel"  modal="true" style="text-align:center;">
 	 	<table  style="margin-bottom:5px;font-size:11px;text-align:center">
 	 		<tr>
-	 			<td align="right">ID:</td>
+	 			<td align="right" class="negrita">ID:</td>
 	 			<td align="left" ><p:inputText value="#{tipoInversionMB.codigoE}" style="width:30px" /> </td>
 	 		</tr>
 			<tr>
-	 			<td align="left">#{etq.etq_rti_inti}</td>
+	 			<td align="left" class="negrita" >#{etq.etq_rti_inti}</td>
 	 			<td align="left" ><p:inputText value="#{tipoInversionMB.nombreE}" style="width:300px" /> </td>
 	 		</tr>
 	 		<tr>
-	 			<td align="left">#{etq.etq_rti_idti}</td>
+	 			<td align="left" class="negrita">#{etq.etq_rti_idti}</td>
 	 			<td align="left"><p:inputTextarea value="#{tipoInversionMB.descripcionE}"  style="width:300px" /> </td>
 	 		</tr>
 	 		
 	 		<tr>
-	 			<td align="right"><p:commandButton update=":form:tablaES"  oncomplete="editarPanel.hide()" action="#{tipoInversionMB.editar}" style="width:70px" value="#{btn.btn_modificar}" /></td>
+	 			<td align="right"><p:commandButton update=":form:tablaES :form:mensaje"  oncomplete="editarPanel.hide()" action="#{tipoInversionMB.editar}" style="width:70px" value="#{btn.btn_modificar}" /></td>
 	 			<td align="left"><p:commandButton  style="width:70px" value="Salir" onclick="editarPanel.hide ()" /></td>
 	 		</tr>
 	 	</table>
