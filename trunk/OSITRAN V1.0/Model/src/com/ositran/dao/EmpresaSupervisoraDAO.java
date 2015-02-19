@@ -10,4 +10,5 @@ public interface EmpresaSupervisoraDAO {
         public String delete(Integer id);
         public String update(EmpresaSupervisora empresaSupervisora);
         public EmpresaSupervisora get(Integer id);
+        public List<EmpresaSupervisora> FiltrarEmpSup(String atributo);
 }
