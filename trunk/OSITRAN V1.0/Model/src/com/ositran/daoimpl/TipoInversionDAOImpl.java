@@ -3,7 +3,7 @@ package com.ositran.daoimpl;
 import com.ositran.dao.TipoInversionDAO;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.InversionTipo;
-
+import org.hibernate.Query;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,9 +14,7 @@ import org.hibernate.cfg.Configuration;
 public class TipoInversionDAOImpl implements TipoInversionDAO{
 
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
-  
-
+    
     @Override
     public List<InversionTipo> query() {
         Session session = sessionFactory.openSession();
@@ -27,13 +25,36 @@ public class TipoInversionDAOImpl implements TipoInversionDAO{
         return list;
     }
 
-   
+    @Override
+    public List<InversionTipo> query1(String buscar) {
+       /* 
+        ----------BUSQUEDA SIN LIKE-------
+        System.out.println(buscar);
+        Query query;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();      
+        query=session.createQuery("FROM InversionTipo  E WHERE E.tivNombre = :busqueda ");
+        query.setParameter("busqueda",buscar);
+        List list= query.list();
+        session.getTransaction().commit();
+        return list;*/
+        
+         System.out.println(buscar);
+        Query query;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();      
+        query=session.createQuery("FROM InversionTipo  E WHERE E.tivNombre like  :busqueda ");
+        query.setParameter("busqueda","%"+buscar+"%");
+        List list= query.list();
+        session.getTransaction().commit();
+        return list;
+    }
 
 
     @Override
     public String insert(InversionTipo inversionTipo) {
          String result=null;
-         System.out.println("Dao");
+
             Session session = sessionFactory.openSession();
             try {
                 session.beginTransaction();
@@ -69,7 +90,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO{
 
     @Override
     public String update(InversionTipo inversionTipo) {
-        
+      
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -85,7 +106,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO{
     }
 
     @Override
-    public InfraestructuraTipo get(Integer id) {
+    public InversionTipo get(Integer id) {
        
         return null;
     }
