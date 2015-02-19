@@ -13,15 +13,6 @@
         <property name="username" value="ositran"/>
         <property name="password" value="ositran"/>
     </bean>
-    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl">
-        <!--property name="dataSource" ref="dataSource"/-->
-    </bean>
-    <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
-        <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
-    </bean>
-    <bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
-        <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
-    </bean>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl"/>
     <bean id="concesionarioServiceImpl" class="com.ositran.serviceimpl.ConcesionarioServiceImpl">
@@ -29,7 +20,7 @@
     </bean>
     <bean id="registrarConcesionario" class="com.ositran.parametros.RegistrarConcesionario">
         <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
-    </bean>    
+    </bean>
     <!--Igv-->
     <bean id="igvDAOImpl" class="com.ositran.daoimpl.IgvDAOImpl"/>
     <bean id="igvServiceImpl" class="com.ositran.serviceimpl.IgvServiceImpl">
@@ -61,5 +52,5 @@
     </bean>
     <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
-    </bean>    
+    </bean>
 </beans>
