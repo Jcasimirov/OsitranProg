@@ -19,30 +19,23 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
-                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                                #{msg.tituloMTI}
-                            </h3>
+                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">#{msg.tituloMTI}</h3>
                         </div>
                         <div align="center">
                             <table style="width:70% ;font-size:11px;">
                                 <tr>
-                                    <td>
-                                        #{etq.etq_nombre}
-                                    </td>
-                                    <td>
-                                        <p:inputText id="buscar" value="#{infraestructuraMB.buscar}"/>
-                                    </td>
-                                    <td>
-                                        <p:commandButton value="#{btn.btn_buscar}"/>
-                                    </td>
+                                    <td>#{etq.etq_nombre}</td>
+                                    <td><p:inputText id="buscar"  value="#{infraestructuraMB.buscar}"/></td>
+                                    <td><p:commandButton value="#{btn.btn_buscar}"/></td>
                                 </tr>
                                  
                                 <tr>
                                     <td colspan="2"></td>
-                                    <td>
-                                        <p:commandButton value="#{btn.btn_limpiar}"/>
-                                    </td>
+                                    <td><p:commandButton value="#{btn.btn_limpiar}"/></td>
                                 </tr>
+                                 
+                                
+        
                                  
                                 <tr>
                                     <td colspan="3">
@@ -64,6 +57,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Actualizar"/>
                                                 </f:facet>
+                                                
                                                 <p:commandButton update=":form:popupeditar"
                                                                  action="#{infraestructuraMB.cargarEditar(mti)}"
                                                                  oncomplete="popupeditar.show()"
@@ -87,7 +81,6 @@
                                 <tr>
                                     <td align="center" colspan="3">
                                         <p:commandButton value="#{btn.btn_nuevo}" oncomplete="popupagregar.show()"/>
-                                         
                                         <p:commandButton value="#{btn.btn_salir}"/>
                                     </td>
                                 </tr>
@@ -96,6 +89,7 @@
                     </p:layoutUnit>
                     <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar"/>
                 </p:layout>
+                
                 <!-- pdialog para boton eliminar -->
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
@@ -118,41 +112,41 @@
                     </table>
                 </p:dialog>
                 <!-- fin pdialog para boton eliminar -->
+                
                 <!-- pdialog para boton agregar -->
-                <p:dialog header="Agregar Tipo de Infraestructura" widgetVar="popupagregar" modal="true"
-                          style="text-align:center;">
+                <p:dialog   header="Agregar Tipo de Infraestructura"
+                            widgetVar="popupagregar" 
+                            modal="true"
+                            resizable="false"
+                            style="text-align:center;">
                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                         <tr>
-                            <td align="left">
-                                #{etq.etq_ntinfra}
-                            </td>
-                            <td align="left">
-                                <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"/>
-                            </td>
+                            <td align="left">#{etq.etq_ntinfra}</td>
+                            <td align="left"><p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"/></td>
                         </tr>
                          
                         <tr>
-                            <td align="left">
-                                #{etq.etq_dtinfra}
-                            </td>
-                            <td align="left">
-                                <p:inputTextarea value="#{infraestructuraMB.tinDescripcion}" style="width:300px"/>
-                            </td>
+                            <td align="left">#{etq.etq_dtinfra}</td>
+                            <td align="left"><p:inputTextarea value="#{infraestructuraMB.tinDescripcion}" style="width:300px"/></td>
                         </tr>
                          
                         <tr>
                             <td align="center" colspan="2">
-                                <p:commandButton update=":form:tablaMTI" action="#{infraestructuraMB.guardar}"
-                                                 oncomplete="popupagregar.hide()" style="width:70px"
-                                                 value="#{btn.btn_guardar}"/>
+                                <p:commandButton    update=":form:tablaMTI"
+                                                    action="#{infraestructuraMB.guardar}"
+                                                    oncomplete="popupagregar.hide()"
+                                                    style="width:70px"
+                                                    value="#{btn.btn_guardar}"/>
                                  
-                                <p:commandButton value="#{btn.btn_salir}" oncomplete="popupagregar.hide()"
-                                                 style="width:70px"/>
+                                <p:commandButton    value="#{btn.btn_salir}"
+                                                    oncomplete="popupagregar.hide()"
+                                                    style="width:70px"/>
                             </td>
                         </tr>
                     </table>
                 </p:dialog>
                 <!-- fin pdialog para boton agregar -->
+                
                 <!-- pdialog para boton editar -->
                 <p:dialog id="popupeditar" header="Modificar Tipo de Infraestructura" widgetVar="popupeditar"
                           modal="true" resizable="false" minWidth="200">
