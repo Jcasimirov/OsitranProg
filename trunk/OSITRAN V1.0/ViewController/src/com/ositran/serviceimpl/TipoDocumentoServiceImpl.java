@@ -1,14 +1,9 @@
 package com.ositran.serviceimpl;
 
-import com.ositran.daoimpl.IgvDAOImpl;
+
 import com.ositran.daoimpl.TipoDocumentoDAOImpl;
-import com.ositran.model.Igv;
-import com.ositran.model.Igv;
 import com.ositran.model.TipoDocumento;
-
 import com.ositran.service.TipoDocumentoService;
-import com.ositran.vo.bean.IgvVO;
-
 import com.ositran.vo.bean.TipoDocumentoVO;
 
 import java.util.ArrayList;
