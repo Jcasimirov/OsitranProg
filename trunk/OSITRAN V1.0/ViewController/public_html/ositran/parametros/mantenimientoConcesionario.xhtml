@@ -76,10 +76,20 @@
                                                      id="column4"/>
                                 <primefaces-p:column headerText="Modificar"
                                                      binding="#{backing_ositran_parametros_mantenimientoConcesionario.column5}"
-                                                     id="column5"/>
+                                                     id="column5">
+                                    <h:commandLink actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioUpd1}"
+                                                   value="Actualizar" style="width:25px">
+                                        <f:param id="id2" name="id2" value="#{conc.cncId}"/>
+                                    </h:commandLink>
+                                </primefaces-p:column>
                                 <primefaces-p:column headerText="Eliminar"
                                                      binding="#{backing_ositran_parametros_mantenimientoConcesionario.column6}"
-                                                     id="column6"/>
+                                                     id="column6">
+                                    <h:commandLink actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioDel}"
+                                                   value="Eliminar" style="width:25px">
+                                        <f:param id="id1" name="id1" value="#{conc.cncId}"/>
+                                    </h:commandLink>
+                                </primefaces-p:column>
                             </primefaces-p:dataTable>
                         </h:form>
                     </div>
