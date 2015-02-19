@@ -2,11 +2,15 @@ package com.ositran.parametros;
 
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
 import com.ositran.util.util;
+import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
 import java.util.Date;
@@ -15,6 +19,7 @@ import java.util.Date;
 @RequestScoped
 
 public class MantenimientoTipoInfraestructura {
+    private String buscar;
     private String tinNombre;
     private String tinDescripcion;
     private int codigoEliminar;
@@ -22,11 +27,16 @@ public class MantenimientoTipoInfraestructura {
     private int codigoE;
     private String tinNombreE;
     private String tinDescripcionE;
+    private List<InfraestructuraTipoVO> filtrar;
 
-    private List<InfraestructuraTipoVO> listaInfraestructura;
-    util util = new util();
-    
-    
+
+    public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
+        this.filtrar = filtrar;
+    }
+
+    public List<InfraestructuraTipoVO> getFiltrar() {
+        return filtrar;
+    }
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -47,6 +57,8 @@ public class MantenimientoTipoInfraestructura {
         return infraestructuraTipoVO;
     }
 
+    private List<InfraestructuraTipoVO> listaInfraestructura;
+    util util = new util();
 
     public void setListaInfraestructura(List<InfraestructuraTipoVO> listaInfraestructura) {
         this.listaInfraestructura = listaInfraestructura;
@@ -71,52 +83,41 @@ public class MantenimientoTipoInfraestructura {
     }
 
     public void cargarEditar(InfraestructuraTipoVO infraestructuraTipoV) {
-        System.out.println("llego a cargar editar");
-        infraestructuraTipoVO=infraestructuraTipoV;
-        codigoE=infraestructuraTipoVO.getTinId();
+        infraestructuraTipoVO = infraestructuraTipoV;
+        codigoE = infraestructuraTipoVO.getTinId();
         tinNombreE = infraestructuraTipoVO.getTinNombre();
         tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
-        
     }
 
     public void editar() {
-        
-        System.out.println(codigoE);
-        System.out.println(tinNombreE);
-        System.out.println(tinDescripcionE);
         infraestructuraTipoVO.setTinId(codigoE);
         infraestructuraTipoVO.setTinNombre(tinNombreE);
         infraestructuraTipoVO.setTinEstado(1);
         infraestructuraTipoVO.setTinDescripcion(tinDescripcionE);
         infraestructuraTipoVO.setTinFechaCambio(new Date());
         getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
-        limpiar();
         ListarInfraestructura();
     }
 
-
     public void limpiar() {
-        tinNombre = "";
-        tinDescripcion = "";
+        tinNombre = " ";
+        tinDescripcion = " ";
     }
-
 
     public List<InfraestructuraTipoVO> ListarInfraestructura() {
         listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
         return listaInfraestructura;
     }
-    
-    public void cargarEliminar(int codigo, String Nombre) {
-        nombreEliminar = Nombre;
+
+    public void cargarEliminar(int codigo, String nombre) {
+        nombreEliminar = nombre;
         codigoEliminar = codigo;
     }
 
     public void eliminar() {
         getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
         ListarInfraestructura();
-        System.out.println("elimino con exito");
     }
-    
 
     public void setTinNombre(String tinNombre) {
         this.tinNombre = tinNombre;
@@ -133,7 +134,7 @@ public class MantenimientoTipoInfraestructura {
     public String getTinDescripcion() {
         return tinDescripcion;
     }
-    
+
     public void setCodigoEliminar(int codigoEliminar) {
         this.codigoEliminar = codigoEliminar;
     }
@@ -157,8 +158,7 @@ public class MantenimientoTipoInfraestructura {
     public util getUtil() {
         return util;
     }
-    
-    
+
     public void setTinNombreE(String tinNombreE) {
         this.tinNombreE = tinNombreE;
     }
@@ -182,6 +182,35 @@ public class MantenimientoTipoInfraestructura {
 
     public int getCodigoE() {
         return codigoE;
+    }
+
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+
+    String nomInfraSearch;
+
+
+    public void setNomInfraSearch(String nomInfraSearch) {
+        this.nomInfraSearch = nomInfraSearch;
+    }
+
+    public String getNomInfraSearch() {
+        return nomInfraSearch;
+    }
+
+
+    public List<InfraestructuraTipoVO> SearchListaInfra() {
+        System.out.println(nomInfraSearch);
+        listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
+
+        return listaInfraestructura;
     }
 
 
