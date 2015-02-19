@@ -2,6 +2,7 @@ package com.ositran.parametros;
 
 import com.ositran.model.EmpresaSupervisora;
 import com.ositran.model.TipoDocumento;
+import com.ositran.serviceimpl.CargoServiceImpl;
 import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
@@ -18,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 import com.ositran.util.util;
+import com.ositran.vo.bean.CargoVO;
 
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
 @RequestScoped
@@ -28,7 +30,8 @@ public class MantenimientoEmpSup {
     
     util util = new util();
     List<EmpresaSupervisoraVO> listaEmpSup;    
-    List<TipoDocumentoVO> listaTipoDocumento;    
+    List<TipoDocumentoVO> listaTipoDocumento;
+    List<CargoVO> listaCargo;  
     public EmpresaSupervisoraVO empSupVO = new EmpresaSupervisoraVO();
     
     @ManagedProperty(value="#{empSupServiceImp}")
@@ -37,7 +40,13 @@ public class MantenimientoEmpSup {
     @ManagedProperty(value="#{tipoDocumentoServiceImp}")
     private TipoDocumentoServiceImpl tipoDocumentoServiceImp;
     
+    @ManagedProperty(value="#{cargoServiceImp}")
+     private CargoServiceImpl cargoServiceImp;
 
+
+    public void setListaCargo(List<CargoVO> listaCargo) {
+        this.listaCargo = listaCargo;
+    }
 
     public void setListaTipoDocumento(List<TipoDocumentoVO> listaTipoDocumento) {
         this.listaTipoDocumento = listaTipoDocumento;
@@ -79,6 +88,14 @@ public class MantenimientoEmpSup {
     }
 
 
+    public void setCargoServiceImp(CargoServiceImpl cargoServiceImp) {
+        this.cargoServiceImp = cargoServiceImp;
+    }
+
+    public CargoServiceImpl getCargoServiceImp() {
+        return cargoServiceImp;
+    }
+
     public void setEmpSupVO(EmpresaSupervisoraVO empSupVO) {
         this.empSupVO = empSupVO;
     }
@@ -95,27 +112,21 @@ public class MantenimientoEmpSup {
     
     public List<TipoDocumentoVO> getListaTipoDocumento(){
         listaTipoDocumento = this.tipoDocumentoServiceImp.query(); 
-        System.out.println("El tamaño de listaTipoDocumento = "+ listaTipoDocumento.size());
         return listaTipoDocumento;
     }
     
-
-    
-    public String EmpSupUpd1(){
-        FacesContext context=FacesContext.getCurrentInstance();
-        Map requestMap=context.getExternalContext().getRequestParameterMap();
-        Object str=requestMap.get("id2");
-        Integer idEmpSup=Integer.valueOf(str.toString());
-        empSupVO=this.empSupServiceImp.get(idEmpSup);
-        return "/index?faces-redirect=true";
+    public List<CargoVO> getListaCargo(){
+        listaCargo = this.cargoServiceImp.query(); 
+        return listaCargo;
     }
     
+
     public String EmpSupUpd2(){
         this.empSupServiceImp.update(empSupVO);
         return "/index?faces-redirect=true";
     }
 
-    // Registrar Tipo Documento
+    // Registrar Empresa Supervisora
     
      private String nomEmpSup;
      private String dirEmpSup;
@@ -217,7 +228,7 @@ public class MantenimientoEmpSup {
     
     public String EmpSupDel(ActionEvent event){
         
-        UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
+        UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
         Integer idEmpSup=(Integer)parameter.getValue();
         this.empSupServiceImp.delete(idEmpSup);
         getQuery();
@@ -226,7 +237,6 @@ public class MantenimientoEmpSup {
     }
 
     public void guardar(){
-
         empSupVO.setSupNombre(nomEmpSup);
         empSupVO.setSupDireccion(dirEmpSup);
         empSupVO.setSupRepresentanteLegal(repLegal);
@@ -243,5 +253,296 @@ public class MantenimientoEmpSup {
         getQuery();
         limpiarCampos();
     } 
+    
+
+    
+    // Mofificar Empresa Supervisora
+    
+    private String nomEmpSupMod;
+    private String dirEmpSupMod;
+    private String repLegalMod;
+    private int cargoMod;
+    private String telefonoMod;
+    private int tipoDocumentoMod;
+    private String nroDocMod;
+    private String correoMod;
+    private String siglasNomMod;
+    private int idMod;
+    private int estadoMod;
+
+
+    public void setNomEmpSupMod(String nomEmpSupMod) {
+        this.nomEmpSupMod = nomEmpSupMod;
+    }
+
+    public String getNomEmpSupMod() {
+        return nomEmpSupMod;
+    }
+
+    public void setDirEmpSupMod(String dirEmpSupMod) {
+        this.dirEmpSupMod = dirEmpSupMod;
+    }
+
+    public String getDirEmpSupMod() {
+        return dirEmpSupMod;
+    }
+
+    public void setRepLegalMod(String repLegalMod) {
+        this.repLegalMod = repLegalMod;
+    }
+
+    public String getRepLegalMod() {
+        return repLegalMod;
+    }
+
+    public void setCargoMod(int cargoMod) {
+        this.cargoMod = cargoMod;
+    }
+
+    public int getCargoMod() {
+        return cargoMod;
+    }
+
+    public void setTelefonoMod(String telefonoMod) {
+        this.telefonoMod = telefonoMod;
+    }
+
+    public String getTelefonoMod() {
+        return telefonoMod;
+    }
+
+    public void setTipoDocumentoMod(int tipoDocumentoMod) {
+        this.tipoDocumentoMod = tipoDocumentoMod;
+    }
+
+    public int getTipoDocumentoMod() {
+        return tipoDocumentoMod;
+    }
+
+    public void setNroDocMod(String nroDocMod) {
+        this.nroDocMod = nroDocMod;
+    }
+
+    public String getNroDocMod() {
+        return nroDocMod;
+    }
+
+    public void setCorreoMod(String correoMod) {
+        this.correoMod = correoMod;
+    }
+
+    public String getCorreoMod() {
+        return correoMod;
+    }
+
+    public void setSiglasNomMod(String siglasNomMod) {
+        this.siglasNomMod = siglasNomMod;
+    }
+
+    public String getSiglasNomMod() {
+        return siglasNomMod;
+    }
+
+
+    public void setIdMod(int idMod) {
+        this.idMod = idMod;
+    }
+
+    public int getIdMod() {
+        return idMod;
+    }
+
+
+    public void setEstadoMod(int estadoMod) {
+        this.estadoMod = estadoMod;
+    }
+
+    public int getEstadoMod() {
+        return estadoMod;
+    }
+
+
+    public void EmpSupUpd1(){
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("id2");
+        Integer idEmpSup=Integer.valueOf(str.toString());
+        empSupVO=this.empSupServiceImp.get(idEmpSup);        
+        nomEmpSupMod = empSupVO.getSupNombre();
+        dirEmpSupMod = empSupVO.getSupDireccion();
+        repLegalMod = empSupVO.getSupRepresentanteLegal();
+        cargoMod = empSupVO.getCrgId();
+        telefonoMod = empSupVO.getSupTelefono();
+        tipoDocumentoMod = empSupVO.getTdoId();
+        nroDocMod = empSupVO.getSupNroDocumento();
+        correoMod = empSupVO.getSupCorreo();
+        siglasNomMod = empSupVO.getSupDescripcion();
+        idMod = empSupVO.getSupId();
+        estadoMod = empSupVO.getSupEstado();
+        
+    }
+    
+    public void Modificar(){
+        empSupVO.setSupNombre(nomEmpSupMod);
+        empSupVO.setSupDireccion(dirEmpSupMod);
+        empSupVO.setSupRepresentanteLegal(repLegalMod);
+        empSupVO.setCrgId(cargoMod);
+        empSupVO.setSupTelefono(telefonoMod);
+        empSupVO.setSupNroDocumento(nroDocMod);
+        empSupVO.setTdoId(tipoDocumentoMod);
+        empSupVO.setSupCorreo(correoMod);
+        empSupVO.setSupDescripcion(siglasNomMod); 
+        empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());
+        empSupVO.setSupTerminal(util.obtenerIpCliente());
+        empSupVO.setSupId(idMod);
+        empSupVO.setSupEstado(estadoMod);
+        this.empSupServiceImp.update(empSupVO);        
+        getQuery();
+        limpiarCampos();
+    } 
+    
+    
+    // Ver Empresa Supervisora
+    
+    
+    private String nomEmpSupVer;
+    private String dirEmpSupVer;
+    private String repLegalVer;
+    private String cargoVer;
+    private String telefonoVer;
+    private String tipoDocumentoVer;
+    private String nroDocVer;
+    private String correoVer;
+    private String siglasNomVer;
+
+
+    public void setNomEmpSupVer(String nomEmpSupVer) {
+        this.nomEmpSupVer = nomEmpSupVer;
+    }
+
+    public String getNomEmpSupVer() {
+        return nomEmpSupVer;
+    }
+
+    public void setDirEmpSupVer(String dirEmpSupVer) {
+        this.dirEmpSupVer = dirEmpSupVer;
+    }
+
+    public String getDirEmpSupVer() {
+        return dirEmpSupVer;
+    }
+
+    public void setRepLegalVer(String repLegalVer) {
+        this.repLegalVer = repLegalVer;
+    }
+
+    public String getRepLegalVer() {
+        return repLegalVer;
+    }
+
+    public void setCargoVer(String cargoVer) {
+        this.cargoVer = cargoVer;
+    }
+
+    public String getCargoVer() {
+        return cargoVer;
+    }
+
+    public void setTelefonoVer(String telefonoVer) {
+        this.telefonoVer = telefonoVer;
+    }
+
+    public String getTelefonoVer() {
+        return telefonoVer;
+    }
+
+    public void setTipoDocumentoVer(String tipoDocumentoVer) {
+        this.tipoDocumentoVer = tipoDocumentoVer;
+    }
+
+    public String getTipoDocumentoVer() {
+        return tipoDocumentoVer;
+    }
+
+    public void setNroDocVer(String nroDocVer) {
+        this.nroDocVer = nroDocVer;
+    }
+
+    public String getNroDocVer() {
+        return nroDocVer;
+    }
+
+    public void setCorreoVer(String correoVer) {
+        this.correoVer = correoVer;
+    }
+
+    public String getCorreoVer() {
+        return correoVer;
+    }
+
+    public void setSiglasNomVer(String siglasNomVer) {
+        this.siglasNomVer = siglasNomVer;
+    }
+
+    public String getSiglasNomVer() {
+        return siglasNomVer;
+    }
+
+    public void EmpSupVer(){
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("id1");
+        Integer idEmpSup=Integer.valueOf(str.toString());
+        listaTipoDocumento = tipoDocumentoServiceImp.query(); 
+        listaCargo = cargoServiceImp.query();        
+        empSupVO=this.empSupServiceImp.get(idEmpSup);        
+        nomEmpSupVer = empSupVO.getSupNombre();
+        dirEmpSupVer = empSupVO.getSupDireccion();
+        repLegalVer = empSupVO.getSupRepresentanteLegal();
+        telefonoVer = empSupVO.getSupTelefono();        
+        nroDocVer = empSupVO.getSupNroDocumento();
+        correoVer = empSupVO.getSupCorreo();
+        siglasNomVer = empSupVO.getSupDescripcion();
+        for (int i=0; i<listaTipoDocumento.size();i++){
+            if(listaTipoDocumento.get(i).getTdoId() == empSupVO.getTdoId()){
+                tipoDocumentoVer = listaTipoDocumento.get(i).getTdoNombre();
+            }
+        }
+        
+        for (int i=0; i<listaCargo.size();i++){
+            if(listaCargo.get(i).getCrgId() == empSupVO.getCrgId()){
+                cargoVer = listaCargo.get(i).getCrgNombre();
+            }
+        }
+    }
+    
+    
+    // Busqueda Por Nombre Empresa Supervisora
+    
+    String nomEmpSupBus;
+
+
+    public void setNomEmpSupBus(String nomEmpSupBus) {
+        this.nomEmpSupBus = nomEmpSupBus;
+    }
+
+    public String getNomEmpSupBus() {
+        return nomEmpSupBus;
+    }
+
+    public List<EmpresaSupervisoraVO> FiltrarListaEmpSup(){
+        System.out.println(nomEmpSupBus);
+        listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus);
+        //limpiarCampos ();
+        return listaEmpSup; 
+    }
+    
+    public void LimpiarFiltro(){
+        nomEmpSupBus = "";
+    }
+    
+    
+
 
 }
+
