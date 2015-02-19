@@ -25,22 +25,20 @@
                             <table style="width:70% ;font-size:11px;">
                                 <tr>
                                     <td>#{etq.etq_nombre}</td>
-                                    <td><p:inputText id="buscar"  value="#{infraestructuraMB.buscar}"/></td>
-                                    <td><p:commandButton value="#{btn.btn_buscar}"/></td>
+                                    <td><p:inputText id="nomInfraSearch"  value="#{infraestructuraMB.nomInfraSearch}"/></td>
+                                    <td><p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}" action="#{infraestructuraMB.SearchListaInfra}" update=":form:tablaMTI"/></td>
                                 </tr>
                                  
                                 <tr>
                                     <td colspan="2"></td>
-                                    <td><p:commandButton value="#{btn.btn_limpiar}"/></td>
+                                    <td><p:commandButton value="#{btn.btn_limpiar}" /></td>
                                 </tr>
-                                 
-                                
-        
                                  
                                 <tr>
                                     <td colspan="3">
                                         <p:dataTable style="font-size:11px;" id="tablaMTI" var="mti"
                                                      value="#{infraestructuraMB.listaInfraestructura}">
+                                                     
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Nombres"/>
@@ -93,6 +91,7 @@
                 <!-- pdialog para boton eliminar -->
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
+                   
                         <tr>
                             <td colspan="2">
                                 Eliminar el tipo de infraestructura: "
@@ -122,7 +121,9 @@
                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                         <tr>
                             <td align="left">#{etq.etq_ntinfra}</td>
-                            <td align="left"><p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"/></td>
+                            <td align="left">
+                                <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"/>
+                            </td>
                         </tr>
                          
                         <tr>
