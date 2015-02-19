@@ -25,7 +25,6 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     private static final Logger logger = LoggerFactory.getLogger(InfraestructuraTipoDAOImpl.class);
-
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public void setSessionFactory(SessionFactory sf) {
@@ -39,6 +38,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
 
     @Override
     public List<Concesion> query() {
+        System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Concesion o").list();
@@ -61,6 +61,21 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         return result;
     }
 
+    @Override
+    public int idConcesion(Concesion concesion) {
+        int result = 0;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.save(concesion);
+            result=concesion.getCsiId();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            
+        }
+        return result;
+    }
     @Override
     public String delete(Integer id) {
         String result = null;
@@ -103,4 +118,5 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
 
+   
 }
