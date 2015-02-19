@@ -10,6 +10,7 @@
                 <param name="sequence">EMPRESASUPERVISORA_ID_SEQ_GEN</param>
             </generator>
         </id>
+        <property name="crgId" type="java.lang.Integer" column="CRG_ID"/>
         <property name="supCorreo" type="string" column="SUP_CORREO"/>
         <property name="supDescripcion" type="string" column="SUP_DESCRIPCION"/>        
         <property name="supDireccion" type="string" column="SUP_DIRECCION"/>
@@ -25,6 +26,8 @@
         <property name="supUsuarioAlta" type="string" column="SUP_USUARIO_ALTA"/>
         <property name="supUsuarioBaja" type="string" column="SUP_USUARIO_BAJA"/>
         <property name="supUsuarioCambio" type="string" column="SUP_USUARIO_CAMBIO"/>
+        <property name="tdoId" type="java.lang.Integer" column="TDO_ID"/>
+        
         
     </class>
 </hibernate-mapping>
