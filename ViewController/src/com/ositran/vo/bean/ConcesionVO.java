@@ -15,97 +15,105 @@ public class ConcesionVO {
     }
     
 
-    private Date tcoFechaAlta;
-    private Date tcoFechaBaja;
-    private Date tcoFechaCambio;
-    private Integer tcoId;
-    private String tcoNombre;
-    private String tcoTerminal;
-    private String tcoUsuarioAlta;
-    private String tcoUsuarioBaja;
-    private String tcoUsuarioCambio;
-    private Integer tinId;
+    private Date csiFechaAlta;
+    private Date csiFechaBaja;
+    private Date csiFechaCambio;
+    private Integer csiId;
+    private String csiNombre;
+    private String csiTerminal;
+    private String csiUsuarioAlta;
+    private String csiUsuarioBaja;
+    private String csiUsuarioCambio;
+    private Integer TinId;
+    private Integer csiEstado;
 
-
-    public void setTcoFechaAlta(Date tcoFechaAlta) {
-        this.tcoFechaAlta = tcoFechaAlta;
+    public void setCsiFechaAlta(Date csiFechaAlta) {
+        this.csiFechaAlta = csiFechaAlta;
     }
 
-    public Date getTcoFechaAlta() {
-        return tcoFechaAlta;
+    public Date getCsiFechaAlta() {
+        return csiFechaAlta;
     }
 
-    public void setTcoFechaBaja(Date tcoFechaBaja) {
-        this.tcoFechaBaja = tcoFechaBaja;
+    public void setCsiFechaBaja(Date csiFechaBaja) {
+        this.csiFechaBaja = csiFechaBaja;
     }
 
-    public Date getTcoFechaBaja() {
-        return tcoFechaBaja;
+    public Date getCsiFechaBaja() {
+        return csiFechaBaja;
     }
 
-    public void setTcoFechaCambio(Date tcoFechaCambio) {
-        this.tcoFechaCambio = tcoFechaCambio;
+    public void setCsiFechaCambio(Date csiFechaCambio) {
+        this.csiFechaCambio = csiFechaCambio;
     }
 
-    public Date getTcoFechaCambio() {
-        return tcoFechaCambio;
+    public Date getCsiFechaCambio() {
+        return csiFechaCambio;
     }
 
-    public void setTcoId(Integer tcoId) {
-        this.tcoId = tcoId;
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
     }
 
-    public Integer getTcoId() {
-        return tcoId;
+    public Integer getCsiId() {
+        return csiId;
     }
 
-    public void setTcoNombre(String tcoNombre) {
-        this.tcoNombre = tcoNombre;
+    public void setCsiNombre(String csiNombre) {
+        this.csiNombre = csiNombre;
     }
 
-    public String getTcoNombre() {
-        return tcoNombre;
+    public String getCsiNombre() {
+        return csiNombre;
     }
 
-    public void setTcoTerminal(String tcoTerminal) {
-        this.tcoTerminal = tcoTerminal;
+    public void setCsiTerminal(String csiTerminal) {
+        this.csiTerminal = csiTerminal;
     }
 
-    public String getTcoTerminal() {
-        return tcoTerminal;
+    public String getCsiTerminal() {
+        return csiTerminal;
     }
 
-    public void setTcoUsuarioAlta(String tcoUsuarioAlta) {
-        this.tcoUsuarioAlta = tcoUsuarioAlta;
+    public void setCsiUsuarioAlta(String csiUsuarioAlta) {
+        this.csiUsuarioAlta = csiUsuarioAlta;
     }
 
-    public String getTcoUsuarioAlta() {
-        return tcoUsuarioAlta;
+    public String getCsiUsuarioAlta() {
+        return csiUsuarioAlta;
     }
 
-    public void setTcoUsuarioBaja(String tcoUsuarioBaja) {
-        this.tcoUsuarioBaja = tcoUsuarioBaja;
+    public void setCsiUsuarioBaja(String csiUsuarioBaja) {
+        this.csiUsuarioBaja = csiUsuarioBaja;
     }
 
-    public String getTcoUsuarioBaja() {
-        return tcoUsuarioBaja;
+    public String getCsiUsuarioBaja() {
+        return csiUsuarioBaja;
     }
 
-    public void setTcoUsuarioCambio(String tcoUsuarioCambio) {
-        this.tcoUsuarioCambio = tcoUsuarioCambio;
+    public void setCsiUsuarioCambio(String csiUsuarioCambio) {
+        this.csiUsuarioCambio = csiUsuarioCambio;
     }
 
-    public String getTcoUsuarioCambio() {
-        return tcoUsuarioCambio;
+    public String getCsiUsuarioCambio() {
+        return csiUsuarioCambio;
     }
 
-    public void setTinId(Integer tinId) {
-        this.tinId = tinId;
+
+    public void setTinId(Integer TinId) {
+        this.TinId = TinId;
     }
 
     public Integer getTinId() {
-        return tinId;
+        return TinId;
     }
 
+    public void setCsiEstado(Integer csiEstado) {
+        this.csiEstado = csiEstado;
+    }
+
+    public Integer getCsiEstado() {
+        return csiEstado;
+    }
 
 }
