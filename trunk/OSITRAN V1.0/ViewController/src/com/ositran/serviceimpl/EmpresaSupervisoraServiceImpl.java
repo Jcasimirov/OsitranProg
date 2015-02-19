@@ -28,6 +28,13 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         return listVO;
         
     }
+    
+    @Override
+    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String atributo) {
+        List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(atributo);
+        List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
+        return listVO;        
+    }
 
     @Override
     public String insert(EmpresaSupervisoraVO empresaSupervisoraVO) {
