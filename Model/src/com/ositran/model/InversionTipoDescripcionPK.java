@@ -5,13 +5,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class InversionTipoDescripcionPK implements Serializable {
-    private BigDecimal itdId;
-    private BigDecimal tivId;
+    private int itdId;
+    private int tivId;
 
     public InversionTipoDescripcionPK() {
     }
 
-    public InversionTipoDescripcionPK(BigDecimal itdId, BigDecimal tivId) {
+    public InversionTipoDescripcionPK(int itdId, int tivId) {
         this.itdId = itdId;
         this.tivId = tivId;
     }
@@ -25,23 +25,20 @@ public class InversionTipoDescripcionPK implements Serializable {
         return false;
     }
 
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    public BigDecimal getItdId() {
-        return itdId;
-    }
-
-    public void setItdId(BigDecimal itdId) {
+    public void setItdId(int itdId) {
         this.itdId = itdId;
     }
 
-    public BigDecimal getTivId() {
+    public int getItdId() {
+        return itdId;
+    }
+
+    public void setTivId(int tivId) {
+        this.tivId = tivId;
+    }
+
+    public int getTivId() {
         return tivId;
     }
 
-    public void setTivId(BigDecimal tivId) {
-        this.tivId = tivId;
-    }
 }
