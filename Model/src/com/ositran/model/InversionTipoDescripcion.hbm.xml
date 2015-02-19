@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ositran.model">
+    <class name="InversionTipoDescripcion" table="T_INVERSION_TIPO_DESCRIPCION">
+        <id name="itdId" type="java.lang.Integer" access="field">
+            <column name="ITD_ID" />
+            <generator class="increment">
+                <param name="sequence">SEQ_INVERSIONDESCRIPCION</param>
+            </generator>
+        </id>
+             <property name="itdDescripcion" type="string" column="ITD_DESCRIPCION"/>
+             <property name="itdEstado" type="java.lang.Integer" column="ITD_ESTADO"/> 
+            <property name="itdFechaAlta" type="java.util.Date" column="ITD_FECHA_ALTA"/> 
+            <property name="itdFechaBaja" type="java.util.Date" column="ITD_FECHA_BAJA"/> 
+            <property name="itdFechaCambio" type="java.util.Date" column="ITD_FECHA_CAMBIO"/> 
+            <property name="itdNombre" type="string" column="ITD_NOMBRE"/> 
+            <property name="itdTerminal" type="string" column="ITD_TERMINAL"/> 
+            <property name="itdUsuarioBaja" type="string" column="ITD_USUARIO_BAJA"/>   
+            <property name="itdUsuarioCambio" type="string" column="ITD_USUARIO_CAMBIO"/>
+            <property name="itdUsuarioAlta" type="string" column="ITD_USUARIO_ALTA"/> 
+            <property name="tivId" type="java.lang.Integer" column="TIV_ID"/>
+            
+    </class>
+</hibernate-mapping>
