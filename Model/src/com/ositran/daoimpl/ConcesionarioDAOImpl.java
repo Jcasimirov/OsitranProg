@@ -39,8 +39,11 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO{
 
     @Override
     public List<Concesionario> query() {
-        // TODO Implement this method
-        return Collections.emptyList();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List list=session.createQuery("select o from Concesionario o").list();
+        session.getTransaction().commit();
+        return list;
     }
 
     @Override
