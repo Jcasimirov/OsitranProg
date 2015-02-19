@@ -1,7 +1,7 @@
 package com.ositran.service;
 
 
-
+import com.ositran.model.InfraestructuraTipo;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
 
@@ -13,5 +13,6 @@ public interface InfraestructuraTipoService {
         public String delete(Integer id);
         public String update(InfraestructuraTipoVO infraestructuraTipoVO);
         public InfraestructuraTipoVO get(Integer id);
+        public List<InfraestructuraTipoVO> AllSearch(String a);
 }
    
