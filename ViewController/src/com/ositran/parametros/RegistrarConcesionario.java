@@ -1,10 +1,8 @@
 package com.ositran.parametros;
 
 import com.ositran.serviceimpl.ConcesionarioServiceImpl;
-import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 
 import com.ositran.vo.bean.ConcesionarioVO;
-import com.ositran.vo.bean.IgvVO;
 
 import java.io.IOException;
 
@@ -32,10 +30,12 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 @Generated(value = "1ositran/parametros/registrarConcesionario.jsf",
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class RegistrarConcesionario {
-    public ConcesionarioVO concesionarioVO=new ConcesionarioVO();
+    
     @ManagedProperty(value="#{concesionarioServiceImpl}")
     private ConcesionarioServiceImpl concesionarioServiceImpl;
     
+    private ConcesionarioVO concesionarioVO=new ConcesionarioVO();
+
     private DataGrid dataGrid1;
     private OutputLabel outputLabelNombre;
     private InputText inputTextNombreConcesionario;
@@ -245,6 +245,8 @@ public class RegistrarConcesionario {
     }
     
     public void concesionarioIns() throws IOException{
+        concesionarioVO.setCncDescripcion("cncDescripcion");
+        concesionarioVO.setCncEstado(1);
         this.concesionarioServiceImpl.insert(concesionarioVO);
         FacesContext context=FacesContext.getCurrentInstance();
         ExternalContext externalContext=context.getExternalContext();
@@ -265,7 +267,4 @@ public class RegistrarConcesionario {
         this.concesionarioServiceImpl = concesionarioServiceImpl;
     }
 
-    public ConcesionarioServiceImpl getConcesionarioServiceImpl() {
-        return concesionarioServiceImpl;
-    }
 }
