@@ -10,5 +10,6 @@ public interface TipoInversionDAO {
      public String insert(InversionTipo inversionTipo);
         public String delete(Integer id);
         public String update(InversionTipo inversionTipo);
-        public InfraestructuraTipo get(Integer id);
+        public InversionTipo get(Integer id);
+        public List<InversionTipo> query1(String buscar);
 }
