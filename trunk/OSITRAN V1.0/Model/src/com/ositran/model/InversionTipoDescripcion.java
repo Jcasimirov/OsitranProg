@@ -1,66 +1,29 @@
 package com.ositran.model;
-
 import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@NamedQueries({
-              @NamedQuery(name = "InversionTipoDescripcion.findAll",
-                          query = "select o from InversionTipoDescripcion o") })
-@Table(name = "T_INVERSION_TIPO_DESCRIPCION")
-@IdClass(InversionTipoDescripcionPK.class)
 public class InversionTipoDescripcion implements Serializable {
     private static final long serialVersionUID = 35556266185801467L;
-    @Column(name = "ITD_DESCRIPCION", nullable = false, length = 100)
     private String itdDescripcion;
-    @Column(name = "ITD_ESTADO", nullable = false)
-    private BigDecimal itdEstado;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ITD_FECHA_ALTA")
+    private int itdEstado;
     private Date itdFechaAlta;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ITD_FECHA_BAJA")
     private Date itdFechaBaja;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ITD_FECHA_CAMBIO")
     private Date itdFechaCambio;
-    @Id
-    @Column(name = "ITD_ID", nullable = false)
-    private BigDecimal itdId;
-    @Column(name = "ITD_NOMBRE", nullable = false, length = 100)
+    private int itdId;
     private String itdNombre;
-    @Column(name = "ITD_TERMINAL", length = 20)
     private String itdTerminal;
-    @Column(name = "ITD_USUARIO_ALTA", length = 20)
     private String itdUsuarioAlta;
-    @Column(name = "ITD_USUARIO_BAJA", length = 20)
     private String itdUsuarioBaja;
-    @Column(name = "ITD_USUARIO_CAMBIO", length = 20)
     private String itdUsuarioCambio;
-    @Id
-    @Column(name = "TIV_ID", nullable = false)
-    private BigDecimal tivId;
+    private int tivId;
 
     public InversionTipoDescripcion() {
     }
 
-    public InversionTipoDescripcion(String itdDescripcion, BigDecimal itdEstado, Date itdFechaAlta, Date itdFechaBaja,
-                                    Date itdFechaCambio, BigDecimal itdId, String itdNombre, String itdTerminal,
+    public InversionTipoDescripcion(String itdDescripcion, int itdEstado, Date itdFechaAlta, Date itdFechaBaja,
+                                    Date itdFechaCambio, int itdId, String itdNombre, String itdTerminal,
                                     String itdUsuarioAlta, String itdUsuarioBaja, String itdUsuarioCambio,
-                                    BigDecimal tivId) {
+                                    int tivId) {
         this.itdDescripcion = itdDescripcion;
         this.itdEstado = itdEstado;
         this.itdFechaAlta = itdFechaAlta;
@@ -83,11 +46,11 @@ public class InversionTipoDescripcion implements Serializable {
         this.itdDescripcion = itdDescripcion;
     }
 
-    public BigDecimal getItdEstado() {
+    public int getItdEstado() {
         return itdEstado;
     }
 
-    public void setItdEstado(BigDecimal itdEstado) {
+    public void setItdEstado(int itdEstado) {
         this.itdEstado = itdEstado;
     }
 
@@ -115,11 +78,11 @@ public class InversionTipoDescripcion implements Serializable {
         this.itdFechaCambio = itdFechaCambio;
     }
 
-    public BigDecimal getItdId() {
+    public int getItdId() {
         return itdId;
     }
 
-    public void setItdId(BigDecimal itdId) {
+    public void setItdId(int itdId) {
         this.itdId = itdId;
     }
 
@@ -163,11 +126,11 @@ public class InversionTipoDescripcion implements Serializable {
         this.itdUsuarioCambio = itdUsuarioCambio;
     }
 
-    public BigDecimal getTivId() {
+    public int getTivId() {
         return tivId;
     }
 
-    public void setTivId(BigDecimal tivId) {
+    public void setTivId(int tivId) {
         this.tivId = tivId;
     }
 }
