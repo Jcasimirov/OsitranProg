@@ -13,5 +13,6 @@ public interface EmpresaSupervisoraService {
         public String delete(Integer id);
         public String update(EmpresaSupervisoraVO empresaSupervisoraVO);
         public EmpresaSupervisoraVO get(Integer id);
+        public List<EmpresaSupervisoraVO> FiltrarEmpSup(String atributo);
 }
    
