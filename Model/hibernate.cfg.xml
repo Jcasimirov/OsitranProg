@@ -17,7 +17,6 @@
         <property name="hibernate.jdbc.use_get_generated_keys">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <mapping class="com.ositran.model.Event"/>
-        <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.Concesion"/>
         <mapping class="com.ositran.model.Concesionario"/>
         <mapping class="com.ositran.model.InfraestructuraTipo"/>
@@ -27,6 +26,7 @@
         <mapping class="com.ositran.model.Usuario"/>
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.EmpresaSupervisora"/>
+        <mapping class="com.ositran.model.Cargo"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Concesion.hbm.xml"/>
