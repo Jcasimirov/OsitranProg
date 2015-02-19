@@ -53,6 +53,13 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         return infraestructuraTipoVO;
     }
     
+    @Override
+    public List<InfraestructuraTipoVO> AllSearch(String a) {
+        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.AllSearch(a);
+        List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
+        return listVO;
+    }
+    
     //conversiones
     private List<InfraestructuraTipoVO> toListInfraestructuraTiposVO(List<InfraestructuraTipo> list){
         List<InfraestructuraTipoVO> listVO=new ArrayList<InfraestructuraTipoVO>();
@@ -101,5 +108,10 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         
     }
 
+
+   
+    
+    
+   
     
 }
