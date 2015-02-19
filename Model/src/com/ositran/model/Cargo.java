@@ -22,17 +22,17 @@ import javax.persistence.TemporalType;
  * To create ID generator sequence "T_CARGO_ID_SEQ_GEN":
  * CREATE SEQUENCE "T_CARGO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
-@Entity
-@NamedQueries({ @NamedQuery(name = "TCargo.findAll", query = "select o from TCargo o") })
+@Entity(name = "Cargo")
+@NamedQueries({ @NamedQuery(name = "Cargo.findAll", query = "select o from Cargo o") })
 @Table(name = "T_CARGO")
-@SequenceGenerator(name = "TCargo_Id_Seq_Gen", sequenceName = "T_CARGO_ID_SEQ_GEN", allocationSize = 50,
+@SequenceGenerator(name = "Cargo_Id_Seq_Gen", sequenceName = "CARGO_ID_SEQ_GEN", allocationSize = 50,
                    initialValue = 50)
 public class Cargo implements Serializable {
     private static final long serialVersionUID = -8206359419423189848L;
     @Column(name = "CRG_DESCRIPCION", nullable = false, length = 100)
     private String crgDescripcion;
     @Column(name = "CRG_ESTADO", nullable = false)
-    private BigDecimal crgEstado;
+    private Integer crgEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CRG_FECHA_ALTA")
     private Date crgFechaAlta;
@@ -45,7 +45,7 @@ public class Cargo implements Serializable {
     @Id
     @Column(name = "CRG_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TCargo_Id_Seq_Gen")
-    private BigDecimal crgId;
+    private Integer crgId;
     @Column(name = "CRG_NOMBRE", nullable = false, length = 100)
     private String crgNombre;
     @Column(name = "CRG_TERMINAL", length = 20)
@@ -60,8 +60,8 @@ public class Cargo implements Serializable {
     public Cargo() {
     }
 
-    public Cargo(String crgDescripcion, BigDecimal crgEstado, Date crgFechaAlta, Date crgFechaBaja,
-                  Date crgFechaCambio, BigDecimal crgId, String crgNombre, String crgTerminal, String crgUsuarioAlta,
+    public Cargo(String crgDescripcion, Integer crgEstado, Date crgFechaAlta, Date crgFechaBaja,
+                  Date crgFechaCambio, Integer crgId, String crgNombre, String crgTerminal, String crgUsuarioAlta,
                   String crgUsuarioBaja, String crgUsuarioCambio) {
         this.crgDescripcion = crgDescripcion;
         this.crgEstado = crgEstado;
@@ -76,87 +76,92 @@ public class Cargo implements Serializable {
         this.crgUsuarioCambio = crgUsuarioCambio;
     }
 
-    public String getCrgDescripcion() {
-        return crgDescripcion;
-    }
 
     public void setCrgDescripcion(String crgDescripcion) {
         this.crgDescripcion = crgDescripcion;
     }
 
-    public BigDecimal getCrgEstado() {
-        return crgEstado;
+    public String getCrgDescripcion() {
+        return crgDescripcion;
     }
 
-    public void setCrgEstado(BigDecimal crgEstado) {
+    public void setCrgEstado(Integer crgEstado) {
         this.crgEstado = crgEstado;
     }
 
-    public Date getCrgFechaAlta() {
-        return crgFechaAlta;
+    public Integer getCrgEstado() {
+        return crgEstado;
     }
 
     public void setCrgFechaAlta(Date crgFechaAlta) {
         this.crgFechaAlta = crgFechaAlta;
     }
 
-    public Date getCrgFechaBaja() {
-        return crgFechaBaja;
+    public Date getCrgFechaAlta() {
+        return crgFechaAlta;
     }
 
     public void setCrgFechaBaja(Date crgFechaBaja) {
         this.crgFechaBaja = crgFechaBaja;
     }
 
-    public Date getCrgFechaCambio() {
-        return crgFechaCambio;
+    public Date getCrgFechaBaja() {
+        return crgFechaBaja;
     }
 
     public void setCrgFechaCambio(Date crgFechaCambio) {
         this.crgFechaCambio = crgFechaCambio;
     }
 
-    public BigDecimal getCrgId() {
-        return crgId;
+    public Date getCrgFechaCambio() {
+        return crgFechaCambio;
     }
 
-    public String getCrgNombre() {
-        return crgNombre;
+    public void setCrgId(Integer crgId) {
+        this.crgId = crgId;
+    }
+
+    public Integer getCrgId() {
+        return crgId;
     }
 
     public void setCrgNombre(String crgNombre) {
         this.crgNombre = crgNombre;
     }
 
-    public String getCrgTerminal() {
-        return crgTerminal;
+    public String getCrgNombre() {
+        return crgNombre;
     }
 
     public void setCrgTerminal(String crgTerminal) {
         this.crgTerminal = crgTerminal;
     }
 
-    public String getCrgUsuarioAlta() {
-        return crgUsuarioAlta;
+    public String getCrgTerminal() {
+        return crgTerminal;
     }
 
     public void setCrgUsuarioAlta(String crgUsuarioAlta) {
         this.crgUsuarioAlta = crgUsuarioAlta;
     }
 
-    public String getCrgUsuarioBaja() {
-        return crgUsuarioBaja;
+    public String getCrgUsuarioAlta() {
+        return crgUsuarioAlta;
     }
 
     public void setCrgUsuarioBaja(String crgUsuarioBaja) {
         this.crgUsuarioBaja = crgUsuarioBaja;
     }
 
-    public String getCrgUsuarioCambio() {
-        return crgUsuarioCambio;
+    public String getCrgUsuarioBaja() {
+        return crgUsuarioBaja;
     }
 
     public void setCrgUsuarioCambio(String crgUsuarioCambio) {
         this.crgUsuarioCambio = crgUsuarioCambio;
+    }
+
+    public String getCrgUsuarioCambio() {
+        return crgUsuarioCambio;
     }
 }
