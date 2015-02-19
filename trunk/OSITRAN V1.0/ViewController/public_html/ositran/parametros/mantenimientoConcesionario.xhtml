@@ -54,13 +54,23 @@
                                                             id="selectOneMenu1"/>
                             </primefaces-p:dataGrid>
                             <primefaces-p:dataTable binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataTable1}"
-                                                    id="dataTable1">
+                                                    id="dataTable1"
+                                                    value="#{backing_ositran_parametros_mantenimientoConcesionario.query}"
+                                                    var="conc" selectionMode="single"
+                                                    style="font-size:0.62em;width:600px;margin:auto"
+                                                    rowKey="#{conc.cncId}">
                                 <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column1}"
-                                                     id="column1" headerText="Nombre concesionario"/>
+                                                     id="column1" headerText="Nombre concesionario">
+                                    <primefaces-p:outputLabel value="#{conc.cncNombre}"/>
+                                </primefaces-p:column>
                                 <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column2}"
-                                                     id="column2" headerText="Concesión"/>
+                                                     id="column2" headerText="Concesión">
+                                    <primefaces-p:outputLabel value="concesion"/>
+                                </primefaces-p:column>
                                 <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column3}"
-                                                     id="column3" headerText="Tipo de Infraestructura"/>
+                                                     id="column3" headerText="Tipo de Infraestructura">
+                                    <primefaces-p:outputLabel value="tipoInfra"/>
+                                </primefaces-p:column>
                                 <primefaces-p:column headerText="Ver"
                                                      binding="#{backing_ositran_parametros_mantenimientoConcesionario.column4}"
                                                      id="column4"/>
