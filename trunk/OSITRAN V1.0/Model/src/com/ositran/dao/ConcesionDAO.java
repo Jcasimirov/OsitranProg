@@ -11,4 +11,5 @@ public interface ConcesionDAO {
     public String delete(Integer idconcesion);
     public String update(Concesion concesion);
     public Concesion get(Integer idconcesion);
+    public int idConcesion(Concesion concesion);
 }
