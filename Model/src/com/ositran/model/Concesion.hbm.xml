@@ -4,22 +4,24 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.ositran.model">
     <class name="Concesion" table="T_CONCESION">
-        <id name="tcoId" type="java.lang.Integer" access="field">
-            <column name="TCO_ID" />
+        <id name="csiId" type="java.lang.Integer" access="field">
+            <column name="CSI_ID" />
             <generator class="increment">
                 <param name="sequence">SEQ_CONCESION</param>
             </generator>
         </id>
         
-        <property name="tcoNombre" type="string" column="TCO_NOMBRE"/>
+        <property name="csiNombre" type="string" column="CSI_NOMBRE"/>
+        <property name="TinId" type="java.lang.Integer" column="TIN_ID"/>
+        <property name="csiEstado" type="java.lang.Integer" column="CSI_ESTADO"/>
         
-        <property name="tcoFechaAlta" type="java.util.Date" column="TCO_FECHA_ALTA"/>
-        <property name="tcoUsuarioAlta" type="string" column="TCO_USUARIO_ALTA"/>
-        <property name="tcoFechaCambio" type="java.util.Date" column="TCO_FECHA_CAMBIO"/>
-        <property name="tcoUsuarioCambio" type="string" column="TCO_USUARIO_CAMBIO"/>	
-        <property name="tcoFechaBaja" type="java.util.Date" column="TCO_FECHA_BAJA"/>
-        <property name="tcoUsuarioBaja" type="string" column="TCO_USUARIO_BAJA"/>
-	<property name="tcoTerminal" type="string" column="TCO_TERMINAL"/>	
+        <property name="csiFechaAlta" type="java.util.Date" column="CSI_FECHA_ALTA"/>
+        <property name="csiUsuarioAlta" type="string" column="CSI_USUARIO_ALTA"/>
+        <property name="csiFechaCambio" type="java.util.Date" column="CSI_FECHA_CAMBIO"/>
+        <property name="csiUsuarioCambio" type="string" column="CSI_USUARIO_CAMBIO"/>	
+        <property name="csiFechaBaja" type="java.util.Date" column="CSI_FECHA_BAJA"/>
+        <property name="csiUsuarioBaja" type="string" column="CSI_USUARIO_BAJA"/>
+	<property name="csiTerminal" type="string" column="CSI_TERMINAL"/>	
    
 		
 		
