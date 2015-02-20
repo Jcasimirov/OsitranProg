@@ -143,7 +143,6 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         
         @Override
         public EmpresaSupervisora get(Integer id) {
-            //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
             EmpresaSupervisora empresaSupervisora=(EmpresaSupervisora)session.get(EmpresaSupervisora.class, id);
