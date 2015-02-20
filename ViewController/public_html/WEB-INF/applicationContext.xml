@@ -63,10 +63,7 @@
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
     </bean>
     <!--Infraestructura-->
-    <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
-    <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
-        <property name="infraestructuraDAOImpl" ref="infraestructuraDAOImpl"/>
-    </bean>
+   
     <!--Inversion descripcion-->
     <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl"/>
     <bean id="inversionDescripcionServicesImpl" class="com.ositran.serviceimpl.InversionDescripcionServicesImpl">
