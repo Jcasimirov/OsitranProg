@@ -21,6 +21,8 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ViewScoped
 public class MantenimientoConcesion {
+
+    
     private int codigoTipoInfraestructura;
     private int codigoEliminar;
     private String nombreEliminar;
@@ -44,7 +46,6 @@ public class MantenimientoConcesion {
     }
 
     public void agregarInfraestructuras() {
-
         listaInfra.add("charles");
         listaInfra.add(addInfraestructura);
 
@@ -102,8 +103,9 @@ public class MantenimientoConcesion {
             infraestructuraVO.setCsiId(codigogenerado);
             InfraestructuraVO infraestructuraVO1=new InfraestructuraVO();
             infraestructuraVO1.setInfNombre(infraestructuraVO.getInfNombre());
-            infraestructuraVO1.setInfUsuarioAlta("charles");
+            infraestructuraVO1.setInfUsuarioAlta(obtenerIpCliente());
             infraestructuraVO1.setInfFechaAlta(new Date());
+            infraestructuraVO1.setInfEstado(1);
             infraestructuraServiceImpl.insert(infraestructuraVO);
             
             }
@@ -138,6 +140,8 @@ public class MantenimientoConcesion {
     }
 
     public void cargarEditar(ConcesionVO concesionV) {
+        System.out.println(concesionVO.getCsiNombre());
+        System.out.println(concesionVO.getCsiId());
         concesionVO = concesionV;
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
@@ -201,10 +205,11 @@ public class MantenimientoConcesion {
         this.listaConcesiones = listaConcesiones;
     }
 
-    public List<ConcesionVO> getListaInversiones() {
+    public List<ConcesionVO> getListaConcesiones() {
         return listaConcesiones;
     }
-
+    
+ 
     public void setCodigoEliminar(int codigoEliminar) {
         this.codigoEliminar = codigoEliminar;
     }
