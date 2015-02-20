@@ -78,6 +78,7 @@
          <string v="JSF"/>
          <string v="JSP"/>
          <string v="Java"/>
+         <string v="Spring"/>
          <string v="XML"/>
       </list>
    </hash>
