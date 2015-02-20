@@ -17,7 +17,7 @@
     <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
     <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
         <property name="infraestructuraDAOImpl" ref="infraestructuraDAOImpl"/>
-    </bean>    
+    </bean>
     <bean id="concesionDAOImpl" class="com.ositran.daoimpl.ConcesionDAOImpl"/>
     <bean id="concesionServicesImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
         <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
@@ -26,8 +26,7 @@
         <property name="concesionServicesImpl" ref="concesionServicesImpl"/>
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
-    </bean>    
-    
+    </bean>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl"/>
     <bean id="concesionarioServiceImpl" class="com.ositran.serviceimpl.ConcesionarioServiceImpl">
@@ -62,8 +61,6 @@
         <property name="cargoServiceImp" ref="cargoServiceImp"/>
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
     </bean>
-    <!--Infraestructura-->
-   
     <!--Inversion descripcion-->
     <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl"/>
     <bean id="inversionDescripcionServicesImpl" class="com.ositran.serviceimpl.InversionDescripcionServicesImpl">
