@@ -50,7 +50,7 @@ public class EmpresaSupervisora implements Serializable {
     private Date supFechaCambio;
     @Id
     @Column(name = "SUP_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EmpresaSupervisora_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMPRESASUPERVISORA_ID_SEQ_GEN")
     private Integer supId;
     @Column(name = "SUP_NOMBRE", nullable = false, length = 100)
     private String supNombre;
