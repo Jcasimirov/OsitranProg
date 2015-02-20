@@ -12,10 +12,11 @@
             </style>
         </h:head>
         <h:body>
+          
+             
             <f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.listarTipInfraestructura}"
                      type="postAddToView"></f:event>
-             
-            <f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.ListarConcesiones}"
+<f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.ListarConcesiones}"
                      type="postAddToView"></f:event>
              
             <h:form id="form">
@@ -78,6 +79,9 @@
                     <h:inputHidden value="#{backing_ositran_parametros_mantenimientoconcesion.codigoEliminar}"
                                    id="codEliminar"/>
                 </p:layout>
+               
+               
+               
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
@@ -99,6 +103,10 @@
                         </tr>
                     </table>
                 </p:dialog>
+                
+                
+                
+                
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
                 <p:dialog header="Registrar" widgetVar="insertarPanel" modal="true" style="text-align:center;">
                     <table>
@@ -123,10 +131,15 @@
                                              style="width:300px"/>
                                         
                                         
-                                        <h:outputLabel value="Infraestructura"></h:outputLabel>
+                                        
+                                      <h:outputLabel value="Infraestructura"></h:outputLabel>
+                                           
                                         <p:inputText id="txt_title"
                                                      value="#{backing_ositran_parametros_mantenimientoconcesion.infraestructura.infNombre}"
-                                                     required="true"/>
+                                                     />
+                                                    
+                                                  
+                                                     
                                         <p:commandButton id="btn_reset" value="Reset" type="reset"/>
                                         <p:commandButton id="btn_add" value="Add" update="books msgs @parent"
                                                          action="#{backing_ositran_parametros_mantenimientoconcesion.reinit()}">
