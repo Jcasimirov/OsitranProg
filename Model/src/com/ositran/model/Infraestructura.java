@@ -15,13 +15,14 @@ public class Infraestructura  {
     private String infUsuarioAlta;
     private String infUsuarioBaja;
     private String infUsuarioCambio;
+    private Integer infEstado;
 
     public Infraestructura() {
     }
 
     public Infraestructura(Integer csiId, Date infFechaAlta, Date infFechaBaja, Date infFechaCambio,
                            Integer infId, String infNombre, String infTerminal, String infUsuarioAlta,
-                           String infUsuarioBaja, String infUsuarioCambio) {
+                           String infUsuarioBaja, String infUsuarioCambio,Integer infEstado) {
         this.csiId = csiId;
         this.infFechaAlta = infFechaAlta;
         this.infFechaBaja = infFechaBaja;
@@ -32,6 +33,7 @@ public class Infraestructura  {
         this.infUsuarioAlta = infUsuarioAlta;
         this.infUsuarioBaja = infUsuarioBaja;
         this.infUsuarioCambio = infUsuarioCambio;
+        this.infEstado = infEstado;
     }
 
     public Integer getCsiId() {
@@ -113,4 +115,15 @@ public class Infraestructura  {
     public void setInfUsuarioCambio(String infUsuarioCambio) {
         this.infUsuarioCambio = infUsuarioCambio;
     }
+
+
+    public void setInfEstado(Integer infEstado) {
+        this.infEstado = infEstado;
+    }
+
+    public Integer getInfEstado() {
+        return infEstado;
+    }
+
+
 }
