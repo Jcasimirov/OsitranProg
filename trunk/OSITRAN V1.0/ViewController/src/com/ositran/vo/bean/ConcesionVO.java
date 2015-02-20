@@ -13,7 +13,23 @@ public class ConcesionVO {
     public ConcesionVO() {
         super();
     }
-    
+
+    public ConcesionVO(Date csiFechaAlta, Date csiFechaBaja, Date csiFechaCambio, Integer csiId, String csiNombre,
+                       String csiTerminal, String csiUsuarioAlta, String csiUsuarioBaja, String csiUsuarioCambio,
+                       Integer TinId, Integer csiEstado) {
+        super();
+        this.csiFechaAlta = csiFechaAlta;
+        this.csiFechaBaja = csiFechaBaja;
+        this.csiFechaCambio = csiFechaCambio;
+        this.csiId = csiId;
+        this.csiNombre = csiNombre;
+        this.csiTerminal = csiTerminal;
+        this.csiUsuarioAlta = csiUsuarioAlta;
+        this.csiUsuarioBaja = csiUsuarioBaja;
+        this.csiUsuarioCambio = csiUsuarioCambio;
+        this.TinId = TinId;
+        this.csiEstado = csiEstado;
+    }
 
     private Date csiFechaAlta;
     private Date csiFechaBaja;
