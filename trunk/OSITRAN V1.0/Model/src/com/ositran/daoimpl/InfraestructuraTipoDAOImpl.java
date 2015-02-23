@@ -99,7 +99,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     public List query() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from InfraestructuraTipo o").list();
+        List list = session.createQuery("select o from InfraestructuraTipo o order by TIN_ID asc").list();
         System.out.println("LISTA = " + list);
         session.getTransaction().commit();
         return list;
