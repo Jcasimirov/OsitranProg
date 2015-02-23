@@ -19,7 +19,7 @@ import java.util.Date;
 @RequestScoped
 
 public class MantenimientoTipoInfraestructura {
-    private String buscar;
+    
     private String tinNombre;
     private String tinDescripcion;
     private int codigoEliminar;
@@ -27,16 +27,7 @@ public class MantenimientoTipoInfraestructura {
     private int codigoE;
     private String tinNombreE;
     private String tinDescripcionE;
-    private List<InfraestructuraTipoVO> filtrar;
-
-
-    public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
-        this.filtrar = filtrar;
-    }
-
-    public List<InfraestructuraTipoVO> getFiltrar() {
-        return filtrar;
-    }
+    
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -70,25 +61,26 @@ public class MantenimientoTipoInfraestructura {
 
     public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
 
-
+/* Guardar */
     public void guardar() {
+        infraestructuraTipoVO.setTinNombre(tinNombre);
+        infraestructuraTipoVO.setTinDescripcion(tinDescripcion);
         infraestructuraTipoVO.setTinEstado(1);
         infraestructuraTipoVO.setTinFechaAlta(util.getObtenerFechaHoy());
         infraestructuraTipoVO.setTinTerminal(util.obtenerIpCliente());
-        infraestructuraTipoVO.setTinNombre(tinNombre);
-        infraestructuraTipoVO.setTinDescripcion(tinDescripcion);
         getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
         limpiar();
         ListarInfraestructura();
     }
-
+/* Fin Guardar */
+    
+/* Editar */
     public void cargarEditar(InfraestructuraTipoVO infraestructuraTipoV) {
         infraestructuraTipoVO = infraestructuraTipoV;
         codigoE = infraestructuraTipoVO.getTinId();
         tinNombreE = infraestructuraTipoVO.getTinNombre();
         tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
     }
-
     public void editar() {
         infraestructuraTipoVO.setTinId(codigoE);
         infraestructuraTipoVO.setTinNombre(tinNombreE);
@@ -98,7 +90,8 @@ public class MantenimientoTipoInfraestructura {
         getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
         ListarInfraestructura();
     }
-
+/* Fin Editar */
+    
     public void limpiar() {
         tinNombre = " ";
         tinDescripcion = " ";
@@ -182,9 +175,21 @@ public class MantenimientoTipoInfraestructura {
 
     public int getCodigoE() {
         return codigoE;
+    }    
+
+    /* buscar  */
+    String nomInfraSearch;
+    private String buscar;
+    private List<InfraestructuraTipoVO> filtrar;
+    
+    public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
+        this.filtrar = filtrar;
     }
 
-
+    public List<InfraestructuraTipoVO> getFiltrar() {
+        return filtrar;
+    }
+    
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
@@ -192,11 +197,7 @@ public class MantenimientoTipoInfraestructura {
     public String getBuscar() {
         return buscar;
     }
-
-
-    String nomInfraSearch;
-
-
+    
     public void setNomInfraSearch(String nomInfraSearch) {
         this.nomInfraSearch = nomInfraSearch;
     }
