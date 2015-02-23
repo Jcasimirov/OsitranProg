@@ -23,6 +23,7 @@
                         </div>
                         <div align="center">
                             <table style="width:70% ;font-size:11px;">
+                                
                                 <tr>
                                     <td>#{etq.etq_nombre}</td>
                                     <td><p:inputText id="nomInfraSearch"  value="#{infraestructuraMB.nomInfraSearch}"/></td>
@@ -39,6 +40,12 @@
                                         <p:dataTable style="font-size:11px;" id="tablaMTI" var="mti"
                                                      value="#{infraestructuraMB.listaInfraestructura}">
                                                      
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="ID"/>
+                                                </f:facet>
+                                                <h:outputText value="#{mti.tinId}" />
+                                            </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Nombres"/>
