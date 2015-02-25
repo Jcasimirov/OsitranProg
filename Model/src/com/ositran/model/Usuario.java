@@ -2,8 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -30,15 +28,15 @@ import javax.persistence.TemporalType;
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 616782273879451829L;
     @Column(name = "CRG_ID")
-    private BigDecimal crgId;
+    private Integer crgId;
     @Column(name = "ROL_ID", nullable = false)
-    private BigDecimal rolId;
+    private Integer rolId;
     @Column(name = "USU_CONTRASENYA", nullable = false, length = 20)
     private String usuContrasenya;
     @Column(name = "USU_ESEXTERNO", nullable = false)
-    private BigDecimal usuEsexterno;
+    private Integer usuEsexterno;
     @Column(name = "USU_ESTADO", nullable = false)
-    private BigDecimal usuEstado;
+    private Integer usuEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "USU_FECHA_ALTA")
     private Date usuFechaAlta;
@@ -66,8 +64,8 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(BigDecimal crgId, BigDecimal rolId, String usuContrasenya, BigDecimal usuEsexterno,
-                   BigDecimal usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId,
+    public Usuario(Integer crgId, Integer rolId, String usuContrasenya, Integer usuEsexterno,
+                   Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId,
                    String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
                    String usuUsuarioCambio) {
         this.crgId = crgId;
@@ -86,19 +84,19 @@ public class Usuario implements Serializable {
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
 
-    public BigDecimal getCrgId() {
+    public Integer getCrgId() {
         return crgId;
     }
 
-    public void setCrgId(BigDecimal crgId) {
+    public void setCrgId(Integer crgId) {
         this.crgId = crgId;
     }
 
-    public BigDecimal getRolId() {
+    public Integer getRolId() {
         return rolId;
     }
 
-    public void setRolId(BigDecimal rolId) {
+    public void setRolId(Integer rolId) {
         this.rolId = rolId;
     }
 
@@ -110,19 +108,19 @@ public class Usuario implements Serializable {
         this.usuContrasenya = usuContrasenya;
     }
 
-    public BigDecimal getUsuEsexterno() {
+    public Integer getUsuEsexterno() {
         return usuEsexterno;
     }
 
-    public void setUsuEsexterno(BigDecimal usuEsexterno) {
+    public void setUsuEsexterno(Integer usuEsexterno) {
         this.usuEsexterno = usuEsexterno;
     }
 
-    public BigDecimal getUsuEstado() {
+    public Integer getUsuEstado() {
         return usuEstado;
     }
 
-    public void setUsuEstado(BigDecimal usuEstado) {
+    public void setUsuEstado(Integer usuEstado) {
         this.usuEstado = usuEstado;
     }
 
