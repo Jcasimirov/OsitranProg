@@ -20,6 +20,7 @@
             <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaCargo}" type="postAddToView"/>
              
             <h:form binding="#{backing_ositran_parametros_MantenimientoEmpSup.form1}" id="form1">
+            <p:growl id="mensaje" showDetail="true"  life="3000" /> 
                 <p:layout style="min-width:400px;min-height:500px;">
                     <p:layoutUnit position="north">
                         <div style="text-align: center;">
@@ -102,7 +103,7 @@
                                         <div style="text-align: center;">
                                             <p:commandButton onclick="return confirm('¿Esta Seguro de Eliminar a la Empresa Supervisora: #{empSup.supNombre}?' );"
                                                              image="ui-icon-trash"
-                                                             actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupDel}" update=":form1"/>
+                                                             actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupDel}" update=":form1 :form1:mensaje"/>
                                             <f:param id="id3" name="id3" value="#{empSup.supId}"/>
                                             <h:outputText value=""/>
                                         </div>
@@ -207,7 +208,7 @@
                             <td colspan="2" align="right">
                                 <p:commandButton value="Guardar"
                                                  action="#{backing_ositran_parametros_MantenimientoEmpSup.guardar}"                                                 
-                                                 oncomplete="regEmpSup.hide()" update=":form1"></p:commandButton>
+                                                 oncomplete="regEmpSup.hide()" update=":form1 :form1:mensaje"></p:commandButton>
                             </td>
                             <td colspan="2" align="left">
                                 <p:commandButton onclick="regEmpSup.hide()" value="Salir"></p:commandButton>
@@ -302,7 +303,7 @@
                             <td colspan="2" align="right">
                                 <p:commandButton value="Guardar"
                                                  action="#{backing_ositran_parametros_MantenimientoEmpSup.Modificar}"
-                                                 oncomplete="ModEmpSup.hide()" update=":form1"></p:commandButton>
+                                                 oncomplete="ModEmpSup.hide()" update=":form1 :form1:mensaje"></p:commandButton>
                             </td>
                             <td colspan="2" align="left">
                                 <p:commandButton onclick="ModEmpSup.hide()" value="Salir"></p:commandButton>
