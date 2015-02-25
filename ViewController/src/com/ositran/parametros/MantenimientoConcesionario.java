@@ -1,10 +1,7 @@
-
 package com.ositran.parametros;
 
-import com.ositran.model.Concesionario;
 import com.ositran.serviceimpl.ConcesionarioServiceImpl;
 import com.ositran.vo.bean.ConcesionarioVO;
-import com.ositran.vo.bean.IgvVO;
 
 import java.util.List;
 
@@ -19,8 +16,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import oracle.adf.mbean.share.config.runtime.webcenter.concurrent.ServiceImpl;
 
 import org.primefaces.component.column.Column;
 import org.primefaces.component.commandbutton.CommandButton;
@@ -72,6 +67,8 @@ public class MantenimientoConcesionario {
     private CommandButton commandButton3;
     private LayoutUnit layoutUnit4;
     private LayoutUnit layoutUnit5;
+    private int codigoEliminar;
+    private String nombreEliminar;
 
     public void setLayout1(Layout layout1) {
         this.layout1 = layout1;
@@ -302,21 +299,55 @@ public class MantenimientoConcesionario {
         return list;
     }
     
-    public String concesionarioDel(ActionEvent event){
+    public void cargarEliminarXX(ActionEvent event) {
         UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
         Integer idinfraestructuraTipo=(Integer)parameter.getValue();
-        this.concesionarioServiceImpl.delete(idinfraestructuraTipo);
-        return "/index?faces-redirect=true";
+        this.codigoEliminar=idinfraestructuraTipo;
     }
     
-    public String concesionarioUpd1(ActionEvent event){
+    public void cargarEliminar(int codigo, String nombre) {
+        codigoEliminar = codigo;
+        nombreEliminar = nombre;
+    }
+    
+    public void eliminar() {
+        getConcesionarioServiceImpl().delete(codigoEliminar);
+        System.out.println("codigoEliminar = "+codigoEliminar);
+        getQuery();
+    }
+    
+    public String concesionarioDel(ActionEvent event){
+        UIParameter parameter=(UIParameter)event.getComponent().findComponent("codEliminar");
+        Integer idinfraestructuraTipo=(Integer)parameter.getValue();
+        this.concesionarioServiceImpl.delete(idinfraestructuraTipo);
+        return "recargar";
+    }
+    
+    public void concesionarioUpd1(ActionEvent event){
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("id2");
         Integer idConcesionario=Integer.valueOf(str.toString());
+        System.out.println("================================");
+        System.out.println("idConcesionario = "+idConcesionario);
         concesionarioVO=this.concesionarioServiceImpl.get(idConcesionario);
-        return "concesionarioUpd";
+        System.out.println("concesionarioVO = "+concesionarioVO);
+        System.out.println("================================");
+        //return "concesionarioUpd";
     }
+    /*
+    public void concesionarioUpd1(ConcesionarioVO consecionarioVO){
+            / *concesionarioVO=concesionarioVO;
+            codigoE=tipoInversionVO.getTivId();
+            nombreE=tipoInversionVO.getTivNombre();
+            descripcionE=tipoInversionVO.getTivDescripcion();* /
+            FacesContext context=FacesContext.getCurrentInstance();
+            Object str=requestMap.get("id2");            Map requestMap=context.getExternalContext().getRequestParameterMap();
+
+            Integer idConcesionario=Integer.valueOf(str.toString());
+            concesionarioVO=this.concesionarioServiceImpl.get(idConcesionario);        
+        }*/
+    
     
     public String concesionarioUpd2(){
         this.concesionarioServiceImpl.update(concesionarioVO);
@@ -337,5 +368,21 @@ public class MantenimientoConcesionario {
 
     public ConcesionarioVO getConcesionarioVO() {
         return concesionarioVO;
+    }    
+
+    public void setCodigoEliminar(int codigoEliminar) {
+        this.codigoEliminar = codigoEliminar;
+    }
+
+    public int getCodigoEliminar() {
+        return codigoEliminar;
+    }
+
+    public void setNombreEliminar(String nombreEliminar) {
+        this.nombreEliminar = nombreEliminar;
+    }
+
+    public String getNombreEliminar() {
+        return nombreEliminar;
     }
 }
