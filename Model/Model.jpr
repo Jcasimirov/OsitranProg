@@ -269,6 +269,10 @@
             <value n="id" v="EJB"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Hibernate-entitymanager-4.3.8.Final.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -560,6 +564,15 @@
                <value n="id" v="Jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="src/lib/hibernate-release-4.3.8.Final/jpa/hibernate-entitymanager-4.3.8.Final.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Hibernate-entitymanager-4.3.8.Final.jar"/>
+               <value n="id" v="Hibernate-entitymanager-4.3.8.Final.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -705,6 +718,10 @@
          </hash>
          <hash>
             <value n="id" v="EJB"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Hibernate-entitymanager-4.3.8.Final.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
