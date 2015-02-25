@@ -24,7 +24,6 @@ public class TipoInversion{
     private String nombreEliminar;
     private List<TipoInversionVO> listaInversiones;
     private String nombre;
-   
     private String descripcion; 
     private String buscar;
     //----------------EDITAR------------------------//
@@ -32,10 +31,7 @@ public class TipoInversion{
     private String nombreE;
     private String descripcionE;
     //----------------EDITAR------------------------//
-    
-    //----------------MENSAJE VALIDACION------------------------//
-    private int tipoMensaje;
-    private String mensaje;
+
     //----------------MENSAJE VALIDACION------------------------//
 
     @ManagedProperty(value="#{tipoInversionServicesImpl}")
@@ -52,17 +48,34 @@ public class TipoInversion{
       
   
         public void guardar(){
-            tipoInversionVO.setTivNombre(nombre);
-            tipoInversionVO.setTivDescripcion(descripcion);              
-            tipoInversionVO.setTivEstado(1);   
-            tipoInversionVO.setTivFechaAlta(new Date());
-            tipoInversionVO.setTivUsuarioAlta("Abel Huarca");
-            getTipoInversionServicesImpl().insert(tipoInversionVO);
-            limpiarcampos();
-            ListarInversiones();
-            /*FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se registro con Exito");
-                                                FacesContext.getCurrentInstance().addMessage(null, mensaje);*/
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
+            try{
+                    if (nombre.equals("")){
+                            FacesContext.getCurrentInstance().addMessage(null, 
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe de Ingresar el Nombre"));
+                        }
+                    else  if (descripcion.equals("")){
+                            FacesContext.getCurrentInstance().addMessage(null, 
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe de Ingresar la Descripcion"));
+                        }
+                    else {
+                            tipoInversionVO.setTivNombre(nombre);
+                            tipoInversionVO.setTivDescripcion(descripcion);              
+                            tipoInversionVO.setTivEstado(1);   
+                            tipoInversionVO.setTivFechaAlta(new Date());
+                            tipoInversionVO.setTivUsuarioAlta("Abel Huarca");
+                            getTipoInversionServicesImpl().insert(tipoInversionVO);
+                            limpiarcamposInsertar();
+                            ListarInversiones();
+                            FacesContext.getCurrentInstance().addMessage(null, 
+                            new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
+                        }
+                }
+            catch(Exception e){
+                    FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudieron ingresar los datos"+e));
+                }
+            
+            
             }
         public void limpiar(){
             nombre="";
@@ -76,25 +89,35 @@ public class TipoInversion{
             }
         
         public void editar(){
-            System.out.println(codigoE);
-            System.out.println(nombreE);
-            System.out.println(descripcionE);
-            tipoInversionVO.setTivId(codigoE);
-            tipoInversionVO.setTivNombre(nombreE);
-            tipoInversionVO.setTivDescripcion(descripcionE);
-            tipoInversionVO.setTivFechaCambio(new Date());
-            tipoInversionVO.setTivUsuarioCambio("Editor");
-        try {
-            getTipoInversionServicesImpl().update(tipoInversionVO);
-            ListarInversiones();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
-                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
+            
+        try{
+            if (nombreE.equals("")){
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Error","Debe ingresar el campo nombre");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+           else  if (descripcionE.equals("")){
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Error","Debe Ingresar la Descripcion");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            else {
+                    tipoInversionVO.setTivId(codigoE);
+                    tipoInversionVO.setTivNombre(nombreE);
+                    tipoInversionVO.setTivDescripcion(descripcionE);
+                    tipoInversionVO.setTivFechaCambio(new Date());
+                    tipoInversionVO.setTivUsuarioCambio("Editor");
                 
+                    getTipoInversionServicesImpl().update(tipoInversionVO);
+                    ListarInversiones();
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se Actualizo con Exito");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
+            }
+            catch( Exception e){
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Error","Nose pudo actualizar se produjo un error");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);         
+
+            }   
+        }
         public void cargarEliminar(int codigo,String nombre ){
             nombreEliminar=nombre;
             codigoEliminar=codigo;
@@ -114,10 +137,10 @@ public class TipoInversion{
         getTipoInversionServicesImpl().delete(codigoEliminar);
         ListarInversiones();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se elimino con Exito");
-                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
         
-        public void limpiarcampos(){
+        public void limpiarcamposInsertar(){
             nombre="";
             descripcion="";
             }
@@ -205,22 +228,6 @@ public class TipoInversion{
     
         public String getBuscar() {
             return buscar;
-        }
-
-        public void setTipoMensaje(int tipoMensaje) {
-            this.tipoMensaje = tipoMensaje;
-        }
-    
-        public int getTipoMensaje() {
-            return tipoMensaje;
-        }
-    
-        public void setMensaje(String mensaje) {
-            this.mensaje = mensaje;
-        }
-    
-        public String getMensaje() {
-            return mensaje;
         }
 
 }
