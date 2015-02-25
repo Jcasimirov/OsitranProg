@@ -15,6 +15,9 @@ import com.ositran.vo.bean.TipoInversionVO;
 
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 @ManagedBean(name = "infraestructuraMB")
 @RequestScoped
 
@@ -71,6 +74,7 @@ public class MantenimientoTipoInfraestructura {
         getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
         limpiar();
         ListarInfraestructura();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
     }
 /* Fin Guardar */
     
@@ -89,6 +93,7 @@ public class MantenimientoTipoInfraestructura {
         infraestructuraTipoVO.setTinFechaCambio(new Date());
         getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
         ListarInfraestructura();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Modifico con Exito"));
     }
 /* Fin Editar */
     
@@ -107,9 +112,10 @@ public class MantenimientoTipoInfraestructura {
         codigoEliminar = codigo;
     }
 
-    public void eliminar() {
+    public void eliminar() {   
         getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
         ListarInfraestructura();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito"));
     }
 
     public void setTinNombre(String tinNombre) {
@@ -213,6 +219,5 @@ public class MantenimientoTipoInfraestructura {
 
         return listaInfraestructura;
     }
-
 
 }
