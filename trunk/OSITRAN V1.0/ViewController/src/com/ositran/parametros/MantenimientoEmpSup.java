@@ -21,6 +21,8 @@ import javax.faces.event.ComponentSystemEvent;
 import com.ositran.util.util;
 import com.ositran.vo.bean.CargoVO;
 
+import javax.faces.application.FacesMessage;
+
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
 @RequestScoped
 @Generated(value = "1ositran/parametros/MantenimientoEmpSup.jsf",
@@ -233,6 +235,8 @@ public class MantenimientoEmpSup {
         Integer idEmpSup=(Integer)parameter.getValue();
         this.empSupServiceImp.delete(idEmpSup);
         getQuery();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
+                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
         return "/index?faces-redirect=true";
         
     }
@@ -253,6 +257,8 @@ public class MantenimientoEmpSup {
         this.empSupServiceImp.insert(empSupVO);        
         getQuery();
         limpiarCampos();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
+                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
     } 
     
 
@@ -400,6 +406,8 @@ public class MantenimientoEmpSup {
         this.empSupServiceImp.update(empSupVO);        
         getQuery();
         limpiarCampos();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
+                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
     } 
     
     
