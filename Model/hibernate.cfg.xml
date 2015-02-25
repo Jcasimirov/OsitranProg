@@ -35,7 +35,6 @@
         <mapping resource="./com/ositran/model/EmpresaSupervisora.hbm.xml"/>
         <mapping resource="./com/ositran/model/Event.hbm.xml"/>
         <mapping resource="./com/ositran/model/Infraestructura.hbm.xml"/>
-        <mapping resource="./com/ositran/model/InfraestructuraTipo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
         <mapping resource="./com/ositran/model/InversionTipo.hbm.xml"/>
         <mapping resource="./com/ositran/model/InversionTipoDescripcion.hbm.xml"/>   
