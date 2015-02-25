@@ -15,6 +15,7 @@
             <f:event listener="#{infraestructuraMB.ListarInfraestructura}" type="postAddToView"></f:event>
              
             <h:form id="form">
+            <p:growl id="mensaje" showDetail="true"  life="10000" /> 
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
@@ -96,6 +97,7 @@
                 </p:layout>
                 
                 <!-- pdialog para boton eliminar -->
+                
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                    
@@ -108,7 +110,7 @@
                          
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form:tablaMTI" actionListener="#{infraestructuraMB.eliminar}"
+                                <p:commandButton update=":form:tablaMTI :form:mensaje" actionListener="#{infraestructuraMB.eliminar}"
                                                  value="Eliminar" oncomplete="popupeliminar.hide()"/>
                             </td>
                             <td align="left">
@@ -140,7 +142,7 @@
                          
                         <tr>
                             <td align="center" colspan="2">
-                                <p:commandButton    update=":form:tablaMTI"
+                                <p:commandButton    update=":form:tablaMTI :form:mensaje"
                                                     action="#{infraestructuraMB.guardar}"
                                                     oncomplete="popupagregar.hide()"
                                                     style="width:70px"
@@ -187,7 +189,7 @@
                              
                             <tr>
                                 <td align="center" colspan="2">
-                                    <p:commandButton update=":form:tablaMTI" oncomplete="popupeditar.hide()"
+                                    <p:commandButton update=":form:tablaMTI :form:mensaje" oncomplete="popupeditar.hide()"
                                                      action="#{infraestructuraMB.editar}" style="width:70px"
                                                      value="#{btn.btn_modificar}"/>
                                      
