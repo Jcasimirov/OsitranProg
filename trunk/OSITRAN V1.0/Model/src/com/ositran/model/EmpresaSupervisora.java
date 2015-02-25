@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 /**
  * To create ID generator sequence "T_EMPRESA_SUPERVISORA_ID_SEQ_GEN":
  * CREATE SEQUENCE "T_EMPRESA_SUPERVISORA_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
@@ -25,8 +28,8 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "EmpresaSupervisora.findAll", query = "select o from EmpresaSupervisora o") })
 @Table(name = "T_EMPRESA_SUPERVISORA")
-@SequenceGenerator(name = "EMPRESASUPERVISORA_ID_SEQ_GEN", sequenceName = "EMPRESA_SUPERVISORA_ID_SEQ_GEN",
-                   allocationSize = 50, initialValue = 50)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+
 public class EmpresaSupervisora implements Serializable {
     private static final long serialVersionUID = -5138390938685448144L;
     @Column(name = "CRG_ID")
@@ -50,7 +53,7 @@ public class EmpresaSupervisora implements Serializable {
     private Date supFechaCambio;
     @Id
     @Column(name = "SUP_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMPRESASUPERVISORA_ID_SEQ_GEN")
+    @GeneratedValue(generator = "generator")
     private Integer supId;
     @Column(name = "SUP_NOMBRE", nullable = false, length = 100)
     private String supNombre;
