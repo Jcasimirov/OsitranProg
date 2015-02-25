@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:primefaces-p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+            <h:form>
+                <primefaces-p:panelGrid binding="#{backing_ositran_parametros_modificarConcesionario.panelGrid1}"
+                                        id="panelGrid1" columns="2">
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabel1}"
+                                              id="outputLabel1" value="Nombre del concesionario:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextNombreConcesionario}"
+                                            id="inputTextNombreConcesionario" value="#{backing_ositran_parametros_modificarConcesionario.concesionarioVO.cncNombre}"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelSiglasNombre}"
+                                              id="outputLabelSiglasNombre" value="Siglas del nombre:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextSiglasNombre}"
+                                            id="inputTextSiglasNombre" value="#{backing_ositran_parametros_modificarConcesionario.concesionarioVO.cncNombre}"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelTelefono}"
+                                              id="outputLabelTelefono" value="Teléfono:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextTelefono}"
+                                            id="inputTextTelefono" value="#{backing_ositran_parametros_modificarConcesionario.concesionarioVO.cncDescripcion}"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelTipoDocu}"
+                                              id="outputLabelTipoDocu" value="Tipo de documento:"/>
+                    <primefaces-p:selectOneMenu binding="#{backing_ositran_parametros_modificarConcesionario.selectOneMenuTipoDocu}"
+                                                id="selectOneMenuTipoDocu"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelNroDocu}"
+                                              id="outputLabelNroDocu" value="Nro. de documento:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextNroDocumento}"
+                                            id="inputTextNroDocumento"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelDireccion}"
+                                              id="outputLabelDireccion" value="Dirección:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextDireccion}"
+                                            id="inputTextDireccion"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelCorreo}"
+                                              id="outputLabelCorreo" value="Correo electrónico:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextCorreo}"
+                                            id="inputTextCorreo"/>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelRepreLegal}"
+                                              id="outputLabelRepreLegal" value="Representante legal:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextRepreLegal}"
+                                            id="inputTextRepreLegal"></primefaces-p:inputText>
+                    <primefaces-p:outputLabel binding="#{backing_ositran_parametros_modificarConcesionario.outputLabelCargo}"
+                                                  id="outputLabelCargo" value="Cargo del representante legal:"/>
+                    <primefaces-p:inputText binding="#{backing_ositran_parametros_modificarConcesionario.inputTextCargo}"
+                                            id="inputTextCargo"/>
+                    <primefaces-p:commandButton binding="#{backing_ositran_parametros_modificarConcesionario.commandButtonGuardar}"
+                                                id="commandButtonGuardar"/>
+                    <primefaces-p:commandButton binding="#{backing_ositran_parametros_modificarConcesionario.commandButtonSalir}"
+                                                id="commandButtonSalir"/>
+                </primefaces-p:panelGrid>
+            </h:form>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_parametros_modificarConcesionario-->
+</f:view>
