@@ -17,15 +17,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- * To create ID generator sequence "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
-@NamedQueries({ @NamedQuery(name = "InfraestructuraTipo.findAll", query = "select o from InfraestructuraTipo o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
-@SequenceGenerator(name = "InfraestructuraTipo_Id_Seq_Gen", sequenceName = "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN",
-                   allocationSize = 50, initialValue = 50)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA_TIPO"))
 public class InfraestructuraTipo implements Serializable {
     private static final long serialVersionUID = -9018333581388462967L;
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
@@ -42,8 +39,8 @@ public class InfraestructuraTipo implements Serializable {
     @Column(name = "TIN_FECHA_CAMBIO")
     private Date tinFechaCambio;
     @Id
+    @GeneratedValue(generator = "generator")
     @Column(name = "TIN_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "InfraestructuraTipo_Id_Seq_Gen")
     private Integer tinId;
     @Column(name = "TIN_NOMBRE", nullable = false, length = 50)
     private String tinNombre;
