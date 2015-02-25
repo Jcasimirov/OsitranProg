@@ -16,7 +16,7 @@
         </h:head>
         <h:body>
             <ui:include src="/ositran/util/menu.xhtml"/>
-             
+             <h:form id="form">
             <primefaces-p:layout binding="#{backing_ositran_parametros_mantenimientoConcesionario.layout1}" id="layout1"
                                  style="min-width:400px;min-height:500px;">
                 <primefaces-p:layoutUnit position="north"
@@ -35,7 +35,7 @@
                                          binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit1}"
                                          id="layoutUnit1" minSize="200" visible="true" style="text-aling:center;">
                     <div>
-                        <h:form>
+                        
                             <primefaces-p:dataGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataGrid1}"
                                                    id="dataGrid1" columns="5">
                                 <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel2}"
@@ -77,21 +77,26 @@
                                 <primefaces-p:column headerText="Modificar"
                                                      binding="#{backing_ositran_parametros_mantenimientoConcesionario.column5}"
                                                      id="column5">
-                                    <h:commandLink actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioUpd1}"
-                                                   value="Actualizar" style="width:25px">
-                                        <f:param id="id2" name="id2" value="#{conc.cncId}"/>
-                                    </h:commandLink>
+<primefaces-p:commandButton update=":form:dlge" actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioUpd1}" oncomplete="dlge.show()" image="ui-icon-document" style="width:25px;height:25px">
+<f:param id="id2" name="id2" value="#{conc.cncId}"/>
+                                    </primefaces-p:commandButton>
                                 </primefaces-p:column>
+                                
                                 <primefaces-p:column headerText="Eliminar"
                                                      binding="#{backing_ositran_parametros_mantenimientoConcesionario.column6}"
                                                      id="column6">
-                                    <h:commandLink actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioDel}"
-                                                   value="Eliminar" style="width:25px">
-                                        <f:param id="id1" name="id1" value="#{conc.cncId}"/>
-                                    </h:commandLink>
+                                    <primefaces-p:commandButton update=":form:popupelimina :form:codEliminar"
+                                                                 actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.cargarEliminar(conc.cncId, conc.cncNombre)}"
+                                                                 oncomplete="popupelimina.show()"
+                                                                 image="ui-icon-closethick"
+                                                                 style="width:25px;height:25px">                                                  
+                                    </primefaces-p:commandButton>
                                 </primefaces-p:column>
                             </primefaces-p:dataTable>
-                        </h:form>
+                
+                                        
+
+                        
                     </div>
                 </primefaces-p:layoutUnit>
                 <primefaces-p:layoutUnit position="west" style="width:0px; display:none;"
@@ -115,6 +120,38 @@
                                  height="450" width="600">
                 <ui:include src="/ositran/parametros/registrarConcesionario.xhtml"/>
             </primefaces-p:dialog>
+
+<primefaces-p:dialog header="#{msg.tituloMOC}" id="dlge" widgetVar="dlge" showEffect="fade" hideEffect="fade" height="450" width="600">
+                <ui:include src="/ositran/parametros/modificarConcesionario.xhtml"/>
+            </primefaces-p:dialog>
+
+                <!-- pdialog para boton eliminar -->
+                <h:inputText value="#{backing_ositran_parametros_mantenimientoConcesionario.codigoEliminar}" id="codEliminar"/>
+                <primefaces-p:dialog id="popupelimina" widgetVar="popupelimina" header="Confirmar" modal="true">
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Eliminar el tipo de infraestructura: 
+                                #{backing_ositran_parametros_mantenimientoConcesionario.nombreEliminar}
+                            </td>
+                        </tr>                         
+                        <tr>
+                            <td align="right">
+                                <primefaces-p:commandButton update=":form:dataTable1"
+                                actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.eliminar}"
+                                value="Eliminar" oncomplete="popupelimina.hide()">
+                                </primefaces-p:commandButton>
+                            </td>
+                            <td align="left">
+                                <primefaces-p:commandButton value="Cancelar" onclick="popupelimina.hide()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </primefaces-p:dialog>
+                <!-- fin pdialog para boton eliminar -->
+
+
+            </h:form>
         </h:body>
     </html>
 </f:view>
