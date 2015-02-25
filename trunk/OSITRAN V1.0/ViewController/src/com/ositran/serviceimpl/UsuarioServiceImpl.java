@@ -88,7 +88,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioVO.setUsuUsuarioAlta(usuario.getUsuUsuarioAlta());
         usuarioVO.setUsuUsuarioBaja(usuario.getUsuUsuarioBaja());
         usuarioVO.setUsuUsuarioCambio(usuario.getUsuUsuarioCambio());
-        usuarioVO.setUsuUsuario(usuario.getUsuUsuario());
+        //usuarioVO.setUsuUsuario(usuario.getUsuUsuario());
         return usuarioVO;
     }
 
@@ -105,7 +105,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setUsuFechaCambio(usuarioVO.getUsuFechaCambio());
         usuario.setUsuNombre(usuarioVO.getUsuNombre());
         usuario.setUsuTerminal(usuarioVO.getUsuTerminal());
-        usuario.setUsuUsuario(usuarioVO.getUsuUsuario());
+        //usuario.setUsuUsuario(usuarioVO.getUsuUsuario());
         usuario.setUsuUsuarioAlta(usuarioVO.getUsuUsuarioAlta());
         usuario.setUsuUsuarioBaja(usuarioVO.getUsuUsuarioBaja());
         usuario.setUsuUsuarioCambio(usuarioVO.getUsuUsuarioCambio());
