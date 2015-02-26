@@ -11,14 +11,16 @@
                     
                         <p:submenu label="#{menu.m_cont}" icon="ui-icon-check">
                             <p:column>
-                                <p:submenu label="TV.1">
-                                    <p:menuitem value="TV.1.1" url="#"/>
-                                    <p:menuitem value="TV.1.2" url="#"/>
+                                <p:submenu label="Contratos">
+                                    <p:menuitem value="Aeropuertos" url="#"/>
+                                    <p:menuitem value="Ferrocarriles, Carreteras" url="#"/>
+                                    <p:menuitem value="Puertos" url="#"/>
                                 </p:submenu>
-                                <p:submenu label="TV.2">
-                                    <p:menuitem value="TV.2.1" url="#"/>
-                                    <p:menuitem value="TV.2.2" url="#"/>
-                                    <p:menuitem value="TV.2.3" url="#"/>
+                                <p:submenu label="Asignar supervisores a contrato">
+                                    <p:menuitem value="Supervisor de Inversiones" url="#"/>
+                                    <p:menuitem value="Jefe de Infraestructura" url="#"/>
+                                    <p:menuitem value="Contrato de concesión" url="#"/>
+                                    <p:menuitem value="Responsable de Supervisión" url="#"/>
                                 </p:submenu>
                             </p:column>
                             <p:column>
@@ -27,14 +29,14 @@
                         </p:submenu>
                         <p:submenu label="#{menu.m_val}" icon="ui-icon-check">
                             <p:column>
-                                <p:submenu label="TV.1">
-                                    <p:menuitem value="TV.1.1" url="#"/>
-                                    <p:menuitem value="TV.1.2" url="#"/>
-                                </p:submenu>
-                                <p:submenu label="TV.2">
-                                    <p:menuitem value="TV.2.1" url="#"/>
-                                    <p:menuitem value="TV.2.2" url="#"/>
-                                    <p:menuitem value="TV.2.3" url="#"/>
+                                <p:submenu label="Valorización">
+                                    <p:menuitem value="Aeropuertos" url="#"/>
+                                    <p:menuitem value="Carreteras" url="#"/>
+                                    <p:menuitem value="Puertos" url="#"/>
+                                    <p:menuitem value="Ferrocarriles" url="#"/>
+                                    <p:menuitem value="Avance de Inversión" url="#"/>
+                                    <p:menuitem value="Reconocimiento a Supervisor" url="#"/>
+                                    <p:menuitem value="Valorización de supervisión" url="#"/>
                                 </p:submenu>
                             </p:column>
                             <p:column>
@@ -44,46 +46,48 @@
                         
                         <p:submenu label="#{menu.m_rep}" icon="ui-icon-pencil">
                             <p:column>
-                                <p:submenu label="Entertainment.1">
-                                    <p:menuitem value="Entertainment.1.1" url="#"/>
-                                    <p:menuitem value="Entertainment.1.2" url="#"/>
+                                <p:submenu label="Reportes">
+                                    <p:menuitem value="Avance de inversiones" url="#"/>
+                                    <p:menuitem value="Contratos de concesión" url="#"/>
+                                    <p:menuitem value="Empresa supervisora" url="#"/>
+                                    <p:menuitem value="Empresa supervisora vs Infraestructura" url="#"/>
+                                    <p:menuitem value="Contratos de concesión" url="#"/>
+                                    <p:menuitem value="Control de plazos flujo de valorizaciones de inversiones" url="#"/>
+                                    <p:menuitem value="Control de plazos flujo de valorizaciones de supervision" url="#"/>
+                                    <p:menuitem value="Trazabilidad de principales eventos" url="#"/>
+                                    <p:menuitem value="Inversiones por tipo de concepto" url="#"/>
+                                    <p:menuitem value="Contratos de concesión resumen" url="#"/>
+                                    <p:menuitem value="Contratos de concesión por trimestre" url="#"/>
+                                    <p:menuitem value="Compromiso de inversión vs inversión ejecutada por año" url="#"/>
                                 </p:submenu>
-                                <p:submenu label="Entertainment.2">
-                                    <p:menuitem value="Entertainment.2.1" url="#"/>
-                                    <p:menuitem value="Entertainment.2.2" url="#"/>
-                                    <p:menuitem value="Entertainment.2.3" url="#"/>
+                                <p:submenu label="Alertas y Auditorías">
+                                    <p:menuitem value="Reporte de alertas" url="#"/>
+                                    <p:menuitem value="Reporte de auditorías" url="#"/>
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
                         <p:submenu label="#{menu.m_seg}" icon="ui-icon-contact">
                             <p:column>
-                                <p:submenu label="Tech.1">
-                                    <p:menuitem value="Tech.1.1" url="#"/>
-                                    <p:menuitem value="Tech.1.2" url="#"/>
+                                <p:submenu label="Opciones">
+                                    <p:menuitem value="Mantenimiento de opciones" url="#"/>
+                                    <p:menuitem value="buscar opciones" url="#"/>
                                 </p:submenu>
-                                <p:submenu label="Tech.2">
-                                    <p:menuitem value="Tech.2.1" url="#"/>
-                                    <p:menuitem value="Tech.2.2" url="#"/>
-                                    <p:menuitem value="Tech.2.3" url="#"/>
+                                <p:submenu label="Roles">
+                                    <p:menuitem value="mantenimiento de roles" url="#"/>
+                                    <p:menuitem value="busqueda de roles" url="#"/>
                                 </p:submenu>
                             </p:column>
                             <p:column>
-                                <p:submenu label="Tech.4">
-                                    <p:menuitem value="Tech.4.1" url="#"/>
-                                    <p:menuitem value="Tech.4.2" url="#"/>
+                                <p:submenu label="Usuarios">
+                                    <p:menuitem value="mantenimiento de usuarios" url="#"/>
+                                    <p:menuitem value="buscar usuario" url="#"/>
                                 </p:submenu>
                             </p:column>
                         </p:submenu>                        
                         <p:submenu label="#{menu.m_par}" icon="ui-icon-document">
                             <p:column>
-                                <p:submenu label="Concesionario">
-                                    <p:menuitem value="#{menu.man_con}" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
-                                </p:submenu>
                                 <p:submenu label="Empresa Supervisora">
                                     <p:menuitem value="#{menu.man_emsu}" url="/faces/ositran/parametros/mantenimientoEmpSup.xhtml"/>
-                                </p:submenu>
-                                <p:submenu label="IGV">
-                                    <p:menuitem value="#{menu.man_igv}" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
                                 </p:submenu>
                                 <p:submenu label="Infraestructura">
                                     <p:menuitem value="#{menu.man_tipinf}" url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
@@ -92,9 +96,14 @@
                                     <p:menuitem value="#{menu.man_tipinv}" url="/faces/ositran/parametros/mantenimientoTipoInversion.xhtml"/>
                                     <p:menuitem value="#{menu.man_desctipinv}" url="/faces/ositran/parametros/mantenimientoDescripcionTipoInversion.xhtml"/>
                                 </p:submenu>
-                                
                                 <p:submenu label="Concesion">
                                     <p:menuitem value="Mantenimiento Concesion" url="/faces/ositran/parametros/mantenimientoConcesion.xhtml"/>
+                                </p:submenu>
+                                <p:submenu label="IGV">
+                                    <p:menuitem value="#{menu.man_igv}" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
+                                </p:submenu>                                
+                                <p:submenu label="Concesionario">
+                                    <p:menuitem value="#{menu.man_con}" url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
                                 </p:submenu>
                                 
                             </p:column>
