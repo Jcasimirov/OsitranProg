@@ -77,6 +77,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructuraVO.setInfUsuarioAlta(infraestructura.getInfUsuarioAlta());
         infraestructuraVO.setInfUsuarioBaja(infraestructura.getInfUsuarioBaja());
         infraestructuraVO.setInfUsuarioCambio(infraestructura.getInfUsuarioCambio());
+        infraestructuraVO.setInfEstado(infraestructura.getInfEstado());
        return infraestructuraVO;
     }
     private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO){
@@ -91,6 +92,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructura.setInfUsuarioAlta(infraestructuraVO.getInfUsuarioAlta());
         infraestructura.setInfUsuarioBaja(infraestructuraVO.getInfUsuarioBaja());
         infraestructura.setInfUsuarioCambio(infraestructuraVO.getInfUsuarioCambio());
+        infraestructura.setInfEstado(infraestructuraVO.getInfEstado());
        
        return infraestructura;
        
