@@ -2,9 +2,11 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
 import com.ositran.dao.TipoInversionDAO;
+import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
 import com.ositran.model.InversionTipo;
 import com.ositran.service.InfraestructuraService;
+import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 import com.ositran.vo.bean.TipoInversionVO;
@@ -23,8 +25,10 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
 
     @Override
     public List<InfraestructuraVO> query() {
-        // TODO Implement this method
-        return Collections.emptyList();
+        System.out.println("Services");
+        List<Infraestructura> list=infraestructuraDAOImpl.query();
+        List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
+        return listVO;
     }
 
     @Override
@@ -67,7 +71,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
     private InfraestructuraVO toInfraestructuraVO(Infraestructura infraestructura){
        InfraestructuraVO infraestructuraVO=new InfraestructuraVO();
-        infraestructuraVO.setCsiId(infraestructura.getCsiId());
+        
         infraestructuraVO.setInfFechaAlta(infraestructura.getInfFechaAlta());
         infraestructuraVO.setInfFechaBaja(infraestructura.getInfFechaBaja());
         infraestructuraVO.setInfFechaCambio(infraestructura.getInfFechaCambio());
@@ -82,7 +86,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
     private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO){
        Infraestructura infraestructura=new Infraestructura();
-        infraestructura.setCsiId(infraestructuraVO.getCsiId());
+        
         infraestructura.setInfFechaAlta(infraestructuraVO.getInfFechaAlta());
         infraestructura.setInfFechaBaja(infraestructuraVO.getInfFechaBaja());
         infraestructura.setInfFechaCambio(infraestructuraVO.getInfFechaCambio());
