@@ -12,4 +12,5 @@ public interface ConcesionDAO {
     public String update(Concesion concesion);
     public Concesion get(Integer idconcesion);
     public int idConcesion(Concesion concesion);
+    public List<Concesion> queryfiltro(int codigo, String nombre);
 }
