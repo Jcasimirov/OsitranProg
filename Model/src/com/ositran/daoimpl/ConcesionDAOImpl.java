@@ -70,12 +70,14 @@ public class ConcesionDAOImpl implements ConcesionDAO {
 
     @Override
     public int idConcesion(Concesion concesion) {
+        System.out.println("llego al ID concesion");
         int result = 0;
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.save(concesion);
             result=concesion.getCsiId();
+            System.out.println(result);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -127,9 +129,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     public List<Concesion> queryfiltro(int codigo, String nombre){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query;
-        //query = session.createQuery("FROM Concesion c WHERE lower(c.csiNombre) like lower(:busqueda2)");
-        
+        Query query;  
         if(codigo < 1 ){
             query = session.createQuery("FROM Concesion c WHERE lower(c.csiNombre) like lower(:busqueda2)");
         }else{
