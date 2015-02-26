@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -41,8 +42,14 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Concesion o").list();
+        List list = session.createQuery("select o from Concesion o order by CSI_ID DESC").list();
         session.getTransaction().commit();
+         /* Concesion con=new Concesion();
+        con=(Concesion)list.get(0);
+        System.out.println("Antes");
+        System.out.println(con.getInfraestructuraTipo().getTinNombre());
+        System.out.println("despues"); */
+        
         return list;
     }
 
@@ -116,7 +123,26 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.getTransaction().commit();
         return concesion;
     }
-
+    
+    public List<Concesion> queryfiltro(int codigo, String nombre){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query;
+        //query = session.createQuery("FROM Concesion c WHERE lower(c.csiNombre) like lower(:busqueda2)");
+        
+        if(codigo < 1 ){
+            query = session.createQuery("FROM Concesion c WHERE lower(c.csiNombre) like lower(:busqueda2)");
+        }else{
+            query = session.createQuery("FROM Concesion c WHERE c.infraestructuraTipo.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
+            query.setParameter("busqueda1",codigo);
+        }        
+        query.setParameter("busqueda2","%"+nombre+"%");
+        List<Concesion> list = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+    
 
    
 }
