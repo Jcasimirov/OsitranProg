@@ -95,8 +95,8 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesionVO.setCsiUsuarioBaja(concesion.getCsiUsuarioBaja());
         concesionVO.setCsiUsuarioCambio(concesion.getCsiUsuarioCambio());   
         concesionVO.setCsiId(concesion.getCsiId());
-        concesionVO.setTinId(concesion.getTinId());
         concesionVO.setCsiNombre(concesion.getCsiNombre());
+        concesionVO.setInfraestructuraTipo(concesion.getInfraestructuraTipo());
        
         return concesionVO;
     }
@@ -111,11 +111,18 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
         concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());
         concesion.setCsiId(concesionVO.getCsiId());
-        concesion.setTinId(concesionVO.getTinId());   
+        concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
         concesion.setCsiNombre(concesionVO.getCsiNombre());
        
         return concesion; 
         
+    }
+    
+    public List<ConcesionVO> buscarconcesionfiltro(int codigo, String nombre){
+        
+        List<Concesion> list=concesionDAOImpl.queryfiltro(codigo,nombre);
+        List<ConcesionVO> listVO=toListConcesionVO(list);
+        return listVO;
     }
 
 
