@@ -11,4 +11,6 @@ public interface ConcesionService {
     public String update(ConcesionVO concesionVO);
     public ConcesionVO get(Integer id);
     public int idConcesion (ConcesionVO concesionVO);
+    public List<ConcesionVO> buscarconcesionfiltro(int codigo, String nombre);
+    
 }
