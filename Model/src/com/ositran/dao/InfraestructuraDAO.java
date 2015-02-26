@@ -11,5 +11,6 @@ public interface InfraestructuraDAO {
        public String delete(Integer id);
        public String update(Infraestructura infraestructura);
        public InfraestructuraTipo get(Integer id);
+       public List<Infraestructura> query1(Integer codigoC);
 
 }
