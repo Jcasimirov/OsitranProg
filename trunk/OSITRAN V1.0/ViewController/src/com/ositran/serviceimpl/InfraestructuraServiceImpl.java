@@ -1,10 +1,10 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
-import com.ositran.dao.TipoInversionDAO;
+
 import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
-import com.ositran.model.InversionTipo;
+
 import com.ositran.service.InfraestructuraService;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
@@ -21,7 +21,14 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     private InfraestructuraDAO infraestructuraDAOImpl;
 
 
-
+    @Override
+    public List<InfraestructuraVO> query1(Integer CodigoC) {
+        
+        
+        List<Infraestructura> list=infraestructuraDAOImpl.query1(CodigoC);
+        List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
+        return listVO;
+    }
 
     @Override
     public List<InfraestructuraVO> query() {
@@ -82,6 +89,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructuraVO.setInfUsuarioBaja(infraestructura.getInfUsuarioBaja());
         infraestructuraVO.setInfUsuarioCambio(infraestructura.getInfUsuarioCambio());
         infraestructuraVO.setInfEstado(infraestructura.getInfEstado());
+        infraestructuraVO.setConcesion(infraestructura.getConcesion());
        return infraestructuraVO;
     }
     private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO){
@@ -97,6 +105,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructura.setInfUsuarioBaja(infraestructuraVO.getInfUsuarioBaja());
         infraestructura.setInfUsuarioCambio(infraestructuraVO.getInfUsuarioCambio());
         infraestructura.setInfEstado(infraestructuraVO.getInfEstado());
+        infraestructura.setConcesion(infraestructuraVO.getConcesion());
        
        return infraestructura;
        
@@ -108,8 +117,9 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     public InfraestructuraDAO getInfraestructuraDAOImpl() {
         return infraestructuraDAOImpl;
     }
-    
-    
+
+
+   
 }
 
 
