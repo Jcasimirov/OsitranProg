@@ -4,6 +4,9 @@ import com.ositran.daoimpl.ConcesionDAOImpl;
 import com.ositran.model.Concesion;
 import com.ositran.service.ConcesionService;
 import com.ositran.vo.bean.ConcesionVO;
+
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class ConcesionServiceImpl implements ConcesionService{
     }
 
     @Override
-    public String insert(ConcesionVO concesionVO) {
+    public String insert(ConcesionVO concesionVO) throws SQLException{
         Concesion concesion=toConcesion(concesionVO);
         String result=concesionDAOImpl.insert(concesion);
         return result;
