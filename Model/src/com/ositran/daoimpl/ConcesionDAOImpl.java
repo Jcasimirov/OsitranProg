@@ -3,6 +3,8 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ConcesionDAO;
 import com.ositran.model.Concesion;
 
+import java.sql.SQLException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public String insert(Concesion concesion) {
+    public String insert(Concesion concesion) throws SQLException{
         String result = null;
         Session session = sessionFactory.openSession();
         try {
