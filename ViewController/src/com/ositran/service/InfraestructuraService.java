@@ -12,5 +12,6 @@ public interface InfraestructuraService {
     public String delete(Integer id);
     public String update(InfraestructuraVO infraestructuraVO);
     public InfraestructuraVO get(Integer id);
+    public List<InfraestructuraVO> query1(Integer CodigoC);
    
 }
