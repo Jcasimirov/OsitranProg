@@ -6,20 +6,21 @@
         <h:head>
             <style type="text/css">
                 .ui-dialog-titlebar {
-                    font-size: 13px;
+                    font-size: 11px;
                     font-family: sans-serif;
                 }
             </style>
         </h:head>
         <h:body>
-          
-             
             <f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.listarTipInfraestructura}"
                      type="postAddToView"></f:event>
-<f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.ListarConcesiones}"
-                     type="postAddToView"></f:event>
              
+            <f:event listener="#{backing_ositran_parametros_mantenimientoconcesion.ListarConcesiones}"
+                     type="postAddToView"></f:event>
+           
+              
             <h:form id="form">
+           <p:growl id="mensaje" life="5000" showDetail="true" />
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
@@ -29,22 +30,74 @@
                             </h3>
                         </div>
                         <center>
-                            <div style="width:60%">
-                                <div align="left" style="font-size: 11px">
-                                    <p:commandButton onclick="insertarPanel.show()" value="Nueva Concesión"/>
-                                </div>
-                                <br></br>
+                            <div style="width:60%" >
+                            <!---->
+                            
+                            <table style="margin-bottom:5px;font-size: 11px" >
+                                    <tr>
+                                        <td>
+                                           <h:outputLabel value="Mantenimiento de Infraestructuras"
+                                                       style="align:left; text-align:left"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <p:selectOneMenu id="tipobuscar" value="#{backing_ositran_parametros_mantenimientoconcesion.codigoTipoInfraestructurafiltro}"
+                                                         style="width:70%">
+                                            <f:selectItem itemValue="0" itemLabel="-Seleccione-" />
+                                            <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuraTipos}"
+                                                           var="tip" itemLabel="#{tip.tinNombre}"
+                                                           itemValue="#{tip.tinId}"/>
+                                        </p:selectOneMenu>
+                                        </td>
+                                        <td style=" text-align: right;">
+                                            
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td>
+                                            Nombre:
+                                        </td>
+                                        <td>
+                                            <p:inputText id="nombrebuscar" value="#{backing_ositran_parametros_mantenimientoconcesion.concesionbuscar}"
+                                                     style="width:300px"></p:inputText>
+                                        </td>
+                                       
+                                        <td></td>
+                                        <td>
+                                        <p:commandButton  value="#{btn.btn_buscar}" action="#{backing_ositran_parametros_mantenimientoconcesion.buscarconcesion}" update=":form:tablaES"/>
+                                            <p:commandButton value="#{btn.btn_limpiar}" onclick="limpiar()" />
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left"></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                         
+                                    </td>
+                                    </tr>
+                                </table>
+                             
                                  
                                 <p:dataTable style="font-size:11px;" id="tablaES" var="concesion"
-                                             value="#{backing_ositran_parametros_mantenimientoconcesion.listaConcesiones}">
+                                             value="#{backing_ositran_parametros_mantenimientoconcesion.listaConcesiones}"
+                                              rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" 
+                                             >
                                     <p:column headerText="ID">
                                         <h:outputText value="#{concesion.csiId}"/>
                                     </p:column>
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{concesion.csiNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Estado">
-                                        <h:outputText value="#{concesion.csiEstado}"/>
+                                    <p:column headerText="Tipo de Infraestructura">
+                                        <h:outputText value="#{concesion.infraestructuraTipo.tinNombre}"/>
                                     </p:column>
                                     <p:column headerText="Usuario Registro">
                                         <h:outputText value="#{concesion.csiUsuarioAlta}"/>
@@ -67,7 +120,13 @@
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
                                                          style="width:25px;height:25px"/>
                                     </p:column>
+                                   
                                 </p:dataTable>
+                                <table style=" text-align: center; margin-bottom:5px;font-size: 11px">
+                                 <td>
+                                 <p:commandButton onclick="insertarPanel.show()" value="Nueva Concesión"/>
+                            </td>
+                            </table>
                             </div>
                         </center>
                     </p:layoutUnit>
@@ -79,9 +138,6 @@
                     <h:inputHidden value="#{backing_ositran_parametros_mantenimientoconcesion.codigoEliminar}"
                                    id="codEliminar"/>
                 </p:layout>
-               
-               
-               
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
@@ -103,43 +159,32 @@
                         </tr>
                     </table>
                 </p:dialog>
-                
-                
-                
-                
+                <div style="width:60%" >
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
-                <p:dialog header="Registrar" widgetVar="insertarPanel" modal="true" style="text-align:center;">
-                    <table>
+                <p:dialog header="Registrar" widgetVar="insertarPanel" modal="true">
+                    <table style="font-size: 11px">
                         <tr>
                             <td>
                                 <p:growl id="msgs"/>
                                  
-                                <p:panel header="Agregar Infraestructura" style="margin-bottom:20px;align:left">
+                                <p:panel header="Mantenimiento de concesión" style="margin-bottom:20px;align:left">
                                     <h:panelGrid columns="2" cellpadding="5">
-                                        
-                                        <h:outputLabel value="Seleccionar Tipo de Infraestructura" style="align:left;align:left"></h:outputLabel>
+                                        <h:outputLabel value="Seleccionar Tipo de Infraestructura"
+                                                       style="align:left; text-align:left"></h:outputLabel>
                                         <p:selectOneMenu value="#{backing_ositran_parametros_mantenimientoconcesion.codigoTipoInfraestructura}"
                                                          style="width:100%">
-                                            <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructura}"
+                                            <f:selectItem  itemValue="0" itemLabel="-Seleccionar-" />
+                                            <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuraTipos}"
                                                            var="tip" itemLabel="#{tip.tinNombre}"
                                                            itemValue="#{tip.tinId}"/>
+                                                           
                                         </p:selectOneMenu>
-                                        
-                                        
-                                        <h:outputLabel value="Nombre de la Concesión" style="align:left"></h:outputLabel>
+                                        <h:outputLabel value="Nombre de la Concesión" style="text-align:left;"></h:outputLabel>
                                         <p:inputText value="#{backing_ositran_parametros_mantenimientoconcesion.nombre}"
-                                             style="width:300px"/>
-                                        
-                                        
-                                        
-                                      <h:outputLabel value="Infraestructura"></h:outputLabel>
-                                           
+                                                     style="width:300px"/>
+                                        <h:outputLabel value="Infraestructura"></h:outputLabel>
                                         <p:inputText id="txt_title"
-                                                     value="#{backing_ositran_parametros_mantenimientoconcesion.infraestructura.infNombre}"
-                                                     />
-                                                    
-                                                  
-                                                     
+                                                     value="#{backing_ositran_parametros_mantenimientoconcesion.infraestructura.infNombre}"/>
                                         <p:commandButton id="btn_reset" value="Reset" type="reset"/>
                                         <p:commandButton id="btn_add" value="Add" update="books msgs @parent"
                                                          action="#{backing_ositran_parametros_mantenimientoconcesion.reinit()}">
@@ -165,36 +210,31 @@
                                         </p:column>
                                     </p:dataTable>
                                 </p:outputPanel>
-                                
-                                
-                                 <p:commandButton update=":form:tablaES" oncomplete="insertarPanel.hide()"
+                                 
+                                <p:commandButton update=":form:tablaES :form:mensaje" oncomplete="insertarPanel.hide()"
                                                  action="#{backing_ositran_parametros_mantenimientoconcesion.guardar}"
                                                  style="width:70px" value="#{btn.btn_guardar}"/>
-                                 <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>                
-                                                 
+                                 
+                                <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
                             </td>
                         </tr>
-
-                         
-                       
                     </table>
                 </p:dialog>
-                
-                
-                
-                
-                
-                
-                
-                
+                </div>
+               
+                <!--Mantenimiento de Infraestructuras-->  
                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td align="right">ID:</td>
                             <td align="left">
-                                <p:inputText value="#{backing_ositran_parametros_mantenimientoconcesion.codigoE}"
-                                             style="width:30px"/>
+                               <p:selectOneMenu value="#{backing_ositran_parametros_mantenimientoconcesion.codigoTipoInfraestructura}"
+                                                         style="width:100%">
+                                            <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuraTipos}"
+                                                           var="tip" itemLabel="#{tip.tinNombre}"
+                                                           itemValue="#{tip.tinId}"/>
+                                        </p:selectOneMenu>
                             </td>
                         </tr>
                          
@@ -209,7 +249,7 @@
                         </tr>
                          
                         <tr>
-                            <td align="right">
+                            <td align="left">
                                 <p:commandButton update=":form:tablaES" oncomplete="editarPanel.hide()"
                                                  action="#{backing_ositran_parametros_mantenimientoconcesion.editar}"
                                                  style="width:70px" value="#{btn.btn_modificar}"/>
@@ -219,8 +259,44 @@
                             </td>
                         </tr>
                     </table>
+                    
+                    
+                 <!--Mantenimiento de Infraestructuras-->   
+                     <p:dataTable style="font-size:11px;" id="tablaES2" var="infraestructura"
+                                             value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuras}">
+                                     
+                                        <p:column headerText="ID">
+                                        <h:outputText value="#{infraestructura.infId}"/>
+                                    </p:column>
+                                    <p:column headerText="ID">
+                                        <h:outputText value="#{infraestructura.infNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="ID">
+                                        <h:outputText value="#{infraestructura.concesion.csiId}"/>
+                                    </p:column>
+                                
+                                    <p:column headerText="Eli">
+                                        <p:commandButton update=":form:confirEliminar :form:codEliminar"
+                                                         actionListener="#{backing_ositran_parametros_mantenimientoconcesion.cargarEliminar(concesion.csiId,concesion.csiNombre)}"
+                                                         oncomplete="confirEliminar.show()" image="ui-icon-closethick"
+                                                         style="width:25px;height:25px"/>
+                                    </p:column>
+                                   
+                                </p:dataTable>
+                    
+                    
+                    
                 </p:dialog>
             </h:form>
+            <script>
+                function limpiar(){
+                    document.getElementById("nombrebuscar").value="";
+                   
+                    
+                    
+                }
+
+            </script>
         </h:body>
     </html>
 </f:view>
