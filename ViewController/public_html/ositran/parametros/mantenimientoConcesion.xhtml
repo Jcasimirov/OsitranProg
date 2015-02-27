@@ -231,6 +231,7 @@
                             <td align="left">
                                <p:selectOneMenu value="#{backing_ositran_parametros_mantenimientoconcesion.codigoTipoInfraestructura}"
                                                          style="width:100%">
+                                             <f:selectItem itemLabel="-Selecionar-" itemValue="0" />            
                                             <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuraTipos}"
                                                            var="tip" itemLabel="#{tip.tinNombre}"
                                                            itemValue="#{tip.tinId}"/>
