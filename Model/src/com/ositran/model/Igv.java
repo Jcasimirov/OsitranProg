@@ -21,13 +21,22 @@ import javax.persistence.TemporalType;
 
 import java.net.*;
 
+import javax.persistence.GeneratedValue;
+
 import javax.servlet.http.HttpServletRequest;
 
-@Entity
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+/* @Entity
 @NamedQueries({ @NamedQuery(name = "Igv.findAll", query = "select o from Igv o") })
 @Table(name = "T_IGV")
 @SequenceGenerator(name = "SEQ_IGV", sequenceName = "T_SEQ_IGV", allocationSize = 50,
-                   initialValue = 50)
+                   initialValue = 50) */
+
+@Entity
+@Table(name = "T_IGV")
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_IGV"))
 public class Igv implements Serializable {
     private static final long serialVersionUID = -5795321833849861310L;
     @Column(name = "IGV_ESTADO")
@@ -48,6 +57,7 @@ public class Igv implements Serializable {
     @Column(name = "IGV_FECHAVIGENCIA")
     private Date igvFechavigencia;
     @Id
+    @GeneratedValue(generator = "generator")    
     @Column(name = "IGV_ID", nullable = false)
     private Integer igvId;
     @Column(name = "IGV_PORCENTAJE", nullable = false)
