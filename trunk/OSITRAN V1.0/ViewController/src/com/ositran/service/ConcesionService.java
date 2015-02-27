@@ -2,11 +2,13 @@ package com.ositran.service;
 
 import com.ositran.vo.bean.ConcesionVO;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 public interface ConcesionService {
     public List<ConcesionVO> query();
-    public String insert(ConcesionVO concesionVO);
+    public String insert(ConcesionVO concesionVO) throws SQLException;
     public String delete(Integer id);
     public String update(ConcesionVO concesionVO);
     public ConcesionVO get(Integer id);
