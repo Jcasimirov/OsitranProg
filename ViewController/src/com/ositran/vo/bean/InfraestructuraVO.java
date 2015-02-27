@@ -1,9 +1,12 @@
 package com.ositran.vo.bean;
 
+import com.ositran.model.Concesion;
+import com.ositran.model.InfraestructuraTipo;
+
 import java.util.Date;
 
 public class InfraestructuraVO{
-    private Integer csiId;
+  
     private Date infFechaAlta;
     private Date infFechaBaja;
     private Date infFechaCambio;
@@ -18,10 +21,10 @@ public class InfraestructuraVO{
     public InfraestructuraVO() {
     }
 
-    public InfraestructuraVO(Integer csiId, Date infFechaAlta, Date infFechaBaja, Date infFechaCambio,
+    public InfraestructuraVO( Date infFechaAlta, Date infFechaBaja, Date infFechaCambio,
                            Integer infId, String infNombre, String infTerminal, String infUsuarioAlta,
                            String infUsuarioBaja, String infUsuarioCambio,Integer infEstado) {
-        this.csiId = csiId;
+        
         this.infFechaAlta = infFechaAlta;
         this.infFechaBaja = infFechaBaja;
         this.infFechaCambio = infFechaCambio;
@@ -34,13 +37,17 @@ public class InfraestructuraVO{
         this.infEstado = infEstado;
     }
 
-    public Integer getCsiId() {
-        return csiId;
+    private Concesion concesion;
+
+
+    public void setConcesion(Concesion concesion) {
+        this.concesion = concesion;
     }
 
-    public void setCsiId(Integer csiId) {
-        this.csiId = csiId;
+    public Concesion getConcesion() {
+        return concesion;
     }
+   
 
     public Date getInfFechaAlta() {
         return infFechaAlta;
@@ -122,6 +129,7 @@ public class InfraestructuraVO{
     public Integer getInfEstado() {
         return infEstado;
     }
+
 
 
     public boolean equals(Object obj) {
