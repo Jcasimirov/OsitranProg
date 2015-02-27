@@ -1,10 +1,7 @@
 package com.ositran.model;
+
 import java.io.Serializable;
-
-
-
 import java.util.Date;
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -54,8 +51,6 @@ public class Concesion implements Serializable {
     private String csiUsuarioBaja;
     @Column(name = "CSI_USUARIO_CAMBIO", length = 50)
     private String csiUsuarioCambio;
-    
-
 
     @ManyToOne
     @JoinColumn(name = "TIN_ID")
