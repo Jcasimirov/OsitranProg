@@ -40,6 +40,7 @@ public class MantenimientoConcesion {
     private int codigoEliminar;
     private String nombreEliminar;
     private int codigoTipoInfraestructura;
+    private int codigoTipoInfraestructuraInsert;
     private int codigoInfraestructura;
     private List<ConcesionVO> listaConcesiones;
     private List<InfraestructuraVO> listaInfraestructuras;
@@ -108,7 +109,9 @@ public class MantenimientoConcesion {
 
 
     public void guardar() {
-        if (codigoTipoInfraestructura==0){
+            System.out.println("ANtessssss");
+            System.out.println(codigoTipoInfraestructuraInsert);
+        if (codigoTipoInfraestructuraInsert==0){
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error", "No ha selecionado tipo de infraestructura");
                  FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
@@ -122,7 +125,7 @@ public class MantenimientoConcesion {
         int codigogenerado = 0;
         //inicio de la carga para foreing key
         InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
-        infraestructuraTipo1.setTinId(codigoTipoInfraestructura);
+        infraestructuraTipo1.setTinId(codigoTipoInfraestructuraInsert);
         concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
         //finalización de la carga para foreing key
         concesionVO.setCsiNombre(nombre);
@@ -398,9 +401,15 @@ public class MantenimientoConcesion {
         return listaInfraestructuras;
     }
     //----------------------------------------------
-    
-    
-   
+
+
+    public void setCodigoTipoInfraestructuraInsert(int codigoTipoInfraestructuraInsert) {
+        this.codigoTipoInfraestructuraInsert = codigoTipoInfraestructuraInsert;
+    }
+
+    public int getCodigoTipoInfraestructuraInsert() {
+        return codigoTipoInfraestructuraInsert;
+    }
 
 
 }
