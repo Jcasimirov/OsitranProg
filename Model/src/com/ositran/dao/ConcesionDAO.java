@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ConcesionDAO {
     public List<Concesion> query();
-    public String insert(Concesion concesion);
+    public String insert(Concesion concesion) throws Exception;
     public String delete(Integer idconcesion);
     public String update(Concesion concesion);
     public Concesion get(Integer idconcesion);
