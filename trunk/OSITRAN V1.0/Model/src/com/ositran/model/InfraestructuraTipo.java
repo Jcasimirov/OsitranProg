@@ -5,6 +5,9 @@ import java.io.Serializable;
 
 import java.util.Date;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,9 +24,13 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+/**
+ * To create ID generator sequence "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA_TIPO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURATIPO"))
 public class InfraestructuraTipo implements Serializable {
     private static final long serialVersionUID = -9018333581388462967L;
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
@@ -52,6 +60,10 @@ public class InfraestructuraTipo implements Serializable {
     private String tinUsuarioBaja;
     @Column(name = "TIN_USUARIO_CAMBIO", length = 20)
     private String tinUsuarioCambio;
+
+    @OneToMany(mappedBy = "infraestructuraTipo", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<Concesion> concesionList;
+
 
     public InfraestructuraTipo() {
     }
@@ -159,4 +171,15 @@ public class InfraestructuraTipo implements Serializable {
     public void setTinId(Integer tinId) {
         this.tinId = tinId;
     }
+
+
+    public void setConcesionList(List<Concesion> concesionList) {
+        this.concesionList = concesionList;
+    }
+
+    public List<Concesion> getConcesionList() {
+        return concesionList;
+    }
+
+
 }
