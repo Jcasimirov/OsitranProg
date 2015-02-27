@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import com.ositran.model.InfraestructuraTipo;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,7 +18,7 @@ public class ConcesionVO {
 
     public ConcesionVO(Date csiFechaAlta, Date csiFechaBaja, Date csiFechaCambio, Integer csiId, String csiNombre,
                        String csiTerminal, String csiUsuarioAlta, String csiUsuarioBaja, String csiUsuarioCambio,
-                       Integer TinId, Integer csiEstado) {
+                     Integer csiEstado,Integer tinId) {
         super();
         this.csiFechaAlta = csiFechaAlta;
         this.csiFechaBaja = csiFechaBaja;
@@ -27,7 +29,7 @@ public class ConcesionVO {
         this.csiUsuarioAlta = csiUsuarioAlta;
         this.csiUsuarioBaja = csiUsuarioBaja;
         this.csiUsuarioCambio = csiUsuarioCambio;
-        this.TinId = TinId;
+        this.tinId = tinId;
         this.csiEstado = csiEstado;
     }
 
@@ -40,8 +42,22 @@ public class ConcesionVO {
     private String csiUsuarioAlta;
     private String csiUsuarioBaja;
     private String csiUsuarioCambio;
-    private Integer TinId;
+
+    private Integer tinId;
+ 
+    private InfraestructuraTipo infraestructuraTipo;
+   
     private Integer csiEstado;
+
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
 
     public void setCsiFechaAlta(Date csiFechaAlta) {
         this.csiFechaAlta = csiFechaAlta;
@@ -116,13 +132,7 @@ public class ConcesionVO {
     }
 
 
-    public void setTinId(Integer TinId) {
-        this.TinId = TinId;
-    }
-
-    public Integer getTinId() {
-        return TinId;
-    }
+    
 
     public void setCsiEstado(Integer csiEstado) {
         this.csiEstado = csiEstado;
@@ -130,6 +140,15 @@ public class ConcesionVO {
 
     public Integer getCsiEstado() {
         return csiEstado;
+    }
+
+
+    public void setInfraestructuraTipo(InfraestructuraTipo infraestructuraTipo) {
+        this.infraestructuraTipo = infraestructuraTipo;
+    }
+
+    public InfraestructuraTipo getInfraestructuraTipo() {
+        return infraestructuraTipo;
     }
 
 }
