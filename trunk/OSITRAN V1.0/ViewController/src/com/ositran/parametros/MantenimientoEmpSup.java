@@ -234,13 +234,20 @@ public class MantenimientoEmpSup {
     
     
     public String EmpSupDel(ActionEvent event) throws SQLException{
-        
-        UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
-        Integer idEmpSup=(Integer)parameter.getValue();
-        this.empSupServiceImp.delete(idEmpSup);
-        getQuery();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
-                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        try{
+            UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
+            Integer idEmpSup=(Integer)parameter.getValue();
+            this.empSupServiceImp.delete(idEmpSup);
+            getQuery();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
+                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                                                    
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+                            FacesMessage mensaje =
+                                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
         return "/index?faces-redirect=true";
         
     }
