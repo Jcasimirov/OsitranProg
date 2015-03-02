@@ -4,6 +4,8 @@ import com.ositran.dao.CargoDAO;
 import com.ositran.model.Cargo;
 
 
+import java.sql.SQLException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class CargoDAOImpl implements CargoDAO {
     }
 
     @Override
-    public List<Cargo> query() {
+    public List<Cargo> query() throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List list=session.createQuery("select o from Cargo o").list();
@@ -49,7 +51,7 @@ public class CargoDAOImpl implements CargoDAO {
     }
 
     @Override
-    public String insert(Cargo cargo) {
+    public String insert(Cargo cargo) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -64,7 +66,7 @@ public class CargoDAOImpl implements CargoDAO {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -80,7 +82,7 @@ public class CargoDAOImpl implements CargoDAO {
     }
 
     @Override
-    public String update(Cargo cargo) {
+    public String update(Cargo cargo) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -96,16 +98,13 @@ public class CargoDAOImpl implements CargoDAO {
     }
 
     @Override
-    public Cargo get(Integer id) {
+    public Cargo get(Integer id) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Cargo cargo=(Cargo)session.get(Cargo.class, id);
         session.getTransaction().commit();
         return cargo;
     }
-    
-    
-    
-    
+
     
 }
