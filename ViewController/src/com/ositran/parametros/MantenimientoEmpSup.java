@@ -21,6 +21,8 @@ import javax.faces.event.ComponentSystemEvent;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.CargoVO;
 
+import java.sql.SQLException;
+
 import javax.faces.application.FacesMessage;
 
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
@@ -34,7 +36,9 @@ public class MantenimientoEmpSup {
     List<EmpresaSupervisoraVO> listaEmpSup;    
     List<TipoDocumentoVO> listaTipoDocumento;
     List<CargoVO> listaCargo;  
-    public EmpresaSupervisoraVO empSupVO = new EmpresaSupervisoraVO();
+    
+    @ManagedProperty(value="#{empSupVO}")
+    public EmpresaSupervisoraVO empSupVO;
     
     @ManagedProperty(value="#{empSupServiceImp}")
     private EmpresaSupervisoraServiceImpl empSupServiceImp;   
@@ -106,25 +110,25 @@ public class MantenimientoEmpSup {
         return empSupVO;
     }
     
-    public List<EmpresaSupervisoraVO> getQuery(){
+    public List<EmpresaSupervisoraVO> getQuery() throws SQLException{
         listaEmpSup=this.empSupServiceImp.query();
         //limpiarCampos ();
         return listaEmpSup; 
         
     }
     
-    public List<TipoDocumentoVO> getListaTipoDocumento(){
+    public List<TipoDocumentoVO> getListaTipoDocumento() throws SQLException{
         listaTipoDocumento = this.tipoDocumentoServiceImp.query(); 
         return listaTipoDocumento;
     }
     
-    public List<CargoVO> getListaCargo(){
+    public List<CargoVO> getListaCargo() throws SQLException{
         listaCargo = this.cargoServiceImp.query(); 
         return listaCargo;
     }
     
 
-    public String EmpSupUpd2(){
+    public String EmpSupUpd2() throws SQLException{
         this.empSupServiceImp.update(empSupVO);
         return "/index?faces-redirect=true";
     }
@@ -229,7 +233,7 @@ public class MantenimientoEmpSup {
     }
     
     
-    public String EmpSupDel(ActionEvent event){
+    public String EmpSupDel(ActionEvent event) throws SQLException{
         
         UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
         Integer idEmpSup=(Integer)parameter.getValue();
@@ -241,24 +245,50 @@ public class MantenimientoEmpSup {
         
     }
 
-    public void guardar(){
-        empSupVO.setSupNombre(nomEmpSup);
-        empSupVO.setSupDireccion(dirEmpSup);
-        empSupVO.setSupRepresentanteLegal(repLegal);
-        empSupVO.setCrgId(cargo);
-        empSupVO.setSupTelefono(telefono);
-        empSupVO.setSupNroDocumento(nroDoc);
-        empSupVO.setTdoId(tipoDocumento);
-        empSupVO.setSupCorreo(correo);
-        empSupVO.setSupDescripcion(siglasNom); 
-        empSupVO.setSupEstado(1);
-        empSupVO.setSupFechaAlta(util.getObtenerFechaHoy());
-        empSupVO.setSupTerminal(util.obtenerIpCliente());
-        this.empSupServiceImp.insert(empSupVO);        
-        getQuery();
-        limpiarCampos();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
-                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    public void guardar() throws SQLException{
+        if (nomEmpSup.equals("")) {
+            FacesMessage mensaje =
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
+                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (siglasNom.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (dirEmpSup.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (repLegal.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (correo.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Correo de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else{
+            try{
+                empSupVO.setSupNombre(nomEmpSup);
+                empSupVO.setSupDireccion(dirEmpSup);
+                empSupVO.setSupRepresentanteLegal(repLegal);
+                empSupVO.setCrgId(cargo);
+                empSupVO.setSupTelefono(telefono);
+                empSupVO.setSupNroDocumento(nroDoc);
+                empSupVO.setTdoId(tipoDocumento);
+                empSupVO.setSupCorreo(correo);
+                empSupVO.setSupDescripcion(siglasNom); 
+                empSupVO.setSupEstado(1);
+                empSupVO.setSupFechaAlta(util.getObtenerFechaHoy());
+                empSupVO.setSupTerminal(util.obtenerIpCliente());
+                this.empSupServiceImp.insert(empSupVO);        
+                getQuery();
+                limpiarCampos();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
+                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                                FacesMessage mensaje =
+                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+        }
+        
     } 
     
 
@@ -369,7 +399,7 @@ public class MantenimientoEmpSup {
     }
 
 
-    public void EmpSupUpd1(){
+    public void EmpSupUpd1() throws SQLException{
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("id2");
@@ -389,25 +419,51 @@ public class MantenimientoEmpSup {
         
     }
     
-    public void Modificar(){
-        empSupVO.setSupNombre(nomEmpSupMod);
-        empSupVO.setSupDireccion(dirEmpSupMod);
-        empSupVO.setSupRepresentanteLegal(repLegalMod);
-        empSupVO.setCrgId(cargoMod);
-        empSupVO.setSupTelefono(telefonoMod);
-        empSupVO.setSupNroDocumento(nroDocMod);
-        empSupVO.setTdoId(tipoDocumentoMod);
-        empSupVO.setSupCorreo(correoMod);
-        empSupVO.setSupDescripcion(siglasNomMod); 
-        empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());
-        empSupVO.setSupTerminal(util.obtenerIpCliente());
-        empSupVO.setSupId(idMod);
-        empSupVO.setSupEstado(estadoMod);
-        this.empSupServiceImp.update(empSupVO);        
-        getQuery();
-        limpiarCampos();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
-                                                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    public void Modificar() throws SQLException{
+        if (nomEmpSupMod.equals("")) {
+            FacesMessage mensaje =
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
+                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (siglasNomMod.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (dirEmpSupMod.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (repLegalMod.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (correoMod.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Correo de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else{
+            try{
+                empSupVO.setSupNombre(nomEmpSupMod);
+                empSupVO.setSupDireccion(dirEmpSupMod);
+                empSupVO.setSupRepresentanteLegal(repLegalMod);
+                empSupVO.setCrgId(cargoMod);
+                empSupVO.setSupTelefono(telefonoMod);
+                empSupVO.setSupNroDocumento(nroDocMod);
+                empSupVO.setTdoId(tipoDocumentoMod);
+                empSupVO.setSupCorreo(correoMod);
+                empSupVO.setSupDescripcion(siglasNomMod); 
+                empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());
+                empSupVO.setSupTerminal(util.obtenerIpCliente());
+                empSupVO.setSupId(idMod);
+                empSupVO.setSupEstado(estadoMod);
+                this.empSupServiceImp.update(empSupVO);        
+                getQuery();
+                limpiarCampos();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
+                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                                FacesMessage mensaje =
+                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+        }
+        
     } 
     
     
@@ -497,7 +553,7 @@ public class MantenimientoEmpSup {
         return siglasNomVer;
     }
 
-    public void EmpSupVer(){
+    public void EmpSupVer() throws SQLException{
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("id1");
@@ -539,7 +595,7 @@ public class MantenimientoEmpSup {
         return nomEmpSupBus;
     }
 
-    public List<EmpresaSupervisoraVO> FiltrarListaEmpSup(){
+    public List<EmpresaSupervisoraVO> FiltrarListaEmpSup() throws SQLException{
         System.out.println(nomEmpSupBus);
         listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus);
         //limpiarCampos ();
