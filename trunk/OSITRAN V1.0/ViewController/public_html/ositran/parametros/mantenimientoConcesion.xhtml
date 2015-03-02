@@ -26,7 +26,7 @@
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
                             <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                                #{msg.titulo_MCSI}
+                                Mantenimiento de Concesiones
                             </h3>
                         </div>
                         <center>
@@ -161,7 +161,7 @@
                 </p:dialog>
                 <div style="width:60%" >
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
-                <p:dialog header="Registrar" widgetVar="insertarPanel" modal="true">
+                <p:dialog id="insertarPanel"  header="Registrar" widgetVar="insertarPanel" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td>
@@ -227,11 +227,11 @@
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="right">ID:</td>
+                            <td align="right">Tipo Infraestructura:</td>
                             <td align="left">
                                <p:selectOneMenu value="#{backing_ositran_parametros_mantenimientoconcesion.codigoTipoInfraestructura}"
                                                          style="width:100%">
-                                             <f:selectItem itemLabel="-Selecionar-" itemValue="0" />            
+                                             <f:selectItem  itemValue="0" itemLabel="-Seleccione-"/>            
                                             <f:selectItems value="#{backing_ositran_parametros_mantenimientoconcesion.listaInfraestructuraTipos}"
                                                            var="tip" itemLabel="#{tip.tinNombre}"
                                                            itemValue="#{tip.tinId}"/>
@@ -241,7 +241,7 @@
                          
                         <tr>
                             <td align="left">
-                                #{etq.etq_rti_inti}
+                                Editar Nombre
                             </td>
                             <td align="left">
                                 <p:inputText value="#{backing_ositran_parametros_mantenimientoconcesion.nombreE}"
