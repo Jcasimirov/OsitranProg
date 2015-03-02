@@ -5,6 +5,8 @@ import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,41 +22,41 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     }
 
     @Override
-    public List<InfraestructuraTipoVO> query() {
+    public List<InfraestructuraTipoVO> query() throws SQLException{
         List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.query();
         List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
         return listVO;
     }
 
     @Override
-    public String insert(InfraestructuraTipoVO infraestructuraTipoVO) {
+    public String insert(InfraestructuraTipoVO infraestructuraTipoVO) throws SQLException{
         InfraestructuraTipo infraestructuraTipo=toInfraestructuraTipo(infraestructuraTipoVO);
         String result=infraestructuraTipoDAOImpl.insert(infraestructuraTipo);
         return result;
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException {
         String result=this.infraestructuraTipoDAOImpl.delete(id);
         return result;
     }
 
     @Override
-    public String update(InfraestructuraTipoVO infraestructuraTipoVO) {
+    public String update(InfraestructuraTipoVO infraestructuraTipoVO) throws SQLException {
         InfraestructuraTipo infraestructuraTipo=toInfraestructuraTipo(infraestructuraTipoVO);
         String result=this.infraestructuraTipoDAOImpl.update(infraestructuraTipo);
         return result;
     }
 
     @Override
-    public InfraestructuraTipoVO get(Integer id) {
+    public InfraestructuraTipoVO get(Integer id) throws SQLException {
         InfraestructuraTipo infraestructuraTipo=this.infraestructuraTipoDAOImpl.get(id);
         InfraestructuraTipoVO infraestructuraTipoVO=toInfraestructuraTipoVO(infraestructuraTipo);
         return infraestructuraTipoVO;
     }
     
     @Override
-    public List<InfraestructuraTipoVO> AllSearch(String a) {
+    public List<InfraestructuraTipoVO> AllSearch(String a) throws SQLException{
         List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.AllSearch(a);
         List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
         return listVO;
