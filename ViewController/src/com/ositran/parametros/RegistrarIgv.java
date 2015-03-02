@@ -102,6 +102,8 @@ public class RegistrarIgv {
    }
 
     public void igvInsertar(ActionEvent actionEvent) {
+        
+        
         igvVO.setIgvEstado(1);
         igvVO.setIgvFechaAlta(getObtenerFechaHoy());
         igvVO.setIgvTerminal(obtenerIpCliente());
