@@ -2,15 +2,17 @@ package com.ositran.dao;
 
 import com.ositran.model.Concesion;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 
 public interface ConcesionDAO {
-    public List<Concesion> query();
-    public String insert(Concesion concesion) throws Exception;
-    public String delete(Integer idconcesion);
-    public String update(Concesion concesion);
-    public Concesion get(Integer idconcesion);
-    public int idConcesion(Concesion concesion);
-    public List<Concesion> queryfiltro(int codigo, String nombre);
+    public List<Concesion> query() throws SQLException;
+    public String insert(Concesion concesion) throws SQLException;
+    public String delete(Integer idconcesion) throws SQLException;
+    public String update(Concesion concesion) throws SQLException;
+    public Concesion get(Integer idconcesion)throws SQLException;
+    public int idConcesion(Concesion concesion)throws SQLException;
+    public List<Concesion> queryfiltro(int codigo, String nombre)throws SQLException;
 }
