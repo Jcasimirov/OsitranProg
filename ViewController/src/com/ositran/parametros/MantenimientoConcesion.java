@@ -31,12 +31,12 @@ import javax.faces.bean.ViewScoped;
 
 import org.hibernate.HibernateException;
 
+//@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ViewScoped
 public class MantenimientoConcesion {
 
 
-    
     private int codigoEliminar;
     private String nombreEliminar;
     private int codigoTipoInfraestructura;
@@ -70,6 +70,9 @@ public class MantenimientoConcesion {
     //----------------EDITAR------------------------//
     private int codigoE;
     private String nombreE;
+    /*  private int codigoUpdate;
+    private String nombreUpdate; */
+
 
     //----------------EDITAR------------------------//
 
@@ -98,72 +101,79 @@ public class MantenimientoConcesion {
     public ConcesionService getConcesionServicesImpl() {
         return concesionServicesImpl;
     }
-    
-    
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
 
     public void listarTipInfraestructura() {
-        System.out.println("llego");
         listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
     }
-    public ConcesionVO concesionVO = new ConcesionVO();
-
+    @ManagedProperty(value = "#{concesionVO}")
+     ConcesionVO concesionVO;
+    
+    public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
 
     public void guardar() {
-            System.out.println("ANtessssss");
-            System.out.println(codigoTipoInfraestructuraInsert);
-        if (codigoTipoInfraestructuraInsert==0){
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error", "No ha selecionado tipo de infraestructura");
-                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            }
-        else if (nombre.equals("")){
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error", "no ha ingresado nombre");
-                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            }
-        else 
-        {
-            try{
-        int codigogenerado = 0;
-        //inicio de la carga para foreing key
-        InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
-        infraestructuraTipo1.setTinId(codigoTipoInfraestructuraInsert);
-        concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
-        //finalización de la carga para foreing key
-        concesionVO.setCsiNombre(nombre);
-        concesionVO.setCsiEstado(1);
-        concesionVO.setCsiFechaAlta(new Date());
-        concesionVO.setCsiUsuarioAlta(obtenerIpCliente());
-        codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
-        System.out.println("codigo generado--------------");
-        System.out.println(codigogenerado);
+        System.out.println("ANtessssss");
+        System.out.println(codigoTipoInfraestructuraInsert);
+        if (codigoTipoInfraestructuraInsert == 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado tipo de infraestructura");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (nombre.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado nombre");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else {
+            try {
+                int codigogenerado = 0;
+                //inicio de la carga para foreing key
+                InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
+                infraestructuraTipo1.setTinId(codigoTipoInfraestructuraInsert);
+                concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
+                //finalización de la carga para foreing key
+                concesionVO.setCsiNombre(nombre);
+                concesionVO.setCsiEstado(1);
+                concesionVO.setCsiFechaAlta(new Date());
+                concesionVO.setCsiUsuarioAlta(obtenerIpCliente());
+                codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
+                System.out.println("codigo generado--------------");
+                System.out.println(codigogenerado);
 
-        for (InfraestructuraVO infraestructuraVO : infraestructuras) {
-            //inicio captura fk concesion para infraestructura
-            Concesion con= new Concesion();
-            con.setCsiId(codigogenerado);
-            infraestructuraVO.setConcesion(con);
-            //fin captura fk
-            infraestructuraVO.setInfNombre(infraestructuraVO.getInfNombre());
-            infraestructuraVO.setInfUsuarioAlta(obtenerIpCliente());
-            infraestructuraVO.setInfFechaAlta(new Date());
-            infraestructuraVO.setInfEstado(1);
-            infraestructuraServiceImpl.insert(infraestructuraVO);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "se registro con Exito");
-             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                for (InfraestructuraVO infraestructuraVO : infraestructuras) {
+                    //inicio captura fk concesion para infraestructura
+                    Concesion con = new Concesion();
+                    con.setCsiId(codigogenerado);
+                    infraestructuraVO.setConcesion(con);
+                    //fin captura fk
+                    infraestructuraVO.setInfNombre(infraestructuraVO.getInfNombre());
+                    infraestructuraVO.setInfUsuarioAlta(obtenerIpCliente());
+                    infraestructuraVO.setInfFechaAlta(new Date());
+                    infraestructuraVO.setInfEstado(1);
+                    infraestructuraServiceImpl.insert(infraestructuraVO);
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
+                }
+
+
+                limpiarcampos();
+                ListarConcesiones();
+            }
+
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR" + e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+
+            }
         }
-
-
-        limpiarcampos();
-        ListarConcesiones();
-            }
-        
-        catch(HibernateException e){
-            System.out.println(e.getMessage());  
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error", "no ha ingresado nombre"+e.getMessage());
-             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            
-        }
-        } 
 
     }
 
@@ -184,15 +194,25 @@ public class MantenimientoConcesion {
         concesionVO = concesionV;
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
-        listaInfraestructuras=infraestructuraServiceImpl.query1(concesionVO.getCsiId());
-        
+        codigoTipoInfraestructura = concesionVO.getInfraestructuraTipo().getTinId();
+        /*  codigoUpdate= infraestructuraTipoVO.getTinId();
+        nombreUpdate= infraestructuraTipoVO.getTinNombre(); */
+        listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+        //listaInfraestructuras = infraestructuraServiceImpl.query1(codigoE);
+
     }
 
-    public void editar() {
+    public void editar() throws SQLException {
         System.out.println(codigoE);
         System.out.println(nombreE);
+
         concesionVO.setCsiId(codigoE);
         concesionVO.setCsiNombre(nombreE);
+
+        InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
+        infraestructuraTipo1.setTinId(codigoTipoInfraestructura);
+        concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
+
         concesionVO.setCsiFechaCambio(new Date());
         concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
         getConcesionServicesImpl().update(concesionVO);
@@ -206,8 +226,16 @@ public class MantenimientoConcesion {
     }
 
     public void eliminar() {
-        getConcesionServicesImpl().delete(codigoEliminar);
-        ListarConcesiones();
+        try {
+            getConcesionServicesImpl().delete(codigoEliminar);
+            ListarConcesiones();
+        } catch (Exception e) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "No se ´pudo eliminar-Comuniquese conel departamento de sistemas");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+
     }
 
     public void limpiarcampos() {
@@ -216,8 +244,14 @@ public class MantenimientoConcesion {
     }
 
     public List<ConcesionVO> ListarConcesiones() {
-        System.out.println("llego al MB");
-        listaConcesiones = getConcesionServicesImpl().query();
+        try {
+            System.out.println("llego al MB");
+            listaConcesiones = getConcesionServicesImpl().query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
 
         return listaConcesiones;
     }
@@ -226,7 +260,7 @@ public class MantenimientoConcesion {
         System.out.println("llego al MB");
         listaInfraestructuras = getInfraestructuraServiceImpl().query();
         System.out.println("Anets");
-   
+
         return listaInfraestructuras;
     }
 */
@@ -297,13 +331,6 @@ public class MantenimientoConcesion {
         return listaInfraestructuraTipos;
     }
 
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
-    }
-
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
 
     public void setListaInfra(List<String> listaInfra) {
         this.listaInfra = listaInfra;
@@ -357,7 +384,7 @@ public class MantenimientoConcesion {
     public InfraestructuraVO getInfraestructura() {
         return infraestructura;
     }
-    
+
     // -------------------------FIN VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
 
 
@@ -384,13 +411,20 @@ public class MantenimientoConcesion {
     }
 
     public List<ConcesionVO> buscarconcesion() {
-        
-        listaConcesiones = getConcesionServicesImpl().buscarconcesionfiltro(codigoTipoInfraestructurafiltro,concesionbuscar);
+        try {
+            listaConcesiones =
+                getConcesionServicesImpl().buscarconcesionfiltro(codigoTipoInfraestructurafiltro, concesionbuscar);
+
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
 
         return listaConcesiones;
     }
-    
-    
+
+
     //---------------------------------------------
 
     public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
