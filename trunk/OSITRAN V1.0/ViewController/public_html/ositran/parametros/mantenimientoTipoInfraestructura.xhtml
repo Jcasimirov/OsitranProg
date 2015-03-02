@@ -86,7 +86,7 @@
                                  
                                 <tr>
                                     <td align="center" colspan="3">
-                                        <p:commandButton value="#{btn.btn_nuevo}" oncomplete="popupagregar.show()"/>
+                                        <p:commandButton value="#{btn.btn_nuevo}" onclick="popupagregar.show()" type="reset"/>
                                         <p:commandButton value="#{btn.btn_salir}"/>
                                     </td>
                                 </tr>
@@ -144,7 +144,7 @@
                             <td align="center" colspan="2">
                                 <p:commandButton    update=":form:tablaMTI :form:mensaje"
                                                     action="#{infraestructuraMB.guardar}"
-                                                    oncomplete="popupagregar.hide()"
+                                                    
                                                     style="width:70px"
                                                     value="#{btn.btn_guardar}"/>
                                  
@@ -165,7 +165,7 @@
                             <tr>
                                 <td align="left">ID:</td>
                                 <td align="left">
-                                    <p:inputText value="#{infraestructuraMB.codigoE}" size="30" maxlength="50"/>
+                                    <p:inputText  value="#{infraestructuraMB.codigoE}" size="30" maxlength="50"/>
                                 </td>
                             </tr>
                              
