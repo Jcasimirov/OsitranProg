@@ -63,7 +63,7 @@ public class Concesion implements Serializable {
     private InfraestructuraTipo infraestructuraTipo;
 
     @OneToMany(mappedBy = "concesion", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Infraestructura> infraestructuraList;
+     List<Infraestructura> infraestructuraList;
 
 
     public Concesion() {
