@@ -8,6 +8,8 @@ import com.ositran.dao.TipoDocumentoDAO;
 
 import com.ositran.model.TipoDocumento;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -43,7 +45,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
 
     @Override
-    public List<TipoDocumento> query() {
+    public List<TipoDocumento> query() throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List list=session.createQuery("select o from TipoDocumento o").list();
@@ -52,7 +54,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
 
     @Override
-    public String insert(TipoDocumento tipodocumento) {
+    public String insert(TipoDocumento tipodocumento) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -67,7 +69,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -83,7 +85,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
 
     @Override
-    public String update(TipoDocumento tipodocumento) {
+    public String update(TipoDocumento tipodocumento) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -99,7 +101,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
 
     @Override
-    public TipoDocumento get(Integer id) {
+    public TipoDocumento get(Integer id) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         TipoDocumento tipodocumento=(TipoDocumento)session.get(TipoDocumento.class, id);
