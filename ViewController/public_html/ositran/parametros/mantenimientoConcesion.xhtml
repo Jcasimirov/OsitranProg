@@ -84,6 +84,7 @@
                              
                                  
                                 <p:dataTable style="font-size:11px;" id="tablaES" var="concesion"
+                                rowKey="#{concesion.csiId}"
                                              value="#{backing_ositran_parametros_mantenimientoconcesion.listaConcesiones}"
                                               rows="10"
                          paginator="true"
@@ -109,10 +110,13 @@
                                         <h:outputText value="#{concesion.csiFechaCambio}"/>
                                     </p:column>
                                     <p:column headerText="Edi">
-                                        <p:commandButton update=":form:editarPanel"
-                                                         actionListener="#{backing_ositran_parametros_mantenimientoconcesion.cargarEditar(concesion)}"
+                                        <p:commandButton 
+                                                         actionListener="#{backing_ositran_parametros_mantenimientoconcesion.cargarEditar}"
                                                          oncomplete="editarPanel.show()" image="ui-icon-document"
-                                                         style="width:25px;height:25px"/>
+                                                         style="width:25px;height:25px" update=":form:editarPanel">
+                                                          <f:param id="idModificar" name="idModificar" value="#{concesion.csiId}"/>                                                          
+                                                        
+                                                          </p:commandButton>
                                     </p:column>
                                     <p:column headerText="Eli">
                                         <p:commandButton update=":form:confirEliminar :form:codEliminar"
