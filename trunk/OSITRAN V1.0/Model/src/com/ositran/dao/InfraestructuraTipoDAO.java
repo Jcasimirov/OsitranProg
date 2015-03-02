@@ -3,13 +3,15 @@ package com.ositran.dao;
 
 import com.ositran.model.InfraestructuraTipo;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 public interface InfraestructuraTipoDAO {
-        public List<InfraestructuraTipo> query();
-        public String insert(InfraestructuraTipo infraestructuraTipo);
-        public String delete(Integer id);
-        public String update(InfraestructuraTipo infraestructuraTipo);
-        public InfraestructuraTipo get(Integer id);
-        public List<InfraestructuraTipo> AllSearch(String a); 
+        public List<InfraestructuraTipo> query() throws SQLException;
+        public String insert(InfraestructuraTipo infraestructuraTipo) throws SQLException;
+        public String delete(Integer id) throws SQLException;
+        public String update(InfraestructuraTipo infraestructuraTipo) throws SQLException;
+        public InfraestructuraTipo get(Integer id) throws SQLException;
+        public List<InfraestructuraTipo> AllSearch(String a) throws SQLException; 
 }
