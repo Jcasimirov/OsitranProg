@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.InfraestructuraTipo;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.hibernate.Query;
@@ -39,7 +41,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     }
 
     @Override
-    public String insert(InfraestructuraTipo infraestructuraTipo) {
+    public String insert(InfraestructuraTipo infraestructuraTipo) throws SQLException {
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -54,7 +56,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         System.out.println(id);
         String result = null;
         Session session = sessionFactory.openSession();
@@ -71,7 +73,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     }
 
     @Override
-    public String update(InfraestructuraTipo infraestructuraTipo) {
+    public String update(InfraestructuraTipo infraestructuraTipo) throws SQLException {
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -87,7 +89,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     }
 
     @Override
-    public InfraestructuraTipo get(Integer id) {
+    public InfraestructuraTipo get(Integer id) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         InfraestructuraTipo infraestructuraTipo = (InfraestructuraTipo) session.get(InfraestructuraTipo.class, id);
@@ -96,7 +98,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     }
 
     @Override
-    public List query() {
+    public List query() throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from InfraestructuraTipo o order by TIN_ID asc").list();
@@ -107,11 +109,11 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
 
 
     @Override
-    public List<InfraestructuraTipo> AllSearch(String a) {
+    public List<InfraestructuraTipo> AllSearch(String a) throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM InfraestructuraTipo  I WHERE lower(I.tinNombre) like  lower(:busqueda)");
+        query=session.createQuery("FROM InfraestructuraTipo  I WHERE lower(I.tinNombre) like  lower(:busqueda) order by TIN_ID asc");
         query.setParameter("busqueda","%"+a+"%");
         List<InfraestructuraTipo> list= query.list();
         session.getTransaction().commit();
