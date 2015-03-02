@@ -37,7 +37,9 @@ public class MantenimientoModalidadConcesion {
     private HtmlForm form1;
     Util util = new Util();
     List<ModalidadConcesionVO> listaMod;
-    public ModalidadConcesionVO modalidadVO = new ModalidadConcesionVO();
+    
+    @ManagedProperty(value="#{modalidadVO}")
+    public ModalidadConcesionVO modalidadVO;
 
     @ManagedProperty(value = "#{modalidadServiceImp}")
     ModalidadConcesionServiceImpl modalidadServiceImp;
