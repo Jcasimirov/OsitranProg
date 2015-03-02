@@ -7,6 +7,8 @@ import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     }
 
     @Override
-    public List<EmpresaSupervisoraVO> query() {
+    public List<EmpresaSupervisoraVO> query() throws SQLException{
         List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.query();
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;
@@ -30,34 +32,34 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     }
     
     @Override
-    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String atributo) {
+    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String atributo) throws SQLException{
         List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(atributo);
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;        
     }
 
     @Override
-    public String insert(EmpresaSupervisoraVO empresaSupervisoraVO) {
+    public String insert(EmpresaSupervisoraVO empresaSupervisoraVO) throws SQLException{
         EmpresaSupervisora empresaSupervisora=toEmpresaSupervisora(empresaSupervisoraVO);
         String result=empresaSupervisoraDAOImpl.insert(empresaSupervisora);
         return result;
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=this.empresaSupervisoraDAOImpl.delete(id);
         return result;
     }
 
     @Override
-    public String update(EmpresaSupervisoraVO empresaSupervisoraVO) {
+    public String update(EmpresaSupervisoraVO empresaSupervisoraVO) throws SQLException{
         EmpresaSupervisora empresaSupervisora=toEmpresaSupervisora(empresaSupervisoraVO);
         String result=this.empresaSupervisoraDAOImpl.update(empresaSupervisora);
         return result;
     }
 
     @Override
-    public EmpresaSupervisoraVO get(Integer id) {
+    public EmpresaSupervisoraVO get(Integer id) throws SQLException{
         EmpresaSupervisora empresaSupervisora=this.empresaSupervisoraDAOImpl.get(id);
         EmpresaSupervisoraVO empresaSupervisoraVO=toEmpresaSupervisoraVO(empresaSupervisora);
         return empresaSupervisoraVO;
