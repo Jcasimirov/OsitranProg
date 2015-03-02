@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -190,8 +192,12 @@ public class MantenimientoConcesion {
 
     }
 
-    public void cargarEditar(ConcesionVO concesionV) {
-        concesionVO = concesionV;
+    public void cargarEditar() throws SQLException{
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("idModificar");
+        Integer idcodigo=Integer.valueOf(str.toString());
+        concesionVO = concesionServicesImpl.get(idcodigo);
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
         codigoTipoInfraestructura = concesionVO.getInfraestructuraTipo().getTinId();
