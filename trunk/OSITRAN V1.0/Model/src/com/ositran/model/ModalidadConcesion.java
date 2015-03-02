@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 /**
  * To create ID generator sequence "T_MODALIDAD_CONCESION_ID_SEQ_GEN":
  * CREATE SEQUENCE "T_MODALIDAD_CONCESION_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
@@ -25,14 +28,14 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ModalidadConcesion.findAll", query = "select o from ModalidadConcesion o") })
 @Table(name = "T_MODALIDAD_CONCESION")
-@SequenceGenerator(name = "ModalidadConcesion_Id_Seq_Gen", sequenceName = "T_MODALIDAD_CONCESION_ID_SEQ_GEN",
-                   allocationSize = 50, initialValue = 50)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "ModalidadConcesion_Id_Seq_Gen"))
+
 public class ModalidadConcesion implements Serializable {
     private static final long serialVersionUID = 4435829443044178951L;
     @Column(name = "MCO_DESCRIPCION", nullable = false, length = 100)
     private String mcoDescripcion;
     @Column(name = "MCO_ESTADO", nullable = false)
-    private BigDecimal mcoEstado;
+    private Integer mcoEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "MCO_FECHA_ALTA")
     private Date mcoFechaAlta;
@@ -44,8 +47,8 @@ public class ModalidadConcesion implements Serializable {
     private Date mcoFechaCambio;
     @Id
     @Column(name = "MCO_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ModalidadConcesion_Id_Seq_Gen")
-    private BigDecimal mcoId;
+    @GeneratedValue(generator = "generator")
+    private Integer mcoId;
     @Column(name = "MCO_NOMBRE", nullable = false, length = 100)
     private String mcoNombre;
     @Column(name = "MCO_TERMINAL", length = 20)
@@ -60,8 +63,8 @@ public class ModalidadConcesion implements Serializable {
     public ModalidadConcesion() {
     }
 
-    public ModalidadConcesion(String mcoDescripcion, BigDecimal mcoEstado, Date mcoFechaAlta, Date mcoFechaBaja,
-                              Date mcoFechaCambio, BigDecimal mcoId, String mcoNombre, String mcoTerminal,
+    public ModalidadConcesion(String mcoDescripcion, Integer mcoEstado, Date mcoFechaAlta, Date mcoFechaBaja,
+                              Date mcoFechaCambio, Integer mcoId, String mcoNombre, String mcoTerminal,
                               String mcoUsuarioAlta, String mcoUsuarioBaja, String mcoUsuarioCambio) {
         this.mcoDescripcion = mcoDescripcion;
         this.mcoEstado = mcoEstado;
@@ -76,87 +79,92 @@ public class ModalidadConcesion implements Serializable {
         this.mcoUsuarioCambio = mcoUsuarioCambio;
     }
 
-    public String getMcoDescripcion() {
-        return mcoDescripcion;
-    }
 
     public void setMcoDescripcion(String mcoDescripcion) {
         this.mcoDescripcion = mcoDescripcion;
     }
 
-    public BigDecimal getMcoEstado() {
-        return mcoEstado;
+    public String getMcoDescripcion() {
+        return mcoDescripcion;
     }
 
-    public void setMcoEstado(BigDecimal mcoEstado) {
+    public void setMcoEstado(Integer mcoEstado) {
         this.mcoEstado = mcoEstado;
     }
 
-    public Date getMcoFechaAlta() {
-        return mcoFechaAlta;
+    public Integer getMcoEstado() {
+        return mcoEstado;
     }
 
     public void setMcoFechaAlta(Date mcoFechaAlta) {
         this.mcoFechaAlta = mcoFechaAlta;
     }
 
-    public Date getMcoFechaBaja() {
-        return mcoFechaBaja;
+    public Date getMcoFechaAlta() {
+        return mcoFechaAlta;
     }
 
     public void setMcoFechaBaja(Date mcoFechaBaja) {
         this.mcoFechaBaja = mcoFechaBaja;
     }
 
-    public Date getMcoFechaCambio() {
-        return mcoFechaCambio;
+    public Date getMcoFechaBaja() {
+        return mcoFechaBaja;
     }
 
     public void setMcoFechaCambio(Date mcoFechaCambio) {
         this.mcoFechaCambio = mcoFechaCambio;
     }
 
-    public BigDecimal getMcoId() {
-        return mcoId;
+    public Date getMcoFechaCambio() {
+        return mcoFechaCambio;
     }
 
-    public String getMcoNombre() {
-        return mcoNombre;
+    public void setMcoId(Integer mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public Integer getMcoId() {
+        return mcoId;
     }
 
     public void setMcoNombre(String mcoNombre) {
         this.mcoNombre = mcoNombre;
     }
 
-    public String getMcoTerminal() {
-        return mcoTerminal;
+    public String getMcoNombre() {
+        return mcoNombre;
     }
 
     public void setMcoTerminal(String mcoTerminal) {
         this.mcoTerminal = mcoTerminal;
     }
 
-    public String getMcoUsuarioAlta() {
-        return mcoUsuarioAlta;
+    public String getMcoTerminal() {
+        return mcoTerminal;
     }
 
     public void setMcoUsuarioAlta(String mcoUsuarioAlta) {
         this.mcoUsuarioAlta = mcoUsuarioAlta;
     }
 
-    public String getMcoUsuarioBaja() {
-        return mcoUsuarioBaja;
+    public String getMcoUsuarioAlta() {
+        return mcoUsuarioAlta;
     }
 
     public void setMcoUsuarioBaja(String mcoUsuarioBaja) {
         this.mcoUsuarioBaja = mcoUsuarioBaja;
     }
 
-    public String getMcoUsuarioCambio() {
-        return mcoUsuarioCambio;
+    public String getMcoUsuarioBaja() {
+        return mcoUsuarioBaja;
     }
 
     public void setMcoUsuarioCambio(String mcoUsuarioCambio) {
         this.mcoUsuarioCambio = mcoUsuarioCambio;
+    }
+
+    public String getMcoUsuarioCambio() {
+        return mcoUsuarioCambio;
     }
 }
