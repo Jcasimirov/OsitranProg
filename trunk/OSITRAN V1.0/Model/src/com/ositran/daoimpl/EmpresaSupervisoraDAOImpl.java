@@ -4,36 +4,17 @@ import com.ositran.dao.EmpresaSupervisoraDAO;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-
-import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.EmpresaSupervisora;
-import com.ositran.model.Event;
-import com.ositran.model.Igv;
-import com.ositran.model.InfraestructuraTipo;
-import com.ositran.model.hibernate.HibernateUtil;
-
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
-
 import javax.sql.DataSource;
-
 import org.hibernate.Query;
 import org.hibernate.cfg.Configuration;
-
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
-
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import java.sql.SQLException;
 
 @Repository
 public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
@@ -63,7 +44,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
     
     @Override
-    public List<EmpresaSupervisora> query() {
+    public List<EmpresaSupervisora> query() throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         list= session.createQuery("select o from EmpresaSupervisora o").list();            
@@ -74,7 +55,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
     
     @Override
-    public List<EmpresaSupervisora> FiltrarEmpSup(String atributo) {
+    public List<EmpresaSupervisora> FiltrarEmpSup(String atributo) throws SQLException {
         
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
@@ -89,7 +70,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
 
         @Override
-        public String insert(EmpresaSupervisora empresaSupervisora) {
+        public String insert(EmpresaSupervisora empresaSupervisora) throws SQLException{
             String result=null;
             Session session = sessionFactory.openSession();
             try {
@@ -106,7 +87,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         }
         
         @Override
-        public String delete(Integer id) {
+        public String delete(Integer id) throws SQLException{
             String result=null;
             //Session session=HibernateUtil.getSessionFactory().getCurrentSession();
             Session session = sessionFactory.openSession();
@@ -124,7 +105,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         }
         
     @Override
-    public String update(EmpresaSupervisora empresaSupervisora) {
+    public String update(EmpresaSupervisora empresaSupervisora) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -142,7 +123,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
         
         @Override
-        public EmpresaSupervisora get(Integer id) {
+        public EmpresaSupervisora get(Integer id) throws SQLException{
             Session session = sessionFactory.openSession();
             session.beginTransaction();
             EmpresaSupervisora empresaSupervisora=(EmpresaSupervisora)session.get(EmpresaSupervisora.class, id);
