@@ -61,6 +61,7 @@
         <property name="cargoServiceImp" ref="cargoServiceImp"/>
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
     </bean>
+    <bean id="empSupVO" class="com.ositran.vo.bean.EmpresaSupervisoraVO"></bean>
     <!--Inversion descripcion-->
     <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl"/>
     <bean id="inversionDescripcionServicesImpl" class="com.ositran.serviceimpl.InversionDescripcionServicesImpl">
@@ -85,5 +86,15 @@
     </bean>
     <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+    </bean>
+    
+    <!--Modalidad de Concesion-->
+    <bean id="modalidadVO" class="com.ositran.vo.bean.ModalidadConcesionVO"></bean>
+    <bean id="modalidadConcesionDAOImpl" class="com.ositran.daoimpl.ModalidadConcesionDAOImpl"/>
+    <bean id="modalidadServiceImp" class="com.ositran.serviceimpl.ModalidadConcesionServiceImpl">
+        <property name="modalidadConcesionDAOImpl" ref="modalidadConcesionDAOImpl"/>
+    </bean>
+    <bean id="mantenimientoModalidadConcesion" class="com.ositran.parametros.MantenimientoModalidadConcesion">
+        <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
     </bean>
 </beans>
