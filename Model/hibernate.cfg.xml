@@ -29,6 +29,7 @@
         <mapping class="com.ositran.model.Rol"/>
         <mapping class="com.ositran.model.Usuario"/>
         <mapping class="com.ositran.model.TipoDocumento"/>
+        <mapping class="com.ositran.model.ModalidadConcesion"/>
         <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
         <mapping resource="./com/ositran/model/Concesion.hbm.xml"/>
         <mapping resource="./com/ositran/model/Concesionario.hbm.xml"/>
