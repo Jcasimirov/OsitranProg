@@ -40,7 +40,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public List<Concesion> query() {
+    public List<Concesion> query() throws SQLException{
         System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -71,7 +71,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public int idConcesion(Concesion concesion) {
+    public int idConcesion(Concesion concesion) throws SQLException{
         System.out.println("llego al ID concesion");
         int result = 0;
         Session session = sessionFactory.openSession();
@@ -88,7 +88,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         return result;
     }
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -104,7 +104,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public String update(Concesion concesion) {
+    public String update(Concesion concesion) throws SQLException{
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -120,7 +120,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public Concesion get(Integer id) {
+    public Concesion get(Integer id) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Concesion concesion = (Concesion) session.get(Concesion.class, id);
@@ -128,7 +128,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         return concesion;
     }
     
-    public List<Concesion> queryfiltro(int codigo, String nombre){
+    public List<Concesion> queryfiltro(int codigo, String nombre) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query;  
