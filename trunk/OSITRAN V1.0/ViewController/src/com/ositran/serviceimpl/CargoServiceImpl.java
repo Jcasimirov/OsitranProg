@@ -9,6 +9,8 @@ import com.ositran.service.CargoService;
 import com.ositran.vo.bean.CargoVO;
 
 
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,34 +35,34 @@ public class CargoServiceImpl implements CargoService{
     }
 
     @Override
-    public List<CargoVO> query() {
+    public List<CargoVO> query() throws SQLException{
         List<Cargo> list=cargoDAOImpl.query();
         List<CargoVO> listVO=toListCargoVO(list);
         return listVO;
     }
 
     @Override
-    public String insert(CargoVO cargoVO) {
+    public String insert(CargoVO cargoVO) throws SQLException{
         Cargo cargo=toCargo(cargoVO);
         String result=cargoDAOImpl.insert(cargo);
         return result;
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=this.cargoDAOImpl.delete(id);
         return result;
     }
 
     @Override
-    public String update(CargoVO cargoVO) {
+    public String update(CargoVO cargoVO) throws SQLException{
         Cargo cargo=toCargo(cargoVO);
         String result=this.cargoDAOImpl.update(cargo);
         return result;
     }
 
     @Override
-    public CargoVO get(Integer id) {
+    public CargoVO get(Integer id) throws SQLException{
         Cargo cargo=this.cargoDAOImpl.get(id);
         CargoVO cargoVO=toCargoVO(cargo);
         return cargoVO;
