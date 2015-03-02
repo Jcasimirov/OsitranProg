@@ -1,18 +1,19 @@
 package com.ositran.service;
 
 
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+
+import java.sql.SQLException;
 
 import java.util.List;
 
 public interface InfraestructuraTipoService {
-        public List<InfraestructuraTipoVO> query();
-        public String insert(InfraestructuraTipoVO infraestructuraTipoVO);
-        public String delete(Integer id);
-        public String update(InfraestructuraTipoVO infraestructuraTipoVO);
-        public InfraestructuraTipoVO get(Integer id);
-        public List<InfraestructuraTipoVO> AllSearch(String a);
+        public List<InfraestructuraTipoVO> query() throws SQLException;
+        public String insert(InfraestructuraTipoVO infraestructuraTipoVO) throws SQLException;
+        public String delete(Integer id) throws SQLException;
+        public String update(InfraestructuraTipoVO infraestructuraTipoVO)throws SQLException;
+        public InfraestructuraTipoVO get(Integer id) throws SQLException;
+        public List<InfraestructuraTipoVO> AllSearch(String a)throws SQLException;
 }
    
