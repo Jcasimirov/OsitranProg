@@ -37,6 +37,18 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;        
     }
+    
+    @Override
+    public int ValidaNombre(String atributo) throws SQLException{
+        int respuesta =empresaSupervisoraDAOImpl.ValidarNombre(atributo);
+        return respuesta;        
+    }
+    
+    @Override
+    public int ValidaNombreMod(String atributo, String Nombre) throws SQLException{
+        int respuesta =empresaSupervisoraDAOImpl.ValidarNombreMod(atributo,Nombre);
+        return respuesta;        
+    }
 
     @Override
     public String insert(EmpresaSupervisoraVO empresaSupervisoraVO) throws SQLException{
