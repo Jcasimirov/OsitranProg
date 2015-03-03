@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='windows-1252'?>
+
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/css/diseÃ±o.css" rel="stylesheet" type="text/css"/>
             <script type="text/javascript">
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
@@ -16,18 +16,18 @@
                   obj = obj.toLowerCase();
                   document.getElementById(id).value = obj;
               }
-
-           function validaNumeros(e){
-                    tecla = (document.all) ? e.keyCode : e.which;
-                    //Tecla de retroceso para borrar, siempre la permite
-                    if (tecla==8){
-                        return true;
+              function validarEmail(email){
+              
+              if (email==''){
+              }
+               else 
+               {
+               expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if ( !expr.test(email) )
+                    alert("Error: La direcciÃ³n de correo " + email + " es incorrecta.");
                     }
-                    // Patron de entrada, en este caso solo acepta numeros
-                    patron =/[0-9]/;
-                    tecla_final = String.fromCharCode(tecla);
-                    return patron.test(tecla_final);
-                }
+                    document.getElementById('email').value="";
+              }
             </script>
         </h:head>
         <h:body>
@@ -56,10 +56,10 @@
                                             </td>
                                             <td align="right">
                                                 Ingrese Criterio Busqueda: 
-                                                <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
+                                                <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value="Â "/>
                                                  
                                                 <p:commandButton actionListener="#{concesionarioMB.busqueda}"
-                                                                 update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
+                                                                 update=":form:tablaC" image="ui-icon-search"/><h:outputText value="Â "/>
                                                  
                                                 <p:commandButton actionListener="#{concesionarioMB.cargarListaConcesionarios}"
                                                                  update=":form:tablaC" value="Ver Todos"></p:commandButton>
@@ -141,75 +141,86 @@
                 </p:dialog>
                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
-                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td colspan="1" align="left">Ingrese Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
-                                             value="#{concesionarioMB.nombreE}" label="NombreE" id="nombreE"/>
+                                <p:inputText maxlength="50" style="width:70%"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td colspan="1" align="left">Descripcion:</td>
                             <td colspan="3" align="left">
-                                <p:inputTextarea style="width:97.5%" maxlength="50"
-                                                 value="#{concesionarioMB.descripcionE}" label="descripcionE"
-                                                 id="descripcionE" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:97.5%"
+                                                 maxlength="50" value="#{concesionarioMB.descripcionE}"
+                                                 label="descripcion" id="descripcionE"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Siglas del Nombre:</td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="6"
-                                             value="#{concesionarioMB.siglasNombreE}"/>
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()"
+                                             maxlength="6" value="#{concesionarioMB.siglasNombreE}"/>
                             </td>
                             <td align="left">Telefono:</td>
                             <td align="left">
-                                <p:inputText value="#{concesionarioMB.telefonoE}"/>
+                                <p:inputMask id="telefono" mask="9?9999999999" maxlength="20"
+                                             value="#{concesionarioMB.telefonoE}"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Tipo Documento:</td>
                             <td align="left">
-                                <p:selectOneMenu value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
+                                <p:selectOneMenu widgetVar="tipoDocumentoR" id="tipoDocumentoRE"
+                                                 value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
                                                    itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
                                 </p:selectOneMenu>
                             </td>
                             <td align="left">Nro Documento:</td>
-                            <td align="left">
-                                <p:inputText value="#{concesionarioMB.numeroDocumentoE}"/>
+                            <td align="left" id="documentosE">
+                                <p:inputMask mask="9?9999999999" value="#{concesionarioMB.numeroDocumentoE}"
+                                             maxlength="11"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Direccion:</td>
-                            <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="6"
+                            <td colspan="3" align="left">
+                                <p:inputText style="width:70%" onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.direccionE}"/>
-                            </td>
-                            <td align="left">Correo electronico:</td>
-                            <td align="left">
-                                <p:inputText onkeyup="pasarMinuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.correoE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal:</td>
-                            <td colspan="2" align="left">
-                                <p:inputText maxlength="6" onkeyup="pasarMayuscula(this.value,this.id)"
+                            <td align="left">Correo electronico:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText style="width:70%" validatorMessage="El Email no es correcto" id="emailE"
+                                             onkeyup="pasarMinuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.correoE}">
+                                    <p:watermark for="email" value="juanp@gmail.com"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Representante Legal:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText style="width:70%" maxlength="6"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.representanteE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left" colspan="2">Cargo del Representante Legal</td>
-                            <td colspan="2" align="left">
+                            <td colspan="4" align="left">
+                                Cargo Representante: 
                                 <p:selectOneMenu value="#{concesionarioMB.codigoCargoE}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
@@ -249,7 +260,8 @@
                         <tr>
                             <td colspan="1" align="left">Ingrese Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText maxlength="50" onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText maxlength="50" style="width:70%"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
                             </td>
                         </tr>
@@ -271,8 +283,7 @@
                             </td>
                             <td align="left">Telefono:</td>
                             <td align="left">
-                                <p:inputText id="telefono" 
-                                            maxlength="20"
+                                <p:inputMask id="telefonoE" mask="9?9999999999" maxlength="20"
                                              value="#{concesionarioMB.telefono}"/>
                             </td>
                         </tr>
@@ -289,44 +300,42 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentos">
-                                <p:inputText onkeydown="this.value=this.value.replace(/[^\\d]/,'')"
-                                             onkeyup="this.value=this.value.replace(/[^\\d]/,'')"
-                                             value="#{concesionarioMB.numeroDocumento}" maxlength="11"/>
+                                <p:inputMask mask="9?9999999999" value="#{concesionarioMB.numeroDocumento}"
+                                             maxlength="11"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Direccion:</td>
-                            <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                            <td colspan="3" align="left">
+                                <p:inputText style="width:70%" onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.direccion}"/>
                             </td>
-                            <td align="left"></td>
-                            <td align="left">
-                                
-                            </td>
                         </tr>
+                         
                         <tr>
-                            <td  align="left">Correo electronico:</td>
+                            <td align="left">Correo electronico:</td>
                             <td colspan="3" align="left">
-                                <p:inputText validatorMessage="El Email no es correcto" id="email"
+                                <p:inputText style="width:70%"   onblur="validarEmail(this.value)"  id="email"
                                              onkeyup="pasarMinuscula(this.value,this.id)"
                                              value="#{concesionarioMB.correo}">
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
                             </td>
                         </tr>
+                         
                         <tr>
-                            <td  align="left">Representante Legal:</td>
-                            <td colspan="1" align="left">
-                                <p:inputText maxlength="6" onkeyup="pasarMayuscula(this.value,this.id)"
+                            <td align="left">Representante Legal:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText style="width:70%" maxlength="6"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.representante}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left" colspan="2">Cargo Representante:</td>
-                            <td colspan="2" align="left">
+                            <td colspan="4" align="left">
+                                Cargo Representante: 
                                 <p:selectOneMenu value="#{concesionarioMB.codigoCargo}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
