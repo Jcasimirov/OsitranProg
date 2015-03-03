@@ -76,12 +76,44 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
     }
     
     @Override
+    public int  ValidarNombre(String atributo) throws SQLException{
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda)");
+        query.setParameter("busqueda",atributo);
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list.size();
+    }
+    
+    @Override
+    public int  ValidarNombreMod(String atributo, String NombreMod) throws SQLException{
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda)");
+        query.setParameter("busqueda",atributo);
+        list= query.list();
+        list= query.list();
+        for (int i = 0 ; i<list.size();i++){
+            if (list.get(i).getMcoNombre().equals(NombreMod)){
+                list.remove(i);
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+        return list.size();
+    }
+    
+    @Override
     public List<ModalidadConcesion> FiltrarModalidad(String atributo) throws SQLException{
         
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM ModalidadConcesion m WHERE lower(m.mcoNombre) like  lower(:busqueda)");
+        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda)");
         query.setParameter("busqueda","%"+atributo+"%");
         list= query.list();
         session.getTransaction().commit();
