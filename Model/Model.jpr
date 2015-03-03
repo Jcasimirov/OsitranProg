@@ -68,7 +68,9 @@
       <list n="technologyScope">
          <string v="Database"/>
          <string v="EJB"/>
+         <string v="EJB-Modeling"/>
          <string v="Java"/>
+         <string v="Java-Modeling"/>
          <string v="TopLink"/>
          <string v="XML"/>
       </list>
