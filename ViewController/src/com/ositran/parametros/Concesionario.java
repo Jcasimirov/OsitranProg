@@ -63,6 +63,8 @@ public class Concesionario{
                         CargoService cargoServiceImp;
     
    public  void guardar(){
+       System.out.println(tipDocumento);
+       System.out.println(numeroDocumento.length());
        if (nombre.equals("")){
                FacesContext.getCurrentInstance().addMessage(null, 
                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe ingresar el nombre"));
@@ -75,6 +77,15 @@ public class Concesionario{
                FacesContext.getCurrentInstance().addMessage(null, 
                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe selecionar tipo documento"));
            }
+       else if (tipDocumento==2 && numeroDocumento.length()!=11){
+               FacesContext.getCurrentInstance().addMessage(null, 
+               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El RUC debe de tener 11 dijitos"));
+           }
+           else if (tipDocumento==1 && numeroDocumento.length()!=8){
+                   FacesContext.getCurrentInstance().addMessage(null, 
+                   new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El DNI debe de tener 8 dijitos"));
+               }
+       
        else {
        concesionarioVO.setCncCorreo(correo);
        concesionarioVO.setCncDescripcion(descripcion);
@@ -90,9 +101,9 @@ public class Concesionario{
        concesionarioServiceImpl.insert(concesionarioVO);
        cargarListaConcesionarios();
         limpiarCampos();
-           RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
-           FacesContext.getCurrentInstance().addMessage(null, 
-           new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
+        RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+        FacesContext.getCurrentInstance().addMessage(null, 
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
        }
        }
    public void cargarEditar(ConcesionarioVO concesionarioVOE){
@@ -100,7 +111,7 @@ public class Concesionario{
                     codigoConcesionarioE=concesionarioVOE.getCncId();
                     nombreE=concesionarioVOE.getCncNombre();
                     descripcionE=concesionarioVOE.getCncDescripcion();
-                    siglasNombre="";
+                    siglasNombre="SIGLASS";
                     telefonoE=concesionarioVOE.getCncTelefono();
                     tipDocumentoE=concesionarioVOE.getTdoId();
                     numeroDocumentoE=concesionarioVOE.getCncNroDocumento();
