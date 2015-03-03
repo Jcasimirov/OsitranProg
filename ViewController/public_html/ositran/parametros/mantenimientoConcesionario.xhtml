@@ -1,157 +1,371 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:primefaces-p="http://primefaces.org/ui">
-    <html xmlns="http://www.w3.org/1999/xhtml">
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <style type="text/css">
-                .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
-                    border: none;
-                }
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
 
-                .ui-widget-content, .ui-corner-all, .ui-layout-content {
-                    border: none;
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+
+           function validaNumeros(e){
+                    tecla = (document.all) ? e.keyCode : e.which;
+                    //Tecla de retroceso para borrar, siempre la permite
+                    if (tecla==8){
+                        return true;
+                    }
+                    // Patron de entrada, en este caso solo acepta numeros
+                    patron =/[0-9]/;
+                    tecla_final = String.fromCharCode(tecla);
+                    return patron.test(tecla_final);
                 }
-            </style>
+            </script>
         </h:head>
         <h:body>
-            <ui:include src="/ositran/util/menu.xhtml"/>
-             <h:form id="form">
-            <primefaces-p:layout binding="#{backing_ositran_parametros_mantenimientoConcesionario.layout1}" id="layout1"
-                                 style="min-width:400px;min-height:500px;">
-                <primefaces-p:layoutUnit position="north"
-                                         binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit2}"
-                                         id="layoutUnit2" style="width:0px; display:none;">
-                    <div style="text-align:center;">
-                        <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel1}"
-                                                  id="outputLabel1" value="#{msg.tituloMCRIO}"
-                                                  style="text-aling:center;"/>
-                    </div>
-                </primefaces-p:layoutUnit>
-                <primefaces-p:layoutUnit position="east" minSize="150"
-                                         binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit5}"
-                                         id="layoutUnit5"/>
-                <primefaces-p:layoutUnit position="center"
-                                         binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit1}"
-                                         id="layoutUnit1" minSize="200" visible="true" style="text-aling:center;">
-                    <div>
-                        
-                            <primefaces-p:dataGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataGrid1}"
-                                                   id="dataGrid1" columns="5">
-                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel2}"
-                                                          id="outputLabel2" value="#{etq.etq_nombre}"/>
-                                <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText1}"
-                                                        id="inputText1"/>
-                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel3}"
-                                                          id="outputLabel3" value="#{etq.etq_tipoInfra}"/>
-                                <primefaces-p:inputText binding="#{backing_ositran_parametros_mantenimientoConcesionario.inputText2}"
-                                                        id="inputText2"/>
-                                <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton1}"
-                                                            id="commandButton1" value="#{btn.btn_buscar}"/>
-                                <primefaces-p:outputLabel binding="#{backing_ositran_parametros_mantenimientoConcesionario.outputLabel4}"
-                                                          id="outputLabel4" value="#{etq.etq_concesion}"/>
-                                <primefaces-p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoConcesionario.selectOneMenu1}"
-                                                            id="selectOneMenu1"/>
-                            </primefaces-p:dataGrid>
-                            <primefaces-p:dataTable binding="#{backing_ositran_parametros_mantenimientoConcesionario.dataTable1}"
-                                                    id="dataTable1"
-                                                    value="#{backing_ositran_parametros_mantenimientoConcesionario.query}"
-                                                    var="conc" selectionMode="single"
-                                                    style="font-size:0.62em;width:600px;margin:auto"
-                                                    rowKey="#{conc.cncId}">
-                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column1}"
-                                                     id="column1" headerText="Nombre concesionario">
-                                    <primefaces-p:outputLabel value="#{conc.cncNombre}"/>
-                                </primefaces-p:column>
-                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column2}"
-                                                     id="column2" headerText="Concesión">
-                                    <primefaces-p:outputLabel value="concesion"/>
-                                </primefaces-p:column>
-                                <primefaces-p:column binding="#{backing_ositran_parametros_mantenimientoConcesionario.column3}"
-                                                     id="column3" headerText="Tipo de Infraestructura">
-                                    <primefaces-p:outputLabel value="tipoInfra"/>
-                                </primefaces-p:column>
-                                <primefaces-p:column headerText="Ver"
-                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column4}"
-                                                     id="column4"/>
-                                <primefaces-p:column headerText="Modificar"
-                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column5}"
-                                                     id="column5">
-<primefaces-p:commandButton update=":form:dlge" actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.concesionarioUpd1}" oncomplete="dlge.show()" image="ui-icon-document" style="width:25px;height:25px">
-<f:param id="id2" name="id2" value="#{conc.cncId}"/>
-                                    </primefaces-p:commandButton>
-                                </primefaces-p:column>
-                                
-                                <primefaces-p:column headerText="Eliminar"
-                                                     binding="#{backing_ositran_parametros_mantenimientoConcesionario.column6}"
-                                                     id="column6">
-                                    <primefaces-p:commandButton update=":form:popupelimina :form:codEliminar"
-                                                                 actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.cargarEliminar(conc.cncId, conc.cncNombre)}"
-                                                                 oncomplete="popupelimina.show()"
-                                                                 image="ui-icon-closethick"
-                                                                 style="width:25px;height:25px">                                                  
-                                    </primefaces-p:commandButton>
-                                </primefaces-p:column>
-                            </primefaces-p:dataTable>
-                
-                                        
-
-                        
-                    </div>
-                </primefaces-p:layoutUnit>
-                <primefaces-p:layoutUnit position="west" style="width:0px; display:none;"
-                                         binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit4}"
-                                         id="layoutUnit4" minSize="150"/>
-                <primefaces-p:layoutUnit position="south"
-                                         binding="#{backing_ositran_parametros_mantenimientoConcesionario.layoutUnit3}"
-                                         id="layoutUnit3">
-                    <primefaces-p:panelGrid binding="#{backing_ositran_parametros_mantenimientoConcesionario.panelGrid1}"
-                                            id="panelGrid1" columns="2" style="align:center;">
-                        <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton2}"
-                                                    id="commandButton2" value="Nuevo" onclick="dlg.show();"
-                                                    type="button"/>
-                        <primefaces-p:commandButton binding="#{backing_ositran_parametros_mantenimientoConcesionario.commandButton3}"
-                                                    id="commandButton3" value="Salir"/>
-                    </primefaces-p:panelGrid>
-                </primefaces-p:layoutUnit>
-            </primefaces-p:layout>
+            <f:event listener="#{concesionarioMB.cargarListaTipoDocumento}" type="postAddToView"></f:event>
              
-            <primefaces-p:dialog header="#{msg.tituloRCON}" widgetVar="dlg" showEffect="fade" hideEffect="fade"
-                                 height="450" width="600">
-                <ui:include src="/ositran/parametros/registrarConcesionario.xhtml"/>
-            </primefaces-p:dialog>
-
-<primefaces-p:dialog header="#{msg.tituloMOC}" id="dlge" widgetVar="dlge" showEffect="fade" hideEffect="fade" height="450" width="600">
-                <ui:include src="/ositran/parametros/modificarConcesionario.xhtml"/>
-            </primefaces-p:dialog>
-
-                <!-- pdialog para boton eliminar -->
-                <h:inputText value="#{backing_ositran_parametros_mantenimientoConcesionario.codigoEliminar}" id="codEliminar"/>
-                <primefaces-p:dialog id="popupelimina" widgetVar="popupelimina" header="Confirmar" modal="true">
+            <f:event listener="#{concesionarioMB.cargarListaCargo}" type="postAddToView"></f:event>
+             
+            <f:event listener="#{concesionarioMB.cargarListaConcesionarios}" type="postAddToView"></f:event>
+             cargarListaCargo 
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                <p:messages autoUpdate="true"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h3 class="titulo">MANTENIMIENTO CONCESIONARIO</h3>
+                            <div style="width:75%">
+                                <div align="left" style="font-size: 11px">
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="left">
+                                                <p:commandButton type="reset" image="ui-icon-circle-plus"
+                                                                 onclick="insertarPanel.show()"
+                                                                 value=" Nuevo Concesionario"/>
+                                            </td>
+                                            <td align="right">
+                                                Ingrese Criterio Busqueda: 
+                                                <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton actionListener="#{concesionarioMB.busqueda}"
+                                                                 update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton actionListener="#{concesionarioMB.cargarListaConcesionarios}"
+                                                                 update=":form:tablaC" value="Ver Todos"></p:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br></br>
+                                 
+                                <p:dataTable emptyMessage="NO SE ENCONTRARON DATOS" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             style="font-size:11px;" id="tablaC" var="concesionario"
+                                             value="#{concesionarioMB.listaCon}">
+                                    <p:column headerText="ID" style="width:5%">
+                                        <h:outputText value="#{concesionario.cncId}"/>
+                                    </p:column>
+                                    <p:column headerText="Descripcion" style="width:15%">
+                                        <h:outputText value="#{concesionario.cncDescripcion}"/>
+                                    </p:column>
+                                    <p:column headerText="R.Legal" style="width:45%">
+                                        <h:outputText value="#{concesionario.cncRepresentanteLegal}"/>
+                                    </p:column>
+                                    <p:column headerText="N Doc" style="width:15%">
+                                        <h:outputText value="#{concesionario.cncNroDocumento}"></h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Creacion:" style="width:10%">
+                                        <h:outputText value="#{concesionario.cncFechaAlta}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Edicion:" style="width:10%">
+                                        <h:outputText value="#{concesionario.cncFechaCambio}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Edi" style="width:5%">
+                                        <p:commandButton oncomplete="editarPanel.show()"
+                                                         update=":form:editarPanel :form:oculto1"
+                                                         actionListener="#{concesionarioMB.cargarEditar(concesionario)}"
+                                                         image="ui-icon-document" style="width:25px;height:25px"/>
+                                    </p:column>
+                                    <p:column headerText="Eli" style="width:5%">
+                                        <p:commandButton actionListener="#{concesionarioMB.cargarEliminar(concesionario)}"
+                                                         update=":form:confirEliminar :form:oculto"
+                                                         oncomplete="confirEliminar.show()" image="ui-icon-closethick"
+                                                         style="width:25px;height:25px"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
+                                                                                       AsisTP-2015</div>
+                    </p:layoutUnit>
+                </p:layout>
+                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Eliminar el tipo de infraestructura: 
-                                #{backing_ositran_parametros_mantenimientoConcesionario.nombreEliminar}
+                                Eliminar el tipo de inversion: " 
+                                #{concesionarioMB.descripcion}"
                             </td>
-                        </tr>                         
+                        </tr>
+                         
                         <tr>
                             <td align="right">
-                                <primefaces-p:commandButton update=":form:dataTable1"
-                                actionListener="#{backing_ositran_parametros_mantenimientoConcesionario.eliminar}"
-                                value="Eliminar" oncomplete="popupelimina.hide()">
-                                </primefaces-p:commandButton>
+                                <p:commandButton update=":form:tablaC :form:mensaje" value="Eliminar"
+                                                 actionListener="#{concesionarioMB.eliminar}"
+                                                 oncomplete="confirEliminar.hide()"></p:commandButton>
                             </td>
                             <td align="left">
-                                <primefaces-p:commandButton value="Cancelar" onclick="popupelimina.hide()"/>
+                                <p:commandButton value="Cancelar" onclick="confirEliminar.hide()"></p:commandButton>
                             </td>
                         </tr>
                     </table>
-                </primefaces-p:dialog>
-                <!-- fin pdialog para boton eliminar -->
-
-
+                </p:dialog>
+                <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
+                          style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                        <tr>
+                            <td colspan="1" align="left">Ingrese Nombre:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
+                                             value="#{concesionarioMB.nombreE}" label="NombreE" id="nombreE"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="1" align="left">Descripcion:</td>
+                            <td colspan="3" align="left">
+                                <p:inputTextarea style="width:97.5%" maxlength="50"
+                                                 value="#{concesionarioMB.descripcionE}" label="descripcionE"
+                                                 id="descripcionE" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Siglas del Nombre:</td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="6"
+                                             value="#{concesionarioMB.siglasNombreE}"/>
+                            </td>
+                            <td align="left">Telefono:</td>
+                            <td align="left">
+                                <p:inputText value="#{concesionarioMB.telefonoE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Tipo Documento:</td>
+                            <td align="left">
+                                <p:selectOneMenu value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                            <td align="left">Nro Documento:</td>
+                            <td align="left">
+                                <p:inputText value="#{concesionarioMB.numeroDocumentoE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Direccion:</td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="6"
+                                             value="#{concesionarioMB.direccionE}"/>
+                            </td>
+                            <td align="left">Correo electronico:</td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMinuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.correoE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="left">Representante Legal:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText maxlength="6" onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.representanteE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left" colspan="2">Cargo del Representante Legal</td>
+                            <td colspan="2" align="left">
+                                <p:selectOneMenu value="#{concesionarioMB.codigoCargoE}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
+                                                   itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="right">
+                                <p:commandButton update=":form:tablaC :form:mensaje" oncomplete="editarPanel.hide()"
+                                                 action="#{concesionarioMB.editar}" style="width:70px" value="Editar"/>
+                            </td>
+                            <td colspan="2" align="left">
+                                <p:commandButton style="width:70px" value="Salir" onclick="editarPanel.hide ()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                <h:inputHidden id="oculto" value="#{concesionarioMB.codigoConcesionario}"></h:inputHidden>
+                <h:inputHidden id="oculto1" value="#{concesionarioMB.concesionarioId}"></h:inputHidden>
+                <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                        <tr>
+                            <td colspan="1" align="left">Ingrese Nombre:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText maxlength="50" onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="1" align="left">Descripcion:</td>
+                            <td colspan="3" align="left">
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:97.5%"
+                                                 maxlength="50" value="#{concesionarioMB.descripcion}"
+                                                 label="descripcion" id="descripcion"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Siglas del Nombre:</td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()"
+                                             maxlength="6" value="#{concesionarioMB.siglasNombre}"/>
+                            </td>
+                            <td align="left">Telefono:</td>
+                            <td align="left">
+                                <p:inputText id="telefono" 
+                                            maxlength="20"
+                                             value="#{concesionarioMB.telefono}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Tipo Documento:</td>
+                            <td align="left">
+                                <p:selectOneMenu widgetVar="tipoDocumentoR" id="tipoDocumentoR"
+                                                 value="#{concesionarioMB.tipDocumento}" style="width:100%">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                            <td align="left">Nro Documento:</td>
+                            <td align="left" id="documentos">
+                                <p:inputText onkeydown="this.value=this.value.replace(/[^\\d]/,'')"
+                                             onkeyup="this.value=this.value.replace(/[^\\d]/,'')"
+                                             value="#{concesionarioMB.numeroDocumento}" maxlength="11"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Direccion:</td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.direccion}"/>
+                            </td>
+                            <td align="left"></td>
+                            <td align="left">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  align="left">Correo electronico:</td>
+                            <td colspan="3" align="left">
+                                <p:inputText validatorMessage="El Email no es correcto" id="email"
+                                             onkeyup="pasarMinuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.correo}">
+                                    <p:watermark for="email" value="juanp@gmail.com"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  align="left">Representante Legal:</td>
+                            <td colspan="1" align="left">
+                                <p:inputText maxlength="6" onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{concesionarioMB.representante}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left" colspan="2">Cargo Representante:</td>
+                            <td colspan="2" align="left">
+                                <p:selectOneMenu value="#{concesionarioMB.codigoCargo}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
+                                                   itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="left"></td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="2" align="right">
+                                <p:commandButton update=":form:tablaC :form:mensaje"
+                                                 actionListener="#{concesionarioMB.guardar}" style="width:70px"
+                                                 value="#{btn.btn_guardar}"/>
+                            </td>
+                            <td align="left">
+                                <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
+                            </td>
+                            <td align="right">
+                                <p:commandButton type="reset" style="width:70px" value="Limpiar" id="limpiar"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
             </h:form>
         </h:body>
     </html>
 </f:view>
+
+
+
