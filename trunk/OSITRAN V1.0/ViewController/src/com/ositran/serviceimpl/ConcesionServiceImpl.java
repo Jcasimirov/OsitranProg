@@ -4,9 +4,6 @@ import com.ositran.daoimpl.ConcesionDAOImpl;
 import com.ositran.model.Concesion;
 import com.ositran.service.ConcesionService;
 import com.ositran.vo.bean.ConcesionVO;
-
-import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class ConcesionServiceImpl implements ConcesionService{
     }
 
     @Override
-    public List<ConcesionVO> query() throws SQLException{
+    public List<ConcesionVO> query() {
         
         System.out.println("Services");
         List<Concesion> list=concesionDAOImpl.query();
@@ -37,20 +34,20 @@ public class ConcesionServiceImpl implements ConcesionService{
     }
 
     @Override
-    public String insert(ConcesionVO concesionVO) throws SQLException{
+    public String insert(ConcesionVO concesionVO) {
         Concesion concesion=toConcesion(concesionVO);
         String result=concesionDAOImpl.insert(concesion);
         return result;
     }
 
     @Override
-    public int idConcesion(ConcesionVO concesionVO) throws SQLException{
+    public int idConcesion(ConcesionVO concesionVO) {
         Concesion concesion=toConcesion(concesionVO);
         int result=concesionDAOImpl.idConcesion(concesion);
         return result;
     }
     @Override
-    public String delete(Integer id) throws SQLException{
+    public String delete(Integer id) {
         String result=this.concesionDAOImpl.delete(id);
         return result;
     }
@@ -62,14 +59,14 @@ public class ConcesionServiceImpl implements ConcesionService{
     }  */
 
     @Override
-    public String update(ConcesionVO concesionVO) throws SQLException{
+    public String update(ConcesionVO concesionVO) {
         Concesion concesion=toConcesion(concesionVO);
         String result=this.concesionDAOImpl.update(concesion);
         return result;
     }
 
     @Override
-    public ConcesionVO get(Integer id) throws SQLException{
+    public ConcesionVO get(Integer id) {
         Concesion concesion=this.concesionDAOImpl.get(id);
         ConcesionVO concesionVO=toConcesionVO(concesion);
         return concesionVO;
@@ -78,7 +75,7 @@ public class ConcesionServiceImpl implements ConcesionService{
     
     
     //conversiones
-    private List<ConcesionVO> toListConcesionVO(List<Concesion> list) throws SQLException{
+    private List<ConcesionVO> toListConcesionVO(List<Concesion> list){
         List<ConcesionVO> listVO=new ArrayList<ConcesionVO>();
         for(int i=0;i<list.size();i++){
             Concesion concesion=(Concesion)list.get(i);
@@ -87,7 +84,7 @@ public class ConcesionServiceImpl implements ConcesionService{
         }
         return listVO;
     }
-    private ConcesionVO toConcesionVO(Concesion concesion) throws SQLException{
+    private ConcesionVO toConcesionVO(Concesion concesion){
         ConcesionVO concesionVO=new ConcesionVO();
        
          concesionVO.setCsiFechaAlta(concesion.getCsiFechaAlta());
@@ -99,11 +96,11 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesionVO.setCsiUsuarioCambio(concesion.getCsiUsuarioCambio());   
         concesionVO.setCsiId(concesion.getCsiId());
         concesionVO.setCsiNombre(concesion.getCsiNombre());
-        concesionVO.setInfraestructuraTipo(concesion.getInfraestructuraTipo());
+        //concesionVO.setInfraestructuraTipo(concesion.getInfraestructuraTipo());
        
         return concesionVO;
     }
-    private Concesion toConcesion(ConcesionVO concesionVO) throws SQLException{
+    private Concesion toConcesion(ConcesionVO concesionVO){
         Concesion concesion=new Concesion();
      
         concesion.setCsiFechaAlta(concesionVO.getCsiFechaAlta());
@@ -114,14 +111,14 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
         concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());
         concesion.setCsiId(concesionVO.getCsiId());
-        concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
+        //concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
         concesion.setCsiNombre(concesionVO.getCsiNombre());
        
         return concesion; 
         
     }
     
-    public List<ConcesionVO> buscarconcesionfiltro(int codigo, String nombre)throws SQLException{
+    public List<ConcesionVO> buscarconcesionfiltro(int codigo, String nombre){
         
         List<Concesion> list=concesionDAOImpl.queryfiltro(codigo,nombre);
         List<ConcesionVO> listVO=toListConcesionVO(list);
