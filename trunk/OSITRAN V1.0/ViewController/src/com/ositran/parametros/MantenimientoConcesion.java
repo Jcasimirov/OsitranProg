@@ -115,7 +115,7 @@ public class MantenimientoConcesion {
         return infraestructuraTipoServiceImpl;
     }
 
-    public void listarTipInfraestructura() {
+    public void listarTipInfraestructura()  throws SQLException{
         listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
     }
     
