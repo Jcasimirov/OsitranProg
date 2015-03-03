@@ -18,7 +18,12 @@ import javax.faces.event.ActionEvent;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.outputlabel.OutputLabel;
+import org.primefaces.component.panelgrid.PanelGrid;
+
 @ManagedBean(name = "backing_parametros_mantenimientoIgv")
 @RequestScoped
 @Generated(value = "1parametros/mantenimientoIgv.jsf", comments = "oracle-jdev-comment:managed-bean-jsp-link")
@@ -27,6 +32,43 @@ public class MantenimientoIgv {
     private CommandButton commandButton1;
     private CommandButton commandButtonNuevo;
     private CommandButton nuevo;
+    
+    private Double igvPorcentaje;
+    private Date igvFechavigencia;
+    private Date igvFechacaducidad;
+
+
+    public void setIgvPorcentaje(Double igvPorcentaje) {
+        this.igvPorcentaje = igvPorcentaje;
+    }
+
+    public Double getIgvPorcentaje() {
+        return igvPorcentaje;
+    }
+
+    public void setIgvFechavigencia(Date igvFechavigencia) {
+        this.igvFechavigencia = igvFechavigencia;
+    }
+
+    public Date getIgvFechavigencia() {
+        return igvFechavigencia;
+    }
+
+    public void setIgvFechacaducidad(Date igvFechacaducidad) {
+        this.igvFechacaducidad = igvFechacaducidad;
+    }
+
+    public Date getIgvFechacaducidad() {
+        return igvFechacaducidad;
+    }
+
+
+    public String obtenerIpCliente(){
+        String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr(); 
+        return remoteAddr;
+    }
+
+
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -45,7 +87,7 @@ public class MantenimientoIgv {
     }
     
     public IgvVO igvVO=new IgvVO();
-
+ 
 
     public void setIgvVO(IgvVO igvVO) {
         this.igvVO = igvVO;
@@ -86,6 +128,21 @@ public class MantenimientoIgv {
     }
 
 
+    public void igvInsertar(ActionEvent actionEvent) {
+       
+        igvVO.setIgvPorcentaje(igvPorcentaje);
+        igvVO.setIgvFechavigencia(igvFechavigencia);
+        igvVO.setIgvFechacaducidad(igvFechacaducidad);
+  
+     
+        igvVO.setIgvEstado(1);
+        igvVO.setIgvFechaAlta(getObtenerFechaHoy());
+        igvVO.setIgvTerminal(obtenerIpCliente());
+        this.igvServiceImpl.insert(igvVO);
+            //RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+           
+      
+    }
 
     public String igvActualizarEstado(){
         FacesContext context=FacesContext.getCurrentInstance();
