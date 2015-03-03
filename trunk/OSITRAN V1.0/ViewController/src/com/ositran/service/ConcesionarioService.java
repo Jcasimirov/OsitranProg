@@ -12,4 +12,5 @@ public interface ConcesionarioService {
     public String delete(Integer id);
     public String update(ConcesionarioVO concesionarioVO);
     public ConcesionarioVO get(Integer id);
+    public List<ConcesionarioVO> queryF(String filtro);
 }
