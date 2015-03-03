@@ -78,70 +78,58 @@
                 </p:panel>
                 
                 
-                 <p:dialog header="Registrar IGV" widgetVar="insertarPanel" modal="true">
-                    <table style="font-size: 11px">
-                        <tr>
-                            <td>
-                                <p:growl id="msgs"/>
-                <p:layout style="min-width:400px;min-height:200px;">
-                    <p:layoutUnit position="north">
-                        <div style="text-align: center;">
-                            <p:outputLabel value="#{msg.titulo_RIGV}"/>
-                        </div>
-                    </p:layoutUnit>
-                    <p:layoutUnit position="south"></p:layoutUnit>
-                    <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
-                        <!-- <p:panel header="Registrar Tipo de Infraestructura" style=";text-align:center;text-decoration:blink;font-size:19px"> -->
-                        <!--validacion con ajax 
-                        http://stackoverflow.com/questions/14477647/jsf-ajax-validation-vs-normal-validation
-                        http://es.slideshare.net/martyhall/jsf-2-tutorial-validating-user-input-form-field-validation
-                        -->
-                        <div align="center" style="width: 100%">
-                            <p:panelGrid binding="#{backing_parametros_registrarIgv.panelGrid1}" id="panelGrid1"
-                                         columns="2">
-                              
-                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelPorcentaje}"
-                                               id="outputLabelPorcentaje" value="#{etq.etq_porcentaje}"/>
+                <div style="width:60%">
+                    <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
+                    <p:dialog id="insertarPanel" header="Registrar" widgetVar="insertarPanel" modal="true">
+                        <table style="font-size: 11px">
+                            <tr>
+                                <td>
+                                    <p:growl id="msgs"/>
+                                    
+                                    
+                           <p:panel header="Mantenimiento de IGV" style="margin-bottom:20px;align:left">
+                                        <h:panelGrid columns="2" cellpadding="5">
                            
-                                <p:inputText binding="#{backing_parametros_registrarIgv.inputTextPorcentaje}"
-                                             id="inputTextPorcentaje"
-                                             value="#{backing_parametros_registrarIgv.igvVO.igvPorcentaje}"/>
-                                                          
-                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelFechavigencia}"
-                                               id="outputLabelFechavigencia" value="#{etq.etq_fvigencia}"/>
-                             
-                                <p:calendar binding="#{backing_parametros_registrarIgv.calendarFechaVigencia}"
-                                            id="calendarFechaVigencia" locale="es" pattern="dd/mm/yyyy"
-                                            value="#{backing_parametros_registrarIgv.igvVO.igvFechavigencia}"/>
-                               
-                                 
-                               
+                           
                                  
                                  
-                                <p:outputLabel binding="#{backing_parametros_registrarIgv.outputLabelFechaCaducidad}"
-                                               id="outputLabelFechaCaducidad" value="#{etq.etq_fcaducidad}"/>
-                                <p:calendar binding="#{backing_parametros_registrarIgv.calendarFechaCaducidad}"
-                                            id="calendarFechaCaducidad" locale="es" pattern="dd/mm/yyyy"
-                                            value="#{backing_parametros_registrarIgv.igvVO.igvFechacaducidad}"/>
+                                  <h:outputLabel value="Ingrese IGV" style="align:left; text-align:left"></h:outputLabel>
+                                 <p:inputText value="#{backing_parametros_mantenimientoIgv.igvPorcentaje}" style="width:300px">
+                                 <f:validateDoubleRange minimum="0.0" maximum="100.0" />
+                                  </p:inputText> 
+                                 
+                                 
+                                <h:outputLabel value="Fecha Vigencia" style="align:left; text-align:left"></h:outputLabel>
+                                <p:calendar    id="calendarFechaVigencia" locale="es" pattern="dd/mm/yyyy"
+                                            value="#{backing_parametros_mantenimientoIgv.igvFechavigencia}">
                               
+                                 </p:calendar>
+                               
+                                 
+                                 
+                              <h:outputLabel value="Fecha Caducidad" style="align:left; text-align:left"></h:outputLabel>
+                                <p:calendar   id="calendarFechaCaducidad" locale="es" pattern="dd/mm/yyyy"
+                                            value="#{backing_parametros_mantenimientoIgv.igvFechacaducidad}">
+                             
+                              </p:calendar>
                               
                                 
                                            
                                            
                                 <h:commandButton value="Grabar Datos"
-                                                 actionListener="#{backing_parametros_registrarIgv.igvInsertar}" 
+                                                 actionListener="#{backing_parametros_mantenimientoIgv.igvInsertar}" 
                                                  action="listarIgv"/>
 
                                 <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
-                            </p:panelGrid>
-                        </div>
+                            </h:panelGrid>
+                                    </p:panel>
+                              </td>
+                            </tr>
+                        </table>
+                    </p:dialog>
+                </div>
                      
-                    </p:layoutUnit>
-                </p:layout>
-                       </td>
-                        </tr>
-                    </table>
-                </p:dialog>
+                   
                
                 
             </h:form>
