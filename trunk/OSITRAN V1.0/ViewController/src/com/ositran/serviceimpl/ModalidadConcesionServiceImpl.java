@@ -115,6 +115,22 @@ public class ModalidadConcesionServiceImpl implements ModalidadConcesionService{
         return listVO;
         
     }
+    
+    // Validaciones
+    
+    @Override
+    public int ValidaNombre(String atributo) throws SQLException{
+        int respuesta =modalidadConcesionDAOImpl.ValidarNombre(atributo);
+        return respuesta;
+        
+    }
+    
+    @Override
+    public int ValidaNombreMod(String atributo,String nombre) throws SQLException{
+        int respuesta =modalidadConcesionDAOImpl.ValidarNombreMod(atributo,nombre);
+        return respuesta;
+        
+    }
 
     
 }
