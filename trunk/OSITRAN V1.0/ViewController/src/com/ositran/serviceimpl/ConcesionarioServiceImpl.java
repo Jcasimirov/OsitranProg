@@ -5,6 +5,7 @@ import com.ositran.model.Concesionario;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.vo.bean.ConcesionarioVO;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConcesionarioServiceImpl implements ConcesionarioService{
@@ -21,11 +22,20 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
 
     @Override
     public List<ConcesionarioVO> query() {
+        System.out.println("llegooo Servicessss filtro");
         List<Concesionario> list=concesionarioDAOImpl.query();
+        List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
+        
+        return listVO;
+    }
+    @Override
+    public List<ConcesionarioVO> queryF(String filtro) {
+        
+        List<Concesionario> list=concesionarioDAOImpl.queryF(filtro);
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
         return listVO;
     }
-
+    
     @Override
     public String insert(ConcesionarioVO concesionarioVO) {
         Concesionario concesionario=toConcesionario(concesionarioVO);
@@ -106,5 +116,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         concesionario.setCrgId(concesionarioVO.getCrgId());
         concesionario.setTdoId(concesionarioVO.getTdoId());
         return concesionario;
-    }    
+    }
+
+    
 }
