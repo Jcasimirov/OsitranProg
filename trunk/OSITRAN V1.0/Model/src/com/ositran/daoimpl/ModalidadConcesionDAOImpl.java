@@ -64,16 +64,6 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         super();
     }
     
-    @Override
-    public List<ModalidadConcesion> query() throws SQLException{
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        list= session.createQuery("select o from ModalidadConcesion o").list();            
-        System.out.println("LISTA = "+list);
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
     
     @Override
     public int  ValidarNombre(String atributo) throws SQLException{
@@ -108,8 +98,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
     }
     
     @Override
-    public List<ModalidadConcesion> FiltrarModalidad(String atributo) throws SQLException{
-        
+    public List<ModalidadConcesion> FiltrarModalidad(String atributo) throws SQLException{        
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
@@ -118,9 +107,20 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         list= query.list();
         session.getTransaction().commit();
         session.close();
-        return list;
-        
+        return list;        
     }
+                                  
+    @Override
+    public List<ModalidadConcesion> query() throws SQLException{
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        list= session.createQuery("select o from ModalidadConcesion o").list();            
+        System.out.println("LISTA = "+list);
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+                                  
 
         @Override
         public String insert(ModalidadConcesion modalidadConcesion) throws SQLException{

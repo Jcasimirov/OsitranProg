@@ -68,7 +68,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         return list;
         
     }
-    
+        
     @Override
     public int  ValidarNombre(String atributo) throws SQLException {
         
