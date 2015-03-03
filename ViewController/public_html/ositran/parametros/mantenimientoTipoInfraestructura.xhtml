@@ -20,6 +20,7 @@
                   tecla = (document.all) ? e.keyCode : e.which;
                     if (tecla==8) return true; // backspace
                     if (tecla==32) return true; // espacio
+                    if (tecla==9)  return true; // tab
                     patron = /[a-zA-Z]/;//patron
                   te = String.fromCharCode(tecla);
                   return patron.test(te);// prueba de patron
@@ -46,7 +47,8 @@
                                         #{etq.etq_nombre}
                                     </td>
                                     <td>
-                                        <p:inputText id="nomInfraSearch" value="#{infraestructuraMB.nomInfraSearch}"/>
+                                        <p:inputText id="nomInfraSearch" value="#{infraestructuraMB.nomInfraSearch}"
+                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
                                     </td>
                                     <td>
                                         <p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}"
