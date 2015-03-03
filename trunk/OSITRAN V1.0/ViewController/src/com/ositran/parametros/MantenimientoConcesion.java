@@ -5,6 +5,7 @@ import com.ositran.model.Infraestructura;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.InfraestructuraService;
+import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
@@ -32,6 +33,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 
 import org.hibernate.HibernateException;
+
+import org.primefaces.context.RequestContext;
 
 //@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
@@ -115,6 +118,8 @@ public class MantenimientoConcesion {
     public void listarTipInfraestructura() {
         listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
     }
+    
+    
     @ManagedProperty(value = "#{concesionVO}")
      ConcesionVO concesionVO;
     
@@ -163,7 +168,7 @@ public class MantenimientoConcesion {
 
                 }
 
-
+                RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                 limpiarcampos();
                 ListarConcesiones();
             }
@@ -193,13 +198,19 @@ public class MantenimientoConcesion {
     }
 
     public void cargarEditar() throws SQLException{
+        
+        //inicio de captura de codigo a modificar
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("idModificar");
         Integer idcodigo=Integer.valueOf(str.toString());
         concesionVO = concesionServicesImpl.get(idcodigo);
+        //fin de de captura de codigo a modificar
+        
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
+        
+        
         codigoTipoInfraestructura = concesionVO.getInfraestructuraTipo().getTinId();
         /*  codigoUpdate= infraestructuraTipoVO.getTinId();
         nombreUpdate= infraestructuraTipoVO.getTinNombre(); */
