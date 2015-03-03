@@ -2,25 +2,22 @@ package com.ositran.parametros;
 
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
 import com.ositran.util.Util;
-
 import java.util.Date;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "infraestructuraMB")
 @RequestScoped
 
 public class MantenimientoTipoInfraestructura {
-    
+
     private String tinNombre;
     private String tinDescripcion;
     private int codigoEliminar;
@@ -28,7 +25,7 @@ public class MantenimientoTipoInfraestructura {
     private int codigoE;
     private String tinNombreE;
     private String tinDescripcionE;
-    
+
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -62,46 +59,83 @@ public class MantenimientoTipoInfraestructura {
 
     public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
 
-/* Guardar */
+    /* Guardar */
     public void guardar() {
-        infraestructuraTipoVO.setTinNombre(tinNombre);
-        infraestructuraTipoVO.setTinDescripcion(tinDescripcion);
-        infraestructuraTipoVO.setTinEstado(1);
-        infraestructuraTipoVO.setTinFechaAlta(util.getObtenerFechaHoy());
-        infraestructuraTipoVO.setTinTerminal(util.obtenerIpCliente());
-        getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
-        limpiar();
-        ListarInfraestructura();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
+
+        if (tinNombre.equals("") || tinDescripcion.equals("")) {
+            System.out.println("no se puede guardar");
+            
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No se ha completado con el Registro"));
+        } else {
+            try {
+
+                infraestructuraTipoVO.setTinNombre(tinNombre.toUpperCase());
+                infraestructuraTipoVO.setTinDescripcion(tinDescripcion.toUpperCase());
+                infraestructuraTipoVO.setTinEstado(1);
+                infraestructuraTipoVO.setTinFechaAlta(util.getObtenerFechaHoy());
+                infraestructuraTipoVO.setTinTerminal(util.obtenerIpCliente());
+                getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
+                RequestContext.getCurrentInstance().execute("popupagregar.hide()");
+                limpiar();
+                
+                ListarInfraestructura();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                              "Se Registro con Exito"));
+            } catch (Exception e) {
+                // TODO: Add catch code
+                e.printStackTrace();
+            }
+        }
+
+
     }
-/* Fin Guardar */
-    
-/* Editar */
+    /* Fin Guardar */
+
+    /* Editar */
     public void cargarEditar(InfraestructuraTipoVO infraestructuraTipoV) {
+
         infraestructuraTipoVO = infraestructuraTipoV;
         codigoE = infraestructuraTipoVO.getTinId();
         tinNombreE = infraestructuraTipoVO.getTinNombre();
         tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
     }
+
     public void editar() {
-        infraestructuraTipoVO.setTinId(codigoE);
-        infraestructuraTipoVO.setTinNombre(tinNombreE);
-        infraestructuraTipoVO.setTinEstado(1);
-        infraestructuraTipoVO.setTinDescripcion(tinDescripcionE);
-        infraestructuraTipoVO.setTinFechaCambio(new Date());
-        getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
-        ListarInfraestructura();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Modifico con Exito"));
+        try {
+            infraestructuraTipoVO.setTinId(codigoE);
+            infraestructuraTipoVO.setTinNombre(tinNombreE.toUpperCase());
+            infraestructuraTipoVO.setTinEstado(1);
+            infraestructuraTipoVO.setTinDescripcion(tinDescripcionE.toUpperCase());
+            infraestructuraTipoVO.setTinFechaCambio(new Date());
+            getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
+            ListarInfraestructura();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se Modifico con Exito"));
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
     }
-/* Fin Editar */
-    
+    /* Fin Editar */
+
     public void limpiar() {
         tinNombre = " ";
         tinDescripcion = " ";
     }
 
     public List<InfraestructuraTipoVO> ListarInfraestructura() {
-        listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
+        try {
+            listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
         return listaInfraestructura;
     }
 
@@ -110,10 +144,18 @@ public class MantenimientoTipoInfraestructura {
         codigoEliminar = codigo;
     }
 
-    public void eliminar() {   
-        getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
-        ListarInfraestructura();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito"));
+    public void eliminar() {
+        try {
+            getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
+            ListarInfraestructura();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se Elimino con Exito"));
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
     }
 
     public void setTinNombre(String tinNombre) {
@@ -179,13 +221,13 @@ public class MantenimientoTipoInfraestructura {
 
     public int getCodigoE() {
         return codigoE;
-    }    
+    }
 
     /* buscar  */
     String nomInfraSearch;
     private String buscar;
     private List<InfraestructuraTipoVO> filtrar;
-    
+
     public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
         this.filtrar = filtrar;
     }
@@ -193,7 +235,7 @@ public class MantenimientoTipoInfraestructura {
     public List<InfraestructuraTipoVO> getFiltrar() {
         return filtrar;
     }
-    
+
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
@@ -201,7 +243,7 @@ public class MantenimientoTipoInfraestructura {
     public String getBuscar() {
         return buscar;
     }
-    
+
     public void setNomInfraSearch(String nomInfraSearch) {
         this.nomInfraSearch = nomInfraSearch;
     }
@@ -212,8 +254,13 @@ public class MantenimientoTipoInfraestructura {
 
 
     public List<InfraestructuraTipoVO> SearchListaInfra() {
-        System.out.println(nomInfraSearch);
-        listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
+        try {
+            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
 
         return listaInfraestructura;
     }
