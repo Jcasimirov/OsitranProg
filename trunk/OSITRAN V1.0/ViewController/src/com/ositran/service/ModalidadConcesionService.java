@@ -13,4 +13,6 @@ public interface ModalidadConcesionService {
     public String update(ModalidadConcesionVO modalidadConcesionVO) throws SQLException;
     public ModalidadConcesionVO get(Integer id) throws SQLException;
     public List<ModalidadConcesionVO> FiltrarBusqueda(String atributo) throws SQLException;
+    public int ValidaNombre(String atributo) throws SQLException;
+    public int ValidaNombreMod(String atributo,String nombre) throws SQLException;
 }
