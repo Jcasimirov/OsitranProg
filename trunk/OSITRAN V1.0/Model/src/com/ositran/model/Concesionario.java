@@ -16,15 +16,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- * To create ID generator sequence "T_CONCESIONARIO_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_CONCESIONARIO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
-@NamedQueries({ @NamedQuery(name = "TConcesionario.findAll", query = "select o from TConcesionario o") })
-@Table(name = "T_CONCESIONARIO")
-@SequenceGenerator(name = "TConcesionario_Id_Seq_Gen", sequenceName = "T_CONCESIONARIO_ID_SEQ_GEN", allocationSize = 50,
-                   initialValue = 50)
+@Table(name = "T_CONCESIONARIO",uniqueConstraints = @UniqueConstraint(columnNames = {"CNC_ID"}))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+
 public class Concesionario implements Serializable {
     private static final long serialVersionUID = -5209185194740198073L;
     @Column(name = "CNC_CORREO", length = 20)
@@ -34,7 +34,7 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_DIRECCION", length = 20)
     private String cncDireccion;
     @Column(name = "CNC_ESTADO", nullable = false)
-    private Integer cncEstado;
+    private int cncEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CNC_FECHA_ALTA")
     private Date cncFechaAlta;
@@ -45,9 +45,9 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_FECHA_CAMBIO")
     private Date cncFechaCambio;
     @Id
+    @GeneratedValue(generator = "generator")
     @Column(name = "CNC_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TConcesionario_Id_Seq_Gen")
-    private Integer cncId;
+    private int cncId;
     @Column(name = "CNC_NOMBRE", nullable = false, length = 100)
     private String cncNombre;
     @Column(name = "CNC_NRO_DOCUMENTO", length = 20)
@@ -65,18 +65,18 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_USUARIO_CAMBIO", length = 20)
     private String cncUsuarioCambio;
     @Column(name = "CRG_ID")
-    private Integer crgId;
+    private int crgId;
     @Column(name = "TDO_ID")
-    private Integer tdoId;
+    private int tdoId;
 
     public Concesionario() {
     }
 
-    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, Integer cncEstado,
-                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, Integer cncId, String cncNombre,
+    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, int cncEstado,
+                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, int cncId, String cncNombre,
                           String cncNroDocumento, String cncRepresentanteLegal, String cncTelefono, String cncTerminal,
-                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, Integer crgId,
-                          Integer tdoId) {
+                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, int crgId,
+                          int tdoId) {
         this.cncCorreo = cncCorreo;
         this.cncDescripcion = cncDescripcion;
         this.cncDireccion = cncDireccion;
@@ -121,11 +121,11 @@ public class Concesionario implements Serializable {
         this.cncDireccion = cncDireccion;
     }
 
-    public Integer getCncEstado() {
+    public int getCncEstado() {
         return cncEstado;
     }
 
-    public void setCncEstado(Integer cncEstado) {
+    public void setCncEstado(int cncEstado) {
         this.cncEstado = cncEstado;
     }
 
@@ -153,11 +153,11 @@ public class Concesionario implements Serializable {
         this.cncFechaCambio = cncFechaCambio;
     }
 
-    public Integer getCncId() {
+    public int getCncId() {
         return cncId;
     }
 
-    public void setCncId(Integer cncId) {
+    public void setCncId(int cncId) {
         this.cncId = cncId;
     }
 
@@ -225,19 +225,19 @@ public class Concesionario implements Serializable {
         this.cncUsuarioCambio = cncUsuarioCambio;
     }
 
-    public Integer getCrgId() {
+    public int getCrgId() {
         return crgId;
     }
 
-    public void setCrgId(Integer crgId) {
+    public void setCrgId(int crgId) {
         this.crgId = crgId;
     }
 
-    public Integer getTdoId() {
+    public int getTdoId() {
         return tdoId;
     }
 
-    public void setTdoId(Integer tdoId) {
+    public void setTdoId(int tdoId) {
         this.tdoId = tdoId;
     }
 }
