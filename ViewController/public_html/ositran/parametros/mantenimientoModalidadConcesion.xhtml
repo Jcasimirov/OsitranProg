@@ -40,7 +40,7 @@
                                         <td>
                                         <p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}" action="#{backing_mantenimientoModalidadConcesion.FiltrarListaModalidad}"
                                                               
-                                                             update=":form1">                                                
+                                                             update=":form1:tablamodalidad">                                                
                                             </p:commandButton>                                           
                                         </td>
                                     </tr>
@@ -53,24 +53,24 @@
                                         </td>
                                         <td></td>
                                         <td>
-                                            <p:commandButton value="#{btn.btn_limpiar}" action="#{backing_mantenimientoModalidadConcesion.LimpiarFiltro}" update=":form1"/>
+                                            <p:commandButton value="#{btn.btn_limpiar}" action="#{backing_mantenimientoModalidadConcesion.LimpiarFiltro}" update=":form1:nombremodbuscar"/>
                                         </td>
                                     </tr>
                                      
                                  
                                 </table>
                                 <div style="width:60%">
-                                <p:dataTable value="#{backing_mantenimientoModalidadConcesion.listaMod}"
+                                <p:dataTable value="#{backing_mantenimientoModalidadConcesion.listaMod}" id="tablamodalidad"
                                                  var="modalidad" selectionMode="single" style="font-size:11px;"
                                                  rowKey="#{modalidad.mcoId}" rows="10" paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15"
                                                  emptyMessage="No se Encontraron Registros">
                                         <p:column headerText="Nombre">
-                                            <h:outputText value="#{modalidad.mcoNombre}"/>
+                                            <h:outputText value="#{modalidad.mcoNombre}" style="text-transform:uppercase;"/>
                                         </p:column>
                                         <p:column headerText="Descripción">
-                                            <h:outputText value="#{modalidad.mcoDescripcion}"/>
+                                            <h:outputText value="#{modalidad.mcoDescripcion}" style="text-transform:uppercase;"/>
                                         </p:column>
                                         <p:column headerText="Modificar">
                                         <div style="text-align: center;">
@@ -118,15 +118,15 @@
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText></td>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText></td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea></td>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea></td>
 	 		</tr>
 	 		<tr>
-	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" action="#{backing_mantenimientoModalidadConcesion.guardar}"                                                 
-                                                 oncomplete="regModalidad.hide()" update=":form1 :form1:mensaje"></p:commandButton>
+	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" actionListener="#{backing_mantenimientoModalidadConcesion.guardar}"                                                 
+                                               update=":form1:mensaje :form1:tablamodalidad"   ></p:commandButton>
                                 <p:commandButton onclick="regModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
 	 	</table>
@@ -146,19 +146,22 @@
                             <td>
                                 <h:inputHidden value="#{backing_mantenimientoModalidadConcesion.estadomodAct}"/>
                             </td>
+                            <td>
+                                <h:inputHidden value="#{backing_mantenimientoModalidadConcesion.nommod}"/>
+                            </td>
                         </tr>
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText id = "nombremodAct" value="#{backing_mantenimientoModalidadConcesion.nombremodAct}"></p:inputText></td>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremodAct" value="#{backing_mantenimientoModalidadConcesion.nombremodAct}"></p:inputText></td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px" id="descripcionmodAct" value="#{backing_mantenimientoModalidadConcesion.descripcionmodAct}"></p:inputTextarea></td>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmodAct" value="#{backing_mantenimientoModalidadConcesion.descripcionmodAct}"></p:inputTextarea></td>
 	 		</tr>
 	 		<tr>
 	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" action="#{backing_mantenimientoModalidadConcesion.Modificar}"                                                 
-                                                 oncomplete="modModalidad.hide()" update=":form1 :form1:mensaje"></p:commandButton>
+                                                  update=":form1 :form1:mensaje"></p:commandButton>
                                 <p:commandButton onclick="modModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
 	 	</table>
@@ -168,6 +171,9 @@
         
         
         </h:form>
+        <script>
+        
+        </script>
         </h:body>
     </html>
     
