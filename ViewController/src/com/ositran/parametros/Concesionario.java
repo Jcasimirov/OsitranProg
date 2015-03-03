@@ -9,6 +9,8 @@ import com.ositran.vo.bean.CargoVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 
+import java.sql.SQLException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -158,10 +160,10 @@ public class Concesionario{
        System.out.println("hola MB");
       listaCon= concesionarioServiceImpl.queryF(buscar);
        }
-   public void  cargarListaTipoDocumento(){
+   public void  cargarListaTipoDocumento()throws SQLException{
            listaTipoDoc=tipoDocumentoServiceImp.query();
        }
-   public void cargarListaCargo(){
+   public void cargarListaCargo()throws SQLException{
             listCargo=cargoServiceImp.query();
        }
    public void cargarListaConcesionarios(){
