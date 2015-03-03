@@ -13,6 +13,7 @@ public interface EmpresaSupervisoraDAO {
         public String update(EmpresaSupervisora empresaSupervisora) throws SQLException;
         public EmpresaSupervisora get(Integer id) throws SQLException;
         public List<EmpresaSupervisora> FiltrarEmpSup(String atributo) throws SQLException;
-        public int  ValidarNombre(String atributo) throws SQLException;
+        public int ValidarNombre(String atributo) throws SQLException;
         public int ValidarNombreMod(String atributo, String NombreMod) throws SQLException;
+
 }
