@@ -60,13 +60,46 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE lower(E.supNombre) like  lower(:busqueda)");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)");
         query.setParameter("busqueda","%"+atributo+"%");
         list= query.list();
         session.getTransaction().commit();
         session.close();
         return list;
         
+    }
+    
+    @Override
+    public int  ValidarNombre(String atributo) throws SQLException {
+        
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)");
+        query.setParameter("busqueda",atributo);
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list.size();        
+    }
+    
+    @Override
+    public int ValidarNombreMod(String atributo, String NombreMod) throws SQLException {
+        
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)");
+        query.setParameter("busqueda",atributo);
+        list= query.list();
+        for (int i = 0 ; i<list.size();i++){
+            if (list.get(i).getSupNombre().equals(NombreMod)){
+                list.remove(i);
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+        return list.size();        
     }
 
         @Override
