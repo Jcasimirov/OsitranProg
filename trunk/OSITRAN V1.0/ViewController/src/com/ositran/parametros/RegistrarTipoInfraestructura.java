@@ -4,6 +4,8 @@ import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+import java.sql.SQLException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -39,12 +41,12 @@ public class RegistrarTipoInfraestructura {
         return infraestructuraTipoVO;
     }
 
-    public List<InfraestructuraTipoVO> getQuery(){
+    public List<InfraestructuraTipoVO> getQuery() throws SQLException{
         List<InfraestructuraTipoVO> list=this.infraestructuraTipoServiceImpl.query();
         return list;
     }
     
-    public void infraestructuraTipoIns(){
+    public void infraestructuraTipoIns() throws SQLException{
         this.infraestructuraTipoServiceImpl.insert(infraestructuraTipoVO);
            
         /*   System.out.println("id = "+infraestructuraTipoVO.getTinId());
@@ -56,14 +58,14 @@ public class RegistrarTipoInfraestructura {
         return "/index?faces-redirect=true"; */
     }
     
-    public String infraestructuraTipoDel(ActionEvent event){
+    public String infraestructuraTipoDel(ActionEvent event) throws SQLException{
         UIParameter parameter=(UIParameter)event.getComponent().findComponent("id1");
         Integer idinfraestructuraTipo=(Integer)parameter.getValue();
         this.infraestructuraTipoServiceImpl.delete(idinfraestructuraTipo);
         return "/index?faces-redirect=true";
     }
     
-    public String infraestructuraTipoUpd1(){
+    public String infraestructuraTipoUpd1() throws SQLException{
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
         Object str=requestMap.get("id2");
@@ -72,7 +74,7 @@ public class RegistrarTipoInfraestructura {
         return "infraestructuraUpd";
     }
     
-    public String infraestructuraTipoUpd2(){
+    public String infraestructuraTipoUpd2() throws SQLException{
         this.infraestructuraTipoServiceImpl.update(infraestructuraTipoVO);
         return "/index?faces-redirect=true";
     }
