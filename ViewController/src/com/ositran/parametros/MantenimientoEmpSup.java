@@ -25,6 +25,8 @@ import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
 @RequestScoped
 @Generated(value = "1ositran/parametros/MantenimientoEmpSup.jsf",
@@ -228,8 +230,7 @@ public class MantenimientoEmpSup {
         tipoDocumento = 0;
         nroDoc = "";
         correo = "";
-        siglasNom = "";
-        
+        siglasNom = "";    
     }
     
     
@@ -237,10 +238,16 @@ public class MantenimientoEmpSup {
         try{
             UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
             Integer idEmpSup=(Integer)parameter.getValue();
-            this.empSupServiceImp.delete(idEmpSup);
+            empSupVO=this.empSupServiceImp.get(idEmpSup);
+            empSupVO.setSupEstado(2);
+            empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
+            empSupVO.setSupTerminal(util.obtenerIpCliente());
+            this.empSupServiceImp.update(empSupVO);
+            //this.empSupServiceImp.delete(idEmpSup);
             getQuery();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
                                                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
+           
                                                     
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -251,25 +258,48 @@ public class MantenimientoEmpSup {
         return "/index?faces-redirect=true";
         
     }
-
+    public int validarNombre (String Nombre) throws SQLException{
+        int resultado = this.empSupServiceImp.ValidaNombre(Nombre);
+        return resultado;
+    }
+    public int validarNombreMod (String Nombre,String NombreEmpMod) throws SQLException{
+        int resultado = this.empSupServiceImp.ValidaNombreMod(Nombre,NombreEmpMod);
+        return resultado;
+    }
     public void guardar() throws SQLException{
         if (nomEmpSup.equals("")) {
             FacesMessage mensaje =
                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNom.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (dirEmpSup.equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (repLegal.equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (correo.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Correo de la Empresa Supervisora");
+        }else if (cargo == 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Cargo del Representante Legal");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else{
+        }else if (!correo.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (siglasNom.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarNombre(nomEmpSup)>0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!telefono.equals("") && !telefono.matches("[0-9]*")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumento>0 && !nroDoc.matches("[0-9]*") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumento == 0 && !nroDoc.equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+        else{
             try{
                 empSupVO.setSupNombre(nomEmpSup);
                 empSupVO.setSupDireccion(dirEmpSup);
@@ -288,6 +318,7 @@ public class MantenimientoEmpSup {
                 limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
                                                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                RequestContext.getCurrentInstance().execute("regEmpSup.hide()");
             }catch(Exception e){
                 System.out.println(e.getMessage());
                                 FacesMessage mensaje =
@@ -313,6 +344,7 @@ public class MantenimientoEmpSup {
     private String siglasNomMod;
     private int idMod;
     private int estadoMod;
+    private String nommod;
 
 
     public void setNomEmpSupMod(String nomEmpSupMod) {
@@ -406,6 +438,14 @@ public class MantenimientoEmpSup {
     }
 
 
+    public void setNommod(String nommod) {
+        this.nommod = nommod;
+    }
+
+    public String getNommod() {
+        return nommod;
+    }
+
     public void EmpSupUpd1() throws SQLException{
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
@@ -423,6 +463,7 @@ public class MantenimientoEmpSup {
         estadoMod = empSupVO.getSupEstado();
         cargoMod = empSupVO.getCrgId();
         tipoDocumentoMod = empSupVO.getTdoId();
+        nommod = empSupVO.getSupNombre();;
         
     }
     
@@ -431,19 +472,35 @@ public class MantenimientoEmpSup {
             FacesMessage mensaje =
                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNomMod.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (dirEmpSupMod.equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (repLegalMod.equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (correoMod.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Correo de la Empresa Supervisora");
+        }else if (cargoMod == 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Cargo del Representante Legal");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else{
+        }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (siglasNomMod.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarNombreMod(nomEmpSupMod,nommod)>0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!telefonoMod.equals("") && !telefonoMod.matches("[0-9]*")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod == 0 && !nroDocMod.equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+        else{
             try{
                 empSupVO.setSupNombre(nomEmpSupMod);
                 empSupVO.setSupDireccion(dirEmpSupMod);
@@ -463,6 +520,7 @@ public class MantenimientoEmpSup {
                 limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
                                                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                RequestContext.getCurrentInstance().execute("ModEmpSup.hide()");
             }catch(Exception e){
                 System.out.println(e.getMessage());
                                 FacesMessage mensaje =
