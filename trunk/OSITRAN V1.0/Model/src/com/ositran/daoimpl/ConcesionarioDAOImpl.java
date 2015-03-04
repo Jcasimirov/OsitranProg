@@ -65,9 +65,10 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         Session session = sessionFactory.openSession();
         Query query;
         session.beginTransaction();
-        query =
-            session.createQuery("FROM Concesionario  E WHERE  E.cncDescripcion like :filtro1 or E.cncRepresentanteLegal like :filtro1");
-        query.setParameter("filtro1", "%" + filtro + "%");
+        query = session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :filtro1");
+                query.setParameter("filtro1", "%" + filtro + "%");
+        /*query = session.createQuery("FROM Concesionario  E WHERE  E.cncDescripcion like :filtro1 or E.cncRepresentanteLegal like :filtro1");
+        query.setParameter("filtro1", "%" + filtro + "%");*/
         List list = query.list();
         session.getTransaction().commit();
         return list;
