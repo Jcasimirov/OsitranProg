@@ -18,11 +18,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "concesionarioMB")
 @RequestScoped
 public class Concesionario {
+  
     private int tipoD = 0;
     private String buscar;
     private int codigoConcesionario;
@@ -156,7 +159,9 @@ public class Concesionario {
         representanteE = concesionarioVOE.getCncRepresentanteLegal();
         codigoCargoE = concesionarioVOE.getCrgId();
     }
-
+    
+     
+    
     public void editar() {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correoE);
@@ -350,6 +355,24 @@ public class Concesionario {
         correo = "";
         representante = "";
         codigoCargo = 0;
+    }
+
+
+
+    public void setPattern(Pattern pattern) {
+        this.pattern = pattern;
+    }
+
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    public void setMatcher(Matcher matcher) {
+        this.matcher = matcher;
+    }
+
+    public Matcher getMatcher() {
+        return matcher;
     }
 
     public void setNombre(String nombre) {
