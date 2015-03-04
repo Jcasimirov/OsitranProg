@@ -298,7 +298,14 @@ public class MantenimientoEmpSup {
         }else if (tipoDocumento == 0 && !nroDoc.equals("") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumento==1 && nroDoc.matches("[0-9]*") && (nroDoc.length() > 8 ||nroDoc.length() < 8)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.length() > 11 ||nroDoc.length() < 11)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
+        
         else{
             try{
                 empSupVO.setSupNombre(nomEmpSup);
