@@ -2,12 +2,19 @@ package com.ositran.parametros;
 
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
 import com.ositran.util.Util;
+
+import java.sql.SQLException;
+
 import java.util.Date;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -60,11 +67,11 @@ public class MantenimientoTipoInfraestructura {
     public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
 
     /* Guardar */
-    public void guardar() {
+    public void guardar() throws SQLException {
 
         if (tinNombre.equals("") || tinDescripcion.equals("")) {
             System.out.println("no se puede guardar");
-            
+
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No se ha completado con el Registro"));
@@ -79,7 +86,7 @@ public class MantenimientoTipoInfraestructura {
                 getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
                 RequestContext.getCurrentInstance().execute("popupagregar.hide()");
                 limpiar();
-                
+
                 ListarInfraestructura();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -92,7 +99,10 @@ public class MantenimientoTipoInfraestructura {
 
 
     }
+
+
     /* Fin Guardar */
+
 
     /* Editar */
     public void cargarEditar(InfraestructuraTipoVO infraestructuraTipoV) {
@@ -103,7 +113,8 @@ public class MantenimientoTipoInfraestructura {
         tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
     }
 
-    public void editar() {
+    public void editar() throws SQLException {
+        
         try {
             infraestructuraTipoVO.setTinId(codigoE);
             infraestructuraTipoVO.setTinNombre(tinNombreE.toUpperCase());
@@ -128,7 +139,7 @@ public class MantenimientoTipoInfraestructura {
         tinDescripcion = " ";
     }
 
-    public List<InfraestructuraTipoVO> ListarInfraestructura() {
+    public List<InfraestructuraTipoVO> ListarInfraestructura() throws SQLException {
         try {
             listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
         } catch (Exception e) {
@@ -144,7 +155,7 @@ public class MantenimientoTipoInfraestructura {
         codigoEliminar = codigo;
     }
 
-    public void eliminar() {
+    public void eliminar() throws SQLException {
         try {
             getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
             ListarInfraestructura();
@@ -225,6 +236,7 @@ public class MantenimientoTipoInfraestructura {
 
     /* buscar  */
     String nomInfraSearch;
+    String desInfraSearch;
     private String buscar;
     private List<InfraestructuraTipoVO> filtrar;
 
@@ -253,9 +265,18 @@ public class MantenimientoTipoInfraestructura {
     }
 
 
-    public List<InfraestructuraTipoVO> SearchListaInfra() {
+    public void setDesInfraSearch(String desInfraSearch) {
+        this.desInfraSearch = desInfraSearch;
+    }
+
+    public String getDesInfraSearch() {
+        return desInfraSearch;
+    }
+
+
+    public List<InfraestructuraTipoVO> SearchListaInfra() throws SQLException {
         try {
-            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
+            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch, desInfraSearch);
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
