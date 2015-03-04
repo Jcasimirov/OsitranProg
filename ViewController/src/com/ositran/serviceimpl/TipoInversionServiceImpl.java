@@ -8,6 +8,9 @@ import com.ositran.service.TipoInversionServices;
 import com.ositran.model.InversionTipo;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.TipoInversionVO;
+
+import java.sql.SQLException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +22,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     private TipoInversionDAO tipoInversionDAOImpl;
 
     @Override
-    public List<TipoInversionVO> query()  {
+    public List<TipoInversionVO> query()  throws SQLException ,Exception{
         List<InversionTipo> list=tipoInversionDAOImpl.query();
         List<TipoInversionVO> listVO=toListTipoInversionVO(list);
         return listVO;
@@ -27,7 +30,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     
 
     @Override
-    public String insert(TipoInversionVO tipoInversionVO) {
+    public String insert(TipoInversionVO tipoInversionVO) throws SQLException ,Exception{
         InversionTipo inversionTipo=toTipoInversion(tipoInversionVO);
         String result=tipoInversionDAOImpl.insert(inversionTipo);
         return result;
@@ -35,7 +38,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     }
     
     @Override
-    public List<TipoInversionVO> query1(String buscar)  {
+    public List<TipoInversionVO> query1(String buscar)  throws SQLException ,Exception{
     
         List<InversionTipo> list=tipoInversionDAOImpl.query1(buscar);
         List<TipoInversionVO> listVO=toListTipoInversionVO(list);
@@ -43,20 +46,20 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     }
     
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException ,Exception{
         String result=this.getTipoInversionDAOImpl().delete(id);
         return result;
     }
 
     @Override
-    public String update(TipoInversionVO tipoInversionVO)  {
+    public String update(TipoInversionVO tipoInversionVO)  throws SQLException ,Exception{
         InversionTipo inversionTipo=toTipoInversion(tipoInversionVO);
         String result=this.getTipoInversionDAOImpl().update(inversionTipo);
         return result;
     }
 
     @Override
-    public TipoInversionVO get(Integer id) {
+    public TipoInversionVO get(Integer id) throws SQLException ,Exception{
         
         return null;
     }
@@ -77,7 +80,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         try {
             tipoInversionVO.setTivFechaAlta(inversionTipo.getTivFechaAlta());
             tipoInversionVO.setTivFechaBaja(inversionTipo.getTivFechaBaja());
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
