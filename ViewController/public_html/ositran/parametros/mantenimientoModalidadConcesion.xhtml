@@ -10,6 +10,7 @@
                     font-family: sans-serif;
                 }
             </style>
+            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
         </h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
@@ -25,8 +26,9 @@
                     <p:layoutUnit position="south"></p:layoutUnit>
                     <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
                         <div align="center" style="font-size: 11px">
-                            <div align="center" style="width:75%">
-                                <table style="margin-bottom:5px;font-size: 11px">
+                            <div align="center" style="width:100%">
+                                
+                                <table style="margin-bottom:5px;font-size: 11px;margin-right: 35%;">
                                     <tr>
                                         <td>
                                             #{etq.etq_nombre}
@@ -36,26 +38,21 @@
                                              value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"></p:inputText>
                                             
                                         </td>
-                                        <td></td>
+                                        
                                         <td>
                                         <p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}" action="#{backing_mantenimientoModalidadConcesion.FiltrarListaModalidad}"
                                                               
                                                              update=":form1:tablamodalidad">                                                
                                             </p:commandButton>                                           
                                         </td>
-                                    </tr>
-                                     
-                                    <tr>
-                                        <td>                                            
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
-                                        <td></td>
+                                   
                                         <td>
                                             <p:commandButton value="#{btn.btn_limpiar}" action="#{backing_mantenimientoModalidadConcesion.LimpiarFiltro}" update=":form1:nombremodbuscar"/>
                                         </td>
                                     </tr>
+                                     
+                                 
+                               
                                      
                                  
                                 </table>
@@ -64,6 +61,7 @@
                                                  var="modalidad" selectionMode="single" style="font-size:11px;"
                                                  rowKey="#{modalidad.mcoId}" rows="10" paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 paginatorPosition="bottom"
                                                  rowsPerPageTemplate="5,10,15"
                                                  emptyMessage="No se Encontraron Registros">
                                         <p:column headerText="Nombre">
@@ -97,8 +95,7 @@
                                 <table style="font-size: 11px">
                                     <tr style="font-size: 11px">
                                         <td align="left">    
-                                            <p:commandButton value="Nuevo" 
-                                                             onclick="regModalidad.show()"></p:commandButton>
+                                            <p:commandButton value="Nuevo" actionListener="#{backing_mantenimientoModalidadConcesion.limpiarCampos}" update=":form1:regModalidad"  oncomplete="regModalidad.show()"></p:commandButton>
                                         </td>
                                         <td colspan="3">
                                             <p:commandButton value="Salir"></p:commandButton>
