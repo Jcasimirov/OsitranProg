@@ -109,12 +109,13 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
 
 
     @Override
-    public List<InfraestructuraTipo> AllSearch(String a) throws SQLException {
+    public List<InfraestructuraTipo> AllSearch(String a, String b) throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM InfraestructuraTipo  I WHERE lower(I.tinNombre) like  lower(:busqueda) order by TIN_ID asc");
+        query=session.createQuery("FROM InfraestructuraTipo  I WHERE lower(I.tinNombre) like  lower(:busqueda) and lower(I.tinDescripcion) like lower(:busqueda2) order by TIN_ID asc");
         query.setParameter("busqueda","%"+a+"%");
+        query.setParameter("busqueda2","%"+b+"%");
         List<InfraestructuraTipo> list= query.list();
         session.getTransaction().commit();
         session.close();
