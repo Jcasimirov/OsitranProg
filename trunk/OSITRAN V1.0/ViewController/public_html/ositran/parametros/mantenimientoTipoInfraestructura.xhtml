@@ -42,7 +42,7 @@
                             </h3>
                         </div>
                         <div align="center">
-                            <table style="width:70% ;font-size:11px;">
+                            <table style="width:80% ;font-size:11px;" >
                                 <tr>
                                     <td>
                                         #{etq.etq_nombre}:
@@ -53,18 +53,32 @@
                                                         value="#{infraestructuraMB.nomInfraSearch}"
                                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
                                     </td>
-                                    <td align="right" colspan="2">
+                                    <td align="right" >
                                         <p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}"
                                                          action="#{infraestructuraMB.SearchListaInfra}"
                                                          update=":form:tablaMTI"/>
-                                        <p:commandButton value="#{btn.btn_limpiar}" type="reset"/>
+                                        
                                     </td>
                                 </tr>
                                                                     
                                  <tr>
+                                    <td>
+                                        #{etq.etq_des}:
+                                    </td>
+                                    <td >
+                                        <p:inputText    id="desInfraSearch" 
+                                                        size="60"
+                                                        value="#{infraestructuraMB.desInfraSearch}"
+                                                        onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                    </td>
+                                    <td align="right">
+                                        <p:commandButton value="#{btn.btn_limpiar}" type="reset" image="ui-icon-trash"/>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td align="right" colspan="3">
                                         <p:commandButton value="#{btn.btn_nuevo}" onclick="popupagregar.show()"
-                                                         type="reset"/>                                     
+                                                         type="reset" image="ui-icon-document"/>                                     
                                         
                                     </td>
                                 </tr>
@@ -73,7 +87,11 @@
                                 <tr>
                                     <td colspan="3">
                                         <p:dataTable style="font-size:11px;" id="tablaMTI" var="mti"
-                                                     value="#{infraestructuraMB.listaInfraestructura}">
+                                                     value="#{infraestructuraMB.listaInfraestructura}"
+                                                     paginator="true"
+                                                     paginatorPosition="bottom"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
                                             
                                             <p:column>
                                                 <f:facet name="header">
@@ -110,8 +128,6 @@
                                         </p:dataTable>
                                     </td>
                                 </tr>
-                                 
-                                
                             </table>
                         </div>
                     </p:layoutUnit>
