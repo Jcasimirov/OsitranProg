@@ -4,6 +4,9 @@ import com.ositran.daoimpl.ConcesionarioDAOImpl;
 import com.ositran.model.Concesionario;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.vo.bean.ConcesionarioVO;
+
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +24,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     }
 
     @Override
-    public List<ConcesionarioVO> query() {
+    public List<ConcesionarioVO> query()  throws SQLException ,Exception{
         System.out.println("llegooo Servicessss filtro");
         List<Concesionario> list=concesionarioDAOImpl.query();
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
@@ -29,35 +32,41 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return listVO;
     }
     @Override
-    public List<ConcesionarioVO> queryF(String filtro) {
+    public List<ConcesionarioVO> queryF(String filtro)  throws SQLException ,Exception{
         
         List<Concesionario> list=concesionarioDAOImpl.queryF(filtro);
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
         return listVO;
     }
+    @Override
+    public int getCanNombres(String nombre) throws SQLException, Exception {
+        int cantidad;
+        cantidad =concesionarioDAOImpl.getCanNombres(nombre);
+        return cantidad;
+    }
     
     @Override
-    public String insert(ConcesionarioVO concesionarioVO) {
+    public String insert(ConcesionarioVO concesionarioVO)  throws SQLException ,Exception{
         Concesionario concesionario=toConcesionario(concesionarioVO);
         String result=concesionarioDAOImpl.insert(concesionario);
         return result;
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id)  throws SQLException ,Exception{
         String result=this.concesionarioDAOImpl.delete(id);
         return result;
     }
 
     @Override
-    public String update(ConcesionarioVO concesionarioVO) {
+    public String update(ConcesionarioVO concesionarioVO)  throws SQLException ,Exception{
         Concesionario concesionario=toConcesionario(concesionarioVO);
         String result=this.concesionarioDAOImpl.update(concesionario);
         return result;
     }
 
     @Override
-    public ConcesionarioVO get(Integer id) {
+    public ConcesionarioVO get(Integer id)  throws SQLException ,Exception{
         Concesionario concesionario=this.concesionarioDAOImpl.get(id);
         ConcesionarioVO infraestructuraTipoVO=toConcesionarioVO(concesionario);
         return infraestructuraTipoVO;
@@ -118,4 +127,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return concesionario;
     }
 
+
+   
 }
+
