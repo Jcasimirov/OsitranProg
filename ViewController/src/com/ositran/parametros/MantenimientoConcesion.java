@@ -122,7 +122,13 @@ public class MantenimientoConcesion {
     }
 
     public void listarTipInfraestructura() {
-        listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
+        try {
+           listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
+       } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+        
     }
     
     
