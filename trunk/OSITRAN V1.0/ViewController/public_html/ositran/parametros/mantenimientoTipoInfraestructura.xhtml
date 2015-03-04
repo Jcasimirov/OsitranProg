@@ -4,6 +4,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
+            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
             <style type="text/css">
                 .ui-dialog-titlebar {
                     font-size: 13px;
@@ -44,26 +45,31 @@
                             <table style="width:70% ;font-size:11px;">
                                 <tr>
                                     <td>
-                                        #{etq.etq_nombre}
+                                        #{etq.etq_nombre}:
                                     </td>
                                     <td>
-                                        <p:inputText id="nomInfraSearch" value="#{infraestructuraMB.nomInfraSearch}"
-                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputText    id="nomInfraSearch" 
+                                                        size="60"
+                                                        value="#{infraestructuraMB.nomInfraSearch}"
+                                                        onkeyup="pasarMayuscula(this.value,this.id)"/>
                                     </td>
-                                    <td>
+                                    <td align="right" colspan="2">
                                         <p:commandButton image="ui-icon-search" value="#{btn.btn_buscar}"
                                                          action="#{infraestructuraMB.SearchListaInfra}"
                                                          update=":form:tablaMTI"/>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td>
                                         <p:commandButton value="#{btn.btn_limpiar}" type="reset"/>
                                     </td>
                                 </tr>
-                                 
+                                                                    
+                                 <tr>
+                                    <td align="right" colspan="3">
+                                        <p:commandButton value="#{btn.btn_nuevo}" onclick="popupagregar.show()"
+                                                         type="reset"/>                                     
+                                        
+                                    </td>
+                                </tr>
+                                
+                                
                                 <tr>
                                     <td colspan="3">
                                         <p:dataTable style="font-size:11px;" id="tablaMTI" var="mti"
@@ -105,14 +111,7 @@
                                     </td>
                                 </tr>
                                  
-                                <tr>
-                                    <td align="center" colspan="3">
-                                        <p:commandButton value="#{btn.btn_nuevo}" onclick="popupagregar.show()"
-                                                         type="reset"/>
-                                         
-                                        <p:commandButton value="#{btn.btn_salir}"/>
-                                    </td>
-                                </tr>
+                                
                             </table>
                         </div>
                     </p:layoutUnit>
