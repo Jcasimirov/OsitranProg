@@ -13,5 +13,5 @@ public interface InfraestructuraTipoDAO {
         public String delete(Integer id) throws SQLException;
         public String update(InfraestructuraTipo infraestructuraTipo) throws SQLException;
         public InfraestructuraTipo get(Integer id) throws SQLException;
-        public List<InfraestructuraTipo> AllSearch(String a) throws SQLException; 
+        public List<InfraestructuraTipo> AllSearch(String a, String b) throws SQLException; 
 }
