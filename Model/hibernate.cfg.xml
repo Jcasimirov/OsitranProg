@@ -30,16 +30,5 @@
         <mapping class="com.ositran.model.Usuario"/>
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.ModalidadConcesion"/>
-        <mapping resource="./com/ositran/model/Cargo.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Concesion.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Concesionario.hbm.xml"/>
-  
-        <mapping resource="./com/ositran/model/Event.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Infraestructura.hbm.xml"/>
-        <mapping resource="./com/ositran/model/Igv.hbm.xml"/>
-        <mapping resource="./com/ositran/model/InversionTipo.hbm.xml"/>
-        <mapping resource="./com/ositran/model/InversionTipoDescripcion.hbm.xml"/>   
-        <mapping resource="./com/ositran/model/Rol.hbm.xml"/>
-        <mapping resource="./com/ositran/model/TipoDocumento.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
