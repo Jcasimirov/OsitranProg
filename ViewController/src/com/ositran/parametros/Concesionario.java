@@ -1,9 +1,9 @@
 package com.ositran.parametros;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.ositran.service.CargoService;
 import com.ositran.service.ConcesionarioService;
-import com.ositran.serviceimpl.CargoServiceImpl;
-import com.ositran.serviceimpl.ConcesionarioServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.vo.bean.CargoVO;
 import com.ositran.vo.bean.ConcesionarioVO;
@@ -13,188 +13,329 @@ import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "concesionarioMB")
 @RequestScoped
-public class Concesionario{
-    private int tipoD=0;
+public class Concesionario {
+    private int tipoD = 0;
     private String buscar;
-   private int codigoConcesionario; 
-   private String nombre;
-   private String descripcion;
-   private String siglasNombre;
-   private String telefono;
-   private int tipDocumento;
-   private String numeroDocumento;
-   private String direccion;
-   private String correo;
-   private String representante;
-   private int codigoCargo;
-   //********************EDITAR***********************************/
-   private int codigoConcesionarioE;
-   private String nombreE;
-   private String descripcionE;
-   private String siglasNombreE;
-   private String telefonoE;
-   private int tipDocumentoE;
-   private String numeroDocumentoE;
-   private String direccionE;
-   private String correoE;
-   private String representanteE;
-   private int codigoCargoE;
-   private int concesionarioId;
+    private int codigoConcesionario;
+    private String nombre;
+    private String descripcion;
+    private String siglasNombre;
+    private String telefono;
+    private int tipDocumento;
+    private String numeroDocumento;
+    private String direccion;
+    private String correo;
+    private String representante;
+    private int codigoCargo;
     //********************EDITAR***********************************/
-   List<ConcesionarioVO> listaCon;
-   List<TipoDocumentoVO> listaTipoDoc;
-   List<CargoVO> listCargo;
-                    @ManagedProperty(value="#{concesionarioVO}")
-                        ConcesionarioVO concesionarioVO;    
-                    @ManagedProperty(value="#{tipoDocumentoServiceImp}")
-                        TipoDocumentoServiceImpl tipoDocumentoServiceImp;
-                    @ManagedProperty(value="#{concesionarioServiceImpl}")
-                        ConcesionarioService concesionarioServiceImpl;
-                    @ManagedProperty(value="#{cargoServiceImp}")
-                        CargoService cargoServiceImp;
-    
-   public  void guardar(){
-       System.out.println(tipDocumento);
-       System.out.println(numeroDocumento.length());
-       if (nombre.equals("")){
-               FacesContext.getCurrentInstance().addMessage(null, 
-               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe ingresar el nombre"));
-           }
-       else if (descripcion.equals("")){
-               FacesContext.getCurrentInstance().addMessage(null, 
-               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe ingresar la descripcion"));
-           }
-       else if (tipDocumento==0){
-               FacesContext.getCurrentInstance().addMessage(null, 
-               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe selecionar tipo documento"));
-           }
-       else if (tipDocumento==2 && numeroDocumento.length()!=11){
-               FacesContext.getCurrentInstance().addMessage(null, 
-               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El RUC debe de tener 11 dijitos"));
-           }
-           else if (tipDocumento==1 && numeroDocumento.length()!=8){
-                   FacesContext.getCurrentInstance().addMessage(null, 
-                   new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El DNI debe de tener 8 dijitos"));
-               }
-       
-       else {
-       concesionarioVO.setCncCorreo(correo);
-       concesionarioVO.setCncDescripcion(descripcion);
-       concesionarioVO.setCncDireccion(direccion);
-       concesionarioVO.setCncEstado(1);
-       concesionarioVO.setCncFechaAlta(new Date());
-       concesionarioVO.setCncNombre(nombre);
-       concesionarioVO.setCncNroDocumento(numeroDocumento);
-       concesionarioVO.setCncRepresentanteLegal(representante);
-       concesionarioVO.setCncTelefono(telefono);
-       concesionarioVO.setCrgId(codigoCargo);
-       concesionarioVO.setTdoId(tipDocumento);
-       concesionarioServiceImpl.insert(concesionarioVO);
-       cargarListaConcesionarios();
-        limpiarCampos();
-        RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
-        FacesContext.getCurrentInstance().addMessage(null, 
-        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito"));
-       }
-       }
-   public void cargarEditar(ConcesionarioVO concesionarioVOE){
-                    concesionarioId=concesionarioVOE.getCncId();
-                    codigoConcesionarioE=concesionarioVOE.getCncId();
-                    nombreE=concesionarioVOE.getCncNombre();
-                    descripcionE=concesionarioVOE.getCncDescripcion();
-                    siglasNombre="SIGLASS";
-                    telefonoE=concesionarioVOE.getCncTelefono();
-                    tipDocumentoE=concesionarioVOE.getTdoId();
-                    numeroDocumentoE=concesionarioVOE.getCncNroDocumento();
-                    direccionE=concesionarioVOE.getCncDireccion();
-                    correoE=concesionarioVOE.getCncCorreo();
-                    representanteE=concesionarioVOE.getCncRepresentanteLegal();
-                    codigoCargoE=concesionarioVOE.getCrgId();
-       }
-   
-   public void editar(){
-        if (nombreE.equals("")){
-                FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe infresar el nombre"));
+    private int codigoConcesionarioE;
+    private String nombreE;
+    private String descripcionE;
+    private String siglasNombreE;
+    private String telefonoE;
+    private int tipDocumentoE;
+    private String numeroDocumentoE;
+    private String direccionE;
+    private String correoE;
+    private String representanteE;
+    private int codigoCargoE;
+    private int concesionarioId;
+    //********************EDITAR***********************************/
+    private Pattern pattern;
+    private Matcher matcher;
+
+    private static final String EMAIL_PATTERN =
+        "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+    List<ConcesionarioVO> listaCon;
+    List<TipoDocumentoVO> listaTipoDoc;
+    List<CargoVO> listCargo;
+    @ManagedProperty(value = "#{concesionarioVO}")
+    ConcesionarioVO concesionarioVO;
+    @ManagedProperty(value = "#{tipoDocumentoServiceImp}")
+    TipoDocumentoServiceImpl tipoDocumentoServiceImp;
+    @ManagedProperty(value = "#{concesionarioServiceImpl}")
+    ConcesionarioService concesionarioServiceImpl;
+    @ManagedProperty(value = "#{cargoServiceImp}")
+    CargoService cargoServiceImp;
+
+    public void guardar() {
+        int cantidad;
+        cantidad=validarNombre(nombre);
+        System.out.println(cantidad);
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(correo);
+        if (cantidad>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                                              "El nombre que quiere ingresar ya existe"));
             }
-        else if (descripcionE.equals("")){
-                FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe de Ingresar la Descripcion"));
-            }
-        else if (tipDocumentoE==0){
-                FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Debe selecionar tipo documento"));
-            }
-        else {
-          concesionarioVO.setCncId(concesionarioId);
-          concesionarioVO.setCncCorreo(correoE);
-          concesionarioVO.setCncDescripcion(descripcionE);
-          concesionarioVO.setCncDireccion(direccionE);
-          concesionarioVO.setCncEstado(2);
-          concesionarioVO.setCncFechaCambio(new Date());
-          concesionarioVO.setCncNombre(nombreE);
-          concesionarioVO.setCncNroDocumento(numeroDocumentoE);
-          concesionarioVO.setCncRepresentanteLegal(representanteE);
-          concesionarioVO.setCncTelefono(telefonoE);
-          concesionarioVO.setCrgId(codigoCargoE);
-          concesionarioVO.setTdoId(tipDocumentoE);
-          concesionarioServiceImpl.update(concesionarioVO);
-          cargarListaConcesionarios();
+        else if (nombre.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe ingresar el nombre"));
+        } else if (descripcion.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe ingresar la descripcion"));
+        } else if (tipDocumento == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe selecionar tipo documento"));
+        } else if (tipDocumento == 2 && numeroDocumento.length() != 11) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "El RUC debe de tener 11 dijitos"));
+        } else if (tipDocumento == 1 && numeroDocumento.length() != 8) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "El DNI debe de tener 8 dijitos"));
+        } else if (!correo.equals("") && matcher.find() != true) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No es un formato de correo valido "));
+
+        } else {
+            try {
+               concesionarioVO.setCncCorreo(correo);
+               concesionarioVO.setCncDescripcion(descripcion);
+               concesionarioVO.setCncDireccion(direccion);
+               concesionarioVO.setCncEstado(1);
+               concesionarioVO.setCncFechaAlta(new Date());
+               concesionarioVO.setCncNombre(nombre);
+               concesionarioVO.setCncNroDocumento(numeroDocumento);
+               concesionarioVO.setCncRepresentanteLegal(representante);
+               concesionarioVO.setCncTelefono(telefono);
+               concesionarioVO.setCrgId(codigoCargo);
+               concesionarioVO.setTdoId(tipDocumento);
+               concesionarioServiceImpl.insert(concesionarioVO);
+               cargarListaConcesionarios();
+               limpiarCampos();
+               RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                             "Se Registro con Exito"));
+           } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo registrar el concecionario ")); 
+                
+            } 
+            catch ( Exception e){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                  correo +
+                                                                                  " No se pudo registrar el concecionario "));
+                }
           
-          FacesContext.getCurrentInstance().addMessage(null, 
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Edito con Exito"));
         }
     }
-   public void busqueda(){
-       System.out.println("hola MB");
-      listaCon= concesionarioServiceImpl.queryF(buscar);
-       }
-   public void  cargarListaTipoDocumento()throws SQLException{
-           listaTipoDoc=tipoDocumentoServiceImp.query();
-       }
-   public void cargarListaCargo()throws SQLException{
-            listCargo=cargoServiceImp.query();
-       }
-   public void cargarListaConcesionarios(){
-       listaCon=concesionarioServiceImpl.query();
-       }
-   
-   public void cargarEliminar(ConcesionarioVO concesionarioVO){
-        
-        descripcion=concesionarioVO.getCncDescripcion();
-        codigoConcesionario=concesionarioVO.getCncId();
-       }
-   
-   public void eliminar(){
-       concesionarioServiceImpl.delete(codigoConcesionario);
-       cargarListaConcesionarios();
-       }
 
-   public void limpiarCampos(){
-             buscar="";
-             codigoConcesionario=0; 
-             nombre="";
-             descripcion="";
-             siglasNombre="";
-             telefono="";
-             tipDocumento=0;
-             numeroDocumento="";
-             direccion="";
-             correo="";
-             representante="";
-             codigoCargo=0;
+    public void cargarEditar(ConcesionarioVO concesionarioVOE) {
+        concesionarioId = concesionarioVOE.getCncId();
+        codigoConcesionarioE = concesionarioVOE.getCncId();
+        nombreE = concesionarioVOE.getCncNombre();
+        descripcionE = concesionarioVOE.getCncDescripcion();
+        siglasNombre = "SIGLASS";
+        telefonoE = concesionarioVOE.getCncTelefono();
+        tipDocumentoE = concesionarioVOE.getTdoId();
+        numeroDocumentoE = concesionarioVOE.getCncNroDocumento();
+        direccionE = concesionarioVOE.getCncDireccion();
+        correoE = concesionarioVOE.getCncCorreo();
+        representanteE = concesionarioVOE.getCncRepresentanteLegal();
+        codigoCargoE = concesionarioVOE.getCrgId();
+    }
+
+    public void editar() {
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(correoE);
+        if (nombreE.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe infresar el nombre"));
+        } else if (descripcionE.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe de Ingresar la Descripcion"));
+        } else if (tipDocumentoE == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe selecionar tipo documento"));
+        } else if (tipDocumentoE == 2 && numeroDocumentoE.length() != 11) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              "El RUC debe de tener 11 dijitos"));
+        } else if (tipDocumentoE == 1 && numeroDocumentoE.length() != 8) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              "El DNI debe de tener 8 dijitos"));
+        } else if (!correoE.equals("") && matcher.find() != true) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correoE +
+                                                                          " No es un formato de correo valido "));
+
+        } else {
+            
+            try {
+                concesionarioVO.setCncId(concesionarioId);
+                concesionarioVO.setCncCorreo(correoE);
+                concesionarioVO.setCncDescripcion(descripcionE);
+                concesionarioVO.setCncDireccion(direccionE);
+                concesionarioVO.setCncEstado(2);
+                concesionarioVO.setCncFechaCambio(new Date());
+                concesionarioVO.setCncNombre(nombreE);
+                concesionarioVO.setCncNroDocumento(numeroDocumentoE);
+                concesionarioVO.setCncRepresentanteLegal(representanteE);
+                concesionarioVO.setCncTelefono(telefonoE);
+                concesionarioVO.setCrgId(codigoCargoE);
+                concesionarioVO.setTdoId(tipDocumentoE);
+                concesionarioServiceImpl.update(concesionarioVO);
+                cargarListaConcesionarios();
+                RequestContext.getCurrentInstance().execute("editarPanel.hide()");
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                              "Se Edito con Exito"));
+            } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo editar el concecionario ")); 
+                
+            } 
+            catch ( Exception e){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                  correo +
+                                                                                  " No se pudo editar el concecionario "));
+                }
+          
+        }
+    }
+
+    public void busqueda() {
+      try {
+            listaCon = concesionarioServiceImpl.queryF(buscar);
+        } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No se pudo editar el concecionario ")); 
+            
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo editar el concecionario "));
+            }
+      
+    }
+
+    public void cargarListaTipoDocumento() {
+        listaTipoDoc = tipoDocumentoServiceImp.query();
+    }
+
+    public void cargarListaCargo() {
+        listCargo = cargoServiceImp.query();
+    }
+
+    public void cargarListaConcesionarios() {
+        try {
+           listaCon = concesionarioServiceImpl.query();
        }
+        catch (SQLException s) {
+                   FacesContext.getCurrentInstance().addMessage(null,
+                                                                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                 correo +
+                                                                                 " No se pudo editar el concecionario ")); 
+                   
+               } 
+               catch ( Exception e){
+                       FacesContext.getCurrentInstance().addMessage(null,
+                                                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                     correo +
+                                                                                     " No se pudo editar el concecionario "));
+                   }
+        
+    }
+
+    public void cargarEliminar(ConcesionarioVO concesionarioVO) {
+
+        descripcion = concesionarioVO.getCncDescripcion();
+        codigoConcesionario = concesionarioVO.getCncId();
+    }
+
+    public void eliminar() {
+        try {
+           concesionarioServiceImpl.delete(codigoConcesionario);
+           cargarListaConcesionarios();
+           FacesContext.getCurrentInstance().addMessage(null,
+                                                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                         "Se elimino correctamente"));
+       }  catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No se pudo editar el concecionario ")); 
+            
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo editar el concecionario "));
+            }
+ 
+    }
+    public int validarNombre(String nombre){
+            int cantidad=0;
+
+        try {
+           cantidad=concesionarioServiceImpl.getCanNombres(nombre);
+       } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No se pudo validar el nombre ")); 
+            
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo validar el nombre "));
+            }
+       
+        
+        return cantidad;
+        }
+    public void limpiarCampos() {
+        buscar = "";
+        codigoConcesionario = 0;
+        nombre = "";
+        descripcion = "";
+        siglasNombre = "";
+        telefono = "";
+        tipDocumento = 0;
+        numeroDocumento = "";
+        direccion = "";
+        correo = "";
+        representante = "";
+        codigoCargo = 0;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
