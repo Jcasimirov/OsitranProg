@@ -244,11 +244,27 @@ public class Concesionario {
     }
 
     public void cargarListaTipoDocumento() {
-        listaTipoDoc = tipoDocumentoServiceImp.query();
+        try {
+           listaTipoDoc = tipoDocumentoServiceImp.query();
+       } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No se pudo editar el concecionario "));
+        }
+        
     }
 
     public void cargarListaCargo() {
-        listCargo = cargoServiceImp.query();
+        try {
+           listCargo = cargoServiceImp.query();
+       } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          correo +
+                                                                          " No se pudo editar el concecionario "));
+        }
+       
     }
 
     public void cargarListaConcesionarios() {
