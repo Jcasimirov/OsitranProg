@@ -16,18 +16,7 @@
                   obj = obj.toLowerCase();
                   document.getElementById(id).value = obj;
               }
-              function validarEmail(email){
-              
-              if (email==''){
-              }
-               else 
-               {
-               expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                if ( !expr.test(email) )
-                    alert("Error: La dirección de correo " + email + " es incorrecta.");
-                    }
-                    document.getElementById('email').value="";
-              }
+                     
             </script>
         </h:head>
         <h:body>
@@ -38,23 +27,18 @@
             <f:event listener="#{concesionarioMB.cargarListaConcesionarios}" type="postAddToView"></f:event>
              cargarListaCargo 
             <h:form id="form">
-                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                <p:growl id="mensaje" showDetail="true" life="2000"/>
                 <p:messages autoUpdate="true"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
-                            <h3 class="titulo">MANTENIMIENTO CONCESIONARIO</h3>
+                            <h4 class="titulo">MANTENIMIENTO CONCESIONARIO</h4>
                             <div style="width:75%">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                            <td align="left">
-                                                <p:commandButton type="reset" image="ui-icon-circle-plus"
-                                                                 onclick="insertarPanel.show()"
-                                                                 value=" Nuevo Concesionario"/>
-                                            </td>
-                                            <td align="right">
+                                             <td align="left">
                                                 Ingrese Criterio Busqueda: 
                                                 <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
@@ -64,49 +48,46 @@
                                                 <p:commandButton actionListener="#{concesionarioMB.cargarListaConcesionarios}"
                                                                  update=":form:tablaC" value="Ver Todos"></p:commandButton>
                                             </td>
+                                            <td align="right">
+                                                <p:commandButton type="reset" image="ui-icon-circle-plus"
+                                                                 onclick="insertarPanel.show()"
+                                                                 value=" Nuevo Concesionario"/>
+                                            </td>
+                                           
                                         </tr>
                                     </table>
                                 </div>
                                 <br></br>
                                  
-                                <p:dataTable emptyMessage="NO SE ENCONTRARON DATOS" paginator="true"
+                                <p:dataTable paginatorPosition="bottom"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="5" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                              style="font-size:11px;" id="tablaC" var="concesionario"
                                              value="#{concesionarioMB.listaCon}">
-                                    <p:column headerText="ID" style="width:5%">
-                                        <h:outputText value="#{concesionario.cncId}"/>
+                                    <p:column headerText="Nombre" >
+                                        <h:outputText value="#{concesionario.cncNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Descripcion" style="width:15%">
+                                    <p:column headerText="Descripcion" >
                                         <h:outputText value="#{concesionario.cncDescripcion}"/>
                                     </p:column>
-                                    <p:column headerText="R.Legal" style="width:45%">
+                                    <p:column headerText="R.Legal" >
                                         <h:outputText value="#{concesionario.cncRepresentanteLegal}"/>
                                     </p:column>
-                                    <p:column headerText="N Doc" style="width:15%">
+                                    <p:column headerText="N Doc" >
                                         <h:outputText value="#{concesionario.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Creacion:" style="width:10%">
-                                        <h:outputText value="#{concesionario.cncFechaAlta}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column headerText="Edicion:" style="width:10%">
-                                        <h:outputText value="#{concesionario.cncFechaCambio}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column headerText="Edi" style="width:5%">
+                                    <p:column headerText="Edi" style="width:3%">
                                         <p:commandButton oncomplete="editarPanel.show()"
                                                          update=":form:editarPanel :form:oculto1"
                                                          actionListener="#{concesionarioMB.cargarEditar(concesionario)}"
-                                                         image="ui-icon-document" style="width:25px;height:25px"/>
+                                                         image="ui-icon-document" style="width:22px;height:22px"/>
                                     </p:column>
-                                    <p:column headerText="Eli" style="width:5%">
+                                    <p:column headerText="Eli" style="width:3%" >
                                         <p:commandButton actionListener="#{concesionarioMB.cargarEliminar(concesionario)}"
                                                          update=":form:confirEliminar :form:oculto"
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
-                                                         style="width:25px;height:25px"/>
+                                                         style="width:22px;height:22px"/>
                                     </p:column>
                                 </p:dataTable>
                             </div>
@@ -168,8 +149,11 @@
                             </td>
                             <td align="left">Telefono:</td>
                             <td align="left">
-                                <p:inputMask id="telefono" mask="9?9999999999" maxlength="20"
-                                             value="#{concesionarioMB.telefonoE}"/>
+                                <p:inputText maxlength="20"
+                                             value="#{concesionarioMB.telefonoE}"
+                                             onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                             />
                             </td>
                         </tr>
                          
@@ -185,8 +169,10 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentosE">
-                                <p:inputMask mask="9?9999999999" value="#{concesionarioMB.numeroDocumentoE}"
-                                             maxlength="11"/>
+                                <p:inputText value="#{concesionarioMB.numeroDocumentoE}"
+                                             onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                             maxlength="11" />
                             </td>
                         </tr>
                          
@@ -203,7 +189,7 @@
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" validatorMessage="El Email no es correcto" id="emailE"
                                              onkeyup="pasarMinuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.correoE}">
+                                             value="#{concesionarioMB.correoE}" >
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
                             </td>
@@ -243,8 +229,8 @@
                          
                         <tr>
                             <td colspan="2" align="right">
-                                <p:commandButton update=":form:tablaC :form:mensaje" oncomplete="editarPanel.hide()"
-                                                 action="#{concesionarioMB.editar}" style="width:70px" value="Editar"/>
+                                <p:commandButton update=":form:tablaC :form:mensaje" 
+                                                 actionListener="#{concesionarioMB.editar}" style="width:70px" value="Editar"/>
                             </td>
                             <td colspan="2" align="left">
                                 <p:commandButton style="width:70px" value="Salir" onclick="editarPanel.hide ()"/>
@@ -260,7 +246,7 @@
                         <tr>
                             <td colspan="1" align="left">Ingrese Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText maxlength="50" style="width:70%"
+                                <p:inputText    maxlength="50" style="width:70%"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
                             </td>
@@ -283,15 +269,19 @@
                             </td>
                             <td align="left">Telefono:</td>
                             <td align="left">
-                                <p:inputMask id="telefonoE" mask="9?9999999999" maxlength="20"
-                                             value="#{concesionarioMB.telefono}"/>
+                                <p:inputText  onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              id="telefonoE" maxlength="20"
+                                             value="#{concesionarioMB.telefono}"
+                                            
+                                             />
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Tipo Documento:</td>
                             <td align="left">
-                                <p:selectOneMenu widgetVar="tipoDocumentoR" id="tipoDocumentoR"
+                                <p:selectOneMenu    widgetVar="tipoDocumentoR" id="tipoDocumentoR"
                                                  value="#{concesionarioMB.tipDocumento}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
@@ -300,8 +290,11 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentos">
-                                <p:inputMask mask="9?9999999999" value="#{concesionarioMB.numeroDocumento}"
-                                             maxlength="11"/>
+                                <p:inputText  onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              value="#{concesionarioMB.numeroDocumento}"
+                                              maxlength="11"
+                                             />
                             </td>
                         </tr>
                          
@@ -316,7 +309,7 @@
                         <tr>
                             <td align="left">Correo electronico:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%"   onblur="validarEmail(this.value)"  id="email"
+                                <p:inputText style="width:70%"    id="email"
                                              onkeyup="pasarMinuscula(this.value,this.id)"
                                              value="#{concesionarioMB.correo}">
                                     <p:watermark for="email" value="juanp@gmail.com"/>
