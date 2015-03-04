@@ -8,55 +8,57 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
+import java.sql.SQLException;
+
 import java.text.ParseException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InversionDescripcionServicesImpl implements InversionDescripcionServices {
 
     private InversionDescripcionDAO inversionDescripcionDAOimpl;
 
-  
+ 
 
     @Override
-    public List<InversionDescripcionVO> query() {
+    public List<InversionDescripcionVO> query()  throws SQLException ,Exception{
         List<InversionTipoDescripcion> list=inversionDescripcionDAOimpl.query();
         List<InversionDescripcionVO> listVO=toListInversionDescripcionVO(list);
         return listVO;
     }
 
     @Override
-    public String insert(InversionDescripcionVO inversionDescrpcionVO) {
+    public String insert(InversionDescripcionVO inversionDescrpcionVO)  throws SQLException ,Exception{
         InversionTipoDescripcion inversionTipoDescripcion=inversionTipoDescripcion(inversionDescrpcionVO);
         String result=inversionDescripcionDAOimpl.insert(inversionTipoDescripcion);
         return result;      
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id)  throws SQLException ,Exception{
         String result=this.getInversionDescripcionDAOimpl().delete(id);
         return result;
     }
 
     @Override
-    public String update(InversionDescripcionVO inversionDescrpcionVO) {
+    public String update(InversionDescripcionVO inversionDescrpcionVO) throws SQLException ,Exception {
         InversionTipoDescripcion inversionTipoDesc=inversionTipoDescripcion(inversionDescrpcionVO);
         String result=this.getInversionDescripcionDAOimpl().update(inversionTipoDesc);
         return result;
     }
 
     @Override
-    public InversionDescripcionVO get(Integer id) {
+    public InversionDescripcionVO get(Integer id) throws SQLException ,Exception {
         // TODO Implement this method
         return null;
     }
 
     @Override
-    public List<InversionDescripcionVO> query1(String buscar) {
-        // TODO Implement this method
-        return Collections.emptyList();
+    public List<InversionDescripcionVO> query1(String buscar) throws SQLException ,Exception {
+        List<InversionTipoDescripcion> list=inversionDescripcionDAOimpl.query1(buscar);
+        List<InversionDescripcionVO> listVO=toListInversionDescripcionVO(list);
+        return listVO;
     }
     //conversiones
     private List<InversionDescripcionVO> toListInversionDescripcionVO(List<InversionTipoDescripcion> list){
