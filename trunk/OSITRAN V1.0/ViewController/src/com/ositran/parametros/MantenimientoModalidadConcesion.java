@@ -25,6 +25,8 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "backing_mantenimientoModalidadConcesion")
 @RequestScoped
 @Generated(value = "1ositran/parametros/mantenimientoModalidadConcesion.jsf",
@@ -109,7 +111,14 @@ public class MantenimientoModalidadConcesion {
         this.modalidadServiceImp.update(modalidadVO);
         return "/index?faces-redirect=true";
     }
-
+    public int validarNombre (String Nombre) throws SQLException{
+        int resultado = this.modalidadServiceImp.ValidaNombre(Nombre);
+        return resultado;
+    }
+    public int validarNombreMod (String Nombre,String nombremod) throws SQLException{
+        int resultado = this.modalidadServiceImp.ValidaNombreMod(Nombre,nombremod);
+        return resultado;
+    }
     public void guardar() throws SQLException {
         if (nombremod.equals("")) {
             FacesMessage mensaje =
@@ -120,6 +129,11 @@ public class MantenimientoModalidadConcesion {
             FacesMessage mensaje =
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                  "No ha Ingresado Descripción de la Modalidad de Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarNombre(nombremod) > 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "El Nombre Ingresado ya existe");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
@@ -134,6 +148,8 @@ public class MantenimientoModalidadConcesion {
                 limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                RequestContext.getCurrentInstance().execute("regModalidad.hide()");
+                
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 FacesMessage mensaje =
@@ -156,7 +172,12 @@ public class MantenimientoModalidadConcesion {
         try {
             UIParameter parameter = (UIParameter) event.getComponent().findComponent("idEliminar");
             Integer idModalidad = (Integer) parameter.getValue();
-            this.modalidadServiceImp.delete(idModalidad);
+            modalidadVO = this.modalidadServiceImp.get(idModalidad);
+            modalidadVO.setMcoEstado(2);
+            //this.modalidadServiceImp.delete(idModalidad);
+            modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
+            modalidadVO.setMcoTerminal(util.obtenerIpCliente());
+            this.modalidadServiceImp.update(modalidadVO);
             getQuery();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -165,6 +186,7 @@ public class MantenimientoModalidadConcesion {
             FacesMessage mensaje =
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            
         }
         return "/index?faces-redirect=true";
 
@@ -176,6 +198,7 @@ public class MantenimientoModalidadConcesion {
     String descripcionmodAct;
     int idmodalidadAct;
     int estadomodAct;
+    String nommod;
 
 
     public void setNombremodAct(String nombremodAct) {
@@ -212,6 +235,15 @@ public class MantenimientoModalidadConcesion {
         return estadomodAct;
     }
 
+
+    public void setNommod(String nommod) {
+        this.nommod = nommod;
+    }
+
+    public String getNommod() {
+        return nommod;
+    }
+
     public void EmpSupUpd1() throws SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestMap = context.getExternalContext().getRequestParameterMap();
@@ -222,6 +254,7 @@ public class MantenimientoModalidadConcesion {
         descripcionmodAct = modalidadVO.getMcoDescripcion();
         idmodalidadAct = modalidadVO.getMcoId();
         estadomodAct = modalidadVO.getMcoEstado();
+        nommod = modalidadVO.getMcoNombre();
     }
 
     public void Modificar() throws SQLException {
@@ -235,6 +268,11 @@ public class MantenimientoModalidadConcesion {
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                  "No ha Ingresado Descripción de la Modalidad de Concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarNombreMod(nombremodAct,nommod) > 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "El Nombre Ingresado ya existe");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
                 modalidadVO.setMcoDescripcion(descripcionmodAct);
@@ -247,7 +285,8 @@ public class MantenimientoModalidadConcesion {
                 getQuery();
                 limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo con Exito");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);                 
+                RequestContext.getCurrentInstance().execute("modModalidad.hide()");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 FacesMessage mensaje =
