@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import com.ositran.dao.UsuarioDAO;
 import com.ositran.model.Usuario;
+
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 import org.hibernate.Query;
 import org.hibernate.cfg.Configuration;
@@ -31,7 +34,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public String insert(Usuario usuario) {
+    public String insert(Usuario usuario) throws SQLException {
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -46,7 +49,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -62,7 +65,23 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public String update(Usuario usuario) {
+    public String update(Usuario usuario)throws SQLException {
+        String result = null;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(usuario);
+            session.getTransaction().commit();
+            logger.info("Usuario updated successfully, Usuario Details=" + usuario);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
+    }
+    
+    @Override
+    public String update1(Usuario usuario)throws SQLException {
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -77,8 +96,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return result;
     }
 
+
+
     @Override
-    public Usuario get(Integer id) {
+    public Usuario get(Integer id) throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Usuario usuario = (Usuario) session.get(Usuario.class, id);
@@ -87,25 +108,49 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public List query() {
+    public List query() throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Usuario o").list();
+        List list = session.createQuery("select o from Usuario o order by USU_ID asc").list();
         System.out.println("LISTA = " + list);
         session.getTransaction().commit();
         return list;
     }
 
     @Override
-    public List<Usuario> AllSearch(String searchUsuario) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();    
-        Query query;     
-        query=session.createQuery("FROM Usuario U WHERE lower(U.usuUsuario) like lower(:busqueda)");
-        query.setParameter("busqueda","%"+searchUsuario+"%");
-        List<Usuario> list= query.list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
+    public List<Usuario> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException {
+        
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query;
+            if( nomTipoSearch<1  ){
+                query=session.createQuery("FROM Usuario u WHERE lower(u.usuUsuario) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2) order by USU_ID asc");
+                    query.setParameter("busqueda1", "%" + searchUsuario + "%");
+                    query.setParameter("busqueda2", "%" + searchNombre + "%");
+                }
+            else if( nomTipoSearch>0 ){
+                query=session.createQuery("FROM Usuario u WHERE lower(u.usuEsexterno) like lower(:busqueda3)order by USU_ID asc");
+                query.setParameter("busqueda3",nomTipoSearch);
+                }
+           
+            
+         
+            else{
+            query = session.createQuery("FROM Usuario u WHERE lower(u.usuUsuario) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2)and lower(u.usuEsexterno) like lower(:busqueda3) order by USU_ID asc" );
+            query.setParameter("busqueda1", "%" + searchUsuario + "%");
+            query.setParameter("busqueda2", "%" + searchNombre + "%");
+                query.setParameter("busqueda3",nomTipoSearch);
+              
+       
+            }
+                      
+            
+            List<Usuario> list = query.list();
+            session.getTransaction().commit();
+            session.close();
+            return list;
+        }
+
+
+    
 }
