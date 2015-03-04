@@ -42,7 +42,7 @@ public class Cargo implements Serializable {
     private Date crgFechaCambio;
     @Id
     @Column(name = "CRG_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TCargo_Id_Seq_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Cargo_Id_Seq_Gen")
     private Integer crgId;
     @Column(name = "CRG_NOMBRE", nullable = false, length = 100)
     private String crgNombre;
