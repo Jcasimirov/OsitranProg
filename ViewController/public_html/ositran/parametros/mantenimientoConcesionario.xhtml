@@ -7,14 +7,41 @@
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
             <script type="text/javascript">
+            var valorSelecionado=0;
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
                   document.getElementById(id).value = obj;
+                 
+                   
               }
 
               function pasarMinuscula(obj, id) {
                   obj = obj.toLowerCase();
                   document.getElementById(id).value = obj;
+              }
+               function cargarValor(varlor){
+               valorSelecionado=varlor.value;
+                numeroDR.jq.val("");
+               
+               
+              }
+              
+              function validarLongitud(numeroDoc){
+              var num=numeroDoc.value;
+              if (valorSelecionado==0){
+                alert('Debe de ingresar tipo de documento')
+              }
+              if (valorSelecionado==1){
+                    if (num.length>7){
+                    return false;
+                    }
+              }
+              if (valorSelecionado==2){
+               if (num.length>10){
+               return false;
+              }
+              }
+              
               }
                      
             </script>
@@ -25,7 +52,7 @@
             <f:event listener="#{concesionarioMB.cargarListaCargo}" type="postAddToView"></f:event>
              
             <f:event listener="#{concesionarioMB.cargarListaConcesionarios}" type="postAddToView"></f:event>
-             cargarListaCargo 
+          
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="2000"/>
                 <p:messages autoUpdate="true"/>
@@ -39,7 +66,7 @@
                                     <table width="100%">
                                         <tr>
                                              <td align="left">
-                                                Ingrese Criterio Busqueda: 
+                                                Busqueda por Nombre: 
                                                 <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton actionListener="#{concesionarioMB.busqueda}"
@@ -60,7 +87,7 @@
                                 <br></br>
                                  
                                 <p:dataTable paginatorPosition="bottom"
-                                emptyMessage="NO SE ENCONTRARON DATOS" rows="5" paginator="true"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                              style="font-size:11px;" id="tablaC" var="concesionario"
@@ -77,13 +104,13 @@
                                     <p:column headerText="N Doc" >
                                         <h:outputText value="#{concesionario.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Edi" style="width:3%">
+                                    <p:column headerText="Edi" style="width:4%">
                                         <p:commandButton oncomplete="editarPanel.show()"
                                                          update=":form:editarPanel :form:oculto1"
                                                          actionListener="#{concesionarioMB.cargarEditar(concesionario)}"
                                                          image="ui-icon-document" style="width:22px;height:22px"/>
                                     </p:column>
-                                    <p:column headerText="Eli" style="width:3%" >
+                                    <p:column headerText="Eli" style="width:4%" >
                                         <p:commandButton actionListener="#{concesionarioMB.cargarEliminar(concesionario)}"
                                                          update=":form:confirEliminar :form:oculto"
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
@@ -160,7 +187,9 @@
                         <tr>
                             <td align="left">Tipo Documento:</td>
                             <td align="left">
-                                <p:selectOneMenu widgetVar="tipoDocumentoR" id="tipoDocumentoRE"
+                                <p:selectOneMenu 
+                                onchange="cargarValor(this)"
+                                widgetVar="tipoDocumentoR" id="tipoDocumentoRE"
                                                  value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
@@ -169,10 +198,13 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentosE">
-                                <p:inputText value="#{concesionarioMB.numeroDocumentoE}"
+                                <p:inputText 
+                               
+                                onkeypress="return validarLongitud(this)"
+                                value="#{concesionarioMB.numeroDocumentoE}"
                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
-                                             maxlength="11" />
+                                             />
                             </td>
                         </tr>
                          
@@ -188,7 +220,7 @@
                             <td align="left">Correo electronico:</td>
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" validatorMessage="El Email no es correcto" id="emailE"
-                                             onkeyup="pasarMinuscula(this.value,this.id)"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.correoE}" >
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
@@ -207,7 +239,7 @@
                         <tr>
                             <td colspan="4" align="left">
                                 Cargo Representante: 
-                                <p:selectOneMenu value="#{concesionarioMB.codigoCargoE}">
+                                <p:selectOneMenu    value="#{concesionarioMB.codigoCargoE}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
                                                    itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
@@ -281,7 +313,8 @@
                         <tr>
                             <td align="left">Tipo Documento:</td>
                             <td align="left">
-                                <p:selectOneMenu    widgetVar="tipoDocumentoR" id="tipoDocumentoR"
+                                <p:selectOneMenu  onchange="cargarValor(this)"
+                                                widgetVar="tipoDocumentoR" id="tipoDocumentoR"
                                                  value="#{concesionarioMB.tipDocumento}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
@@ -290,10 +323,13 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentos">
-                                <p:inputText  onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                <p:inputText id="numeroDR"
+                                widgetVar="numeroDR"
+                                              onkeypress="return validarLongitud(this)"
+                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
                                               onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
                                               value="#{concesionarioMB.numeroDocumento}"
-                                              maxlength="11"
+                                            
                                              />
                             </td>
                         </tr>
@@ -310,7 +346,7 @@
                             <td align="left">Correo electronico:</td>
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%"    id="email"
-                                             onkeyup="pasarMinuscula(this.value,this.id)"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.correo}">
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
@@ -329,7 +365,8 @@
                         <tr>
                             <td colspan="4" align="left">
                                 Cargo Representante: 
-                                <p:selectOneMenu value="#{concesionarioMB.codigoCargo}">
+                                <p:selectOneMenu
+                                    value="#{concesionarioMB.codigoCargo}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
                                                    itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
