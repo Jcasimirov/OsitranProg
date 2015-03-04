@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <style type="text/css">
+                .ui-dialog-titlebar {
+                    font-size: 13px;
+                    font-family: sans-serif;
+                }
+            </style>
+            <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
+
+              function validarLetras(e) {
+                  tecla = (document.all) ? e.keyCode : e.which;
+                    if (tecla==8) return true; // backspace
+                    if (tecla==32) return true; // espacio
+                    if (tecla==9)  return true; // tab
+                    patron = /[a-zA-Z]/;//patron
+                  te = String.fromCharCode(tecla);
+                  return patron.test(te);// prueba de patron
+              }
+            </script>
+        </h:head>
+        <h:body>
+            <f:event listener="#{mantenimientoUsuarioMB.ListarUsuario}" type="postAddToView"></f:event>
+             
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                                #{msg.titulo_MANTUSU}
+                            </h3>
+                        </div>
+                        <div align="center">
+                            <table style="width:80% ;font-size:11px;" >
+                                <tr>
+                                    <td>#{etq.etq_usu}</td>
+                                    <td><p:inputText id="usuario" value="#{mantenimientoUsuarioMB.nomUserSearch}" size="35"/></td>
+                                     <td align="right"><p:commandButton    image="ui-icon-search"
+                                                            value="#{btn.btn_buscar}"
+                                                            style="width:75px"
+                                                            update=":form:tablaUSU"
+                                                            action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        #{cam.nom}
+                                    </td>
+                                    <td >
+                                        <p:inputText size="35" id="nombre" value="#{mantenimientoUsuarioMB.nomNomSearch}"/>
+                                    </td>
+                                    <td align="right">
+                                        <p:commandButton value="#{btn.btn_limpiar}" style="width:75px" type="reset" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        #{cam.tipo}
+                                    </td>
+                                    <td>
+                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomTipoSearch}">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="0"  />
+                                            <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                            <f:selectItem itemLabel="Externo" itemValue="2"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td align="right">
+                                        <p:commandButton image="ui-icon-document" value="#{btn.btn_nuevo}" onclick="agregarUsuario.show()" type="reset"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="70">
+                                        #{etq.etq_rol}
+                                    </td>
+                                    <td>
+                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomRolSearch}">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                                            <f:selectItem itemLabel="Rol 1" itemValue="1"/>
+                                            <f:selectItem itemLabel="Rol 2" itemValue="2"/>
+                                            <f:selectItem itemLabel="Rol 3" itemValue="3"/>
+                                            <f:selectItem itemLabel="Rol 4" itemValue="4"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td align="right">
+                                         <p:commandButton value="#{btn.btn_valusuint}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        #{etq.etq_est}
+                                    </td>
+                                    <td  colspan="2">
+                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomEstSearch}">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="3">
+                                        <p:dataTable style="font-size:11px;" id="tablaUSU" var="usu"
+                                                     value="#{mantenimientoUsuarioMB.listaUsuario}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     paginatorPosition="bottom"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="10">                                            
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="codigo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.usuId}"/>
+                                            </p:column>
+                                            
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Usuario"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.usuUsuario}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nombre"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.usuNombre}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Rol"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.rolId}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cargo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.crgId}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Tipo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{usu.usuEsexterno}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Estado"/>
+                                                </f:facet>
+                                            <h:outputText value="#{usu.usuEstado}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modificar"/>
+                                                </f:facet>
+                                                <p:commandButton action="#{mantenimientoUsuarioMB.cargarEditar}"
+                                                                 update=":form:modificarUsuario"
+                                                                 oncomplete="modificarUsuario.show()"
+                                                                 image="ui-icon-document"
+                                                                 style="width:25px;height:25px">
+                                                <f:param  id="idModificar" name="idModificar" value="#{usu.usuId}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Activar"/>
+                                                </f:facet>
+                                                <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
+                                                                 update=":form:tablaUSU" image="ui-icon-check"
+                                                                 style="width:25px;height:25px"></p:commandButton>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Desactivar"/>
+                                                </f:facet>
+                                                <p:commandButton action="#{mantenimientoUsuarioMB.desactivarUsuario(usu)}"
+                                                                 update=":form:tablaUSU" image="ui-icon-closethick"
+                                                                 style="width:25px;height:25px"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+                <!-- pdialog para boton agregar -->
+                <p:dialog header="Agregar Usuario" widgetVar="agregarUsuario" modal="true" resizable="false">
+                    <table style="margin-bottom:5px;font-size: 11px">
+                        <tr>
+                            <td>
+                                #{etq.etq_tusu}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.usuEsexterno}" >
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"   />
+                                    <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                    <f:selectItem itemLabel="Externo" itemValue="2"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_usu}
+                            </td>
+                            <td>
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuUsuario}"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onkeydown="return validarLetras(event)"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_pas}
+                            </td>
+                            <td>
+                                <p:password style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenya}"
+                                            />
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_nombre}
+                            </td>
+                            <td>
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombre}"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onkeydown="return validarLetras(event)"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_rol}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.rol}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Rol 1" itemValue="1"/>
+                                    <f:selectItem itemLabel="Rol 2" itemValue="2"/>
+                                    <f:selectItem itemLabel="Rol 3" itemValue="3"/>
+                                    <f:selectItem itemLabel="Rol 4" itemValue="4"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_cargo}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.cargo}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Cargo 1" itemValue="1"/>
+                                    <f:selectItem itemLabel="Cargo 2" itemValue="2"/>
+                                    <f:selectItem itemLabel="Cargo 3" itemValue="3"/>
+                                    <f:selectItem itemLabel="Cargo 4" itemValue="4"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_est}
+                            </td>
+                            <td>
+                                
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.usuEstado}">
+                                    <f:selectItem  itemDisabled="true" itemLabel="Activo" itemValue="1"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{btn.btn_guardar}" update=":form:tablaUSU :form:mensaje"
+                                                 action="#{mantenimientoUsuarioMB.guardarUsuario}"
+                                                 style="width:70px"
+                                                 />
+                            </td>
+                            <td>
+                                <p:commandButton value="#{btn.btn_salir}" oncomplete="agregarUsuario.hide()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                <!-- fin pdialog para boton agregar -->
+                <!-- pdialog para boton modificar -->
+                <p:dialog id="modificarUsuario" header="Modificar Usuario" widgetVar="modificarUsuario" modal="true"
+                          resizable="false">
+                    <table style="margin-bottom:5px;font-size: 11px">
+                        <tr>
+                            <td>
+                                <h:inputHidden value="#{mantenimientoUsuarioMB.codigoEE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_tusu}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.usuEsexternoE}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                    <f:selectItem itemLabel="Externo" itemValue="2"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_usu}
+                            </td>
+                            <td>
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuUsuarioE}"
+                                            onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onkeydown="return validarLetras(event)"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_pas}
+                            </td>
+                            <td>
+                                <p:inputText style="width:300px"  value="#{mantenimientoUsuarioMB.usuContrasenyaE}"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_nombre}
+                            </td>
+                            <td>
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombreE}"
+                                                onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onkeydown="return validarLetras(event)"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_rol}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.rolE}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Rol 1" itemValue="1"/>
+                                    <f:selectItem itemLabel="Rol 2" itemValue="2"/>
+                                    <f:selectItem itemLabel="Rol 3" itemValue="3"/>
+                                    <f:selectItem itemLabel="Rol 4" itemValue="4"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_cargo}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.cargoE}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Cargo 1" itemValue="1"/>
+                                    <f:selectItem itemLabel="Cargo 2" itemValue="2"/>
+                                    <f:selectItem itemLabel="Cargo 3" itemValue="3"/>
+                                    <f:selectItem itemLabel="Cargo 4" itemValue="4"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                #{etq.etq_est}
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.usuEstadoE}">
+                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
+                                    <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                    <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                                </p:selectOneMenu>
+                                
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{btn.btn_modificar}" update=":form:tablaUSU :form:mensaje"
+                                                 action="#{mantenimientoUsuarioMB.modificarUsuario}"
+                                                 oncomplete="modificarUsuario.hide()" style="width:70px"/>
+                            </td>
+                            <td>
+                                <p:commandButton value="#{btn.btn_salir}" oncomplete="modificarUsuario.hide()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                <!-- fin pdialog para boton modificar -->
+            </h:form>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:mantenimientoUsuarioMB-->
+</f:view>
