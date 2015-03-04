@@ -15,6 +15,7 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +38,7 @@ import org.hibernate.HibernateException;
 import org.primefaces.context.RequestContext;
 
 //@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
-@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
+@ManagedBean(name = "mantenimientoconcesionMB")
 @ViewScoped
 public class MantenimientoConcesion {
 
@@ -47,8 +48,9 @@ public class MantenimientoConcesion {
     private int codigoTipoInfraestructura;
     private int codigoTipoInfraestructuraInsert;
     private int codigoInfraestructura;
-    private List<ConcesionVO> listaConcesiones;
-    private List<InfraestructuraVO> listaInfraestructuras;
+     List<ConcesionVO> listaConcesiones;
+     List<InfraestructuraVO> lis;
+     List<InfraestructuraVO> listaInfraestructuras;
 
 
     private String nombre;
@@ -57,6 +59,10 @@ public class MantenimientoConcesion {
 
 
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
+
+
+    
+
 
     public void setAddInfraestructura(String addInfraestructura) {
         this.addInfraestructura = addInfraestructura;
@@ -82,7 +88,7 @@ public class MantenimientoConcesion {
     //----------------EDITAR------------------------//
 
     @ManagedProperty(value = "#{concesionServicesImpl}")
-    ConcesionService concesionServicesImpl;
+    ConcesionServiceImpl concesionServicesImpl;
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
@@ -99,11 +105,11 @@ public class MantenimientoConcesion {
     }
 
 
-    public void setConcesionServicesImpl(ConcesionService concesionServicesImpl) {
+    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
         this.concesionServicesImpl = concesionServicesImpl;
     }
 
-    public ConcesionService getConcesionServicesImpl() {
+    public ConcesionServiceImpl getConcesionServicesImpl() {
         return concesionServicesImpl;
     }
 
@@ -115,7 +121,7 @@ public class MantenimientoConcesion {
         return infraestructuraTipoServiceImpl;
     }
 
-    public void listarTipInfraestructura()  throws SQLException{
+    public void listarTipInfraestructura() {
         listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
     }
     
@@ -162,15 +168,25 @@ public class MantenimientoConcesion {
                     infraestructuraVO.setInfFechaAlta(new Date());
                     infraestructuraVO.setInfEstado(1);
                     infraestructuraServiceImpl.insert(infraestructuraVO);
-                    FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
-                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                    
 
                 }
 
+               
+                
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
-                limpiarcampos();
-                ListarConcesiones();
+                RequestContext.getCurrentInstance().execute("window.location.reload()");
+               
+              
+                listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
+             
+                
+                
+                FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+               
+                
             }
 
             catch (Exception e) {
@@ -181,7 +197,6 @@ public class MantenimientoConcesion {
 
             }
         }
-
     }
 
 
@@ -192,10 +207,7 @@ public class MantenimientoConcesion {
     }
 
 
-    public void limpiar() {
-        nombre = "";
-
-    }
+  
 
     public void cargarEditar() throws SQLException{
         
@@ -255,10 +267,7 @@ public class MantenimientoConcesion {
 
     }
 
-    public void limpiarcampos() {
-        nombre = "";
-
-    }
+  
 
     public List<ConcesionVO> ListarConcesiones() {
         try {
@@ -272,15 +281,10 @@ public class MantenimientoConcesion {
 
         return listaConcesiones;
     }
-    /*
-    public List<InfraestructuraVO> ListarInfraestructuras() {
-        System.out.println("llego al MB");
-        listaInfraestructuras = getInfraestructuraServiceImpl().query();
-        System.out.println("Anets");
+    public void resetear(){
+      infraestructura.getConcesion().setCsiNombre("");//para el carrito resetear nombre
+ }
 
-        return listaInfraestructuras;
-    }
-*/
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -375,13 +379,14 @@ public class MantenimientoConcesion {
     public void init() {
         infraestructura = new InfraestructuraVO();
         infraestructuras = new ArrayList<InfraestructuraVO>();
+       
     }
 
 
     public void createNew() {
         if (infraestructuras.contains(infraestructura)) {
-            FacesMessage msg = new FacesMessage("Dublicated", "This book has already been added");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Duplicidad", "Esta duplicando el valor");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             infraestructuras.add(infraestructura);
             infraestructura = new InfraestructuraVO();
@@ -389,8 +394,9 @@ public class MantenimientoConcesion {
     }
 
     public String reinit() {
+        
         infraestructura = new InfraestructuraVO();
-
+        
         return null;
     }
 
@@ -461,6 +467,8 @@ public class MantenimientoConcesion {
     public int getCodigoTipoInfraestructuraInsert() {
         return codigoTipoInfraestructuraInsert;
     }
+    
+ 
 
 
 }
