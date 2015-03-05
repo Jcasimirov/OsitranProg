@@ -1,52 +1,83 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-    <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:p="http://primefaces.org/ui">
-        <h:head></h:head>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <style type="text/css">
+                div login {
+                    position: absolute;
+                    top: 180px;
+                    left: 220px;
+                }
+            </style>
+        </h:head>
         <h:body>
-         <h:form binding="#{backing_ositran_logueo.form1}" id="form1">
-                <p:layout style="min-width:300px;min-height:400px;font-size:10px">
-                    <p:layoutUnit position="center" style="min-width:200px; min-height:300px;">
-                        <p:panel id="panel"
-                                 style="background:url(./../imagenes/ositranfoto.jpg) no-repeat;min-height:400px;">
+            <h:form id="form">
+                <p:layout style="font-size:10px">
+                    <p:layoutUnit position="center" >
+                        <div id="titulo" align="center">
+                            <table style="background:#ff2121   ; position:absolute; top:60px; left:350px;">
+                                <tr>
+                                    <td width="250" align="center">
+                                        <img src="../imagenes/logo.png" height="60" width="250"/>
+                                    </td>
+                                    <td width="100"></td>
+                                    <td width="300" align="center">
+                                        <h2 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                                            #{msg.titulo_LOGIN}
+                                        </h2>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p:panel id="panel" style="min-height:400px; border:none">
+                            <div id="img">
+                                <table style="position: absolute; top: 180px;left: 350px;">
+                                    <tr>
+                                        <td id="user">
+                                            <img src="../imagenes/infralogo.jpg" height="200" width="290" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div id="login">
-                                <table style="position:absolute; top:180px;left:20px">
+                                <table style="position: absolute; top: 220px;left: 695px;">
                                     <tr>
                                         <td id="user" width="100" height="40">
-                                            <font color="navy">#{etq.etq_usu}</font>
+                                            #{etq.etq_usu}
                                         </td>
                                         <td>
-                                            <p:inputText size="30" binding="#{backing_ositran_logueo.usuario}" id="usuario"/>
+                                            <p:inputText size="30" binding="#{loginMB.usuario}" id="usuario"/>
                                         </td>
                                     </tr>
                                      
                                     <tr>
                                         <td width="100" height="40">
-                                            <font color="navy">#{etq.etq_pas}</font>
+                                            #{etq.etq_pas}
                                         </td>
                                         <td>
-                                            <p:password size="30" binding="#{backing_ositran_logueo.pass}" id="pass"/>
+                                            <p:password size="30" binding="#{loginMB.pass}" id="pass"/>
                                         </td>
                                     </tr>
                                      
                                     <tr>
                                         <!-- botones login-->
                                         <td align="center" colspan="2">
-                                            <p:commandButton value="#{btn.btn_ingresar}" binding="#{backing_ositran_logueo.commandButton1}"
-                                                             id="commandButton1" action="#{backing_ositran_logueo.logear}"/>
+                                            <p:commandButton value="#{btn.btn_ingresar}"
+                                                             binding="#{loginMB.commandButton1}" id="commandButton1"
+                                                             action="#{loginMB.logear}"/>
                                              
                                             <p:commandButton value="#{btn.btn_salir}"/>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <img height="320" width="450" src="imagenes/ositran foto.jpg"/>
                         </p:panel>
                     </p:layoutUnit>
                 </p:layout>
             </h:form>
         </h:body>
     </html>
-    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_logueo-->
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:loginMB-->
 </f:view>
