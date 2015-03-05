@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">    
+        <h:head>
+            <script type="text/javascript">
+              PrimeFaces.locales['es'] = {
+                  closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
+              };
+            </script>
+            <style type="text/css">
+                .ui-panel .ui-panel-titlebar {
+                    color: #333333;
+                    font-family: Century Gothic, sans-serif;
+                }
+            </style>
+        </h:head>
+        <h:body>
+<p:panel header="#{msg.tituloRERI}" style="text-align:center;text-decoration:blink;width:100%">
+	<h:form>
+	<div align="center">
+		<table style="font-size: 11px">
+			<tr>
+				<td>
+				<p:fieldset legend="Datos contrato de Concesion">
+					<table>
+						<tr>
+							<td>
+							<p:fieldset legend="Criterios de Busqueda">	
+							<p:inputText id="cb" style="width:200px"/>	
+							<p:watermark for="cb" value="Buscar Contrato de Concesión" />										
+							<p:commandButton image="ui-icon-search" ></p:commandButton>							
+							</p:fieldset>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<p:fieldset legend="Datos Contrato de Concesion">
+								<table>
+									<tr>
+										<td align="left">Número de contrato de concesion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo de infraestructura</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Infraestructura</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo de inversion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Modelaidad de inversion</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Nombre de concesionario</td>
+										<td><p:inputText></p:inputText></td>
+									</tr>
+								</table>
+							</p:fieldset>	
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:fieldset legend="Etapa Concesión">
+								<table>
+									<tr>
+										<td colspan="2" align="left">Seleccione Etapa</td>
+										<td colspan="2" align="left">
+												<p:selectOneMenu  value="">
+					        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+										        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+										        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+										        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+					    						</p:selectOneMenu>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">Alcance</td>
+										<td colspan="3" align="left" ><p:inputText style="width: 300px" disabled="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Inicio</td>
+										<td align="left"><p:calendar  locale="es" pattern="yyyy-MMM-dd " /></td>
+										<td align="left">Fin</td>
+										<td align="left"><p:calendar  locale="es" pattern="yyyy-MMM-dd" /></td>
+									</tr>
+									<tr>
+										<td align="left">Total</td>
+										<td align="left" disabled="true"><p:inputText></p:inputText></td>
+										<td align="left">Moneda</td>
+										<td align="left" disabled="true"><p:inputText></p:inputText></td>
+									</tr>
+									
+								</table>
+							</p:fieldset>
+							</td>
+							
+						</tr>
+						
+					</table>
+					</p:fieldset>
+				</td>
+				<td >
+					<p:fieldset legend="Solicitud del concesionario">					
+						<table>
+							<tr>
+								<td>Fecha Inicio</td>
+								<td><p:calendar locale="es" pattern="yyyy-mm-dd"></p:calendar></td>									
+								<td>Fecha Fin</td>
+								<td><p:calendar locale="es" pattern="yyyy-mm-dd"></p:calendar></td>
+                                                                <td><h:outputText value="Moneda: "></h:outputText> <h:selectOneMenu  value="">
+                                                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+                                                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                                                                </h:selectOneMenu>
+                                                                </td>
+							</tr>
+						</table>
+					
+					<br></br>
+                                        <br></br>
+				  <p:fieldset legend="Datos Valorización">
+						<table>                                      
+                                                        <tr>
+                                                                <td colspan="6"><h:outputText value="Aeropuerto:"></h:outputText> <h:selectOneMenu  value="">
+                                                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+                                                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                                                                </h:selectOneMenu></td>
+                                                        </tr>
+                                                
+							<tr>
+                                                                
+								<td align="left" style="width:110px">Concepto:</td>
+								<td align="left" style="width:170px">
+												<h:selectOneMenu  value="">
+					        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+										        <f:selectItem  itemLabel="Concepto1" itemValue="1" />
+										        <f:selectItem  itemLabel="Concepto2" itemValue="2" />
+										        <f:selectItem  itemLabel="Concepto3" itemValue="3" />
+					    						</h:selectOneMenu>
+					    					    
+					    		</td>	
+								<td align="left">Monto Presentado</td>
+								<td  align="left">
+                                                                <p:inputText  style="width:50px"></p:inputText></td>	
+                                                                <td align="left">Montos con Igv</td>
+								<td>
+                                            <p:commandButton id="btn_add" value="Agregar" 
+                                                             action="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.reinit()}">
+                                                <p:collector value="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.infraestructura}"
+                                                             addTo="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.infraestructuras}"
+                                                             unique="true"/>
+                                            </p:commandButton>
+
+                                                                
+                                                                </td>			
+							</tr>
+							
+							<tr>
+								<td colspan="6">
+									<p:dataTable editable="true" value="#{mantenimientoconcesionMB.infraestructuras}" var="list" id="booksTable">
+						       			 <p:column headerText="Descripcion Del Concepto" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	 
+						       			 <p:column headerText="Moneda" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Neto" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Igv" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Total" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>
+                                                                        <p:column headerText="Eliminar" style="width:25px">
+                                                <p:commandLink value="Remove" update=":form:books"
+                                                               process=":form:books">
+                                                    <p:collector value="#{list}"
+                                                                 removeFrom="#{mantenimientoconcesionMB.infraestructuras}"
+                                                                 unique="true"/>
+                                                </p:commandLink>
+                                            </p:column>
+									</p:dataTable>
+									<div align="right">
+									<h:outputText value="Total"></h:outputText>
+									<p:inputText style="width:40px"></p:inputText>
+									<p:inputText style="width:40px"></p:inputText>
+									<p:inputText style="width:40px"></p:inputText>
+								
+									</div>
+								</td>		
+							</tr>
+						</table>
+					</p:fieldset>
+					</p:fieldset>	
+							
+				</td>
+			</tr>
+		</table>
+		<div align="center" style="font-size: 11px">
+		<table>
+			<tr>
+				<td><p:commandButton value="Guardar"/></td>	
+				<td><p:commandButton value="Limpiar"/></td>	
+			</tr>
+			
+		</table>
+		</div>
+		</div>
+	</h:form>	
+</p:panel>
+        </h:body>
+    </html>
