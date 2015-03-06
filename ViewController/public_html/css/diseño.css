@@ -2,8 +2,13 @@
     font-size: 13px;
     font-family: sans-serif;
     
-    }
-
+	}
+.tool{
+        font-size: 13px;
+        background-image: none;
+        background-color:#fffb81;
+        font-style: italic;
+}
 .negrita{
  font-weight: bold;
 }
@@ -39,7 +44,7 @@
    border: none;
    color: Black;
    font-weight: bold;
- 
+  
     
 }
 .ui-datatable .ui-datatable-data tr{
