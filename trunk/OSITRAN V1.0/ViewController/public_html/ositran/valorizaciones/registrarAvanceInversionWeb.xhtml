@@ -109,6 +109,7 @@
 					</p:fieldset>
 				</td>
 				<td >
+                                <p:growl id="msgs"/>
 					<p:fieldset legend="Solicitud del concesionario">					
 						<table>
 							<tr>
@@ -156,10 +157,10 @@
                                                                 <p:inputText  style="width:50px"></p:inputText></td>	
                                                                 <td align="left">Montos con Igv</td>
 								<td>
-                                            <p:commandButton id="btn_add" value="Agregar" 
-                                                             action="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.reinit()}">
-                                                <p:collector value="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.infraestructura}"
-                                                             addTo="#{backing_ositran_valorizaciones_registrarAvanceInversionWeb.infraestructuras}"
+                                            <p:commandButton id="btn_add" value="Agregar" update="books msgs @parent"
+                                                             action="#{mantenimientoconcesionMB.reinit()}">
+                                                <p:collector value="#{mantenimientoconcesionMB.infraestructura}"
+                                                             addTo="#{mantenimientoconcesionMB.infraestructuras}"
                                                              unique="true"/>
                                             </p:commandButton>
 
@@ -169,9 +170,10 @@
 							
 							<tr>
 								<td colspan="6">
+                                                                <p:outputPanel id="books">
 									<p:dataTable editable="true" value="#{mantenimientoconcesionMB.infraestructuras}" var="list" id="booksTable">
 						       			 <p:column headerText="Descripcion Del Concepto" style="width:25px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText value="#{list.infNombre}"/>
 						       			</p:column>	 
 						       			 <p:column headerText="Moneda" style="width:25px">
 						          			 <h:outputText></h:outputText>
@@ -201,6 +203,7 @@
 									<p:inputText style="width:40px"></p:inputText>
 								
 									</div>
+                                                                    </p:outputPanel>
 								</td>		
 							</tr>
 						</table>
