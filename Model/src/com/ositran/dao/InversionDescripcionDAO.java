@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface InversionDescripcionDAO {
+
+ 
         public List<InversionTipoDescripcion> query() throws SQLException ,Exception;
         public String insert(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception;
         public String delete(Integer id) throws SQLException ,Exception;
@@ -18,4 +20,5 @@ public interface InversionDescripcionDAO {
         public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception;
         public int getCanNombres(String nombre)  throws SQLException ,Exception;    
 }
+
 
