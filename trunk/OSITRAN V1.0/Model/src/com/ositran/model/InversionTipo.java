@@ -153,4 +153,3 @@ public class InversionTipo implements Serializable {
         this.tivUsuarioCambio = tivUsuarioCambio;
     }
 }
-
