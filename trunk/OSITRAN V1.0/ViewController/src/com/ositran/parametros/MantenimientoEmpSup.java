@@ -114,6 +114,14 @@ public class MantenimientoEmpSup {
     
     public List<EmpresaSupervisoraVO> getQuery() throws SQLException{
         listaEmpSup=this.empSupServiceImp.query();
+        listaTipoDocumento = this.tipoDocumentoServiceImp.query();
+        for (int i = 0 ; i< listaEmpSup.size();i++){
+            for(int j=0; j<listaTipoDocumento.size();j++){
+                if(listaEmpSup.get(i).getTdoId() == listaTipoDocumento.get(j).getTdoId()){
+                    listaEmpSup.get(i).setDescripcionDoc(listaTipoDocumento.get(j).getTdoNombre());
+                }
+            }
+        }
         //limpiarCampos ();
         return listaEmpSup; 
         
@@ -233,12 +241,38 @@ public class MantenimientoEmpSup {
         siglasNom = "";    
     }
     
+    int idEliminar;
+    String nombreEliminar;
+
+    public void setIdEliminar(int idEliminar) {
+        this.idEliminar = idEliminar;
+    }
+
+    public int getIdEliminar() {
+        return idEliminar;
+    }
+
+    public void setNombreEliminar(String nombreEliminar) {
+        this.nombreEliminar = nombreEliminar;
+    }
+
+    public String getNombreEliminar() {
+        return nombreEliminar;
+    }
+
+    public void confirmarEliminar() throws SQLException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("id3");
+        Integer idEmpSup = Integer.valueOf(str.toString());
+        empSupVO=this.empSupServiceImp.get(idEmpSup);
+        idEliminar = empSupVO.getSupId();
+        nombreEliminar = empSupVO.getSupNombre().toUpperCase();
+    }
     
-    public String EmpSupDel(ActionEvent event) throws SQLException{
-        try{
-            UIParameter parameter=(UIParameter)event.getComponent().findComponent("id3");
-            Integer idEmpSup=(Integer)parameter.getValue();
-            empSupVO=this.empSupServiceImp.get(idEmpSup);
+    public String EmpSupDel() throws SQLException{
+        try{            
+            empSupVO=this.empSupServiceImp.get(idEliminar);
             empSupVO.setSupEstado(2);
             empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
             empSupVO.setSupTerminal(util.obtenerIpCliente());
@@ -262,19 +296,20 @@ public class MantenimientoEmpSup {
         int resultado = this.empSupServiceImp.ValidaNombre(Nombre);
         return resultado;
     }
-    public int validarNombreMod (String Nombre,String NombreEmpMod) throws SQLException{
-        int resultado = this.empSupServiceImp.ValidaNombreMod(Nombre,NombreEmpMod);
+    public int validarRuc (String ruc, int documento) throws SQLException{
+        int resultado = this.empSupServiceImp.ValidaRuc(ruc,documento);
         return resultado;
     }
+    
     public void guardar() throws SQLException{
-        if (nomEmpSup.equals("")) {
+        if (nomEmpSup.trim().equals("")) {
             FacesMessage mensaje =
                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (dirEmpSup.equals("")) {
+        }else if (dirEmpSup.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (repLegal.equals("")) {
+        }else if (repLegal.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (cargo == 0) {
@@ -283,26 +318,29 @@ public class MantenimientoEmpSup {
         }else if (!correo.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNom.equals("")) {
+        }else if (siglasNom.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarNombre(nomEmpSup)>0) {
+        }else if (validarNombre(nomEmpSup.trim())>0) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!telefono.equals("") && !telefono.matches("[0-9]*")) {
+        }else if (!telefono.trim().equals("") && !telefono.matches("[0-9]*")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento>0 && !nroDoc.matches("[0-9]*") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento == 0 && !nroDoc.equals("") ) {
+        }else if (tipoDocumento == 0 && !nroDoc.trim().equals("") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento==1 && nroDoc.matches("[0-9]*") && (nroDoc.length() > 8 ||nroDoc.length() < 8)) {
+        }else if (tipoDocumento==1 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 8 ||nroDoc.trim().length() < 8)) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.length() > 11 ||nroDoc.length() < 11)) {
+        }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 11 ||nroDoc.trim().length() < 11)) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarRuc(nroDoc.trim(),tipoDocumento) > 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
         
@@ -352,7 +390,7 @@ public class MantenimientoEmpSup {
     private int idMod;
     private int estadoMod;
     private String nommod;
-
+    private String nroRuc;
 
     public void setNomEmpSupMod(String nomEmpSupMod) {
         this.nomEmpSupMod = nomEmpSupMod;
@@ -453,6 +491,15 @@ public class MantenimientoEmpSup {
         return nommod;
     }
 
+
+    public void setNroRuc(String nroRuc) {
+        this.nroRuc = nroRuc;
+    }
+
+    public String getNroRuc() {
+        return nroRuc;
+    }
+
     public void EmpSupUpd1() throws SQLException{
         FacesContext context=FacesContext.getCurrentInstance();
         Map requestMap=context.getExternalContext().getRequestParameterMap();
@@ -470,19 +517,29 @@ public class MantenimientoEmpSup {
         estadoMod = empSupVO.getSupEstado();
         cargoMod = empSupVO.getCrgId();
         tipoDocumentoMod = empSupVO.getTdoId();
-        nommod = empSupVO.getSupNombre();;
+        nommod = empSupVO.getSupNombre();
+        nroRuc = empSupVO.getSupNroDocumento();
         
     }
     
+    public int validarRucMod (String ruc,String RucAnt, int documento) throws SQLException{
+        int resultado = this.empSupServiceImp.ValidarRucMod(ruc,RucAnt,documento);
+        return resultado;
+    }
+    public int validarNombreMod (String Nombre,String NombreEmpMod) throws SQLException{
+        int resultado = this.empSupServiceImp.ValidaNombreMod(Nombre,NombreEmpMod);
+        return resultado;
+    }
+    
     public void Modificar() throws SQLException{
-        if (nomEmpSupMod.equals("")) {
+        if (nomEmpSupMod.trim().equals("")) {
             FacesMessage mensaje =
                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (dirEmpSupMod.equals("")) {
+        }else if (dirEmpSupMod.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (repLegalMod.equals("")) {
+        }else if (repLegalMod.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (cargoMod == 0) {
@@ -491,20 +548,29 @@ public class MantenimientoEmpSup {
         }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNomMod.equals("")) {
+        }else if (siglasNomMod.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarNombreMod(nomEmpSupMod,nommod)>0) {
+        }else if (validarNombreMod(nomEmpSupMod.trim(),nommod.trim())>0) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!telefonoMod.equals("") && !telefonoMod.matches("[0-9]*")) {
+        }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumentoMod == 0 && !nroDocMod.equals("") ) {
+        }else if (tipoDocumentoMod == 0 && !nroDocMod.trim().equals("") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod==1 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 8 ||nroDocMod.trim().length() < 8)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod==2 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 11 ||nroDocMod.trim().length() < 11)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarRucMod(nroDocMod.trim(),nroRuc,tipoDocumentoMod) > 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
         else{
@@ -657,6 +723,7 @@ public class MantenimientoEmpSup {
     // Busqueda Por Nombre Empresa Supervisora
     
     String nomEmpSupBus;
+    String rucbus;
 
 
     public void setNomEmpSupBus(String nomEmpSupBus) {
@@ -667,15 +734,34 @@ public class MantenimientoEmpSup {
         return nomEmpSupBus;
     }
 
+
+    public void setRucbus(String rucbus) {
+        this.rucbus = rucbus;
+    }
+
+    public String getRucbus() {
+        return rucbus;
+    }
+
     public List<EmpresaSupervisoraVO> FiltrarListaEmpSup() throws SQLException{
         System.out.println(nomEmpSupBus);
-        listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus);
+        System.out.println(rucbus);
+        listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus,rucbus);
+        listaTipoDocumento = this.tipoDocumentoServiceImp.query();
+        for (int i = 0 ; i< listaEmpSup.size();i++){
+            for(int j=0; j<listaTipoDocumento.size();j++){
+                if(listaEmpSup.get(i).getTdoId() == listaTipoDocumento.get(j).getTdoId()){
+                    listaEmpSup.get(i).setDescripcionDoc(listaTipoDocumento.get(j).getTdoNombre());
+                }
+            }
+        }
         //limpiarCampos ();
         return listaEmpSup; 
     }
     
     public void LimpiarFiltro(){
         nomEmpSupBus = "";
+        rucbus="";
     }
     
     
