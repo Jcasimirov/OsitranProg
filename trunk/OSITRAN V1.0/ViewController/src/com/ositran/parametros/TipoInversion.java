@@ -2,31 +2,21 @@ package com.ositran.parametros;
 
 import com.ositran.service.TipoInversionServices;
 import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
-
-import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
-
 import java.util.Date;
-
 import java.util.List;
-
 import java.util.Map;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipoInversionMB")
 @RequestScoped
 public class TipoInversion {
+    private String nombreAntiguo;
     private int codigoEliminar;
     private String nombreEliminar;
     private List<TipoInversionVO> listaInversiones;
@@ -38,25 +28,21 @@ public class TipoInversion {
     private String nombreE;
     private String descripcionE;
     //----------------EDITAR------------------------//
-
-    //----------------MENSAJE VALIDACION------------------------//
-
+   
+    @ManagedProperty(value = "#{tipoInversionVO}")
+    TipoInversionVO tipoInversionVO;
     @ManagedProperty(value = "#{tipoInversionServicesImpl}")
     TipoInversionServices tipoInversionServicesImpl;
 
-    public void setTipoInversionServicesImpl(TipoInversionServices tipoInversionServicesImpl) {
-        this.tipoInversionServicesImpl = tipoInversionServicesImpl;
-    }
-
-    public TipoInversionServices getTipoInversionServicesImpl() {
-        return tipoInversionServicesImpl;
-    }
-    public TipoInversionVO tipoInversionVO = new TipoInversionVO();
-
-
     public void guardar() {
-
-        if (nombre.equals("")) {
+        int cantidad;
+        cantidad=validarNombre(nombre);
+        if (cantidad>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                                              "El nombre que quiere ingresar ya existe"));
+            }
+        else   if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe de Ingresar el Nombre"));
@@ -87,28 +73,69 @@ public class TipoInversion {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar el tipo de inversion "));
-
             }
         }
-
-
     }
 
+    public int validarNombre(String nombre){
+            int cantidad=0;
+
+        try {
+           cantidad=tipoInversionServicesImpl.getCanNombres(nombre);
+       } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                        
+                                                                          " No se pudo validar el nombre "));  
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                            
+                                                                              " No se pudo validar el nombre "));
+            }
+        return cantidad;
+        }
     public void limpiar() {
         nombre = "";
         descripcion = "";
     }
 
-    public void cargarEditar(TipoInversionVO tipoInversionV) {
-        TipoInversionVO tipoIn = new TipoInversionVO();
-        tipoIn = tipoInversionV;
-        codigoE = tipoIn.getTivId();
-        nombreE = tipoIn.getTivNombre();
-        descripcionE = tipoIn.getTivDescripcion();
+    public void cargarEditar() {
+        try {
+           FacesContext context=FacesContext.getCurrentInstance();
+           Map requestMap=context.getExternalContext().getRequestParameterMap();
+           Object str=requestMap.get("idModificar");
+           Integer idcodigo=Integer.valueOf(str.toString());
+           tipoInversionVO=tipoInversionServicesImpl.get(idcodigo);
+           nombreAntiguo = tipoInversionVO.getTivNombre();
+           codigoE = tipoInversionVO.getTivId();
+           nombreE = tipoInversionVO.getTivNombre();
+           descripcionE = tipoInversionVO.getTivDescripcion();
+       }catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo cargar los datos de edicion "));
+
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "  No se pudo cargar los datos de edicion"));
+
+        }
+
     }
 
     public void editar() {
         try {
+            int cantidad;
+            cantidad=validarNombre(nombreE);        
+            if (cantidad>0 && !nombreAntiguo.equals(nombreE)){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                                                  "El nombre que quiere ingresar ya existe"));
+                }
+            else 
             if (nombreE.equals("")) {
                 FacesMessage mensaje =
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe ingresar el campo nombre");
@@ -294,5 +321,22 @@ public class TipoInversion {
     public String getBuscar() {
         return buscar;
     }
+
+    public void setNombreAntiguo(String nombreAntiguo) {
+        this.nombreAntiguo = nombreAntiguo;
+    }
+
+    public String getNombreAntiguo() {
+        return nombreAntiguo;
+    }
+    public void setTipoInversionServicesImpl(TipoInversionServices tipoInversionServicesImpl) {
+        this.tipoInversionServicesImpl = tipoInversionServicesImpl;
+    }
+
+    public TipoInversionServices getTipoInversionServicesImpl() {
+        return tipoInversionServicesImpl;
+    }
+
+
 
 }
