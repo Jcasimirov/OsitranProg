@@ -7,7 +7,16 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="./WEB-INF/jdbc.properties"/>
     </bean>
-     <bean id="concesionVO" class="com.ositran.vo.bean.ConcesionVO"/>
+       <!--Beans*****************************************************************************-->
+        <bean id="tipoInversionVO" class="com.ositran.vo.bean.TipoInversionVO" />
+    <bean id="inversionTipo" class="com.ositran.model.InversionTipo" />
+    <bean id="concesionarioVO" class="com.ositran.vo.bean.ConcesionarioVO" />
+    <bean id="concesionario" class="com.ositran.model.Concesionario" />
+    <bean id="inversionDescripcionVO" class="com.ositran.vo.bean.InversionDescripcionVO" />
+    <bean id="inversionTipoDescripcion" class="com.ositran.model.InversionTipoDescripcion" />
+    
+    <!--Beans******************************************************************************-->
+    
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
@@ -28,16 +37,24 @@
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
     </bean>
-    <!--Concesionario-->
-    <bean id="concesionarioVO" class="com.ositran.vo.bean.ConcesionarioVO" />
-    <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl"/>
+    
+    
+    
+       <!--Concesionario-->
+   
+    <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
+        <property name="concesionario" ref="concesionario"/>
+    </bean>
     <bean id="concesionarioServiceImpl" class="com.ositran.serviceimpl.ConcesionarioServiceImpl">
         <property name="concesionarioDAOImpl" ref="concesionarioDAOImpl"/>
+        <property name="concesionario" ref="concesionario"/>
+        <property name="concesionarioVO" ref="concesionarioVO"/>
     </bean>
     <bean id="consesionario" class="com.ositran.parametros.Concesionario">
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
         <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
         <property name="cargoServiceImp" ref="cargoServiceImp"/>
+        <property name="concesionarioVO" ref="concesionarioVO"/>
 
     </bean>
     <!--Igv-->
@@ -68,21 +85,32 @@
     </bean>
     <bean id="empSupVO" class="com.ositran.vo.bean.EmpresaSupervisoraVO"></bean>
     
-    <!--Inversion descripcion-->
-    <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl"/>
+  <!--Inversion descripcion-->
+    <bean id="inversionDescripcionDAOimpl" class="com.ositran.daoimpl.InversionDescripcionDAOImpl">
+        <property name="inversionTipoDescripcion" ref="inversionTipoDescripcion"/>
+    </bean>
     <bean id="inversionDescripcionServicesImpl" class="com.ositran.serviceimpl.InversionDescripcionServicesImpl">
         <property name="inversionDescripcionDAOimpl" ref="inversionDescripcionDAOimpl"/>
+        <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
+        <property name="inversionTipoDescripcion" ref="inversionTipoDescripcion"/>
+
     </bean>
     <bean id="mantenimientoTipoInversionDescripcion" class="com.ositran.parametros.DescripcionTipoInversion">
         <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
+        <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
+        
     </bean>
     
     
-    <!--Tipo de inversión-->
-    <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl"/>
+  <!--Tipo de inversión-->
+   <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl">
+            <property name="inversionTipo" ref="inversionTipo"/>
+    </bean>
     <bean id="tipoInversionServicesImpl" class="com.ositran.serviceimpl.TipoInversionServiceImpl">
         <property name="tipoInversionDAOImpl" ref="tipoInversionDAOImpl"/>
+        <property name="tipoInversionVO" ref="tipoInversionVO"/>
+        <property name="inversionTipo" ref="inversionTipo"/>
     </bean>
     <bean id="mantenimientoTipoInversion" class="com.ositran.parametros.TipoInversion">
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
@@ -108,6 +136,12 @@
     </bean>
     <bean id="mantenimientoModalidadConcesion" class="com.ositran.parametros.MantenimientoModalidadConcesion">
         <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+    </bean>
+    <!--S E G U R I D A D-->
+    <!--Usuario-->
+    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl"/>
+    <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
+        <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
     </bean>
     
 </beans>
