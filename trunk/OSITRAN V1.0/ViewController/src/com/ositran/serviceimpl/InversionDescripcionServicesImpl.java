@@ -1,25 +1,24 @@
 package com.ositran.serviceimpl;
-
 import com.ositran.dao.InversionDescripcionDAO;
-import com.ositran.dao.TipoInversionDAO;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.service.InversionDescripcionServices;
 import com.ositran.vo.bean.InversionDescripcionVO;
-import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
-
-import java.text.ParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class InversionDescripcionServicesImpl implements InversionDescripcionServices {
 
     private InversionDescripcionDAO inversionDescripcionDAOimpl;
+    private InversionTipoDescripcion inversionTipoDescripcion;
+    private InversionDescripcionVO inversionDescripcionVO;
 
- 
+    @Override
+    public int getCanNombres(String nombre) throws SQLException, Exception {
+        int cantidad;
+        cantidad =inversionDescripcionDAOimpl.getCanNombres(nombre);
+        return cantidad;
+    }
 
     @Override
     public List<InversionDescripcionVO> query()  throws SQLException ,Exception{
@@ -30,7 +29,7 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
 
     @Override
     public String insert(InversionDescripcionVO inversionDescrpcionVO)  throws SQLException ,Exception{
-        InversionTipoDescripcion inversionTipoDescripcion=inversionTipoDescripcion(inversionDescrpcionVO);
+        inversionTipoDescripcion=inversionTipoDescripcion(inversionDescrpcionVO);
         String result=inversionDescripcionDAOimpl.insert(inversionTipoDescripcion);
         return result;      
     }
@@ -43,15 +42,16 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
 
     @Override
     public String update(InversionDescripcionVO inversionDescrpcionVO) throws SQLException ,Exception {
-        InversionTipoDescripcion inversionTipoDesc=inversionTipoDescripcion(inversionDescrpcionVO);
-        String result=this.getInversionDescripcionDAOimpl().update(inversionTipoDesc);
+        inversionTipoDescripcion=inversionTipoDescripcion(inversionDescrpcionVO);
+        String result=this.getInversionDescripcionDAOimpl().update(inversionTipoDescripcion);
         return result;
     }
 
     @Override
     public InversionDescripcionVO get(Integer id) throws SQLException ,Exception {
-        // TODO Implement this method
-        return null;
+        inversionTipoDescripcion =inversionDescripcionDAOimpl.get(id);
+        inversionDescripcionVO=toInversionDescripcionVO(inversionTipoDescripcion);
+        return inversionDescripcionVO;
     }
 
     @Override
@@ -71,8 +71,6 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
        return listVO;
     }
     private InversionDescripcionVO toInversionDescripcionVO(InversionTipoDescripcion inversionDescripcion){
-     InversionDescripcionVO inversionDescripcionVO=new InversionDescripcionVO();
-     
        inversionDescripcionVO.setItdDescripcion(inversionDescripcion.getItdDescripcion());
        inversionDescripcionVO.setItdEstado(inversionDescripcion.getItdEstado());
        inversionDescripcionVO.setItdFechaAlta(inversionDescripcion.getItdFechaAlta());
@@ -89,7 +87,6 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
         
     }
     private InversionTipoDescripcion inversionTipoDescripcion(InversionDescripcionVO inversionDescripcionVO){
-       InversionTipoDescripcion inversionTipoDescripcion=new InversionTipoDescripcion();
        inversionTipoDescripcion.setItdDescripcion(inversionDescripcionVO.getItdDescripcion());
        inversionTipoDescripcion.setItdEstado(inversionDescripcionVO.getItdEstado());
        inversionTipoDescripcion.setItdFechaAlta(inversionDescripcionVO.getItdFechaAlta());
@@ -114,4 +111,21 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
         return inversionDescripcionDAOimpl;
     }
     
+    public void setInversionTipoDescripcion(InversionTipoDescripcion inversionTipoDescripcion) {
+        this.inversionTipoDescripcion = inversionTipoDescripcion;
+    }
+
+    public InversionTipoDescripcion getInversionTipoDescripcion() {
+        return inversionTipoDescripcion;
+    }
+
+    public void setInversionDescripcionVO(InversionDescripcionVO inversionDescripcionVO) {
+        this.inversionDescripcionVO = inversionDescripcionVO;
+    }
+
+    public InversionDescripcionVO getInversionDescripcionVO() {
+        return inversionDescripcionVO;
+    }
+
+   
 }
