@@ -16,5 +16,6 @@ public interface TipoInversionServices {
         public String update(TipoInversionVO tipoInversionVO) throws ParseException,SQLException ,Exception;
         public TipoInversionVO get(Integer id) throws SQLException ,Exception ;
         public List<TipoInversionVO> query1(String buscar) throws SQLException ,Exception;
+         public int getCanNombres(String nombre)  throws SQLException ,Exception;
                 
 }
