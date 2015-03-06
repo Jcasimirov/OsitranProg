@@ -33,7 +33,7 @@
                             
                         <div align="center" style="font-size: 11px">
                             <div align="center" style="width:100%">
-                            
+                     
                                 <table style="margin-bottom:5px;font-size: 11px;margin-right: 35%;">
                                     <tr>
                                         <td>
@@ -52,7 +52,7 @@
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.rucbus}"></p:inputText>                                            
                                         </td>
                                         
-                                        <td>
+                                        <td >
                                         <p:commandButton image="ui-icon-search"  action="#{backing_ositran_parametros_MantenimientoEmpSup.FiltrarListaEmpSup}"
                                                               
                                                              update=":form1:tablaempsup">                                                
@@ -62,8 +62,9 @@
                                         <td>
                                             <p:commandButton value="#{btn.btn_limpiar}" action="#{backing_ositran_parametros_MantenimientoEmpSup.LimpiarFiltro}" update=":form1:nomEmpSupBus :form1:rucbus"/>
                                         </td>
-                                    </tr>
+                                    
                                      
+                                    </tr>
                                  
                                 </table>
                              
@@ -76,7 +77,9 @@
                                                  rowsPerPageTemplate="5,10,15"
                                                  emptyMessage="No se Encontraron Registros">
                                         <p:column headerText="Tipo Documento">
+                                        <div style="text-align: center;">
                                             <h:outputText value="#{empSup.descripcionDoc}" style="text-transform:uppercase;"/>
+                                        </div>
                                         </p:column>
                                         <p:column headerText="Nro. Documento">
                                             <h:outputText value="#{empSup.supNroDocumento}"/>
@@ -125,9 +128,7 @@
                                             <p:commandButton value="#{btn.btn_nuevo}"  
                                                            actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.limpiarCampos}"  update=":form1:regEmpSup" oncomplete="regEmpSup.show()" ></p:commandButton>
                                         </td>
-                                        <td colspan="3">
-                                            <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
-                                        </td>
+                                        
                                     </tr>
                                 </table>
                             </div>
@@ -139,7 +140,7 @@
                 <div align="center" style="width: 100%">
                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                         <tr>
-                            <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
+                            <td colspan="2" align="left">Nombre de la Empresa Supervisora(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width:400px;text-transform:uppercase;" id="nomEmpSup" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSup}" maxlength="100"></p:inputText>
@@ -147,7 +148,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion:</td>
+                            <td colspan="2" align="left">Direccion(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSup"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="20"></p:inputText>
@@ -155,7 +156,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal</td>
+                            <td colspan="2" align="left">Representante Legal(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegal"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegal}" maxlength="20"></p:inputText>
@@ -163,7 +164,7 @@
                         </tr>
                          
                         <tr>
-                            <td align="left">Cargo</td>
+                            <td align="left">Cargo(*)</td>
                             <td align="left">
                                 <p:selectOneMenu id="cargo"
                                                  value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}">
@@ -176,7 +177,7 @@
                             <!--td align="left">
                                 <p:inputText id="cargo" value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}"></p:inputText>
                             </td-->
-                            <td align="left">Telefono</td>
+                            <td align="left">Telefono(*):</td>
                             <td align="left">
                                 <p:inputText id="telefono" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.telefono}" maxlength="15">
@@ -205,12 +206,12 @@
                         </tr>
                          
                         <tr>
-                            <td align="left">Correo</td>
+                            <td align="left">Correo(*):</td>
                             <td align="left">
                                 <p:inputText id="correo" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.correo}" maxlength="20"></p:inputText>
                             </td>
-                            <td align="left">Siglas de Nombre</td>
+                            <td align="left">Siglas de Nombre(*):</td>
                             <td align="left">
                                 <p:inputText id="siglasNom" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="15"></p:inputText>
@@ -263,7 +264,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
+                            <td colspan="2" align="left">Nombre de la Empresa Supervisora(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width:400px;text-transform:uppercase;" id="nomEmpSupMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSupMod}" maxlength="100"></p:inputText>
@@ -271,7 +272,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion:</td>
+                            <td colspan="2" align="left">Direccion(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSupMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupMod}" maxlength="20"></p:inputText>
@@ -279,7 +280,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal</td>
+                            <td colspan="2" align="left">Representante Legal(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegalMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegalMod}" maxlength="20"></p:inputText>
@@ -287,7 +288,7 @@
                         </tr>
                          
                         <tr>
-                            <td align="left">Cargo</td>
+                            <td align="left">Cargo(*):</td>
                             <td align="left">
                                 <p:selectOneMenu id="cargoMod"
                                                  value="#{backing_ositran_parametros_MantenimientoEmpSup.cargoMod}">
@@ -296,7 +297,7 @@
                                                    itemValue="#{lisCargo.crgId}" />
                                 </p:selectOneMenu>
                             </td>
-                            <td align="left">Telefono</td>
+                            <td align="left">Telefono(*):</td>
                             <td align="left">
                                 <p:inputText id="telefonoMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.telefonoMod}" maxlength="15"></p:inputText>
@@ -321,12 +322,12 @@
                         </tr>
                          
                         <tr>
-                            <td align="left">Correo</td>
+                            <td align="left">Correo(*):</td>
                             <td align="left">
                                 <p:inputText id="correoMod" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.correoMod}" maxlength="20"></p:inputText>
                             </td>
-                            <td align="left">Siglas de Nombre</td>
+                            <td align="left">Siglas de Nombre(*):</td>
                             <td align="left">
                                 <p:inputText id="siglasNomMod" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
