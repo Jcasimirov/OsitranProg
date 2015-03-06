@@ -10,11 +10,8 @@
             var valorSelecionado=0;
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
-                  document.getElementById(id).value = obj;
-                 
-                   
+                  document.getElementById(id).value = obj;   
               }
-
               function pasarMinuscula(obj, id) {
                   obj = obj.toLowerCase();
                   document.getElementById(id).value = obj;
@@ -22,8 +19,7 @@
                function cargarValor(varlor){
                valorSelecionado=varlor.value;
                 numeroDR.jq.val("");
-               
-               
+                numeroDE.jq.val("");  
               }
               
               function validarLongitud(numeroDoc){
@@ -39,11 +35,7 @@
               if (valorSelecionado==2){
                if (num.length>10){
                return false;
-              }
-              }
-              
-              }
-                     
+              } }         }               
             </script>
         </h:head>
         <h:body>
@@ -61,24 +53,32 @@
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
                             <h4 class="titulo">MANTENIMIENTO CONCESIONARIO</h4>
-                            <div style="width:75%">
+                            <div style="width:80%">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
                                              <td align="left">
                                                 Busqueda por Nombre: 
-                                                <p:inputText id="buscarT" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
+                                                <p:inputText id="buscarT" onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
-                                                <p:commandButton actionListener="#{concesionarioMB.busqueda}"
+                                                <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda}"
                                                                  update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
-                                                 
-                                                <p:commandButton actionListener="#{concesionarioMB.cargarListaConcesionarios}"
-                                                                 update=":form:tablaC" value="Ver Todos"></p:commandButton>
+                                                 <p:tooltip styleClass="tool"  id="toolTipFade" for="buscar" value="Buscar concecionario por el nombre" />
+                                                
+                                                <p:commandButton id="buscarTodos" actionListener="#{concesionarioMB.cargarListaConcesionarios}"
+                                                          value="Ver Todos"      update=":form:tablaC"  ></p:commandButton>
+                                                <p:tooltip styleClass="tool"  id="toolTipFade1" for="buscarTodos" value="Ver la lista completa de concesionarios" />
+
                                             </td>
                                             <td align="right">
-                                                <p:commandButton type="reset" image="ui-icon-circle-plus"
-                                                                 onclick="insertarPanel.show()"
-                                                                 value=" Nuevo Concesionario"/>
+                                                <p:commandButton id="nuevo"
+                                                actionListener="#{concesionarioMB.limpiarCampos}"
+                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()"
+                                                                 value=" Nuevo Concesionario"
+                                                                 update=":form:registrar"
+                                                                 />
+                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Registrar un nuevo concecionario" />
                                             </td>
                                            
                                         </tr>
@@ -104,17 +104,29 @@
                                     <p:column headerText="N Doc" >
                                         <h:outputText value="#{concesionario.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Edi" style="width:4%">
-                                        <p:commandButton oncomplete="editarPanel.show()"
-                                                         update=":form:editarPanel :form:oculto1"
-                                                         actionListener="#{concesionarioMB.cargarEditar(concesionario)}"
-                                                         image="ui-icon-document" style="width:22px;height:22px"/>
+                                    <p:column headerText="Editar" style="width:4%">
+                                    
+                                    <div align="center">
+                                                <p:commandButton 
+                                                            oncomplete="editarPanel.show()"
+                                                         update=":form:editarPanel :form:oculto1 :form:oculto2"
+                                                         actionListener="#{concesionarioMB.cargarEditar}"
+                                                         image="ui-icon-document" style="width:22px;height:22px;aling:center">
+                                                          <f:param id="idModificar" name="idModificar" value="#{concesionario.cncId}"/>
+                                                         </p:commandButton>
+                                                                 </div>
+                                       
                                     </p:column>
-                                    <p:column headerText="Eli" style="width:4%" >
-                                        <p:commandButton actionListener="#{concesionarioMB.cargarEliminar(concesionario)}"
+                                    <p:column headerText="Eliminar" style="width:4%" >
+                                    
+                                     <div align="center">
+                                                
+                                        <p:commandButton   actionListener="#{concesionarioMB.cargarEliminar(concesionario)}"
                                                          update=":form:confirEliminar :form:oculto"
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
-                                                         style="width:22px;height:22px"/>
+                                                         style="width:22px;height:22px;align:center"/>
+                                                                 </div>
+                                   
                                     </p:column>
                                 </p:dataTable>
                             </div>
@@ -153,18 +165,22 @@
                         <tr>
                             <td colspan="1" align="left">Ingrese Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText maxlength="50" style="width:70%"
+                                <p:inputText maxlength="50" style="width:92%"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"/>
+                                              <h:outputText value=" "/>      
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td colspan="1" align="left">Descripcion:</td>
                             <td colspan="3" align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:97.5%"
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:92%"
                                                  maxlength="50" value="#{concesionarioMB.descripcionE}"
                                                  label="descripcion" id="descripcionE"/>
+                                                  <h:outputText value=" "/>      
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -189,22 +205,23 @@
                             <td align="left">
                                 <p:selectOneMenu 
                                 onchange="cargarValor(this)"
-                                widgetVar="tipoDocumentoR" id="tipoDocumentoRE"
+                                widgetVar="tipoDocumentoRE" id="tipoDocumentoRE"
                                                  value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
-                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"
+                                                    />
                                 </p:selectOneMenu>
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentosE">
                                 <p:inputText 
-                               
+                                id="numeroDE"
+                                widgetVar="numeroDE"
                                 onkeypress="return validarLongitud(this)"
                                 value="#{concesionarioMB.numeroDocumentoE}"
                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
-                                             />
+                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
                             </td>
                         </tr>
                          
@@ -258,7 +275,27 @@
                         <tr>
                             <td colspan="4" align="left"></td>
                         </tr>
-                         
+                        
+                        <tr>
+                            <td align="right" colspan="4">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>  
+                        
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../imagenes/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
                         <tr>
                             <td colspan="2" align="right">
                                 <p:commandButton update=":form:tablaC :form:mensaje" 
@@ -272,24 +309,30 @@
                 </p:dialog>
                 <h:inputHidden id="oculto" value="#{concesionarioMB.codigoConcesionario}"></h:inputHidden>
                 <h:inputHidden id="oculto1" value="#{concesionarioMB.concesionarioId}"></h:inputHidden>
+                <h:inputHidden id="oculto2" value="#{concesionarioMB.nombreAntiguo}"></h:inputHidden>
+            
                 <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td colspan="1" align="left">Ingrese Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText    maxlength="50" style="width:70%"
+                                <p:inputText    maxlength="50" style="width:90%"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
+                                             <h:outputText value=" "/>      
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td colspan="1" align="left">Descripcion:</td>
                             <td colspan="3" align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:97.5%"
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:90%"
                                                  maxlength="50" value="#{concesionarioMB.descripcion}"
                                                  label="descripcion" id="descripcion"/>
+                                                 <h:outputText value=" "/>      
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -315,7 +358,7 @@
                             <td align="left">
                                 <p:selectOneMenu  onchange="cargarValor(this)"
                                                 widgetVar="tipoDocumentoR" id="tipoDocumentoR"
-                                                 value="#{concesionarioMB.tipDocumento}" style="width:100%">
+                                                 value="#{concesionarioMB.tipDocumento}" style="width:90%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
                                                    itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
@@ -373,31 +416,36 @@
                                 </p:selectOneMenu>
                             </td>
                         </tr>
-                         
+                            <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>  
+                        
                         <tr>
-                            <td colspan="4" align="left"></td>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
                         </tr>
-                         
+                        
                         <tr>
-                            <td colspan="4" align="left"></td>
-                        </tr>
-                         
-                        <tr>
-                            <td colspan="4" align="left"></td>
-                        </tr>
-                         
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../imagenes/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
                         <tr>
                             <td colspan="2" align="right">
                                 <p:commandButton update=":form:tablaC :form:mensaje"
                                                  actionListener="#{concesionarioMB.guardar}" style="width:70px"
                                                  value="#{btn.btn_guardar}"/>
                             </td>
-                            <td align="left">
+                            <td align="left" colspan="2">
                                 <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
                             </td>
-                            <td align="right">
-                                <p:commandButton type="reset" style="width:70px" value="Limpiar" id="limpiar"/>
-                            </td>
+                           
                         </tr>
                     </table>
                 </p:dialog>
