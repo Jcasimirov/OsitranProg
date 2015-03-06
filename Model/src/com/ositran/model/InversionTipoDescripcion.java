@@ -1,4 +1,4 @@
-    package com.ositran.model;
+package com.ositran.model;
     
     import java.io.Serializable;
     import java.util.Date;
