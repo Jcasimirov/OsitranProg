@@ -1,7 +1,7 @@
 package com.ositran.seguridad;
 
 import com.ositran.serviceimpl.UsuarioServiceImpl;
-import com.ositran.util.util;
+import com.ositran.util.Util;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
@@ -55,7 +55,7 @@ public class MantenimientoUsuario {
     }
 
     private List<UsuarioVO> listaUsuario;
-    util util = new util();
+    Util util = new Util();
 
     public void setListaUsuario(List<UsuarioVO> listaUsuario) {
         this.listaUsuario = listaUsuario;
@@ -65,11 +65,11 @@ public class MantenimientoUsuario {
         return listaUsuario;
     }
 
-    public void setUtil(util util) {
+    public void setUtil(Util util) {
         this.util = util;
     }
 
-    public util getUtil() {
+    public Util getUtil() {
         return util;
     }
 

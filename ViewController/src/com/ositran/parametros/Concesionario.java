@@ -133,6 +133,7 @@ public class Concesionario {
                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                              "Se Registro con Exito"));
            } catch (SQLException s) {
+                s.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               correo +
@@ -140,6 +141,7 @@ public class Concesionario {
                 
             } 
             catch ( Exception e){
+                e.printStackTrace();
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                   correo +
