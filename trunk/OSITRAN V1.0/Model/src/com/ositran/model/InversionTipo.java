@@ -1,25 +1,49 @@
 package com.ositran.model;
-
 import java.io.Serializable;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import java.util.Date;
-                 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+@Entity
+@Table(name = "T_INVERSION_TIPO",uniqueConstraints = @UniqueConstraint(columnNames = {"TIV_ID"}))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+
 public class InversionTipo implements Serializable {
-  
-    private static final long serialVersionUID = -8103932004553759425L;
+    @Column(name = "TIV_DESCRIPCION", nullable = false, length = 100)
     private String tivDescripcion;
+    @Column(name = "TIV_ESTADO", nullable = false)
     private int tivEstado;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TIV_FECHA_ALTA")
     private Date tivFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TIV_FECHA_BAJA")
     private Date tivFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TIV_FECHA_CAMBIO")
     private Date tivFechaCambio;
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "TIV_ID", nullable = false)
     private int tivId;
+    @Column(name = "TIV_NOMBRE", nullable = false, length = 100)
     private String tivNombre;
+    @Column(name = "TIV_TERMINAL", length = 20)
     private String tivTerminal;
+    @Column(name = "TIV_USUARIO_ALTA", length = 20)
     private String tivUsuarioAlta;
+    @Column(name = "TIV_USUARIO_BAJA", length = 20)
     private String tivUsuarioBaja;
+    @Column(name = "TIV_USUARIO_CAMBIO", length = 20)
     private String tivUsuarioCambio;
 
     public InversionTipo() {
@@ -57,35 +81,16 @@ public class InversionTipo implements Serializable {
         this.tivEstado = tivEstado;
     }
 
-    public Date getTivFechaAlta() throws ParseException{
-        Date fecha1= new Date();
-        if (tivFechaAlta==null){
-            return fecha1=tivFechaAlta;
-            }
-      
-        return fecha1;
+    public Date getTivFechaAlta() {
+        return tivFechaAlta;
     }
 
     public void setTivFechaAlta(Date tivFechaAlta) {
         this.tivFechaAlta = tivFechaAlta;
     }
 
-    public Date getTivFechaBaja() throws ParseException {
-        Date fecha1= new Date();
-        if (tivFechaBaja==null){
-            return fecha1=tivFechaBaja;
-            }
-        else {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                System.out.println(tivFechaBaja);
-                String fecha = dateFormat.format(tivFechaBaja);
-                
-                System.out.println(fecha);
-                fecha1= dateFormat.parse(fecha);
-            
-            }
-        return fecha1;
-        
+    public Date getTivFechaBaja() {
+        return tivFechaBaja;
     }
 
     public void setTivFechaBaja(Date tivFechaBaja) {
@@ -102,6 +107,10 @@ public class InversionTipo implements Serializable {
 
     public int getTivId() {
         return tivId;
+    }
+
+    public void setTivId(int tivId) {
+        this.tivId = tivId;
     }
 
     public String getTivNombre() {
@@ -143,7 +152,5 @@ public class InversionTipo implements Serializable {
     public void setTivUsuarioCambio(String tivUsuarioCambio) {
         this.tivUsuarioCambio = tivUsuarioCambio;
     }
-    public void setTivId(int tivId) {
-        this.tivId = tivId;
-    }
 }
+
