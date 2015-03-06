@@ -4,28 +4,21 @@ import com.ositran.daoimpl.ConcesionarioDAOImpl;
 import com.ositran.model.Concesionario;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.vo.bean.ConcesionarioVO;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ConcesionarioServiceImpl implements ConcesionarioService{
-    
+    int cantidad;
+    Concesionario concesionario;
+    ConcesionarioVO concesionarioVO;
     private ConcesionarioDAOImpl concesionarioDAOImpl;
-
-    public void setConcesionarioDAOImpl(ConcesionarioDAOImpl concesionarioDAOImpl) {
-        this.concesionarioDAOImpl = concesionarioDAOImpl;
-    }
-
-    public ConcesionarioServiceImpl() {
+     public ConcesionarioServiceImpl() {
         super();
     }
 
     @Override
     public List<ConcesionarioVO> query()  throws SQLException ,Exception{
-        System.out.println("llegooo Servicessss filtro");
         List<Concesionario> list=concesionarioDAOImpl.query();
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
         
@@ -33,14 +26,13 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     }
     @Override
     public List<ConcesionarioVO> queryF(String filtro)  throws SQLException ,Exception{
-        
         List<Concesionario> list=concesionarioDAOImpl.queryF(filtro);
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
         return listVO;
     }
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
-        int cantidad;
+        
         cantidad =concesionarioDAOImpl.getCanNombres(nombre);
         return cantidad;
     }
@@ -68,8 +60,8 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     @Override
     public ConcesionarioVO get(Integer id)  throws SQLException ,Exception{
         Concesionario concesionario=this.concesionarioDAOImpl.get(id);
-        ConcesionarioVO infraestructuraTipoVO=toConcesionarioVO(concesionario);
-        return infraestructuraTipoVO;
+        ConcesionarioVO concecionarioVO=toConcesionarioVO(concesionario);
+        return concecionarioVO;
     }
     
     //conversiones
@@ -83,7 +75,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return listVO;
     }
     private ConcesionarioVO toConcesionarioVO(Concesionario concesionario){
-        ConcesionarioVO concesionarioVO=new ConcesionarioVO();
+        
         concesionarioVO.setCncCorreo(concesionario.getCncCorreo());
         concesionarioVO.setCncDescripcion(concesionario.getCncDescripcion());
         concesionarioVO.setCncDireccion(concesionario.getCncDireccion());
@@ -105,7 +97,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return concesionarioVO;
     }
     private Concesionario toConcesionario(ConcesionarioVO concesionarioVO){
-        Concesionario concesionario=new Concesionario();
+        
         concesionario.setCncId(concesionarioVO.getCncId());
         concesionario.setCncCorreo(concesionarioVO.getCncCorreo());
         concesionario.setCncDescripcion(concesionarioVO.getCncDescripcion());
@@ -126,8 +118,37 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         concesionario.setTdoId(concesionarioVO.getTdoId());
         return concesionario;
     }
+    public void setConcesionarioDAOImpl(ConcesionarioDAOImpl concesionarioDAOImpl) {
+        this.concesionarioDAOImpl = concesionarioDAOImpl;
+    }
 
 
-   
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionarioVO(ConcesionarioVO concesionarioVO) {
+        this.concesionarioVO = concesionarioVO;
+    }
+
+    public ConcesionarioVO getConcesionarioVO() {
+        return concesionarioVO;
+    }
+
+    public ConcesionarioDAOImpl getConcesionarioDAOImpl() {
+        return concesionarioDAOImpl;
+    }
 }
 
