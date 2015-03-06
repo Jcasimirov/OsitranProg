@@ -34,7 +34,7 @@
                                             #{etq.etq_nombre}
                                         </td>
                                         <td>
-                                        <p:inputText style="width:100px" id="nombremodbuscar"
+                                        <p:inputText style="width:200px;text-transform:uppercase;" id="nombremodbuscar"
                                              value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"></p:inputText>
                                             
                                         </td>
@@ -82,10 +82,11 @@
                                         </p:column>
                                         <p:column headerText="Eliminar">
                                         <div style="text-align: center;">
-                                            <p:commandButton onclick="return confirm('¿Esta Seguro de Eliminar a la Empresa Supervisora: #{empSup.supNombre}?' );"
+                                            <p:commandButton 
                                                              image="ui-icon-trash"
-                                                             actionListener="#{backing_mantenimientoModalidadConcesion.EliminarModalidad}" update=":form1 :form1:mensaje"/>
+                                                             actionListener="#{backing_mantenimientoModalidadConcesion.confirmarEliminar}" oncomplete="confirEliminar.show()" update=":form1:confirEliminar">                                                             
                                             <f:param id="idEliminar" name="idEliminar" value="#{modalidad.mcoId}"/>
+                                            </p:commandButton>
                                             <h:outputText value=""/>
                                         </div>
                                         </p:column>
@@ -130,7 +131,23 @@
 	 	</div>
          
          </p:dialog>
-         
+                         <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <table style="font-size: 11px">
+                <tr>
+                 <td>
+                                <h:inputHidden value="#{backing_mantenimientoModalidadConcesion.idEliminar}"/>
+                            </td>
+                </tr>
+                                    <tr>
+                                    
+                                            <td colspan="2"> Eliminar Empresa Supervisora: "#{backing_mantenimientoModalidadConcesion.nombreEliminar}" </td>
+                                    </tr>
+                                    <tr>
+                                            <td align="right"><p:commandButton   value="Eliminar" actionListener="#{backing_mantenimientoModalidadConcesion.EliminarModalidad}" update=":form1 :form1:mensaje" oncomplete="confirEliminar.hide()"></p:commandButton></td>
+                                            <td align="left"><p:commandButton value="Cancelar"  onclick="confirEliminar.hide()"></p:commandButton></td>
+                                    </tr>
+                </table>
+            </p:dialog>
          <p:dialog header="Modificar Modalidad de Concesion" id="modModalidad" widgetVar="modModalidad" modal="true"
                           resizable="false" height="250px" width="760px">
          
