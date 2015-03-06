@@ -9,10 +9,14 @@ import com.ositran.vo.bean.CargoVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 
+import com.ositran.vo.bean.TipoInversionVO;
+
 import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,10 +29,10 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "concesionarioMB")
 @RequestScoped
 public class Concesionario {
-  
     private int tipoD = 0;
     private String buscar;
     private int codigoConcesionario;
+    private String nombreAntiguo;
     private String nombre;
     private String descripcion;
     private String siglasNombre;
@@ -55,6 +59,7 @@ public class Concesionario {
     //********************EDITAR***********************************/
     private Pattern pattern;
     private Matcher matcher;
+    int cantidad;
 
     private static final String EMAIL_PATTERN =
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -72,9 +77,8 @@ public class Concesionario {
     CargoService cargoServiceImp;
 
     public void guardar() {
-        int cantidad;
+        
         cantidad=validarNombre(nombre);
-        System.out.println(cantidad);
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correo);
         if (cantidad>0){
@@ -145,27 +149,53 @@ public class Concesionario {
         }
     }
 
-    public void cargarEditar(ConcesionarioVO concesionarioVOE) {
-        concesionarioId = concesionarioVOE.getCncId();
-        codigoConcesionarioE = concesionarioVOE.getCncId();
-        nombreE = concesionarioVOE.getCncNombre();
-        descripcionE = concesionarioVOE.getCncDescripcion();
-        siglasNombre = "SIGLASS";
-        telefonoE = concesionarioVOE.getCncTelefono();
-        tipDocumentoE = concesionarioVOE.getTdoId();
-        numeroDocumentoE = concesionarioVOE.getCncNroDocumento();
-        direccionE = concesionarioVOE.getCncDireccion();
-        correoE = concesionarioVOE.getCncCorreo();
-        representanteE = concesionarioVOE.getCncRepresentanteLegal();
-        codigoCargoE = concesionarioVOE.getCrgId();
+    public void cargarEditar() {
+        try {         
+           FacesContext context=FacesContext.getCurrentInstance();
+           Map requestMap=context.getExternalContext().getRequestParameterMap();
+           Object str=requestMap.get("idModificar");
+           Integer idcodigo=Integer.valueOf(str.toString());
+           concesionarioVO=concesionarioServiceImpl.get(idcodigo);
+           concesionarioId = concesionarioVO.getCncId();
+           codigoConcesionarioE = concesionarioVO.getCncId();
+            nombreAntiguo=concesionarioVO.getCncNombre();
+           nombreE = concesionarioVO.getCncNombre();
+           descripcionE = concesionarioVO.getCncDescripcion();
+           siglasNombre = "SIGLASS";
+           telefonoE = concesionarioVO.getCncTelefono();
+           tipDocumentoE = concesionarioVO.getTdoId();
+           numeroDocumentoE = concesionarioVO.getCncNroDocumento();
+           direccionE = concesionarioVO.getCncDireccion();
+           correoE = concesionarioVO.getCncCorreo();
+           representanteE = concesionarioVO.getCncRepresentanteLegal();
+           codigoCargoE = concesionarioVO.getCrgId();   
+       } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              correo +
+                                                                              " No se pudo cargar los datos para editar concecionario ")); 
+            } 
+            catch ( Exception e){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                  correo +
+                                                                                  " No se pudo cargar los datos para editar concecionario "));
+                }
     }
     
      
     
     public void editar() {
+        cantidad=validarNombre(nombreE);
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correoE);
-        if (nombreE.equals("")) {
+        
+        if (cantidad>0 && !nombreE.equals(nombreAntiguo)){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia","El nuevo nombre que quiere ingresar ya existe"));
+            }
+        
+        else if (nombreE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe infresar el nombre"));
@@ -225,6 +255,7 @@ public class Concesionario {
                                                                                   correo +
                                                                                   " No se pudo editar el concecionario "));
                 }
+            
           
         }
     }
@@ -293,7 +324,6 @@ public class Concesionario {
     }
 
     public void cargarEliminar(ConcesionarioVO concesionarioVO) {
-
         descripcion = concesionarioVO.getCncDescripcion();
         codigoConcesionario = concesionarioVO.getCncId();
     }
@@ -328,18 +358,15 @@ public class Concesionario {
        } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          correo +
-                                                                          " No se pudo validar el nombre ")); 
-            
+                                                                        
+                                                                          " No se pudo validar el nombre "));  
         } 
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              correo +
+                                                                             
                                                                               " No se pudo validar el nombre "));
             }
-       
-        
         return cantidad;
         }
     public void limpiarCampos() {
@@ -632,5 +659,14 @@ public class Concesionario {
 
     public int getTipoD() {
         return tipoD;
+    }
+
+
+    public void setNombreAntiguo(String nombreAntiguo) {
+        this.nombreAntiguo = nombreAntiguo;
+    }
+
+    public String getNombreAntiguo() {
+        return nombreAntiguo;
     }
 }
