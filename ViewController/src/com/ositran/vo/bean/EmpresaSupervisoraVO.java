@@ -24,7 +24,16 @@ public class EmpresaSupervisoraVO {
     private String supUsuarioBaja;    
     private String supUsuarioCambio;    
     private Integer tdoId;
+    private String descripcionDoc;
 
+
+    public void setDescripcionDoc(String descripcionDoc) {
+        this.descripcionDoc = descripcionDoc;
+    }
+
+    public String getDescripcionDoc() {
+        return descripcionDoc;
+    }
 
     public void setCrgId(Integer crgId) {
         this.crgId = crgId;
