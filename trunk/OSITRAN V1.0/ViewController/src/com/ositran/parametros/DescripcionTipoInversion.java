@@ -130,7 +130,7 @@ public class DescripcionTipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo validar el nombre "));  
-        } 
+        }
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -197,7 +197,7 @@ public class DescripcionTipoInversion {
                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
                                 "El nuevo nombre que quiere ingresar ya existe"));
             }
-        else 
+        else
         if (codigoInversionE == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
