@@ -14,4 +14,5 @@ public interface TipoInversionDAO {
         public String update(InversionTipo inversionTipo)throws SQLException ,Exception;
         public InversionTipo get(Integer id)throws SQLException ,Exception;
         public List<InversionTipo> query1(String buscar)throws SQLException ,Exception;
+        public int getCanNombres(String nombre)  throws SQLException ,Exception;
 }
