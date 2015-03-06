@@ -167,12 +167,41 @@ public class MantenimientoModalidadConcesion {
 
 
     // Eliminar Modalidad Concesión
+    
+    int idEliminar;
+    String nombreEliminar;
 
-    public String EliminarModalidad(ActionEvent event) throws SQLException {
+
+    public void setIdEliminar(int idEliminar) {
+        this.idEliminar = idEliminar;
+    }
+
+    public int getIdEliminar() {
+        return idEliminar;
+    }
+
+    public void setNombreEliminar(String nombreEliminar) {
+        this.nombreEliminar = nombreEliminar;
+    }
+
+    public String getNombreEliminar() {
+        return nombreEliminar;
+    }
+
+    public void confirmarEliminar() throws SQLException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idEliminar");
+        Integer idModalidad = Integer.valueOf(str.toString());
+        modalidadVO = this.modalidadServiceImp.get(idModalidad);
+        idEliminar = modalidadVO.getMcoId();
+        nombreEliminar = modalidadVO.getMcoNombre().toUpperCase();
+    }
+
+    public String EliminarModalidad() throws SQLException {
         try {
-            UIParameter parameter = (UIParameter) event.getComponent().findComponent("idEliminar");
-            Integer idModalidad = (Integer) parameter.getValue();
-            modalidadVO = this.modalidadServiceImp.get(idModalidad);
+            
+            modalidadVO = this.modalidadServiceImp.get(idEliminar);
             modalidadVO.setMcoEstado(2);
             //this.modalidadServiceImp.delete(idModalidad);
             modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
