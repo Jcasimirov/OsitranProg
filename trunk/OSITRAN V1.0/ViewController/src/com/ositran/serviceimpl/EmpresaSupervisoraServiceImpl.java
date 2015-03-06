@@ -32,24 +32,35 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     }
     
     @Override
-    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String atributo) throws SQLException{
-        List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(atributo);
+    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String nombre, String ruc) throws SQLException{
+        List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(nombre,ruc);
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;        
     }
-     
-    @Override
-    public int ValidaNombreMod(String atributo, String Nombre) throws SQLException{
-        int respuesta =empresaSupervisoraDAOImpl.ValidarNombreMod(atributo,Nombre);
-        return respuesta;        
-    }
-
+    
     @Override
     public int ValidaNombre(String atributo) throws SQLException{
         int respuesta =empresaSupervisoraDAOImpl.ValidarNombre(atributo);
         return respuesta;        
     }
     
+    @Override
+    public int ValidaRuc(String atributo, int documento) throws SQLException{
+        int respuesta =empresaSupervisoraDAOImpl.ValidarRuc(atributo,documento);
+        return respuesta;        
+    }
+    
+    @Override
+    public int ValidaNombreMod(String atributo, String Nombre) throws SQLException{
+        int respuesta =empresaSupervisoraDAOImpl.ValidarNombreMod(atributo,Nombre);
+        return respuesta;        
+    }
+    
+    @Override
+    public int ValidarRucMod(String atributo, String Nombre,int documento) throws SQLException{
+        int respuesta = empresaSupervisoraDAOImpl.ValidarRucMod(atributo,Nombre,documento);
+        return respuesta;        
+    }
 
     @Override
     public String insert(EmpresaSupervisoraVO empresaSupervisoraVO) throws SQLException{
