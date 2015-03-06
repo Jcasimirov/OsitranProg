@@ -1,31 +1,41 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.InversionDescripcionDAO;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.InversionTipoDescripcion;
-
-import java.util.Collections;
+import java.sql.SQLException;
 import java.util.List;
-
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
-    
+    InversionTipoDescripcion inversionTipoDescripcion;
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     @Override
-    public List<InversionTipoDescripcion> query() {
+    public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List list=session.createQuery("select o from InversionTipoDescripcion o").list();
         session.getTransaction().commit();
         return list;
     }
-
+    
     @Override
-    public String insert(InversionTipoDescripcion inversionTipoDes) {
+    public int getCanNombres(String nombre) throws SQLException, Exception {
+        int cantidad=0;
+        Session session = sessionFactory.openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE  E.itdNombre like :nombre");
+        query.setParameter("nombre",nombre );
+        list= query.list();   
+        cantidad=list.size();
+        return cantidad;
+    }
+    @Override
+    public String insert(InversionTipoDescripcion inversionTipoDes)  throws SQLException ,Exception{
         
         String result=null;
            Session session = sessionFactory.openSession();
@@ -44,12 +54,12 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException ,Exception {
         String result=null;
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            InversionTipoDescripcion inversionTipoDescripcion=(InversionTipoDescripcion)session.get(InversionTipoDescripcion.class, id);
+            inversionTipoDescripcion=(InversionTipoDescripcion)session.get(InversionTipoDescripcion.class, id);
             session.delete(inversionTipoDescripcion);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -60,7 +70,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     }
 
     @Override
-    public String update(InversionTipoDescripcion inversionTipoDes) {
+    public String update(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception {
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -76,14 +86,38 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     }
 
     @Override
-    public InversionTipoDescripcion get(Integer id) {
-        // TODO Implement this method
-        return null;
+    public InversionTipoDescripcion get(Integer id) throws SQLException ,Exception {
+       
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+       inversionTipoDescripcion = (InversionTipoDescripcion) session.get(InversionTipoDescripcion.class, id);
+         session.getTransaction().commit();
+        return inversionTipoDescripcion;
     }
 
     @Override
-    public List<InversionTipo> query1(String buscar) {
-        // TODO Implement this method
-        return Collections.emptyList();
+    public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception {
+        
+        Query query;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();     
+        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE upper(E.itdNombre) like  :busqueda");  
+        query.setParameter("busqueda","%"+buscar+"%");
+        /* query =
+            session.createQuery("FROM InversionTipoDescripcion  E WHERE E.itdNombre like  :busqueda  or E.itdId like :busqueda or E.itdDescripcion like :busqueda");
+        query.setParameter("busqueda", "%" + buscar + "%"); */
+        List list= query.list();
+        session.getTransaction().commit();
+        return list;
+        
+    }
+
+
+    public void setInversionTipoDescripcion(InversionTipoDescripcion inversionTipoDescripcion) {
+        this.inversionTipoDescripcion = inversionTipoDescripcion;
+    }
+
+    public InversionTipoDescripcion getInversionTipoDescripcion() {
+        return inversionTipoDescripcion;
     }
 }
