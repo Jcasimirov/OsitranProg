@@ -55,13 +55,14 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
     
     @Override
-    public List<EmpresaSupervisora> FiltrarEmpSup(String atributo) throws SQLException {
+    public List<EmpresaSupervisora> FiltrarEmpSup(String nombre, String ruc) throws SQLException {
         
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and supEstado<> 2");
-        query.setParameter("busqueda","%"+atributo+"%");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and E.supNroDocumento like :busqueda2 and supEstado<> 2");
+        query.setParameter("busqueda","%"+nombre+"%");
+        query.setParameter("busqueda2","%"+ruc+"%");
         list= query.list();
         session.getTransaction().commit();
         session.close();
@@ -84,13 +85,28 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
     
     @Override
+    public int  ValidarRuc(String atributo,int documento) throws SQLException {
+        
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 2");
+        query.setParameter("busqueda",atributo);
+        query.setParameter("busqueda2",documento);
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list.size();        
+    }
+    
+    @Override
     public int ValidarNombreMod(String atributo, String NombreMod) throws SQLException {
         
         Session session = sessionFactory.openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and supEstado<> 2");
-        query.setParameter("busqueda",atributo);
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)  and supEstado<> 2");
+        query.setParameter("busqueda",atributo);        
         list= query.list();
         for (int i = 0 ; i<list.size();i++){
             if (list.get(i).getSupNombre().equals(NombreMod)){
@@ -101,6 +117,27 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         session.close();
         return list.size();        
     }
+    
+    @Override
+    public int ValidarRucMod(String atributo, String NombreRuc, int documento) throws SQLException {
+        
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 2");
+        query.setParameter("busqueda",atributo);
+        query.setParameter("busqueda2",documento);
+        list= query.list();
+        for (int i = 0 ; i<list.size();i++){
+            if (list.get(i).getSupNroDocumento().equals(NombreRuc)){
+                list.remove(i);
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+        return list.size();        
+    }
+
 
         @Override
         public String insert(EmpresaSupervisora empresaSupervisora) throws SQLException{
