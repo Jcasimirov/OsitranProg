@@ -4,27 +4,21 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
 import javax.faces.context.FacesContext;
-
-import javax.servlet.http.HttpSession;
-
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "descripcionInversionMB")
 @RequestScoped
 public class DescripcionTipoInversion {
+    private String nombreAntiguo;
     private List<TipoInversionVO> listTipoInversion;
     private List<InversionDescripcionVO> listaInversionDescripcion;
     private String mensaje;
@@ -40,6 +34,7 @@ public class DescripcionTipoInversion {
     private String nombreE;
     private String descripcionE;
     //--------EDITAR-------------//
+    int cantidad;
     @ManagedProperty(value = "#{inversionDescripcionVO}")
     InversionDescripcionVO inversionDescripcionVO;
 
@@ -50,7 +45,16 @@ public class DescripcionTipoInversion {
     TipoInversionServices tipoInversionServicesImpl;
 
     public void guardar() {
-        if (codigoInversion == 0) {
+       
+        cantidad=validarNombre(nombre);
+        
+        
+        if (cantidad>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                                              "El nombre que quiere ingresar ya existe"));
+            }
+        else  if (codigoInversion == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
                                                                           "Debe de Selecionar un tipo de Inversión"));
@@ -80,14 +84,12 @@ public class DescripcionTipoInversion {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               "Error",
-
                                                                                     " No se pudo registrar la descripcion tipo inversion "));
 
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               "Error",
-
                                                                                     " No se pudo registrar la descripcion tpo inversion "));
             }
 
@@ -109,48 +111,93 @@ public class DescripcionTipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
-
                                                                                 " No se pudo eliminar la descripcion tipo inversion "));
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
-
                                                                                 " No se pudo eliminar la descripcion tpo inversion "));
         }
 
     }
+    public int validarNombre(String nombre){
+            int cantidad=0;
 
+        try {
+           cantidad=inversionDescripcionServicesImpl.getCanNombres(nombre);
+       } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo validar el nombre "));  
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo validar el nombre "));
+            }
+        return cantidad;
+        }
     public void cargarListaInversion() {
         try {
             listTipoInversion = getTipoInversionServicesImpl().query();
 
         } catch (SQLException s) {
+            s.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
-
                                                                                 " No se pudo optener la lista de inversiones "));
 
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
-
                                                                                 " No se pudo optener la lista de inversiones "));
         }
     }
 
-    public void cargarEditar(InversionDescripcionVO inversionDesVO) {
-        codigoInversionE = inversionDesVO.getItdId();
-        nombreE = inversionDesVO.getItdNombre();
-        descripcionE = inversionDesVO.getItdDescripcion();
-        codigoInversion1 = inversionDesVO.getTivId();
+    public void cargarEditar() {
+        try {
+                
+               FacesContext context=FacesContext.getCurrentInstance();
+               Map requestMap=context.getExternalContext().getRequestParameterMap();
+               Object str=requestMap.get("idModificar");
+               Integer idcodigo=Integer.valueOf(str.toString());
+               inversionDescripcionVO=inversionDescripcionServicesImpl.get(idcodigo);
+                codigoInversionE=inversionDescripcionVO.getItdId();
+                nombreAntiguo=inversionDescripcionVO.getItdNombre();
+                nombreE=inversionDescripcionVO.getItdNombre();
+                descripcionE=inversionDescripcionVO.getItdDescripcion();
+                codigoInversion1=inversionDescripcionVO.getTivId();
+            
+              
+            
+       }
+        catch (SQLException s) {
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+
+                                                                                       " No se realizo la actualizacion "));
+
+               } catch (Exception e) {
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+
+                                                                                       " No se realizo la actualizacion "));
+               }
+        
+            
     }
 
     public void editar() {
-
+        int cantidad;
+        cantidad=validarNombre(nombreE);
+        if (cantidad>0 && !nombreAntiguo.equals(nombreE)){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                "El nuevo nombre que quiere ingresar ya existe"));
+            }
+        else 
         if (codigoInversionE == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -198,6 +245,7 @@ public class DescripcionTipoInversion {
                 System.out.println(listaInversionDescripcion.size());
                 buscar = "";
             } catch (SQLException s) {
+                s.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               "Error",
@@ -205,6 +253,7 @@ public class DescripcionTipoInversion {
                                                                                     " No se pudo listar las descripciones "));
 
             } catch (Exception e) {
+                e.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               "Error",
@@ -226,6 +275,7 @@ public class DescripcionTipoInversion {
             listaInversionDescripcion = getInversionDescripcionServicesImpl().query();
 
         } catch (SQLException s) {
+            s.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
@@ -233,6 +283,7 @@ public class DescripcionTipoInversion {
                                                                                 " No se pudo listar las descripciones "));
 
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                           "Error",
@@ -367,5 +418,13 @@ public class DescripcionTipoInversion {
 
     public int getCodigoInversion1() {
         return codigoInversion1;
+    }
+
+    public void setNombreAntiguo(String nombreAntiguo) {
+        this.nombreAntiguo = nombreAntiguo;
+    }
+
+    public String getNombreAntiguo() {
+        return nombreAntiguo;
     }
 }
