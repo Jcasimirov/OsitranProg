@@ -7,11 +7,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +30,7 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_DIRECCION", length = 20)
     private String cncDireccion;
     @Column(name = "CNC_ESTADO", nullable = false)
-    private Integer cncEstado;
+    private int cncEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CNC_FECHA_ALTA")
     private Date cncFechaAlta;
@@ -47,7 +43,7 @@ public class Concesionario implements Serializable {
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "CNC_ID", nullable = false)
-    private Integer cncId;
+    private int cncId;
     @Column(name = "CNC_NOMBRE", nullable = false, length = 100)
     private String cncNombre;
     @Column(name = "CNC_NRO_DOCUMENTO", length = 20)
@@ -65,18 +61,18 @@ public class Concesionario implements Serializable {
     @Column(name = "CNC_USUARIO_CAMBIO", length = 20)
     private String cncUsuarioCambio;
     @Column(name = "CRG_ID")
-    private Integer crgId;
-    @Column(name = "TDO_ID", nullable = false)
-    private Integer tdoId;
+    private int crgId;
+    @Column(name = "TDO_ID")
+    private int tdoId;
 
     public Concesionario() {
     }
 
-    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, Integer cncEstado,
-                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, Integer cncId, String cncNombre,
+    public Concesionario(String cncCorreo, String cncDescripcion, String cncDireccion, int cncEstado,
+                          Date cncFechaAlta, Date cncFechaBaja, Date cncFechaCambio, int cncId, String cncNombre,
                           String cncNroDocumento, String cncRepresentanteLegal, String cncTelefono, String cncTerminal,
-                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, Integer crgId,
-                          Integer tdoId) {
+                          String cncUsuarioAlta, String cncUsuarioBaja, String cncUsuarioCambio, int crgId,
+                          int tdoId) {
         this.cncCorreo = cncCorreo;
         this.cncDescripcion = cncDescripcion;
         this.cncDireccion = cncDireccion;
@@ -121,11 +117,11 @@ public class Concesionario implements Serializable {
         this.cncDireccion = cncDireccion;
     }
 
-    public Integer getCncEstado() {
+    public int getCncEstado() {
         return cncEstado;
     }
 
-    public void setCncEstado(Integer cncEstado) {
+    public void setCncEstado(int cncEstado) {
         this.cncEstado = cncEstado;
     }
 
@@ -153,11 +149,11 @@ public class Concesionario implements Serializable {
         this.cncFechaCambio = cncFechaCambio;
     }
 
-    public Integer getCncId() {
+    public int getCncId() {
         return cncId;
     }
 
-    public void setCncId(Integer cncId) {
+    public void setCncId(int cncId) {
         this.cncId = cncId;
     }
 
@@ -225,19 +221,19 @@ public class Concesionario implements Serializable {
         this.cncUsuarioCambio = cncUsuarioCambio;
     }
 
-    public Integer getCrgId() {
+    public int getCrgId() {
         return crgId;
     }
 
-    public void setCrgId(Integer crgId) {
+    public void setCrgId(int crgId) {
         this.crgId = crgId;
     }
 
-    public Integer getTdoId() {
+    public int getTdoId() {
         return tdoId;
     }
 
-    public void setTdoId(Integer tdoId) {
+    public void setTdoId(int tdoId) {
         this.tdoId = tdoId;
     }
 }
