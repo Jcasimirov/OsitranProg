@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlForm;
 
+import javax.faces.component.html.HtmlGraphicImage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -18,25 +19,20 @@ import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.outputlabel.OutputLabel;
 import org.primefaces.component.password.Password;
 
-@ManagedBean(name = "backing_ositran_logueo")
+@ManagedBean(name = "loginMB")
 @RequestScoped
 @Generated(value = "1ositran/logueo.jsf", comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class Logueo {
     
-    private HtmlForm form1;
+
         private OutputLabel outputLabel1;
         private CommandButton commandButton1;
         private InputText usuario;
         private Password pass;
+    private HtmlGraphicImage graphicImage1;
 
 
-    public void setForm1(HtmlForm form1) {
-        this.form1 = form1;
-    }
-
-    public HtmlForm getForm1() {
-        return form1;
-    }
+  
 
     public void setOutputLabel1(OutputLabel outputLabel1) {
         this.outputLabel1 = outputLabel1;
@@ -84,4 +80,12 @@ public class Logueo {
                 externalContext.redirect(servletContext.getContextPath()+redirectPath);
             }
         }
+
+    public void setGraphicImage1(HtmlGraphicImage graphicImage1) {
+        this.graphicImage1 = graphicImage1;
+    }
+
+    public HtmlGraphicImage getGraphicImage1() {
+        return graphicImage1;
+    }
 }
