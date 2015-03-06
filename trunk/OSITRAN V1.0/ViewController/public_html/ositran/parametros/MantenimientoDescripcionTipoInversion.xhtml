@@ -5,6 +5,19 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <script type="text/javascript">
+            var valorSeleccionado;
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
+
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+             
+            </script>
         </h:head>
         <h:body>
             <f:event listener="#{descripcionInversionMB.cargarListaInversion}" type="postAddToView"></f:event>
@@ -17,57 +30,69 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
-                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">DESCRIPCION TIPO DE
-                                                                                              INVERSION</h3>
-                            <div style="width:60%" align="center">
+                            <h4 class="titulo">DESCRIPCION TIPO DE INVERSION</h4>
+                            <div style="width:80%" align="center">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
                                             <td align="left">
-                                                <p:commandButton image="ui-icon-circle-plus"
-                                                                 onclick="insertarDesc.show()"
-                                                                 value=" Nueva Descripcion"/>
+                                                Busqueda por Nombre: 
+                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton id="buscar" actionListener="#{descripcionInversionMB.busqueda}"
+                                                                 update=":form:tabla :form:buscarT"
+                                                                 image="ui-icon-search"/><h:outputText />
+                                                <p:tooltip styleClass="tool"  id="toolTipFade2" for="buscar" value="Buscar registros por el nombre" />
+                                                 
+                                                <p:commandButton  id="listarTodos" actionListener="#{descripcionInversionMB.cargarListaInversionDescripcion}"
+                                                                 update=":form:tabla" value="Ver Todos"></p:commandButton>
+                                                    <p:tooltip styleClass="tool"  id="toolTipFade" for="listarTodos" value="Ver la lista completa de descripcion de inversiones" />
+                                            </td>
+                                            <td align="right">
+                                                <p:commandButton
+                                                            actionListener="#{descripcionInversionMB.limpiarCampos}"
+                                                                 image="ui-icon-circle-plus"
+                                                               oncomplete="insertarDesc.show()"
+                                                                 value=" Nueva Descripcion"
+                                                                 update=":form:registrar"
+                                                                 id="nuevo"
+                                             />
+                                              <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Registrar nueva descripcion de tipo inversion" />
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <br></br>
                                  
-                                <p:dataTable style="font-size:11px;" id="tabla" var="inversionDes"
+                                <p:dataTable paginator="true" paginatorPosition="bottom"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="6,8,10" rows="10" resizableColumns="true"
+                                             style="font-size:11px;" id="tabla" var="inversionDes"
                                              value="#{descripcionInversionMB.listaInversionDescripcion}">
-                                    <p:column headerText="ID">
-                                        <h:outputText value="#{inversionDes.itdId}"/>
-                                    </p:column>
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{inversionDes.itdNombre}"/>
                                     </p:column>
                                     <p:column headerText="Descripcion">
                                         <h:outputText value="#{inversionDes.itdDescripcion}"/>
                                     </p:column>
-                                    <p:column headerText="Usuario Registro">
-                                        <h:outputText value="#{inversionDes.itdUsuarioAlta}"/>
-                                    </p:column>
-                                    <p:column headerText="Creacion:">
-                                        <h:outputText value="#{inversionDes.itdFechaAlta}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column headerText="Modificacion:">
-                                        <h:outputText value="#{inversionDes.itdFechaCambio}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column headerText="Edi">
-                                        <p:commandButton image="ui-icon-document" update=":form:editarPanel"
+                                    <p:column headerText="Editar" style="width:4%">
+                                        <div align="center">
+                                        <p:commandButton image="ui-icon-document" update=":form:editarPanel :form:nombreAntiguo"
                                                          oncomplete="editarPanel.show()"
-                                                         actionListener="#{descripcionInversionMB.cargarEditar(inversionDes)}"
-                                                         style="width:25px;height:25px"/>
+                                                         actionListener="#{descripcionInversionMB.cargarEditar}"
+                                                         style="width:21px;height:21px">
+                                                         <f:param id="idModificar" name="idModificar" value="#{inversionDes.itdId}"/>
+                                                         </p:commandButton>
+                                        </div>
                                     </p:column>
-                                    <p:column headerText="Eli">
-                                        <p:commandButton update=":form:codEliminar"
+                                    <p:column headerText="Eliminar" style="width:4%">
+                                      <div align="center">
+                                    <p:commandButton update=":form:codEliminar"
                                                          actionListener="#{descripcionInversionMB.cargarEliminar(inversionDes.itdId)}"
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
-                                                         style="width:25px;height:25px"/>
+                                                         style="width:21px;height:21px"/>
+                                        </div>
+                                       
                                     </p:column>
                                 </p:dataTable>
                             </div>
@@ -79,49 +104,69 @@
                                                                                        AsisTP-2015</div>
                     </p:layoutUnit>
                     <h:inputHidden value="#{descripcionInversionMB.codigoInversionDescripcion}" id="codEliminar"/>
+                        <h:inputHidden value="#{descripcionInversionMB.nombreAntiguo}" id="nombreAntiguo"/>
+                    
                 </p:layout>
-                <p:dialog header="Registrar" widgetVar="insertarDesc" modal="true" style="text-align:center;">
+                <p:dialog header="Registrar" widgetVar="insertarDesc" id="registrar" modal="true"
+                          style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="right">Selecione tipo Inversion:</td>
+                            <td align="left">Selecione tipo Inversion:</td>
                             <td align="left">
-                                <p:selectOneMenu value="#{descripcionInversionMB.codigoInversion}" style="width:100%">
+                                <p:selectOneMenu value="#{descripcionInversionMB.codigoInversion}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
                                                    itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
                                 </p:selectOneMenu>
+                                  <h:outputText value=" "/>
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"  />
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left" class="negrita">Ingrese Nombre:</td>
+                            <td align="left" >Ingrese Nombre:</td>
                             <td align="left">
-                                <p:inputText style="width:97.5%" value="#{descripcionInversionMB.nombre}"/>
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" style="width:290px"
+                                             value="#{descripcionInversionMB.nombre}"/>
+                                               <h:outputText value=" "/>
+                                <img src="../../imagenes/obligatorio.gif"  />
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Ingrese Descripcion:</td>
                             <td align="left">
-                                <p:inputTextarea style="width:350px" value="#{descripcionInversionMB.descripcion}"/>
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:290px"
+                                                 value="#{descripcionInversionMB.descripcion}"/>
+                                                  <h:outputText value=" "/>
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
+                            </td>
+                             
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
                             </td>
                         </tr>
-                         
                         <tr>
-                            <td align="right"></td>
-                            <td align="left"></td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="right"></td>
-                            <td align="left"></td>
+                            <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../imagenes/obligatorio.gif"/>)
+                            </td>
                         </tr>
                          
                         <tr>
                             <td></td>
                             <td align="left">
-                                <p:commandButton oncomplete="insertarDesc.hide()"
-                                                 action="#{descripcionInversionMB.guardar}"
+                                <p:commandButton actionListener="#{descripcionInversionMB.guardar}"
                                                  update=":form:tabla :form:mensaje" style="width:70px"
                                                  value="#{btn.btn_guardar}"/>
                                  
@@ -152,9 +197,21 @@
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="right">ID:</td>
+                            <td colspan="2">
+                            <h:inputHidden value="#{descripcionInversionMB.codigoInversionE}" /> 
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Selecione tipo Inversion:</td>
                             <td align="left">
-                                <p:inputText value="#{descripcionInversionMB.codigoInversionE}" style="width:30px"/>
+                                <p:selectOneMenu  onchange="cargarValor(this)" value="#{descripcionInversionMB.codigoInversion1}" style="width:297px">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
+                                                   itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
+                                </p:selectOneMenu>
+                                <h:outputText value=" "/>
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align:top;" />
                             </td>
                         </tr>
                          
@@ -163,7 +220,10 @@
                                 #{etq.etq_rti_inti}
                             </td>
                             <td align="left">
-                                <p:inputText value="#{descripcionInversionMB.nombreE}" style="width:300px"/>
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{descripcionInversionMB.nombreE}" style="width:290px"/>
+                                               <h:outputText value=" "/>
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
                             </td>
                         </tr>
                          
@@ -172,14 +232,35 @@
                                 #{etq.etq_rti_idti}
                             </td>
                             <td align="left">
-                                <p:inputTextarea value="#{descripcionInversionMB.descripcionE}" style="width:300px"/>
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)"
+                                                 value="#{descripcionInversionMB.descripcionE}" style="width:290px"/>
+                                                   <h:outputText value=" "/>
+                                    <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
                             </td>
                         </tr>
-                         
+                             
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../imagenes/obligatorio.gif"/>)
+                            </td>
+                        </tr>
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form:tabla :form:mensaje" oncomplete="editarPanel.hide()"
-                                                 action="#{descripcionInversionMB.editar}" style="width:70px"
+                                <p:commandButton update=":form:tabla :form:mensaje"
+                                                 actionListener="#{descripcionInversionMB.editar}" style="width:70px"
                                                  value="#{btn.btn_modificar}"/>
                             </td>
                             <td align="left">
