@@ -1,7 +1,7 @@
 package com.ositran.seguridad;
 
 import com.ositran.serviceimpl.UsuarioServiceImpl;
-import com.ositran.util.Util;
+import com.ositran.util.util;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
@@ -30,6 +30,15 @@ public class MantenimientoUsuario {
     private String usuContrasenya;
     private String usuNombre;
     private int usuEstado;
+    private String rowIndex;
+
+    public void setRowIndex(String rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    public String getRowIndex() {
+        return rowIndex;
+    }
 
     @ManagedProperty(value = "#{usuarioServiceImpl}")
     private UsuarioServiceImpl usuarioServiceImpl;
@@ -46,7 +55,7 @@ public class MantenimientoUsuario {
     }
 
     private List<UsuarioVO> listaUsuario;
-    Util util = new Util();
+    util util = new util();
 
     public void setListaUsuario(List<UsuarioVO> listaUsuario) {
         this.listaUsuario = listaUsuario;
@@ -56,11 +65,11 @@ public class MantenimientoUsuario {
         return listaUsuario;
     }
 
-    public void setUtil(Util util) {
+    public void setUtil(util util) {
         this.util = util;
     }
 
-    public Util getUtil() {
+    public util getUtil() {
         return util;
     }
 
