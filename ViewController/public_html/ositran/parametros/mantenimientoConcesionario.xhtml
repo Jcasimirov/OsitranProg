@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -58,11 +57,12 @@
                                     <table width="100%">
                                         <tr>
                                              <td align="left">
+
                                                 Busqueda por Nombre: 
                                                 <p:inputText id="buscarT" onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda}"
-                                                                 update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
+                                                                 update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
                                                  <p:tooltip styleClass="tool"  id="toolTipFade" for="buscar" value="Buscar concecionario por el nombre" />
                                                 
                                                 <p:commandButton id="buscarTodos" actionListener="#{concesionarioMB.cargarListaConcesionarios}"
@@ -142,7 +142,7 @@
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Eliminar el tipo de inversion: " 
+                                Eliminar el tipo de inversion: "
                                 #{concesionarioMB.descripcion}"
                             </td>
                         </tr>
@@ -195,7 +195,7 @@
                                 <p:inputText maxlength="20"
                                              value="#{concesionarioMB.telefonoE}"
                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')"
                                              />
                             </td>
                         </tr>
@@ -203,7 +203,7 @@
                         <tr>
                             <td align="left">Tipo Documento:</td>
                             <td align="left">
-                                <p:selectOneMenu 
+                                <p:selectOneMenu
                                 onchange="cargarValor(this)"
                                 widgetVar="tipoDocumentoRE" id="tipoDocumentoRE"
                                                  value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
@@ -215,13 +215,16 @@
                             </td>
                             <td align="left">Nro Documento:</td>
                             <td align="left" id="documentosE">
-                                <p:inputText 
+                                <p:inputText
                                 id="numeroDE"
                                 widgetVar="numeroDE"
                                 onkeypress="return validarLongitud(this)"
                                 value="#{concesionarioMB.numeroDocumentoE}"
                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+
                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+                                             
+
                             </td>
                         </tr>
                          
@@ -255,7 +258,7 @@
                          
                         <tr>
                             <td colspan="4" align="left">
-                                Cargo Representante: 
+                                Cargo Representante:
                                 <p:selectOneMenu    value="#{concesionarioMB.codigoCargoE}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
@@ -298,7 +301,7 @@
                         </tr> 
                         <tr>
                             <td colspan="2" align="right">
-                                <p:commandButton update=":form:tablaC :form:mensaje" 
+                                <p:commandButton update=":form:tablaC :form:mensaje"
                                                  actionListener="#{concesionarioMB.editar}" style="width:70px" value="Editar"/>
                             </td>
                             <td colspan="2" align="left">
@@ -345,7 +348,7 @@
                             <td align="left">Telefono:</td>
                             <td align="left">
                                 <p:inputText  onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')"
                                               id="telefonoE" maxlength="20"
                                              value="#{concesionarioMB.telefono}"
                                             
@@ -370,7 +373,7 @@
                                 widgetVar="numeroDR"
                                               onkeypress="return validarLongitud(this)"
                                               onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')"
                                               value="#{concesionarioMB.numeroDocumento}"
                                             
                                              />
@@ -407,7 +410,7 @@
                          
                         <tr>
                             <td colspan="4" align="left">
-                                Cargo Representante: 
+                                Cargo Representante:
                                 <p:selectOneMenu
                                     value="#{concesionarioMB.codigoCargo}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
@@ -453,6 +456,3 @@
         </h:body>
     </html>
 </f:view>
-
-
-
