@@ -1,26 +1,27 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.TipoInversionDAO;
-import com.ositran.daoimpl.TipoInversionDAOImpl;
-import com.ositran.model.Igv;
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.model.InversionTipo;
-import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
-
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
 public class TipoInversionServiceImpl implements TipoInversionServices{
+    TipoInversionDAO tipoInversionDAOImpl;
+    InversionTipo inversionTipo;
+    TipoInversionVO tipoInversionVO;
     
-    private TipoInversionDAO tipoInversionDAOImpl;
-
+    
+    @Override
+    public int getCanNombres(String nombre) throws SQLException, Exception {
+        int cantidad;
+        cantidad =tipoInversionDAOImpl.getCanNombres(nombre);
+        return cantidad;
+    }
+    
     @Override
     public List<TipoInversionVO> query()  throws SQLException ,Exception{
         List<InversionTipo> list=tipoInversionDAOImpl.query();
@@ -60,21 +61,21 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
 
     @Override
     public TipoInversionVO get(Integer id) throws SQLException ,Exception{
-        
-        return null;
+        inversionTipo =tipoInversionDAOImpl.get(id);
+        tipoInversionVO=toTipoInversionVO(inversionTipo);
+        return tipoInversionVO;
     }
      //conversiones
     private List<TipoInversionVO> toListTipoInversionVO(List<InversionTipo> list)  {
         List<TipoInversionVO> listVO=new ArrayList<TipoInversionVO>();
         for(int i=0;i<list.size();i++){
-            InversionTipo inversionTipo=(InversionTipo)list.get(i);
-            TipoInversionVO tipoInversionVO=toTipoInversionVO(inversionTipo);
+            inversionTipo=(InversionTipo)list.get(i);
+            tipoInversionVO=toTipoInversionVO(inversionTipo);
             listVO.add(tipoInversionVO);
         }
         return listVO;
     }
     private TipoInversionVO toTipoInversionVO(InversionTipo inversionTipo)  {
-        TipoInversionVO tipoInversionVO=new TipoInversionVO();
         tipoInversionVO.setTivDescripcion(inversionTipo.getTivDescripcion());
         tipoInversionVO.setTivEstado(inversionTipo.getTivEstado());
         try {
@@ -83,7 +84,6 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         tipoInversionVO.setTivFechaCambio(inversionTipo.getTivFechaCambio());
         tipoInversionVO.setTivNombre(inversionTipo.getTivNombre());
         tipoInversionVO.setTivTerminal(inversionTipo.getTivTerminal());
@@ -117,4 +117,21 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     public TipoInversionDAO getTipoInversionDAOImpl() {
         return tipoInversionDAOImpl;
     }
+
+    public void setInversionTipo(InversionTipo inversionTipo) {
+        this.inversionTipo = inversionTipo;
+    }
+
+    public InversionTipo getInversionTipo() {
+        return inversionTipo;
+    }
+
+    public void setTipoInversionVO(TipoInversionVO tipoInversionVO) {
+        this.tipoInversionVO = tipoInversionVO;
+    }
+
+    public TipoInversionVO getTipoInversionVO() {
+        return tipoInversionVO;
+    }
+
 }
