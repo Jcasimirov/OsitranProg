@@ -34,26 +34,7 @@
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                            <td align="left">
-                                                Busqueda por Nombre:
-                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
-                                                             value="#{tipoInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
-                                                 
-                                                <p:commandButton actionListener="#{tipoInversionMB.busqueda}"
-                                                                 update=":form:tablaES :form:buscarT"
-                                                                 image="ui-icon-search" id="buscar"/><h:outputText value=" "/>
-                                                 
-                                                <p:tooltip styleClass="tool" id="tool1" for="buscar"
-                                                           value="Buscar Tipo Inversion por Nombre"/>
-                                                 
-                                                <p:commandButton actionListener="#{tipoInversionMB.ListarInversiones}"
-                                                                 update=":form:tablaES" id="buscarTodos"
-                                                                 value="Ver Todos"></p:commandButton>
-                                                 
-                                                <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
-                                                           value="Ver la lista completa de Tipo de Inversiones"/>
-                                            </td>
-                                            <td align="right">
+                                         <td align="left">
                                                 <p:commandButton actionListener="#{tipoInversionMB.limpiar}"
                                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
@@ -61,8 +42,32 @@
                                                                  id="nuevo"/>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool3" for="nuevo"
-                                                           value="Registrar un nuevo tipo de inversion"/>
+                                                           value="Registrar un nuevo tipo de inversión"/>
                                             </td>
+                                            <td align="right">
+                                                Buscar: 
+                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                                             value="#{tipoInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton actionListener="#{tipoInversionMB.busqueda}"
+                                                                 update=":form:tablaES :form:buscarT"
+                                                                 image="ui-icon-search" id="buscar"/><h:outputText value=" "/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool1" for="buscar"
+                                                           value="Buscar Tipo Inversión por Nombre"/>
+                                                 
+                                                <p:commandButton actionListener="#{tipoInversionMB.ListarInversiones}"
+                                                                 update=":form:tablaES" id="buscarTodos"
+                                                                 image="ui-icon-arrowreturnthick-1-s"  ></p:commandButton>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
+                                                           value="Ver la lista completa de Tipo de Inversiones"/>
+                                                           
+                                                           <p:commandButton image="ui-icon-minus" type="reset"
+                                                              update=":form:tablaC"  id="limpiar" ></p:commandButton>
+                                                <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
+                                            </td>
+                                           
                                         </tr>
                                     </table>
                                 </div>
@@ -74,14 +79,17 @@
                                              rowsPerPageTemplate="6,8,10" resizableColumns="true"
                                              style="font-size:11px;" id="tablaES" var="inversion"
                                              value="#{tipoInversionMB.listaInversiones}">
+                                 <p:column headerText="N°ro" style="width:3%">
+                                        <h:outputText value="#{inversion.contador}"/>
+                                    </p:column>
                                     <p:column headerText="Nombre" style="width:15%">
                                         <h:outputText value="#{inversion.tivNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Descripcion" style="width:45%">
+                                    <p:column headerText="Descripción" style="width:45%">
                                         <h:outputText value="#{inversion.tivDescripcion}"/>
                                     </p:column>
-                                    <p:column headerText="Edi" style="width:4%">
-                                        <div aling="center">
+                                    <p:column headerText="Editar" style="width:4%">
+                                        <div align="center">
                                             <p:commandButton update=":form:editarPanel :form:nombreAntiguo"
                                                              actionListener="#{tipoInversionMB.cargarEditar}"
                                                              oncomplete="editarPanel.show()" image="ui-icon-document"
@@ -91,8 +99,8 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eli" style="width:4%">
-                                        <div aling="center">
+                                    <p:column headerText="Eliminar" style="width:4%">
+                                        <div align="center">
                                             <p:commandButton update=":form:confirEliminar :form:codEliminar"
                                                              actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}"
                                                              oncomplete="confirEliminar.show()"
@@ -115,7 +123,7 @@
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Eliminar el tipo de inversion: "
+                                Eliminar el tipo de inversion: " 
                                 #{tipoInversionMB.nombreEliminar}"
                             </td>
                         </tr>
@@ -144,7 +152,7 @@
                                              value="#{tipoInversionMB.nombre}" label="Nombre" id="nombre"
                                              style="width:300px"/>
                                  
-                                <h:outputText value=" "/>
+                                <h:outputText value=" "/>
                                  
                                 <img src="../../imagenes/obligatorio.gif"/>
                             </td>
@@ -158,7 +166,7 @@
                                 <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
                                                  value="#{tipoInversionMB.descripcion}" style="width:300px"/>
                                  
-                                <h:outputText value=" "/>
+                                <h:outputText value=" "/>
                                  
                                 <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -180,7 +188,7 @@
                          
                         <tr>
                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios(
+                                Campos obligatorios( 
                                 <img src="../../imagenes/obligatorio.gif"/>)
                             </td>
                         </tr>
@@ -214,7 +222,7 @@
                                 <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
                                              value="#{tipoInversionMB.nombreE}" style="width:300px"/>
                                  
-                                <h:outputText value=" "/>
+                                <h:outputText value=" "/>
                                  
                                 <img src="../../imagenes/obligatorio.gif"/>
                             </td>
@@ -228,7 +236,7 @@
                                 <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="100"
                                                  value="#{tipoInversionMB.descripcionE}" style="width:300px"/>
                                  
-                                <h:outputText value=" "/>
+                                <h:outputText value=" "/>
                                  
                                 <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -250,7 +258,7 @@
                          
                         <tr>
                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios(
+                                Campos obligatorios( 
                                 <img src="../../imagenes/obligatorio.gif"/>)
                             </td>
                         </tr>
@@ -271,3 +279,6 @@
         </h:body>
     </html>
 </f:view>
+
+
+
