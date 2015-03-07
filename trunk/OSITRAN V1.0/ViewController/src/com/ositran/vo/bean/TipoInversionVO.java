@@ -19,6 +19,7 @@ public class TipoInversionVO {
     private String tivUsuarioAlta;
     private String tivUsuarioBaja;
     private String tivUsuarioCambio;
+    private int contador;
 
     public TipoInversionVO() {
     }
@@ -125,5 +126,14 @@ public class TipoInversionVO {
     
     public void setTivId(int tivId) {
         this.tivId = tivId;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
