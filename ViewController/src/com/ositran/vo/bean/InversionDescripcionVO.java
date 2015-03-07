@@ -18,6 +18,7 @@ public class InversionDescripcionVO {
     private String itdUsuarioBaja;
     private String itdUsuarioCambio;
     private int tivId;
+    private int contador;
 
     public InversionDescripcionVO() {
     }
@@ -134,5 +135,14 @@ public class InversionDescripcionVO {
 
     public void setTivId(int tivId) {
         this.tivId = tivId;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
