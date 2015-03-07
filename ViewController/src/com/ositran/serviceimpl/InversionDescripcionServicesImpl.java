@@ -71,36 +71,38 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
        return listVO;
     }
     private InversionDescripcionVO toInversionDescripcionVO(InversionTipoDescripcion inversionDescripcion){
-       inversionDescripcionVO.setItdDescripcion(inversionDescripcion.getItdDescripcion());
-       inversionDescripcionVO.setItdEstado(inversionDescripcion.getItdEstado());
-       inversionDescripcionVO.setItdFechaAlta(inversionDescripcion.getItdFechaAlta());
-       inversionDescripcionVO.setItdFechaBaja(inversionDescripcion.getItdFechaBaja());
-       inversionDescripcionVO.setItdFechaCambio(inversionDescripcion.getItdFechaCambio());
-       inversionDescripcionVO.setItdNombre(inversionDescripcion.getItdNombre());
-       inversionDescripcionVO.setItdTerminal(inversionDescripcion.getItdTerminal());
-       inversionDescripcionVO.setItdUsuarioAlta(inversionDescripcion.getItdUsuarioAlta());
-       inversionDescripcionVO.setItdUsuarioBaja(inversionDescripcion.getItdUsuarioBaja());
-       inversionDescripcionVO.setItdUsuarioCambio(inversionDescripcion.getItdUsuarioCambio());
-       inversionDescripcionVO.setItdId(inversionDescripcion.getItdId());
-       inversionDescripcionVO.setTivId(inversionDescripcion.getTivId());
-       return inversionDescripcionVO;
+        InversionDescripcionVO inversionDescripcionVO1 = new InversionDescripcionVO();
+       inversionDescripcionVO1.setItdDescripcion(inversionDescripcion.getItdDescripcion());
+       inversionDescripcionVO1.setItdEstado(inversionDescripcion.getItdEstado());
+       inversionDescripcionVO1.setItdFechaAlta(inversionDescripcion.getItdFechaAlta());
+       inversionDescripcionVO1.setItdFechaBaja(inversionDescripcion.getItdFechaBaja());
+       inversionDescripcionVO1.setItdFechaCambio(inversionDescripcion.getItdFechaCambio());
+       inversionDescripcionVO1.setItdNombre(inversionDescripcion.getItdNombre());
+       inversionDescripcionVO1.setItdTerminal(inversionDescripcion.getItdTerminal());
+       inversionDescripcionVO1.setItdUsuarioAlta(inversionDescripcion.getItdUsuarioAlta());
+       inversionDescripcionVO1.setItdUsuarioBaja(inversionDescripcion.getItdUsuarioBaja());
+       inversionDescripcionVO1.setItdUsuarioCambio(inversionDescripcion.getItdUsuarioCambio());
+       inversionDescripcionVO1.setItdId(inversionDescripcion.getItdId());
+       inversionDescripcionVO1.setTivId(inversionDescripcion.getTivId());
+       return inversionDescripcionVO1;
         
     }
     private InversionTipoDescripcion inversionTipoDescripcion(InversionDescripcionVO inversionDescripcionVO){
-       inversionTipoDescripcion.setItdDescripcion(inversionDescripcionVO.getItdDescripcion());
-       inversionTipoDescripcion.setItdEstado(inversionDescripcionVO.getItdEstado());
-       inversionTipoDescripcion.setItdFechaAlta(inversionDescripcionVO.getItdFechaAlta());
-       inversionTipoDescripcion.setItdFechaBaja(inversionDescripcionVO.getItdFechaBaja());
-       inversionTipoDescripcion.setItdFechaCambio(inversionDescripcionVO.getItdFechaCambio());
-       inversionTipoDescripcion.setItdNombre(inversionDescripcionVO.getItdNombre());
-       inversionTipoDescripcion.setItdTerminal(inversionDescripcionVO.getItdTerminal());
-       inversionTipoDescripcion.setItdUsuarioAlta(inversionDescripcionVO.getItdUsuarioAlta());
-       inversionTipoDescripcion.setItdUsuarioBaja(inversionDescripcionVO.getItdUsuarioBaja());
-       inversionTipoDescripcion.setItdUsuarioCambio(inversionDescripcionVO.getItdUsuarioCambio());
-       inversionTipoDescripcion.setItdId(inversionDescripcionVO.getItdId());
-       inversionTipoDescripcion.setTivId(inversionDescripcionVO.getTivId());
-       
-       return inversionTipoDescripcion;
+        
+        InversionTipoDescripcion inversionTipoDescripcion1=new InversionTipoDescripcion();
+       inversionTipoDescripcion1.setItdDescripcion(inversionDescripcionVO.getItdDescripcion());
+       inversionTipoDescripcion1.setItdEstado(inversionDescripcionVO.getItdEstado());
+       inversionTipoDescripcion1.setItdFechaAlta(inversionDescripcionVO.getItdFechaAlta());
+       inversionTipoDescripcion1.setItdFechaBaja(inversionDescripcionVO.getItdFechaBaja());
+       inversionTipoDescripcion1.setItdFechaCambio(inversionDescripcionVO.getItdFechaCambio());
+       inversionTipoDescripcion1.setItdNombre(inversionDescripcionVO.getItdNombre());
+       inversionTipoDescripcion1.setItdTerminal(inversionDescripcionVO.getItdTerminal());
+       inversionTipoDescripcion1.setItdUsuarioAlta(inversionDescripcionVO.getItdUsuarioAlta());
+       inversionTipoDescripcion1.setItdUsuarioBaja(inversionDescripcionVO.getItdUsuarioBaja());
+       inversionTipoDescripcion1.setItdUsuarioCambio(inversionDescripcionVO.getItdUsuarioCambio());
+       inversionTipoDescripcion1.setItdId(inversionDescripcionVO.getItdId());
+       inversionTipoDescripcion1.setTivId(inversionDescripcionVO.getTivId());
+       return inversionTipoDescripcion1;
        
     }
     public void setInversionDescripcionDAOimpl(InversionDescripcionDAO inversionDescripcionDAOimpl) {
