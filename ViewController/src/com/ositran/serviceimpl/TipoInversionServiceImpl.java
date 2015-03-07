@@ -76,22 +76,24 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         return listVO;
     }
     private TipoInversionVO toTipoInversionVO(InversionTipo inversionTipo)  {
-        tipoInversionVO.setTivDescripcion(inversionTipo.getTivDescripcion());
-        tipoInversionVO.setTivEstado(inversionTipo.getTivEstado());
+        TipoInversionVO toTipoInversionVO2=new TipoInversionVO();
+        
+        toTipoInversionVO2.setTivDescripcion(inversionTipo.getTivDescripcion());
+        toTipoInversionVO2.setTivEstado(inversionTipo.getTivEstado());
         try {
-            tipoInversionVO.setTivFechaAlta(inversionTipo.getTivFechaAlta());
-            tipoInversionVO.setTivFechaBaja(inversionTipo.getTivFechaBaja());
+            toTipoInversionVO2.setTivFechaAlta(inversionTipo.getTivFechaAlta());
+            toTipoInversionVO2.setTivFechaBaja(inversionTipo.getTivFechaBaja());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tipoInversionVO.setTivFechaCambio(inversionTipo.getTivFechaCambio());
-        tipoInversionVO.setTivNombre(inversionTipo.getTivNombre());
-        tipoInversionVO.setTivTerminal(inversionTipo.getTivTerminal());
-        tipoInversionVO.setTivUsuarioAlta(inversionTipo.getTivUsuarioAlta());
-        tipoInversionVO.setTivUsuarioBaja(inversionTipo.getTivUsuarioBaja());
-        tipoInversionVO.setTivUsuarioCambio(inversionTipo.getTivUsuarioCambio());
-        tipoInversionVO.setTivId(inversionTipo.getTivId());
-        return tipoInversionVO;
+        toTipoInversionVO2.setTivFechaCambio(inversionTipo.getTivFechaCambio());
+        toTipoInversionVO2.setTivNombre(inversionTipo.getTivNombre());
+        toTipoInversionVO2.setTivTerminal(inversionTipo.getTivTerminal());
+        toTipoInversionVO2.setTivUsuarioAlta(inversionTipo.getTivUsuarioAlta());
+        toTipoInversionVO2.setTivUsuarioBaja(inversionTipo.getTivUsuarioBaja());
+        toTipoInversionVO2.setTivUsuarioCambio(inversionTipo.getTivUsuarioCambio());
+        toTipoInversionVO2.setTivId(inversionTipo.getTivId());
+        return toTipoInversionVO2;
     }
     private InversionTipo toTipoInversion(TipoInversionVO tipoInversionVO)  {
         InversionTipo inversionTipo=new InversionTipo();
