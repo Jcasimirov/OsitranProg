@@ -3,11 +3,11 @@ package com.ositran.vo.bean;
 import java.util.Date;
 
 public class ConcesionarioVO {
-    private Integer cncId;
+    private int cncId;
     private String cncCorreo;
     private String cncDescripcion;
     private String cncDireccion;
-    private Integer cncEstado;
+    private int cncEstado;
     private Date cncFechaAlta;
     private Date cncFechaBaja;
     private Date cncFechaCambio;
@@ -19,18 +19,19 @@ public class ConcesionarioVO {
     private String cncUsuarioAlta;
     private String cncUsuarioBaja;
     private String cncUsuarioCambio;
-    private Integer crgId;
-    private Integer tdoId;
+    private int crgId;
+    private int tdoId;
+    private int contador;
     
     public ConcesionarioVO() {
         super();
     }
 
-    public void setCncId(Integer cncId) {
+    public void setCncId(int cncId) {
         this.cncId = cncId;
     }
 
-    public Integer getCncId() {
+    public int getCncId() {
         return cncId;
     }
 
@@ -58,11 +59,11 @@ public class ConcesionarioVO {
         return cncDireccion;
     }
 
-    public void setCncEstado(Integer cncEstado) {
+    public void setCncEstado(int cncEstado) {
         this.cncEstado = cncEstado;
     }
 
-    public Integer getCncEstado() {
+    public int getCncEstado() {
         return cncEstado;
     }
 
@@ -154,19 +155,28 @@ public class ConcesionarioVO {
         return cncUsuarioCambio;
     }
 
-    public void setCrgId(Integer crgId) {
+    public void setCrgId(int crgId) {
         this.crgId = crgId;
     }
 
-    public Integer getCrgId() {
+    public int getCrgId() {
         return crgId;
     }
 
-    public void setTdoId(Integer tdoId) {
+    public void setTdoId(int tdoId) {
         this.tdoId = tdoId;
     }
 
-    public Integer getTdoId() {
+    public int getTdoId() {
         return tdoId;
     }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
 }
