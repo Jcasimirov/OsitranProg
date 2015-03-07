@@ -4,8 +4,11 @@ import com.ositran.daoimpl.ConcesionarioDAOImpl;
 import com.ositran.model.Concesionario;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.vo.bean.ConcesionarioVO;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConcesionarioServiceImpl implements ConcesionarioService{
@@ -75,48 +78,48 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return listVO;
     }
     private ConcesionarioVO toConcesionarioVO(Concesionario concesionario){
-        
-        concesionarioVO.setCncCorreo(concesionario.getCncCorreo());
-        concesionarioVO.setCncDescripcion(concesionario.getCncDescripcion());
-        concesionarioVO.setCncDireccion(concesionario.getCncDireccion());
-        concesionarioVO.setCncEstado(concesionario.getCncEstado());
-        concesionarioVO.setCncFechaAlta(concesionario.getCncFechaAlta());
-        concesionarioVO.setCncFechaBaja(concesionario.getCncFechaBaja());
-        concesionarioVO.setCncFechaCambio(concesionario.getCncFechaCambio());
-        concesionarioVO.setCncId(concesionario.getCncId());
-        concesionarioVO.setCncNombre(concesionario.getCncNombre());
-        concesionarioVO.setCncNroDocumento(concesionario.getCncNroDocumento());
-        concesionarioVO.setCncRepresentanteLegal(concesionario.getCncRepresentanteLegal());
-        concesionarioVO.setCncTelefono(concesionario.getCncTelefono());
-        concesionarioVO.setCncTerminal(concesionario.getCncTerminal());
-        concesionarioVO.setCncUsuarioAlta(concesionario.getCncUsuarioAlta());
-        concesionarioVO.setCncUsuarioBaja(concesionario.getCncUsuarioBaja());
-        concesionarioVO.setCncUsuarioCambio(concesionario.getCncUsuarioCambio());
-        concesionarioVO.setCrgId(concesionario.getCrgId());
-        concesionarioVO.setTdoId(concesionario.getTdoId());        
-        return concesionarioVO;
+        ConcesionarioVO con= new ConcesionarioVO();
+        con.setCncCorreo(concesionario.getCncCorreo());
+        con.setCncDescripcion(concesionario.getCncDescripcion());
+        con.setCncDireccion(concesionario.getCncDireccion());
+        con.setCncEstado(concesionario.getCncEstado());
+        con.setCncFechaAlta(concesionario.getCncFechaAlta());
+        con.setCncFechaBaja(concesionario.getCncFechaBaja());
+        con.setCncFechaCambio(concesionario.getCncFechaCambio());
+        con.setCncId(concesionario.getCncId());
+        con.setCncNombre(concesionario.getCncNombre());
+        con.setCncNroDocumento(concesionario.getCncNroDocumento());
+        con.setCncRepresentanteLegal(concesionario.getCncRepresentanteLegal());
+        con.setCncTelefono(concesionario.getCncTelefono());
+        con.setCncTerminal(concesionario.getCncTerminal());
+        con.setCncUsuarioAlta(concesionario.getCncUsuarioAlta());
+        con.setCncUsuarioBaja(concesionario.getCncUsuarioBaja());
+        con.setCncUsuarioCambio(concesionario.getCncUsuarioCambio());
+        con.setCrgId(concesionario.getCrgId());
+        con.setTdoId(concesionario.getTdoId());        
+        return con;
     }
     private Concesionario toConcesionario(ConcesionarioVO concesionarioVO){
-        
-        concesionario.setCncId(concesionarioVO.getCncId());
-        concesionario.setCncCorreo(concesionarioVO.getCncCorreo());
-        concesionario.setCncDescripcion(concesionarioVO.getCncDescripcion());
-        concesionario.setCncDireccion(concesionarioVO.getCncDireccion());
-        concesionario.setCncEstado(concesionarioVO.getCncEstado());
-        concesionario.setCncFechaAlta(concesionarioVO.getCncFechaAlta());
-        concesionario.setCncFechaBaja(concesionarioVO.getCncFechaBaja());
-        concesionario.setCncFechaCambio(concesionarioVO.getCncFechaCambio());
-        concesionario.setCncNombre(concesionarioVO.getCncNombre());
-        concesionario.setCncNroDocumento(concesionarioVO.getCncNroDocumento());
-        concesionario.setCncRepresentanteLegal(concesionarioVO.getCncRepresentanteLegal());
-        concesionario.setCncTelefono(concesionarioVO.getCncTelefono());
-        concesionario.setCncTerminal(concesionarioVO.getCncTerminal());
-        concesionario.setCncUsuarioAlta(concesionarioVO.getCncUsuarioAlta());
-        concesionario.setCncUsuarioBaja(concesionarioVO.getCncUsuarioBaja());
-        concesionario.setCncUsuarioCambio(concesionarioVO.getCncUsuarioCambio());
-        concesionario.setCrgId(concesionarioVO.getCrgId());
-        concesionario.setTdoId(concesionarioVO.getTdoId());
-        return concesionario;
+        Concesionario conc= new Concesionario();
+        conc.setCncId(concesionarioVO.getCncId());
+        conc.setCncCorreo(concesionarioVO.getCncCorreo());
+        conc.setCncDescripcion(concesionarioVO.getCncDescripcion());
+        conc.setCncDireccion(concesionarioVO.getCncDireccion());
+        conc.setCncEstado(concesionarioVO.getCncEstado());
+        conc.setCncFechaAlta(concesionarioVO.getCncFechaAlta());
+        conc.setCncFechaBaja(concesionarioVO.getCncFechaBaja());
+        conc.setCncFechaCambio(concesionarioVO.getCncFechaCambio());
+        conc.setCncNombre(concesionarioVO.getCncNombre());
+        conc.setCncNroDocumento(concesionarioVO.getCncNroDocumento());
+        conc.setCncRepresentanteLegal(concesionarioVO.getCncRepresentanteLegal());
+        conc.setCncTelefono(concesionarioVO.getCncTelefono());
+        conc.setCncTerminal(concesionarioVO.getCncTerminal());
+        conc.setCncUsuarioAlta(concesionarioVO.getCncUsuarioAlta());
+        conc.setCncUsuarioBaja(concesionarioVO.getCncUsuarioBaja());
+        conc.setCncUsuarioCambio(concesionarioVO.getCncUsuarioCambio());
+        conc.setCrgId(concesionarioVO.getCrgId());
+        conc.setTdoId(concesionarioVO.getTdoId());
+        return conc;
     }
     public void setConcesionarioDAOImpl(ConcesionarioDAOImpl concesionarioDAOImpl) {
         this.concesionarioDAOImpl = concesionarioDAOImpl;
