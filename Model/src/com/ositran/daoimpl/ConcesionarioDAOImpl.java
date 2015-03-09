@@ -2,8 +2,12 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ConcesionarioDAO;
 import com.ositran.model.Concesionario;
+import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
+
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,28 +16,28 @@ import org.hibernate.cfg.Configuration;
 
 public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     Concesionario concesionario;
+
     public ConcesionarioDAOImpl() {
         super();
     }
-    
+
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
-        int cantidad=0;
-        Session session = sessionFactory.openSession();
+        int cantidad = 0;
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         List list;
-        query=session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :nombre");
-        query.setParameter("nombre",nombre );
-        list= query.list();   
-        cantidad=list.size();
+        query = session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :nombre");
+        query.setParameter("nombre", nombre);
+        list = query.list();
+        cantidad = list.size();
         return cantidad;
     }
-    
+
     @Override
-    public List<Concesionario> query()  throws SQLException ,Exception{
-        Session session = sessionFactory.openSession();
+    public List<Concesionario> query() throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Concesionario o").list();
         session.getTransaction().commit();
@@ -41,8 +45,8 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     }
 
     @Override
-    public List<Concesionario> queryF(String filtro)  throws SQLException ,Exception{
-        Session session = sessionFactory.openSession();
+    public List<Concesionario> queryF(String filtro) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         session.beginTransaction();
         query = session.createQuery("FROM Concesionario  E WHERE   upper(E.cncNombre) like :filtro1");
@@ -55,9 +59,9 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     }
 
     @Override
-    public String insert(Concesionario concesionario)  throws SQLException ,Exception{
+    public String insert(Concesionario concesionario) throws SQLException, Exception {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.persist(concesionario);
@@ -70,9 +74,9 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     }
 
     @Override
-    public String delete(Integer id)  throws SQLException ,Exception{
+    public String delete(Integer id) throws SQLException, Exception {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             concesionario = (Concesionario) session.get(Concesionario.class, id);
@@ -86,9 +90,9 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     }
 
     @Override
-    public String update(Concesionario concesionario)  throws SQLException ,Exception{
+    public String update(Concesionario concesionario) throws SQLException, Exception {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.update(concesionario);
@@ -101,21 +105,12 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     }
 
     @Override
-    public Concesionario get(Integer id)  throws SQLException ,Exception{
-        Session session = sessionFactory.openSession();
+    public Concesionario get(Integer id) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         concesionario = (Concesionario) session.get(Concesionario.class, id);
         session.getTransaction().commit();
         return concesionario;
-    }
-
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
     }
 
     public void setConcesionario(Concesionario concesionario) {
