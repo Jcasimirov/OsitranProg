@@ -108,7 +108,6 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         inversionTipo.setTivUsuarioBaja(tipoInversionVO.getTivUsuarioBaja());
         inversionTipo.setTivUsuarioCambio(tipoInversionVO.getTivUsuarioCambio());
         inversionTipo.setTivId(tipoInversionVO.getTivId());
-        
         return inversionTipo;
     }
     
