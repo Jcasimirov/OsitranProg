@@ -2,6 +2,9 @@ package com.ositran.daoimpl;
 import com.ositran.dao.IgvDAO;
 import com.ositran.model.Igv;
 import com.ositran.model.InfraestructuraTipo;
+
+import java.sql.SQLException;
+
 import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
@@ -35,16 +38,16 @@ public class IgvDAOImpl implements IgvDAO {
     }
 
     @Override
-    public List<Igv> query() {
+    public List<Igv> query() throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from Igv o where o.igvEstado <> 2").list();
+        List list=session.createQuery("select o from Igv o where o.igvEstado <> 0").list();
         session.getTransaction().commit();
         return list;
     }
 
     @Override
-    public String insert(Igv igv) {
+    public String insert(Igv igv) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -59,7 +62,7 @@ public class IgvDAOImpl implements IgvDAO {
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
@@ -75,23 +78,24 @@ public class IgvDAOImpl implements IgvDAO {
     }
 
     @Override
-    public String update(Igv igv) {
+    public String update(Igv igv) throws SQLException{
         String result=null;
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.update(igv);
             session.getTransaction().commit();
-            logger.info("InfraestructuraTipo updated successfully, InfraestructuraTipo Details="+igv);
+            logger.info("Se actualizó satisfactoriamente el IGV"+igv);
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
         return result;
     }
+    
 
     @Override
-    public Igv get(Integer id) {
+    public Igv get(Integer id) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Igv igv=(Igv)session.get(Igv.class, id);
