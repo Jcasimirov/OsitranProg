@@ -3,7 +3,7 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
-         <h:head>
+        <h:head>
             <style type="text/css">
                 .ui-dialog-titlebar {
                     font-size: 11px;
@@ -13,30 +13,25 @@
         </h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
-       
             <h:form binding="#{backing_parametros_mantenimientoIgv.form1}" id="form1">
-              <p:growl id="mensaje" life="5000" showDetail="true"/>
+                <p:growl id="mensaje" life="5000" showDetail="true"/>
                 <p:panel header="Mantenimiento de IGV" style="text-align:center;text-decoration:blink;width:100%">
                     <div align="center">
                         <table style="width:80% ;font-size:11px;">
-                          <tr>
-                                <td align="center">
-                                 
-                                     <p:commandButton onclick="insertarPanel.show()" value="Registrar Nuevo IGV"/>
+                            <tr>
+                                <td align="right">
+                                    <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.validarIgv}" update=":form1:mensaje :form1:insertarPanel" value="Registrar Nuevo IGV"/>
                                 </td>
                             </tr>
+                             
                             <tr>
-                                <td colspan="3">
-                                    <p:dataTable style="font-size:11px;"  value="#{backing_parametros_mantenimientoIgv.query}" var="igv"
-                                                 selectionMode="single"
-                                                 rowKey="#{igv.igvId}" id="tablaES"
-                                   rows="10"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"              
-                                                 
-                                                 
-                                                 >
+                                <td colspan="3"  style="text-align: center;">
+                                    <p:dataTable style="font-size:11px;"
+                                                 value="#{backing_parametros_mantenimientoIgv.query}" var="igv"
+                                                 selectionMode="single" rowKey="#{igv.igvId}" id="tablaES" rows="10"
+                                                 paginator="true" paginatorPosition="bottom"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
                                         <p:column headerText="Porcentaje Igv">
                                             <h:outputText value="#{igv.igvPorcentaje}"/>
                                         </p:column>
@@ -45,33 +40,51 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
+                                        
+                                       
                                         <p:column headerText="Fecha Caducidad">
                                             <h:outputText value="#{igv.igvFechacaducidad}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
+                                        
+                                        
+                                        
+                                        <div style="text-align: center;">
                                         <p:column headerText="Estado">
                                             <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}"/>
                                         </p:column>
-                                        <p:column headerText="Actualizar">
-                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvActualizarEstado}"
-                                                           value="Actualizar" style="width:25px">
+                                        </div>
+                                        
+                                        
+                                        
+                                            <div style="text-align: center;">                                    
+
+                                        <p:column headerText="Cesar Igv">
+                                            <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarCesarIgv}"
+                                                             oncomplete="actualizarPanel.show()"
+                                                             image="ui-icon-document" style="width:25px;height:25px"
+                                                             update=":form2:actualizarPanel">
                                                 <f:param id="id2" name="id2" value="#{igv.igvId}"/>
-                                            </h:commandLink>
+                                            </p:commandButton>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Eliminar"/>
-                                            </f:facet>
-                                            <h:commandLink actionListener="#{backing_parametros_mantenimientoIgv.igvEliminar}"
-                                                           value="Eliminar" style="width:25px">
-                                                <f:param id="id1" name="id1" value="#{igv.igvId}"/>
-                                            </h:commandLink>
+                                        </div >
+                                        <div style="text-align: center;">
+                                        <p:column headerText="Eliminar Igv">
+                                            <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarEliminarIgv}"
+                                                             oncomplete="eliminarPanel.show()"
+                                                             image="ui-icon-document" style="width:25px;height:25px"
+                                                             update=":form2:eliminarPanel">
+                                                <f:param id="id3" name="id3" value="#{igv.igvId}"/>
+                                            </p:commandButton>
                                         </p:column>
+                                        </div>
+                                        
+                                        
+                                        
                                         <p style="text-align:center">
                                             <p:commandButton binding="#{backing_parametros_mantenimientoIgv.nuevo}"
-                                                             id="nuevo" action="newigv" value="Nuevo Registro"/>
-                                            <!--<h:commandLink action="igvIns" value="Nuevo Igv"/-->
+                                                             id="nuevo" action="newigv" value="Nuevo Registro"/><!--<h:commandLink action="igvIns" value="Nuevo Igv"/-->
                                         </p>
                                         <p style="text-align:center">
                                             <h:commandLink action="/index?faces-redirect=true" value="Volver"/>
@@ -79,76 +92,98 @@
                                     </p:dataTable>
                                 </td>
                             </tr>
-                          
                         </table>
                     </div>
                 </p:panel>
-                
-                
                 <div style="width:80%">
                     <!--INICIO REGISTRAR igv-->
                     <p:dialog id="insertarPanel" header="Registrar" widgetVar="insertarPanel" modal="true">
                         <table style="font-size: 11px">
                             <tr>
                                 <td>
-                                   
-                                    
-                                    
-                           <p:panel header="Mantenimiento de IGV" style="margin-bottom:20px;align:left">
+                                    <p:panel header="Mantenimiento de IGV" style="margin-bottom:20px;align:left">
                                         <h:panelGrid columns="2" cellpadding="5">
-                           
-                           
-                                 
-                                 
-                                  <h:outputLabel value="Ingrese IGV" style="align:left; text-align:left"></h:outputLabel>
-                                 <p:inputMask value="#{backing_parametros_mantenimientoIgv.igvPorcentaje}" 
-                                 
-                                        mask="99.9"    style="width:300px" />
-                                
-                                 
-                                 
-                                 
-                                <h:outputLabel value="Fecha Vigencia" style="align:left; text-align:left"></h:outputLabel>
-                                <p:calendar    id="calendarFechaVigencia" locale="es" pattern="dd/mm/yyyy"
-                                            value="#{backing_parametros_mantenimientoIgv.igvFechavigencia}">
-                              
-                                 </p:calendar>
-                               
-                                 
-                                 
-                              <h:outputLabel value="Fecha Caducidad" style="align:left; text-align:left"></h:outputLabel>
-                                <p:calendar   id="calendarFechaCaducidad" locale="es" pattern="dd/mm/yyyy"
-                                            value="#{backing_parametros_mantenimientoIgv.igvFechacaducidad}">
-                             
-                              </p:calendar>
-                              
-                                
-                                        
-                                           
-                               
-                            </h:panelGrid>
-                                   
-                                    
-                                    
-                                    
-                                    <p:commandButton update=":form1:tablaES :form1:mensaje"
-                                                    
-                                                     actionListener="#{backing_parametros_mantenimientoIgv.igvInsertar}"
-                                                     style="width:70px" value="#{btn.btn_guardar}"/>
-                                     
-                                    <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
-                                    
-                                    </p:panel> 
-                                    
-                                    
-                              </td>
+                                            <h:outputLabel value="Ingrese IGV" style="align:left; text-align:left"></h:outputLabel>
+                                            <p:inputMask value="#{backing_parametros_mantenimientoIgv.igvPorcentaje}" 
+                                                         mask="99.9" style="width:300px"/>
+                                            <h:outputLabel value="Fecha Vigencia" style="align:left; text-align:left"></h:outputLabel>
+                                            <p:calendar id="calendarFechaVigencia" locale="es" pattern="dd/MM/yyyy"
+                                                        value="#{backing_parametros_mantenimientoIgv.igvFechavigencia}" ></p:calendar>
+                                        </h:panelGrid>
+                                        <p:commandButton update=":form1:tablaES :form1:mensaje"
+                                                         actionListener="#{backing_parametros_mantenimientoIgv.igvInsertar}"
+                                                         style="width:70px" value="#{btn.btn_guardar}"/>
+                                        <p:commandButton style="width:70px" value="Salir"
+                                                         onclick="insertarPanel.hide ()"/>
+                                    </p:panel>
+                                </td>
                             </tr>
                         </table>
                     </p:dialog>
                 </div>
-                     
-                   
-               
+            </h:form>
+             
+            <h:form binding="#{backing_parametros_mantenimientoIgv.form2}" id="form2">
+                <div style="width:80%">
+                    <p:dialog id="actualizarPanel" header="Modificar" widgetVar="actualizarPanel" modal="true">
+                        <table style="font-size: 11px">
+                            <tr>
+                                <td>
+                                    <h:inputHidden id="igvCodigo"
+                                                   value="#{backing_parametros_mantenimientoIgv.igvCodigo}"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <p:panel header="Mantenimiento de IGV" style="margin-bottom:20px;align:left">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputLabel value="Fecha Caducidad" style="align:left; text-align:left"></h:outputLabel>
+                                            <p:calendar id="calendarFechaCaducidad" locale="es" pattern="dd/MM/yyyy"
+                                                        value="#{backing_parametros_mantenimientoIgv.igvFechacaducidad}"  readonlyInput="#{igv.igvFechacaducidad==null ? 'true' : 'false'}"></p:calendar>
+                                        </h:panelGrid>
+                                        <p:commandButton update=":form1:tablaES :form1:mensaje"
+                                                         actionListener="#{backing_parametros_mantenimientoIgv.cesarIgv()}"
+                                                         style="width:70px" value="#{btn.btn_guardar}"/>
+                                        <p:commandButton style="width:70px" value="Salir"
+                                                         onclick="actualizarPanel.hide ()"/>
+                                    </p:panel>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:dialog>
+                </div>
+                
+                
+                
+                <div style="width:80%">
+                    <p:dialog id="eliminarPanel" header="Eliminar" widgetVar="eliminarPanel" modal="true">
+                        <table style="font-size: 11px">
+                          
+                              <tr>
+                                <td>
+                                    <h:inputHidden id="igvCodigoEliminar"
+                                                   value="#{backing_parametros_mantenimientoIgv.igvCodigoEliminar}"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <p:panel header="Eliminar IGV" style="margin-bottom:20px;align:left">
+                                        
+                                        <p:commandButton update=":form1:tablaES :form1:mensaje"
+                                                         actionListener="#{backing_parametros_mantenimientoIgv.eliminarIgv()}"
+                                                         style="width:70px" value="#{btn.btn_eliminar}"/>
+                                        <p:commandButton style="width:70px" value="Salir"
+                                                         onclick="eliminarPanel.hide()"/>
+                                    </p:panel>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:dialog>
+                </div>
+                
+                
                 
             </h:form>
         </h:body>
