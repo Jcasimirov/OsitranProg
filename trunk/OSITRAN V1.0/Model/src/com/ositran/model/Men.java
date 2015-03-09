@@ -1,37 +1,33 @@
 package com.ositran.model;
 
 import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 
 /**
  * To create ID generator sequence "T_MEN_ID_SEQ_GEN":
  * CREATE SEQUENCE "T_MEN_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Men.findAll", query = "select o from Men o") })
-@Table(name = "T_MEN")
-@SequenceGenerator(name = "Men_Id_Seq_Gen", sequenceName = "T_MEN_ID_SEQ_GEN", allocationSize = 50, initialValue = 50)
+@Table(name = "T_MEN",uniqueConstraints = @UniqueConstraint(columnNames = {"MEN_ID"}))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
 public class Men implements Serializable {
     private static final long serialVersionUID = 7895582654359795714L;
     @Column(nullable = false, length = 4000)
     private String descripcion;
     @Column(name = "MEN_ESTADO", nullable = false)
-    private BigDecimal menEstado;
+    private int menEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "MEN_FECHA_ALTA")
     private Date menFechaAlta;
@@ -45,12 +41,12 @@ public class Men implements Serializable {
     private String menFormulario;
     @Id
     @Column(name = "MEN_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Men_Id_Seq_Gen")
-    private BigDecimal menId;
+    @GeneratedValue(generator = "generator")
+    private int menId;
     @Column(name = "MEN_NOMBRE", nullable = false, length = 4000)
     private String menNombre;
     @Column(name = "MEN_PADRE")
-    private BigDecimal menPadre;
+    private int menPadre;
     @Column(name = "MEN_TERMINAL", length = 20)
     private String menTerminal;
     @Column(name = "MEN_USUARIO_ALTA", length = 20)
@@ -63,8 +59,8 @@ public class Men implements Serializable {
     public Men() {
     }
 
-    public Men(String descripcion, BigDecimal menEstado, Date menFechaAlta, Date menFechaBaja, Date menFechaCambio,
-               String menFormulario, BigDecimal menId, String menNombre, BigDecimal menPadre, String menTerminal,
+    public Men(String descripcion, int menEstado, Date menFechaAlta, Date menFechaBaja, Date menFechaCambio,
+               String menFormulario, int menId, String menNombre, int menPadre, String menTerminal,
                String menUsuarioAlta, String menUsuarioBaja, String menUsuarioCambio) {
         this.descripcion = descripcion;
         this.menEstado = menEstado;
@@ -81,103 +77,108 @@ public class Men implements Serializable {
         this.menUsuarioCambio = menUsuarioCambio;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getMenEstado() {
-        return menEstado;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setMenEstado(BigDecimal menEstado) {
+    public void setMenEstado(int menEstado) {
         this.menEstado = menEstado;
     }
 
-    public Date getMenFechaAlta() {
-        return menFechaAlta;
+    public int getMenEstado() {
+        return menEstado;
     }
 
     public void setMenFechaAlta(Date menFechaAlta) {
         this.menFechaAlta = menFechaAlta;
     }
 
-    public Date getMenFechaBaja() {
-        return menFechaBaja;
+    public Date getMenFechaAlta() {
+        return menFechaAlta;
     }
 
     public void setMenFechaBaja(Date menFechaBaja) {
         this.menFechaBaja = menFechaBaja;
     }
 
-    public Date getMenFechaCambio() {
-        return menFechaCambio;
+    public Date getMenFechaBaja() {
+        return menFechaBaja;
     }
 
     public void setMenFechaCambio(Date menFechaCambio) {
         this.menFechaCambio = menFechaCambio;
     }
 
-    public String getMenFormulario() {
-        return menFormulario;
+    public Date getMenFechaCambio() {
+        return menFechaCambio;
     }
 
     public void setMenFormulario(String menFormulario) {
         this.menFormulario = menFormulario;
     }
 
-    public BigDecimal getMenId() {
-        return menId;
+    public String getMenFormulario() {
+        return menFormulario;
     }
 
-    public String getMenNombre() {
-        return menNombre;
+    public void setMenId(int menId) {
+        this.menId = menId;
+    }
+
+    public int getMenId() {
+        return menId;
     }
 
     public void setMenNombre(String menNombre) {
         this.menNombre = menNombre;
     }
 
-    public BigDecimal getMenPadre() {
-        return menPadre;
+    public String getMenNombre() {
+        return menNombre;
     }
 
-    public void setMenPadre(BigDecimal menPadre) {
+    public void setMenPadre(int menPadre) {
         this.menPadre = menPadre;
     }
 
-    public String getMenTerminal() {
-        return menTerminal;
+    public int getMenPadre() {
+        return menPadre;
     }
 
     public void setMenTerminal(String menTerminal) {
         this.menTerminal = menTerminal;
     }
 
-    public String getMenUsuarioAlta() {
-        return menUsuarioAlta;
+    public String getMenTerminal() {
+        return menTerminal;
     }
 
     public void setMenUsuarioAlta(String menUsuarioAlta) {
         this.menUsuarioAlta = menUsuarioAlta;
     }
 
-    public String getMenUsuarioBaja() {
-        return menUsuarioBaja;
+    public String getMenUsuarioAlta() {
+        return menUsuarioAlta;
     }
 
     public void setMenUsuarioBaja(String menUsuarioBaja) {
         this.menUsuarioBaja = menUsuarioBaja;
     }
 
-    public String getMenUsuarioCambio() {
-        return menUsuarioCambio;
+    public String getMenUsuarioBaja() {
+        return menUsuarioBaja;
     }
 
     public void setMenUsuarioCambio(String menUsuarioCambio) {
         this.menUsuarioCambio = menUsuarioCambio;
+    }
+
+    public String getMenUsuarioCambio() {
+        return menUsuarioCambio;
     }
 }
