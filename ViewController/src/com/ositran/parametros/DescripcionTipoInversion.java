@@ -4,15 +4,24 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.TipoInversionVO;
+
 import java.sql.SQLException;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
 import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpSession;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "descripcionInversionMB")
@@ -130,7 +139,7 @@ public class DescripcionTipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo validar el nombre "));  
-        }
+        } 
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -197,7 +206,7 @@ public class DescripcionTipoInversion {
                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
                                 "El nuevo nombre que quiere ingresar ya existe"));
             }
-        else
+        else 
         if (codigoInversionE == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -240,9 +249,15 @@ public class DescripcionTipoInversion {
             cargarListaInversion();
         } else {
             try {
-                listaInversionDescripcion = getInversionDescripcionServicesImpl().query1(buscar);
-                listaInversionDescripcion.size();
-                System.out.println(listaInversionDescripcion.size());
+                int contador=1;
+            listaInversionDescripcion = getInversionDescripcionServicesImpl().query1(buscar);
+                for(int i=0;i<listaInversionDescripcion.size();i++){
+                  listaInversionDescripcion.get(i).setContador(contador);
+                    contador++;
+                
+                }
+               
+                
                 buscar = "";
             } catch (SQLException s) {
                 s.printStackTrace();
@@ -272,7 +287,13 @@ public class DescripcionTipoInversion {
 
     public void cargarListaInversionDescripcion() {
         try {
+            int contador=1;
             listaInversionDescripcion = getInversionDescripcionServicesImpl().query();
+            for(int i=0;i<listaInversionDescripcion.size();i++){
+              listaInversionDescripcion.get(i).setContador(contador);
+                contador++;
+                }
+           
 
         } catch (SQLException s) {
             s.printStackTrace();
