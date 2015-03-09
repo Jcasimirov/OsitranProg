@@ -1,16 +1,30 @@
 package com.ositran.parametros;
 
 import com.ositran.service.TipoInversionServices;
+import com.ositran.vo.bean.TipoDocumentoVO;
 import com.ositran.vo.bean.TipoInversionVO;
+
 import java.sql.SQLException;
+
+import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
+
 import java.util.List;
+
 import java.util.Map;
+
+import java.util.regex.Pattern;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipoInversionMB")
@@ -180,11 +194,21 @@ public class TipoInversion {
         if (buscar.equals(null)) {
             ListarInversiones();
         } else {
-            System.out.println(listaInversiones.size());
+            
             try {
                 listaInversiones.clear();
+                
+                int contador=1;
                 listaInversiones = getTipoInversionServicesImpl().query1(buscar);
-                System.out.println(listaInversiones.size());
+                
+                
+                for(int i=0;i<listaInversiones.size();i++){
+                  listaInversiones.get(i).setContador(contador);
+                    contador++;
+                    }
+                
+                
+                
                 buscar = "";
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -226,7 +250,18 @@ public class TipoInversion {
 
     public List<TipoInversionVO> ListarInversiones() {
         try {
+            
+            int contador=1;
             listaInversiones = getTipoInversionServicesImpl().query();
+            
+            
+            for(int i=0;i<listaInversiones.size();i++){
+              listaInversiones.get(i).setContador(contador);
+                contador++;
+                }
+            
+            
+            
 
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
