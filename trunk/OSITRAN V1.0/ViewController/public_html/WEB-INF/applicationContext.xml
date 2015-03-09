@@ -14,15 +14,14 @@
     <bean id="concesionario" class="com.ositran.model.Concesionario" />
     <bean id="inversionDescripcionVO" class="com.ositran.vo.bean.InversionDescripcionVO" />
     <bean id="inversionTipoDescripcion" class="com.ositran.model.InversionTipoDescripcion" />
+    <bean id="rolVO" class="com.ositran.vo.bean.RolVO" />
+    <bean id="rol" class="com.ositran.model.Rol" />
+    <bean id="menVO" class="com.ositran.vo.bean.MenVO" />
+    <bean id="men" class="com.ositran.model.Men" />
+    <bean id="rolOpcionesVO" class="com.ositran.vo.bean.RolOpcionesVO" />
+    <bean id="rolOpciones" class="com.ositran.model.RolOpciones" />
     
     <!--Beans******************************************************************************-->
-    
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
-        <property name="username" value="ositran"/>
-        <property name="password" value="ositran"/>
-    </bean>
     <!--Concesion e Infraestructura-->
     <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
     <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
@@ -49,6 +48,8 @@
         <property name="concesionarioDAOImpl" ref="concesionarioDAOImpl"/>
         <property name="concesionario" ref="concesionario"/>
         <property name="concesionarioVO" ref="concesionarioVO"/>
+        <property name="conce" ref="concesionario"/>
+        <property name="conc" ref="concesionarioVO"/>
     </bean>
     <bean id="consesionario" class="com.ositran.parametros.Concesionario">
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
@@ -143,5 +144,48 @@
     <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
         <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
     </bean>
+
+
+<!--Rol-->
+    <bean id="rolDAOImpl" class="com.ositran.daoimpl.RolDAOImpl">
+            <property name="rol" ref="rol"/>
+    </bean>
+    <bean id="rolServiceImpl" class="com.ositran.serviceimpl.RolServiceImpl">
+        <property name="rolDAOImpl" ref="rolDAOImpl"/>
+        <property name="rol" ref="rol"/>
+        <property name="rolVO" ref="rolVO"/>
+       
+
+    </bean>
+    <bean id="rolMB" class="com.ositran.seguridad.RolMB">
+        <property name="rolServiceImpl" ref="rolServiceImpl"/>
+        <property name="rolVO" ref="rolVO"/>
+        <property name="menServiceImpl" ref="menServiceImpl"/>
+        <property name="menVO" ref="menVO"/>
+        <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
+    </bean>
+
+<!--Menu-->
+    <bean id="menDAOImpl" class="com.ositran.daoimpl.MenDAOImpl">
+            <property name="men" ref="men"/>
+    </bean>
+    <bean id="menServiceImpl" class="com.ositran.serviceimpl.MenServiceImpl">
+        <property name="menDAOImpl" ref="menDAOImpl"/>
+        <property name="men" ref="men"/>
+        <property name="menVO" ref="menVO"/>
+    </bean>
+    <bean id="menMB" class="com.ositran.seguridad.MenuMB">
+       </bean>
+
+<!--Menu-->
+    <bean id="rolOpcionesDAOImpl" class="com.ositran.daoimpl.RolOpcionesDAOImpl">
+            <property name="rolOpciones" ref="rolOpciones"/>
+    </bean>
+    <bean id="rolOpcionesServiceImpl" class="com.ositran.serviceimpl.RolOpcionesServiceImpl">
+        <property name="rolOpcionesDAOImpl" ref="rolOpcionesDAOImpl"/>
+        <property name="rolOpciones" ref="rolOpciones"/>
+        <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
+    </bean>
+ 
     
 </beans>
