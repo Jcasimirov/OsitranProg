@@ -3,6 +3,8 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ConcesionDAO;
 import com.ositran.model.Concesion;
 
+import com.ositran.model.Infraestructura;
+
 import java.sql.SQLException;
 
 import java.util.Collections;
@@ -44,7 +46,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Concesion o order by CSI_ID DESC").list();
+        List list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by CSI_ID DESC ").list();
         session.getTransaction().commit();
          /* Concesion con=new Concesion();
         con=(Concesion)list.get(0);
@@ -105,19 +107,46 @@ public class ConcesionDAOImpl implements ConcesionDAO {
 
     @Override
     public String update(Concesion concesion) throws SQLException{
+        System.out.println("dao");
+        System.out.println(concesion.getCsiId());
+        
         String result = null;
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.update(concesion);
             session.getTransaction().commit();
-            logger.info("InfraestructuraTipo updated successfully, InfraestructuraTipo Details=" + concesion);
+           
         } catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
         }
         return result;
     }
+
+
+    @Override
+    public String update2(Concesion concesion) throws SQLException{
+        System.out.println("dao");
+        System.out.println(concesion.getCsiId());
+        
+        String result = null;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(concesion);
+            session.getTransaction().commit();
+           
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
+    }
+
+
+
+
 
     @Override
     public Concesion get(Integer id) throws SQLException{
@@ -133,9 +162,9 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.beginTransaction();
         Query query;  
         if(codigo < 1 ){
-            query = session.createQuery("FROM Concesion c WHERE lower(c.csiNombre) like lower(:busqueda2)");
+            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and lower(c.csiNombre) like lower(:busqueda2)");
         }else{
-            query = session.createQuery("FROM Concesion c WHERE c.infraestructuraTipo.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
+            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.infraestructuraTipo.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
             query.setParameter("busqueda1",codigo);
         }        
         query.setParameter("busqueda2","%"+nombre+"%");
@@ -144,7 +173,14 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.close();
         return list;
     }
-    
+   /* @Override
+         public Concesion get2(Integer id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Concesion concesion = (Concesion) session.get(Concesion.class, id);
+        session.getTransaction().commit();
+        return concesion;
+    } */
 
    
 }
