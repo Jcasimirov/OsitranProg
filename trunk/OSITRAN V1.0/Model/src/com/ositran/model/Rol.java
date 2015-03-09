@@ -1,37 +1,29 @@
 package com.ositran.model;
 
 import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
-/**
- * To create ID generator sequence "T_ROL_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_ROL_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+
 @Entity
-@NamedQueries({ @NamedQuery(name = "Rol.findAll", query = "select o from Rol o") })
-@Table(name = "T_ROL")
-@SequenceGenerator(name = "Rol_Id_Seq_Gen", sequenceName = "T_ROL_ID_SEQ_GEN", allocationSize = 50, initialValue = 50)
+@Table(name = "T_ROL",uniqueConstraints = @UniqueConstraint(columnNames = {"ROL_ID"}))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
 public class Rol implements Serializable {
     private static final long serialVersionUID = 6192435439624100845L;
     @Column(name = "ROL_DESCRIPCION", nullable = false, length = 100)
     private String rolDescripcion;
     @Column(name = "ROL_ESTADO", nullable = false)
-    private BigDecimal rolEstado;
+    private int rolEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "ROL_FECHA_ALTA")
     private Date rolFechaAlta;
@@ -42,9 +34,9 @@ public class Rol implements Serializable {
     @Column(name = "ROL_FECHA_CAMBIO")
     private Date rolFechaCambio;
     @Id
+    @GeneratedValue(generator = "generator")
     @Column(name = "ROL_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Rol_Id_Seq_Gen")
-    private BigDecimal rolId;
+    private int rolId;
     @Column(name = "ROL_NOMBRE", nullable = false, length = 100)
     private String rolNombre;
     @Column(name = "ROL_TERMINAL", length = 20)
@@ -59,8 +51,8 @@ public class Rol implements Serializable {
     public Rol() {
     }
 
-    public Rol(String rolDescripcion, BigDecimal rolEstado, Date rolFechaAlta, Date rolFechaBaja, Date rolFechaCambio,
-               BigDecimal rolId, String rolNombre, String rolTerminal, String rolUsuarioAlta, String rolUsuarioBaja,
+    public Rol(String rolDescripcion, int rolEstado, Date rolFechaAlta, Date rolFechaBaja, Date rolFechaCambio,
+               int rolId, String rolNombre, String rolTerminal, String rolUsuarioAlta, String rolUsuarioBaja,
                String rolUsuarioCambio) {
         this.rolDescripcion = rolDescripcion;
         this.rolEstado = rolEstado;
@@ -83,11 +75,11 @@ public class Rol implements Serializable {
         this.rolDescripcion = rolDescripcion;
     }
 
-    public BigDecimal getRolEstado() {
+    public int getRolEstado() {
         return rolEstado;
     }
 
-    public void setRolEstado(BigDecimal rolEstado) {
+    public void setRolEstado(int rolEstado) {
         this.rolEstado = rolEstado;
     }
 
@@ -115,7 +107,7 @@ public class Rol implements Serializable {
         this.rolFechaCambio = rolFechaCambio;
     }
 
-    public BigDecimal getRolId() {
+    public int getRolId() {
         return rolId;
     }
 
