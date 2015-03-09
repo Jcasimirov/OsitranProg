@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
+
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+            </script>
+        </h:head>
+        <h:body>
+            <f:event listener="#{rolMB.cargarListaRoles}" type="postAddToView"></f:event>
+             
+            <f:event listener="#{rolMB.cargarListaMenu}" type="postAddToView"></f:event>
+             
+            <f:event listener="#{rolMB.cargarListaRolOpciones}" type="postAddToView"></f:event>
+             
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h4 class="titulo">Mantenimiento Roles</h4>
+                            <div style="width:80%">
+                                <div align="left" style="font-size: 11px">
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="left">
+                                                <p:commandButton actionListener="#{rolMB.cargarListaMenu}"
+                                                                 update=":form:registrar" image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()" value="Nuevo Rol"
+                                                                 id="nuevo"/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool3" for="nuevo"
+                                                           value="Registrar Nuevo Rol"/>
+                                            </td>
+                                            <td align="right">
+                                                Buscar: 
+                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" id="buscarT"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton image="ui-icon-search" id="buscar"/><h:outputText value=" "/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool1" for="buscar"
+                                                           value="Buscar Tipo Inversión por Nombre"/>
+                                                 
+                                                <p:commandButton id="buscarTodos" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
+                                                           value="Ver la lista completa de Tipo de Inversiones"/>
+                                                 
+                                                <p:commandButton image="ui-icon-minus" type="reset" id="limpiar"></p:commandButton>
+                                                 
+                                                <p:tooltip styleClass="tool" id="toolTipFade11" for="limpiar"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br></br>
+                            </div>
+                        </div>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
+                                                                                       AsisTP-2015</div>
+                    </p:layoutUnit>
+                </p:layout>
+                <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                        <tr>
+                            <td align="left">Nombre del Rol:</td>
+                            <td  align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50" label="Nombre"
+                                             id="nombre" style="width:300px" value="#{rolMB.nombre}"/>
+                                 
+                                <h:outputText value=" "/>
+                                 
+                                <img src="../../imagenes/obligatorio.gif"/>
+                            </td>
+                            <td colspan="3">
+                                
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">Descripci&#243;n del Rol</td>
+                            <td  align="left">
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                                 style="width:300px" value="#{rolMB.descripcion}"/>
+                                 
+                                <h:outputText value=" "/>
+                                 
+                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
+                            </td>
+                            <td colspan="3"></td>
+                        </tr>
+                         
+                     
+                         
+                        <tr>
+                            <td align="left" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios( 
+                                <img src="../../imagenes/obligatorio.gif"/>)
+                            </td>
+                        </tr>
+                            <tr>
+                            <td align="right">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2">
+                                <p:dataTable id="menuOpciones" var="me" value="#{rolMB.listaMen}"
+                                             selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column headerText="Id Menú">
+                                        <h:outputText value="#{me.menId}"/>
+                                    </p:column>
+                                    <p:column headerText="Opción Menú">
+                                        <h:outputText value="#{me.menNombre}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                            <td style="width:4px">
+                                <p:commandButton id="agregarRol" image="ui-icon-triangle-1-e"
+                                                 update=":form:menuOpcionesSe" process="menuOpciones"
+                                                 actionListener="#{rolMB.pasarLista()}"/>
+                                 
+                                <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
+                            </td>
+                            <td align="left" colspan="2">
+                                <p:dataTable id="menuOpcionesSe" var="me" value="#{rolMB.listaMenSeleccionado}">
+                                    <p:column headerText="Id Menú">
+                                        <h:outputText value="#{me.menId}"/>
+                                    </p:column>
+                                    <p:column headerText="Opción Menú">
+                                        <h:outputText value="#{me.menNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Registrar">
+                                        <p:selectBooleanCheckbox value="#{me.crear}"/>
+                                    </p:column>
+                                    <p:column headerText="Actualizar">
+                                        <p:selectBooleanCheckbox value="#{me.actualizar}"/>
+                                    </p:column>
+                                    <p:column headerText="Eliminar">
+                                        <p:selectBooleanCheckbox value="#{me.eliminar}"/>
+                                    </p:column>
+                                    <p:column headerText="Lectura">
+                                        <p:selectBooleanCheckbox value="#{me.lectura}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                        </tr>
+                      
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <p:commandButton value="Guardar" actionListener="#{rolMB.guardar}" />
+                            </td>
+                            <td>
+                            </td>                           
+                            <td colspan="2" align="left" >
+                                    <p:commandButton value="Limpiar" type="reset" />
+                            </td>
+                        </tr>
+                      
+                    </table>
+                </p:dialog>
+            </h:form>
+        </h:body>
+    </html>
+</f:view>
