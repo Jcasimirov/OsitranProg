@@ -3,6 +3,9 @@ import com.ositran.daoimpl.IgvDAOImpl;
 import com.ositran.model.Igv;
 import com.ositran.service.IgvService;
 import com.ositran.vo.bean.IgvVO;
+
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,21 +26,21 @@ public class IgvServiceImpl implements IgvService{
     }
 
     @Override
-    public List<IgvVO> query() {
+    public List<IgvVO> query()  throws SQLException{
         List<Igv> list=igvDAOImpl.query();
         List<IgvVO> listVO=toListIgvVO(list);
         return listVO;
     }
 
     @Override
-    public String insert(IgvVO igvVO) {
+    public String insert(IgvVO igvVO) throws SQLException{
         Igv igv=toIgv(igvVO);
         String result=igvDAOImpl.insert(igv);
         return result;
     }
 
     @Override
-    public String delete(Integer id) {
+    public String delete(Integer id) throws SQLException{
         String result=this.igvDAOImpl.delete(id);
         return result;
     }
@@ -49,14 +52,14 @@ public class IgvServiceImpl implements IgvService{
     }  */
 
     @Override
-    public String update(IgvVO igvVO) {
+    public String update(IgvVO igvVO) throws SQLException{
         Igv igv=toIgv(igvVO);
         String result=this.igvDAOImpl.update(igv);
         return result;
     }
 
     @Override
-    public IgvVO get(Integer id) {
+    public IgvVO get(Integer id) throws SQLException{
         Igv igv=this.igvDAOImpl.get(id);
         IgvVO igvVO=toIgvVO(igv);
         return igvVO;
@@ -65,7 +68,7 @@ public class IgvServiceImpl implements IgvService{
     
     
     //conversiones
-    private List<IgvVO> toListIgvVO(List<Igv> list){
+    private List<IgvVO> toListIgvVO(List<Igv> list)throws SQLException{
         List<IgvVO> listVO=new ArrayList<IgvVO>();
         for(int i=0;i<list.size();i++){
             Igv igv=(Igv)list.get(i);
@@ -74,7 +77,7 @@ public class IgvServiceImpl implements IgvService{
         }
         return listVO;
     }
-    private IgvVO toIgvVO(Igv igv){
+    private IgvVO toIgvVO(Igv igv)throws SQLException{
         IgvVO igvVO=new IgvVO();
         igvVO.setIgvEstado(igv.getIgvEstado());
         igvVO.setIgvFechaAlta(igv.getIgvFechaAlta());
@@ -91,7 +94,7 @@ public class IgvServiceImpl implements IgvService{
         
         return igvVO;
     }
-    private Igv toIgv(IgvVO igvVO){
+    private Igv toIgv(IgvVO igvVO) throws SQLException{
         Igv igv=new Igv();
      
         igv.setIgvEstado(igvVO.getIgvEstado());
