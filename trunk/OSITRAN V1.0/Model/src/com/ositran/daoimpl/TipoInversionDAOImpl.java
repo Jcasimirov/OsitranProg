@@ -2,6 +2,8 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.TipoInversionDAO;
 import com.ositran.model.InversionTipo;
+import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
 import org.hibernate.Query;
 import java.util.List;
@@ -10,23 +12,20 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class TipoInversionDAOImpl implements TipoInversionDAO {
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
     InversionTipo inversionTipo;
 
- 
-
     @Override
+    @SuppressWarnings("unchecked")
     public List<InversionTipo> query() throws SQLException, Exception {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List list1 = session.createCriteria(InversionTipo.class).list();
-        session.getTransaction().commit();
-        return list1;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(InversionTipo.class).list();
     }
+    
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
         int cantidad=0;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         List list;
         query=session.createQuery("FROM InversionTipo  E WHERE upper(E.tivNombre)  like :nombre");
@@ -37,7 +36,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     }
 
     @Override
-
+    @SuppressWarnings("unchecked")
     public List<InversionTipo> query1(String buscar) throws SQLException, Exception {
         /*
         ----------BUSQUEDA SIN LIKE-------
@@ -52,24 +51,21 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
         return list;*/
         
         Query query;
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         query =session.createQuery("FROM InversionTipo  E WHERE upper(E.tivNombre) like  :busqueda");
         query.setParameter("busqueda", "%" + buscar + "%");
         /*  query =session.createQuery("FROM InversionTipo  E WHERE E.tivNombre like  :busqueda  or E.tivId like :busqueda or E.tivDescripcion like :busqueda");
         query.setParameter("busqueda", "%" + buscar + "%"); */
-        List list = query.list();
-        session.getTransaction().commit();
-        return list;
+        return query.list();
     }
 
     @Override
     public String insert(InversionTipo inversionTipo) throws SQLException, Exception {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(inversionTipo);
+            session.saveOrUpdate(inversionTipo);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +80,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     public String delete(Integer id) throws SQLException, Exception {
         System.out.println(id);
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             InversionTipo inversionTipo = (InversionTipo) session.get(InversionTipo.class, id);
@@ -101,10 +97,10 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     public String update(InversionTipo inversionTipo) throws SQLException, Exception {
 
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.update(inversionTipo);
+            session.saveOrUpdate(inversionTipo);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -116,20 +112,11 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
 
     @Override
     public InversionTipo get(Integer id) throws SQLException, Exception {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         inversionTipo = (InversionTipo) session.get(InversionTipo.class, id);
-         session.getTransaction().commit();
         return inversionTipo;
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public SessionFactory getSessionFactory() throws SQLException, Exception {
-        return sessionFactory;
-    }
     public void setInversionTipo(InversionTipo inversionTipo) {
         this.inversionTipo = inversionTipo;
     }
