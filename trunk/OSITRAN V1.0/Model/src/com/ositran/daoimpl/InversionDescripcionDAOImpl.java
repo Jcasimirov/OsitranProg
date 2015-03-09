@@ -2,6 +2,8 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
+import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Query;
@@ -11,11 +13,10 @@ import org.hibernate.cfg.Configuration;
 
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     InversionTipoDescripcion inversionTipoDescripcion;
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     @Override
     public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         List list=session.createQuery("select o from InversionTipoDescripcion o").list();
         session.getTransaction().commit();
@@ -25,7 +26,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
         int cantidad=0;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         List list;
         query=session.createQuery("FROM InversionTipoDescripcion  E WHERE  E.itdNombre like :nombre");
@@ -38,7 +39,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public String insert(InversionTipoDescripcion inversionTipoDes)  throws SQLException ,Exception{
         
         String result=null;
-           Session session = sessionFactory.openSession();
+           Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
            try {
                session.beginTransaction();
                session.save(inversionTipoDes);
@@ -56,7 +57,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     @Override
     public String delete(Integer id) throws SQLException ,Exception {
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             inversionTipoDescripcion=(InversionTipoDescripcion)session.get(InversionTipoDescripcion.class, id);
@@ -72,7 +73,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     @Override
     public String update(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception {
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.update(inversionTipoDes);
@@ -88,7 +89,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     @Override
     public InversionTipoDescripcion get(Integer id) throws SQLException ,Exception {
        
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
        inversionTipoDescripcion = (InversionTipoDescripcion) session.get(InversionTipoDescripcion.class, id);
          session.getTransaction().commit();
@@ -99,7 +100,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception {
         
         Query query;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();     
         query=session.createQuery("FROM InversionTipoDescripcion  E WHERE upper(E.itdNombre) like  :busqueda");  
         query.setParameter("busqueda","%"+buscar+"%");
