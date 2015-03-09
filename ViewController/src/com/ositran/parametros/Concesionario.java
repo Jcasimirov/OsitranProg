@@ -1,5 +1,4 @@
 package com.ositran.parametros;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.ositran.service.CargoService;
@@ -25,7 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.context.RequestContext;
-
 @ManagedBean(name = "concesionarioMB")
 @RequestScoped
 public class Concesionario {
@@ -133,7 +131,6 @@ public class Concesionario {
                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                              "Se Registro con Exito"));
            } catch (SQLException s) {
-                s.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               correo +
@@ -141,7 +138,6 @@ public class Concesionario {
                 
             } 
             catch ( Exception e){
-                e.printStackTrace();
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                   correo +
@@ -264,7 +260,17 @@ public class Concesionario {
 
     public void busqueda() {
       try {
+            int contador=1;
             listaCon = concesionarioServiceImpl.queryF(buscar);
+           
+          
+            for(int i=0;i<listaCon.size();i++){
+              listaCon.get(i).setContador(contador);
+                contador++;
+                }
+          
+          
+          
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -307,9 +313,15 @@ public class Concesionario {
 
     public void cargarListaConcesionarios() {
         try {
+            int contador=1;
            listaCon = concesionarioServiceImpl.query();
+            for(int i=0;i<listaCon.size();i++){
+              listaCon.get(i).setContador(contador);
+                contador++;
+                }
        }
         catch (SQLException s) {
+            s.printStackTrace();
                    FacesContext.getCurrentInstance().addMessage(null,
                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                  correo +
@@ -317,6 +329,7 @@ public class Concesionario {
                    
                } 
                catch ( Exception e){
+            e.printStackTrace();
                        FacesContext.getCurrentInstance().addMessage(null,
                                                                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                      correo +
