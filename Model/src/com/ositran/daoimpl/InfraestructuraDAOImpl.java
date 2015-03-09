@@ -5,6 +5,8 @@ import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
 import com.ositran.model.InfraestructuraTipo;
 
+import java.sql.SQLException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -20,10 +22,10 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
     @Override
     public List<Infraestructura> query1(Integer codigoC) {
-          Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query;
-        query = session.createQuery("From Infraestructura i WHERE i.concesion.csiId = :busqueda1");
+        query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.concesion.csiId = :busqueda1");
         query.setParameter("busqueda1",codigoC);
         List<Infraestructura> list = query.list();
         session.getTransaction().commit();
@@ -36,7 +38,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Infraestructura o ").list();
+        List list = session.createQuery("select o from Infraestructura o WHERE o.infEstado=1").list();
         
         session.getTransaction().commit();
         return list;
@@ -67,8 +69,20 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
     @Override
     public String update(Infraestructura infraestructura) {
-        // TODO Implement this method
-        return null;
+        
+            System.out.println(infraestructura.getInfId());
+        String result=null;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(infraestructura);
+            session.getTransaction().commit();
+            
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+        }
+        return result;
     }
 
     @Override
@@ -76,5 +90,29 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         // TODO Implement this method
         return null;
     }
+    
+    @Override
+    public Infraestructura get2(Integer id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Infraestructura infraestructura = (Infraestructura) session.get(Infraestructura.class, id);
+        session.getTransaction().commit();
+        return infraestructura;
+    }
+    
+    /*     @Override
+    public Infraestructura eliminarInfraestructura(Integer id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Infraestructura infraestructura = (Infraestructura) session.get(Infraestructura.class, id);
+        session.getTransaction().commit();
+        return infraestructura;
+    }
+     */
+  
+
+    
+    
+    
 
 }
