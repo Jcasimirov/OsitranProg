@@ -2,6 +2,7 @@ package com.ositran.vo.bean;
 
 import com.ositran.model.InfraestructuraTipo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -150,5 +151,16 @@ public class ConcesionVO {
     public InfraestructuraTipo getInfraestructuraTipo() {
         return infraestructuraTipo;
     }
+    
+    public int correla;
+
+    public void setCorrela(int correla) {
+        this.correla = correla;
+    }
+
+    public int getCorrela() {
+        return correla;
+    }
+
 
 }
