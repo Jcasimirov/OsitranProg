@@ -5,11 +5,14 @@ import com.ositran.dao.InfraestructuraDAO;
 import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
 
+import com.ositran.model.InversionTipo;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 import com.ositran.vo.bean.TipoInversionVO;
+
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +25,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
 
 
     @Override
-    public List<InfraestructuraVO> query1(Integer CodigoC) {
+    public List<InfraestructuraVO> query1(Integer CodigoC) throws SQLException{
         
         
         List<Infraestructura> list=infraestructuraDAOImpl.query1(CodigoC);
@@ -31,7 +34,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
     @Override
-    public List<InfraestructuraVO> query() {
+    public List<InfraestructuraVO> query() throws SQLException{
         System.out.println("Services");
         List<Infraestructura> list=infraestructuraDAOImpl.query();
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
@@ -39,7 +42,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
     @Override
-    public String insert(InfraestructuraVO infraestructuraVO) {  
+    public String insert(InfraestructuraVO infraestructuraVO) throws SQLException{  
         Infraestructura infraestructura=toInfraestructura(infraestructuraVO);
         String result=infraestructuraDAOImpl.insert(infraestructura);
         return result;
@@ -52,22 +55,23 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
     @Override
-    public String update(InfraestructuraVO infraestructuraVO) {
-        // TODO Implement this method
-        return null;
+    public String update(InfraestructuraVO infraestructuraVO) throws SQLException{
+        Infraestructura infraestructura=toInfraestructura(infraestructuraVO);
+        String result=infraestructuraDAOImpl.update(infraestructura);
+        return result;
     }
 
-    @Override
-    public InfraestructuraVO get(Integer id) {
-        // TODO Implement this method
-        return null;
+   
+    public InfraestructuraVO get2(Integer id) throws SQLException{
+        Infraestructura infraestructura=this.infraestructuraDAOImpl.get2(id);
+        InfraestructuraVO infraestructuraVO=toInfraestructuraVO(infraestructura);
+        return infraestructuraVO;
     }
-    
     
 
     
     //conversiones
-    private List<InfraestructuraVO> toListInfraestructuraVO(List<Infraestructura> list){
+    private List<InfraestructuraVO> toListInfraestructuraVO(List<Infraestructura> list)throws SQLException{
        List<InfraestructuraVO> listVO=new ArrayList<InfraestructuraVO>();
        for(int i=0;i<list.size();i++){
            Infraestructura infraestructura=(Infraestructura)list.get(i);
@@ -76,7 +80,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
        }
        return listVO;
     }
-    private InfraestructuraVO toInfraestructuraVO(Infraestructura infraestructura){
+    private InfraestructuraVO toInfraestructuraVO(Infraestructura infraestructura)throws SQLException{
        InfraestructuraVO infraestructuraVO=new InfraestructuraVO();
         
         infraestructuraVO.setInfFechaAlta(infraestructura.getInfFechaAlta());
@@ -92,7 +96,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructuraVO.setConcesion(infraestructura.getConcesion());
        return infraestructuraVO;
     }
-    private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO){
+    private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO)throws SQLException{
        Infraestructura infraestructura=new Infraestructura();
         
         infraestructura.setInfFechaAlta(infraestructuraVO.getInfFechaAlta());
@@ -110,11 +114,11 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
        return infraestructura;
        
     }
-    public void setInfraestructuraDAOImpl(InfraestructuraDAO infraestructuraDAOImpl) {
+    public void setInfraestructuraDAOImpl(InfraestructuraDAO infraestructuraDAOImpl) throws SQLException{
         this.infraestructuraDAOImpl = infraestructuraDAOImpl;
     }
 
-    public InfraestructuraDAO getInfraestructuraDAOImpl() {
+    public InfraestructuraDAO getInfraestructuraDAOImpl() throws SQLException{
         return infraestructuraDAOImpl;
     }
 
