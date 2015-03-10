@@ -48,6 +48,8 @@ public class TipoInversion {
     @ManagedProperty(value = "#{tipoInversionServicesImpl}")
     TipoInversionServices tipoInversionServicesImpl;
 
+
+    
     public void guardar() {
         int cantidad;
         cantidad=validarNombre(nombre);
