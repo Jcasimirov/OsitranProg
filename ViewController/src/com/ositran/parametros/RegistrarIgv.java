@@ -35,7 +35,6 @@ import org.primefaces.component.panelgrid.PanelGrid;
 public class RegistrarIgv {
     private HtmlForm form1;
     public IgvVO igvVO=new IgvVO();
-    //www.journaldev.com/3851/primefaces-message-messages-growl-components-example
     @ManagedProperty(value="#{igvServiceImpl}")
     private IgvServiceImpl igvServiceImpl;
     private OutputLabel outputLabelPorcentaje;
