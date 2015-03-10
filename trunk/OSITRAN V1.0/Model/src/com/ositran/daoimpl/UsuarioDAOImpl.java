@@ -80,23 +80,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return result;
     }
     
-    @Override
-    public String update1(Usuario usuario)throws SQLException {
-        String result = null;
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(usuario);
-            session.getTransaction().commit();
-            logger.info("Usuario updated successfully, Usuario Details=" + usuario);
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            result = e.getMessage();
-        }
-        return result;
-    }
-
-
 
     @Override
     public Usuario get(Integer id) throws SQLException {
