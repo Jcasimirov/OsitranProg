@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.dao.ModalidadConcesionDAO;
 import com.ositran.model.EmpresaSupervisora;
-import com.ositran.model.Event;
 import com.ositran.model.Igv;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.ModalidadConcesion;
