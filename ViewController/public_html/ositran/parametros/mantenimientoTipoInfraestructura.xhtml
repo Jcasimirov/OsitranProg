@@ -106,25 +106,25 @@
                                                 </f:facet>
                                                 <h:outputText value="#{mti.tinDescripcion}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="8">
                                                 <f:facet name="header">
-                                                    <h:outputText value="Actualizar"/>
-                                                </f:facet>
+                                                    <h:outputText value="Actualizar" />
+                                                </f:facet><center>
                                                 <p:commandButton update=":form:popupeditar"
                                                                  action="#{infraestructuraMB.cargarEditar(mti)}"
                                                                  oncomplete="popupeditar.show()"
                                                                  image="ui-icon-document"
-                                                                 style="width:25px;height:25px"/>
+                                                                 style="width:25px;height:25px"/></center>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="8">
                                                 <f:facet name="header">
                                                     <h:outputText value="Eliminar"/>
-                                                </f:facet>
+                                                </f:facet><center>
                                                 <p:commandButton update=":form:popupeliminar :form:codEliminar"
                                                                  actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"
                                                                  oncomplete="popupeliminar.show()"
                                                                  image="ui-icon-closethick"
-                                                                 style="width:25px;height:25px"/>
+                                                                 style="width:25px;height:25px"/></center>
                                             </p:column>
                                         </p:dataTable>
                                     </td>
@@ -169,7 +169,9 @@
                                 <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              onkeydown="return validarLetras(event)"/>
+                                <img src="../../imagenes/obligatorio.gif" />
                             </td>
+                            
                         </tr>
                          
                         <tr>
@@ -177,8 +179,14 @@
                                 #{etq.etq_dtinfra}
                             </td>
                             <td align="left">
-                                <p:inputTextarea value="#{infraestructuraMB.tinDescripcion}" style="width:300px"
+                                <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px; height:40px"
                                                  onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                <img src="../../imagenes/obligatorio.gif" style="top: 10px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td align="right" colspan="2"  style="font-size: 10px;font-style: oblique; color: Red;">    
+                                Campos  obligatorios (<img src="../../imagenes/obligatorio.gif" />)
                             </td>
                         </tr>
                          
