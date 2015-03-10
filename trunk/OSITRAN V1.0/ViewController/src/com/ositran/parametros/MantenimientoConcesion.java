@@ -268,8 +268,13 @@ public class MantenimientoConcesion {
         return infraestructuraTipoServiceImpl;
     }
 
-    public void listarTipInfraestructura() {
-        listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
+    public void listarTipInfraestructura(){
+        try {
+           listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
+       } catch (Exception e) {
+           e.printStackTrace();
+        }
+       
     }
 
     public void ListarInfraestructuras() {
