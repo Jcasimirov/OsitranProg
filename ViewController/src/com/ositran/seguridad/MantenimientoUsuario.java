@@ -1,15 +1,16 @@
 package com.ositran.seguridad;
 
 import com.ositran.serviceimpl.UsuarioServiceImpl;
-import com.ositran.util.Util;
+import com.ositran.util.util;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
-
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Generated;
 
@@ -19,6 +20,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import javax.swing.JOptionPane;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "mantenimientoUsuarioMB")
@@ -27,6 +30,7 @@ import org.primefaces.context.RequestContext;
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoUsuario {
     private String usuUsuario;
+    private String usuCorreo;
     private String usuContrasenya;
     private String usuNombre;
     private int usuEstado;
@@ -55,7 +59,7 @@ public class MantenimientoUsuario {
     }
 
     private List<UsuarioVO> listaUsuario;
-    Util util = new Util();
+    util util = new util();
 
     public void setListaUsuario(List<UsuarioVO> listaUsuario) {
         this.listaUsuario = listaUsuario;
@@ -65,11 +69,11 @@ public class MantenimientoUsuario {
         return listaUsuario;
     }
 
-    public void setUtil(Util util) {
+    public void setUtil(util util) {
         this.util = util;
     }
 
-    public Util getUtil() {
+    public util getUtil() {
         return util;
     }
 
@@ -106,7 +110,6 @@ public class MantenimientoUsuario {
         return codigoE;
     }
 
-
     public void activarUsuario(UsuarioVO usuarioV) throws SQLException {
         try {
             usuarioVO = usuarioV;
@@ -122,7 +125,6 @@ public class MantenimientoUsuario {
             // TODO: Add catch code
             e.printStackTrace();
         }
-
     }
 
     public void desactivarUsuario(UsuarioVO usuarioV) throws SQLException {
@@ -148,7 +150,8 @@ public class MantenimientoUsuario {
     private int usuEsexterno;
     private int cargo;
     private int rol;
-
+    private Pattern pattern;
+    private Matcher matcher;
 
     public void setUsuEsexterno(int usuEsexterno) {
         this.usuEsexterno = usuEsexterno;
@@ -175,12 +178,34 @@ public class MantenimientoUsuario {
     }
 
 
+    public void setPattern(Pattern pattern) {
+        this.pattern = pattern;
+    }
+
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    public void setMatcher(Matcher matcher) {
+        this.matcher = matcher;
+    }
+
+    public Matcher getMatcher() {
+        return matcher;
+    }
+
+    private static final String EMAIL_PATTERN =
+        "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+
     public void guardarUsuario() throws SQLException {
 
-        if (usuEsexterno == 0 || usuUsuario.equals("") || usuContrasenya.equals("") || usuNombre.equals("") ||
-            rol == 0 || cargo == 0) {
-            System.out.println("llego aqui osea mal");
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(usuCorreo);
 
+        if (usuEsexterno == 0 || usuUsuario.equals("") || usuContrasenya.equals("") || usuNombre.equals("") ||
+            rol == 0 || cargo == 0 || usuCorreo.equals("") || matcher.find() != true) {
+            System.out.println("llego aqui osea mal");
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No se Registro por problemas, try again"));
@@ -195,6 +220,7 @@ public class MantenimientoUsuario {
                 usuarioVO.setUsuUsuario(usuUsuario.toUpperCase());
                 usuarioVO.setUsuContrasenya(usuContrasenya);
                 usuarioVO.setUsuNombre(usuNombre.toUpperCase());
+                usuarioVO.setUsuCorreo(usuCorreo);
                 usuarioVO.setRolId(rol);
                 usuarioVO.setCrgId(cargo);
                 usuarioVO.setUsuEstado(1);
@@ -225,8 +251,7 @@ public class MantenimientoUsuario {
     private String usuUsuarioE;
     private String usuContrasenyaE;
     private String usuNombreE;
-
-
+    private String usuCorreoE;
 
 
     public void cargarEditar() throws SQLException {
@@ -248,6 +273,7 @@ public class MantenimientoUsuario {
             usuUsuarioE = usuarioVO.getUsuUsuario();
             usuContrasenyaE = usuarioVO.getUsuContrasenya();
             usuNombreE = usuarioVO.getUsuNombre();
+            usuCorreoE = usuarioVO.getUsuCorreo();
             usuEstadoE = usuarioVO.getUsuEstado();
         } catch (Exception e) {
             // TODO: Add catch code
@@ -265,12 +291,13 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuUsuario(usuUsuarioE.toUpperCase());
             usuarioVO.setUsuContrasenya(usuContrasenyaE);
             usuarioVO.setUsuNombre(usuNombreE.toUpperCase());
+            usuarioVO.setUsuCorreo(usuCorreoE);
             usuarioVO.setRolId(rolE);
             usuarioVO.setCrgId(cargoE);
             usuarioVO.setUsuEstado(usuEstadoE);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuTerminal(util.obtenerIpCliente());
-            getUsuarioServiceImpl().update1(usuarioVO);
+            getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -417,6 +444,14 @@ public class MantenimientoUsuario {
         return usuUsuarioE;
     }
 
+    public void setUsuCorreoE(String usuCorreoE) {
+        this.usuCorreoE = usuCorreoE;
+    }
+
+    public String getUsuCorreoE() {
+        return usuCorreoE;
+    }
+
     public void setUsuContrasenyaE(String usuContrasenyaE) {
         this.usuContrasenyaE = usuContrasenyaE;
     }
@@ -465,6 +500,15 @@ public class MantenimientoUsuario {
 
     public int getUsuEstado() {
         return usuEstado;
+    }
+
+
+    public void setUsuCorreo(String usuCorreo) {
+        this.usuCorreo = usuCorreo;
+    }
+
+    public String getUsuCorreo() {
+        return usuCorreo;
     }
 
 }
