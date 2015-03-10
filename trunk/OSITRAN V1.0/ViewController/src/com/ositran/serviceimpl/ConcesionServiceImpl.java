@@ -2,8 +2,11 @@ package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ConcesionDAOImpl;
 import com.ositran.model.Concesion;
+import com.ositran.model.Infraestructura;
 import com.ositran.service.ConcesionService;
 import com.ositran.vo.bean.ConcesionVO;
+
+import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
 
@@ -63,10 +66,22 @@ public class ConcesionServiceImpl implements ConcesionService{
 
     @Override
     public String update(ConcesionVO concesionVO) throws SQLException{
+        System.out.println("servicves");
         Concesion concesion=toConcesion(concesionVO);
-        String result=this.concesionDAOImpl.update(concesion);
+        String result=concesionDAOImpl.update(concesion);
         return result;
     }
+
+
+    @Override
+    public String update2(ConcesionVO concesionVO) throws SQLException{
+        System.out.println("servicves");
+        Concesion concesion=toConcesion(concesionVO);
+        String result=concesionDAOImpl.update(concesion);
+        return result;
+    }
+
+
 
     @Override
     public ConcesionVO get(Integer id) throws SQLException{
@@ -116,6 +131,7 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesion.setCsiId(concesionVO.getCsiId());
         concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
         concesion.setCsiNombre(concesionVO.getCsiNombre());
+        concesion.setCsiEstado(concesionVO.getCsiEstado());
        
         return concesion; 
         
@@ -127,6 +143,8 @@ public class ConcesionServiceImpl implements ConcesionService{
         List<ConcesionVO> listVO=toListConcesionVO(list);
         return listVO;
     }
+
+    
 
 
 }
