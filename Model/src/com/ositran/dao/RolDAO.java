@@ -9,4 +9,5 @@ public interface RolDAO {
         public String delete(Integer id);
         public String update(Rol rol);
         public Rol get(Integer id);
+        public int getCodigo(Rol rol);
 }
