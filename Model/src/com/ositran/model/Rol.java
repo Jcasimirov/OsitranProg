@@ -37,6 +37,7 @@ public class Rol implements Serializable {
     @GeneratedValue(generator = "generator")
     @Column(name = "ROL_ID", nullable = false)
     private int rolId;
+  
     @Column(name = "ROL_NOMBRE", nullable = false, length = 100)
     private String rolNombre;
     @Column(name = "ROL_TERMINAL", length = 20)
@@ -149,5 +150,8 @@ public class Rol implements Serializable {
 
     public void setRolUsuarioCambio(String rolUsuarioCambio) {
         this.rolUsuarioCambio = rolUsuarioCambio;
+    }
+    public void setRolId(int rolId) {
+        this.rolId = rolId;
     }
 }
