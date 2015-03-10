@@ -24,6 +24,7 @@ public class UsuarioVO implements Serializable {
     private Date usuFechaCambio;
     private Integer usuId;
     private String usuNombre;
+    private String usuCorreo;
     private String usuTerminal;
     private String usuUsuario;
     private String usuUsuarioAlta;
@@ -38,7 +39,7 @@ public class UsuarioVO implements Serializable {
 
     public UsuarioVO(Integer crgId, Integer rolId, String usuContrasenya, Integer usuEsexterno, Integer usuEstado,
                      Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId, String usuNombre,
-                     String usuTerminal, String usuUsuario, String usuUsuarioAlta, String usuUsuarioBaja,
+                     String usuCorreo, String usuTerminal, String usuUsuario, String usuUsuarioAlta, String usuUsuarioBaja,
                      String usuUsuarioCambio) {
         super();
         this.crgId = crgId;
@@ -51,6 +52,7 @@ public class UsuarioVO implements Serializable {
         this.usuFechaCambio = usuFechaCambio;
         this.usuId = usuId;
         this.usuNombre = usuNombre;
+        this.usuCorreo = usuCorreo;
         this.usuTerminal = usuTerminal;
         this.usuUsuario = usuUsuario;
         this.usuUsuarioAlta = usuUsuarioAlta;
@@ -137,6 +139,15 @@ public class UsuarioVO implements Serializable {
 
     public String getUsuNombre() {
         return usuNombre;
+    }
+
+
+    public void setUsuCorreo(String usuCorreo) {
+        this.usuCorreo = usuCorreo;
+    }
+
+    public String getUsuCorreo() {
+        return usuCorreo;
     }
 
     public void setUsuTerminal(String usuTerminal) {
