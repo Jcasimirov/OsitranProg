@@ -62,6 +62,10 @@ public class RolVO  {
         return rolFechaBaja;
     }
 
+    public void setRolId(int rolId) {
+        this.rolId = rolId;
+    }
+
     public void setRolFechaBaja(Date rolFechaBaja) {
         this.rolFechaBaja = rolFechaBaja;
     }
