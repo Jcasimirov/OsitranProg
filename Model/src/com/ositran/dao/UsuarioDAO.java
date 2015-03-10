@@ -12,7 +12,6 @@ public interface UsuarioDAO {
         public String insert(Usuario usuario)throws SQLException;
         public String delete(Integer id) throws SQLException;
         public String update(Usuario usuario) throws SQLException;
-        public String update1(Usuario usuario) throws SQLException;
         public Usuario get(Integer id) throws SQLException;
         public List<Usuario> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException; 
         
