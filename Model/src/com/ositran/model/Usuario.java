@@ -29,6 +29,8 @@ public class Usuario implements Serializable {
     private Integer rolId;
     @Column(name = "USU_CONTRASENYA", nullable = false, length = 20)
     private String usuContrasenya;
+    @Column(name = "USU_CORREO", nullable = false, length = 50)
+    private String usuCorreo;
     @Column(name = "USU_ESEXTERNO", nullable = false)
     private Integer usuEsexterno;
     @Column(name = "USU_ESTADO", nullable = false)
@@ -62,13 +64,14 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer crgId, Integer rolId, String usuContrasenya, Integer usuEsexterno,
+    public Usuario(Integer crgId, Integer rolId, String usuContrasenya, String usuCorreo, Integer usuEsexterno,
                    Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId,
                    String usuNombre, String usuTerminal, String usuUsuario, String usuUsuarioAlta,
                    String usuUsuarioBaja, String usuUsuarioCambio) {
         this.crgId = crgId;
         this.rolId = rolId;
         this.usuContrasenya = usuContrasenya;
+        this.usuCorreo = usuCorreo;
         this.usuEsexterno = usuEsexterno;
         this.usuEstado = usuEstado;
         this.usuFechaAlta = usuFechaAlta;
@@ -105,6 +108,15 @@ public class Usuario implements Serializable {
 
     public void setUsuContrasenya(String usuContrasenya) {
         this.usuContrasenya = usuContrasenya;
+    }
+
+
+    public void setUsuCorreo(String usuCorreo) {
+        this.usuCorreo = usuCorreo;
+    }
+
+    public String getUsuCorreo() {
+        return usuCorreo;
     }
 
     public Integer getUsuEsexterno() {
