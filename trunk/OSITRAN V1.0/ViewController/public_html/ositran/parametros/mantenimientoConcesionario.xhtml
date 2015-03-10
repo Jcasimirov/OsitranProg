@@ -6,6 +6,8 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            
+            
             <script type="text/javascript">
             var valorSelecionado=0;
               function pasarMayuscula(obj, id) {
@@ -39,6 +41,8 @@
             </script>
         </h:head>
         <h:body>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
+            
             <f:event listener="#{concesionarioMB.cargarListaTipoDocumento}" type="postAddToView"></f:event>
              
             <f:event listener="#{concesionarioMB.cargarListaCargo}" type="postAddToView"></f:event>
@@ -71,7 +75,7 @@
                                             
                                              <td align="right">
                                                 Buscar: 
-                                                <p:inputText id="buscarT" onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
+                                                <p:inputText id="buscarT"   onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda}"
                                                                  update=":form:tablaC" image="ui-icon-search"/><h:outputText value=" "/>
@@ -180,7 +184,7 @@
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"/>
                                               <h:outputText value=" "/>      
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -191,7 +195,7 @@
                                                  maxlength="50" value="#{concesionarioMB.descripcionE}"
                                                  label="descripcion" id="descripcionE"/>
                                                   <h:outputText value=" "/>      
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -304,7 +308,7 @@
                         <tr>
                             <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
                                 Campos obligatorios(
-                                <img src="../../imagenes/obligatorio.gif"/>)
+                                <img src="../../images/obligatorio.gif"/>)
                             </td>
                         </tr> 
                         <tr>
@@ -332,7 +336,7 @@
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
                                              <h:outputText value=" "/>      
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -343,7 +347,7 @@
                                                  maxlength="50" value="#{concesionarioMB.descripcion}"
                                                  label="descripcion" id="descripcion"/>
                                                  <h:outputText value=" "/>      
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -444,7 +448,7 @@
                         <tr>
                             <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
                                 Campos obligatorios(
-                                <img src="../../imagenes/obligatorio.gif"/>)
+                                <img src="../../images/obligatorio.gif"/>)
                             </td>
                         </tr> 
                         <tr>
