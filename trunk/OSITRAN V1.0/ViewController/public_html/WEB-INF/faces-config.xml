@@ -2,31 +2,31 @@
 <faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee">
    <application>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.titulos</base-name>
+		<base-name>titulos</base-name>
 		<var>msg</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.botones</base-name>
+		<base-name>botones</base-name>
 		<var>btn</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.etiquetas</base-name>
+		<base-name>etiquetas</base-name>
 		<var>etq</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.legend</base-name>
+		<base-name>legend</base-name>
 		<var>leg</var>			
 	</resource-bundle>
 		<resource-bundle>
-		<base-name>com.ositran.bundle.campo</base-name>
+		<base-name>campo</base-name>
 		<var>cam</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.datatable</base-name>
+		<base-name>datatable</base-name>
 		<var>tab</var>			
 	</resource-bundle>
 	<resource-bundle>
-		<base-name>com.ositran.bundle.menu</base-name>
+		<base-name>menu</base-name>
 		<var>menu</var>			
 	</resource-bundle>        
     </application>
@@ -40,13 +40,6 @@
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
     </application>
-     <navigation-rule>
-      <from-view-id>/ositran/seguridad/mantenimientoUsuario.jsf</from-view-id>
-      <navigation-case>
-       <from-outcome>usuarioUpd</from-outcome>
-       <to-view-id>/ositran/seguridad/usuarioUpd.jsf</to-view-id>
-      </navigation-case>
-     </navigation-rule>
  <navigation-rule>
   <from-view-id>/ositran/logueo.xhtml</from-view-id>
   <navigation-case>
@@ -59,39 +52,6 @@
   </navigation-case>
  </navigation-rule>
  <navigation-rule>
-  <from-view-id>/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>regTipInf</from-outcome>
-   <to-view-id>/ositran/parametros/registrarTipoInfraestructura.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  
   <from-view-id>/ositran/parametros/mantenimientoIgv.xhtml</from-view-id>
-  
-  <navigation-case>  
-   <from-outcome>newigv</from-outcome>
-   <to-view-id>/ositran/parametros/registrarIgv.xhtml</to-view-id>
-  </navigation-case>
-  
- </navigation-rule>
- 
- <navigation-rule>
-  <from-view-id>/ositran/parametros/registrarIgv.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>listarIgv</from-outcome>
-   <to-view-id>/ositran/parametros/mantenimientoIgv.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>validar</from-outcome>
-   <to-view-id>/ositran/parametros/registrarIgv.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/ositran/principal.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>crudTipInf</from-outcome>
-   <to-view-id>/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
 </faces-config>
