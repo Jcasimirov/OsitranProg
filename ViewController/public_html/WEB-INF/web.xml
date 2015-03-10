@@ -36,22 +36,12 @@
     <param-name>primefaces.THEME</param-name>
     <param-value>start</param-value>
   </context-param>  
-<!-- Login filter -->
-    <filter>
-        <filter-name>LoginFilter</filter-name>
-        <filter-class>com.ositran.seguridad.LoginFilter</filter-class>
-    </filter>
-    <!-- Set the login filter to secure all the pages in the /secured/* path of the application  -->
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/secured/*</url-pattern>
-    </filter-mapping>
     
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>/index.xhtml</welcome-file>
     </welcome-file-list>    
     <mime-mapping>
         <extension>xhtml</extension>
