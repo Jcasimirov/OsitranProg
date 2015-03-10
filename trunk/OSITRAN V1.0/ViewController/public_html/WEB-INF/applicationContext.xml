@@ -98,9 +98,6 @@
     <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
         <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
     </bean>
-    <bean id="registrarTipoInfraestructura" class="com.ositran.parametros.RegistrarTipoInfraestructura">
-        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
-    </bean>
     <!--Modalidad de Concesion-->
     <bean id="modalidadVO" class="com.ositran.vo.bean.ModalidadConcesionVO"></bean>
     <bean id="modalidadConcesionDAOImpl" class="com.ositran.daoimpl.ModalidadConcesionDAOImpl"/>
