@@ -8,6 +8,8 @@ import com.ositran.dao.TipoDocumentoDAO;
 
 import com.ositran.model.TipoDocumento;
 
+import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
 
 import java.util.List;
@@ -32,12 +34,6 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     }
     
     private static final Logger logger = LoggerFactory.getLogger(TipoDocumentoDAOImpl.class);
-
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-    
-    public void setSessionFactory(SessionFactory sf){
-            this.sessionFactory = sf;
-    }
     
     
     public TipoDocumentoDAOImpl() {
@@ -46,7 +42,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
 
     @Override
     public List<TipoDocumento> query() throws SQLException{
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         List list=session.createQuery("select o from TipoDocumento o").list();
         session.getTransaction().commit();
@@ -56,7 +52,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     @Override
     public String insert(TipoDocumento tipodocumento) throws SQLException{
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.persist(tipodocumento);
@@ -71,7 +67,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     @Override
     public String delete(Integer id) throws SQLException{
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             TipoDocumento tipodocumento=(TipoDocumento)session.get(TipoDocumento.class, id);
@@ -87,7 +83,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     @Override
     public String update(TipoDocumento tipodocumento) throws SQLException{
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.update(tipodocumento);
@@ -102,7 +98,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
 
     @Override
     public TipoDocumento get(Integer id) throws SQLException{
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         TipoDocumento tipodocumento=(TipoDocumento)session.get(TipoDocumento.class, id);
         session.getTransaction().commit();
