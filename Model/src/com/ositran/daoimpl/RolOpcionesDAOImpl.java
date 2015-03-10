@@ -27,8 +27,18 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
 
     @Override
     public String insert(RolOpciones rolOpciones) {
-        // TODO Implement this method
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(rolOpciones);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
