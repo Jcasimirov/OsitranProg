@@ -13,7 +13,6 @@ public interface UsuarioService {
     public String insert(UsuarioVO usuarioVO) throws SQLException;
     public String delete(Integer id) throws SQLException;
     public String update(UsuarioVO usuarioVO) throws SQLException;
-    public String update1(UsuarioVO usuarioVO) throws SQLException;
     public UsuarioVO get(Integer id) throws SQLException;
     public List<UsuarioVO> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException;
 
