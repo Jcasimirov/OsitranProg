@@ -6,6 +6,9 @@ import com.ositran.service.RolService;
 import com.ositran.vo.bean.MenVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -17,19 +20,21 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
-
 @ManagedBean(name = "rolMB")
 @RequestScoped
 public class RolMB {
+    
     public RolMB() {
         super();
     }
+    
     private String nombre;
     private String descripcion;
     private List<RolVO> listaRoles;
     private List<MenVO> listaMen;
-    private List<MenVO> listaMenSeleccionado;
+    private List<MenVO> listaMenSeleccionado=new ArrayList<>();
     private List<RolOpcionesVO> listaRolOpciones;
+    private int codigoRol;
     
     @ManagedProperty(value = "#{rolVO}")
     RolVO rolVO;
@@ -46,6 +51,10 @@ public class RolMB {
     @ManagedProperty(value = "#{rolOpcionesServiceImpl}")
     RolOpcionesService rolOpcionesServiceImpl;
     
+    public void limpiar() {
+        nombre = "";
+        descripcion = "";
+    }
     
     public void cargarListaRoles(){
         listaRoles=rolServiceImpl.query();
@@ -53,9 +62,9 @@ public class RolMB {
         }
      public void cargarListaMenu(){
         listaMen=menServiceImpl.query();
-      System.out.println(listaMen.get(0).getMenNombre());
+        limpiar();
+        listaMenSeleccionado.clear();
         
-        System.out.println("cantidad de lista de menu "+ listaMen.size());
         }
      
       public void cargarListaRolOpciones(){
@@ -73,11 +82,53 @@ public class RolMB {
            
           }
       public void guardar(){
-          for (MenVO menVO: listaMenSeleccionado){
-              System.out.println(menVO.getMenNombre()+"---"+menVO.isEliminar()+"--"+menVO.isActualizar()+"---"+menVO.isCrear());
+          if(nombre.equals("")){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                      "Debe de Ingresar el Nombre"));                     
+                                   }
+          else if (descripcion.equals("")){
+                  FacesContext.getCurrentInstance().addMessage(null,
+                   new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                    "Debe ingresar la desripción"));
               }
           
+          else if (listaMenSeleccionado.size()==0){
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                    "Debe Seleccionar al menos una opción del menú para este rol"));
+              }
+          else {
+              
+              System.out.println("Antes");
+              System.out.println(listaMenSeleccionado.get(0).isActualizar()+" -- "+listaMenSeleccionado.get(0).isCrear());
+              
+            rolVO.setRolNombre(nombre);
+            rolVO.setRolDescripcion(descripcion);
+            rolVO.setRolEstado(1);
+            rolVO.setRolFechaAlta(new Date());
+            rolVO.setRolUsuarioAlta("Abel Huarca");
+          codigoRol=  rolServiceImpl.getCodigo(rolVO);
+              
+              for(MenVO menVO: listaMenSeleccionado ){
+                  System.out.println(menVO.isActualizar());
+                  System.out.println(menVO.isCrear());
+                  System.out.println(menVO.isEliminar());
+                  System.out.println(menVO.isLectura());
+                  RolOpcionesVO rolOpcionesVO=new RolOpcionesVO();
+                  rolOpcionesVO.setRolId(codigoRol);
+                  rolOpcionesVO.setMenId(menVO.getMenId());
+                  rolOpcionesVO.setRolId(1);  
+                  rolOpcionesVO.setTroAgregar( (menVO.isCrear()) ? 1 : 0);
+                  rolOpcionesVO.setTroConsultar( (menVO.isLectura()) ? 1 : 0 ); 
+                  rolOpcionesVO.setTroEliminar(  (menVO.isEliminar()) ? 1 : 0 );
+                  rolOpcionesVO.setTroModificar( (menVO.isActualizar()) ? 1 : 0 );
+                  rolOpcionesServiceImpl.insert(rolOpcionesVO);
+                  
+                  }
+              }
           }
+      
       
     public void setRolVO(RolVO rolVO) {
         this.rolVO = rolVO;
@@ -94,7 +145,6 @@ public class RolMB {
     public RolService getRolServiceImpl() {
         return rolServiceImpl;
     }
-
 
     public void setListaRoles(List<RolVO> listaRoles) {
         this.listaRoles = listaRoles;
@@ -168,4 +218,11 @@ public class RolMB {
         return listaMenSeleccionado;
     }
 
+    public void setCodigoRol(int codigoRol) {
+        this.codigoRol = codigoRol;
+    }
+
+    public int getCodigoRol() {
+        return codigoRol;
+    }
 }
