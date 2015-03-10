@@ -30,25 +30,12 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
-                            <h4 class="titulo">DESCRIPCION TIPO DE INVERSION</h4>
+                            <h4 class="titulo">MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</h4>
                             <div style="width:80%" align="center">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                            <td align="left">
-                                                Busqueda por Nombre: 
-                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
-                                                 
-                                                <p:commandButton id="buscar" actionListener="#{descripcionInversionMB.busqueda}"
-                                                                 update=":form:tabla :form:buscarT"
-                                                                 image="ui-icon-search"/><h:outputText />
-                                                <p:tooltip styleClass="tool"  id="toolTipFade2" for="buscar" value="Buscar registros por el nombre" />
-                                                 
-                                                <p:commandButton  id="listarTodos" actionListener="#{descripcionInversionMB.cargarListaInversionDescripcion}"
-                                                                 update=":form:tabla" value="Ver Todos"></p:commandButton>
-                                                    <p:tooltip styleClass="tool"  id="toolTipFade" for="listarTodos" value="Ver la lista completa de descripcion de inversiones" />
-                                            </td>
-                                            <td align="right">
+                                        <td align="left">
                                                 <p:commandButton
                                                             actionListener="#{descripcionInversionMB.limpiarCampos}"
                                                                  image="ui-icon-circle-plus"
@@ -59,6 +46,24 @@
                                              />
                                               <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Registrar nueva descripcion de tipo inversion" />
                                             </td>
+                                            <td align="right">
+                                                 Buscar: 
+                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
+                                                 
+                                                <p:commandButton id="buscar" actionListener="#{descripcionInversionMB.busqueda}"
+                                                                 update=":form:tabla :form:buscarT"
+                                                                 image="ui-icon-search"/><h:outputText />
+                                                <p:tooltip styleClass="tool"  id="toolTipFade2" for="buscar" value="Buscar registros por el nombre" />
+                                                 
+                                                <p:commandButton  id="listarTodos" actionListener="#{descripcionInversionMB.cargarListaInversionDescripcion}"
+                                                                 update=":form:tabla" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
+                                                    <p:tooltip styleClass="tool"  id="toolTipFade" for="listarTodos" value="Ver la lista completa de descripción de inversiones" />
+                                                
+                                                <p:commandButton image="ui-icon-minus" type="reset"
+                                                              update=":form:tablaC"  id="limpiar" ></p:commandButton>
+                                                <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
+                                            </td>
+                                            
                                         </tr>
                                     </table>
                                 </div>
@@ -69,10 +74,13 @@
                                              rowsPerPageTemplate="6,8,10" rows="10" resizableColumns="true"
                                              style="font-size:11px;" id="tabla" var="inversionDes"
                                              value="#{descripcionInversionMB.listaInversionDescripcion}">
+                                     <p:column headerText="N°ro" style="width:3%">
+                                        <h:outputText value="#{inversionDes.contador}"/>
+                                    </p:column>
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{inversionDes.itdNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Descripcion">
+                                    <p:column headerText="Descripción">
                                         <h:outputText value="#{inversionDes.itdDescripcion}"/>
                                     </p:column>
                                     <p:column headerText="Editar" style="width:4%">
@@ -119,7 +127,7 @@
                                                    itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
                                 </p:selectOneMenu>
                                   <h:outputText value=" "/>
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"  />
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                             </td>
                         </tr>
                          
@@ -129,7 +137,7 @@
                                 <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" style="width:290px"
                                              value="#{descripcionInversionMB.nombre}"/>
                                                <h:outputText value=" "/>
-                                <img src="../../imagenes/obligatorio.gif"  />
+                                <img src="../../images/obligatorio.gif"  />
                             </td>
                         </tr>
                          
@@ -139,7 +147,7 @@
                                 <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:290px"
                                                  value="#{descripcionInversionMB.descripcion}"/>
                                                   <h:outputText value=" "/>
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
                             </td>
                              
                         </tr>
@@ -159,7 +167,7 @@
                         <tr>
                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                 Campos obligatorios(
-                                <img src="../../imagenes/obligatorio.gif"/>)
+                                <img src="../../images/obligatorio.gif"/>)
                             </td>
                         </tr>
                          
@@ -211,7 +219,7 @@
                                                    itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value=" "/>
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align:top;" />
+                                <img src="../../images/obligatorio.gif" style="vertical-align:top;" />
                             </td>
                         </tr>
                          
@@ -223,7 +231,7 @@
                                 <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
                                              value="#{descripcionInversionMB.nombreE}" style="width:290px"/>
                                                <h:outputText value=" "/>
-                                <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
                             </td>
                         </tr>
                          
@@ -235,7 +243,7 @@
                                 <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)"
                                                  value="#{descripcionInversionMB.descripcionE}" style="width:290px"/>
                                                    <h:outputText value=" "/>
-                                    <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;" />
+                                    <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
                             </td>
                         </tr>
                              
@@ -254,7 +262,7 @@
                         <tr>
                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                 Campos obligatorios(
-                                <img src="../../imagenes/obligatorio.gif"/>)
+                                <img src="../../images/obligatorio.gif"/>)
                             </td>
                         </tr>
                         <tr>
