@@ -77,6 +77,7 @@ public class Concesionario {
     public void guardar() {
         
         cantidad=validarNombre(nombre);
+        
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correo);
         if (cantidad>0){
