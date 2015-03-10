@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import com.ositran.util.Util;
+import com.ositran.util.util;
 
 import java.sql.SQLException;
 
@@ -54,7 +54,7 @@ public class MantenimientoTipoInfraestructura {
     }
 
     private List<InfraestructuraTipoVO> listaInfraestructura;
-    Util util = new Util();
+    util util = new util();
 
     public void setListaInfraestructura(List<InfraestructuraTipoVO> listaInfraestructura) {
         this.listaInfraestructura = listaInfraestructura;
@@ -86,7 +86,7 @@ public class MantenimientoTipoInfraestructura {
                 getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
                 RequestContext.getCurrentInstance().execute("popupagregar.hide()");
                 limpiar();
-
+                
                 ListarInfraestructura();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -201,11 +201,11 @@ public class MantenimientoTipoInfraestructura {
         return nombreEliminar;
     }
 
-    public void setUtil(Util util) {
+    public void setUtil(util util) {
         this.util = util;
     }
 
-    public Util getUtil() {
+    public util getUtil() {
         return util;
     }
 
