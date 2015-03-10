@@ -1,0 +1,53 @@
+.ui-dialog-titlebar{
+    font-size: 13px;
+    font-family: sans-serif;
+    
+	}
+.tool{
+        font-size: 13px;
+        background-image: none;
+        background-color:#fffb81;
+        font-style: italic;
+}
+.negrita{
+ font-weight: bold;
+}
+.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+    background:#C9DCF1;
+    }
+#titulo{
+ font-family:Georgia,"Times New Roman",Times,serif;
+    font-weight:normal;
+    text-shadow:0 0 1px #000;
+    color:#444444;
+    font-size:2em;
+    padding:2px 0 0;
+    text-transform:capitalize;
+    line-height:1.2em;
+    margin:0 0 10px;
+    color: #0A81F7;
+
+
+}    
+
+.ui-datatable-even {
+   height: 10px;
+}
+.ui-datatable-odd {
+    background: none repeat scroll 0 0 #F2F5F9;
+    height: 5px;
+}
+
+.ui-datatable .ui-paginator {
+   background-image: none;
+   background: White;
+   border: none;
+   color: Black;
+   font-weight: bold;
+  
+    
+}
+.ui-datatable .ui-datatable-data tr{
+    height :20px;
+   
+}
