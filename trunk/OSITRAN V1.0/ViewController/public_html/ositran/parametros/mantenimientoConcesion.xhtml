@@ -234,7 +234,7 @@
                 <!--Mantenimiento de Infraestructuras-->
                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
-                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                    <table id="detalle" style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td align="right">TIPO INFRAESTRUCTURA:</td>
                             <td align="left">
@@ -251,9 +251,10 @@
                             <td align="left">EDITAR NOMBRE</td>
                             <td align="left">
                                 <p:inputText value="#{mantenimientoconcesionMB.nombreE}" style="width:300px"/>
+                               
                             </td>
                         </tr>
-                         
+                    
                         <tr>
                             <td align="left">
                                 <p:commandButton update=":form:tablaES" oncomplete="editarPanel.hide()"
@@ -266,60 +267,24 @@
                         </tr>
                         
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <tr>
-                          <td align="left">
-      <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarActualizarInfraestructura(mantenimientoconcesionMB.codigoE,mantenimientoconcesionMB.nombreE)}"
-        oncomplete="agregarInfraestructuraPanel.show()" image="ui-icon-document" style="width:25px;height:25px" update=":form:agregarInfraestructuraPanel">
-        <f:param id="idConcesion" name="idConcesion" value="#{concesion.csiId}"/>
-      </p:commandButton>
-   </td></tr>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                  <tr>
+                         <td>Nombre Infaestructura Nueva</td>
+                                        <td>
+                                            <p:inputText id="nombreInf"
+                                                         value="#{mantenimientoconcesionMB.nombreInfraestructuraNueva}"
+                                                         style="width:300px;text-transform:uppercase;"></p:inputText>
+                                     
+                                            <p:commandButton value="#{btn.btn_nuevo}"
+                                            actionListener="#{mantenimientoconcesionMB.cargarAgregarInfraestructura()}"
+                                                             oncomplete="agregarInfraestructuraPanel.show()"
+                                                              update=":form:agregarInfraestructuraPanel " >
+                                                <h:inputHidden value="#{mantenimientoconcesionMB.codigoE}"
+                                               id="codAgregarInfraestructura"/>             
+                                                          
+                                                 </p:commandButton>            
+
+                                        </td>
+                                        </tr>
                     </table>
                     <!--Mantenimiento de Infraestructuras-->
                     <p:dataTable style="font-size:11px;" id="tablaES2" var="infraestructura"
@@ -349,16 +314,46 @@
                             <td align="left">
                                 <h:outputText value="#{mantenimientoconcesionMB.nombreInfraestructura}"
                                               style="align:left; text-align:left"></h:outputText>
+                                             
+                                              
                             </td>
                             <td align="left">
-                                <h:inputHidden value="#{mantenimientoconcesionMB.codigoInfraestructura}"
+                                <h:outputText value="#{mantenimientoconcesionMB.codigoInfraestructura}"
                                                id="codEliminarInfraestructura"/>
                             </td>
                         </tr>
+                        
                     </table>
-                    <p:commandButton update=":form:tablaES2" oncomplete="eliminarInfraestructuraPanel.hide()"
+                    <p:commandButton update=":form:insertarPanel :form:tablaES2" oncomplete="eliminarInfraestructuraPanel.hide()"
                                      actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaInfraestructura()}"
                                      style="width:70px" value="#{btn.btn_eliminar}"/>
+                </p:dialog>
+                
+                
+                
+                
+                
+                 <p:dialog header="AGREGAR INFRAESTRUCTURA" widgetVar="agregarInfraestructuraPanel"
+                          id="agregarInfraestructuraPanel" modal="true" style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                      <tr><td>
+                      
+                      <h:outputText value="Desea Agregar nueva Infraestructura"
+                                              style="align:left; text-align:left"></h:outputText>
+                                              
+                                              
+                                              
+                      </td>
+                      </tr>
+                        
+                    </table>
+                    <p:commandButton update=":form:insertarPanel :form:tablaES2"  oncomplete="agregarInfraestructuraPanel.hide()"
+                                     actionListener="#{mantenimientoconcesionMB.agregacionConfirmadaInfraestructura()}"
+                                     style="width:70px" value="grabar">
+                                  <h:inputHidden value="#{mantenimientoconcesionMB.codigoE}"
+                                               id="codNuevoInfraestructura"/>       
+                    </p:commandButton>                 
+                                     
                 </p:dialog>
                 
                 
@@ -371,111 +366,7 @@
                 
                 
                 
-                
-                
-            <!--NUEVO CARRRO-->
-                <p:dialog header="AGREGAR INFRAESTRUCTURA" widgetVar="agregarInfraestructuraPanel"
-                          id="agregarInfraestructuraPanel" modal="true" style="text-align:center;">
-                    
-                    
-                    
-                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
-                       
-                         
-                        <tr>
-                            <td align="left">NOMBRE DE LA CONCESION</td>
-                            <td align="left">
-                                <p:outputLabel value="#{mantenimientoconcesionMB.nombreConcesion}" style="width:300px"/>
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                          <td align="left">CODIGO DE LA CONCESION</td>
-                            <td align="left">
-                                <p:outputLabel value="#{mantenimientoconcesionMB.codigoConcesion}" style="width:300px"/>
-                            </td>
-                            
-                            
-                        </tr>
-                    </table>
-                    
- <p:inputText id="txt_title2" value="#{mantenimientoconcesionMB.infraestructura2.infNombre}" style="width:300px;text-transform:uppercase; "/>
-     <p:commandButton id="btn_reset2" value="Limpiar" type="reset"/>
-     <p:commandButton id="btn_add2" value="Agregar Infraestructura" update="bookss mensaje22 @parent" action="#{mantenimientoconcesionMB.reinit2()}" oncomplete="agregarInfraestructuraPanel.show()" >
-     <p:collector value="#{mantenimientoconcesionMB.infraestructura2}" addTo="#{mantenimientoconcesionMB.infraestructuras2}" unique="true"/>
-     </p:commandButton>
 
-	 <p:outputPanel id="bookss">
-     <p:growl id="mensaje22" life="5000" showDetail="true"/>
-     <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras2}" var="listt" id="booksTablee">
-     <p:column headerText="Title">
-     <h:outputText value="#{listt.infNombre}" style="width:300px;text-transform:uppercase; "/>
-     </p:column>
-     <p:column headerText="Action">
-     <p:commandLink value="Remove" update=":form:bookss" process=":form:bookss">
-     <p:collector value="#{listt}" removeFrom="#{mantenimientoconcesionMB.infraestructuras2}" unique="true"/>
-     </p:commandLink>
-     </p:column>
-     </p:dataTable>
-     <p:commandButton update=":form:tablaES :form:mensaje" action="#{mantenimientoconcesionMB.guardar2()}" style="width:70px" value="#{btn.btn_guardar}">
-      <f:param id="id5" name="id5" value="#{mantenimientoconcesionMB.codigoConcesion}"/>
-      </p:commandButton>
-     <p:commandButton style="width:70px" value="Salir" />
-     </p:outputPanel>
-                        
-                     
-                        
-                        
-                        
-                  
-                    
-                    <!--p:commandButton update=":form:tablaES2" oncomplete="eliminarInfraestructuraPanel.hide()"
-                                     actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaInfraestructura()}"
-                                     style="width:70px" value="#{btn.btn_eliminar}"/-->
-                </p:dialog>    
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
             </h:form>
            
         </h:body>
