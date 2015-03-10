@@ -48,13 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return result;
     }
     
-    @Override
-    public String update1(UsuarioVO usuarioVO)throws SQLException{
-        Usuario usuario = toUsuario(usuarioVO);
-        String result = this.usuarioDAOImpl.update1(usuario);
-        return result;
-    }
-    
+
 
     @Override
     public UsuarioVO get(Integer id) throws SQLException{
@@ -94,6 +88,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioVO.setUsuFechaBaja(usuario.getUsuFechaBaja());
         usuarioVO.setUsuFechaCambio(usuario.getUsuFechaCambio());
         usuarioVO.setUsuNombre(usuario.getUsuNombre());
+        usuarioVO.setUsuCorreo(usuario.getUsuCorreo());
         usuarioVO.setUsuTerminal(usuario.getUsuTerminal());
         usuarioVO.setUsuUsuarioAlta(usuario.getUsuUsuarioAlta());
         usuarioVO.setUsuUsuarioBaja(usuario.getUsuUsuarioBaja());
@@ -114,6 +109,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setUsuFechaBaja(usuarioVO.getUsuFechaBaja());
         usuario.setUsuFechaCambio(usuarioVO.getUsuFechaCambio());
         usuario.setUsuNombre(usuarioVO.getUsuNombre());
+        usuario.setUsuCorreo(usuarioVO.getUsuCorreo());
         usuario.setUsuTerminal(usuarioVO.getUsuTerminal());
         usuario.setUsuUsuario(usuarioVO.getUsuUsuario());
         usuario.setUsuUsuarioAlta(usuarioVO.getUsuUsuarioAlta());
