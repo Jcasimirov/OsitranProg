@@ -40,52 +40,31 @@ import org.primefaces.context.RequestContext;
 //@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ManagedBean(name = "mantenimientoconcesionMB")
 @ViewScoped
+
 public class MantenimientoConcesion {
 
-
-    private int codigoEliminar;
+    private int codigoE;
+    private String nombreE;
+    private String nombre;
+    private String addInfraestructura;
     private String nombreEliminar;
+    private int codigoEliminar;
     private int codigoTipoInfraestructura;
     private int codigoTipoInfraestructuraInsert;
     private int codigoInfraestructura;
-     List<ConcesionVO> listaConcesiones;
-     List<InfraestructuraVO> lis;
-     List<InfraestructuraVO> listaInfraestructuras;
-
-
-    private String nombre;
-    private String addInfraestructura;
+    private int codigoCarritoConcesion;
+   
+   
+   private String nombreInfraestructuraNueva;
+    private String nombreInfraestructura;
+    private int codigoConcesion;
+    private String nombreConcesion;
+    List<ConcesionVO> listaConcesiones;
+    List<InfraestructuraVO> listaInfraestructuras;
+    List<InfraestructuraVO> lis;
     private List<String> listaInfra = new ArrayList<>();
-
-
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
 
-
-    
-
-
-    public void setAddInfraestructura(String addInfraestructura) {
-        this.addInfraestructura = addInfraestructura;
-    }
-
-    public String getAddInfraestructura() {
-        return addInfraestructura;
-    }
-
-    public void agregarInfraestructuras() {
-        listaInfra.add("charles");
-        listaInfra.add(addInfraestructura);
-
-    }
-
-    //----------------EDITAR------------------------//
-    private int codigoE;
-    private String nombreE;
-    /*  private int codigoUpdate;
-    private String nombreUpdate; */
-
-
-    //----------------EDITAR------------------------//
 
     @ManagedProperty(value = "#{concesionServicesImpl}")
     ConcesionServiceImpl concesionServicesImpl;
@@ -96,46 +75,12 @@ public class MantenimientoConcesion {
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
     private InfraestructuraServiceImpl infraestructuraServiceImpl;
 
-    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
-        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
-    }
-
-    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
-        return infraestructuraServiceImpl;
-    }
-
-
-    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
-        this.concesionServicesImpl = concesionServicesImpl;
-    }
-
-    public ConcesionServiceImpl getConcesionServicesImpl() {
-        return concesionServicesImpl;
-    }
-
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
-    }
-
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
-
-    public void listarTipInfraestructura() {
-        try {
-           listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
-       } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-        
-    }
-    
-    
     @ManagedProperty(value = "#{concesionVO}")
-     ConcesionVO concesionVO;
-    
-    public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
+    ConcesionVO concesionVO;
+
+    @ManagedProperty(value = "#{infraestructuraVO}")
+    InfraestructuraVO infraestructuraVO;
+
 
     public void guardar() {
         System.out.println("ANtessssss");
@@ -174,25 +119,24 @@ public class MantenimientoConcesion {
                     infraestructuraVO.setInfFechaAlta(new Date());
                     infraestructuraVO.setInfEstado(1);
                     infraestructuraServiceImpl.insert(infraestructuraVO);
-                    
+
 
                 }
 
-               
-                
+
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+                infraestructuras.clear();
+               
                 RequestContext.getCurrentInstance().execute("window.location.reload()");
-               
-              
+
+
                 listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
-             
-                
-                
-                FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+
+
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
-               
-                
+
+
             }
 
             catch (Exception e) {
@@ -206,29 +150,20 @@ public class MantenimientoConcesion {
     }
 
 
-    public String obtenerIpCliente() {
-        String remoteAddr =
-            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr();
-        return remoteAddr;
-    }
+    public void cargarEditar() throws SQLException {
 
-
-  
-
-    public void cargarEditar() throws SQLException{
-        
         //inicio de captura de codigo a modificar
-        FacesContext context=FacesContext.getCurrentInstance();
-        Map requestMap=context.getExternalContext().getRequestParameterMap();
-        Object str=requestMap.get("idModificar");
-        Integer idcodigo=Integer.valueOf(str.toString());
-        concesionVO = concesionServicesImpl.get(idcodigo);
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idModificar");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        concesionVO = concesionServicesImpl.get(idcodigo); //OJO IMPORTANTE AQUI ES DONDE TIENE CARGADO EL VO DE TODOS LOS OBJETOS
         //fin de de captura de codigo a modificar
-        
+
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
-        
-        
+
+
         codigoTipoInfraestructura = concesionVO.getInfraestructuraTipo().getTinId();
         /*  codigoUpdate= infraestructuraTipoVO.getTinId();
         nombreUpdate= infraestructuraTipoVO.getTinNombre(); */
@@ -241,6 +176,7 @@ public class MantenimientoConcesion {
         System.out.println(codigoE);
         System.out.println(nombreE);
 
+        concesionVO.setCsiEstado(1);
         concesionVO.setCsiId(codigoE);
         concesionVO.setCsiNombre(nombreE);
 
@@ -255,30 +191,135 @@ public class MantenimientoConcesion {
 
     }
 
+
+    /* public void cargarActualizarInfraestructura(int codigo,String nombre)throws SQLException {
+            codigoE=codigo;
+            nombreConcesion=nombre;
+            } */
+
+
+    /*  public void guardar2()throws SQLException {
+            codigoConcesion=this.codigoConcesion;
+            for (InfraestructuraVO infraestructuraVO : infraestructuras) {
+                    //inicio captura fk concesion para infraestructura
+                    Concesion con = new Concesion();
+                    con.setCsiId(codigoConcesion);
+                    infraestructuraVO.setConcesion(con);
+                    //fin captura fk
+                  
+                    infraestructuraVO.setInfNombre(infraestructuraVO.getInfNombre());
+                    infraestructuraVO.setInfUsuarioCambio(obtenerIpCliente());
+                    infraestructuraVO.setInfFechaCambio(new Date());
+                    infraestructuraVO.setInfEstado(1);
+                    infraestructuraServiceImpl.insert(infraestructuraVO);
+
+
+                } 
+            
+                
+                //RequestContext.getCurrentInstance().execute("window.location.reload()");
+                infraestructuras.clear();
+                
+                RequestContext.getCurrentInstance().execute("agregarInfraestructuraPanel.hide()");
+            } */
+
+
     public void cargarEliminar(int codigo, String nombre) {
         nombreEliminar = nombre;
         codigoEliminar = codigo;
     }
 
-    public void eliminar() {
+    public void setAddInfraestructura(String addInfraestructura) {
+        this.addInfraestructura = addInfraestructura;
+    }
+
+    public String getAddInfraestructura() {
+        return addInfraestructura;
+    }
+
+    public void agregarInfraestructuras() {
+        listaInfra.add(addInfraestructura);
+
+    }
+
+
+    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
+        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
+    }
+
+    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
+        return infraestructuraServiceImpl;
+    }
+
+
+    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
+        this.concesionServicesImpl = concesionServicesImpl;
+    }
+
+    public ConcesionServiceImpl getConcesionServicesImpl() {
+        return concesionServicesImpl;
+    }
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
+
+    public void listarTipInfraestructura() {
+        listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
+    }
+
+    public void ListarInfraestructuras() {
         try {
-            getConcesionServicesImpl().delete(codigoEliminar);
-            ListarConcesiones();
+            listaInfraestructuras = infraestructuraServiceImpl.query();
         } catch (Exception e) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                 "No se ´pudo eliminar-Comuniquese conel departamento de sistemas");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            // TODO: Add catch code
+            e.printStackTrace();
         }
 
     }
 
-  
+
+    public void setNombreInfraestructuraNueva(String nombreInfraestructuraNueva) {
+        this.nombreInfraestructuraNueva = nombreInfraestructuraNueva;
+    }
+
+    public String getNombreInfraestructuraNueva() {
+        return nombreInfraestructuraNueva;
+    }
+
+    public void setCodigoCarritoConcesion(int codigoCarritoConcesion) {
+        this.codigoCarritoConcesion = codigoCarritoConcesion;
+    }
+
+    public int getCodigoCarritoConcesion() {
+        return codigoCarritoConcesion;
+    }
+
+    public void setInfraestructuraVO(InfraestructuraVO infraestructuraVO) {
+        this.infraestructuraVO = infraestructuraVO;
+    }
+
+    public InfraestructuraVO getInfraestructuraVO() {
+        return infraestructuraVO;
+    }
+
+    public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
+
 
     public List<ConcesionVO> ListarConcesiones() {
         try {
             System.out.println("llego al MB");
             listaConcesiones = getConcesionServicesImpl().query();
+            int contador=1;
+            for(ConcesionVO conc:listaConcesiones){
+                conc.setCorrela(contador);
+                contador++;
+                }
+            
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -287,10 +328,11 @@ public class MantenimientoConcesion {
 
         return listaConcesiones;
     }
-    public void resetear(){
-      infraestructura.getConcesion().setCsiNombre("");//para el carrito resetear nombre
- }
 
+    public void resetear() {
+        infraestructura.getConcesion().setCsiNombre(""); //para el carrito resetear nombre
+    }
+ 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -376,6 +418,11 @@ public class MantenimientoConcesion {
         return codigoTipoInfraestructura;
     }
 
+    public String obtenerIpCliente() {
+        String remoteAddr =
+            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr();
+        return remoteAddr;
+    }
 
     // -------------------------INICIO VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
     private InfraestructuraVO infraestructura;
@@ -385,24 +432,26 @@ public class MantenimientoConcesion {
     public void init() {
         infraestructura = new InfraestructuraVO();
         infraestructuras = new ArrayList<InfraestructuraVO>();
-       
+ 
+
     }
 
 
-    public void createNew() {
+             public void createNew() {
         if (infraestructuras.contains(infraestructura)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Duplicidad", "Esta duplicando el valor");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesMessage mensaje2 =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR" );
+            FacesContext.getCurrentInstance().addMessage(null, mensaje2);
         } else {
             infraestructuras.add(infraestructura);
             infraestructura = new InfraestructuraVO();
+     
         }
-    }
+    }  
 
     public String reinit() {
-        
         infraestructura = new InfraestructuraVO();
-        
+   
         return null;
     }
 
@@ -444,6 +493,13 @@ public class MantenimientoConcesion {
             listaConcesiones =
                 getConcesionServicesImpl().buscarconcesionfiltro(codigoTipoInfraestructurafiltro, concesionbuscar);
 
+            int contador=1;
+            for(ConcesionVO conc:listaConcesiones){
+                conc.setCorrela(contador);
+                contador++;
+                }
+
+
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -473,8 +529,158 @@ public class MantenimientoConcesion {
     public int getCodigoTipoInfraestructuraInsert() {
         return codigoTipoInfraestructuraInsert;
     }
-    
+
+
+    ////////////////////////////////////////////ELIMINAR INFRAESTRUCTURA/////////////////////////////7
+    public void cargarEliminarInfraestructura() throws SQLException {
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idEliminarInfraestructura");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        infraestructuraVO = infraestructuraServiceImpl.get2(idcodigo);
+        //fin de de captura de codigo a modificar
+        codigoInfraestructura = infraestructuraVO.getInfId();
+        nombreInfraestructura = infraestructuraVO.getInfNombre();
+
+        listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+    }
+
+    public void eliminacionConfirmadaInfraestructura() {
+        try {
+
+            infraestructuraVO.setInfEstado(0);
+            infraestructuraVO.setInfNombre(nombreInfraestructura);
+            infraestructuraVO.setInfId(codigoInfraestructura);
+            infraestructuraServiceImpl.update(infraestructuraVO);
+
+            listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
+    }
+    ////////////FIN ELIMINAR INFRAESTRUCTURA
+    //////////////////////////ELIMINAR CONCESION/////////////////////////
+
+    public void cargarEliminarConcesion() throws SQLException {
+
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idEliminarConcesion");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        concesionVO = concesionServicesImpl.get(idcodigo);
+        //fin de de captura de codigo a modificar
+        codigoConcesion = concesionVO.getCsiId();
+        nombreConcesion = concesionVO.getCsiNombre();
+        System.out.println("cargar");
+        System.out.println(concesionVO.getCsiId());
+
+
+    }
+
+    public void eliminacionConfirmadaConcesion() throws SQLException {
+        System.out.println("confirmaciones");
+        concesionVO.setCsiEstado(0);
+        concesionVO.setCsiNombre(nombreConcesion);
+        System.out.println(concesionVO.getCsiNombre());
+        concesionVO.setCsiId(concesionVO.getCsiId());
+        System.out.println(concesionVO.getCsiId());
+        concesionServicesImpl.update(concesionVO);
+        
+   
+        
+        ListarConcesiones();
+
+    }
+
+
+    public void cargarAgregarInfraestructura() throws SQLException {
+        Concesion concesion1= new Concesion();
+        concesion1.setCsiId(codigoE);
+        codigoE = concesionVO.getCsiId();
+        nombreE = concesionVO.getCsiNombre();   
+    }
+
+    public void agregacionConfirmadaInfraestructura() throws SQLException {
+      
+            infraestructuraVO.setInfNombre(nombreInfraestructuraNueva);
+            Concesion concesion1= new Concesion();
+            concesion1.setCsiId(codigoE);
+            infraestructuraVO.setConcesion(concesion1);
+            infraestructuraVO.setInfFechaCambio(new Date());
+            infraestructuraVO.setInfEstado(1);
+            infraestructuraServiceImpl.insert(infraestructuraVO);
+            
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+           
+            //RequestContext.getCurrentInstance().execute("agregarInfraestructuraPanel.show()");
+        }
+
+
+
+
+
+    public void setCodigoConcesion(int codigoConcesion) {
+        this.codigoConcesion = codigoConcesion;
+    }
+
+    public int getCodigoConcesion() {
+        return codigoConcesion;
+    }
+
+    public void setNombreConcesion(String nombreConcesion) {
+        this.nombreConcesion = nombreConcesion;
+    }
+
+    public String getNombreConcesion() {
+        return nombreConcesion;
+    }
+
+    //////////////////////////////FIN ELIMINAR CONSECION
+
+
+    public void setCodigoInfraestructura(int codigoInfraestructura) {
+        this.codigoInfraestructura = codigoInfraestructura;
+    }
+
+    public int getCodigoInfraestructura() {
+        return codigoInfraestructura;
+    }
+
+    public void setNombreInfraestructura(String nombreInfraestructura) {
+        this.nombreInfraestructura = nombreInfraestructura;
+    }
+
+    public String getNombreInfraestructura() {
+        return nombreInfraestructura;
+    }
+    //FIN DE ELIMINAR DE INFRAESTRUCTURA POR SU CODIGO
+
+
  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 
 }
