@@ -1,6 +1,7 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.RolOpcionesDAO;
+import com.ositran.model.InversionTipo;
 import com.ositran.model.Rol;
 import com.ositran.model.RolOpciones;
 import com.ositran.service.RolOpcionesService;
@@ -29,9 +30,10 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
 
     @Override
-    public String insert(RolOpciones rolOpcionesOpciones) {
-        // TODO Implement this method
-        return null;
+    public String insert(RolOpcionesVO rolOpcionesVO) {
+        RolOpciones rolOpciones=toRolOpciones(rolOpcionesVO);
+        String result=rolOpcionesDAOImpl.insert(rolOpciones);
+        return result;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
         rolOpcionesVO1.setTroUsuarioCambio(rolOpcionesVO.getTroUsuarioCambio());
         return rolOpcionesVO1;
     }
-    private RolOpciones toTipoInversion(RolOpcionesVO rolOpcionesVO)  {
+    private RolOpciones toRolOpciones(RolOpcionesVO rolOpcionesVO)  {
         RolOpciones rolOpciones1=new RolOpciones();
         rolOpciones1.setMenId(rolOpcionesVO.getMenId());
         rolOpciones1.setRolId(rolOpcionesVO.getRolId());
