@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import com.ositran.util.util;
+import com.ositran.util.Util;
 
 import java.sql.SQLException;
 
@@ -54,7 +54,7 @@ public class MantenimientoTipoInfraestructura {
     }
 
     private List<InfraestructuraTipoVO> listaInfraestructura;
-    util util = new util();
+    Util util = new Util();
 
     public void setListaInfraestructura(List<InfraestructuraTipoVO> listaInfraestructura) {
         this.listaInfraestructura = listaInfraestructura;
@@ -201,11 +201,11 @@ public class MantenimientoTipoInfraestructura {
         return nombreEliminar;
     }
 
-    public void setUtil(util util) {
+    public void setUtil(Util util) {
         this.util = util;
     }
 
-    public util getUtil() {
+    public Util getUtil() {
         return util;
     }
 
