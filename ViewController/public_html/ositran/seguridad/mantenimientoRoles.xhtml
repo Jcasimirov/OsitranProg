@@ -19,11 +19,7 @@
         </h:head>
         <h:body>
             <f:event listener="#{rolMB.cargarListaRoles}" type="postAddToView"></f:event>
-             
-            <f:event listener="#{rolMB.cargarListaMenu}" type="postAddToView"></f:event>
-             
             <f:event listener="#{rolMB.cargarListaRolOpciones}" type="postAddToView"></f:event>
-             
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
@@ -37,6 +33,7 @@
                                         <tr>
                                             <td align="left">
                                                 <p:commandButton actionListener="#{rolMB.cargarListaMenu}"
+                                                
                                                                  update=":form:registrar" image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()" value="Nuevo Rol"
                                                                  id="nuevo"/>
@@ -79,41 +76,40 @@
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="left">Nombre del Rol:</td>
-                            <td  align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50" label="Nombre"
+                            <td align="center" colspan="5">
+                            <table>
+                                <tr>
+                                    <td align="left" class="negrita">Nombre del Rol:</td>
+                                    <td align="left" >
+                                         <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50" label="Nombre"
                                              id="nombre" style="width:300px" value="#{rolMB.nombre}"/>
                                  
-                                <h:outputText value=" "/>
-                                 
-                                <img src="../../imagenes/obligatorio.gif"/>
-                            </td>
-                            <td colspan="3">
+                                             <h:outputText value=" "/>
+                                            <img src="../../imagenes/obligatorio.gif"/>
+                                    </td>
+                                </tr>
                                 
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="left">Descripci&#243;n del Rol</td>
-                            <td  align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                 <tr>
+                                    <td align="left" class="negrita">Descripci&#243;n del Rol:</td>
+                                    <td align="left" >
+                                        <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
                                                  style="width:300px" value="#{rolMB.descripcion}"/>
-                                 
-                                <h:outputText value=" "/>
-                                 
+                                        <h:outputText value=" "/>
                                 <img src="../../imagenes/obligatorio.gif" style="vertical-align: top;"/>
-                            </td>
-                            <td colspan="3"></td>
-                        </tr>
-                         
-                     
-                         
-                        <tr>
-                            <td align="left" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios( 
+                                    </td>
+                                </tr>
+                                <tr>
+                                 <td colspan="2" style="font-size: 10px;font-style: oblique; color: Red;"  align="right">
+                                             Campos obligatorios( 
                                 <img src="../../imagenes/obligatorio.gif"/>)
+                                        </td>
+                                </tr>
+                            
+                            </table>
+                            
                             </td>
                         </tr>
+                      
                             <tr>
                             <td align="right">
                                 <h:outputText value="#{l10n.no_of_sessions}" escape="false"
@@ -132,9 +128,7 @@
                                 <p:dataTable id="menuOpciones" var="me" value="#{rolMB.listaMen}"
                                              selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                                    <p:column headerText="Id Menú">
-                                        <h:outputText value="#{me.menId}"/>
-                                    </p:column>
+                                   
                                     <p:column headerText="Opción Menú">
                                         <h:outputText value="#{me.menNombre}"/>
                                     </p:column>
@@ -149,9 +143,7 @@
                             </td>
                             <td align="left" colspan="2">
                                 <p:dataTable id="menuOpcionesSe" var="me" value="#{rolMB.listaMenSeleccionado}">
-                                    <p:column headerText="Id Menú">
-                                        <h:outputText value="#{me.menId}"/>
-                                    </p:column>
+                                   
                                     <p:column headerText="Opción Menú">
                                         <h:outputText value="#{me.menNombre}"/>
                                     </p:column>
@@ -174,7 +166,7 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:commandButton value="Guardar" actionListener="#{rolMB.guardar}" />
+                                <p:commandButton value="Guardar" update=":form:mensaje"  actionListener="#{rolMB.guardar}" />
                             </td>
                             <td>
                             </td>                           
@@ -182,7 +174,6 @@
                                     <p:commandButton value="Limpiar" type="reset" />
                             </td>
                         </tr>
-                      
                     </table>
                 </p:dialog>
             </h:form>
