@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RolOpcionesService {
     public List<RolOpcionesVO> query();
-    public String insert(RolOpciones rolOpciones);
+    public String insert(RolOpcionesVO rolOpcionesVO);
     public String delete(Integer id);
     public String update(RolOpciones rolOpciones);
     public RolOpciones get(Integer id);
