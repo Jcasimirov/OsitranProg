@@ -20,12 +20,14 @@
                         <table style="width:80% ;font-size:11px;">
                             <tr>
                                 <td align="right">
-                                    <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.validarIgv}" update=":form1:mensaje :form1:insertarPanel" value="Registrar Nuevo IGV"/>
+                                    <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.validarIgv}"
+                                                     update=":form1:mensaje :form1:insertarPanel"
+                                                     value="Registrar Nuevo IGV"/>
                                 </td>
                             </tr>
                              
                             <tr>
-                                <td colspan="3"  style="text-align: center;">
+                                <td colspan="3" style="text-align: center;">
                                     <p:dataTable style="font-size:11px;"
                                                  value="#{backing_parametros_mantenimientoIgv.query}" var="igv"
                                                  selectionMode="single" rowKey="#{igv.igvId}" id="tablaES" rows="10"
@@ -40,48 +42,36 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
-                                        
-                                       
                                         <p:column headerText="Fecha Caducidad">
                                             <h:outputText value="#{igv.igvFechacaducidad}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
-                                        
-                                        
-                                        
                                         <div style="text-align: center;">
-                                        <p:column headerText="Estado">
-                                            <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}"/>
-                                        </p:column>
+                                            <p:column headerText="Estado">
+                                                <h:outputText value="#{igv.igvEstado==1 ? 'Activo' : 'Cesado'}"/>
+                                            </p:column>
                                         </div>
-                                        
-                                        
-                                        
-                                            <div style="text-align: center;">                                    
-
-                                        <p:column headerText="Cesar Igv">
-                                            <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarCesarIgv}"
-                                                             oncomplete="actualizarPanel.show()"
-                                                             image="ui-icon-document" style="width:25px;height:25px"
-                                                             update=":form2:actualizarPanel">
-                                                <f:param id="id2" name="id2" value="#{igv.igvId}"/>
-                                            </p:commandButton>
-                                        </p:column>
-                                        </div >
                                         <div style="text-align: center;">
-                                        <p:column headerText="Eliminar Igv">
-                                            <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarEliminarIgv}"
-                                                             oncomplete="eliminarPanel.show()"
-                                                             image="ui-icon-document" style="width:25px;height:25px"
-                                                             update=":form2:eliminarPanel">
-                                                <f:param id="id3" name="id3" value="#{igv.igvId}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                            <p:column headerText="Cesar Igv">
+                                                <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarCesarIgv}"
+                                                                 oncomplete="actualizarPanel.show()"
+                                                                 image="ui-icon-document" style="width:25px;height:25px"
+                                                                 update=":form2:actualizarPanel">
+                                                    <f:param id="id2" name="id2" value="#{igv.igvId}"/>
+                                                </p:commandButton>
+                                            </p:column>
                                         </div>
-                                        
-                                        
-                                        
+                                        <div style="text-align: center;">
+                                            <p:column headerText="Eliminar Igv">
+                                                <p:commandButton actionListener="#{backing_parametros_mantenimientoIgv.cargarEliminarIgv}"
+                                                                 oncomplete="eliminarPanel.show()"
+                                                                 image="ui-icon-document" style="width:25px;height:25px"
+                                                                 update=":form2:eliminarPanel">
+                                                    <f:param id="id3" name="id3" value="#{igv.igvId}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </div>
                                         <p style="text-align:center">
                                             <p:commandButton binding="#{backing_parametros_mantenimientoIgv.nuevo}"
                                                              id="nuevo" action="newigv" value="Nuevo Registro"/><!--<h:commandLink action="igvIns" value="Nuevo Igv"/-->
@@ -102,19 +92,41 @@
                             <tr>
                                 <td>
                                     <p:panel header="Mantenimiento de IGV" style="margin-bottom:20px;align:left">
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputLabel value="Ingrese IGV" style="align:left; text-align:left"></h:outputLabel>
-                                            <p:inputMask value="#{backing_parametros_mantenimientoIgv.igvPorcentaje}" 
-                                                         mask="99.9" style="width:300px"/>
-                                            <h:outputLabel value="Fecha Vigencia" style="align:left; text-align:left"></h:outputLabel>
-                                            <p:calendar id="calendarFechaVigencia" locale="es" pattern="dd/MM/yyyy"
-                                                        value="#{backing_parametros_mantenimientoIgv.igvFechavigencia}" ></p:calendar>
-                                        </h:panelGrid>
-                                        <p:commandButton update=":form1:tablaES :form1:mensaje"
-                                                         actionListener="#{backing_parametros_mantenimientoIgv.igvInsertar}"
-                                                         style="width:70px" value="#{btn.btn_guardar}"/>
-                                        <p:commandButton style="width:70px" value="Salir"
-                                                         onclick="insertarPanel.hide ()"/>
+                                       
+                                          
+                                        
+                                        <table>
+<tr>
+<td>PORCENTAJE</td>
+<td><p:inputMask value="#{backing_parametros_mantenimientoIgv.igvPorcentaje}" mask="99.9" style="width:100px"></p:inputMask></td>
+<td><img src="../../imagenes/obligatorio.gif"/></td>
+</tr>
+<tr>
+<td>FECHA DE VIGENCIA</td>
+<td><p:calendar id="calendarFechaVigencia" locale="es" pattern="dd/MM/yyyy" value="#{backing_parametros_mantenimientoIgv.igvFechavigencia}"></p:calendar></td>
+<td><img src="../../imagenes/obligatorio.gif"/></td>
+</tr>
+
+<tr>
+
+<td><p:commandButton update=":form1:tablaES :form1:mensaje" actionListener="#{backing_parametros_mantenimientoIgv.igvInsertar}" style="width:70px" value="#{btn.btn_guardar}"/></td>
+<td> <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/></td>
+
+<td> 
+                                                 <div style="font-size: 10px;font-style: oblique; color: Red; text-align: right; float: left;">
+                                                Campos obligatorios(
+                                                <img src="../../imagenes/obligatorio.gif"/>)
+                                            </div>
+                                            
+                                            
+                                            
+</td>
+
+</tr>
+
+</table>
+                                        
+                                        
                                     </p:panel>
                                 </td>
                             </tr>
@@ -140,7 +152,8 @@
                                         <h:panelGrid columns="2" cellpadding="5">
                                             <h:outputLabel value="Fecha Caducidad" style="align:left; text-align:left"></h:outputLabel>
                                             <p:calendar id="calendarFechaCaducidad" locale="es" pattern="dd/MM/yyyy"
-                                                        value="#{backing_parametros_mantenimientoIgv.igvFechacaducidad}"  readonlyInput="#{igv.igvFechacaducidad==null ? 'true' : 'false'}"></p:calendar>
+                                                        value="#{backing_parametros_mantenimientoIgv.igvFechacaducidad}"
+                                                        readonlyInput="#{igv.igvFechacaducidad==null ? 'true' : 'false'}"></p:calendar>
                                         </h:panelGrid>
                                         <p:commandButton update=":form1:tablaES :form1:mensaje"
                                                          actionListener="#{backing_parametros_mantenimientoIgv.cesarIgv()}"
@@ -153,24 +166,19 @@
                         </table>
                     </p:dialog>
                 </div>
-                
-                
-                
                 <div style="width:80%">
                     <p:dialog id="eliminarPanel" header="Eliminar" widgetVar="eliminarPanel" modal="true">
                         <table style="font-size: 11px">
-                          
-                              <tr>
+                            <tr>
                                 <td>
                                     <h:inputHidden id="igvCodigoEliminar"
                                                    value="#{backing_parametros_mantenimientoIgv.igvCodigoEliminar}"/>
                                 </td>
                             </tr>
-                            
+                             
                             <tr>
                                 <td>
                                     <p:panel header="Eliminar IGV" style="margin-bottom:20px;align:left">
-                                        
                                         <p:commandButton update=":form1:tablaES :form1:mensaje"
                                                          actionListener="#{backing_parametros_mantenimientoIgv.eliminarIgv()}"
                                                          style="width:70px" value="#{btn.btn_eliminar}"/>
@@ -182,9 +190,6 @@
                         </table>
                     </p:dialog>
                 </div>
-                
-                
-                
             </h:form>
         </h:body>
     </html>
