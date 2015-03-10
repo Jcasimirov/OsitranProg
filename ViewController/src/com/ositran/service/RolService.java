@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface RolService {
     public List<RolVO> query();
-    public String insert(Rol rol);
+    public String insert(RolVO rolVO);
     public String delete(Integer id);
-    public String update(Rol rol);
+    public String update(RolVO rolVO);
     public Rol get(Integer id);
+    public int getCodigo(RolVO rolVO);
 }
