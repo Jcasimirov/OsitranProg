@@ -1,9 +1,7 @@
 package com.ositran.daoimpl;
-
 import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.util.HibernateUtil;
-
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Query;
