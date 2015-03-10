@@ -2,7 +2,6 @@ package com.ositran.dao;
 
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.InversionTipo;
-
 import com.ositran.model.InversionTipoDescripcion;
 
 import java.sql.SQLException;
@@ -20,5 +19,8 @@ public interface InversionDescripcionDAO {
         public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception;
         public int getCanNombres(String nombre)  throws SQLException ,Exception;    
 }
+
+
+
 
 
