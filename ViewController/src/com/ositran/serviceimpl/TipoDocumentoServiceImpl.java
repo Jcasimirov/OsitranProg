@@ -17,12 +17,10 @@ import javax.faces.context.FacesContext;
 
 public class TipoDocumentoServiceImpl implements TipoDocumentoService{
     private TipoDocumentoDAOImpl tipodocumentoDAOImpl;
-
-
+    
     public void setTipodocumentoDAOImpl(TipoDocumentoDAOImpl tipodocumentoDAOImpl) {
         this.tipodocumentoDAOImpl = tipodocumentoDAOImpl;
     }
-
     public TipoDocumentoDAOImpl getTipodocumentoDAOImpl() {
         return tipodocumentoDAOImpl;
     }
