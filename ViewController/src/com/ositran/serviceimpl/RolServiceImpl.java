@@ -4,6 +4,7 @@ import com.ositran.daoimpl.RolDAOImpl;
 import com.ositran.model.InversionTipo;
 import com.ositran.model.Rol;
 import com.ositran.service.RolService;
+import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.RolVO;
 
 import com.ositran.vo.bean.TipoInversionVO;
@@ -23,15 +24,25 @@ public class RolServiceImpl  implements RolService{
 
     @Override
     public List<RolVO> query() {
-       List<Rol> list=rolDAOImpl.query();
-        List<RolVO> listVO=toListRolVO(list);
+        List<Rol> list=rolDAOImpl.query();
+         List<RolVO> listVO=toListRolVO(list);
         return listVO;
+    }
+   
+    @Override
+    public int getCodigo(RolVO rolVO1) {
+        int codigo=0;
+        rol=toRol(rolVO1);
+        codigo=rolDAOImpl.getCodigo(rol);
+        return codigo;
     }
 
     @Override
-    public String insert(Rol rol) {
-        // TODO Implement this method
-        return null;
+    public String insert(RolVO rolVO) {
+        rol=toRol(rolVO);
+        String result=rolDAOImpl.insert(rol);
+        return result;
+        
     }
 
     @Override
@@ -41,7 +52,7 @@ public class RolServiceImpl  implements RolService{
     }
 
     @Override
-    public String update(Rol rol) {
+    public String update(RolVO rol) {
         // TODO Implement this method
         return null;
     }
@@ -64,6 +75,7 @@ public class RolServiceImpl  implements RolService{
     }
     private RolVO toRolVO(Rol rol)  {
         RolVO toRolVO2=new RolVO();
+        toRolVO2.setRolId(rol.getRolId());
         toRolVO2.setRolDescripcion(rol.getRolDescripcion());
         toRolVO2.setRolEstado(rol.getRolEstado());
         toRolVO2.setRolFechaAlta(rol.getRolFechaAlta());
@@ -74,12 +86,11 @@ public class RolServiceImpl  implements RolService{
         toRolVO2.setRolUsuarioAlta(rol.getRolUsuarioAlta());
         toRolVO2.setRolUsuarioBaja(rol.getRolUsuarioBaja());
         toRolVO2.setRolUsuarioCambio(rol.getRolUsuarioCambio());
-       
-       
         return toRolVO2;
     }
-    private Rol toTipoInversion(RolVO rolVO)  {
+    private Rol toRol(RolVO rolVO)  {
         Rol rol1=new Rol();
+        rol1.setRolId(rolVO.getRolId());
         rol1.setRolDescripcion(rolVO.getRolDescripcion());
         rol1.setRolEstado(rolVO.getRolEstado());
         rol1.setRolFechaAlta(rolVO.getRolFechaAlta());
@@ -90,8 +101,7 @@ public class RolServiceImpl  implements RolService{
         rol1.setRolUsuarioAlta(rolVO.getRolUsuarioAlta());
         rol1.setRolUsuarioBaja(rolVO.getRolUsuarioBaja());
         rol1.setRolUsuarioCambio(rolVO.getRolUsuarioCambio());
-    
-        return rol;
+        return rol1;
     }
 
 
@@ -119,4 +129,5 @@ public class RolServiceImpl  implements RolService{
         return rolVO;
     }
 
+    
 }
