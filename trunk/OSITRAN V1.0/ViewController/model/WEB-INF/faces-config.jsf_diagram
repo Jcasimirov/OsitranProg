@@ -3,40 +3,6 @@
    <OverallProperties
       id="OverallProperties1"/>
    <Page
-      id="Page2">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">18.447834</property>
-      <property
-         name="x">-162.88565</property>
-      <property
-         name="jspName">/ositran/seguridad/mantenimientoUsuario.jsf</property>
-   </Page>
-   <Page
-      id="Page3">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">18.22186</property>
-      <property
-         name="x">338.20953</property>
-      <property
-         name="jspName">/ositran/seguridad/usuarioUpd.jsf</property>
-   </Page>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase4"
-      from="Page2"
-      to="Page3">
-      <property
-         name="fromOutcome">usuarioUpd</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">T50,-162.88565,-35.902752,338.20953,-36.128723,T50</property>
-   </NavigationCase>
-   <Page
       id="Page12">
       <property
          name="wildcard">false</property>
@@ -60,17 +26,6 @@
          name="sdm:polyPoints">T50,-286.6872,-162.38885,-269.67285,-237.44495,B50</property>
    </NavigationCase>
    <Page
-      id="Page16">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">-235.4606</property>
-      <property
-         name="x">555.62964</property>
-      <property
-         name="jspName">/ositran/parametros/registrarTipoInfraestructura.xhtml</property>
-   </Page>
-   <Page
       id="Page20">
       <property
          name="wildcard">false</property>
@@ -80,51 +35,6 @@
          name="x">-286.6872</property>
       <property
          name="jspName">/ositran/logueo.xhtml</property>
-   </Page>
-   <Page
-      id="Page13">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">-271.42825</property>
-      <property
-         name="x">260.34314</property>
-      <property
-         name="jspName">/ositran/parametros/mantenimientoTipoInfraestructura.xhtml</property>
-   </Page>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase16"
-      from="Page13"
-      to="Page16">
-      <property
-         name="fromOutcome">regTipInf</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">R50,301.34314,-271.77884,514.62964,-235.81119,L50</property>
-   </NavigationCase>
-   <Page
-      id="Page21">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">160.39677</property>
-      <property
-         name="x">-142.67032</property>
-      <property
-         name="jspName">/ositran/parametros/mantenimientoIgv.xhtml</property>
-   </Page>
-   <Page
-      id="Page22">
-      <property
-         name="wildcard">false</property>
-      <property
-         name="y">156.97708</property>
-      <property
-         name="x">274.11383</property>
-      <property
-         name="jspName">/ositran/parametros/registrarIgv.xhtml</property>
    </Page>
    <Page
       id="Page25">
@@ -160,52 +70,4 @@
       <property
          name="jspName">/ositran/parametros/mantenimientoConcesion.xhtml</property>
    </Page>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase25"
-      from="Page22"
-      to="Page22">
-      <property
-         name="fromOutcome">validar</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">T44,270.61383,102.626495,277.61383,102.626495,T56</property>
-   </NavigationCase>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase27"
-      from="Page22"
-      to="Page21">
-      <property
-         name="fromOutcome">listarIgv</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">L46,233.07808,153.1265,-101.67032,156.54619,R46</property>
-   </NavigationCase>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase28"
-      from="Page21"
-      to="Page22">
-      <property
-         name="fromOutcome">newigv</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">R54,-101.63457,163.54619,233.11383,160.1265,L54</property>
-   </NavigationCase>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase29"
-      from="Page25"
-      to="Page13">
-      <property
-         name="fromOutcome">crudTipInf</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">R50,-28.310547,-230.30469,219.34314,-271.77884,L50</property>
-   </NavigationCase>
 </SDM>
