@@ -14,15 +14,40 @@ public class RolDAOImpl implements  RolDAO{
     @SuppressWarnings("unchecked")
     public List<Rol> query() {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Rol.class).list();
-       
-       
+        return session.createCriteria(Rol.class).list(); 
+    }
+    
+    @Override
+    public int getCodigo(Rol rol) {
+        System.out.println("llego al ID concesion");
+               int result = 0;
+               Session session =HibernateUtil.getSessionAnnotationFactory().openSession();
+               try {
+                   session.beginTransaction();
+                   session.save(rol);
+                   result=rol.getRolId();
+                   session.getTransaction().commit();
+               } catch (Exception e) {
+                   session.getTransaction().rollback();
+                   
+               }
+               return result;
     }
 
     @Override
     public String insert(Rol rol) {
-        // TODO Implement this method
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(rol);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
@@ -50,4 +75,6 @@ public class RolDAOImpl implements  RolDAO{
     public Rol getRol() {
         return rol;
     }
+
+   
 }
