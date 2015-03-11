@@ -34,17 +34,8 @@
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                         <td align="left">
-                                                <p:commandButton actionListener="#{tipoInversionMB.limpiar}"
-                                                                 image="ui-icon-circle-plus"
-                                                                 oncomplete="insertarPanel.show()"
-                                                                 value=" Nueva Inversion" update=":form:registrar"
-                                                                 id="nuevo"/>
-                                                 
-                                                <p:tooltip styleClass="tool" id="tool3" for="nuevo"
-                                                           value="Registrar un nuevo tipo de inversión"/>
-                                            </td>
-                                            <td align="right">
+                                        
+                                            <td align="left">
                                                 Buscar: 
                                                 <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
                                                              value="#{tipoInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
@@ -67,7 +58,16 @@
                                                               update=":form:tablaC"  id="limpiar" ></p:commandButton>
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                             </td>
-                                           
+                                            <td align="right">
+                                                <p:commandButton actionListener="#{tipoInversionMB.limpiar}"
+                                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()"
+                                                                 value=" Nueva Inversion" update=":form:registrar"
+                                                                 id="nuevo"/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool3" for="nuevo"
+                                                           value="Registrar un nuevo tipo de inversión"/>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
