@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <style type="text/css">
+                div login {
+                    position: absolute;
+                    top: 180px;
+                    left: 220px;
+                }
+            </style>
+        </h:head>
+        <h:body>
+
+            
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                  <p:layout style="font-size:10px" fullPage="true">
+                    <p:layoutUnit position="center" style="border:none">
+                        <div id="titulo" align="center">
+                            <table style="background:#e70000; position:relative; top:40px">
+                                <tr>
+                                    <td width="250" align="center"><img src="C:\\JDeveloper\\mywork\\OSITRAN V1.0\\ViewController\\imagenes\\indice.png" height="60" width="250"/> </td>
+                                    <td width="100"></td>
+                                    <td width="550" align="center"><h3 style="color:White ;font-weight:bold;font-family: sans-serif;">#{msg.titulo_LOGIN}</h3></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                         <div align="center">
+                            <div id="img">
+                                <table style="position: absolute; top: 190px;left: 220px;">
+                                    <tr>
+                                        <td id="user">
+                                            <img src="C:\\JDeveloper\\mywork\\OSITRAN V1.0\\ViewController\\imagenes\\infralogo.jpg" height="200" width="290" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div id="login">
+                                <table style="position: absolute; top: 220px;left: 695px;">
+                                    <tr>
+                                        <td width="300" height="40" align="center">
+                                            Usuario o Contraseña incorrectas
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+
+                                        <td align="center"><b>
+                                            <a href="index.xhtml">Regresar</a></b>
+                    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                         </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+            
+            
+            
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:loginMB-->
+</f:view>
