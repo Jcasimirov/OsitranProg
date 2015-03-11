@@ -75,7 +75,7 @@ public class Logueo {
         }
 
         else {
-            String redirectPath = "/faces/error.jsf";
+            String redirectPath = "/faces/error.xhtml";
             externalContext.redirect(servletContext.getContextPath() + redirectPath);
         }
 
