@@ -14,6 +14,7 @@ public class RolVO  {
     private String rolUsuarioAlta;
     private String rolUsuarioBaja;
     private String rolUsuarioCambio;
+    private int contador;
 
     public RolVO() {
     }
@@ -120,5 +121,13 @@ public class RolVO  {
 
     public void setRolUsuarioCambio(String rolUsuarioCambio) {
         this.rolUsuarioCambio = rolUsuarioCambio;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
