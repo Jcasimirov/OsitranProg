@@ -20,6 +20,8 @@
         <h:body>
             <f:event listener="#{rolMB.cargarListaRoles}" type="postAddToView"></f:event>
             <f:event listener="#{rolMB.cargarListaRolOpciones}" type="postAddToView"></f:event>
+            
+            
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
@@ -61,6 +63,53 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <br></br>
+                                 
+                                <p:dataTable paginatorPosition="bottom"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                             style="font-size:11px;" id="tablaRoles" var="rol1"
+                                             value="#{rolMB.listaRoles}">
+                                             
+                                     <p:column headerText="N°ro"  style="width:2%">
+                                        <h:outputText value="#{rol1.contador}"/>
+                                    </p:column>         
+                                    <p:column headerText="Nombre" >
+                                        <h:outputText value="#{rol1.rolNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Descripción" >
+                                        <h:outputText value="#{rol1.rolDescripcion}"/>
+                                    </p:column>
+    
+                                    <p:column headerText="Editar" style="width:4%">
+                                    
+                                    <div align="center">
+                                                <p:commandButton 
+                                                           
+                                                    
+                                                         actionListener="#{rolMB.cargarEditar}"
+                                                         image="ui-icon-document" style="width:22px;height:22px;aling:center">
+                                                          
+                                                         </p:commandButton>
+                                                                 </div>
+                                       
+                                    </p:column>
+                                    <p:column headerText="Eliminar" style="width:4%" >
+                                    
+                                     <div align="center">
+                                                
+                                        <p:commandButton   actionListener="#{rolMB.cargarEliminar}"
+                                                       
+                                                          image="ui-icon-closethick"
+                                                         style="width:22px;height:22px;align:center"/>
+                                                                 </div>
+                                   
+                                    </p:column>
+                                </p:dataTable>
+                                    
+                                    
+                                    
                                 </div>
                                 <br></br>
                             </div>
@@ -72,6 +121,8 @@
                                                                                        AsisTP-2015</div>
                     </p:layoutUnit>
                 </p:layout>
+                
+                
                 <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
                           style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
@@ -166,16 +217,18 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:commandButton value="Guardar" update=":form:mensaje"  actionListener="#{rolMB.guardar}" />
+                                <p:commandButton value="Guardar" update=":form:mensaje :form:tablaRoles"  actionListener="#{rolMB.guardar}" />
                             </td>
                             <td>
                             </td>                           
                             <td colspan="2" align="left" >
-                                    <p:commandButton value="Limpiar" type="reset" />
+                                    <p:commandButton value="Limpiar"   actionListener="#{rolMB.limpiarListas}"  />
                             </td>
                         </tr>
                     </table>
                 </p:dialog>
+                
+                
             </h:form>
         </h:body>
     </html>
