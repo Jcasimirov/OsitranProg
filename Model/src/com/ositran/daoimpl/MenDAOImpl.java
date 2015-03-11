@@ -19,10 +19,9 @@ public class MenDAOImpl implements MenDAO{
     @Override
     @SuppressWarnings("unchecked")
     public List<Men> query() {
+        System.out.println("DAOO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         return session.createCriteria(Men.class).list();
-        
-        
     }
 
     @Override
