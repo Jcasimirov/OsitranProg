@@ -4,34 +4,16 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <style type="text/css">
                 .ui-dialog-titlebar {
                     font-size: 13px;
                     font-family: sans-serif;
                 }
             </style>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
             <script type="text/javascript">
-              function pasarMayuscula(obj, id) {
-                  obj = obj.toUpperCase();
-                  document.getElementById(id).value = obj;
-              }
-
-              function validarLetras(e) {
-                  tecla = (document.all) ? e.keyCode : e.which;
-                  if (tecla == 8)
-                      return true;// backspace
-                  if (tecla == 32)
-                      return true;// espacio
-                  if (tecla == 9)
-                      return true;// tab
-                  patron = /[a-zA-Z]/;//patron
-                  te = String.fromCharCode(tecla);
-                  return patron.test(te);// prueba de patron
-              }
-
-           
-            </script>
+              
         </h:head>
         <h:body>
             <f:event listener="#{mantenimientoUsuarioMB.ListarUsuario}" type="postAddToView"></f:event>
@@ -50,118 +32,96 @@
                             <table style="width:80% ;font-size:11px;">
                                 <tr>
                                     <td>
-                                        #{etq.etq_usu}
+                                        <p:fieldset legend="Criterio de Busqueda" style="width:10%;margin-bottom:5px;">
+                                            <table >
+                                                <tr>
+                                                    <td>
+                                                        #{etq.etq_usu}
+                                                    </td>
+                                                    <td>
+                                                        <p:inputText id="usuario"
+                                                                     value="#{mantenimientoUsuarioMB.nomUserSearch}"
+                                                                     size="35"
+                                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                    </td>
+                                                    <td>
+                                                        #{cam.nom}
+                                                    </td>
+                                                    <td colspan="4">
+                                                        <p:inputText size="35" id="nombre"
+                                                                     value="#{mantenimientoUsuarioMB.nomNomSearch}"
+                                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandButton image="ui-icon-search" id="buscar"
+                                                                         style="width:30px" update=":form:tablaUSU"
+                                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
+                                                         
+                                                        <p:tooltip id="toolTipFade" for="buscar" styleClass="tool"
+                                                                   value="Buscqueda por criterio en registro de usuario"/>
+                                                    </td>
+                                                    <td align="right">
+                                                        <p:commandButton id="btnlimpiar" value="#{btn.btn_limpiar}"
+                                                                         style="width:75px" type="reset"/>
+                                                         
+                                                        <p:tooltip styleClass="tool" id="toolTipFade5" for="btnlimpiar"
+                                                                   value="Boton limpia las cajas de texto"/>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>
+                                                        #{cam.tipo}
+                                                    </td>
+                                                    <td>
+                                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomTipoSearch}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                                            <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Externo" itemValue="2"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                   
+                                                    <td width="70">
+                                                        #{etq.etq_rol}
+                                                    </td>
+                                                    <td>
+                                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomRolSearch}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                                            <f:selectItem itemLabel="Rol 1" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Rol 2" itemValue="2"/>
+                                                            <f:selectItem itemLabel="Rol 3" itemValue="3"/>
+                                                            <f:selectItem itemLabel="Rol 4" itemValue="4"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                    <td>
+                                                        #{etq.etq_est}
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomEstSearch}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                                 
+                                             
+                                            </table>
+                                        </p:fieldset>
                                     </td>
                                     <td>
-                                        <p:inputText id="usuario" value="#{mantenimientoUsuarioMB.nomUserSearch}"
-                                                     size="35" onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                         
-                                        <p:commandButton image="ui-icon-search" id="buscar" style="width:30px"
-                                                         update=":form:tablaUSU"
-                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
-                                         
-                                        <p:tooltip id="toolTipFade" for="buscar"
-                                                   value="Buscar nombre de usuario en los registros"/>
-                                    </td>
-                                    <td align="right">
-                                        <p:commandButton id="btnvalidar" value="#{btn.btn_valusuint}"/>
-                                    </td>
-                                    <p:tooltip id="toolTipFade6" for="btnvalidar"
-                                               value="Boton que validara los usuarios internos"/>
-                                </tr>
-                                 
-                                <tr>
-                                    <td>
-                                        #{cam.nom}
-                                    </td>
-                                    <td>
-                                        <p:inputText size="35" id="nombre"
-                                                     value="#{mantenimientoUsuarioMB.nomNomSearch}"
-                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                         
-                                        <p:commandButton image="ui-icon-search" style="width:30px" id="buscar1"
-                                                         update=":form:tablaUSU"
-                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
-                                         
-                                        <p:tooltip id="toolTipFade1" for="buscar1"
-                                                   value="Buscar nombre de usuario en los registros"/>
-                                    </td>
-                                    <td align="right">
-                                        <p:commandButton id="btnlimpiar" value="#{btn.btn_limpiar}" style="width:75px"
-                                                         type="reset"/>
-                                         
-                                        <p:tooltip id="toolTipFade5" for="btnlimpiar"
-                                                   value="Boton limpia las cajas de texto"/>
-                                    </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td>
-                                        #{cam.tipo}
-                                    </td>
-                                    <td>
-                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomTipoSearch}">
-                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                            <f:selectItem itemLabel="Interno" itemValue="1"/>
-                                            <f:selectItem itemLabel="Externo" itemValue="2"/>
-                                        </p:selectOneMenu>
-                                         
-                                        <p:commandButton image="ui-icon-search" style="width:30px" id="buscar2"
-                                                         update=":form:tablaUSU"
-                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
-                                         
-                                        <p:tooltip id="toolTipFade2" for="buscar2"
-                                                   value="Buscar por tipo de usuario en los registros"/>
-                                    </td>
-                                    <td align="right">
-                                        <p:commandButton id="btnnuevo" image="ui-icon-document" value="#{btn.btn_nuevo}"
+                                        <p:commandButton id="btnnuevo" image="ui-icon-document" value="Nuevo Usuario"
                                                          onclick="agregarUsuario.show()" type="reset"/>
                                          
-                                        <p:tooltip id="toolTipFade7" for="btnnuevo"
+                                        <p:tooltip styleClass="tool" id="toolTipFade7" for="btnnuevo"
                                                    value="Boton que permitira un nuevo registro de usuario"/>
                                     </td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td width="70">
-                                        #{etq.etq_rol}
-                                    </td>
+                                    
                                     <td>
-                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomRolSearch}">
-                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                            <f:selectItem itemLabel="Rol 1" itemValue="1"/>
-                                            <f:selectItem itemLabel="Rol 2" itemValue="2"/>
-                                            <f:selectItem itemLabel="Rol 3" itemValue="3"/>
-                                            <f:selectItem itemLabel="Rol 4" itemValue="4"/>
-                                        </p:selectOneMenu>
+                                        <p:commandButton id="btnvalidar" value="#{btn.btn_valusuint}"/>
                                          
-                                        <p:commandButton image="ui-icon-search" style="width:30px" id="buscar3"
-                                                         update=":form:tablaUSU"
-                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
-                                         
-                                        <p:tooltip id="toolTipFade3" for="buscar3"
-                                                   value="Buscar por rol de usuario en los registros"/>
-                                    </td>
-                                    <td align="right"></td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td>
-                                        #{etq.etq_est}
-                                    </td>
-                                    <td colspan="2">
-                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomEstSearch}">
-                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
-                                        </p:selectOneMenu>
-                                         
-                                        <p:commandButton image="ui-icon-search" style="width:30px" id="buscar4"
-                                                         update=":form:tablaUSU"
-                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
-                                         
-                                        <p:tooltip id="toolTipFade4" for="buscar4"
-                                                   value="Buscar por estado de usuario en los registros"/>
+                                        <p:tooltip id="toolTipFade6" for="btnvalidar" styleClass="tool"
+                                                   value="Boton que validara los usuarios internos"/>
                                     </td>
                                 </tr>
                                  
@@ -171,7 +131,11 @@
                                                      value="#{mantenimientoUsuarioMB.listaUsuario}" rows="10"
                                                      paginator="true" paginatorPosition="bottom"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="10">
+                                                     rowsPerPageTemplate="10" selectionMode="single"
+                                                     rowKey="#{usu.usuId}" rowIndexVar="rowIndex">
+                                            <p:column headerText="N°" style="width:3%">
+                                                <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                            </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Usuario"/>
@@ -236,8 +200,7 @@
                                                 <center>
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-check"
-                                                                     style="width:25px;height:25px"
-                                                                     />
+                                                                     style="width:25px;height:25px"/>
                                                 </center>
                                             </p:column>
                                             <p:column width="8">
@@ -267,7 +230,7 @@
                             <td>
                                 <p:selectOneMenu value="#{mantenimientoUsuarioMB.usuEsexterno}">
                                     <f:selectItem itemLabel="Selecciona" itemValue="0"/>
-                                    <f:selectItem itemLabel="Interno" itemValue="1" />
+                                    <f:selectItem itemLabel="Interno" itemValue="1"/>
                                     <f:selectItem itemLabel="Externo" itemValue="2"/>
                                 </p:selectOneMenu>
                                  
@@ -317,7 +280,8 @@
                                 #{etq.etq_correo}
                             </td>
                             <td>
-                                <p:inputText id="correo" style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreo}">
+                                <p:inputText id="correo" style="width:300px"
+                                             value="#{mantenimientoUsuarioMB.usuCorreo}">
                                     <p:watermark for="correo" value="correo@ositran.gob.pe"/>
                                 </p:inputText>
                                  
@@ -374,7 +338,7 @@
                          
                         <tr>
                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios (
+                                Campos obligatorios ( 
                                 <img src="../../imagenes/obligatorio.gif"/>)
                             </td>
                         </tr>
@@ -444,16 +408,15 @@
                                              onkeydown="return validarLetras(event)"/>
                             </td>
                         </tr>
-                        
+                         
                         <tr>
                             <td>
                                 #{etq.etq_correo}
                             </td>
                             <td>
-                                <p:inputText  style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
                             </td>
                         </tr>
-                        
                          
                         <tr>
                             <td>

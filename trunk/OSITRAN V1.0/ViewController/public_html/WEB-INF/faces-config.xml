@@ -44,7 +44,7 @@
   <from-view-id>/ositran/logueo.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>error</from-outcome>
-   <to-view-id>/error.jsf</to-view-id>
+   <to-view-id>/error.xhtml</to-view-id>
   </navigation-case>
   <navigation-case>
    <from-outcome>login</from-outcome>
