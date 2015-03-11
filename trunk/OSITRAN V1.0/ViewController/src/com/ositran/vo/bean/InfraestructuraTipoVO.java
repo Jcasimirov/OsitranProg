@@ -1,16 +1,8 @@
 package com.ositran.vo.bean;
 
-import java.io.Serializable;
-
-
 import java.util.Date;
 
-
-
-
-public class InfraestructuraTipoVO implements Serializable {
-    private static final long serialVersionUID = -9018333581388462967L;
-    
+public class InfraestructuraTipoVO {
     private String tinDescripcion;   
     private Integer tinEstado;   
     private Date tinFechaAlta;    
