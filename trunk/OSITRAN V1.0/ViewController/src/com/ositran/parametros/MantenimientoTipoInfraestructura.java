@@ -33,6 +33,9 @@ public class MantenimientoTipoInfraestructura {
     private String tinNombreE;
     private String tinDescripcionE;
 
+    @ManagedProperty(value = "#{infraestructuraTipoVO}")
+    private InfraestructuraTipoVO infraestructuraTipoVO;
+    
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -64,10 +67,10 @@ public class MantenimientoTipoInfraestructura {
         return listaInfraestructura;
     }
 
-    public InfraestructuraTipoVO infraestructuraTipoVO = new InfraestructuraTipoVO();
+  
 
     /* Guardar */
-    public void guardar() throws SQLException {
+    public void guardar()  {
 
         if (tinNombre.equals("") || tinDescripcion.equals("")) {
             System.out.println("no se puede guardar");
@@ -91,13 +94,12 @@ public class MantenimientoTipoInfraestructura {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                               "Se Registro con Exito"));
-            } catch (Exception e) {
-                // TODO: Add catch code
+            } catch (SQLException e) {
+                
                 e.printStackTrace();
             }
+           
         }
-
-
     }
 
 
@@ -285,5 +287,7 @@ public class MantenimientoTipoInfraestructura {
 
         return listaInfraestructura;
     }
+
+
 
 }
