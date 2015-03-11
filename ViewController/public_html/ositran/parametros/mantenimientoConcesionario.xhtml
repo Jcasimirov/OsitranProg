@@ -62,18 +62,9 @@
                                     <table width="100%">
                                         <tr>
                                         
-                                         <td align="left">
-                                                <p:commandButton id="nuevo"
-                                                actionListener="#{concesionarioMB.limpiarCampos}"
-                                                 image="ui-icon-circle-plus"
-                                                                 oncomplete="insertarPanel.show()"
-                                                                 value=" Nuevo Concesionario"
-                                                                 update=":form:registrar"
-                                                                 />
-                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Registrar un nuevo concecionario" />
-                                            </td>
+                                        
                                             
-                                             <td align="right">
+                                             <td align="left">
                                                 Buscar: 
                                                 <p:inputText id="buscarT"   onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
                                                  
@@ -90,7 +81,16 @@
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                                     
                                             </td>
-                                           
+                                            <td align="right">
+                                                <p:commandButton id="nuevo"
+                                                actionListener="#{concesionarioMB.limpiarCampos}"
+                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()"
+                                                                 value=" Nuevo Concesionario"
+                                                                 update=":form:registrar"
+                                                                 />
+                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Registrar un nuevo concecionario" />
+                                            </td>
                                            
                                         </tr>
                                     </table>
@@ -101,23 +101,23 @@
                                 emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                             style="font-size:11px;" id="tablaC" var="conc"
+                                             style="font-size:11px;" id="tablaC" var="conc1"
                                              value="#{concesionarioMB.listaCon}">
                                              
                                      <p:column headerText="N°ro"  style="width:2%">
-                                        <h:outputText value="#{conc.contador}"/>
+                                        <h:outputText value="#{conc1.contador}"/>
                                     </p:column>         
                                     <p:column headerText="Nombre" >
-                                        <h:outputText value="#{conc.cncNombre}"/>
+                                        <h:outputText value="#{conc1.cncNombre}"/>
                                     </p:column>
                                     <p:column headerText="Descripción" >
-                                        <h:outputText value="#{conc.cncDescripcion}"/>
+                                        <h:outputText value="#{conc1.cncDescripcion}"/>
                                     </p:column>
                                     <p:column headerText="Representante Legal" >
-                                        <h:outputText value="#{conc.cncRepresentanteLegal}"/>
+                                        <h:outputText value="#{conc1.cncRepresentanteLegal}"/>
                                     </p:column>
                                     <p:column headerText="N° de Documento" >
-                                        <h:outputText value="#{conc.cncNroDocumento}"></h:outputText>
+                                        <h:outputText value="#{conc1.cncNroDocumento}"></h:outputText>
                                     </p:column>
                                     <p:column headerText="Editar" style="width:4%">
                                     
@@ -127,7 +127,8 @@
                                                          update=":form:editarPanel :form:oculto1 :form:oculto2"
                                                          actionListener="#{concesionarioMB.cargarEditar}"
                                                          image="ui-icon-document" style="width:22px;height:22px;aling:center">
-                                                          <f:param id="idModificar" name="idModificar" value="#{concesionario.cncId}"/>
+                                                          <f:param id="idModificar" name="idModificar" value="#{conc1.cncId}"/>
+                                                          
                                                          </p:commandButton>
                                                                  </div>
                                        
@@ -136,7 +137,7 @@
                                     
                                      <div align="center">
                                                 
-                                        <p:commandButton   actionListener="#{concesionarioMB.cargarEliminar(conc)}"
+                                        <p:commandButton   actionListener="#{concesionarioMB.cargarEliminar(conc1)}"
                                                          update=":form:confirEliminar :form:oculto"
                                                          oncomplete="confirEliminar.show()" image="ui-icon-closethick"
                                                          style="width:22px;height:22px;align:center"/>
