@@ -18,6 +18,8 @@ public class MenServiceImpl implements  MenService{
     
     @Override
     public List<MenVO> query() {
+        
+       System.out.println("llego al services");
        List<Men> list=menDAOImpl.query();
        List<MenVO> listVO=toListMenVO(list);
        
