@@ -57,11 +57,27 @@ public class RolMB {
     }
     
     public void cargarListaRoles(){
-        listaRoles=rolServiceImpl.query();
-        System.out.println("cantidad de lista de roles "+ listaRoles.size());
+            int contador=1;
+            listaRoles=rolServiceImpl.query();
+            for(int i=0;i<listaRoles.size();i++){
+              listaRoles.get(i).setContador(contador);
+                contador++;
+                }
+        }
+    public void limpiarListas(){
+            limpiar();
+            listaRolOpciones.clear();
+            listaMenSeleccionado.clear();
+        }
+    public void cargarEditar(){
+        
+        }
+    public void cargarEliminar(){
+        
         }
      public void cargarListaMenu(){
         listaMen=menServiceImpl.query();
+        System.out.println("  Cantidad de Menu "+listaMen.size());
         limpiar();
         listaMenSeleccionado.clear();
         
@@ -124,6 +140,8 @@ public class RolMB {
                   rolOpcionesVO.setTroEliminar(  (menVO.isEliminar()) ? 1 : 0 );
                   rolOpcionesVO.setTroModificar( (menVO.isActualizar()) ? 1 : 0 );
                   rolOpcionesServiceImpl.insert(rolOpcionesVO);
+                  
+                  cargarListaRoles();
                   
                   }
               }
