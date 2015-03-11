@@ -1,5 +1,4 @@
 package com.ositran.model;
-
 import java.io.Serializable;
 
 
@@ -21,18 +20,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import javax.persistence.UniqueConstraint;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-/**
- * To create ID generator sequence "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
 @Entity
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURATIPO"))
-public class InfraestructuraTipo implements Serializable {
-    private static final long serialVersionUID = -9018333581388462967L;
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA_TIPO"))
+
+public class InfraestructuraTipo {
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
     private String tinDescripcion;
     @Column(name = "TIN_ESTADO", nullable = false)
