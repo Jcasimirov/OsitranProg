@@ -35,18 +35,8 @@
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                        <td align="left">
-                                                <p:commandButton
-                                                            actionListener="#{descripcionInversionMB.limpiarCampos}"
-                                                                 image="ui-icon-circle-plus"
-                                                               oncomplete="insertarDesc.show()"
-                                                                 value=" Nueva Descripcion"
-                                                                 update=":form:registrar"
-                                                                 id="nuevo"
-                                             />
-                                              <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Registrar nueva descripcion de tipo inversion" />
-                                            </td>
-                                            <td align="right">
+                                       
+                                            <td align="left">
                                                  Buscar: 
                                                 <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
                                                  
@@ -62,6 +52,18 @@
                                                 <p:commandButton image="ui-icon-minus" type="reset"
                                                               update=":form:tablaC"  id="limpiar" ></p:commandButton>
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
+                                            </td>
+                                            
+                                             <td align="right">
+                                                <p:commandButton
+                                                            actionListener="#{descripcionInversionMB.limpiarCampos}"
+                                                                 image="ui-icon-circle-plus"
+                                                               oncomplete="insertarDesc.show()"
+                                                                 value=" Nueva Descripcion"
+                                                                 update=":form:registrar"
+                                                                 id="nuevo"
+                                             />
+                                              <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Registrar nueva descripcion de tipo inversion" />
                                             </td>
                                             
                                         </tr>
