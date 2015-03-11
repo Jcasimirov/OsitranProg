@@ -8,10 +8,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface InfraestructuraTipoDAO {
-        public List<InfraestructuraTipo> query() throws SQLException;
-        public String insert(InfraestructuraTipo infraestructuraTipo) throws SQLException;
-        public String delete(Integer id) throws SQLException;
-        public String update(InfraestructuraTipo infraestructuraTipo) throws SQLException;
-        public InfraestructuraTipo get(Integer id) throws SQLException;
-        public List<InfraestructuraTipo> AllSearch(String a, String b) throws SQLException; 
+    public List<InfraestructuraTipo> query() throws SQLException;
+
+    public String insert(InfraestructuraTipo infraestructuraTipo) throws SQLException;
+
+    public String delete(Integer id) throws SQLException;
+
+    public String update(InfraestructuraTipo infraestructuraTipo) throws SQLException;
+
+    public InfraestructuraTipo get(Integer id) throws SQLException;
+
+    public List<InfraestructuraTipo> AllSearch(String a, String b) throws SQLException;
 }
