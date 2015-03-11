@@ -153,6 +153,9 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Concesion concesion = (Concesion) session.get(Concesion.class, id);
+        System.out.println("////////////////////////////////////////");
+        System.out.println(concesion.getCsiNombre());
+        System.out.println(concesion.getCsiId());
         session.getTransaction().commit();
         return concesion;
     }
