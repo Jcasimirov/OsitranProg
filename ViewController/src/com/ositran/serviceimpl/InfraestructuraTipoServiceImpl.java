@@ -1,25 +1,20 @@
 package com.ositran.serviceimpl;
 
-import com.ositran.daoimpl.InfraestructuraTipoDAOImpl;
+import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoService{
-    public InfraestructuraTipoServiceImpl() {
-        super();
-    }
     
-    private InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl;
-
-    public void setInfraestructuraTipoDAOImpl(InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl) {
-        this.infraestructuraTipoDAOImpl = infraestructuraTipoDAOImpl;
-    }
+    InfraestructuraTipoDAO infraestructuraTipoDAOImpl;
+    InfraestructuraTipo infraestructuraTipo;
+    InfraestructuraTipoVO infraestructuraTipoVO;
+    
+  
 
     @Override
     public List<InfraestructuraTipoVO> query() throws SQLException{
@@ -111,9 +106,29 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     }
 
 
-   
-    
-    
-   
-    
+    public void setInfraestructuraTipoDAOImpl(InfraestructuraTipoDAO infraestructuraTipoDAOImpl) {
+        this.infraestructuraTipoDAOImpl = infraestructuraTipoDAOImpl;
+    }
+
+    public InfraestructuraTipoDAO getInfraestructuraTipoDAOImpl() {
+        return infraestructuraTipoDAOImpl;
+    }
+
+    public void setInfraestructuraTipo(InfraestructuraTipo infraestructuraTipo) {
+        this.infraestructuraTipo = infraestructuraTipo;
+    }
+
+    public InfraestructuraTipo getInfraestructuraTipo() {
+        return infraestructuraTipo;
+    }
+
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
+    }
+
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
+    }
+
+
 }
