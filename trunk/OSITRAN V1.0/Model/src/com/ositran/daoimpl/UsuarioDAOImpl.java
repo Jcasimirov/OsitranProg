@@ -2,41 +2,23 @@ package com.ositran.daoimpl;
 
 import java.util.List;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import com.ositran.dao.UsuarioDAO;
 import com.ositran.model.Usuario;
-
+import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
-
-import javax.sql.DataSource;
 import org.hibernate.Query;
-import org.hibernate.cfg.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+
 
 @Repository
 public class UsuarioDAOImpl implements UsuarioDAO {
 
-    private JdbcTemplate jdbcTemplate;
-
-    public void setDataSource(DataSource ds) {
-        this.jdbcTemplate = new JdbcTemplate(ds);
-    }
-
-    private static final Logger logger = LoggerFactory.getLogger(UsuarioDAOImpl.class);
-
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
-    public void setSessionFactory(SessionFactory sf) {
-        this.sessionFactory = sf;
-    }
+   Usuario usuario;
 
     @Override
     public String insert(Usuario usuario) throws SQLException {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.persist(usuario);
@@ -51,7 +33,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public String delete(Integer id) throws SQLException{
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             Usuario usuario = (Usuario) session.get(Usuario.class, id);
@@ -67,12 +49,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public String update(Usuario usuario)throws SQLException {
         String result = null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.update(usuario);
             session.getTransaction().commit();
-            logger.info("Usuario updated successfully, Usuario Details=" + usuario);
         } catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
@@ -83,7 +64,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public Usuario get(Integer id) throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Usuario usuario = (Usuario) session.get(Usuario.class, id);
         session.getTransaction().commit();
@@ -92,18 +73,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public List query() throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Usuario o order by USU_ID asc").list();
-        System.out.println("LISTA = " + list);
-        session.getTransaction().commit();
         return list;
     }
 
     @Override
     public List<Usuario> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException {
         
-            Session session = sessionFactory.openSession();
+            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
             session.beginTransaction();
             Query query;
             if( nomTipoSearch<1  ){
@@ -115,25 +94,23 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 query=session.createQuery("FROM Usuario u WHERE lower(u.usuEsexterno) like lower(:busqueda3)order by USU_ID asc");
                 query.setParameter("busqueda3",nomTipoSearch);
                 }
-           
-            
-         
             else{
             query = session.createQuery("FROM Usuario u WHERE lower(u.usuUsuario) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2)and lower(u.usuEsexterno) like lower(:busqueda3) order by USU_ID asc" );
             query.setParameter("busqueda1", "%" + searchUsuario + "%");
             query.setParameter("busqueda2", "%" + searchNombre + "%");
-                query.setParameter("busqueda3",nomTipoSearch);
-              
-       
+            query.setParameter("busqueda3",nomTipoSearch);
             }
-                      
-            
-            List<Usuario> list = query.list();
-            session.getTransaction().commit();
-            session.close();
-            return list;
+            return query.list();
         }
 
 
-    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+
 }
