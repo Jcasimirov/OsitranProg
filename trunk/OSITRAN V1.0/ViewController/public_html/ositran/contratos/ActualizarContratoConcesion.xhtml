@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?xml version='1.0' encoding='windows-1252'?>
 <html 	xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
@@ -6,6 +6,7 @@
 		xmlns:p="http://primefaces.org/ui">
       
 <h:head>
+        
 	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
 	<meta content="1500" http-equiv="REFRESH"></meta>
 <script type="text/javascript">
@@ -15,7 +16,7 @@
 			    nextText: 'Siguiente',
 			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-			    dayNames: ['Domingo','Lunes','Martes','MiÃ©rcoles','Jueves','Viernes','SÃ¡bado'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
 			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
 			    dayNamesMin: ['D','L','M','X','J','V','S'],
 			    weekHeader: 'Semana',
@@ -23,7 +24,7 @@
 			    isRTL: false,
 			    showMonthAfterYear: false,
 			    yearSuffix: '',
-			    timeOnlyTitle: 'SÃ³lo hora',
+			    timeOnlyTitle: 'Sólo hora',
 			    timeText: 'Tiempo',
 			    hourText: 'Hora',
 			    minuteText: 'Minuto',
@@ -32,28 +33,29 @@
 			    ampm: false,
 			    month: 'Mes',
 			    week: 'Semana',
-			    day: 'DÃ­a',
-			    allDayText : 'Todo el dÃ­a'
+			    day: 'Día',
+			    allDayText : 'Todo el día'
 			};		
 	</script>
 </h:head>
 <h:body>
 
-
-
-
-
-<p:panel header="#{msg.tituloACC}" style="text-align:center;text-decoration:blink;width:100%">
-	<h:form>
+<p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h4 class="titulo">MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</h4>
+                           </div>
+                           <h:form>
 	<div align="center" style="font-size: 11px">
 	<p:tabView  style="width: 80%" >
-        <p:tab title="Datos BÃ¡sicos">
+        <p:tab title="Datos Básicos">
 					<table>
 						<tr>
 							<td align="left">
 							<p:fieldset styleClass="fielsetinterno" legend="Criterios de Busqueda">		
 								<p:inputText id="cb" style="width:200px" />
-								<p:watermark for="cb" value="Buscar Empresa Supervisora"/>										
+								<p:watermark for="cb" value="Buscar Contrato Concesión"/>										
 								<p:commandButton image="ui-icon-search" ></p:commandButton>							
 							</p:fieldset>
 							</td>
@@ -65,11 +67,11 @@
 									<tr>
 										<td align="left">Tipo De Infraestuctura:</td>
 										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
+										<td align="left">Modalidad de Concepción:</td>
 										<td><p:inputText></p:inputText></td>
 									</tr>
 									<tr>
-										<td align="left">ConcepciÃ³n :</td>
+										<td align="left">Concepción :</td>
 										<td colspan="3" align="left"><p:inputText style="width:97.5%"></p:inputText></td>
 									</tr>
 									</table>
@@ -101,11 +103,11 @@
 								<p:fieldset styleClass="fielsetinterno" legend="Valorizaciones">
 										<table>
 											<tr>
-												<td align="left"><p:selectBooleanCheckbox/> Aplica ValorizaciÃ³n de InversiÃ³n</td>
-												<td><p:selectBooleanCheckbox/> Aplica Reconocimiento de InversiÃ³n</td>
+												<td align="left"><p:selectBooleanCheckbox/> Aplica Valorización de Inversión</td>
+												<td><p:selectBooleanCheckbox/> Aplica Reconocimiento de Inversión</td>
 											</tr>
 											<tr>
-												<td align="left">Seleccione Tipo de ValorizaciÃ³n</td>
+												<td align="left">Seleccione Tipo de Valorización</td>
 												<td>
 														<p:selectOneMenu >
 							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
@@ -140,10 +142,10 @@
 										<td>
 										</td>
 										  <td valign="top">
-											<p:fieldset styleClass="fielsetinterno" legend="Plazos de RevisiÃ³n">
+											<p:fieldset styleClass="fielsetinterno" legend="Plazos de Revisión">
 											<table style="width:350px">
 												<tr>
-													<td align="left">Ingrese dias de plazo de revisiÃ³n 
+													<td align="left">Ingrese dias de plazo de revisión 
 																	de valorizacion y/o reconocimiento</td>
 													<td><p:inputText></p:inputText></td>
 												</tr>
@@ -180,243 +182,261 @@
 						</tr>
 					</table>
         </p:tab>
-        <p:tab title="Tab1">
-            
-             	<table style="width:500px">
-             		<tr>
-             			<td align="left" colspan="2">Fecha de SuscripciÃ³n</td>
-             			<td colspan="8" align="left"><p:calendar locale="es" pattern="yyyy-MMM-dd" /></td>
-             		</tr>
-             		<tr>
-             			<td align="left" colspan="2">Plazo de ConcesiÃ³n</td>
-             			<td colspan="8" align="left"><p:inputText style="width:350px" /></td>
-             		</tr>
-             		<tr>
-             			<td align="left">Adendas</td>
-             			<td><p:inputText /></td>
-             			<td align="left" >Objeto</td>
-             			<td><p:inputText style="width:30px"/></td>
-             			<td align="left">Fecha</td>
-             			<td><p:calendar locale="es" style="width:30px" pattern="yyyy-MMM-dd" /></td>
-             			<td align="left">Adjuntar PDF</td>
-             			<td><p:inputText  style="width:25px"/></td>
-             			<td align="left"> <p:commandButton image="ui-icon-folder-open"></p:commandButton></td>
-             			<td><p:commandButton value="Agregar"></p:commandButton></td>
-             		</tr>
-             	</table>
-              	
-        </p:tab>
-        <p:tab title="Tab2">
-					<table>
-						<tr>
-							<td align="left">
-							<p:fieldset legend="Criterios de Busqueda">					
-								<h:outputText value="Buscar Empresa Supervisora"></h:outputText>								
-								<p:commandButton image="ui-icon-search" ></p:commandButton>							
-							</p:fieldset>
-							</td>
-						</tr>
-						<tr>
-							<td>
-							<p:fieldset legend="Datos Basicos">
-								<table>
-									<tr>
-										<td align="left">Tipo De Infraestuctura:</td>
-										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
-										<td><p:inputText></p:inputText></td>
-									</tr>
-									<tr>
-										<td align="left">ConcepciÃ³n :</td>
-										<td colspan="3" align="left"><p:inputText style="width:350px"></p:inputText></td>
-									</tr>
-									</table>
-										<p:fieldset legend="Datos del Concesinario">
-											<table>
-										<tr>
-											<td align="left">Nombre Consecionario:</td>
-											<td><p:inputText></p:inputText></td>
-											<td align="left">Siglas del Nombre:</td>
-											<td><p:inputText></p:inputText></td>
-										</tr>
-										<tr>
-											<td align="left">Tic Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-											<td align="left">Num Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-										</tr>
-											</table>
-										</p:fieldset>
-							</p:fieldset>	
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<br></br>
-								<table>
-								<tr>
-								<td>
-								<p:fieldset legend="Valorizaciones">
-										<table>
-											<tr>
-												<td align="left"><p:selectBooleanCheckbox /> Aplica ValorizaciÃ³n de InversiÃ³n</td>
-												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de InversiÃ³n</td>
-											</tr>
-											<tr>
-												<td align="left">Seleccione Tipo de ValorizaciÃ³n</td>
-												<td>
-														<p:selectOneMenu>
-							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
-												        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-												        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-												        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
-							    						</p:selectOneMenu>
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Mensual</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Bimestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Semestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Anual</td>
-											</tr>
-											<tr>
-												<td colspan="2" align="left">Fecha de Inicio:
-												<p:calendar locale="es" pattern="yyyy-MMM-dd" /></td>
-											</tr>
-										</table>
-										</p:fieldset>
-										</td>
-										<td>
-										</td>
-									</tr>	
-										</table>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td align="center" colspan="2">
-							<p:commandButton value="Guardar"></p:commandButton>
-							<p:commandButton value="Salir"></p:commandButton>
-							</td>
-						</tr>
-					</table>
+        
+        <p:tab title="Adendas_Entregas">
+              <table>
+                    <tr>
+                    <td align="left" style="font-weight: bold;">Registro de Adendas entregas y Otros</td>
+                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    
+                    </tr>
+                      <tr>
+                 
+                    
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    
+                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
+                                                 rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                 style="font-size:11px;" id="tablaRoles" var="rol1"
+                                                 >
+                                        <p:column headerText="Tipo°" >
+                                            
+                                        </p:column>
+                                        <p:column headerText="Objeto" style="width:5%">
+                                           
+                                        </p:column>
+                                        <p:column headerText="Monto">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Monedas" style="width:4%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Fecha" style="width:4%">
+                                        
+                                        </p:column>
+                                         <p:column headerText="Comp Inv Concesionario" style="width:4%">
+                                        
+                                        </p:column>
+                                         <p:column headerText="Ver" style="width:4%">
+                                        
+                                        </p:column>
+                                        <p:column headerText="Quitar" style="width:4%">
+                                        
+                                        </p:column>
+                                </p:dataTable>            
+                    
+                    
+                    </td>
+                  
+                   
+                    
+                    </tr>
+                    
+                    <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                    <tr>
+                    <td align="left" style="font-weight: bold;">Registro de entrega del area de Bienes y Concesion</td>
+                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    
+                    </tr>
+                     <tr>
+                    <td colspan="2">
+                    
+                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
+                                                 rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                 style="font-size:11px;" id="tablazRoles4" var="rol1"
+                                                 >
+                                        <p:column headerText="Tipo°" >
+                                            
+                                        </p:column>
+                                        <p:column headerText="Objeto" style="width:5%">
+                                           
+                                        </p:column>
+                                        <p:column headerText="Monto">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Monedas" style="width:4%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Fecha" style="width:4%">
+                                        
+                                        </p:column>
+                                         <p:column headerText="Comp Inv Concesionario" style="width:4%">
+                                        
+                                        </p:column>
+                                         <p:column headerText="Ver" style="width:4%">
+                                        
+                                        </p:column>
+                                        <p:column headerText="Quitar" style="width:4%">
+                                        
+                                        </p:column>
+                                </p:dataTable>            
+                    
+                    
+                    </td>
+
+                    </tr>
+              </table>
         </p:tab>
         
-        <p:tab title="Tab3">
-					<table>
-						<tr>
-							<td align="left">
-							<p:fieldset legend="Criterios de Busqueda">					
-								<h:outputText value="Buscar Empresa Supervisora"></h:outputText>								
-								<p:commandButton image="ui-icon-search" ></p:commandButton>							
-							</p:fieldset>
-							</td>
-						</tr>
-						<tr>
-							<td>
-							<p:fieldset legend="Datos Basicos">
-								<table>
-									<tr>
-										<td align="left">Tipo De Infraestuctura:</td>
-										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
-										<td><p:inputText></p:inputText></td>
-									</tr>
-									<tr>
-										<td align="left">ConcepciÃ³n :</td>
-										<td colspan="3" align="left"><p:inputText style="width:350px"></p:inputText></td>
-									</tr>
-									</table>
-										<p:fieldset legend="Datos del Concesinario">
-											<table>
-										<tr>
-											<td align="left">Nombre Consecionario:</td>
-											<td><p:inputText></p:inputText></td>
-											<td align="left">Siglas del Nombre:</td>
-											<td><p:inputText></p:inputText></td>
-										</tr>
-										<tr>
-											<td align="left">Tic Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-											<td align="left">Num Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-										</tr>
-											</table>
-										</p:fieldset>
-							</p:fieldset>	
-							</td>
-						</tr>
-						<tr>
-							<td>
-								
-								<br></br>
-								<table>
-								<tr>
-								<td>
-								<p:fieldset legend="Valorizaciones">
-										<table>
-											<tr>
-												<td align="left"><p:selectBooleanCheckbox /> Aplica ValorizaciÃ³n de InversiÃ³n</td>
-												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de InversiÃ³n</td>
-											</tr>
-											<tr>
-												<td align="left">Seleccione Tipo de ValorizaciÃ³n</td>
-												<td>
-														<p:selectOneMenu  value="">
-							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
-												        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-												        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-												        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
-							    						</p:selectOneMenu>
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Mensual</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Bimestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Semestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Anual</td>
-											</tr>
-											<tr>
-												<td colspan="2" align="left">Fecha de Inicio:
-												<p:calendar locale="es" pattern="yyyy-MMM-dd" /></td>
-											</tr>
-										</table>
-										</p:fieldset>
-										</td>
-										<td>
-										</td>
-									</tr>	
-										</table>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td align="center" colspan="2">
-							<p:commandButton value="Guardar"></p:commandButton>
-							<p:commandButton value="Salir"></p:commandButton>
-							</td>
-						</tr>
-					</table>
+        <p:tab title="Compromiso_Penalidades">
+		 <table>
+                    <tr>
+                    <td align="left" style="font-weight: bold;">Designación de un Supervisor de Diseño</td>
+                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    
+                    </tr>
+                      <tr>
+                 
+                    
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    
+                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
+                                                 rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                 style="font-size:11px;" id="tablaRoles1" var="rol1"
+                                                 >
+                                        <p:column headerText="Nombre°" >
+                                            
+                                        </p:column>
+                                        
+                                        <p:column headerText="Fecha">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Ver" style="width:10%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Quitar" style="width:10%">
+                                        
+                                        </p:column>
+                                        
+                                </p:dataTable>            
+                    
+                    
+                    </td>
+                  
+                   
+                    
+                    </tr>
+                    
+                    <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                    <tr>
+                    <td align="left" style="font-weight: bold;">Cmpromiso de Inversion Etapa Periodo</td>
+                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    
+                    </tr>
+                     <tr>
+                    <td colspan="2">
+                    
+                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
+                                                 rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                 style="font-size:11px;" id="tablazRoles5" var="rol1"
+                                                 >
+                                        <p:column headerText="Etapa Periodo °" >
+                                            
+                                        </p:column>
+                                        <p:column headerText="Alcance" >
+                                           
+                                        </p:column>
+                                        <p:column headerText="Monto">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Monedas" >
+                                            
+                                        </p:column>
+                                        <p:column headerText="Neto" >
+                                        
+                                        </p:column>
+                                         <p:column headerText="IGV" >
+                                        
+                                        </p:column>
+                                         <p:column headerText="Total" style="width:6%">
+                                        
+                                        </p:column>
+                                        <p:column headerText="Plazo" style="width:6%">
+                                        
+                                        </p:column>
+                                         <p:column headerText="Quitar" style="width:6%">
+                                        
+                                        </p:column>
+                                </p:dataTable>            
+                    
+                    
+                    </td>
+
+                    </tr>
+                      <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                     <tr>
+                    </tr>
+                                        <tr>
+                    <td align="left" style="font-weight: bold;">Penalidades</td>
+                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    
+                    </tr>
+                     <tr>
+                     
+                    <td colspan="2">
+                    
+                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
+                                                 rows="10" paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                 style="font-size:11px;" id="tablazRoles6" var="rol1"
+                                                 >
+                                        <p:column headerText="Mótivo"  style="width:10%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Moneda" style="width:10%">
+                                           
+                                        </p:column>
+                                        <p:column headerText="Monto" >
+                                            
+                                        </p:column>
+                                        <p:column headerText="Fecha" style="width:10%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Quitar" style="width:10%">
+                                        
+                                        </p:column>
+                                      
+                                </p:dataTable>            
+                    
+                    
+                    </td>
+
+                    </tr>
+              </table>
+                
+                
         </p:tab>
         
         <p:tab title="Tab4">
@@ -436,11 +456,11 @@
 									<tr>
 										<td align="left">Tipo De Infraestuctura:</td>
 										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
+										<td align="left">Modalidad de Concepción:</td>
 										<td><p:inputText></p:inputText></td>
 									</tr>
 									<tr>
-										<td align="left">ConcepciÃ³n :</td>
+										<td align="left">Concepción :</td>
 										<td colspan="3" align="left"><p:inputText style="width:350px"></p:inputText></td>
 									</tr>
 									</table>
@@ -473,11 +493,11 @@
 								<p:fieldset legend="Valorizaciones">
 										<table>
 											<tr>
-												<td align="left"><p:selectBooleanCheckbox /> Aplica ValorizaciÃ³n de InversiÃ³n</td>
-												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de InversiÃ³n</td>
+												<td align="left"><p:selectBooleanCheckbox /> Aplica Valorización de Inversión</td>
+												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de Inversión</td>
 											</tr>
 											<tr>
-												<td align="left">Seleccione Tipo de ValorizaciÃ³n</td>
+												<td align="left">Seleccione Tipo de Valorización</td>
 												<td>
 														<p:selectOneMenu  value="">
 							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
@@ -543,11 +563,11 @@
 									<tr>
 										<td align="left">Tipo De Infraestuctura:</td>
 										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
+										<td align="left">Modalidad de Concepción:</td>
 										<td><p:inputText></p:inputText></td>
 									</tr>
 									<tr>
-										<td align="left">ConcepciÃ³n :</td>
+										<td align="left">Concepción :</td>
 										<td colspan="3" align="left"><p:inputText style="width:350px"></p:inputText></td>
 									</tr>
 									</table>
@@ -580,11 +600,11 @@
 								<p:fieldset legend="Valorizaciones">
 										<table>
 											<tr>
-												<td align="left"><p:selectBooleanCheckbox /> Aplica ValorizaciÃ³n de InversiÃ³n</td>
-												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de InversiÃ³n</td>
+												<td align="left"><p:selectBooleanCheckbox /> Aplica Valorización de Inversión</td>
+												<td><p:selectBooleanCheckbox /> Aplica Reconocimiento de Inversión</td>
 											</tr>
 											<tr>
-												<td align="left">Seleccione Tipo de ValorizaciÃ³n</td>
+												<td align="left">Seleccione Tipo de Valorización</td>
 												<td>
 														<p:selectOneMenu  value="">
 							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
@@ -633,77 +653,18 @@
 					</table>
         </p:tab>
                
-        
-        <p:tab title="Tab6">
-					<table>
-						<tr>
-							<td align="left">
-							<p:fieldset legend="Criterios de Busqueda">					
-								<h:outputText value="Buscar Empresa Supervisora"></h:outputText>								
-								<p:commandButton image="ui-icon-search" ></p:commandButton>							
-							</p:fieldset>
-							</td>
-						</tr>
-						<tr>
-							<td>
-							<p:fieldset legend="Datos Basicos">
-								<table>
-									<tr>
-										<td align="left">Tipo De Infraestuctura:</td>
-										<td><p:inputText></p:inputText></td>
-										<td align="left">Modalidad de ConcepciÃ³n:</td>
-										<td><p:inputText></p:inputText></td>
-									</tr>
-									<tr>
-										<td align="left">ConcepciÃ³n :</td>
-										<td colspan="3" align="left"><p:inputText style="width:350px"></p:inputText></td>
-									</tr>
-									</table>
-										<p:fieldset legend="Datos del Concesinario">
-											<table>
-										<tr>
-											<td align="left">Nombre Consecionario:</td>
-											<td><p:inputText></p:inputText></td>
-											<td align="left">Siglas del Nombre:</td>
-											<td><p:inputText></p:inputText></td>
-										</tr>
-										<tr>
-											<td align="left">Tic Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-											<td align="left">Num Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-										</tr>
-											</table>
-										</p:fieldset>
-							</p:fieldset>	
-							</td>
-						</tr>
-						<tr>
-							<td>
-								
-								<br></br>
-								<table>
-								<tr>
-								<td>
-									</td>
-									</tr>	
-									</table>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td align="center" colspan="2">
-							<p:commandButton value="Guardar"></p:commandButton>
-							<p:commandButton value="Salir"></p:commandButton>
-							</td>
-						</tr>
-					</table>
-        </p:tab>
+     
     </p:tabView>
 	</div>
 	
 	</h:form>	
-</p:panel>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
+                                                                                       AsisTP-2015</div>
+                    </p:layoutUnit>
+
+</p:layout>
 </h:body>
 </html>
