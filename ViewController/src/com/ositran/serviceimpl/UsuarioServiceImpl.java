@@ -1,5 +1,6 @@
 package com.ositran.serviceimpl;
 
+import com.ositran.dao.UsuarioDAO;
 import com.ositran.daoimpl.UsuarioDAOImpl;
 import com.ositran.model.Usuario;
 import com.ositran.service.UsuarioService;
@@ -11,16 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioServiceImpl implements UsuarioService {
-    public UsuarioServiceImpl() {
-        super();
-    }
-
-    private UsuarioDAOImpl usuarioDAOImpl;
-
-    public void setUsuarioDAOImpl(UsuarioDAOImpl usuarioDAOImpl) {
-        this.usuarioDAOImpl = usuarioDAOImpl;
-    }
-
+    UsuarioDAO usuarioDAOImpl;
+   
     @Override
     public List<UsuarioVO> query() throws SQLException{
         List<Usuario> list = usuarioDAOImpl.query();
@@ -119,5 +112,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
 
-   
+    public void setUsuarioDAOImpl(UsuarioDAO usuarioDAOImpl) {
+        this.usuarioDAOImpl = usuarioDAOImpl;
+    }
+
+    public UsuarioDAO getUsuarioDAOImpl() {
+        return usuarioDAOImpl;
+    }
+
+
+
+
 }
