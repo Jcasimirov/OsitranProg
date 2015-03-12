@@ -2,6 +2,7 @@ package com.ositran.seguridad;
 
 import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.Util;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
@@ -26,23 +27,16 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "mantenimientoUsuarioMB")
 @RequestScoped
-@Generated(value = "1ositran/seguridad/mantenimientoUsuario.jsf",
-           comments = "oracle-jdev-comment:managed-bean-jsp-link")
+
 public class MantenimientoUsuario {
     private String usuUsuario;
     private String usuCorreo;
     private String usuContrasenya;
     private String usuNombre;
     private int usuEstado;
-    private String rowIndex;
 
-    public void setRowIndex(String rowIndex) {
-        this.rowIndex = rowIndex;
-    }
-
-    public String getRowIndex() {
-        return rowIndex;
-    }
+    @ManagedProperty(value = "#{usuarioVO}")
+    private UsuarioVO usuarioVO;
 
     @ManagedProperty(value = "#{usuarioServiceImpl}")
     private UsuarioServiceImpl usuarioServiceImpl;
@@ -76,8 +70,6 @@ public class MantenimientoUsuario {
     public Util getUtil() {
         return util;
     }
-
-    public UsuarioVO usuarioVO = new UsuarioVO();
 
     public void setUsuarioVO(UsuarioVO usuarioVO) {
         this.usuarioVO = usuarioVO;
@@ -510,5 +502,7 @@ public class MantenimientoUsuario {
     public String getUsuCorreo() {
         return usuCorreo;
     }
+    
+    
 
 }
