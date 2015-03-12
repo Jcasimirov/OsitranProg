@@ -7,25 +7,103 @@
         <div align="center">
             <p:megaMenu style="margin-top:15px;width:98%;font-size:small">
                 <p:submenu label="#{menu.m_home}" icon="ui-icon-check"></p:submenu>
-                <p:submenu label="#{menu.m_cont}" icon="ui-icon-check">
+               
+               
+               
+               <p:submenu label="Contratos" icon="ui-icon-check">
                     <p:column>
-                        <p:submenu label="Contratos">
-                            <p:menuitem value="Aeropuertos" url="#"/>
-                            <p:menuitem value="Ferrocarriles, Carreteras" url="#"/>
-                            <p:menuitem value="Puertos" url="#"/>
+                    
+                    
+                    
+                    
+                        <p:submenu label="Registros">
+                            <p:menuitem value="Registro de contratos" url="/faces/ositran/contratos/RegistrarContrato.xhtml"/>
+                            <p:menuitem value="Actualización de registro de contratos" url="/faces/ositran/contratos/ActualizarContratoConcesion.xhtml"/>
+                            <p:menuitem value="Contrato de empresa supervisoras" url="/faces/ositran/contratos/MantenimientoContratoEmpresaSupervisora.xhtml"/>
                         </p:submenu>
-                        <p:submenu label="Asignar supervisores a contrato">
-                            <p:menuitem value="Supervisor de Inversiones" url="#"/>
-                            <p:menuitem value="Jefe de Infraestructura" url="#"/>
-                            <p:menuitem value="Contrato de concesión" url="#"/>
-                            <p:menuitem value="Responsable de Supervisión" url="#"/>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <p:submenu label="Asignaciones">
+                            <p:menuitem value="Asignar Jefe de area de infraestructura" url="/faces/ositran/contratos/AsignarJefedeAreaDeInfraestructuraContratoConcesion.xhtml"/>
+                            <p:menuitem value="Asignar supervisor de inversiones" url="/faces/ositran/contratos/AsignarSupervisionDeInversionesDeGabineteaContratoDeConcecion.xhtml"/>
+                            <p:menuitem value="Asignar supervisión" url="/faces/ositran/contratos/AsignarSupervicion.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
                     </p:column>
                     <p:column>
                         <img src="../../images/ositranfoto.jpg" width="150px" height="150px"/>
                     </p:column>
                 </p:submenu>
+               
+               
+               
+               
+                <p:submenu label="Valorizaciones" icon="ui-icon-check">
+                    <p:column>
+                    
+                    
+                    
+                    
+                      
+                        <p:submenu label="Concesionario">
+                            <p:menuitem value="Registro de avances de Inversiones" url="/faces/ositran/valorizaciones/RegistrarAsignacionSupervisionValorizacionInversion.xhtml"/>
+                            <p:menuitem value="Derivar reconocimiento a Supervisor" url="/faces/ositran/valorizaciones/registrarAvanceInversionWeb.xhtml"/>
+                            <p:menuitem value="Registrar revisión del supervisor" url="/faces/ositran/valorizaciones/RegistrarRevisionValorizacionInversion.xhtml"/>
+                            <p:menuitem value="Declarar Inversión" url="/faces/ositran/valorizaciones/RegistrarValorizacionInversion.xhtml"/>
+                            <p:menuitem value="Notificar Inversiones Declaradas" url="/faces/ositran/valorizaciones/ValorizarInversion.xhtml"/>
+                        </p:submenu>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <p:submenu label="Empresa Supervisora">
+                            <p:menuitem value="Registrar Valorización del supervisor" url="#"/>
+                            <p:menuitem value="Reconocimiento de valorización del supervisor" url="#"/>
+                            <p:menuitem value="Notificar reconocimiento" url="#"/>
+                        </p:submenu>
+                        
+                        
+                        
+                    </p:column>
+                    <p:column>
+                        <img src="../../images/ositranfoto.jpg" width="150px" height="150px"/>
+                    </p:column>
+                </p:submenu>
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+           
                 <p:submenu label="#{menu.m_val}" icon="ui-icon-check">
+                   
+                   
+                   
+                   
+                   
                     <p:column>
                         <p:submenu label="Valorización">
                             <p:menuitem value="Aeropuertos" url="#"/>
@@ -37,10 +115,20 @@
                             <p:menuitem value="Valorización de supervisión" url="#"/>
                         </p:submenu>
                     </p:column>
+                    
+                    
+                    
+                    
+                    
                     <p:column>
                         <img src="../../images/ositranfoto.jpg" width="150px" height="150px"/>
                     </p:column>
                 </p:submenu>
+                
+                
+                
+                
+                
                 <p:submenu label="#{menu.m_rep}" icon="ui-icon-pencil">
                     <p:column>
                         <p:submenu label="Reportes">
@@ -62,57 +150,142 @@
                             <p:menuitem value="Reporte de auditorías" url="#"/>
                         </p:submenu>
                     </p:column>
+                    
+                    
+                    
+                    
+                    
                 </p:submenu>
+               
+               
+               
+               
+               
+               
                 <p:submenu label="#{menu.m_seg}" icon="ui-icon-contact">
                     <p:column>
+                    
+                    
                         <p:submenu label="Opciones">
                             <p:menuitem value="Mantenimiento de opciones" url="#"/>
                             <p:menuitem value="buscar opciones" url="#"/>
                         </p:submenu>
+                        
+                        
+                        
                         <p:submenu label="Roles">
                             <p:menuitem value="mantenimiento de roles" url="#"/>
                             <p:menuitem value="busqueda de roles" url="#"/>
                         </p:submenu>
+                        
+                        
+                        
+                        
                     </p:column>
+                    
+                    
+                    
+                    
                     <p:column>
                         <p:submenu label="Usuarios">
                             <p:menuitem value="mantenimiento de usuarios" url="/faces/ositran/seguridad/mantenimientoUsuario.xhtml"/>
                         </p:submenu>
                     </p:column>
+                    
+                    
+                    
+                    
+                    
                 </p:submenu>
+               
+               
+               
+               
+               
+               
+               
                 <p:submenu label="#{menu.m_par}" icon="ui-icon-document">
                     <p:column>
+                    
+                    
+                    
+                    
+                    
                         <p:submenu label="Empresa Supervisora">
                             <p:menuitem value="#{menu.man_emsu}"
                                         url="/faces/ositran/parametros/mantenimientoEmpSup.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
                         <p:submenu label="Infraestructura">
                             <p:menuitem value="#{menu.man_tipinf}"
                                         url="/faces/ositran/parametros/mantenimientoTipoInfraestructura.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
+                        
+                        
                         <p:submenu label="Inversion">
                             <p:menuitem value="#{menu.man_tipinv}"
                                         url="/faces/ositran/parametros/mantenimientoTipoInversion.xhtml"/>
                             <p:menuitem value="#{menu.man_desctipinv}"
                                         url="/faces/ositran/parametros/mantenimientoDescripcionTipoInversion.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
+                        
+                        
                         <p:submenu label="Concesion">
+                        
                             <p:menuitem value="Mantenimiento Concesion"
                                         url="/faces/ositran/parametros/mantenimientoConcesion.xhtml"/>
+                            
+                            
                             <p:menuitem value="Mantenimiento Modalidad Concesion"
                                         url="/faces/ositran/parametros/mantenimientoModalidadConcesion.xhtml"/>
+                                        
                         </p:submenu>
+                        
+                        
+                        
+                        
+                        
+                        
                         <p:submenu label="IGV">
                             <p:menuitem value="#{menu.man_igv}" url="/faces/ositran/parametros/mantenimientoIgv.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
+                        
+                        
                         <p:submenu label="Concesionario">
                             <p:menuitem value="#{menu.man_con}"
                                         url="/faces/ositran/parametros/mantenimientoConcesionario.xhtml"/>
                         </p:submenu>
+                        
+                        
+                        
+                        
+                        
+                        
                     </p:column>
+                    
+                    
+                    
+                    
                     <p:column>
                         <img src="../../images/parametros.png" width="150px" height="150px"/>
                     </p:column>
+                    
+                    
+                    
+                    
+                    
+                    
                 </p:submenu>
                 <p:menuitem value="#{menu.m_exit}" url="/faces/ositran/logueo.xhtml" icon="ui-icon-close"/>
             </p:megaMenu>
