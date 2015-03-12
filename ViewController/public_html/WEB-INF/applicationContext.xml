@@ -21,9 +21,10 @@
     <bean id="rolOpciones" class="com.ositran.model.RolOpciones" />
     <bean id="concesionVO" class="com.ositran.vo.bean.ConcesionVO" />
     <bean id="concesion" class="com.ositran.model.Concesion" />
-
     <bean id="infraestructuraTipo" class="com.ositran.model.InfraestructuraTipo" />
     <bean id="infraestructuraTipoVO" class="com.ositran.vo.bean.InfraestructuraTipoVO" />
+    <bean id="usuario" class="com.ositran.model.Usuario" />
+    <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO" />
     <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
     <bean id="infraestructura" class="com.ositran.model.Infraestructura" />
 
@@ -140,10 +141,17 @@
     </bean>
     <!--S E G U R I D A D-->
     <!--Usuario-->
-    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl"/>
-    <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
-        <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
+    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl">
+		<property name="usuario" ref="usuario"/>
     </bean>
+	<bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
+        <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
+        
+    </bean>
+	<bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
+        <property name="usuarioVO" ref="usuarioVO"/>
+    </bean>
+    
     
     <!--Rol-->
     <bean id="rolDAOImpl" class="com.ositran.daoimpl.RolDAOImpl">
