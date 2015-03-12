@@ -12,7 +12,6 @@
                 }
             </style>
             <script src="../../js/validaciones.js" type="text/javascript"></script>
-            <script type="text/javascript">
               
         </h:head>
         <h:body>
@@ -170,13 +169,13 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Tipo"/>
                                                 </f:facet>
-                                                <h:outputText value="#{usu.usuEsexterno}"/>
+                                                <h:outputText value="#{usu.usuEsexterno==1 ? 'Interno' : 'Externo' }"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Estado"/>
                                                 </f:facet>
-                                                <h:outputText value="#{usu.usuEstado}"/>
+                                                <h:outputText value="#{usu.usuEstado==1 ? 'Activo' : 'Inactivo'}"/>
                                             </p:column>
                                             <p:column width="8">
                                                 <f:facet name="header">
@@ -200,7 +199,8 @@
                                                 <center>
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-check"
-                                                                     style="width:25px;height:25px"/>
+                                                                     style="width:25px;height:25px"
+                                                                     rendered="#{usu.usuEstado eq 2}"/>
                                                 </center>
                                             </p:column>
                                             <p:column width="8">
@@ -210,7 +210,8 @@
                                                 <center>
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.desactivarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-closethick"
-                                                                     style="width:25px;height:25px"/>
+                                                                     style="width:25px;height:25px"
+                                                                     rendered="#{usu.usuEstado eq 1}"/>
                                                 </center>
                                             </p:column>
                                         </p:dataTable>
