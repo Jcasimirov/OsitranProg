@@ -12,8 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-public class UsuarioVO implements Serializable {
-        private static final long serialVersionUID = 616782273879451829L;
+public class UsuarioVO{
     private Integer crgId;
     private Integer rolId;
     private String usuContrasenya;
