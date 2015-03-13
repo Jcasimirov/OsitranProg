@@ -9,12 +9,16 @@ import java.sql.SQLException;
 import com.ositran.util.HibernateUtil;
 import com.ositran.model.ModalidadConcesion;
 import com.ositran.dao.ModalidadConcesionDAO;
+import com.ositran.model.EmpresaSupervisora;
+import com.ositran.model.Igv;
+import com.ositran.model.InfraestructuraTipo;
+import com.ositran.model.ModalidadConcesion;
 
 @Repository
 public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
-
+    
         List<ModalidadConcesion> list = null;
-
+        
     public ModalidadConcesionDAOImpl() {
         super();
     }
@@ -96,7 +100,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         
         @Override
         public String delete(Integer id) throws SQLException{
-            String result=null;            
+            String result=null;
             Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
             try {
                 session.beginTransaction();
@@ -118,7 +122,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         try {
             session.beginTransaction();
             session.update(modalidadConcesion);
-            session.getTransaction().commit();            
+            session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
