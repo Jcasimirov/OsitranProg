@@ -36,24 +36,27 @@
 		</script>
 </h:head>
 <h:body>
-	<p:layout fullPage="true" style="border:none">
-	<p:layoutUnit position="north"  style="border:0px"  resizable="true" closable="true" collapsible="true">
-	<p:panel header="#{msg.tituloRVI}" style="text-align:center;text-decoration:blink;">
-				</p:panel>
-	    </p:layoutUnit>
-		<p:layoutUnit position="south"  style="border:0px;"  resizable="true" closable="true" collapsible="true">
-				<div align="center" style="font-size: 11px">
-						<table>
-							<tr>
-								<td><p:commandButton value="#{btn.btn_guardar}" onclick="alerta.show();"/></td>	
-								<td><p:commandButton value="#{btn.btn_salir}" /></td>	
-							</tr>
-						</table>
-					</div>
-	    </p:layoutUnit>
-	    <p:layoutUnit position="center"  style="border:0px">   
+<h:form id="form">
+      
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                               #{msg.tituloRVI}
+                            </h3>
+                        </div>
+
+                        
+
+
+
+	
+		
+            
+	     
 	    	
-	<h:form>
+
 	<div align="center">
 		<table style="font-size: 11px">
 			<tr>
@@ -231,10 +234,18 @@
 					</p:fieldset>		
 				</td>
 			</tr>
+                        <tr>
+								<td align="center" colspan="2">
+                                                                <p:commandButton value="#{btn.btn_guardar}" onclick="alerta.show();"/>
+                                                                
+                                                                <p:commandButton value="#{btn.btn_salir}" /></td>	
+							</tr>
 		</table>
 		</div>
-	</h:form>	
+		
 	    </p:layoutUnit>
+     
 	</p:layout>
+    </h:form>
 </h:body>
 </html>
