@@ -6,7 +6,7 @@
         <img src="../../images/logo.png" width="249" height="56"/>
         <div align="center">
             <p:megaMenu style="margin-top:15px;width:98%;font-size:small">
-                <p:submenu label="#{menu.m_home}" icon="ui-icon-check"></p:submenu>
+                <p:submenu label="#{menu.m_home}" icon="ui-icon-check" url="/" styleClass="homeLink"></p:submenu>
                
                
                
@@ -227,6 +227,11 @@
                 </p:submenu>
                 <p:menuitem value="#{menu.m_exit}" url="/faces/ositran/logueo.xhtml" icon="ui-icon-close"/>
             </p:megaMenu>
+        <script type="text/javascript">
+            $(function(){
+                $(".homeLink a:first").attr('href', "#{request.contextPath}/faces/ositran/principal.xhtml");
+            });
+        </script>            
         </div>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_seguridad_menu-->
