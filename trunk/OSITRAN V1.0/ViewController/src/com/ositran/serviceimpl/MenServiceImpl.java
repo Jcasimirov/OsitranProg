@@ -25,6 +25,11 @@ public class MenServiceImpl implements  MenService{
        
         return listVO;
     }
+    @Override
+    public String getNombre(Integer codigo) {
+        String nombre=menDAOImpl.getNombre(codigo);
+        return nombre;
+    }
 
     @Override
     public String insert(Men men) {
@@ -118,7 +123,7 @@ public class MenServiceImpl implements  MenService{
     public MenDAO getMenDAOImpl() {
         return menDAOImpl;
     }
-    
-    
 
+
+    
 }
