@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,136 +20,208 @@ import javax.faces.bean.RequestScoped;
 
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name = "rolMB")
 @RequestScoped
 public class RolMB {
-    
+
     public RolMB() {
         super();
     }
-    
+
     private String nombre;
     private String descripcion;
     private List<RolVO> listaRoles;
     private List<MenVO> listaMen;
-    private List<MenVO> listaMenSeleccionado=new ArrayList<>();
+    private List<MenVO> listaMenSeleccionado;
+    private List<MenVO> listaMenSeleccionado1;
+    
+    private List<MenVO> listaMenSeleccionadoE;
+    private List<MenVO> listaMenSeleccionadoE1;
+    
     private List<RolOpcionesVO> listaRolOpciones;
     private int codigoRol;
-    
+
+    //*******EDITAR************************//
+    private String nombreE;
+    private String descripcionE;
+    private int idE;
     @ManagedProperty(value = "#{rolVO}")
     RolVO rolVO;
-    
+
     @ManagedProperty(value = "#{rolServiceImpl}")
-    RolService rolServiceImpl; 
-    
+    RolService rolServiceImpl;
+
     @ManagedProperty(value = "#{menServiceImpl}")
     MenService menServiceImpl;
-    
+
     @ManagedProperty(value = "#{menVO}")
     MenVO menVO;
-    
+
     @ManagedProperty(value = "#{rolOpcionesServiceImpl}")
     RolOpcionesService rolOpcionesServiceImpl;
-    
+
+   
+
+    public void cargarListaRoles() {
+        int contador = 1;
+        listaRoles = rolServiceImpl.query();
+        for (int i = 0; i < listaRoles.size(); i++) {
+            listaRoles.get(i).setContador(contador);
+            contador++;
+        }
+    }
+
+    public void limpiarListas() {
+        listaMenSeleccionado.clear();
+        listaMenSeleccionado1.clear();
+        limpiar();
+        
+    }
     public void limpiar() {
         nombre = "";
         descripcion = "";
     }
-    
-    public void cargarListaRoles(){
-            int contador=1;
-            listaRoles=rolServiceImpl.query();
-            for(int i=0;i<listaRoles.size();i++){
-              listaRoles.get(i).setContador(contador);
-                contador++;
-                }
-        }
-    public void limpiarListas(){
-            limpiar();
-            listaRolOpciones.clear();
-            listaMenSeleccionado.clear();
-        }
-    public void cargarEditar(){
-        
-        }
-    public void cargarEliminar(){
-        
-        }
-     public void cargarListaMenu(){
+
+    public void cargarEditar() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        System.out.println("1");
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        System.out.println("2");
+        Object str = requestMap.get("idActualizar");
+        idE = Integer.parseInt(str.toString());
+        System.out.println("4");
+        rolVO = rolServiceImpl.get(idE);
+        nombreE=rolVO.getRolNombre();
+        descripcionE=rolVO.getRolDescripcion();
+        System.out.println("5");
         listaMen=menServiceImpl.query();
-        System.out.println("  Cantidad de Menu "+listaMen.size());
+        listaRolOpciones=rolOpcionesServiceImpl.query1(idE);
+        System.out.println("6");
+        
+        System.out.println("7");
+        for(RolOpcionesVO rolOpciones1 : listaRolOpciones){
+              String nombre="";
+              MenVO menVO2=new MenVO();
+              menVO2.setCodigoRolOpciones(rolOpciones1.getRxoId());
+              nombre =menServiceImpl.getNombre(rolOpciones1.getRolId());
+            
+            
+            }
+        
+        
+    }
+    public void editar(){
+        
+        }
+
+
+    public void cargarListaMenu() {
+        listaMen = menServiceImpl.query();
+        System.out.println("  Cantidad de Menu " + listaMen.size());
         limpiar();
         listaMenSeleccionado.clear();
-        
-        }
-     
-      public void cargarListaRolOpciones(){
-        listaRolOpciones=rolOpcionesServiceImpl.query();   
-        System.out.println("cantidad de lista de rolOpciones "+ listaRolOpciones.size());
-        }
-      public void pasarLista(){
-          
-          }
-    
-      public void onSelect(SelectEvent event){
-          menVO=(MenVO)event.getObject(); 
-          System.out.println("llego al onselecr");
-          System.out.println(menVO.getMenNombre());
+
+    }
+
+    public void cargarListaRolOpciones() {
+        listaRolOpciones = rolOpcionesServiceImpl.query();
+        System.out.println("cantidad de lista de rolOpciones " + listaRolOpciones.size());
+    }
+
+    public void pasarLista() {
+      /*  FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("idEliminarLista");
+        Integer idcodigo=Integer.valueOf(str.toString()); */
+       // listaMenSeleccionado.clear();
+        System.out.println(listaMenSeleccionado.size());
+        System.out.println(listaMenSeleccionado1.size());
+       // listaMenSeleccionado=listaMenSeleccionado1;
            
-          }
-      public void guardar(){
-          if(nombre.equals("")){
-                    FacesContext.getCurrentInstance().addMessage(null,
-                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                      "Debe de Ingresar el Nombre"));                     
-                                   }
-          else if (descripcion.equals("")){
-                  FacesContext.getCurrentInstance().addMessage(null,
-                   new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                    "Debe ingresar la desripción"));
-              }
-          
-          else if (listaMenSeleccionado.size()==0){
+    }
+    public void quitarLista(){
+        //listaMenSeleccionado.clear();
+        for (MenVO menVO :listaMenSeleccionado1){
+            
+            for (int i=0;i<listaMenSeleccionado.size();i++){
+                if (menVO.getMenId()==listaMenSeleccionado.get(i).getMenId()){
+                         listaMenSeleccionado.remove(i);
+                    }
+                }
+            
+            }
+        }
+
+    public void cargarEliminarRol() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idEliminar");
+        idE = Integer.parseInt(str.toString());
+
+    }
+
+    public void eliminarRol() {
+        listaRolOpciones = rolOpcionesServiceImpl.query1(idE);
+        for (RolOpcionesVO rolOpcionesVO : listaRolOpciones) {
+            System.out.println(rolOpcionesVO.getRxoId());
+            System.out.println(rolOpcionesVO.getRolId());
+            rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRxoId());
+        }
+        rolServiceImpl.delete(idE);
+        cargarListaRoles();
+    }
+
+
+    public void guardar() {
+        if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                    "Debe Seleccionar al menos una opción del menú para este rol"));
-              }
-          else {
-              
-              System.out.println("Antes");
-              System.out.println(listaMenSeleccionado.get(0).isActualizar()+" -- "+listaMenSeleccionado.get(0).isCrear());
-              
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe de Ingresar el Nombre"));
+        } else if (descripcion.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe ingresar la desripción"));
+        }
+
+        else if (listaMenSeleccionado.size() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "Debe Seleccionar al menos una opción del menú para este rol"));
+        } else {
+
+
             rolVO.setRolNombre(nombre);
             rolVO.setRolDescripcion(descripcion);
             rolVO.setRolEstado(1);
             rolVO.setRolFechaAlta(new Date());
             rolVO.setRolUsuarioAlta("Abel Huarca");
-          codigoRol=  rolServiceImpl.getCodigo(rolVO);
-              
-              for(MenVO menVO: listaMenSeleccionado ){
-                  System.out.println(menVO.isActualizar());
-                  System.out.println(menVO.isCrear());
-                  System.out.println(menVO.isEliminar());
-                  System.out.println(menVO.isLectura());
-                  RolOpcionesVO rolOpcionesVO=new RolOpcionesVO();
-                  rolOpcionesVO.setRolId(codigoRol);
-                  rolOpcionesVO.setMenId(menVO.getMenId());
-                  rolOpcionesVO.setRolId(1);  
-                  rolOpcionesVO.setTroAgregar( (menVO.isCrear()) ? 1 : 0);
-                  rolOpcionesVO.setTroConsultar( (menVO.isLectura()) ? 1 : 0 ); 
-                  rolOpcionesVO.setTroEliminar(  (menVO.isEliminar()) ? 1 : 0 );
-                  rolOpcionesVO.setTroModificar( (menVO.isActualizar()) ? 1 : 0 );
-                  rolOpcionesServiceImpl.insert(rolOpcionesVO);
-                  
-                  cargarListaRoles();
-                  
-                  }
-              }
-          }
-      
-      
+            codigoRol = rolServiceImpl.getCodigo(rolVO);
+
+            for (MenVO menVO : listaMenSeleccionado) {
+                System.out.println(menVO.isActualizar());
+                System.out.println(menVO.isCrear());
+                System.out.println(menVO.isEliminar());
+                System.out.println(menVO.isLectura());
+                RolOpcionesVO rolOpcionesVO = new RolOpcionesVO();
+                rolOpcionesVO.setRolId(codigoRol);
+                rolOpcionesVO.setMenId(menVO.getMenId());
+                rolOpcionesVO.setTroEstado(1);
+                rolOpcionesVO.setTroAgregar((menVO.isCrear()) ? 1 : 0);
+                rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
+                rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
+                rolOpcionesVO.setTroModificar((menVO.isActualizar()) ? 1 : 0);
+                rolOpcionesServiceImpl.insert(rolOpcionesVO);
+                RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+                cargarListaRoles();
+
+            }
+        }
+    }
+
+
     public void setRolVO(RolVO rolVO) {
         this.rolVO = rolVO;
     }
@@ -242,5 +316,54 @@ public class RolMB {
 
     public int getCodigoRol() {
         return codigoRol;
+    }
+
+    public void setNombreE(String nombreE) {
+        this.nombreE = nombreE;
+    }
+
+    public String getNombreE() {
+        return nombreE;
+    }
+
+
+    public void setIdE(int idE) {
+        this.idE = idE;
+    }
+
+    public int getIdE() {
+        return idE;
+    }
+
+    public void setListaMenSeleccionado1(List<MenVO> listaMenSeleccionado1) {
+        this.listaMenSeleccionado1 = listaMenSeleccionado1;
+    }
+
+    public List<MenVO> getListaMenSeleccionado1() {
+        return listaMenSeleccionado1;
+    }
+
+    public void setListaMenSeleccionadoE(List<MenVO> listaMenSeleccionadoE) {
+        this.listaMenSeleccionadoE = listaMenSeleccionadoE;
+    }
+
+    public List<MenVO> getListaMenSeleccionadoE() {
+        return listaMenSeleccionadoE;
+    }
+
+    public void setListaMenSeleccionadoE1(List<MenVO> listaMenSeleccionadoE1) {
+        this.listaMenSeleccionadoE1 = listaMenSeleccionadoE1;
+    }
+
+    public List<MenVO> getListaMenSeleccionadoE1() {
+        return listaMenSeleccionadoE1;
+    }
+
+    public void setDescripcionE(String descripcionE) {
+        this.descripcionE = descripcionE;
+    }
+
+    public String getDescripcionE() {
+        return descripcionE;
     }
 }
