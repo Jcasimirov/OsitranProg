@@ -10,4 +10,7 @@ public interface RolDAO {
         public String update(Rol rol);
         public Rol get(Integer id);
         public int getCodigo(Rol rol);
+        
+      
+        
 }
