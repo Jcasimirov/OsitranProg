@@ -11,4 +11,5 @@ public interface MenDAO {
         public String delete(Integer id);
         public String update(Men men);
         public Men get(Integer id);
+        public String getNombre(Integer codigo);
 }
