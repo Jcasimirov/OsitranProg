@@ -7,6 +7,7 @@ import com.ositran.util.HibernateUtil;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,6 +26,26 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
         return session.createCriteria(RolOpciones.class).list();
     }
 
+    @Override
+    public void updateEstado(int codigo) {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.getTransaction().begin();
+        Query query;
+        query=session.createQuery("update RolOpciones E set E.troEstado = 0 WHERE  E.rxoId= :codigo");
+        query.setParameter("codigo",codigo );
+        query.executeUpdate();
+        session.getTransaction().commit();
+    }
+    
+    @Override
+    public List<RolOpciones> query1(Integer codigoRol) {
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        query =session.createQuery("FROM RolOpciones  E WHERE upper(E.rolId) like  :busqueda");
+        query.setParameter("busqueda",codigoRol);
+       
+        return query.list();
+    }
     @Override
     public String insert(RolOpciones rolOpciones) {
         String result = null;
@@ -66,4 +87,6 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
     public RolOpciones getRolOpciones() {
         return rolOpciones;
     }
+
+   
 }
