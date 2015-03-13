@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+      
+<h:head>
+        
+	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+	<meta content="1500" http-equiv="REFRESH"></meta>
+<script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Sólo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'Día',
+			    allDayText : 'Todo el día'
+			};		
+	</script>
+</h:head>
+<h:body>
+
+<p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <div align="center">
+                            <h4 class="titulo">#{msg.tituloDRS}</h4>
+                           </div>
+                <h:form>
+                    <div align="center">
+                        <table style="font-size: 11px">
+                            <tr>
+                                <td style="vertical-align: top;">
+                                    <p:fieldset legend="#{leg.ds}">
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.ts}">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        #{cam.sts}
+                                                    </td>
+                                                    <td>
+                                                        <p:selectOneMenu value="">
+                                                            <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
+                                                            <f:selectItem itemLabel="Infraestructura1" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Infraestructura2" itemValue="2"/>
+                                                            <f:selectItem itemLabel="Infraestructura3" itemValue="3"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.cbes}">
+                                            <p:inputText style="width:200px" id="bes"/>
+                                            <p:watermark for="bes" value="#{cam.bems}"/>
+                                            <p:commandButton image="ui-icon-search"/>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.ds}">
+                                            <div style="font-weight: bold;" align="left">
+                                                #{cam.vrp}
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        #{cam.nom}
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <p:inputText></p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}">
+                                            <p:inputText style="width:200px" id="bc"/>
+                                            <p:watermark for="bc" value="#{cam.bcc}"/>
+                                            <p:commandButton image="ui-icon-search"></p:commandButton>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.dcc}">
+                                            <table>
+                                                <tr>
+                                                    <td align="left">
+                                                        #{cam.cc}
+                                                    </td>
+                                                    <td>
+                                                        <p:inputText></p:inputText>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td align="left">
+                                                        #{cam.ti}
+                                                    </td>
+                                                    <td>
+                                                        <p:inputText></p:inputText>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td align="left">
+                                                        #{cam.mc}
+                                                    </td>
+                                                    <td>
+                                                        <p:inputText></p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.etaCo}">
+                                            <table>
+                                                <tr>
+                                                    <td colspan="2" align="left">
+                                                        #{cam.setapa}
+                                                    </td>
+                                                    <td colspan="2" align="left">
+                                                        <p:selectOneMenu value="">
+                                                            <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
+                                                            <f:selectItem itemLabel="Etapa1" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Etapa2" itemValue="2"/>
+                                                            <f:selectItem itemLabel="Etapa3" itemValue="3"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td align="left">
+                                                        #{cam.pl}
+                                                    </td>
+                                                    <td align="left">
+                                                        <p:inputText size="10"></p:inputText>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td align="left">
+                                                        #{cam.tot}
+                                                    </td>
+                                                    <td align="left">
+                                                        <p:inputText size="10"></p:inputText>
+                                                    </td>
+                                                    <td align="left">
+                                                        #{cam.mon}
+                                                    </td>
+                                                    <td align="left">
+                                                        <p:inputText size="10"></p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:fieldset>
+                                    </p:fieldset>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <p:fieldset legend="#{leg.dcc}" style="width:100%;padding-bottom: 230px;">
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.valo}">
+                                            <br></br>
+                                            <p:dataTable editable="true" emptyMessage="NO SE ENCONTRARON DATOS">
+                                                <p:column headerText="#{tab.numval}">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.FR}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.mon}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.tot}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.std}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <div align="right">
+                                                <p:commandButton value="#{cam.S}"/>
+                                            </div>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.dv}">
+                                            <br></br>
+                                            <p:dataTable editable="true" emptyMessage="NO SE ENCONTRARON DATOS">
+                                                <p:column headerText="#{tab.dc}">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.mon}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="#{tab.mp}" style="width:25px">
+                                                    <h:outputText></h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <div align="right" style="font-weight: bold;">
+                                                #{cam.tot}
+                                                 
+                                                <p:inputText size="12" readonly="true"/>
+                                            </div>
+                                        </p:fieldset>
+                                        <br></br>
+                                        <table>
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.nrof}
+                                                </td>
+                                                <td align="left">
+                                                    <p:inputText size="10"></p:inputText>
+                                                </td>
+                                                <td align="left">
+                                                    #{cam.nrsal}
+                                                </td>
+                                                <td align="left">
+                                                    <p:inputText size="10"></p:inputText>
+                                                </td>
+                                                <td align="right">
+                                                    #{cam.fem}
+                                                </td>
+                                                <td align="left">
+                                                    <p:calendar size="10" locale="es" pattern="dd/MM/yyyy"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.plot}
+                                                </td>
+                                                <td align="left">
+                                                    <p:inputText size="10"></p:inputText>
+                                                </td>
+                                                <td>
+                                                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                                        <p:selectOneRadio value="hola" layout="pageDirection"
+                                                                          unselectable="true">
+                                                            <f:selectItem itemLabel="Días Calendario" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Días Hábiles" itemValue="2"/>
+                                                        </p:selectOneRadio>
+                                                    </h:panelGrid>
+                                                </td>
+                                                <td align="right">
+                                                    #{cam.flimres}
+                                                </td>
+                                                <td align="left">
+                                                    <p:calendar size="10" locale="es" pattern="dd/MM/yyyy"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                    <br></br>
+                                  
+                                                <tr>
+							<td align="center" colspan="2">
+							<p:commandButton value="Guardar"></p:commandButton>
+							<p:commandButton value="Salir"></p:commandButton>
+							</td>
+						</tr>
+                                               
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
+                                                                                       AsisTP-2015</div>
+                    </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
