@@ -22,6 +22,7 @@ public class MenVO {
     private boolean eliminar;
     private boolean actualizar;
     private boolean lectura;
+    private int  codigoRolOpciones;
     
     //**********************************************
 
@@ -183,5 +184,14 @@ public class MenVO {
 
     public boolean isLectura() {
         return lectura;
+    }
+
+
+    public void setCodigoRolOpciones(int codigoRolOpciones) {
+        this.codigoRolOpciones = codigoRolOpciones;
+    }
+
+    public int getCodigoRolOpciones() {
+        return codigoRolOpciones;
     }
 }
