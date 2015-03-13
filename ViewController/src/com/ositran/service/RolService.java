@@ -1,8 +1,10 @@
 package com.ositran.service;
 
 import com.ositran.model.Rol;
+import com.ositran.model.RolOpciones;
 import com.ositran.model.Usuario;
 
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 
 import java.util.List;
@@ -12,6 +14,9 @@ public interface RolService {
     public String insert(RolVO rolVO);
     public String delete(Integer id);
     public String update(RolVO rolVO);
-    public Rol get(Integer id);
+    public RolVO get(Integer id);
     public int getCodigo(RolVO rolVO);
+    
+    
+
 }
