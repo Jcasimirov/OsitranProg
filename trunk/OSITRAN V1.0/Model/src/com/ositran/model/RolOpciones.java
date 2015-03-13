@@ -195,4 +195,9 @@ public class RolOpciones implements Serializable {
     public void setTroUsuarioCambio(String troUsuarioCambio) {
         this.troUsuarioCambio = troUsuarioCambio;
     }
+
+
+    public void setRxoId(int rxoId) {
+        this.rxoId = rxoId;
+    }
 }
