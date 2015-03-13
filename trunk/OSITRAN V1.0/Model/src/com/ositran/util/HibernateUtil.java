@@ -15,11 +15,10 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionAnnotationFactory() {
         try {
-
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
             ServiceRegistry serviceRegistry =
-                new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             sessionAnnotationFactory = configuration.buildSessionFactory(serviceRegistry);
             return sessionAnnotationFactory;
 
