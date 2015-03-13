@@ -3,8 +3,10 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.RolDAOImpl;
 import com.ositran.model.InversionTipo;
 import com.ositran.model.Rol;
+import com.ositran.model.RolOpciones;
 import com.ositran.service.RolService;
 import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 
 import com.ositran.vo.bean.TipoInversionVO;
@@ -22,13 +24,16 @@ public class RolServiceImpl  implements RolService{
         super();
     }
 
+    
+    
     @Override
     public List<RolVO> query() {
         List<Rol> list=rolDAOImpl.query();
          List<RolVO> listVO=toListRolVO(list);
         return listVO;
     }
-   
+  
+  
     @Override
     public int getCodigo(RolVO rolVO1) {
         int codigo=0;
@@ -47,7 +52,7 @@ public class RolServiceImpl  implements RolService{
 
     @Override
     public String delete(Integer id) {
-        // TODO Implement this method
+        rolDAOImpl.delete(id);
         return null;
     }
 
@@ -58,9 +63,10 @@ public class RolServiceImpl  implements RolService{
     }
 
     @Override
-    public Rol get(Integer id) {
-        // TODO Implement this method
-        return null;
+    public RolVO get(Integer id) {
+        rol =rolDAOImpl.get(id);
+        rolVO=toRolVO(rol);
+        return rolVO;
     }
     
     //Convesiones *********************************************
@@ -73,6 +79,8 @@ public class RolServiceImpl  implements RolService{
         }
         return listVO;
     }
+     
+  
     private RolVO toRolVO(Rol rol)  {
         RolVO toRolVO2=new RolVO();
         toRolVO2.setRolId(rol.getRolId());
@@ -129,5 +137,5 @@ public class RolServiceImpl  implements RolService{
         return rolVO;
     }
 
-    
+
 }
