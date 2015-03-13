@@ -30,6 +30,18 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
 
     @Override
+    public void updateEstado(int codigo) {
+        rolOpcionesDAOImpl.updateEstado(codigo);
+    }
+    
+    @Override
+    public List<RolOpcionesVO> query1(Integer codigoRol) {
+        List<RolOpciones> list=rolOpcionesDAOImpl.query1(codigoRol);
+        List<RolOpcionesVO> listVO=toListRolOpcionesVO(list);
+        return listVO;
+    }
+    
+    @Override
     public String insert(RolOpcionesVO rolOpcionesVO) {
         RolOpciones rolOpciones=toRolOpciones(rolOpcionesVO);
         String result=rolOpcionesDAOImpl.insert(rolOpciones);
@@ -66,6 +78,7 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
     private RolOpcionesVO toRolOpcionesVO(RolOpciones rolOpciones)  {
         RolOpcionesVO rolOpcionesVO1=new RolOpcionesVO();
+        rolOpcionesVO1.setRxoId(rolOpciones.getRxoId());
         rolOpcionesVO1.setMenId(rolOpcionesVO.getMenId());
         rolOpcionesVO1.setRolId(rolOpcionesVO.getRolId());
         rolOpcionesVO1.setTroAgregar(rolOpcionesVO.getTroAgregar());
@@ -84,6 +97,7 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
     private RolOpciones toRolOpciones(RolOpcionesVO rolOpcionesVO)  {
         RolOpciones rolOpciones1=new RolOpciones();
+        rolOpciones1.setRxoId(rolOpcionesVO.getRxoId());
         rolOpciones1.setMenId(rolOpcionesVO.getMenId());
         rolOpciones1.setRolId(rolOpcionesVO.getRolId());
         rolOpciones1.setTroAgregar(rolOpcionesVO.getTroAgregar());
@@ -125,4 +139,6 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     public RolOpcionesDAO getRolOpcionesDAOImpl() {
         return rolOpcionesDAOImpl;
     }
+
+   
 }
