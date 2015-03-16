@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface RolService {
     public List<RolVO> query();
+    public List<RolVO> query1(String filtro);
     public String insert(RolVO rolVO);
     public String delete(Integer id);
     public String update(RolVO rolVO);
