@@ -8,6 +8,8 @@ public interface RolOpcionesDAO {
     
         public List<RolOpciones> query();
         public String insert(RolOpciones rolOpciones);
+    public String insertOrUpdate(RolOpciones rolOpciones);
+    
         public String delete(Integer id);
         public String update(RolOpciones rolOpciones);
         public RolOpciones get(Integer id);
