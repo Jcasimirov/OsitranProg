@@ -35,21 +35,22 @@
                                         <tr>
                                             <td align="left">
                                                 Buscar: 
-                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" id="buscarT"/><h:outputText value=" "/>
+                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"  value="#{rolMB.buscar}" id="buscarT"/><h:outputText value=" "/>
                                                  
-                                                <p:commandButton image="ui-icon-search" id="buscar"/><h:outputText value=" "/>
+                                                <p:commandButton image="ui-icon-search" update=":form:tablaRoles"  actionListener="#{rolMB.filtrarRol()}"  id="buscar"/><h:outputText value=" "/>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool1" for="buscar"
-                                                           value="Buscar Tipo Inversión por Nombre"/>
+                                                           value="Buscar Rol  por Nombre"/>
                                                  
-                                                <p:commandButton id="buscarTodos" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
+                                                <p:commandButton id="buscarTodos"  actionListener="#{rolMB.cargarListaRoles}" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
-                                                           value="Ver la lista completa de Tipo de Inversiones"/>
+                                                           value="Ver la lista completa de Roles"/>
                                                  
                                                 <p:commandButton image="ui-icon-minus" type="reset" id="limpiar"></p:commandButton>
                                                  
-                                                <p:tooltip styleClass="tool" id="toolTipFade11" for="limpiar"  value="Limpiar el valor de la busqueda "/>
+                                                <p:tooltip styleClass="tool" id="toolTipFade11" for="limpiar"
+                                                           value="Limpiar el valor de la busqueda "/>
                                             </td>
                                             <td align="right">
                                                 <p:commandButton actionListener="#{rolMB.cargarListaMenu}"
@@ -83,8 +84,11 @@
                                             <div align="center">
                                                 <p:commandButton actionListener="#{rolMB.cargarEditar()}"
                                                                  image="ui-icon-document"
-                                                                 style="width:22px;height:22px;aling:center">
-                                                    <f:param id="idActualizar" name="idActualizar" value="#{rol1.rolId}"/>                 
+                                                                 style="width:22px;height:22px;aling:center"
+                                                                 update=":form:menuOpcionesE :form:menuOpcionesESe :form:nombreE :form:descripcionE"
+                                                                 oncomplete="panelEditar.show()">
+                                                    <f:param id="idActualizar" name="idActualizar"
+                                                             value="#{rol1.rolId}"/>
                                                 </p:commandButton>
                                             </div>
                                         </p:column>
@@ -133,7 +137,8 @@
                                     <tr>
                                         <td align="left" class="negrita">Descripci&#243;n del Rol:</td>
                                         <td align="left">
-                                            <p:inputTextarea id="descripcion" onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                            <p:inputTextarea id="descripcion"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
                                                              style="width:300px" value="#{rolMB.descripcion}"/>
                                              
                                             <h:outputText value=" "/>
@@ -168,11 +173,59 @@
                         </tr>
                          
                         <tr>
+                            <td colspan="4" align="right">
+                                <table style="font-weight: bold;">
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="   REGISTRAR"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.insertarB}">
+                                                <p:ajax update=":form:menuOpcionesSe" listener="#{rolMB.insertarTodo}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="ACTUALIZAR "/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.actualizarB}">
+                                                <p:ajax update=":form:menuOpcionesSe"
+                                                        listener="#{rolMB.actualizarTodo}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value=" ELIMINAR"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.eliminarB}">
+                                                <p:ajax update=":form:menuOpcionesSe" listener="#{rolMB.eliminarTodo}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="LECTURA"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.leerB}">
+                                                <p:ajax update=":form:menuOpcionesSe" listener="#{rolMB.leerTodo}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="TODO"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.todo}">
+                                                <p:ajax update=":form:menuOpcionesSe" listener="#{rolMB.todo}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                         
+                        <tr>
                             <td align="right" colspan="2">
                                 <p:dataTable id="menuOpciones" var="me" value="#{rolMB.listaMen}"
-                                             selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}" 
-                                             
-                                             >
+                                             selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
                                         <h:outputText value="#{me.menNombre}"/>
@@ -181,20 +234,23 @@
                             </td>
                             <td style="width:4px">
                                 <p:commandButton id="agregarRol" image="ui-icon-triangle-1-e"
-                                                 update=":form:menuOpcionesSe" 
+                                                 update=":form:menuOpcionesSe :form:menuOpciones"
                                                  actionListener="#{rolMB.pasarLista()}"/>
-                                <h:outputText style="font-weight:bold; padding-bottom: 20px;color:White;"  value="|"/>
+                                 
+                                <h:outputText style="font-weight:bold; padding-bottom: 20px;color:White;" value="|"/>
+                                 
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
-                                 <p:commandButton id="quitarRol" image="ui-icon-triangle-1-w"
-                                                 update=":form:menuOpcionesSe" 
+                                 
+                                <p:commandButton id="quitarRol" image="ui-icon-triangle-1-w"
+                                                 update=":form:menuOpcionesSe :form:menuOpciones"
                                                  actionListener="#{rolMB.quitarLista()}"/>
                                  
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:dataTable id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenSeleccionado}" 
-                                selection="#{rolMB.listaMenSeleccionado1}" selectionMode="multiple"  rowKey="#{me1.menId}"  >
-                                   
+                                <p:dataTable id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
+                                             selection="#{rolMB.listaMenSeleccionado2}"  rowIndexVar="indexRegistrar"   rowKey="#{me1.menId}">
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
                                         <h:outputText value="#{me1.menNombre}"/>
                                     </p:column>
@@ -210,7 +266,12 @@
                                     <p:column headerText="Lectura">
                                         <p:selectBooleanCheckbox value="#{me1.lectura}"/>
                                     </p:column>
-                                   
+                                        <p:column headerText="Todo">
+                                        <p:selectBooleanCheckbox  value="#{me1.todo}" >
+                                         <p:ajax update=":form:menuOpcionesSe"
+                                                        listener="#{rolMB.menuSeleccionado(indexRegistrar)}"/>
+                                        </p:selectBooleanCheckbox>
+                                    </p:column>
                                 </p:dataTable>
                             </td>
                         </tr>
@@ -222,7 +283,184 @@
                             </td>
                             <td></td>
                             <td colspan="2" align="left">
-                                <p:commandButton value="Limpiar"    onclick="confirLimpiar.show()" />
+                                <p:commandButton value="Limpiar" onclick="confirLimpiar.show()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                <p:dialog id="panelEditar" header="Editar" widgetVar="panelEditar" modal="true"
+                          style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                        <tr>
+                            <td align="center" colspan="5">
+                                <table>
+                                    <tr>
+                                        <td align="left" class="negrita">Nombre del Rol:</td>
+                                        <td align="left">
+                                            <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
+                                                         label="Nombre" id="nombreE" style="width:300px"
+                                                         value="#{rolMB.nombreE}"/>
+                                             
+                                            <h:outputText value=" "/>
+                                             
+                                            <img src="../../images/obligatorio.gif"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="left" class="negrita">Descripci&#243;n del Rol:</td>
+                                        <td align="left">
+                                            <p:inputTextarea id="descripcionE"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                                             style="width:300px" value="#{rolMB.descripcionE}"/>
+                                             
+                                            <h:outputText value=" "/>
+                                             
+                                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2" style="font-size: 10px;font-style: oblique; color: Red;"
+                                            align="right">
+                                            Campos obligatorios( 
+                                            <img src="../../images/obligatorio.gif"/>)
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td colspan="4" align="right">
+                                <table style="font-weight: bold;">
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="   REGISTRAR"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox id="registrarB" value="#{rolMB.insertarBE}">
+                                                <p:ajax update=":form:menuOpcionesESe"
+                                                        listener="#{rolMB.insertarTodoE}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText  value="ACTUALIZAR "/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox id="actualizarB" value="#{rolMB.actualizarBE}">
+                                                <p:ajax update=":form:menuOpcionesESe"
+                                                        listener="#{rolMB.actualizarTodoE}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value=" ELIMINAR"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox id="eliminarB" value="#{rolMB.eliminarBE}">
+                                                <p:ajax update=":form:menuOpcionesESe"
+                                                        listener="#{rolMB.eliminarTodoE}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="LECTURA"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox id="leerB" value="#{rolMB.leerBE}">
+                                                <p:ajax update=":form:menuOpcionesESe" listener="#{rolMB.leerTodoE}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="TODO"/>
+                                        </td>
+                                        <td>
+                                            <p:selectBooleanCheckbox value="#{rolMB.todoE}">
+                                                <p:ajax update=":form:menuOpcionesESe" listener="#{rolMB.todoE}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <p:dataTable id="menuOpcionesE" var="meE" value="#{rolMB.listaMenE}"
+                                             selection="#{rolMB.listaMenSeleccionadoE}" rowKey="#{meE.menId}">
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column headerText="Opción Menú">
+                                        <h:outputText value="#{meE.menNombre}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                            <td style="width:4px">
+                                <p:commandButton id="agregarRolE" image="ui-icon-triangle-1-e"
+                                                 update=":form:menuOpcionesESe :form:menuOpcionesE"
+                                                 actionListener="#{rolMB.pasarListaE()}"/>
+                                 
+                                <h:outputText style="font-weight:bold; padding-bottom: 20px;color:White;" value="|"/>
+                                 
+                                <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
+                                 
+                                <p:commandButton id="quitarRolE" image="ui-icon-triangle-1-w"
+                                                 update=":form:menuOpcionesESe :form:menuOpcionesE"
+                                                 actionListener="#{rolMB.quitarListaE()}"/>
+                                 
+                                <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
+                            </td>
+                            <td align="left" colspan="2">
+                                <p:dataTable  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
+                                             selection="#{rolMB.listaMenSeleccionadoE2}" rowKey="#{me1E.menId}">
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column headerText="Opción Menú">
+                                        <h:outputText value="#{me1E.menNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Registrar">
+                                        <p:selectBooleanCheckbox value="#{me1E.crear}"/>
+                                    </p:column>
+                                    <p:column headerText="Actualizar">
+                                        <p:selectBooleanCheckbox value="#{me1E.actualizar}"/>
+                                    </p:column>
+                                    <p:column headerText="Eliminar">
+                                        <p:selectBooleanCheckbox value="#{me1E.eliminar}"/>
+                                    </p:column>
+                                    <p:column headerText="Lectura">
+                                        <p:selectBooleanCheckbox value="#{me1E.lectura}"/>
+                                    </p:column>
+                                     <p:column headerText="Todo">
+                                        <p:selectBooleanCheckbox  value="#{me1E.todo}" >
+                                         <p:ajax update=":form:menuOpcionesESe"
+                                                        listener="#{rolMB.menuSeleccionadoE(indexRegistrarE)}"/>
+                                        </p:selectBooleanCheckbox>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <p:commandButton value="Editar" update=":form:mensaje :form:tablaRoles"
+                                                 actionListener="#{rolMB.guardar}"
+                                                 
+                                        />
+                            </td>
+                            <td></td>
+                            <td colspan="2" align="left">
+                                <p:commandButton value="Limpiar" onclick="confirLimpiar.show()"/>
                             </td>
                         </tr>
                     </table>
@@ -246,19 +484,16 @@
                         </tr>
                     </table>
                 </p:dialog>
-                
-                 <p:dialog id="confirLimpiar" widgetVar="confirLimpiar" header="Confirmar" modal="true">
+                <p:dialog id="confirLimpiar" widgetVar="confirLimpiar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
-                            <td colspan="2">
-                                Esta seguro que desea limpiar todos los datos?
-                            </td>
+                            <td colspan="2">Esta seguro que desea limpiar todos los datos?</td>
                         </tr>
                          
                         <tr>
                             <td align="right">
-                                <p:commandButton   update=":form:menuOpciones :form:menuOpcionesSe :form:nombre :form:descripcion" value="Eliminar"
-                                                 actionListener="#{rolMB.limpiarListas()}"
+                                <p:commandButton update=":form:menuOpciones :form:menuOpcionesSe :form:nombre :form:descripcion :form:leerB :form:actualizarB :form:registrarB :form:eliminarB"
+                                                 value="Eliminar" actionListener="#{rolMB.limpiarListas()}"
                                                  oncomplete="confirLimpiar.hide()"></p:commandButton>
                             </td>
                             <td align="left">
@@ -267,7 +502,6 @@
                         </tr>
                     </table>
                 </p:dialog>
-                
                 <h:inputHidden value="#{rolMB.idE}" id="codEliminar"/>
             </h:form>
         </h:body>
