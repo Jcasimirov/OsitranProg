@@ -11,12 +11,13 @@ public class MenVO {
     private Date menFechaCambio;
     private String menFormulario;
     private int menId;
-    private String menNombre;
+        private String menNombre;
     private int menPadre;
     private String menTerminal;
     private String menUsuarioAlta;
     private String menUsuarioBaja;
     private String menUsuarioCambio;
+    private int contador;
     //*************************************************
     private boolean crear;
     private boolean eliminar;
@@ -202,5 +203,14 @@ public class MenVO {
 
     public boolean isTodo() {
         return todo;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
