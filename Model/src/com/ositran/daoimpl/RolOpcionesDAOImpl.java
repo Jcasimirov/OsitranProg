@@ -61,6 +61,23 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
         }
         return result;
     }
+    
+    @Override
+    public String insertOrUpdate(RolOpciones rolOpciones) {
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(rolOpciones);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result; // TODO Implement this method
+        
+    }
 
     @Override
     public String delete(Integer id) {
@@ -87,6 +104,7 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
     public RolOpciones getRolOpciones() {
         return rolOpciones;
     }
+
 
    
 }
