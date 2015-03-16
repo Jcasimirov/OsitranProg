@@ -26,9 +26,10 @@
         <mapping class="com.ositran.model.InversionTipoDescripcion"/>
         <mapping class="com.ositran.model.Rol"/>
         <mapping class="com.ositran.model.Usuario"/>
-         <mapping class="com.ositran.model.Men"/>
+        <mapping class="com.ositran.model.Men"/>
         <mapping class="com.ositran.model.RolOpciones"/>
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.ModalidadConcesion"/>
+        <mapping class="com.ositran.model.Moneda"/>
     </session-factory>
 </hibernate-configuration>
