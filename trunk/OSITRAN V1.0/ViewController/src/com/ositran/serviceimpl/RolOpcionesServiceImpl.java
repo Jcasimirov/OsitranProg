@@ -79,20 +79,20 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     private RolOpcionesVO toRolOpcionesVO(RolOpciones rolOpciones)  {
         RolOpcionesVO rolOpcionesVO1=new RolOpcionesVO();
         rolOpcionesVO1.setRxoId(rolOpciones.getRxoId());
-        rolOpcionesVO1.setMenId(rolOpcionesVO.getMenId());
-        rolOpcionesVO1.setRolId(rolOpcionesVO.getRolId());
-        rolOpcionesVO1.setTroAgregar(rolOpcionesVO.getTroAgregar());
-        rolOpcionesVO1.setTroConsultar(rolOpcionesVO.getTroConsultar());
-        rolOpcionesVO1.setTroEliminar(rolOpcionesVO.getTroEliminar());
-        rolOpcionesVO1.setTroEstado(rolOpcionesVO.getTroEstado());
-        rolOpcionesVO1.setTroFechaAlta(rolOpcionesVO.getTroFechaAlta());
-        rolOpcionesVO1.setTroFechaBaja(rolOpcionesVO.getTroFechaBaja());
-        rolOpcionesVO1.setTroFechaCambio(rolOpcionesVO.getTroFechaCambio());
-        rolOpcionesVO1.setTroModificar(rolOpcionesVO.getTroModificar());
-        rolOpcionesVO1.setTroTerminal(rolOpcionesVO.getTroTerminal());
-        rolOpcionesVO1.setTroUsuarioAlta(rolOpcionesVO.getTroUsuarioAlta());
-        rolOpcionesVO1.setTroUsuarioBaja(rolOpcionesVO.getTroUsuarioBaja());
-        rolOpcionesVO1.setTroUsuarioCambio(rolOpcionesVO.getTroUsuarioCambio());
+        rolOpcionesVO1.setMenId(rolOpciones.getMenId());
+        rolOpcionesVO1.setRolId(rolOpciones.getRolId());
+        rolOpcionesVO1.setTroAgregar(rolOpciones.getTroAgregar());
+        rolOpcionesVO1.setTroConsultar(rolOpciones.getTroConsultar());
+        rolOpcionesVO1.setTroEliminar(rolOpciones.getTroEliminar());
+        rolOpcionesVO1.setTroEstado(rolOpciones.getTroEstado());
+        rolOpcionesVO1.setTroFechaAlta(rolOpciones.getTroFechaAlta());
+        rolOpcionesVO1.setTroFechaBaja(rolOpciones.getTroFechaBaja());
+        rolOpcionesVO1.setTroFechaCambio(rolOpciones.getTroFechaCambio());
+        rolOpcionesVO1.setTroModificar(rolOpciones.getTroModificar());
+        rolOpcionesVO1.setTroTerminal(rolOpciones.getTroTerminal());
+        rolOpcionesVO1.setTroUsuarioAlta(rolOpciones.getTroUsuarioAlta());
+        rolOpcionesVO1.setTroUsuarioBaja(rolOpciones.getTroUsuarioBaja());
+        rolOpcionesVO1.setTroUsuarioCambio(rolOpciones.getTroUsuarioCambio());
         return rolOpcionesVO1;
     }
     private RolOpciones toRolOpciones(RolOpcionesVO rolOpcionesVO)  {
