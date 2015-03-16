@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface RolDAO {
         public List<Rol> query();
+        public List<Rol> query1(String filtro);
         public String insert(Rol rol);
+       
         public String delete(Integer id);
         public String update(Rol rol);
         public Rol get(Integer id);
