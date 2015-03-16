@@ -7,6 +7,12 @@ import com.ositran.model.Usuario;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 
+import com.ositran.vo.bean.TipoInversionVO;
+
+import java.sql.SQLException;
+
+import java.text.ParseException;
+
 import java.util.List;
 
 public interface RolService {
@@ -17,6 +23,7 @@ public interface RolService {
     public String update(RolVO rolVO);
     public RolVO get(Integer id);
     public int getCodigo(RolVO rolVO);
+
     
     
 
