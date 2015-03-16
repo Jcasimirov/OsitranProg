@@ -24,7 +24,12 @@ public class RolServiceImpl  implements RolService{
         super();
     }
 
-    
+    @Override
+    public List<RolVO> query1(String filtro) {
+         List<Rol> list=rolDAOImpl.query1(filtro);
+         List<RolVO> listVO=toListRolVO(list);
+         return listVO;
+    }
     
     @Override
     public List<RolVO> query() {
@@ -138,4 +143,5 @@ public class RolServiceImpl  implements RolService{
     }
 
 
+    
 }
