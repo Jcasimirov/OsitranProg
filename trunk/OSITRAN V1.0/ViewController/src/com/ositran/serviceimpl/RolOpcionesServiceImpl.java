@@ -47,6 +47,12 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
         String result=rolOpcionesDAOImpl.insert(rolOpciones);
         return result;
     }
+    @Override
+    public String insertOrUpdate(RolOpcionesVO rolOpcionesVO) {
+        RolOpciones rolOpciones=toRolOpciones(rolOpcionesVO);
+        String result=rolOpcionesDAOImpl.insertOrUpdate(rolOpciones);
+        return result;
+    }
 
     @Override
     public String delete(Integer id) {
@@ -140,5 +146,6 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
         return rolOpcionesDAOImpl;
     }
 
-   
+
+ 
 }
