@@ -4,6 +4,8 @@ import com.ositran.dao.RolDAO;
 import com.ositran.model.InversionTipo;
 import com.ositran.model.Rol;
 import com.ositran.util.HibernateUtil;
+
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -16,10 +18,19 @@ public class RolDAOImpl implements  RolDAO{
     
     @Override
     @SuppressWarnings("unchecked")
+    
+   
+    
     public List<Rol> query() {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).list(); 
         
+    }
+    
+      @Override
+    public List<Rol> query1(String filtro) {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).add(Restrictions.like("rolNombre","%" + filtro + "%"))    .list(); 
     }
     
     @Override
@@ -91,6 +102,6 @@ public class RolDAOImpl implements  RolDAO{
         return rol;
     }
 
-    
 
+  
 }
