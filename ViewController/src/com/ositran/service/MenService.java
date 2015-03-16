@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface MenService {
     public List<MenVO> query();
+    public List<MenVO> query1(String filtro);
     public String insert(Men men);
     public String delete(Integer id);
-    public String update(Men men);
-    public Men get(Integer id);
+    public String update(MenVO menVO);
+    public MenVO get(Integer id);
     public String getNombre(Integer codigo);
         
    
