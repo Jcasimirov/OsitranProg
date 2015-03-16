@@ -42,7 +42,7 @@
                                                 <p:tooltip styleClass="tool" id="tool1" for="buscar"
                                                            value="Buscar Rol  por Nombre"/>
                                                  
-                                                <p:commandButton id="buscarTodos"  actionListener="#{rolMB.cargarListaRoles}" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
+                                                <p:commandButton id="buscarTodos"  update=":form:tablaRoles" actionListener="#{rolMB.cargarListaRoles}" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
                                                            value="Ver la lista completa de Roles"/>
@@ -85,7 +85,7 @@
                                                 <p:commandButton actionListener="#{rolMB.cargarEditar()}"
                                                                  image="ui-icon-document"
                                                                  style="width:22px;height:22px;aling:center"
-                                                                 update=":form:menuOpcionesE :form:menuOpcionesESe :form:nombreE :form:descripcionE"
+                                                                 update=":form:menuOpcionesE :form:codEliminar :form:menuOpcionesESe :form:nombreE :form:descripcionE"
                                                                  oncomplete="panelEditar.show()">
                                                     <f:param id="idActualizar" name="idActualizar"
                                                              value="#{rol1.rolId}"/>
@@ -454,7 +454,7 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <p:commandButton value="Editar" update=":form:mensaje :form:tablaRoles"
-                                                 actionListener="#{rolMB.guardar}"
+                                                 actionListener="#{rolMB.editar()}"
                                                  
                                         />
                             </td>
