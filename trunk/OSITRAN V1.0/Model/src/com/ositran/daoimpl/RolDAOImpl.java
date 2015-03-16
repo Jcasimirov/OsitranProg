@@ -30,7 +30,7 @@ public class RolDAOImpl implements  RolDAO{
       @Override
     public List<Rol> query1(String filtro) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).add(Restrictions.like("rolNombre","%" + filtro + "%"))    .list(); 
+        return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).add(Restrictions.like("menNombre","%" + filtro + "%")).list(); 
     }
     
     @Override
@@ -83,8 +83,18 @@ public class RolDAOImpl implements  RolDAO{
 
     @Override
     public String update(Rol rol) {
-        // TODO Implement this method
-        return null;
+
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(rol);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
