@@ -333,7 +333,10 @@ public void actualizarTodoE(){
             }
         
     }
+    
     public void editar(){
+    
+            
          if (nombreE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -350,26 +353,32 @@ public void actualizarTodoE(){
                                                                           "Debe Seleccionar al menos una opción del menú para este rol"));
         } else {
          rolVO.setRolNombre(nombreE);
-            rolVO.setRolDescripcion(descripcionE);
-            rolVO.setRolEstado(1);
-            rolVO.setRolFechaCambio(new Date());
-            rolVO.setRolUsuarioCambio("Abel Huarca E");
-            rolVO.setRolId(idE);
-
+         rolVO.setRolDescripcion(descripcionE);
+         rolVO.setRolEstado(1);
+         rolVO.setRolFechaCambio(new Date());
+         rolVO.setRolUsuarioCambio("Abel Huarca E");
+         rolVO.setRolId(idE);
+         rolServiceImpl.update(rolVO);
+         listaMenE=menServiceImpl.query();
             for (MenVO menVO : listaMenNuevaE) {
+                
                 RolOpcionesVO rolOpcionesVO = new RolOpcionesVO();
                 rolOpcionesVO.setRolId(idE);
+                rolOpcionesVO.setRxoId(menVO.getCodigoRolOpciones());
                 rolOpcionesVO.setMenId(menVO.getMenId());
                 rolOpcionesVO.setTroEstado(1);
                 rolOpcionesVO.setTroAgregar((menVO.isCrear()) ? 1 : 0);
                 rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
                 rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
                 rolOpcionesVO.setTroModificar((menVO.isActualizar()) ? 1 : 0);
-                rolOpcionesServiceImpl.insert(rolOpcionesVO);
+                rolOpcionesServiceImpl.insertOrUpdate(rolOpcionesVO);
                 RequestContext.getCurrentInstance().execute("panelEditar.hide()");
                 cargarListaRoles();
 
             }
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se edito el Rol y sus permisos con exito"));
         }
         
         }
@@ -503,6 +512,9 @@ public void actualizarTodoE(){
             rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRxoId());
         }
         rolServiceImpl.delete(idE);
+        FacesContext.getCurrentInstance().addMessage(null,
+                                                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                      "Se elemino el rol y sus permisos con exito"));
         cargarListaRoles();
     }
 
@@ -546,6 +558,9 @@ public void actualizarTodoE(){
                 cargarListaRoles();
 
             }
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se registro el Rol y sus permisos con exito"));
         }
     }
 
