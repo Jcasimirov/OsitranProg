@@ -2,16 +2,20 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import com.ositran.dao.MonedaDAO;
+import com.ositran.daoimpl.MenDAOImpl;
 import com.ositran.model.Moneda;
 import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
 import org.hibernate.Query;
 
-@Repository
 public class MonedaDAOImpl implements MonedaDAO{
        
 
     Moneda moneda;
+    
+    public MonedaDAOImpl() {
+        super();
+    }
     @Override
     public String insert(Moneda moneda) throws SQLException {
         String result = null;
