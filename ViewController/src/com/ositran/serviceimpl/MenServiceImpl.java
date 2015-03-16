@@ -2,6 +2,7 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.MenDAO;
 import com.ositran.daoimpl.MenDAOImpl;
+import com.ositran.model.InversionTipo;
 import com.ositran.model.Men;
 import com.ositran.model.Rol;
 import com.ositran.service.MenService;
@@ -18,13 +19,20 @@ public class MenServiceImpl implements  MenService{
     
     @Override
     public List<MenVO> query() {
-        
-       System.out.println("llego al services");
        List<Men> list=menDAOImpl.query();
        List<MenVO> listVO=toListMenVO(list);
        
         return listVO;
     }
+    
+    @Override
+    public List<MenVO> query1(String filtro) {
+        List<Men> list=menDAOImpl.query1(filtro);
+        List<MenVO> listVO=toListMenVO(list);
+        
+         return listVO;
+    }
+    
     @Override
     public String getNombre(Integer codigo) {
         String nombre=menDAOImpl.getNombre(codigo);
@@ -44,15 +52,18 @@ public class MenServiceImpl implements  MenService{
     }
 
     @Override
-    public String update(Men men) {
-        // TODO Implement this method
-        return null;
+    public String update(MenVO menVO) {
+        men=toTipoInversion(menVO);
+        String result=menDAOImpl.update(men);
+        return result;
     }
 
     @Override
-    public Men get(Integer id) {
-        // TODO Implement this method
-        return null;
+    public MenVO get(Integer id) {
+        men =menDAOImpl.get(id);
+        menVO=toMenVO(men);
+        return menVO;
+       
     }
     
     //Convesiones *********************************************
@@ -125,5 +136,5 @@ public class MenServiceImpl implements  MenService{
     }
 
 
-    
+  
 }
