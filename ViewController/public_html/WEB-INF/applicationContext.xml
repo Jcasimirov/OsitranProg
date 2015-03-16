@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
        xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -181,9 +180,13 @@
         <property name="men" ref="men"/>
         <property name="menVO" ref="menVO"/>
     </bean>
+	<bean id="opcionesSistema" class="com.ositran.seguridad.OpcionesSistemaMB">
+        <property name="menServiceImpl" ref="menServiceImpl"/>
+        <property name="menVO" ref="menVO"/>
+    </bean>
   
 
-<!--Menu-->
+<!--Rol Opciones-->
     <bean id="rolOpcionesDAOImpl" class="com.ositran.daoimpl.RolOpcionesDAOImpl">
             <property name="rolOpciones" ref="rolOpciones"/>
     </bean>
