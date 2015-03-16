@@ -62,9 +62,10 @@ public class RolServiceImpl  implements RolService{
     }
 
     @Override
-    public String update(RolVO rol) {
-        // TODO Implement this method
-        return null;
+    public String update(RolVO rolVO) {
+        rol=toRol(rolVO);
+        String result=rolDAOImpl.update(rol);
+        return result;
     }
 
     @Override
