@@ -269,16 +269,7 @@
                             </td>
                         </tr>
                          
-                        <tr>
-                            <td colspan="4" align="left">
-                                Cargo Representante: 
-                                <p:selectOneMenu    value="#{concesionarioMB.codigoCargoE}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
-                                                   itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
-                                </p:selectOneMenu>
-                            </td>
-                        </tr>
+                     
                          
                         <tr>
                             <td colspan="4" align="left"></td>
@@ -421,17 +412,7 @@
                             </td>
                         </tr>
                          
-                        <tr>
-                            <td colspan="4" align="left">
-                                Cargo Representante: 
-                                <p:selectOneMenu
-                                    value="#{concesionarioMB.codigoCargo}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{concesionarioMB.listCargo}" var="tip"
-                                                   itemLabel="#{tip.crgDescripcion}" itemValue="#{tip.crgId}"/>
-                                </p:selectOneMenu>
-                            </td>
-                        </tr>
+                       
                             <tr>
                             <td align="right" colspan="2">
                                 <h:outputText value="#{l10n.no_of_sessions}" escape="false"
