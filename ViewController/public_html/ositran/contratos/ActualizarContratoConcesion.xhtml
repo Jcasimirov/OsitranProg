@@ -7,7 +7,18 @@
       
 <h:head>
         
-	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>         
+            <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
+
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+            </script>
 	<meta content="1500" http-equiv="REFRESH"></meta>
 <script type="text/javascript">
 		PrimeFaces.locales['es'] = {
@@ -44,7 +55,7 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
-                            <h4 class="titulo">MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</h4>
+                            <h4 class="titulo">ACTUALIZAR REGISTRO CONTRATO CONCESIÓN</h4>
                            </div>
                            <h:form>
 	<div align="center" style="font-size: 11px">
@@ -71,12 +82,9 @@
 										<td><p:inputText></p:inputText></td>
 									</tr>
 									<tr>
-										<td align="left">Concepción :</td>
+										<td align="left">Concesión :</td>
 										<td colspan="3" align="left"><p:inputText style="width:97.5%"></p:inputText></td>
-									</tr>
-									</table>
-										<p:fieldset styleClass="fielsetinterno" legend="Datos del Concesinario">
-											<table>
+									</tr>									
 										<tr>
 											<td align="left">Nombre Consecionario:</td>
 											<td><p:inputText></p:inputText></td>
@@ -84,13 +92,12 @@
 											<td><p:inputText></p:inputText></td>
 										</tr>
 										<tr>
-											<td align="left">Tic Doc :</td>
-											<td ><p:inputText></p:inputText></td>
-											<td align="left">Num Doc :</td>
-											<td ><p:inputText></p:inputText></td>
+											<td align="left">Domicilio Legal :</td>
+											<td colspan="3"><p:inputText style="width:97.5%"></p:inputText></td>
+											
 										</tr>
 											</table>
-										</p:fieldset>
+										
 							</p:fieldset>	
 							</td>
 						</tr>
@@ -99,15 +106,14 @@
 								<br></br>
 								<table>
 								<tr>
-								<td>
-								<p:fieldset styleClass="fielsetinterno" legend="Valorizaciones">
-										<table>
+								<td valign="top">
+								<p:fieldset styleClass="fielsetinterno" legend="Reporte Avance de Obra">
+										<table style="width:350px">
 											<tr>
-												<td align="left"><p:selectBooleanCheckbox/> Aplica Valorización de Inversión</td>
-												<td><p:selectBooleanCheckbox/> Aplica Reconocimiento de Inversión</td>
+												<td align="left" colspan="2" ><p:selectBooleanCheckbox id="reporte" value/> Aplica Reporte Avance de Obra</td>												
 											</tr>
 											<tr>
-												<td align="left">Seleccione Tipo de Valorización</td>
+												<td align="left">Periodo:</td>
 												<td>
 														<p:selectOneMenu >
 							        					<f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
@@ -116,24 +122,10 @@
 												        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
 							    						</p:selectOneMenu>
 												</td>
-											</tr>
+											</tr>											
 											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Mensual</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Bimestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Semestral</td>
-												
-											</tr>
-											<tr>
-												<td colspan="2" align="left"><p:selectBooleanCheckbox />Anual</td>
-											</tr>
-											<tr>
-												<td colspan="2" align="left">Fecha de Inicio:
+												<td align="left">Dia Mes:</td>
+                                                                                                <td>
 												<p:calendar locale="es" pattern="yyyy-MMM-dd" /></td>
 											</tr>
 										</table>
@@ -143,23 +135,44 @@
 										</td>
 										  <td valign="top">
 											<p:fieldset styleClass="fielsetinterno" legend="Plazos de Revisión">
-											<table style="width:350px">
+											<table style="width:400px">
 												<tr>
-													<td align="left">Ingrese dias de plazo de revisión 
-																	de valorizacion y/o reconocimiento</td>
-													<td><p:inputText></p:inputText></td>
+													<td align="left">Plazo de revisión de valorizacion y/o reconocimiento:</td>
+													<td  style="width:120px"><p:inputText style="width:70px;"></p:inputText> (dias)</td>
 												</tr>
 												<tr>
-													<td align="right"><p:selectBooleanCheckbox />Dias Calendario</td>
-													<td align="right"><p:selectBooleanCheckbox />Dias Habiles</td>
+                                                                                                    <td colspan="2" align="center">
+                                                                                                     <p:selectOneRadio id="Dias">
+                                                                                                       <f:selectItem itemLabel="Dias Calendario" itemValue="DC" />
+                                                                                                       <f:selectItem itemLabel="Dias Habiles" itemValue="DH" />
+                                                                                                       </p:selectOneRadio>
+                                                                                                    </td>
 												</tr>
 											</table>
 										</p:fieldset>
 										
 										<p:fieldset styleClass="fielsetinterno" legend="Otros Datos">
 											<table>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    Fecha de Suscripcion: 
+                                                                                                </td>
+                                                                                                <td><p:calendar locale="es" pattern="yyyy-MMM-dd" /></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    Plazo de Consesión: 
+                                                                                                </td>
+                                                                                                <td><p:inputTextarea rows="3" cols="31" id="plazoConcesion"/></td>
+                                                                                            </tr>
 												<tr>
-													<td align="left">Adjuntar contrato</td>
+													<td align="left">Adjuntar Contrato:</td>
+													<td><p:inputText></p:inputText>
+													<p:commandButton image="ui-icon-folder-open" />
+															</td>
+												</tr>
+                                                                                                <tr>
+													<td align="left">Adjuntar Ficha de Resumen:</td>
 													<td><p:inputText></p:inputText>
 													<p:commandButton image="ui-icon-folder-open" />
 															</td>
@@ -294,8 +307,14 @@
         <p:tab title="Compromiso_Penalidades">
 		 <table>
                     <tr>
-                    <td align="left" style="font-weight: bold;">Designación de un Supervisor de Diseño</td>
-                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    <td align="left" style="font-weight: bold;">Compromiso de Inversión Periodo/Etapa:</td>
+                    <td align="right">
+                        <!--p:commandButton actionListener="#{actualizarContratoConcesionMB.limpiar}"
+                                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()"
+                                                                 value=" Nueva Inversion" update=":form:registrar"
+                                                                 id="nuevo"/-->
+                    </td>
                     
                     </tr>
                       <tr>
@@ -311,14 +330,29 @@
                                                  rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                  style="font-size:11px;" id="tablaRoles1" var="rol1"
                                                  >
-                                        <p:column headerText="Nombre°" >
+                                        <p:column headerText="Periodo/Etapa" >
                                             
                                         </p:column>
                                         
-                                        <p:column headerText="Fecha">
+                                        <p:column headerText="Alcance">
                                             
                                         </p:column>
-                                        <p:column headerText="Ver" style="width:10%">
+                                        <p:column headerText="Tipo de Inversión">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Moneda">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Neto">
+                                            
+                                        </p:column>
+                                        <p:column headerText="IGV">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Total">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Plazo">
                                             
                                         </p:column>
                                         <p:column headerText="Quitar" style="width:10%">
@@ -341,56 +375,7 @@
                      <tr>
                     </tr>
                      <tr>
-                    </tr>
-                    <tr>
-                    <td align="left" style="font-weight: bold;">Cmpromiso de Inversion Etapa Periodo</td>
-                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
-                    
-                    </tr>
-                     <tr>
-                    <td colspan="2">
-                    
-                             <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
-                                                 rows="10" paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                 style="font-size:11px;" id="tablazRoles5" var="rol1"
-                                                 >
-                                        <p:column headerText="Etapa Periodo °" >
-                                            
-                                        </p:column>
-                                        <p:column headerText="Alcance" >
-                                           
-                                        </p:column>
-                                        <p:column headerText="Monto">
-                                            
-                                        </p:column>
-                                        <p:column headerText="Monedas" >
-                                            
-                                        </p:column>
-                                        <p:column headerText="Neto" >
-                                        
-                                        </p:column>
-                                         <p:column headerText="IGV" >
-                                        
-                                        </p:column>
-                                         <p:column headerText="Total" style="width:6%">
-                                        
-                                        </p:column>
-                                        <p:column headerText="Plazo" style="width:6%">
-                                        
-                                        </p:column>
-                                         <p:column headerText="Quitar" style="width:6%">
-                                        
-                                        </p:column>
-                                </p:dataTable>            
-                    
-                    
-                    </td>
-
-                    </tr>
-                      <tr>
-                    </tr>
+                    </tr>                      
                      <tr>
                     </tr>
                      <tr>
@@ -399,7 +384,7 @@
                     </tr>
                                         <tr>
                     <td align="left" style="font-weight: bold;">Penalidades</td>
-                    <td align="right"><p:commandButton value="Agregar Documento" /></td>
+                    <td align="right"><p:commandButton value="Agregar Penalidad" /></td>
                     
                     </tr>
                      <tr>
@@ -412,7 +397,7 @@
                                                  rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                  style="font-size:11px;" id="tablazRoles6" var="rol1"
                                                  >
-                                        <p:column headerText="Mótivo"  style="width:10%">
+                                        <p:column headerText="Mótivo"  style="width:300px">
                                             
                                         </p:column>
                                         <p:column headerText="Moneda" style="width:10%">
@@ -422,6 +407,12 @@
                                             
                                         </p:column>
                                         <p:column headerText="Fecha" style="width:10%">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Estado">
+                                            
+                                        </p:column>
+                                        <p:column headerText="Ver">
                                             
                                         </p:column>
                                         <p:column headerText="Quitar" style="width:10%">
@@ -604,5 +595,71 @@
                     </p:layoutUnit>
 
 </p:layout>
+<p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center;">
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                        <tr>
+                            <td align="left">
+                                #{etq.etq_rti_inti}
+                            </td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
+                                             value="#{actualizarContratoConcesionMB.nombre}" label="Nombre" id="nombre"
+                                             style="width:300px"/>
+                                 
+                                <h:outputText value=" "/>
+                                 
+                                <img src="../../images/obligatorio.gif"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">
+                                #{etq.etq_rti_idti}
+                            </td>
+                            <td align="left">
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                                 value="#{actualizarContratoConcesionMB.descripcion}" style="width:300px"/>
+                                 
+                                <h:outputText value=" "/>
+                                 
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios( 
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton update=":form:tablaES :form:mensaje"
+                                                 actionListener="#{actualizarContratoConcesionMB.guardar}" style="width:70px"
+                                                 value="#{btn.btn_guardar}"/>
+                            </td>
+                            <td align="left">
+                                <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                
 </h:body>
 </html>
