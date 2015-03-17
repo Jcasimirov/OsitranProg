@@ -84,9 +84,10 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
     private RolOpcionesVO toRolOpcionesVO(RolOpciones rolOpciones)  {
         RolOpcionesVO rolOpcionesVO1=new RolOpcionesVO();
-        rolOpcionesVO1.setRxoId(rolOpciones.getRxoId());
+      
         rolOpcionesVO1.setMenId(rolOpciones.getMenId());
         rolOpcionesVO1.setRolId(rolOpciones.getRolId());
+        rolOpcionesVO1.setDescripcion(rolOpciones.getDescripcion());
         rolOpcionesVO1.setTroAgregar(rolOpciones.getTroAgregar());
         rolOpcionesVO1.setTroConsultar(rolOpciones.getTroConsultar());
         rolOpcionesVO1.setTroEliminar(rolOpciones.getTroEliminar());
@@ -103,11 +104,12 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
     private RolOpciones toRolOpciones(RolOpcionesVO rolOpcionesVO)  {
         RolOpciones rolOpciones1=new RolOpciones();
-        rolOpciones1.setRxoId(rolOpcionesVO.getRxoId());
+     
         rolOpciones1.setMenId(rolOpcionesVO.getMenId());
         rolOpciones1.setRolId(rolOpcionesVO.getRolId());
         rolOpciones1.setTroAgregar(rolOpcionesVO.getTroAgregar());
         rolOpciones1.setTroConsultar(rolOpcionesVO.getTroConsultar());
+        rolOpciones1.setDescripcion(rolOpcionesVO.getDescripcion());
         rolOpciones1.setTroEliminar(rolOpcionesVO.getTroEliminar());
         rolOpciones1.setTroEstado(rolOpcionesVO.getTroEstado());
         rolOpciones1.setTroFechaAlta(rolOpcionesVO.getTroFechaAlta());
