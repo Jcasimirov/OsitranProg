@@ -21,9 +21,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(usuario);
+            session.save(usuario);
             session.getTransaction().commit();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
         }
@@ -86,7 +87,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             session.beginTransaction();
             Query query;
             if( nomTipoSearch<1  ){
-                query=session.createQuery("FROM Usuario u WHERE lower(u.usuUsuario) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2) order by USU_ID asc");
+                query=session.createQuery("FROM Usuario u WHERE lower(u.usuAlias) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2) order by USU_ID asc");
                     query.setParameter("busqueda1", "%" + searchUsuario + "%");
                     query.setParameter("busqueda2", "%" + searchNombre + "%");
                 }
@@ -95,7 +96,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 query.setParameter("busqueda3",nomTipoSearch);
                 }
             else{
-            query = session.createQuery("FROM Usuario u WHERE lower(u.usuUsuario) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2)and lower(u.usuEsexterno) like lower(:busqueda3) order by USU_ID asc" );
+            query = session.createQuery("FROM Usuario u WHERE lower(u.usuAlias) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2)and lower(u.usuEsexterno) like lower(:busqueda3) order by USU_ID asc" );
             query.setParameter("busqueda1", "%" + searchUsuario + "%");
             query.setParameter("busqueda2", "%" + searchNombre + "%");
             query.setParameter("busqueda3",nomTipoSearch);
