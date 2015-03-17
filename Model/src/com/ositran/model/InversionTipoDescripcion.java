@@ -14,37 +14,37 @@ package com.ositran.model;
     import org.hibernate.annotations.Parameter;
     
     @Entity(name = "InversionTipoDescripcion")
-    @Table(name = "T_INVERSION_TIPO_DESCRIPCION",uniqueConstraints = @UniqueConstraint(columnNames = {"ITD_ID"}))
-    @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+    @Table(name = "T_INVERSION_TIPO_DESCRIPCION",uniqueConstraints = @UniqueConstraint(columnNames = {"DTI_ID"}))
+    @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "INVERSIONTIPODESCRIPCION_SEC"))
     
     public class InversionTipoDescripcion implements Serializable {
         private static final long serialVersionUID = -1816130139407701837L;
-        @Column(name = "ITD_DESCRIPCION", nullable = false, length = 100)
+        @Column(name = "DTI_DESCRIPCION", nullable = false, length = 100)
         private String itdDescripcion;
-        @Column(name = "ITD_ESTADO", nullable = false)
+        @Column(name = "DTI_ESTADO", nullable = false)
         private int itdEstado;
         @Temporal(TemporalType.DATE)
-        @Column(name = "ITD_FECHA_ALTA")
+        @Column(name = "DTI_FECHA_ALTA")
         private Date itdFechaAlta;
         @Temporal(TemporalType.DATE)
-        @Column(name = "ITD_FECHA_BAJA")
+        @Column(name = "DTI_FECHA_BAJA")
         private Date itdFechaBaja;
         @Temporal(TemporalType.DATE)
-        @Column(name = "ITD_FECHA_CAMBIO")
+        @Column(name = "DTI_FECHA_CAMBIO")
         private Date itdFechaCambio;
         @Id
         @GeneratedValue(generator = "generator")
-        @Column(name = "ITD_ID", nullable = false)
+        @Column(name = "DTI_ID", nullable = false)
         private int itdId;
-        @Column(name = "ITD_NOMBRE", nullable = false, length = 100)
+        @Column(name = "DTI_NOMBRE", nullable = false, length = 100)
         private String itdNombre;
-        @Column(name = "ITD_TERMINAL", length = 20)
+        @Column(name = "DTI_TERMINAL", length = 20)
         private String itdTerminal;
-        @Column(name = "ITD_USUARIO_ALTA", length = 20)
+        @Column(name = "DTI_USUARIO_ALTA", length = 20)
         private String itdUsuarioAlta;
-        @Column(name = "ITD_USUARIO_BAJA", length = 20)
+        @Column(name = "DTI_USUARIO_BAJA", length = 20)
         private String itdUsuarioBaja;
-        @Column(name = "ITD_USUARIO_CAMBIO", length = 20)
+        @Column(name = "DTI_USUARIO_CAMBIO", length = 20)
         private String itdUsuarioCambio;
         @Column(name = "TIV_ID", nullable = false)
         private int tivId;
