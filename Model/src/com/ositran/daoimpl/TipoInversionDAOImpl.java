@@ -65,7 +65,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.saveOrUpdate(inversionTipo);
+            session.save(inversionTipo);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.saveOrUpdate(inversionTipo);
+            session.update(inversionTipo);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
