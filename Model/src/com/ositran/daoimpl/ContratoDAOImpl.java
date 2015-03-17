@@ -15,7 +15,7 @@ public class ContratoDAOImpl implements ContratoDAO{
     
     private Contrato contrato;
     
-    @Override    
+     
     public String insert(Contrato contrato) throws SQLException {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -30,7 +30,7 @@ public class ContratoDAOImpl implements ContratoDAO{
         return result;
     }
 
-    @Override
+    
     public String delete(Integer id) throws SQLException{
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -46,7 +46,7 @@ public class ContratoDAOImpl implements ContratoDAO{
         return result;
     }
 
-    @Override
+    
     public String update(Contrato contrato)throws SQLException {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -62,7 +62,7 @@ public class ContratoDAOImpl implements ContratoDAO{
     }
     
 
-    @Override
+    
     public Contrato get(Integer id) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
@@ -71,14 +71,13 @@ public class ContratoDAOImpl implements ContratoDAO{
         return contrato;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")    
+    
     public List<Contrato> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         return session.createCriteria(Contrato.class).list();
     }
 
-    @Override
+ 
     public List<Contrato> ContratoSearch(String searchContrato, String searchAbreviatura) throws SQLException {
         
             Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
