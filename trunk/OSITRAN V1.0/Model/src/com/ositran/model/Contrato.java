@@ -65,6 +65,9 @@ public class Contrato implements Serializable {
     private Integer tivId;
     @Column(name = "TOTAL_DE_LA_VALORIZACIÓN")
     private Integer totalDeLaValorización;
+    
+    @Column(name = "CON_AVANCEOBRA")    
+    private Integer avanceObra;
 
     public Contrato() {
     }
@@ -72,7 +75,7 @@ public class Contrato implements Serializable {
     public Contrato(Integer cncId, String conConcesion, Integer conEstado, Date conFechaAlta, Date conFechaBaja,
                      Date conFechaCambio, Integer conId, String conTerminal, String conUsuarioAlta,
                      String conUsuarioBaja, String conUsuarioCambio, Integer mcoId, Integer monId,
-                     Integer tinId, Integer tivId, Integer totalDeLaValorización) {
+                     Integer tinId, Integer tivId, Integer totalDeLaValorización, Integer avanceObra) {
         this.cncId = cncId;
         this.conConcesion = conConcesion;
         this.conEstado = conEstado;
@@ -89,6 +92,8 @@ public class Contrato implements Serializable {
         this.tinId = tinId;
         this.tivId = tivId;
         this.totalDeLaValorización = totalDeLaValorización;
+        // mlorenzo
+        this.setAvanceObra(avanceObra);
     }
 
 
@@ -218,5 +223,13 @@ public class Contrato implements Serializable {
 
     public Integer getTotalDeLaValorización() {
         return totalDeLaValorización;
+    }
+
+    public Integer getAvanceObra() {
+        return avanceObra;
+    }
+
+    public void setAvanceObra(Integer avanceObra) {
+        this.avanceObra = avanceObra;
     }
 }
