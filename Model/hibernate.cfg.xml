@@ -31,5 +31,6 @@
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.ModalidadConcesion"/>
         <mapping class="com.ositran.model.Moneda"/>
+        <mapping class="com.ositran.model.Contrato"/>
     </session-factory>
 </hibernate-configuration>
