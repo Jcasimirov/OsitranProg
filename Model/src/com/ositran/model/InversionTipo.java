@@ -15,7 +15,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "T_INVERSION_TIPO",uniqueConstraints = @UniqueConstraint(columnNames = {"TIV_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "INVERSIONTIPO_SEC"))
 
 public class InversionTipo implements Serializable {
     @Column(name = "TIV_DESCRIPCION", nullable = false, length = 100)
