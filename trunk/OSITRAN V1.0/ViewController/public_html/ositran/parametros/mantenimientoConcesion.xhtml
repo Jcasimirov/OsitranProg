@@ -87,7 +87,7 @@
                                              rows="10" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15">
-                                    <p:column headerText="contador">
+                                    <p:column headerText="N°">
                                         <h:outputText value="#{var1.correla}"
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
@@ -258,9 +258,11 @@
                     <!--Mantenimiento de Infraestructuras-->
                     <p:dataTable rowIndexVar="rowId" style="font-size:11px;" id="tablaES2" var="var2"
                                  value="#{mantenimientoconcesionMB.listaInfraestructuras}">
-                        <p:column headerText="ID">
+                        <!--p:column headerText="ID">
                             <h:outputText value="#{var2.infId}"/>
-                        </p:column>
+                        </p:column-->
+                        
+                           
                         <p:column headerText="Infraestructura">
                             <h:outputText value="#{var2.infNombre}"/>
                         </p:column>
