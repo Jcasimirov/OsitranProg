@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
@@ -16,18 +17,22 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "TContrato.findAll", query = "select o from TContrato o") })
 @Table(name = "T_CONTRATO")
 @IdClass(TContratoPK.class)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "Seq_Contrato"))
 public class Contrato implements Serializable {
     private static final long serialVersionUID = -6231748415809997361L;
     @Column(name = "CNC_ID")
-    private BigDecimal cncId;
+    private Integer cncId;
     @Column(name = "CON_CONCESION", nullable = false, length = 4000)
     private String conConcesion;
     @Column(name = "CON_ESTADO", nullable = false)
-    private BigDecimal conEstado;
+    private Integer conEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CON_FECHA_ALTA")
     private Date conFechaAlta;
@@ -39,7 +44,8 @@ public class Contrato implements Serializable {
     private Date conFechaCambio;
     @Id
     @Column(name = "CON_ID", nullable = false)
-    private BigDecimal conId;
+    @GeneratedValue(generator = "generator")
+    private Integer conId;
     @Column(name = "CON_TERMINAL", length = 20)
     private String conTerminal;
     @Column(name = "CON_USUARIO_ALTA", length = 20)
@@ -49,24 +55,24 @@ public class Contrato implements Serializable {
     @Column(name = "CON_USUARIO_CAMBIO", length = 20)
     private String conUsuarioCambio;
     @Column(name = "MCO_ID", nullable = false)
-    private BigDecimal mcoId;
+    private Integer mcoId;
     @Column(name = "MON_ID")
-    private BigDecimal monId;
+    private Integer monId;
     @Id
     @Column(name = "TIN_ID", nullable = false)
-    private BigDecimal tinId;
+    private Integer tinId;
     @Column(name = "TIV_ID")
-    private BigDecimal tivId;
+    private Integer tivId;
     @Column(name = "TOTAL_DE_LA_VALORIZACIÓN")
-    private BigDecimal totalDeLaValorización;
+    private Integer totalDeLaValorización;
 
     public Contrato() {
     }
 
-    public Contrato(BigDecimal cncId, String conConcesion, BigDecimal conEstado, Date conFechaAlta, Date conFechaBaja,
-                     Date conFechaCambio, BigDecimal conId, String conTerminal, String conUsuarioAlta,
-                     String conUsuarioBaja, String conUsuarioCambio, BigDecimal mcoId, BigDecimal monId,
-                     BigDecimal tinId, BigDecimal tivId, BigDecimal totalDeLaValorización) {
+    public Contrato(Integer cncId, String conConcesion, Integer conEstado, Date conFechaAlta, Date conFechaBaja,
+                     Date conFechaCambio, Integer conId, String conTerminal, String conUsuarioAlta,
+                     String conUsuarioBaja, String conUsuarioCambio, Integer mcoId, Integer monId,
+                     Integer tinId, Integer tivId, Integer totalDeLaValorización) {
         this.cncId = cncId;
         this.conConcesion = conConcesion;
         this.conEstado = conEstado;
@@ -85,131 +91,132 @@ public class Contrato implements Serializable {
         this.totalDeLaValorización = totalDeLaValorización;
     }
 
-    public BigDecimal getCncId() {
-        return cncId;
-    }
 
-    public void setCncId(BigDecimal cncId) {
+    public void setCncId(Integer cncId) {
         this.cncId = cncId;
     }
 
-    public String getConConcesion() {
-        return conConcesion;
+    public Integer getCncId() {
+        return cncId;
     }
 
     public void setConConcesion(String conConcesion) {
         this.conConcesion = conConcesion;
     }
 
-    public BigDecimal getConEstado() {
-        return conEstado;
+    public String getConConcesion() {
+        return conConcesion;
     }
 
-    public void setConEstado(BigDecimal conEstado) {
+    public void setConEstado(Integer conEstado) {
         this.conEstado = conEstado;
     }
 
-    public Date getConFechaAlta() {
-        return conFechaAlta;
+    public Integer getConEstado() {
+        return conEstado;
     }
 
     public void setConFechaAlta(Date conFechaAlta) {
         this.conFechaAlta = conFechaAlta;
     }
 
-    public Date getConFechaBaja() {
-        return conFechaBaja;
+    public Date getConFechaAlta() {
+        return conFechaAlta;
     }
 
     public void setConFechaBaja(Date conFechaBaja) {
         this.conFechaBaja = conFechaBaja;
     }
 
-    public Date getConFechaCambio() {
-        return conFechaCambio;
+    public Date getConFechaBaja() {
+        return conFechaBaja;
     }
 
     public void setConFechaCambio(Date conFechaCambio) {
         this.conFechaCambio = conFechaCambio;
     }
 
-    public BigDecimal getConId() {
-        return conId;
+    public Date getConFechaCambio() {
+        return conFechaCambio;
     }
 
-    public void setConId(BigDecimal conId) {
+    public void setConId(Integer conId) {
         this.conId = conId;
     }
 
-    public String getConTerminal() {
-        return conTerminal;
+    public Integer getConId() {
+        return conId;
     }
 
     public void setConTerminal(String conTerminal) {
         this.conTerminal = conTerminal;
     }
 
-    public String getConUsuarioAlta() {
-        return conUsuarioAlta;
+    public String getConTerminal() {
+        return conTerminal;
     }
 
     public void setConUsuarioAlta(String conUsuarioAlta) {
         this.conUsuarioAlta = conUsuarioAlta;
     }
 
-    public String getConUsuarioBaja() {
-        return conUsuarioBaja;
+    public String getConUsuarioAlta() {
+        return conUsuarioAlta;
     }
 
     public void setConUsuarioBaja(String conUsuarioBaja) {
         this.conUsuarioBaja = conUsuarioBaja;
     }
 
-    public String getConUsuarioCambio() {
-        return conUsuarioCambio;
+    public String getConUsuarioBaja() {
+        return conUsuarioBaja;
     }
 
     public void setConUsuarioCambio(String conUsuarioCambio) {
         this.conUsuarioCambio = conUsuarioCambio;
     }
 
-    public BigDecimal getMcoId() {
-        return mcoId;
+    public String getConUsuarioCambio() {
+        return conUsuarioCambio;
     }
 
-    public void setMcoId(BigDecimal mcoId) {
+    public void setMcoId(Integer mcoId) {
         this.mcoId = mcoId;
     }
 
-    public BigDecimal getMonId() {
-        return monId;
+    public Integer getMcoId() {
+        return mcoId;
     }
 
-    public void setMonId(BigDecimal monId) {
+    public void setMonId(Integer monId) {
         this.monId = monId;
     }
 
-    public BigDecimal getTinId() {
-        return tinId;
+    public Integer getMonId() {
+        return monId;
     }
 
-    public void setTinId(BigDecimal tinId) {
+    public void setTinId(Integer tinId) {
         this.tinId = tinId;
     }
 
-    public BigDecimal getTivId() {
-        return tivId;
+    public Integer getTinId() {
+        return tinId;
     }
 
-    public void setTivId(BigDecimal tivId) {
+    public void setTivId(Integer tivId) {
         this.tivId = tivId;
     }
 
-    public BigDecimal getTotalDeLaValorización() {
-        return totalDeLaValorización;
+    public Integer getTivId() {
+        return tivId;
     }
 
-    public void setTotalDeLaValorización(BigDecimal totalDeLaValorización) {
+    public void setTotalDeLaValorización(Integer totalDeLaValorización) {
         this.totalDeLaValorización = totalDeLaValorización;
+    }
+
+    public Integer getTotalDeLaValorización() {
+        return totalDeLaValorización;
     }
 }
