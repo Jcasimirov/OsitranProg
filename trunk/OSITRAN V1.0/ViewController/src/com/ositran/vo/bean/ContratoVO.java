@@ -22,6 +22,7 @@ public class ContratoVO {
     private Integer tinId;    
     private Integer tivId;   
     private Integer totalDeLaValorización;
+    private Integer avanceObra;
 
 
     public void setCncId(Integer cncId) {
@@ -150,6 +151,15 @@ public class ContratoVO {
 
     public Integer getTotalDeLaValorización() {
         return totalDeLaValorización;
+    }
+
+
+    public void setAvanceObra(Integer avanceObra) {
+        this.avanceObra = avanceObra;
+    }
+
+    public Integer getAvanceObra() {
+        return avanceObra;
     }
 
 }
