@@ -16,18 +16,18 @@ import org.hibernate.annotations.Parameter;
 
 
 @Entity
-@Table(name = "T_ROL_OPCIONES",uniqueConstraints = @UniqueConstraint(columnNames = {"RXO_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+@Table(name = "T_ROL_OPCIONES")
 public class RolOpciones implements Serializable {
     private static final long serialVersionUID = 4090813506078356308L;
-    @Column(name = "MEN_ID", nullable = false)
+    
+    @Id
+    @Column(name = "OPC_ID", nullable = false)
     private int menId;
+    
+    @Id
     @Column(name = "ROL_ID", nullable = false)
     private int rolId;
-    @Id
-    @GeneratedValue(generator = "generator")
-    @Column(name = "RXO_ID", nullable = false)
-    private int rxoId;
+    
     @Column(name = "TRO_AGREGAR", nullable = false)
     private int troAgregar;
     @Column(name = "TRO_CONSULTAR", nullable = false)
@@ -55,6 +55,8 @@ public class RolOpciones implements Serializable {
     private String troUsuarioBaja;
     @Column(name = "TRO_USUARIO_CAMBIO", length = 20)
     private String troUsuarioCambio;
+    @Column(name = "TRO_DESCRIPCION", length = 20)
+    private String descripcion;
 
     public RolOpciones() {
     }
@@ -65,7 +67,6 @@ public class RolOpciones implements Serializable {
                        String troUsuarioAlta, String troUsuarioBaja, String troUsuarioCambio) {
         this.menId = menId;
         this.rolId = rolId;
-        this.rxoId = rxoId;
         this.troAgregar = troAgregar;
         this.troConsultar = troConsultar;
         this.troEliminar = troEliminar;
@@ -96,9 +97,7 @@ public class RolOpciones implements Serializable {
         this.rolId = rolId;
     }
 
-    public int getRxoId() {
-        return rxoId;
-    }
+  
 
     public int getTroAgregar() {
         return troAgregar;
@@ -197,7 +196,12 @@ public class RolOpciones implements Serializable {
     }
 
 
-    public void setRxoId(int rxoId) {
-        this.rxoId = rxoId;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
 }
