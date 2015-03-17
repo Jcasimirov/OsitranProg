@@ -6,7 +6,7 @@
 		xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<script type="text/javascript"></script>
-	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+	<link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
 </h:head>
 <h:body>
 
@@ -16,25 +16,25 @@
     
     	<h:form>
         <div align="center">
-                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                            <h5 class="titulo">
                                 #{msg.tituloAJAC}
-                            </h3>
+                            </h5>
                         </div>
         
 			<div align="center"  style="font-size: 11px">
 			<div align="center" style="width:700px" >
 		
-			<p:fieldset    styleClass="fielsetinterno" legend="#{leg.CB}">
+			<p:fieldset  styleClass="fielsetinterno" legend="#{leg.CB}">
 				<table  style="font-size: 11px">
 				<tr>
 					<td align="left">#{cam.STI}</td>
 					<td align="left">
 						<p:selectOneMenu>
-							        					<f:selectItem  itemLabel="#{cam.S}" itemValue="4" />
-												        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-												        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-												        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
-							    						</p:selectOneMenu>		
+                                                    <f:selectItem  itemLabel="#{cam.S}" itemValue="4" />
+                                                    <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                    <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                    <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                    </p:selectOneMenu>		
 					</td>
 				</tr>	
 			</table>
@@ -77,7 +77,7 @@
 	 				<td align="left"><p:inputText /></td>
 				</tr>
 				<tr>
-	 				<td align="left">#{cam.concesión}</td>
+	 				<td align="left">#{cam.concesion}</td>
 	 				<td align="left" colspan="3"><p:inputText style="width:97.5%" /></td>
 	 				
 				</tr>
