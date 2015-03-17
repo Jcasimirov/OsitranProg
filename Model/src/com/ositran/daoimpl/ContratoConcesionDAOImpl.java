@@ -23,7 +23,7 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         super();
     }
     
-    @Override
+   
     public List<Contrato> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
