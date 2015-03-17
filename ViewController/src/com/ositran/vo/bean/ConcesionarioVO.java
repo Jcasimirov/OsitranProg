@@ -19,7 +19,6 @@ public class ConcesionarioVO {
     private String cncUsuarioAlta;
     private String cncUsuarioBaja;
     private String cncUsuarioCambio;
-    private int crgId;
     private int tdoId;
     private int contador;
     
@@ -153,14 +152,6 @@ public class ConcesionarioVO {
 
     public String getCncUsuarioCambio() {
         return cncUsuarioCambio;
-    }
-
-    public void setCrgId(int crgId) {
-        this.crgId = crgId;
-    }
-
-    public int getCrgId() {
-        return crgId;
     }
 
     public void setTdoId(int tdoId) {
