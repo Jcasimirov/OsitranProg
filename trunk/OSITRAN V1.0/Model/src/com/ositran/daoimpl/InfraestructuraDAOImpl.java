@@ -51,7 +51,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
            Session session = sessionFactory.openSession();
            try {
                session.beginTransaction();
-               session.save(infraestructura);
+               session.saveOrUpdate(infraestructura);
                session.getTransaction().commit();
           } catch (Exception e) {  
                e.printStackTrace();  
