@@ -28,10 +28,13 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         List list;
+        session.getTransaction();
+        session.beginTransaction();
         query = session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :nombre");
         query.setParameter("nombre", nombre);
         list = query.list();
         cantidad = list.size();
+        session.getTransaction().commit();
         return cantidad;
     }
 
