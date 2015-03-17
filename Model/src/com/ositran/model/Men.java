@@ -14,46 +14,43 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-
-/**
- * To create ID generator sequence "T_MEN_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_MEN_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
 @Entity
-@Table(name = "T_MEN",uniqueConstraints = @UniqueConstraint(columnNames = {"MEN_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+@Table(name = "T_OPCIONES",uniqueConstraints = @UniqueConstraint(columnNames = {"OPC_ID"}))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_OPCIONTIPO"))
 public class Men implements Serializable {
     private static final long serialVersionUID = 7895582654359795714L;
-    @Column(nullable = false, length = 4000)
+    
+    
+    @Column(name="OPC_DESCRIPCION",nullable = false, length = 4000)
     private String descripcion;
-    @Column(name = "MEN_ESTADO", nullable = false)
+    @Column(name = "OPC_ESTADO", nullable = false)
     private int menEstado;
     @Temporal(TemporalType.DATE)
-    @Column(name = "MEN_FECHA_ALTA")
+    @Column(name = "OPC_FECHA_ALTA")
     private Date menFechaAlta;
     @Temporal(TemporalType.DATE)
-    @Column(name = "MEN_FECHA_BAJA")
+    @Column(name = "OPC_FECHA_BAJA")
     private Date menFechaBaja;
     @Temporal(TemporalType.DATE)
-    @Column(name = "MEN_FECHA_CAMBIO")
+    @Column(name = "OPC_FECHA_CAMBIO")
     private Date menFechaCambio;
-    @Column(name = "MEN_FORMULARIO", nullable = false, length = 4000)
+    @Column(name = "OPC_FORMULARIO", nullable = false, length = 4000)
     private String menFormulario;
     @Id
-    @Column(name = "MEN_ID", nullable = false)
+    @Column(name = "OPC_ID", nullable = false)
     @GeneratedValue(generator = "generator")
     private int menId;
-    @Column(name = "MEN_NOMBRE", nullable = false, length = 4000)
+    @Column(name = "OPC_NOMBRE", nullable = false, length = 4000)
     private String menNombre;
-    @Column(name = "MEN_PADRE")
+    @Column(name = "OPC_PADRE")
     private int menPadre;
-    @Column(name = "MEN_TERMINAL", length = 20)
+    @Column(name = "OPC_TERMINAL", length = 20)
     private String menTerminal;
-    @Column(name = "MEN_USUARIO_ALTA", length = 20)
+    @Column(name = "OPC_USUARIO_ALTA", length = 20)
     private String menUsuarioAlta;
-    @Column(name = "MEN_USUARIO_BAJA", length = 20)
+    @Column(name = "OPC_USUARIO_BAJA", length = 20)
     private String menUsuarioBaja;
-    @Column(name = "MEN_USUARIO_CAMBIO", length = 20)
+    @Column(name = "OPC_USUARIO_CAMBIO", length = 20)
     private String menUsuarioCambio;
 
     public Men() {
