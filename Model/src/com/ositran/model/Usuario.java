@@ -5,15 +5,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -22,16 +17,19 @@ import org.hibernate.annotations.Parameter;
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_USUARIO"))
 
 public class Usuario implements Serializable {
-    private static final long serialVersionUID = -3837699421831960554L;
-    @Column(name = "CRG_ID")
-    private Integer crgId;
+    private static final long serialVersionUID = 4384387181132541472L;
+    
     @Column(name = "ROL_ID", nullable = false)
     private Integer rolId;
-    @Column(name = "USU_CONTRASENYA", nullable = false, length = 20)
+    @Column(name = "USU_ALIAS", nullable = false, length = 20)
+    private String usuAlias;
+    @Column(name = "USU_CONTRASENYA", nullable = false, length = 4000)
     private String usuContrasenya;
-    @Column(name = "USU_CORREO", nullable = false, length = 50)
+    @Column(name = "USU_CORREO", length = 20)
     private String usuCorreo;
-    @Column(name = "USU_ESEXTERNO", nullable = false)
+    @Column(name = "USU_DESCRIPCION", length = 100)
+    private String usuDescripcion;
+    @Column(name = "USU_ESEXTERNO")
     private Integer usuEsexterno;
     @Column(name = "USU_ESTADO", nullable = false)
     private Integer usuEstado;
@@ -45,15 +43,13 @@ public class Usuario implements Serializable {
     @Column(name = "USU_FECHA_CAMBIO")
     private Date usuFechaCambio;
     @Id
+    @Column(name = "USU_ID", nullable = false, length = 20)
     @GeneratedValue(generator = "generator")
-    @Column(name = "USU_ID", nullable = false)
     private Integer usuId;
     @Column(name = "USU_NOMBRE", nullable = false, length = 100)
     private String usuNombre;
     @Column(name = "USU_TERMINAL", length = 20)
     private String usuTerminal;
-    @Column(name = "USU_USUARIO", nullable = false, length = 20)
-    private String usuUsuario;
     @Column(name = "USU_USUARIO_ALTA", length = 20)
     private String usuUsuarioAlta;
     @Column(name = "USU_USUARIO_BAJA", length = 20)
@@ -64,14 +60,15 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer crgId, Integer rolId, String usuContrasenya, String usuCorreo, Integer usuEsexterno,
-                   Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId,
-                   String usuNombre, String usuTerminal, String usuUsuario, String usuUsuarioAlta,
+    public Usuario(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
+                   Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja,
+                   Date usuFechaCambio, Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta,
                    String usuUsuarioBaja, String usuUsuarioCambio) {
-        this.crgId = crgId;
         this.rolId = rolId;
+        this.usuAlias = usuAlias;
         this.usuContrasenya = usuContrasenya;
         this.usuCorreo = usuCorreo;
+        this.usuDescripcion = usuDescripcion;
         this.usuEsexterno = usuEsexterno;
         this.usuEstado = usuEstado;
         this.usuFechaAlta = usuFechaAlta;
@@ -80,18 +77,9 @@ public class Usuario implements Serializable {
         this.usuId = usuId;
         this.usuNombre = usuNombre;
         this.usuTerminal = usuTerminal;
-        this.usuUsuario = usuUsuario;
         this.usuUsuarioAlta = usuUsuarioAlta;
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
-    }
-
-    public Integer getCrgId() {
-        return crgId;
-    }
-
-    public void setCrgId(Integer crgId) {
-        this.crgId = crgId;
     }
 
     public Integer getRolId() {
@@ -102,6 +90,14 @@ public class Usuario implements Serializable {
         this.rolId = rolId;
     }
 
+    public String getUsuAlias() {
+        return usuAlias;
+    }
+
+    public void setUsuAlias(String usuAlias) {
+        this.usuAlias = usuAlias;
+    }
+
     public String getUsuContrasenya() {
         return usuContrasenya;
     }
@@ -110,13 +106,20 @@ public class Usuario implements Serializable {
         this.usuContrasenya = usuContrasenya;
     }
 
+    public String getUsuCorreo() {
+        return usuCorreo;
+    }
 
     public void setUsuCorreo(String usuCorreo) {
         this.usuCorreo = usuCorreo;
     }
 
-    public String getUsuCorreo() {
-        return usuCorreo;
+    public String getUsuDescripcion() {
+        return usuDescripcion;
+    }
+
+    public void setUsuDescripcion(String usuDescripcion) {
+        this.usuDescripcion = usuDescripcion;
     }
 
     public Integer getUsuEsexterno() {
@@ -159,12 +162,13 @@ public class Usuario implements Serializable {
         this.usuFechaCambio = usuFechaCambio;
     }
 
-    public Integer getUsuId() {
-        return usuId;
-    }
 
     public void setUsuId(Integer usuId) {
         this.usuId = usuId;
+    }
+
+    public Integer getUsuId() {
+        return usuId;
     }
 
     public String getUsuNombre() {
@@ -181,14 +185,6 @@ public class Usuario implements Serializable {
 
     public void setUsuTerminal(String usuTerminal) {
         this.usuTerminal = usuTerminal;
-    }
-
-    public String getUsuUsuario() {
-        return usuUsuario;
-    }
-
-    public void setUsuUsuario(String usuUsuario) {
-        this.usuUsuario = usuUsuario;
     }
 
     public String getUsuUsuarioAlta() {
