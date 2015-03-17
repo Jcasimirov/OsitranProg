@@ -56,13 +56,15 @@ public class Moneda implements Serializable {
     private String monUsuarioBaja;
     @Column(name = "MON_USUARIO_CAMBIO", length = 20)
     private String monUsuarioCambio;
+    @Column(name = "MON_ABREVIATURA", length = 3)
+    private String monAbreviatura;
 
     public Moneda() {
     }
 
     public Moneda(BigDecimal monEstado, Date monFechaAlta, Date monFechaBaja, Date monFechaCambio, BigDecimal monId,
                   String monNombre, String monSimbolo, String monTerminal, String monUsuarioAlta, String monUsuarioBaja,
-                  String monUsuarioCambio) {
+                  String monUsuarioCambio, String monAbreviatura) {
         this.monEstado = monEstado;
         this.monFechaAlta = monFechaAlta;
         this.monFechaBaja = monFechaBaja;
@@ -74,6 +76,7 @@ public class Moneda implements Serializable {
         this.monUsuarioAlta = monUsuarioAlta;
         this.monUsuarioBaja = monUsuarioBaja;
         this.monUsuarioCambio = monUsuarioCambio;
+        this.monAbreviatura = monAbreviatura;
     }
 
     public BigDecimal getMonEstado() {
@@ -158,5 +161,16 @@ public class Moneda implements Serializable {
 
     public void setMonUsuarioCambio(String monUsuarioCambio) {
         this.monUsuarioCambio = monUsuarioCambio;
+    }
+    public void setMonId(BigDecimal monId){
+        this.monId = monId;
+    }
+
+    public String getMonAbreviatura() {
+        return monAbreviatura;
+    }
+
+    public void setMonAbreviatura(String monAbreviatura) {
+        this.monAbreviatura = monAbreviatura;
     }
 }
