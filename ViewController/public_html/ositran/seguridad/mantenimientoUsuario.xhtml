@@ -139,7 +139,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Usuario"/>
                                                 </f:facet>
-                                                <h:outputText value="#{usu.usuUsuario}"/>
+                                                <h:outputText value="#{usu.usuAlias}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
@@ -159,12 +159,7 @@
                                                 </f:facet>
                                                 <h:outputText value="#{usu.rolId}"/>
                                             </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Cargo"/>
-                                                </f:facet>
-                                                <h:outputText value="#{usu.crgId}"/>
-                                            </p:column>
+                                        
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Tipo"/>
@@ -196,12 +191,12 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Activar"/>
                                                 </f:facet>
-                                                <center>
+                                                <div style="text-align: center;">
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-check"
                                                                      style="width:25px;height:25px"
                                                                      rendered="#{usu.usuEstado eq 2}"/>
-                                                </center>
+                                                </div>
                                             </p:column>
                                             <p:column width="8">
                                                 <f:facet name="header">
@@ -244,7 +239,7 @@
                                 #{etq.etq_usu}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuUsuario}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAlias}"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              onkeydown="return validarLetras(event)"/>
                                  
@@ -309,23 +304,6 @@
                          
                         <tr>
                             <td>
-                                #{etq.etq_cargo}
-                            </td>
-                            <td>
-                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.cargo}">
-                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
-                                    <f:selectItem itemLabel="Cargo 1" itemValue="1"/>
-                                    <f:selectItem itemLabel="Cargo 2" itemValue="2"/>
-                                    <f:selectItem itemLabel="Cargo 3" itemValue="3"/>
-                                    <f:selectItem itemLabel="Cargo 4" itemValue="4"/>
-                                </p:selectOneMenu>
-                                 
-                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td>
                                 #{etq.etq_est}
                             </td>
                             <td>
@@ -347,7 +325,7 @@
                         <tr>
                             <td>
                                 <p:commandButton value="#{btn.btn_guardar}" update=":form:tablaUSU :form:mensaje"
-                                                 action="#{mantenimientoUsuarioMB.guardarUsuario}" style="width:70px"/>
+                                                 action="#{mantenimientoUsuarioMB.guardarUsuario()}" style="width:70px"/>
                             </td>
                             <td>
                                 <p:commandButton value="#{btn.btn_salir}" oncomplete="agregarUsuario.hide()"/>
@@ -384,7 +362,7 @@
                                 #{etq.etq_usu}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuUsuarioE}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAliasE}"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
                                              onkeydown="return validarLetras(event)"/>
                             </td>
@@ -434,21 +412,7 @@
                             </td>
                         </tr>
                          
-                        <tr>
-                            <td>
-                                #{etq.etq_cargo}
-                            </td>
-                            <td>
-                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.cargoE}">
-                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
-                                    <f:selectItem itemLabel="Cargo 1" itemValue="1"/>
-                                    <f:selectItem itemLabel="Cargo 2" itemValue="2"/>
-                                    <f:selectItem itemLabel="Cargo 3" itemValue="3"/>
-                                    <f:selectItem itemLabel="Cargo 4" itemValue="4"/>
-                                </p:selectOneMenu>
-                            </td>
-                        </tr>
-                         
+                                                 
                         <tr>
                             <td>
                                 <h:inputHidden value="#{mantenimientoUsuarioMB.usuEstadoE}"/>
