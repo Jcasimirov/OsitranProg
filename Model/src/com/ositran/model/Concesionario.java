@@ -60,8 +60,6 @@ public class Concesionario implements Serializable {
     private String cncUsuarioBaja;
     @Column(name = "CNC_USUARIO_CAMBIO", length = 20)
     private String cncUsuarioCambio;
-    @Column(name = "CRG_ID")
-    private int crgId;
     @Column(name = "TDO_ID")
     private int tdoId;
 
@@ -89,7 +87,7 @@ public class Concesionario implements Serializable {
         this.cncUsuarioAlta = cncUsuarioAlta;
         this.cncUsuarioBaja = cncUsuarioBaja;
         this.cncUsuarioCambio = cncUsuarioCambio;
-        this.crgId = crgId;
+    
         this.tdoId = tdoId;
     }
 
@@ -219,14 +217,6 @@ public class Concesionario implements Serializable {
 
     public void setCncUsuarioCambio(String cncUsuarioCambio) {
         this.cncUsuarioCambio = cncUsuarioCambio;
-    }
-
-    public int getCrgId() {
-        return crgId;
-    }
-
-    public void setCrgId(int crgId) {
-        this.crgId = crgId;
     }
 
     public int getTdoId() {
