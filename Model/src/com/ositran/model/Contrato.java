@@ -93,7 +93,7 @@ public class Contrato implements Serializable {
         this.tivId = tivId;
         this.totalDeLaValorización = totalDeLaValorización;
         // mlorenzo
-        this.setAvanceObra(avanceObra);
+        this.avanceObra = avanceObra;
     }
 
 
