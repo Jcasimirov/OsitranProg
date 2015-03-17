@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ConcesionDAOImpl implements ConcesionDAO {
+   
     private JdbcTemplate jdbcTemplate;
-
     public void setDataSource(DataSource ds) {
         this.jdbcTemplate = new JdbcTemplate(ds);
     }
@@ -48,11 +48,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.beginTransaction();
         List list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by CSI_ID DESC ").list();
         session.getTransaction().commit();
-         /* Concesion con=new Concesion();
-        con=(Concesion)list.get(0);
-        System.out.println("Antes");
-        System.out.println(con.getInfraestructuraTipo().getTinNombre());
-        System.out.println("despues"); */
+
         
         return list;
     }
@@ -106,10 +102,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     }
 
     @Override
-    public String update(Concesion concesion) throws SQLException{
-        System.out.println("dao");
-        System.out.println(concesion.getCsiId());
-        
+    public String update(Concesion concesion) throws SQLException{    
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -127,9 +120,6 @@ public class ConcesionDAOImpl implements ConcesionDAO {
 
     @Override
     public String update2(Concesion concesion) throws SQLException{
-        System.out.println("dao");
-        System.out.println(concesion.getCsiId());
-        
         String result = null;
         Session session = sessionFactory.openSession();
         try {
@@ -153,9 +143,6 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Concesion concesion = (Concesion) session.get(Concesion.class, id);
-        System.out.println("////////////////////////////////////////");
-        System.out.println(concesion.getCsiNombre());
-        System.out.println(concesion.getCsiId());
         session.getTransaction().commit();
         return concesion;
     }
@@ -176,14 +163,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.close();
         return list;
     }
-   /* @Override
-         public Concesion get2(Integer id) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Concesion concesion = (Concesion) session.get(Concesion.class, id);
-        session.getTransaction().commit();
-        return concesion;
-    } */
+
 
    
 }
