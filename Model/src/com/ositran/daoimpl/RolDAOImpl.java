@@ -30,7 +30,7 @@ public class RolDAOImpl implements  RolDAO{
       @Override
     public List<Rol> query1(String filtro) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).add(Restrictions.like("menNombre","%" + filtro + "%")).list(); 
+        return session.createCriteria(Rol.class).add(Restrictions.eq("rolEstado",1)).add(Restrictions.like("rolNombre","%" + filtro + "%")).list(); 
     }
     
     @Override
