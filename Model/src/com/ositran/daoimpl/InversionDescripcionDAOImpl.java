@@ -27,12 +27,17 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         List list;
+        session.getTransaction();
+        session.beginTransaction();
         query=session.createQuery("FROM InversionTipoDescripcion  E WHERE  E.itdNombre like :nombre");
         query.setParameter("nombre",nombre );
         list= query.list();   
         cantidad=list.size();
+        session.getTransaction().commit();
         return cantidad;
     }
+    
+    
     @Override
     public String insert(InversionTipoDescripcion inversionTipoDes)  throws SQLException ,Exception{
         
