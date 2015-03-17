@@ -115,7 +115,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         conce.setCncUsuarioAlta(concesionario.getCncUsuarioAlta());
         conce.setCncUsuarioBaja(concesionario.getCncUsuarioBaja());
         conce.setCncUsuarioCambio(concesionario.getCncUsuarioCambio());
-        conce.setCrgId(concesionario.getCrgId());
+      
         conce.setTdoId(concesionario.getTdoId());        
         return conce;
     }
@@ -137,7 +137,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         concec.setCncUsuarioAlta(concesionarioVO.getCncUsuarioAlta());
         concec.setCncUsuarioBaja(concesionarioVO.getCncUsuarioBaja());
         concec.setCncUsuarioCambio(concesionarioVO.getCncUsuarioCambio());
-        concec.setCrgId(concesionarioVO.getCrgId());
+     
         concec.setTdoId(concesionarioVO.getTdoId());
         return concec;
     }
