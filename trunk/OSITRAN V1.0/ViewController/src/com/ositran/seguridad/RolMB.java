@@ -311,7 +311,7 @@ public void actualizarTodoE(){
         for(RolOpcionesVO rolOpciones1 : listaRolOpciones){
               String nombre="";
               MenVO menVO2=new MenVO();
-              menVO2.setCodigoRolOpciones(rolOpciones1.getRxoId());
+              
               menVO2.setMenId(rolOpciones1.getMenId());
               nombre =menServiceImpl.getNombre(rolOpciones1.getMenId());
               menVO2.setMenNombre(nombre);
@@ -364,9 +364,10 @@ public void actualizarTodoE(){
                 
                 RolOpcionesVO rolOpcionesVO = new RolOpcionesVO();
                 rolOpcionesVO.setRolId(idE);
-                rolOpcionesVO.setRxoId(menVO.getCodigoRolOpciones());
+                rolOpcionesVO.setDescripcion("Descripcion");
                 rolOpcionesVO.setMenId(menVO.getMenId());
                 rolOpcionesVO.setTroEstado(1);
+                rolOpcionesVO.setTroFechaAlta(new Date());
                 rolOpcionesVO.setTroAgregar((menVO.isCrear()) ? 1 : 0);
                 rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
                 rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
@@ -509,7 +510,7 @@ public void actualizarTodoE(){
     public void eliminarRol() {
         listaRolOpciones = rolOpcionesServiceImpl.query1(idE);
         for (RolOpcionesVO rolOpcionesVO : listaRolOpciones) {
-            rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRxoId());
+            rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRolId());
         }
         rolServiceImpl.delete(idE);
         FacesContext.getCurrentInstance().addMessage(null,
@@ -549,6 +550,8 @@ public void actualizarTodoE(){
                 rolOpcionesVO.setRolId(codigoRol);
                 rolOpcionesVO.setMenId(menVO.getMenId());
                 rolOpcionesVO.setTroEstado(1);
+                rolOpcionesVO.setDescripcion("Descripcion");
+                rolOpcionesVO.setTroFechaAlta(new Date());
                 rolOpcionesVO.setTroAgregar((menVO.isCrear()) ? 1 : 0);
                 rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
                 rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
