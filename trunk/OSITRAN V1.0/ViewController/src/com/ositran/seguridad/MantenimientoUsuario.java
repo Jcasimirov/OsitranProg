@@ -23,13 +23,15 @@ import javax.faces.context.FacesContext;
 
 import javax.swing.JOptionPane;
 
+import org.hibernate.sql.Alias;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "mantenimientoUsuarioMB")
 @RequestScoped
 
 public class MantenimientoUsuario {
-    private String usuUsuario;
+    private String usuAlias;
     private String usuCorreo;
     private String usuContrasenya;
     private String usuNombre;
@@ -102,11 +104,12 @@ public class MantenimientoUsuario {
         return codigoE;
     }
 
-    public void activarUsuario(UsuarioVO usuarioV) throws SQLException {
+    public void activarUsuario(UsuarioVO usuarioV) throws SQLException, Exception {
         try {
             usuarioVO = usuarioV;
-            codigoE = usuarioVO.getUsuId();
+            codigoE = usuarioVO.getUsuId(); 
             usuarioVO.setUsuId(codigoE);
+            System.out.println(codigoE +" codigo E para activar usuario");
             usuarioVO.setUsuEstado(1);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuFechaAlta(new Date());
@@ -119,11 +122,12 @@ public class MantenimientoUsuario {
         }
     }
 
-    public void desactivarUsuario(UsuarioVO usuarioV) throws SQLException {
+    public void desactivarUsuario(UsuarioVO usuarioV) throws SQLException, Exception {
         try {
             usuarioVO = usuarioV;
             codigoE = usuarioVO.getUsuId();
             usuarioVO.setUsuId(codigoE);
+            System.out.println(codigoE +" codigo E para desactivar usuario");
             usuarioVO.setUsuEstado(2);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuFechaBaja(new Date());
@@ -140,7 +144,6 @@ public class MantenimientoUsuario {
 
     /* Guardar */
     private int usuEsexterno;
-    private int cargo;
     private int rol;
     private Pattern pattern;
     private Matcher matcher;
@@ -151,14 +154,6 @@ public class MantenimientoUsuario {
 
     public int getUsuEsexterno() {
         return usuEsexterno;
-    }
-
-    public void setCargo(int cargo) {
-        this.cargo = cargo;
-    }
-
-    public int getCargo() {
-        return cargo;
     }
 
     public void setRol(int rol) {
@@ -190,31 +185,37 @@ public class MantenimientoUsuario {
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 
-    public void guardarUsuario() throws SQLException {
+    public void guardarUsuario()  {
 
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(usuCorreo);
 
-        if (usuEsexterno == 0 || usuUsuario.equals("") || usuContrasenya.equals("") || usuNombre.equals("") ||
-            rol == 0 || cargo == 0 || usuCorreo.equals("") || matcher.find() != true) {
+         if (usuEsexterno == 0 || usuAlias.equals("") || usuContrasenya.equals("") || usuNombre.equals("") ||
+            rol == 0 ||  usuCorreo.equals("") || matcher.find() != true) {
             System.out.println("llego aqui osea mal");
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No se Registro por problemas, try again"));
-        }
+        } 
 
-        else {
+           else  {
             try {
                 usuEsexterno = getUsuEsexterno();
                 rol = getRol();
-                cargo = getCargo();
+                System.out.println(rol + " -- lllllleggoooooo aqquuuuuuuuu1");
                 usuarioVO.setUsuEsexterno(usuEsexterno);
-                usuarioVO.setUsuUsuario(usuUsuario.toUpperCase());
+                System.out.println(usuEsexterno + " --lllllleggoooooo aqqyuuuuuuuuu2");
+                usuarioVO.setUsuAlias(usuAlias.toUpperCase());
+                System.out.println(usuAlias + "--lllllleggoooooo aqqyuuuuuuuuu3");
                 usuarioVO.setUsuContrasenya(usuContrasenya);
+                System.out.println(usuContrasenya + "--lllllleggoooooo aqqyuuuuuuuuu4");
                 usuarioVO.setUsuNombre(usuNombre.toUpperCase());
+                System.out.println(usuNombre + "--lllllleggoooooo aqqyuuuuuuuuu5");
                 usuarioVO.setUsuCorreo(usuCorreo);
+                System.out.println(usuCorreo + "--lllllleggoooooo aqqyuuuuuuuuu6");
                 usuarioVO.setRolId(rol);
-                usuarioVO.setCrgId(cargo);
+                System.out.println(rol + " -- lllllleggoooooo aqquuuuuuuuu7");
+                
                 usuarioVO.setUsuEstado(1);
                 usuarioVO.setUsuFechaAlta(util.getObtenerFechaHoy());
                 usuarioVO.setUsuTerminal(util.obtenerIpCliente());
@@ -224,29 +225,27 @@ public class MantenimientoUsuario {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                               "Se Registro con Exito"));
-            } catch (Exception e) {
-                // TODO: Add catch code
+            } catch (SQLException e) {
                 e.printStackTrace();
-            }
-        }
-
+        } 
+        
+           }
 
     }
     /* Fin Guardar */
 
     /*  -----Editar Usuario--------- */
     private int usuEsexternoE;
-    private int cargoE;
     private int rolE;
     private int codigoEE;
     private int usuEstadoE;
-    private String usuUsuarioE;
+    private String usuAliasE;
     private String usuContrasenyaE;
     private String usuNombreE;
     private String usuCorreoE;
 
 
-    public void cargarEditar() throws SQLException {
+    public void cargarEditar()  {
         try {
             //inicio de captura de codigo a modificar
             FacesContext context = FacesContext.getCurrentInstance();
@@ -256,21 +255,24 @@ public class MantenimientoUsuario {
             usuarioVO = usuarioServiceImpl.get(idcodigo);
             //fin de de captura de codigo a modificar
 
-
             codigoEE = usuarioVO.getUsuId();
             System.out.println(codigoEE);
             usuEsexternoE = usuarioVO.getUsuEsexterno();
-            cargoE = usuarioVO.getCrgId();
-            rolE = usuarioVO.getCrgId();
-            usuUsuarioE = usuarioVO.getUsuUsuario();
+            
+            rolE = usuarioVO.getRolId();
+            usuAliasE = usuarioVO.getUsuAlias();
             usuContrasenyaE = usuarioVO.getUsuContrasenya();
             usuNombreE = usuarioVO.getUsuNombre();
             usuCorreoE = usuarioVO.getUsuCorreo();
             usuEstadoE = usuarioVO.getUsuEstado();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // TODO: Add catch code
             e.printStackTrace();
-        }
+        } catch (Exception s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " error "));
+            }
 
     }
 
@@ -280,12 +282,12 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuId(codigoEE);
             System.out.println(codigoEE);
             usuarioVO.setUsuEsexterno(usuEsexternoE);
-            usuarioVO.setUsuUsuario(usuUsuarioE.toUpperCase());
+            usuarioVO.setUsuAlias(usuAliasE.toUpperCase());
             usuarioVO.setUsuContrasenya(usuContrasenyaE);
             usuarioVO.setUsuNombre(usuNombreE.toUpperCase());
             usuarioVO.setUsuCorreo(usuCorreoE);
             usuarioVO.setRolId(rolE);
-            usuarioVO.setCrgId(cargoE);
+            
             usuarioVO.setUsuEstado(usuEstadoE);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuTerminal(util.obtenerIpCliente());
@@ -294,10 +296,14 @@ public class MantenimientoUsuario {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           "Se Modifico con Exito"));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // TODO: Add catch code
             e.printStackTrace();
-        }
+        } catch (Exception s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " error "));
+            }
 
 
     }
@@ -412,13 +418,7 @@ public class MantenimientoUsuario {
         return usuEsexternoE;
     }
 
-    public void setCargoE(int cargoE) {
-        this.cargoE = cargoE;
-    }
 
-    public int getCargoE() {
-        return cargoE;
-    }
 
     public void setRolE(int rolE) {
         this.rolE = rolE;
@@ -428,12 +428,12 @@ public class MantenimientoUsuario {
         return rolE;
     }
 
-    public void setUsuUsuarioE(String usuUsuarioE) {
-        this.usuUsuarioE = usuUsuarioE;
+    public void setUsuAliasE(String usuAliasE) {
+        this.usuAliasE = usuAliasE;
     }
 
-    public String getUsuUsuarioE() {
-        return usuUsuarioE;
+    public String getUsuAliasE() {
+        return usuAliasE;
     }
 
     public void setUsuCorreoE(String usuCorreoE) {
@@ -461,12 +461,12 @@ public class MantenimientoUsuario {
     }
 
 
-    public void setUsuUsuario(String usuUsuario) {
-        this.usuUsuario = usuUsuario;
+    public void setUsuAlias(String usuAlias) {
+        this.usuAlias = usuAlias;
     }
 
-    public String getUsuUsuario() {
-        return usuUsuario;
+    public String getUsuAlias() {
+        return usuAlias;
     }
 
 
