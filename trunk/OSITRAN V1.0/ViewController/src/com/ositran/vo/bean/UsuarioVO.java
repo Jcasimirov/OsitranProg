@@ -2,6 +2,8 @@ package com.ositran.vo.bean;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,9 +15,11 @@ import javax.persistence.TemporalType;
 
 
 public class UsuarioVO{
-    private Integer crgId;
     private Integer rolId;
+    private String usuAlias;
     private String usuContrasenya;
+    private String usuCorreo;
+    private String usuDescripcion;
     private Integer usuEsexterno;
     private Integer usuEstado;
     private Date usuFechaAlta;
@@ -23,27 +27,24 @@ public class UsuarioVO{
     private Date usuFechaCambio;
     private Integer usuId;
     private String usuNombre;
-    private String usuCorreo;
     private String usuTerminal;
-    private String usuUsuario;
     private String usuUsuarioAlta;
     private String usuUsuarioBaja;
     private String usuUsuarioCambio;
-
     
-    public UsuarioVO() {
-        super();
-    }
+    public UsuarioVO(){
+        }
 
-
-    public UsuarioVO(Integer crgId, Integer rolId, String usuContrasenya, Integer usuEsexterno, Integer usuEstado,
-                     Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio, Integer usuId, String usuNombre,
-                     String usuCorreo, String usuTerminal, String usuUsuario, String usuUsuarioAlta, String usuUsuarioBaja,
+    public UsuarioVO(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
+                     Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio,
+                     Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
                      String usuUsuarioCambio) {
         super();
-        this.crgId = crgId;
         this.rolId = rolId;
+        this.usuAlias = usuAlias;
         this.usuContrasenya = usuContrasenya;
+        this.usuCorreo = usuCorreo;
+        this.usuDescripcion = usuDescripcion;
         this.usuEsexterno = usuEsexterno;
         this.usuEstado = usuEstado;
         this.usuFechaAlta = usuFechaAlta;
@@ -51,22 +52,12 @@ public class UsuarioVO{
         this.usuFechaCambio = usuFechaCambio;
         this.usuId = usuId;
         this.usuNombre = usuNombre;
-        this.usuCorreo = usuCorreo;
         this.usuTerminal = usuTerminal;
-        this.usuUsuario = usuUsuario;
         this.usuUsuarioAlta = usuUsuarioAlta;
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
 
-
-    public void setCrgId(Integer crgId) {
-        this.crgId = crgId;
-    }
-
-    public Integer getCrgId() {
-        return crgId;
-    }
 
     public void setRolId(Integer rolId) {
         this.rolId = rolId;
@@ -76,12 +67,36 @@ public class UsuarioVO{
         return rolId;
     }
 
+    public void setUsuAlias(String usuAlias) {
+        this.usuAlias = usuAlias;
+    }
+
+    public String getUsuAlias() {
+        return usuAlias;
+    }
+
     public void setUsuContrasenya(String usuContrasenya) {
         this.usuContrasenya = usuContrasenya;
     }
 
     public String getUsuContrasenya() {
         return usuContrasenya;
+    }
+
+    public void setUsuCorreo(String usuCorreo) {
+        this.usuCorreo = usuCorreo;
+    }
+
+    public String getUsuCorreo() {
+        return usuCorreo;
+    }
+
+    public void setUsuDescripcion(String usuDescripcion) {
+        this.usuDescripcion = usuDescripcion;
+    }
+
+    public String getUsuDescripcion() {
+        return usuDescripcion;
     }
 
     public void setUsuEsexterno(Integer usuEsexterno) {
@@ -140,29 +155,12 @@ public class UsuarioVO{
         return usuNombre;
     }
 
-
-    public void setUsuCorreo(String usuCorreo) {
-        this.usuCorreo = usuCorreo;
-    }
-
-    public String getUsuCorreo() {
-        return usuCorreo;
-    }
-
     public void setUsuTerminal(String usuTerminal) {
         this.usuTerminal = usuTerminal;
     }
 
     public String getUsuTerminal() {
         return usuTerminal;
-    }
-
-    public void setUsuUsuario(String usuUsuario) {
-        this.usuUsuario = usuUsuario;
-    }
-
-    public String getUsuUsuario() {
-        return usuUsuario;
     }
 
     public void setUsuUsuarioAlta(String usuUsuarioAlta) {
