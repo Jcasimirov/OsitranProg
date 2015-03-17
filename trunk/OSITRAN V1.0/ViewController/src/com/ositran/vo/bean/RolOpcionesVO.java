@@ -5,7 +5,6 @@ import java.util.Date;
 public class RolOpcionesVO {
     private int menId;
     private int rolId;
-    private int rxoId;
     private int troAgregar;
     private int troConsultar;
     private int troEliminar;
@@ -18,6 +17,7 @@ public class RolOpcionesVO {
     private String troUsuarioAlta;
     private String troUsuarioBaja;
     private String troUsuarioCambio;
+    private String descripcion;
 
     public RolOpcionesVO() {
     }
@@ -28,7 +28,7 @@ public class RolOpcionesVO {
                        String troUsuarioAlta, String troUsuarioBaja, String troUsuarioCambio) {
         this.menId = menId;
         this.rolId = rolId;
-        this.rxoId = rxoId;
+       
         this.troAgregar = troAgregar;
         this.troConsultar = troConsultar;
         this.troEliminar = troEliminar;
@@ -59,9 +59,7 @@ public class RolOpcionesVO {
         this.rolId = rolId;
     }
 
-    public int getRxoId() {
-        return rxoId;
-    }
+
 
     public int getTroAgregar() {
         return troAgregar;
@@ -159,9 +157,13 @@ public class RolOpcionesVO {
         this.troUsuarioCambio = troUsuarioCambio;
     }
 
-
-    public void setRxoId(int rxoId) {
-        this.rxoId = rxoId;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
 
 }
