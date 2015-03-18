@@ -36,8 +36,8 @@ public class EmpresaSupervisora implements Serializable {
     private Integer crgId;
     @Column(name = "SUP_CORREO", length = 20)
     private String supCorreo;
-    @Column(name = "SUP_DESCRIPCION", nullable = false, length = 100)
-    private String supDescripcion;
+    @Column(name = "SUP_SIGLAS", nullable = false, length = 100)
+    private String supSiglas;
     @Column(name = "SUP_DIRECCION", length = 20)
     private String supDireccion;
     @Column(name = "SUP_ESTADO", nullable = false)
@@ -77,14 +77,14 @@ public class EmpresaSupervisora implements Serializable {
     public EmpresaSupervisora() {
     }
 
-    public EmpresaSupervisora(Integer crgId, String supCorreo, String supDescripcion, String supDireccion,
+    public EmpresaSupervisora(Integer crgId, String supCorreo, String supSiglas, String supDireccion,
                               Integer supEstado, Date supFechaAlta, Date supFechaBaja, Date supFechaCambio,
                               Integer supId, String supNombre, String supNroDocumento, String supRepresentanteLegal,
                               String supTelefono, String supTerminal, String supUsuarioAlta, String supUsuarioBaja,
                               String supUsuarioCambio, Integer tdoId) {
         this.crgId = crgId;
         this.supCorreo = supCorreo;
-        this.supDescripcion = supDescripcion;
+        this.supSiglas = supSiglas;
         this.supDireccion = supDireccion;
         this.supEstado = supEstado;
         this.supFechaAlta = supFechaAlta;
@@ -119,12 +119,13 @@ public class EmpresaSupervisora implements Serializable {
         return supCorreo;
     }
 
-    public void setSupDescripcion(String supDescripcion) {
-        this.supDescripcion = supDescripcion;
+
+    public void setSupSiglas(String supSiglas) {
+        this.supSiglas = supSiglas;
     }
 
-    public String getSupDescripcion() {
-        return supDescripcion;
+    public String getSupSiglas() {
+        return supSiglas;
     }
 
     public void setSupDireccion(String supDireccion) {
