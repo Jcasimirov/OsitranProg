@@ -354,7 +354,7 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupNroDocumento(nroDoc);
                 empSupVO.setTdoId(tipoDocumento);
                 empSupVO.setSupCorreo(correo);
-                empSupVO.setSupDescripcion(siglasNom); 
+                empSupVO.setSupSiglas(siglasNom); 
                 empSupVO.setSupEstado(1);
                 empSupVO.setSupFechaAlta(util.getObtenerFechaHoy());
                 empSupVO.setSupTerminal(util.obtenerIpCliente());
@@ -512,7 +512,7 @@ public class MantenimientoEmpSup {
         telefonoMod = empSupVO.getSupTelefono();        
         nroDocMod = empSupVO.getSupNroDocumento();
         correoMod = empSupVO.getSupCorreo();
-        siglasNomMod = empSupVO.getSupDescripcion();
+        siglasNomMod = empSupVO.getSupSiglas();
         idMod = empSupVO.getSupId();
         estadoMod = empSupVO.getSupEstado();
         cargoMod = empSupVO.getCrgId();
@@ -583,7 +583,7 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupNroDocumento(nroDocMod);
                 empSupVO.setTdoId(tipoDocumentoMod);
                 empSupVO.setSupCorreo(correoMod);
-                empSupVO.setSupDescripcion(siglasNomMod); 
+                empSupVO.setSupSiglas(siglasNomMod); 
                 empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());
                 empSupVO.setSupTerminal(util.obtenerIpCliente());
                 empSupVO.setSupId(idMod);
@@ -705,7 +705,7 @@ public class MantenimientoEmpSup {
         telefonoVer = empSupVO.getSupTelefono();        
         nroDocVer = empSupVO.getSupNroDocumento();
         correoVer = empSupVO.getSupCorreo();
-        siglasNomVer = empSupVO.getSupDescripcion();
+        siglasNomVer = empSupVO.getSupSiglas();
         for (int i=0; i<listaTipoDocumento.size();i++){
             if(listaTipoDocumento.get(i).getTdoId() == empSupVO.getTdoId()){
                 tipoDocumentoVer = listaTipoDocumento.get(i).getTdoNombre();
