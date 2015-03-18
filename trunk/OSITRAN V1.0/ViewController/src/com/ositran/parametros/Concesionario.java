@@ -122,7 +122,6 @@ public class Concesionario {
                concesionarioVO.setCncNroDocumento(numeroDocumento);
                concesionarioVO.setCncRepresentanteLegal(representante);
                concesionarioVO.setCncTelefono(telefono);
-               concesionarioVO.setCrgId(codigoCargo);
                concesionarioVO.setTdoId(tipDocumento);
                concesionarioServiceImpl.insert(concesionarioVO);
                cargarListaConcesionarios();
@@ -167,7 +166,6 @@ public class Concesionario {
            direccionE = concesionarioVO.getCncDireccion();
            correoE = concesionarioVO.getCncCorreo();
            representanteE = concesionarioVO.getCncRepresentanteLegal();
-           codigoCargoE = concesionarioVO.getCrgId();   
        } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -233,7 +231,6 @@ public class Concesionario {
                 concesionarioVO.setCncNroDocumento(numeroDocumentoE);
                 concesionarioVO.setCncRepresentanteLegal(representanteE);
                 concesionarioVO.setCncTelefono(telefonoE);
-                concesionarioVO.setCrgId(codigoCargoE);
                 concesionarioVO.setTdoId(tipDocumentoE);
                 concesionarioServiceImpl.update(concesionarioVO);
                 cargarListaConcesionarios();
