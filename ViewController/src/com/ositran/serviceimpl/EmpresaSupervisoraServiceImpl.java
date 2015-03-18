@@ -103,7 +103,7 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         EmpresaSupervisoraVO empresaSupervisoraVO=new EmpresaSupervisoraVO();
         empresaSupervisoraVO.setCrgId(empresaSupervisora.getCrgId());
         empresaSupervisoraVO.setSupCorreo(empresaSupervisora.getSupCorreo());
-        empresaSupervisoraVO.setSupDescripcion(empresaSupervisora.getSupDescripcion());
+        empresaSupervisoraVO.setSupSiglas(empresaSupervisora.getSupSiglas());
         empresaSupervisoraVO.setSupDireccion(empresaSupervisora.getSupDireccion());
         empresaSupervisoraVO.setSupEstado(empresaSupervisora.getSupEstado());
         empresaSupervisoraVO.setSupFechaAlta(empresaSupervisora.getSupFechaAlta());
@@ -127,7 +127,7 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         EmpresaSupervisora empresaSupervisora=new EmpresaSupervisora();
         empresaSupervisora.setCrgId(empresaSupervisoraVO.getCrgId());
         empresaSupervisora.setSupCorreo(empresaSupervisoraVO.getSupCorreo());
-        empresaSupervisora.setSupDescripcion(empresaSupervisoraVO.getSupDescripcion());
+        empresaSupervisora.setSupSiglas(empresaSupervisoraVO.getSupSiglas());
         empresaSupervisora.setSupDireccion(empresaSupervisoraVO.getSupDireccion());
         empresaSupervisora.setSupEstado(empresaSupervisoraVO.getSupEstado());
         empresaSupervisora.setSupFechaAlta(empresaSupervisoraVO.getSupFechaAlta());
