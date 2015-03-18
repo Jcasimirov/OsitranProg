@@ -1,12 +1,17 @@
 package com.ositran.seguridad;
 
+import com.ositran.model.Rol;
+import com.ositran.service.RolService;
+import com.ositran.serviceimpl.RolServiceImpl;
 import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.RolVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -36,15 +41,27 @@ public class MantenimientoUsuario {
     private String usuContrasenya;
     private String usuNombre;
     private int usuEstado;
+    private List<RolVO> listaRoles=new ArrayList<>();
+    private List<RolVO> listaRoles1=new ArrayList<>();
+    private int codigoROl;
+    private int codigoROl2;
 
     @ManagedProperty(value = "#{usuarioVO}")
     private UsuarioVO usuarioVO;
+    
+    @ManagedProperty(value = "#{rolServiceImpl}")
+    RolService rolServiceImpl;
 
     @ManagedProperty(value = "#{usuarioServiceImpl}")
     private UsuarioServiceImpl usuarioServiceImpl;
 
-
-    /*  -----Listar--------- */
+    public void  listarRoles(){
+        listaRoles=rolServiceImpl.query();
+        }
+    public void  listarRoles2(){
+        listaRoles1=rolServiceImpl.query();
+        }
+    
 
     public void setUsuarioServiceImpl(UsuarioServiceImpl usuarioServiceImpl) {
         this.usuarioServiceImpl = usuarioServiceImpl;
@@ -191,35 +208,27 @@ public class MantenimientoUsuario {
         matcher = pattern.matcher(usuCorreo);
 
          if (usuEsexterno == 0 || usuAlias.equals("") || usuContrasenya.equals("") || usuNombre.equals("") ||
-            rol == 0 ||  usuCorreo.equals("") || matcher.find() != true) {
-            System.out.println("llego aqui osea mal");
+            codigoROl == 0 ||  usuCorreo.equals("") || matcher.find() != true) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No se Registro por problemas, try again"));
         } 
-
            else  {
             try {
                 usuEsexterno = getUsuEsexterno();
                 rol = getRol();
-                System.out.println(rol + " -- lllllleggoooooo aqquuuuuuuuu1");
                 usuarioVO.setUsuEsexterno(usuEsexterno);
-                System.out.println(usuEsexterno + " --lllllleggoooooo aqqyuuuuuuuuu2");
                 usuarioVO.setUsuAlias(usuAlias.toUpperCase());
-                System.out.println(usuAlias + "--lllllleggoooooo aqqyuuuuuuuuu3");
                 usuarioVO.setUsuContrasenya(usuContrasenya);
-                System.out.println(usuContrasenya + "--lllllleggoooooo aqqyuuuuuuuuu4");
                 usuarioVO.setUsuNombre(usuNombre.toUpperCase());
-                System.out.println(usuNombre + "--lllllleggoooooo aqqyuuuuuuuuu5");
                 usuarioVO.setUsuCorreo(usuCorreo);
-                System.out.println(usuCorreo + "--lllllleggoooooo aqqyuuuuuuuuu6");
-                usuarioVO.setRolId(rol);
-                System.out.println(rol + " -- lllllleggoooooo aqquuuuuuuuu7");
-                
+                usuarioVO.setRolId(codigoROl);              
                 usuarioVO.setUsuEstado(1);
                 usuarioVO.setUsuFechaAlta(util.getObtenerFechaHoy());
                 usuarioVO.setUsuTerminal(util.obtenerIpCliente());
+                System.out.println("antes del insetr");
                 getUsuarioServiceImpl().insert(usuarioVO);
+                
                 RequestContext.getCurrentInstance().execute("agregarUsuario.hide()");
                 ListarUsuario();
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -502,7 +511,46 @@ public class MantenimientoUsuario {
     public String getUsuCorreo() {
         return usuCorreo;
     }
-    
-    
 
+
+    public void setListaRoles(List<RolVO> listaRoles) {
+        this.listaRoles = listaRoles;
+    }
+
+    public List<RolVO> getListaRoles() {
+        return listaRoles;
+    }
+
+    public void setCodigoROl(int codigoROl) {
+        this.codigoROl = codigoROl;
+    }
+
+    public int getCodigoROl() {
+        return codigoROl;
+    }
+
+    public void setRolServiceImpl(RolService rolServiceImpl) {
+        this.rolServiceImpl = rolServiceImpl;
+    }
+
+    public RolService getRolServiceImpl() {
+        return rolServiceImpl;
+    }
+
+
+    public void setListaRoles1(List<RolVO> listaRoles1) {
+        this.listaRoles1 = listaRoles1;
+    }
+
+    public List<RolVO> getListaRoles1() {
+        return listaRoles1;
+    }
+
+    public void setCodigoROl2(int codigoROl2) {
+        this.codigoROl2 = codigoROl2;
+    }
+
+    public int getCodigoROl2() {
+        return codigoROl2;
+    }
 }
