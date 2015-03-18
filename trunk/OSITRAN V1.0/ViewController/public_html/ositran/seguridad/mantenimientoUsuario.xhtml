@@ -16,6 +16,9 @@
         </h:head>
         <h:body>
             <f:event listener="#{mantenimientoUsuarioMB.ListarUsuario}" type="postAddToView"></f:event>
+            <f:event listener="#{mantenimientoUsuarioMB.listarRoles}" type="postAddToView"></f:event>
+            <f:event listener="#{mantenimientoUsuarioMB.listarRoles2}" type="postAddToView"></f:event>
+            
              
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
@@ -84,12 +87,10 @@
                                                         #{etq.etq_rol}
                                                     </td>
                                                     <td>
-                                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.nomRolSearch}">
-                                                            <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                                            <f:selectItem itemLabel="Rol 1" itemValue="1"/>
-                                                            <f:selectItem itemLabel="Rol 2" itemValue="2"/>
-                                                            <f:selectItem itemLabel="Rol 3" itemValue="3"/>
-                                                            <f:selectItem itemLabel="Rol 4" itemValue="4"/>
+                                                        <p:selectOneMenu value="#{mantenimientoUsuarioMB.codigoROl2}">
+                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                             <f:selectItems value="#{mantenimientoUsuarioMB.listaRoles1}" var="tip1"
+                                                                    itemLabel="#{tip1.rolNombre}" itemValue="#{tip1.rolId}"/>
                                                         </p:selectOneMenu>
                                                     </td>
                                                     <td>
@@ -195,7 +196,7 @@
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-check"
                                                                      style="width:25px;height:25px"
-                                                                     rendered="#{usu.usuEstado eq 2}"/>
+                                                                     rendered="#{usu.usuEstado eq 2}"   />
                                                 </div>
                                             </p:column>
                                             <p:column width="8">
@@ -290,13 +291,11 @@
                                 #{etq.etq_rol}
                             </td>
                             <td>
-                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.rol}">
-                                    <f:selectItem itemLabel="Selecciona" itemValue="0"/>
-                                    <f:selectItem itemLabel="Rol 1" itemValue="1"/>
-                                    <f:selectItem itemLabel="Rol 2" itemValue="2"/>
-                                    <f:selectItem itemLabel="Rol 3" itemValue="3"/>
-                                    <f:selectItem itemLabel="Rol 4" itemValue="4"/>
-                                </p:selectOneMenu>
+                              <p:selectOneMenu value="#{mantenimientoUsuarioMB.codigoROl}">
+                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                             <f:selectItems value="#{mantenimientoUsuarioMB.listaRoles}" var="tip"
+                                                                    itemLabel="#{tip.rolNombre}" itemValue="#{tip.rolId}"/>
+                               </p:selectOneMenu>
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
