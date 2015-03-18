@@ -1,5 +1,6 @@
 package com.ositran.parametros;
 
+
 import com.ositran.model.Concesion;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
