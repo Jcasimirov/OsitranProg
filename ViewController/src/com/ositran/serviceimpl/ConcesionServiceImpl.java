@@ -15,6 +15,7 @@ import java.util.List;
 
 
 public class ConcesionServiceImpl implements ConcesionService{
+   
     private ConcesionDAOImpl concesionDAOImpl;
 
     public void setConcesionDAOImpl(ConcesionDAOImpl concesionDAOImpl) {
@@ -85,6 +86,7 @@ public class ConcesionServiceImpl implements ConcesionService{
 
     @Override
     public ConcesionVO get(Integer id) throws SQLException{
+        System.out.println("llego al services");
         Concesion concesion=this.concesionDAOImpl.get(id);
         ConcesionVO concesionVO=toConcesionVO(concesion);
         return concesionVO;
@@ -118,7 +120,7 @@ public class ConcesionServiceImpl implements ConcesionService{
        
         return concesionVO;
     }
-    private Concesion toConcesion(ConcesionVO concesionVO) throws SQLException{
+    public Concesion toConcesion(ConcesionVO concesionVO) throws SQLException{
         Concesion concesion=new Concesion();
      
         concesion.setCsiFechaAlta(concesionVO.getCsiFechaAlta());
