@@ -127,6 +127,11 @@
     <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl"/>
     <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
         <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
+
+    </bean>
+	<bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
+        <property name="usuarioVO" ref="usuarioVO"/>
+
     </bean>
     
     <!--Rol-->
