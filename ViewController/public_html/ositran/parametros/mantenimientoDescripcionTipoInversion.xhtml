@@ -125,7 +125,7 @@
                                 <p:selectOneMenu value="#{descripcionInversionMB.codigoInversion}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
-                                                   itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
+                                                   itemLabel="#{tip.rolNombre}" itemValue="#{tip.rolId}"/>
                                 </p:selectOneMenu>
                                   <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
