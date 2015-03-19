@@ -11,7 +11,8 @@ public interface RolOpcionesService {
     public String insertOrUpdate(RolOpcionesVO rolOpcionesVO);
     public String delete(Integer id);
     public String update(RolOpciones rolOpciones);
-    public RolOpciones get(Integer id);
+    public RolOpcionesVO get(Integer id);
     public List<RolOpcionesVO> query1(Integer codigoRol);
-    public void updateEstado(int codigo);
+    public void updateEstado(int codigoRol,int CodigoMen);
+    
 }
