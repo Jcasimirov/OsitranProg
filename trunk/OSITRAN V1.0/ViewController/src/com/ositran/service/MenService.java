@@ -12,6 +12,7 @@ public interface MenService {
     public String update(MenVO menVO);
     public MenVO get(Integer id);
     public String getNombre(Integer codigo);
+    public int getPadre(Integer codigo);
         
    
 }
