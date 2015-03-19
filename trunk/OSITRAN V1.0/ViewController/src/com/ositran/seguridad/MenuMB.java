@@ -51,7 +51,6 @@ public class MenuMB {
             HttpSession session = httpServletRequest.getSession();
             listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
             listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
-            
             //primer submenu
             Submenu primersubmenu = new Submenu();  
             primersubmenu.setLabel("Parametros "); 
@@ -60,7 +59,7 @@ public class MenuMB {
                 if (menVO.getMenPadre()==1){
                 MenuItem item= new MenuItem();
                 item.setValue(menVO.getMenNombre());
-                item.setUrl(menVO.getMenFormulario());
+                item.setUrl(menVO.getMenUrl());
                  primersubmenu.getChildren().add(item);
                  }
                 }
@@ -74,7 +73,7 @@ public class MenuMB {
                 if (menVO.getMenPadre()==2){
                 MenuItem item= new MenuItem();
                 item.setValue(menVO.getMenNombre());
-                item.setUrl(menVO.getMenFormulario());
+                item.setUrl(menVO.getMenUrl());
                  segundoSubmenu.getChildren().add(item);
                  }
                 }
