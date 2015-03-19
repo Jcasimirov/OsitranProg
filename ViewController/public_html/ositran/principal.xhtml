@@ -5,10 +5,12 @@
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head></h:head>
         <h:body>
-                <ui:include src="/ositran/util/menu.xhtml"/>
+                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <div align="center">
                 <p:galleria  value="#{backing_ositran_principal.imagenes}" var="image">
                     <img src="../images/#{image}" height="100%" width="100%" alt="imagen#{imagen}" title="#{image}"/>
                 </p:galleria>
+                </div>
         </h:body>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_principal-->
