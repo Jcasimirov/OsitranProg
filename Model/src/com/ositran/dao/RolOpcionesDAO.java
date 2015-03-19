@@ -14,5 +14,5 @@ public interface RolOpcionesDAO {
         public String update(RolOpciones rolOpciones);
         public RolOpciones get(Integer id);
          public List<RolOpciones> query1(Integer codigoRol);
-    public void updateEstado(int codigo);
+    public void updateEstado(int codigoRol,int codigoMen);
 }
