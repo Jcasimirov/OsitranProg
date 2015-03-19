@@ -17,6 +17,7 @@ public class MenVO {
     private String menUsuarioAlta;
     private String menUsuarioBaja;
     private String menUsuarioCambio;
+    private String menUrl;
     private int contador;
     //*************************************************
     private boolean crear;
@@ -212,5 +213,14 @@ public class MenVO {
 
     public int getContador() {
         return contador;
+    }
+
+
+    public void setMenUrl(String menUrl) {
+        this.menUrl = menUrl;
+    }
+
+    public String getMenUrl() {
+        return menUrl;
     }
 }
