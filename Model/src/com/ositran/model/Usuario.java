@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,7 +19,6 @@ import org.hibernate.annotations.Parameter;
 
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 4384387181132541472L;
-    
     @Column(name = "ROL_ID", nullable = false)
     private Integer rolId;
     @Column(name = "USU_ALIAS", nullable = false, length = 20)
@@ -210,4 +210,6 @@ public class Usuario implements Serializable {
     public void setUsuUsuarioCambio(String usuUsuarioCambio) {
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
+    
+    
 }
