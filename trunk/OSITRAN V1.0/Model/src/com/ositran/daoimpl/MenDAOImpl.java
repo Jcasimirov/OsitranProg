@@ -21,6 +21,20 @@ public class MenDAOImpl implements MenDAO{
         super();
     }
     
+    
+    @Override
+    public int getPadre(Integer codigo) {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM Men  E WHERE E.menId= :codigo");
+        query.setParameter("codigo",codigo );
+        list= query.list();  
+        men=(Men)list.get(0);
+        int codigoP =men.getMenPadre();
+        return codigoP;
+    }
+    
     @Override
     public String getNombre(Integer codigo) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -94,5 +108,5 @@ public class MenDAOImpl implements MenDAO{
     }
 
 
-   
+    
 }
