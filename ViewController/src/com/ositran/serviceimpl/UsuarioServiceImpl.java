@@ -13,8 +13,13 @@ public class UsuarioServiceImpl implements UsuarioService{
    
     @Override
     public List<UsuarioVO> query() throws SQLException{
+       
         List<Usuario> list = usuarioDAOImpl.query();
+        
+
         List<UsuarioVO> listVO = toListUsuariosVO(list);
+        
+
         return listVO;
     }
 
