@@ -13,4 +13,5 @@ public interface MenDAO {
         public String update(Men men);
         public Men get(Integer id);
         public String getNombre(Integer codigo);
+        public int getPadre(Integer codigo);
 }
