@@ -97,6 +97,7 @@ public class MenServiceImpl implements  MenService{
        menVO1.setMenUsuarioAlta(men.getMenUsuarioAlta());
        menVO1.setMenUsuarioBaja(men.getMenUsuarioBaja());
        menVO1.setMenUsuarioCambio(men.getMenUsuarioCambio());
+       menVO1.setMenUrl(men.getMenUrl());
         return menVO1;
     }
     private Men toTipoInversion(MenVO menVO1)  {
@@ -114,6 +115,7 @@ public class MenServiceImpl implements  MenService{
        men1.setMenUsuarioAlta(menVO1.getMenUsuarioAlta());
        men1.setMenUsuarioBaja(menVO1.getMenUsuarioBaja());
        men1.setMenUsuarioCambio(menVO1.getMenUsuarioCambio());
+       men1.setMenUrl(menVO1.getMenUrl());
         return men1;
     }
 
