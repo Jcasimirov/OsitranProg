@@ -52,6 +52,8 @@ public class Men implements Serializable {
     private String menUsuarioBaja;
     @Column(name = "OPC_USUARIO_CAMBIO", length = 20)
     private String menUsuarioCambio;
+    @Column(name = "OPC_URL", length = 2000)
+    private String menUrl;
 
     public Men() {
     }
@@ -178,4 +180,13 @@ public class Men implements Serializable {
     public String getMenUsuarioCambio() {
         return menUsuarioCambio;
     }
+
+    public void setMenUrl(String menUrl) {
+        this.menUrl = menUrl;
+    }
+
+    public String getMenUrl() {
+        return menUrl;
+    }
+
 }
