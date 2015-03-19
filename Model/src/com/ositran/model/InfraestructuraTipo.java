@@ -27,7 +27,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA_TIPO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURATIPO"))
 
 public class InfraestructuraTipo {
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
