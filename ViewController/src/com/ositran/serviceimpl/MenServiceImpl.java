@@ -34,6 +34,12 @@ public class MenServiceImpl implements  MenService{
     }
     
     @Override
+    public int getPadre(Integer codigo) {
+        int codigoP=menDAOImpl.getPadre(codigo);
+        return codigoP;
+    }
+    
+    @Override
     public String getNombre(Integer codigo) {
         String nombre=menDAOImpl.getNombre(codigo);
         return nombre;
@@ -136,5 +142,5 @@ public class MenServiceImpl implements  MenService{
     }
 
 
-  
+   
 }
