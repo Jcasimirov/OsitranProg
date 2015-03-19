@@ -510,7 +510,7 @@ public void actualizarTodoE(){
     public void eliminarRol() {
         listaRolOpciones = rolOpcionesServiceImpl.query1(idE);
         for (RolOpcionesVO rolOpcionesVO : listaRolOpciones) {
-            rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRolId());
+            rolOpcionesServiceImpl.updateEstado(rolOpcionesVO.getRolId(),rolOpcionesVO.getMenId());
         }
         rolServiceImpl.delete(idE);
         FacesContext.getCurrentInstance().addMessage(null,
