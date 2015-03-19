@@ -1,6 +1,7 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.RolOpcionesDAO;
+import com.ositran.model.InversionTipo;
 import com.ositran.model.RolOpciones;
 import com.ositran.util.HibernateUtil;
 
@@ -27,12 +28,13 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
     }
 
     @Override
-    public void updateEstado(int codigo) {
+    public void updateEstado(int codigoRol,int codigoMen) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.getTransaction().begin();
         Query query;
-        query=session.createQuery("update RolOpciones E set E.troEstado = 0 WHERE  E.rxoId= :codigo");
-        query.setParameter("codigo",codigo );
+        query=session.createQuery("update RolOpciones E set E.troEstado = 0 WHERE  E.menId= :codigoM and E.rolId= :codigoR" );
+        query.setParameter("codigoR",codigoRol );
+        query.setParameter("codigoM",codigoMen );
         query.executeUpdate();
         session.getTransaction().commit();
     }
@@ -93,8 +95,9 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
 
     @Override
     public RolOpciones get(Integer id) {
-        // TODO Implement this method
-        return null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        rolOpciones = (RolOpciones) session.get(InversionTipo.class, id);
+        return rolOpciones;
     }
     
     public void setRolOpciones(RolOpciones rolOpciones) {
