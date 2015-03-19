@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
        xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -21,24 +20,12 @@
     <bean id="rolOpciones" class="com.ositran.model.RolOpciones" />
     <bean id="concesionVO" class="com.ositran.vo.bean.ConcesionVO" />
     <bean id="concesion" class="com.ositran.model.Concesion" />
-     <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
+    <bean id="infraestructuraTipo" class="com.ositran.model.InfraestructuraTipo" />
+    <bean id="infraestructuraTipoVO" class="com.ositran.vo.bean.InfraestructuraTipoVO" />
+    <bean id="usuario" class="com.ositran.model.Usuario" />
+    <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO" />
+    <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
     <bean id="infraestructura" class="com.ositran.model.Infraestructura" />
-    <!--Concesion e Infraestructura-->
-    <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
-    <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
-        <property name="infraestructuraDAOImpl" ref="infraestructuraDAOImpl"/>
-    </bean>
-    <bean id="concesionDAOImpl" class="com.ositran.daoimpl.ConcesionDAOImpl"/>
-    <bean id="concesionServicesImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
-        <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
-    </bean>
-    <bean id="mantenimientoConcesion" class="com.ositran.parametros.MantenimientoConcesion">
-        <property name="concesionServicesImpl" ref="concesionServicesImpl"/>
-        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
-        <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
-        <property name="concesionVO" ref="concesionVO"/>
-        <property name="infraestructuraVO" ref="infraestructuraVO"/>
-    </bean>
     
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
@@ -55,14 +42,7 @@
         <property name="cargoServiceImp" ref="cargoServiceImp"/>
         <property name="concesionarioVO" ref="concesionarioVO"/>
     </bean>
-    <!--Igv-->
-    <bean id="igvDAOImpl" class="com.ositran.daoimpl.IgvDAOImpl"/>
-    <bean id="igvServiceImpl" class="com.ositran.serviceimpl.IgvServiceImpl">
-        <property name="igvDAOImpl" ref="igvDAOImpl"/>
-    </bean>
-    <bean id="mantenimientoIgv" class="com.ositran.parametros.MantenimientoIgv">
-        <property name="igvServiceImpl" ref="igvServiceImpl"/>
-    </bean>
+ 
     <!--Empresa supervisora-->
     <bean id="cargoDAOImpl" class="com.ositran.daoimpl.CargoDAOImpl"/>
     <bean id="cargoServiceImp" class="com.ositran.serviceimpl.CargoServiceImpl">
@@ -108,11 +88,21 @@
     <bean id="mantenimientoTipoInversion" class="com.ositran.parametros.TipoInversion">
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
     </bean>
+    
     <!--Tipo de infraestructura-->
-    <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl"/>
-    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
-        <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
+    <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl">
+		<property name="infraestructuraTipo" ref="infraestructuraTipo"/>
     </bean>
+	<bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
+        <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
+        <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
+        <property name="infraestructuraTipo" ref="infraestructuraTipo"/>
+    </bean>
+	<bean id="mantenimientoInfraestructuraTipo" class="com.ositran.parametros.MantenimientoTipoInfraestructura">
+        <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
+    </bean>
+    
+   
     <!--Modalidad de Concesion-->
     <bean id="modalidadVO" class="com.ositran.vo.bean.ModalidadConcesionVO"></bean>
     <bean id="modalidadConcesionDAOImpl" class="com.ositran.daoimpl.ModalidadConcesionDAOImpl"/>
@@ -121,18 +111,23 @@
     </bean>
     <bean id="mantenimientoModalidadConcesion" class="com.ositran.parametros.MantenimientoModalidadConcesion">
         <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+        
     </bean>
     <!--S E G U R I D A D-->
     <!--Usuario-->
-    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl"/>
-    <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
+    <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl">
+		<property name="usuario" ref="usuario"/>
+    </bean>
+	<bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
         <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
-
+        
     </bean>
 	<bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
         <property name="usuarioVO" ref="usuarioVO"/>
-
+        <property name="rolServiceImpl" ref="rolServiceImpl"/>
+       
     </bean>
+    
     
     <!--Rol-->
     <bean id="rolDAOImpl" class="com.ositran.daoimpl.RolDAOImpl">
@@ -162,9 +157,13 @@
         <property name="men" ref="men"/>
         <property name="menVO" ref="menVO"/>
     </bean>
+	<bean id="opcionesSistema" class="com.ositran.seguridad.OpcionesSistemaMB">
+        <property name="menServiceImpl" ref="menServiceImpl"/>
+        <property name="menVO" ref="menVO"/>
+    </bean>
   
 
-<!--Menu-->
+<!--Rol Opciones-->
     <bean id="rolOpcionesDAOImpl" class="com.ositran.daoimpl.RolOpcionesDAOImpl">
             <property name="rolOpciones" ref="rolOpciones"/>
     </bean>
@@ -173,5 +172,18 @@
         <property name="rolOpciones" ref="rolOpciones"/>
         <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
     </bean>
+    
+<!--Logueo-->
+    <bean id="logueoMB" class="com.ositran.Logueo">
+        <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
+        <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
+        
+    </bean>
+    
+    <!--Menu-->
+    <bean id="menuMB" class="com.ositran.seguridad.MenuMB">
+            
+    </bean>
+
     
 </beans>
