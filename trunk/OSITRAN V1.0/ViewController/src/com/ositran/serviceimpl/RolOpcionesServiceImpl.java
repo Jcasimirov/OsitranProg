@@ -30,8 +30,8 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
 
     @Override
-    public void updateEstado(int codigo) {
-        rolOpcionesDAOImpl.updateEstado(codigo);
+    public void updateEstado(int codigoROl,int codigoMen) {
+        rolOpcionesDAOImpl.updateEstado(codigoROl,codigoMen);
     }
     
     @Override
@@ -67,9 +67,10 @@ public class RolOpcionesServiceImpl implements RolOpcionesService{
     }
 
     @Override
-    public RolOpciones get(Integer id) {
-        // TODO Implement this method
-        return null;
+    public RolOpcionesVO get(Integer id) {
+        rolOpciones =rolOpcionesDAOImpl.get(id);
+        rolOpcionesVO=toRolOpcionesVO(rolOpciones);
+        return rolOpcionesVO;
     }
     
     //Convesiones *********************************************
