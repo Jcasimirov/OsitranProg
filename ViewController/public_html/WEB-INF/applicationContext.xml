@@ -173,9 +173,19 @@
         <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
     </bean>
     
-
-            
-   
+<!--Logueo-->
+    <bean id="logueoMB" class="com.ositran.Logueo">
+        <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
+        <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
+ 
+    </bean>
+    <!--Menu-->
+    <bean id="menuMB" class="com.ositran.seguridad.MenuMB">
+            <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
+            <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
+            <property name="menServiceImpl" ref="menServiceImpl"/>
+            <property name="menVO" ref="menVO"/>
 
     
+    </bean>
 </beans>
