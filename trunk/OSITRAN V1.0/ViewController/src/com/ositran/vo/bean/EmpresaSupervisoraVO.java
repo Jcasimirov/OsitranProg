@@ -8,7 +8,7 @@ public class EmpresaSupervisoraVO {
     
     private Integer crgId;   
     private String supCorreo;    
-    private String supDescripcion;    
+    private String supSiglas;    
     private String supDireccion;    
     private Integer supEstado;   
     private Date supFechaAlta;    
@@ -51,12 +51,13 @@ public class EmpresaSupervisoraVO {
         return supCorreo;
     }
 
-    public void setSupDescripcion(String supDescripcion) {
-        this.supDescripcion = supDescripcion;
+
+    public void setSupSiglas(String supSiglas) {
+        this.supSiglas = supSiglas;
     }
 
-    public String getSupDescripcion() {
-        return supDescripcion;
+    public String getSupSiglas() {
+        return supSiglas;
     }
 
     public void setSupDireccion(String supDireccion) {
