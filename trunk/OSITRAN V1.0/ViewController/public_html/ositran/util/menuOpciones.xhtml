@@ -22,9 +22,18 @@
             <h:form id="form">  
              
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
-                <img src="../../images/logo.png" width="249" height="56"/>
+                <table width="90%" align="center">
+                    <tr>
+                    <td align="left" style="width:55%"><p:menubar model="#{menuMB.model}"  /></td>
+                    <td align="right" ><img src="../../images/logoOsitran.jpg" height="100" width="220"/></td>
+                    
+                    
+                        
+                    </tr>
+                </table>
                 
-                <p:menubar model="#{menuMB.model}"    />
+                
+                
                 <div align="center">
                     <script type="text/javascript"> $(function(){ $(".homeLink a:first").attr('href', "#{request.contextPath}/faces/ositran/principal.xhtml"); }); </script>
                 </div>
