@@ -253,8 +253,8 @@
                                 #{etq.etq_pas}
                             </td>
                             <td>
-                                <p:password style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenya}"/>
-                                 
+                                <p:password style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenya}"
+                                            onkeyup="pasarMayuscula(this.value,this.id)"/>
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
                         </tr>
