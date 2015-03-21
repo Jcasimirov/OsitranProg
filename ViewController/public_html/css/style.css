@@ -51,3 +51,46 @@
     height :20px;
    
 }
+
+ .fielsetinterno .ui-fieldset-legend {
+				font-weight:bold;
+				border-top:none;
+				font-weight:bold;
+				border-left:none;
+				border-right:none;
+				border-bottom:none;
+				background:transparent;
+				color: black;
+				color: #333333; 
+				font-size: 13px;
+	}
+        
+
+.ui.menubar .ui-widget-header  {
+
+
+}
+.ui-menubar .ui-menuitem {  
+
+}
+
+.ui-menubar .ui-menuitem-text {
+   font-size: 11px;
+    color: Black;
+    font-weight: bold;
+    
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem {
+    background-image: none;
+    border-bottom-color: blue; 
+    background: #b5b5b5  !important; 
+    font-size: 11px;
+    color: #2121ff;
+    font-weight: bold;
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem .ui-menuitem-text  { 
+    font-size: 10px;
+    
+}
