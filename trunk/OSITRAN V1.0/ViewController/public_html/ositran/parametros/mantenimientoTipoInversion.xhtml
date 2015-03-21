@@ -18,6 +18,7 @@
             </script>
         </h:head>
         <h:body>
+            <f:event listener="#{tipoInversionMB.validarSesion()}" type="postAddToView"></f:event>
             <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
              
             <h:form id="form">
@@ -25,7 +26,7 @@
                 <p:messages autoUpdate="true"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <h4 class="titulo">
                                 #{msg.titulo_MANTTIPINV}
@@ -59,7 +60,7 @@
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                             </td>
                                             <td align="right">
-                                                <p:commandButton actionListener="#{tipoInversionMB.limpiar}"
+                                                <p:commandButton  rendered="#{tipoInversionMB.ingresarSesion eq 1}" actionListener="#{tipoInversionMB.limpiar}"
                                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
                                                                  value=" Nueva Inversion" update=":form:registrar"
@@ -88,9 +89,11 @@
                                     <p:column headerText="Descripción" style="width:45%">
                                         <h:outputText value="#{inversion.tivDescripcion}"/>
                                     </p:column>
-                                    <p:column headerText="Editar" style="width:4%">
+                                    <p:column  rendered="#{tipoInversionMB.actualizarSesion eq 1}"  headerText="Editar" style="width:4%">
                                         <div align="center">
-                                            <p:commandButton update=":form:editarPanel :form:nombreAntiguo"
+                                            <p:commandButton
+                                            
+                                            update=":form:editarPanel :form:nombreAntiguo"
                                                              actionListener="#{tipoInversionMB.cargarEditar}"
                                                              oncomplete="editarPanel.show()" image="ui-icon-document"
                                                              style="width:22px;height:22px">
@@ -99,9 +102,11 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eliminar" style="width:4%">
+                                    <p:column   rendered="#{tipoInversionMB.eliminarSesion eq 1}"  headerText="Eliminar" style="width:4%">
                                         <div align="center">
-                                            <p:commandButton update=":form:confirEliminar :form:codEliminar"
+                                            <p:commandButton 
+                                           
+                                            update=":form:confirEliminar :form:codEliminar"
                                                              actionListener="#{tipoInversionMB.cargarEliminar(inversion.tivId,inversion.tivNombre)}"
                                                              oncomplete="confirEliminar.show()"
                                                              image="ui-icon-closethick" style="width:22px;height:22px"/>
