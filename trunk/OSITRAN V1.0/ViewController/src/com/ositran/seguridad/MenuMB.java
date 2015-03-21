@@ -53,7 +53,7 @@ public class MenuMB {
             listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
             //primer submenu
             Submenu primersubmenu = new Submenu();  
-            primersubmenu.setLabel("Parametros "); 
+            primersubmenu.setLabel("PARAMETROS "); 
             for (int i=0;i<listaRolOpciones.size();i++){ 
                  menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
                 if (menVO.getMenPadre()==1){
@@ -67,7 +67,7 @@ public class MenuMB {
            
             //segundo submenu
             Submenu segundoSubmenu = new Submenu();           
-            segundoSubmenu.setLabel("Seguridad ");  
+            segundoSubmenu.setLabel("SEGURIDAD ");  
             for (int i=0;i<listaRolOpciones.size();i++){ 
                  menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
                 if (menVO.getMenPadre()==2){
@@ -80,16 +80,16 @@ public class MenuMB {
                     
             //tercero submenu
             Submenu tercerSubmenu = new Submenu();           
-            tercerSubmenu.setLabel("Contrato ");  
+            tercerSubmenu.setLabel("CONTRATO ");  
             
             
             //cuarto submenu
             Submenu cuartoSubmenu = new Submenu();           
-            cuartoSubmenu.setLabel("Reporte ");  
+            cuartoSubmenu.setLabel("REPORTE ");  
             
             //quinto submenu
             Submenu quintoSubmenu = new Submenu();           
-            quintoSubmenu.setLabel("Valorizaciones ");  
+            quintoSubmenu.setLabel("VALORIZACIONES ");  
 
             model.addSubmenu(primersubmenu);
             model.addSubmenu(segundoSubmenu);
