@@ -9,6 +9,7 @@ import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.util.Util;
 
 import java.sql.SQLException;
 
@@ -37,6 +38,7 @@ import org.primefaces.context.RequestContext;
 public class MantenimientoConcesion {
 
     int contador = 0;
+    private int codigoT;
     private int codigoE;
     private String nombreE;
     private String nombre;
@@ -60,8 +62,9 @@ public class MantenimientoConcesion {
     List<InfraestructuraVO> lis;
     private List<String> listaInfra = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
+    private String nombreTipoInfra;
 
-
+    Util util = new Util();
     List<String> listaAgregarInfra = new ArrayList<>();
     List<String> listaQuitarInfra = new ArrayList<>();
 
@@ -82,8 +85,7 @@ public class MantenimientoConcesion {
 
 
     public void guardar() {
-        System.out.println("ANtessssss");
-        System.out.println(codigoTipoInfraestructuraInsert);
+
         if (codigoTipoInfraestructuraInsert == 0) {
             FacesMessage mensaje =
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado tipo de infraestructura");
@@ -96,24 +98,22 @@ public class MantenimientoConcesion {
                 int codigogenerado = 0;
 
                 //inicio de la carga para foreing key
-                InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
-                infraestructuraTipo1.setTinId(codigoTipoInfraestructuraInsert);
-                concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
+
+
+                concesionVO.setTinId(codigoTipoInfraestructuraInsert);
                 //finalización de la carga para foreing key
                 concesionVO.setCsiNombre(nombre);
                 concesionVO.setCsiEstado(1);
                 concesionVO.setCsiFechaAlta(new Date());
                 concesionVO.setCsiUsuarioAlta(obtenerIpCliente());
                 codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
-                System.out.println("codigo generado--------------");
+                System.out.println("************************************");
                 System.out.println(codigogenerado);
 
+
                 for (InfraestructuraVO infraestructuraVO : infraestructuras) {
-                    //inicio captura fk concesion para infraestructura
-                    Concesion con = new Concesion();
-                    con.setCsiId(codigogenerado);
-                    infraestructuraVO.setConcesion(con);
-                    //fin captura fk
+                    infraestructuraVO.setTinId(codigoTipoInfraestructuraInsert);
+                    infraestructuraVO.setCsiId(codigogenerado);
                     infraestructuraVO.setInfNombre(infraestructuraVO.getInfNombre());
                     infraestructuraVO.setInfUsuarioAlta(obtenerIpCliente());
                     infraestructuraVO.setInfFechaAlta(new Date());
@@ -127,12 +127,13 @@ public class MantenimientoConcesion {
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                 infraestructuras.clear();
 
-                RequestContext.getCurrentInstance().execute("window.location.reload()");
+               
 
 
                 listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
 
-
+                listarInfraestructuras();
+                RequestContext.getCurrentInstance().execute("window.location.reload()");
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
@@ -151,7 +152,8 @@ public class MantenimientoConcesion {
 
 
     public void cargarEditar() throws SQLException {
-
+        try{
+            System.out.println("entro cargarEditar()");
         //inicio de captura de codigo a modificar
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestMap = context.getExternalContext().getRequestParameterMap();
@@ -160,17 +162,18 @@ public class MantenimientoConcesion {
         concesionVO =
             concesionServicesImpl.get(idcodigo); //OJO IMPORTANTE AQUI ES DONDE TIENE CARGADO EL VO DE TODOS LOS OBJETOS
         //fin de de captura de codigo a modificar
-
         codigoE = concesionVO.getCsiId();
         nombreE = concesionVO.getCsiNombre();
+        codigoT = concesionVO.getTinId();
 
-
-        codigoTipoInfraestructura = concesionVO.getInfraestructuraTipo().getTinId();
-        /*  codigoUpdate= infraestructuraTipoVO.getTinId();
-        nombreUpdate= infraestructuraTipoVO.getTinNombre(); */
+        codigoTipoInfraestructura = concesionVO.getTinId();
+        System.out.println("concesionVO.getCsiId(): "+concesionVO.getCsiId());
         listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+        System.out.println("listaInfraestructuras size: "+listaInfraestructuras.size());
         //listaInfraestructuras = infraestructuraServiceImpl.query1(codigoE);
-
+        }catch(Exception ex){
+            ex.printStackTrace();
+            }
     }
 
 
@@ -179,44 +182,6 @@ public class MantenimientoConcesion {
         codigoEliminar = codigo;
     }
 
-    public void setAddInfraestructura(String addInfraestructura) {
-        this.addInfraestructura = addInfraestructura;
-    }
-
-    public String getAddInfraestructura() {
-        return addInfraestructura;
-    }
-
-    public void agregarInfraestructuras() {
-        listaInfra.add(addInfraestructura);
-
-    }
-
-
-    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
-        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
-    }
-
-    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
-        return infraestructuraServiceImpl;
-    }
-
-
-    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
-        this.concesionServicesImpl = concesionServicesImpl;
-    }
-
-    public ConcesionServiceImpl getConcesionServicesImpl() {
-        return concesionServicesImpl;
-    }
-
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
-    }
-
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
 
     public void listarTipInfraestructura() {
         try {
@@ -274,6 +239,9 @@ public class MantenimientoConcesion {
                 conc.setCorrela(contador);
                 contador++;
             }
+
+            listarInfraestructuras();
+
 
         } catch (Exception e) {
             // TODO: Add catch code
@@ -379,46 +347,6 @@ public class MantenimientoConcesion {
         return remoteAddr;
     }
 
-    // -------------------------INICIO VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
-    private InfraestructuraVO infraestructura;
-    private List<InfraestructuraVO> infraestructuras;
-
-    @PostConstruct // INICIO CONSTRUCTOR VOO CARRITO VER CLASE InfraestructuraVO
-    public void init() {
-        infraestructura = new InfraestructuraVO();
-        infraestructuras = new ArrayList<InfraestructuraVO>();
-
-
-    }
-
-
-    public void createNew() {
-        if (infraestructuras.contains(infraestructura)) {
-            FacesMessage mensaje2 = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje2);
-        } else {
-            infraestructuras.add(infraestructura);
-            infraestructura = new InfraestructuraVO();
-
-        }
-    }
-
-    public String reinit() {
-        infraestructura = new InfraestructuraVO();
-
-        return null;
-    }
-
-    public List<InfraestructuraVO> getInfraestructuras() {
-        return infraestructuras;
-    }
-
-    public InfraestructuraVO getInfraestructura() {
-        return infraestructura;
-    }
-
-    // -------------------------FIN VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
-
 
     // Buscar por filtro
 
@@ -452,6 +380,8 @@ public class MantenimientoConcesion {
                 conc.setCorrela(contador);
                 contador++;
             }
+            
+            listarInfraestructuras();
 
 
         } catch (Exception e) {
@@ -534,53 +464,29 @@ public class MantenimientoConcesion {
     }
 
     public void eliminacionConfirmadaConcesion() throws SQLException {
+        listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+        for (InfraestructuraVO infra : listaInfraestructuras) {
+            infra.setInfEstado(0);
+            infraestructuraServiceImpl.update(infra);
 
+        }
         concesionVO.setCsiEstado(0);
-        concesionVO.setCsiNombre(nombreConcesion);
-        concesionVO.setCsiId(concesionVO.getCsiId());
         concesionServicesImpl.update(concesionVO);
-
-
         ListarConcesiones();
 
     }
 
-
-    public void agregacionConfirmadaInfraestructura() throws SQLException {
-        //inicio de captura de codigo a modificar
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("codNuevoConcesion");
-        Integer idcodigo = Integer.valueOf(str.toString());
-        concesionVO =
-            concesionServicesImpl.get(idcodigo); //OJO IMPORTANTE AQUI ES DONDE TIENE CARGADO EL VO DE TODOS LOS OBJETOS
-        //fin de de captura de codigo a modificar
-        codigoE = concesionVO.getCsiId();
-        nombreE = concesionVO.getCsiNombre();
-        infraestructuraVO.setInfNombre(nombreInfraestructuraNueva);
-        //inicio captura fk concesion para infraestructura
-        Concesion con = new Concesion();
-        con.setCsiId(codigoE);
-        infraestructuraVO.setConcesion(con);
-        //fin captura fk
-
-        infraestructuraVO.setInfFechaCambio(new Date());
-        infraestructuraVO.setInfEstado(1);
-        infraestructuraServiceImpl.insert(infraestructuraVO);
-        listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
-
-        //listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
-
-        //RequestContext.getCurrentInstance().execute("agregarInfraestructuraPanel.show()");
-    }
+    public void agregacionConfirmadaInfraestructura2() {
 
 
-    public void agregacionConfirmadaInfraestructura2() throws SQLException {
         InfraestructuraVO infra = new InfraestructuraVO();
         infra.setInfId(0);
+        infra.setTinId(codigoT);
         infra.setInfNombre(nombreInfraestructuraNueva);
         listaInfraestructuras.add(infra);
+        nombreInfraestructuraNueva = "";
         contador++;
+
     }
 
     public void eliminacionConfirmadaInfraestructura2() throws SQLException {
@@ -592,46 +498,18 @@ public class MantenimientoConcesion {
         System.out.println(listaInfraestructuras.size());
     }
 
-    public void setListaAgregarInfraestructura(List<InfraestructuraVO> listaAgregarInfraestructura) {
-        this.listaAgregarInfraestructura = listaAgregarInfraestructura;
-    }
-
-    public List<InfraestructuraVO> getListaAgregarInfraestructura() {
-        return listaAgregarInfraestructura;
-    }
-
-    public void setListaInfraestructurasBD(List<InfraestructuraVO> listaInfraestructurasBD) {
-        this.listaInfraestructurasBD = listaInfraestructurasBD;
-    }
-
-    public List<InfraestructuraVO> getListaInfraestructurasBD() {
-        return listaInfraestructurasBD;
-    }
-
-
-    public void setListaEliminarInfraestructura(List<InfraestructuraVO> listaEliminarInfraestructura) {
-        this.listaEliminarInfraestructura = listaEliminarInfraestructura;
-    }
-
-    public List<InfraestructuraVO> getListaEliminarInfraestructura() {
-        return listaEliminarInfraestructura;
-    }
 
     public void editar() throws SQLException {
-      
+
         concesionVO.setCsiEstado(1);
         concesionVO.setCsiId(codigoE);
         concesionVO.setCsiNombre(nombreE);
-        InfraestructuraTipo infraestructuraTipo1 = new InfraestructuraTipo();
-        infraestructuraTipo1.setTinId(codigoTipoInfraestructura);
-        concesionVO.setInfraestructuraTipo(infraestructuraTipo1);
+        concesionVO.setTinId(codigoTipoInfraestructura);
         concesionVO.setCsiFechaCambio(new Date());
         concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
-    
+
         getConcesionServicesImpl().update(concesionVO);
-   
-        List<InfraestructuraVO> listaEliminarInfraestructura = new ArrayList<>();
-        List<InfraestructuraVO> listaAgregarInfraestructura = new ArrayList<>();
+
 
         int a = 0;
 
@@ -639,93 +517,44 @@ public class MantenimientoConcesion {
 
         //Metodo Agregar Registros
         for (int c = 0; c < listaInfraestructuras.size(); c++) {
-            if (listaInfraestructuras.get(c).getInfId() == 0) {
-                InfraestructuraVO vo = new InfraestructuraVO();
+            if (listaInfraestructuras.get(c).getInfId() == 0) {          
+         
+                InfraestructuraVO vo = new InfraestructuraVO();               
                 vo.setInfNombre(listaInfraestructuras.get(c).getInfNombre());
                 vo.setInfEstado(1);
-                Concesion concesion = new Concesion();
-                concesion.setCsiFechaAlta(concesionVO.getCsiFechaAlta());
-                concesion.setCsiFechaBaja(concesionVO.getCsiFechaBaja());
-                concesion.setCsiFechaCambio(concesionVO.getCsiFechaCambio());
-                concesion.setCsiTerminal(concesionVO.getCsiTerminal());
-                concesion.setCsiUsuarioAlta(concesionVO.getCsiUsuarioAlta());
-                concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
-                concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());
-                concesion.setCsiId(concesionVO.getCsiId());
-                concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
-                concesion.setCsiNombre(concesionVO.getCsiNombre());
-                concesion.setCsiEstado(concesionVO.getCsiEstado());
-                vo.setConcesion(concesion);
+                vo.setTinId(concesionVO.getTinId());
+                vo.setCsiId(concesionVO.getCsiId());
+                vo.setInfFechaAlta(util.getObtenerFechaHoy());
+                vo.setInfTerminal(util.obtenerIpCliente());
                 infraestructuraServiceImpl.insert(vo);
             }
         }
         for (int f = 0; f < listaInfraestructurasBD.size(); f++) {
             for (int c = 0; c < listaInfraestructuras.size(); c++) {
+              
                 if (listaInfraestructuras.get(c).getInfId() != 0 &&
-                    (listaInfraestructurasBD.get(f).getInfId().toString().trim().equals(listaInfraestructuras.get(c).getInfId().toString().trim()))) {
-
-                    /*   if (listaInfraestructuras.get(c).getInfId() != 0 &&
-                        (listaInfraestructurasBD.get(f).getInfId()==listaInfraestructuras.get(c).getInfId())) {    */
-
+                    (listaInfraestructurasBD.get(f).getInfId() == (listaInfraestructuras.get(c).getInfId()))) {
                     a = 1;
                 }
             }
             if (a == 0) {
                 InfraestructuraVO infra = listaInfraestructurasBD.get(f);
                 infra.setInfEstado(0);
-            
-                      
-                       concesionVO.setCsiFechaCambio(new Date());
-                       concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
-                       getConcesionServicesImpl().update(concesionVO);
-            
-            
-            
-            
-                
+
+
+                concesionVO.setCsiFechaCambio(new Date());
+                concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
+                getConcesionServicesImpl().update(concesionVO);
+
+
                 infraestructuraServiceImpl.update(infra);
             }
             a = 0;
         }
 
 
-        /*   for (InfraestructuraVO listaActual : listaInfraestructuras) {
-                System.out.println("Entro al for");
-                    for (InfraestructuraVO listaNueva : listaInfraestructurasNueva) {
-                        System.out.println("Entro al for 2");
-                        if(listaActual.getInfId()==0){
-                            infraestructuraVO.setInfNombre(listaActual.getInfNombre());
-                            infraestructuraServiceImpl.insert(infraestructuraVO);
-
-                        }
-
-                          else if(listaActual.getInfId()==listaNueva.getInfId()){
-                            System.out.println("estos son iguales++++++++++++++++++++++++++++++++++++++++++");
-                            System.out.println(listaActual.getInfId());
-                            System.out.println(listaNueva.getInfId());
-                            }
-                    }
-                }
-
-            for(InfraestructuraVO infra4 :listaInfraestructurasNueva){
-              int existe=0;
-                for (InfraestructuraVO infra5:listaInfraestructuras){
-                    if (infra4.getInfId()==infra5.getInfId()){
-                        existe=1;
-                        }
-                    }
-                    if (existe==0){
-                        InfraestructuraVO infra11= new InfraestructuraVO();
-                        infra11.setInfId(infra4.getInfId());
-                        infra11.setInfNombre(infra4.getInfNombre());
-                        infraestructuraServiceImpl.update(infra11);
-                        }
-                }
-      */
-
         ListarConcesiones();
-
-
+          
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
@@ -788,5 +617,184 @@ public class MantenimientoConcesion {
 
     }
 
+    public void setAddInfraestructura(String addInfraestructura) {
+        this.addInfraestructura = addInfraestructura;
+    }
 
+    public String getAddInfraestructura() {
+        return addInfraestructura;
+    }
+
+    public void agregarInfraestructuras() {
+        listaInfra.add(addInfraestructura);
+
+    }
+
+
+    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
+        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
+    }
+
+    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
+        return infraestructuraServiceImpl;
+    }
+
+
+    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
+        this.concesionServicesImpl = concesionServicesImpl;
+    }
+
+    public ConcesionServiceImpl getConcesionServicesImpl() {
+        return concesionServicesImpl;
+    }
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
+
+    public void setListaAgregarInfraestructura(List<InfraestructuraVO> listaAgregarInfraestructura) {
+        this.listaAgregarInfraestructura = listaAgregarInfraestructura;
+    }
+
+    public List<InfraestructuraVO> getListaAgregarInfraestructura() {
+        return listaAgregarInfraestructura;
+    }
+
+    public void setListaInfraestructurasBD(List<InfraestructuraVO> listaInfraestructurasBD) {
+        this.listaInfraestructurasBD = listaInfraestructurasBD;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructurasBD() {
+        return listaInfraestructurasBD;
+    }
+
+
+    public void setListaEliminarInfraestructura(List<InfraestructuraVO> listaEliminarInfraestructura) {
+        this.listaEliminarInfraestructura = listaEliminarInfraestructura;
+    }
+
+    public List<InfraestructuraVO> getListaEliminarInfraestructura() {
+        return listaEliminarInfraestructura;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setNombreTipoInfra(String nombreTipoInfra) {
+        this.nombreTipoInfra = nombreTipoInfra;
+    }
+
+    public String getNombreTipoInfra() {
+        return nombreTipoInfra;
+    }
+
+    public void setLis(List<InfraestructuraVO> lis) {
+        this.lis = lis;
+    }
+
+    public List<InfraestructuraVO> getLis() {
+        return lis;
+    }
+
+    public void setListaAgregarInfra(List<String> listaAgregarInfra) {
+        this.listaAgregarInfra = listaAgregarInfra;
+    }
+
+    public List<String> getListaAgregarInfra() {
+        return listaAgregarInfra;
+    }
+
+    public void setListaQuitarInfra(List<String> listaQuitarInfra) {
+        this.listaQuitarInfra = listaQuitarInfra;
+    }
+
+    public List<String> getListaQuitarInfra() {
+        return listaQuitarInfra;
+    }
+
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
+    }
+
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
+    }
+
+    public void setInfraestructura(InfraestructuraVO infraestructura) {
+        this.infraestructura = infraestructura;
+    }
+
+    public void setInfraestructuras(List<InfraestructuraVO> infraestructuras) {
+        this.infraestructuras = infraestructuras;
+    }
+
+
+    public void setCodigoT(int codigoT) {
+        this.codigoT = codigoT;
+    }
+
+    public int getCodigoT() {
+        return codigoT;
+    }
+
+
+    // -------------------------INICIO VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
+    private InfraestructuraVO infraestructura;
+    private List<InfraestructuraVO> infraestructuras;
+
+    @PostConstruct // INICIO CONSTRUCTOR VOO CARRITO VER CLASE InfraestructuraVO
+    public void init() {
+        infraestructura = new InfraestructuraVO();
+        infraestructuras = new ArrayList<InfraestructuraVO>();
+
+
+    }
+
+
+    public void createNew() {
+        if (infraestructuras.contains(infraestructura)) {
+            FacesMessage mensaje2 = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje2);
+        } else {
+            infraestructuras.add(infraestructura);
+            infraestructura = new InfraestructuraVO();
+
+        }
+    }
+
+    public String reinit() {
+        infraestructura = new InfraestructuraVO();
+
+
+        return null;
+    }
+
+    public List<InfraestructuraVO> getInfraestructuras() {
+        return infraestructuras;
+    }
+
+    public InfraestructuraVO getInfraestructura() {
+        return infraestructura;
+    }
+
+    // -------------------------FIN VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
+
+    public void listarInfraestructuras() throws Exception{
+
+            for (int i = 0; i < listaConcesiones.size(); i++) {
+                nombreTipoInfra = infraestructuraTipoServiceImpl.getNombre(listaConcesiones.get(i).getTinId());
+                listaConcesiones.get(i).setNombreTipoInfra(nombreTipoInfra);
+            }
+        }
+    
 }
