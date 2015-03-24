@@ -30,11 +30,7 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         return result;
     }
 
-    @Override
-    public String delete(Integer id) throws SQLException {
-        String result=this.infraestructuraTipoDAOImpl.delete(id);
-        return result;
-    }
+   
 
     @Override
     public String update(InfraestructuraTipoVO infraestructuraTipoVO) throws SQLException {
@@ -131,4 +127,9 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     }
 
 
+    @Override
+    public String delete(Integer id) throws SQLException {
+        String result=this.infraestructuraTipoDAOImpl.delete(id);
+        return result;
+    }
 }
