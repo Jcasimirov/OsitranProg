@@ -1,86 +1,91 @@
 package com.ositran.model;
-import java.io.Serializable;
 
+import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- * To create ID generator sequence "T_INFRAESTRUCTURA_ID_SEQ_GEN":
- * CREATE SEQUENCE "T_INFRAESTRUCTURA_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "Infraestructura.findAll", query = "select o from Infraestructura o") })
 @Table(name = "T_INFRAESTRUCTURA")
-@SequenceGenerator(name = "SEQ_INFRAESTRUCTURA", sequenceName = "SEQ_INFRAESTRUCTURA",
-                   allocationSize = 50, initialValue = 50)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA"))
+
 public class Infraestructura implements Serializable {
-    private static final long serialVersionUID = -8279982721881574888L;
-    @Column(name = "INF_ESTADO")
-    private Integer infEstado;
+    private static final long serialVersionUID = 8660387470661914737L;
+    @Column(name = "CSI_ID", nullable = false)
+    private int csiId;
+    @Column(name = "INF_ESTADO", nullable = false)
+    private int infEstado;
     @Temporal(TemporalType.DATE)
-    @Column(name = "INF_FECHA_ALTA")
+    @Column(name = "INF_FECHA_ALTA", nullable = false)
     private Date infFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "INF_FECHA_BAJA")
     private Date infFechaBaja;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "INF_FECHA_CAMBIO")
-    private Date infFechaCambio;
     @Id
     @Column(name = "INF_ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_INFRAESTRUCTURA")
-    private Integer infId;
-    @Column(name = "INF_NOMBRE", length = 100)
+    @GeneratedValue(generator = "generator")
+    private int infId;
+    @Column(name = "INF_NOMBRE", nullable = false, length = 50)
     private String infNombre;
-    @Column(name = "INF_TERMINAL", length = 50)
+    @Column(name = "INF_TERMINAL", length = 20)
     private String infTerminal;
-    @Column(name = "INF_USUARIO_ALTA", length = 50)
+    @Column(name = "INF_USUARIO_ALTA", length = 20)
     private String infUsuarioAlta;
-    @Column(name = "INF_USUARIO_BAJA", length = 50)
+    @Column(name = "INF_USUARIO_BAJA", length = 20)
     private String infUsuarioBaja;
-    @Column(name = "INF_USUARIO_CAMBIO", length = 50)
+    @Column(name = "INF_USUARIO_CAMBIO", length = 20)
     private String infUsuarioCambio;
-    @ManyToOne
-    @JoinColumn(name = "CSI_ID")
-    private Concesion concesion;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "INFI_FECHA_CAMBIO")
+    private Date infiFechaCambio;
+    @Column(name = "TIN_ID", nullable = false)
+    private int tinId;
 
     public Infraestructura() {
     }
 
-    public Infraestructura(Concesion concesion, Integer infEstado, Date infFechaAlta, Date infFechaBaja,
-                           Date infFechaCambio, Integer infId, String infNombre, String infTerminal,
-                           String infUsuarioAlta, String infUsuarioBaja, String infUsuarioCambio) {
-        this.concesion = concesion;
+    public Infraestructura(int csiId, int infEstado, Date infFechaAlta, Date infFechaBaja,
+                           int infId, String infNombre, String infTerminal, String infUsuarioAlta,
+                           String infUsuarioBaja, String infUsuarioCambio, Date infiFechaCambio, int tinId) {
+        this.csiId = csiId;
         this.infEstado = infEstado;
         this.infFechaAlta = infFechaAlta;
         this.infFechaBaja = infFechaBaja;
-        this.infFechaCambio = infFechaCambio;
         this.infId = infId;
         this.infNombre = infNombre;
         this.infTerminal = infTerminal;
         this.infUsuarioAlta = infUsuarioAlta;
         this.infUsuarioBaja = infUsuarioBaja;
         this.infUsuarioCambio = infUsuarioCambio;
+        this.infiFechaCambio = infiFechaCambio;
+        this.tinId = tinId;
     }
 
+    public int getCsiId() {
+        return csiId;
+    }
 
-    public Integer getInfEstado() {
+    public void setCsiId(int csiId) {
+        this.csiId = csiId;
+    }
+
+    public int getInfEstado() {
         return infEstado;
     }
 
-    public void setInfEstado(Integer infEstado) {
+    public void setInfEstado(int infEstado) {
         this.infEstado = infEstado;
     }
 
@@ -100,15 +105,10 @@ public class Infraestructura implements Serializable {
         this.infFechaBaja = infFechaBaja;
     }
 
-    public Date getInfFechaCambio() {
-        return infFechaCambio;
-    }
 
-    public void setInfFechaCambio(Date infFechaCambio) {
-        this.infFechaCambio = infFechaCambio;
-    }
+ 
 
-    public Integer getInfId() {
+    public int getInfId() {
         return infId;
     }
 
@@ -152,16 +152,24 @@ public class Infraestructura implements Serializable {
         this.infUsuarioCambio = infUsuarioCambio;
     }
 
-    public Concesion getConcesion() {
-        return concesion;
+    public Date getInfiFechaCambio() {
+        return infiFechaCambio;
     }
 
-    public void setConcesion(Concesion concesion) {
-        this.concesion = concesion;
+    public void setInfiFechaCambio(Date infiFechaCambio) {
+        this.infiFechaCambio = infiFechaCambio;
+    }
+
+    public int getTinId() {
+        return tinId;
+    }
+
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
     }
 
 
-    public void setInfId(Integer infId) {
+    public void setInfId(int infId) {
         this.infId = infId;
     }
 
