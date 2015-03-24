@@ -10,7 +10,7 @@
         <property name="connection.username">SINV</property>
         <property name="connection.password">SINV</property>-->
          <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="connection.url">jdbc:oracle:thin:@//localhost/XE</property>
+        <property name="connection.url">jdbc:oracle:thin:@//192.168.2.23/XE</property>
         <property name="connection.username">ositran</property>
         <property name="connection.password">ositran</property>
         <property name="connection.pool_size">5</property>
@@ -34,6 +34,8 @@
         <mapping class="com.ositran.model.RolOpciones"/>
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.ModalidadConcesion"/>
+        <mapping class="com.ositran.model.Contrato"/>
+        <mapping class="com.ositran.model.VwDocInterno"/>
        
     </session-factory>
 </hibernate-configuration>
