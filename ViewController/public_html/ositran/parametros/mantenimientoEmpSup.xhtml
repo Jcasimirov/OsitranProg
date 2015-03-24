@@ -14,11 +14,8 @@
         </h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
-            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getQuery}" type="postAddToView"/>
-             
-            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaTipoDocumento}" type="postAddToView"/>
-             
-            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaCargo}" type="postAddToView"/>
+            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getQuery}" type="postAddToView"/>             
+            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaTipoDocumento}" type="postAddToView"/>             
              
             <h:form binding="#{backing_ositran_parametros_MantenimientoEmpSup.form1}" id="form1">
             <p:growl id="mensaje" showDetail="true"  life="3000" /> 
@@ -157,9 +154,9 @@
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog header="Registrar Empresa Supervisora" id="regEmpSup" widgetVar="regEmpSup" modal="true"
-                          resizable="false" height="250px" width="760px">
+                          resizable="false" height="380px" width="760px">
                 <div align="center" style="width: 100%">
-                    <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;">
                         <tr>
                             <td colspan="2" align="left">Nombre de la Empresa Supervisora(*):</td>
                             <td colspan="2" align="left">
@@ -172,7 +169,7 @@
                             <td colspan="2" align="left">Direccion(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSup"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="100"></p:inputText>
                             </td>
                         </tr>
                          
@@ -180,24 +177,16 @@
                             <td colspan="2" align="left">Representante Legal(*):</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegal"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegal}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegal}" maxlength="100"></p:inputText>
                             </td>
                         </tr>
-                         
                         <tr>
-                            <td align="left">Cargo(*)</td>
+                        <td align="left">Siglas de Nombre(*):</td>
                             <td align="left">
-                                <p:selectOneMenu id="cargo"
-                                                 value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{backing_ositran_parametros_MantenimientoEmpSup.listaCargo}"
-                                                   var="lisCargo" itemLabel="#{lisCargo.crgNombre}"
-                                                   itemValue="#{lisCargo.crgId}"/>
-                                </p:selectOneMenu>
+                                <p:inputText id="siglasNom" style="text-transform:uppercase;"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="15"></p:inputText>
                             </td>
-                            <!--td align="left">
-                                <p:inputText id="cargo" value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}"></p:inputText>
-                            </td-->
+                            
                             <td align="left">Telefono(*):</td>
                             <td align="left">
                                 <p:inputText id="telefono" 
@@ -206,8 +195,8 @@
                                              </p:inputText>
                                             
                             </td>
-                        </tr>
-                         
+                        </tr>                  
+                             
                         <tr>
                             <td align="left">Tipo Documento</td>
                             <td align="left">
@@ -225,17 +214,28 @@
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDoc}" maxlength="20"></p:inputText>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <td colspan="2" align="left">Jefe de Supervisión:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px;text-transform:uppercase;" id="jefesup"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.jefesup}" maxlength="100"></p:inputText>
+                            </td>
+                        </tr>
                          
                         <tr>
-                            <td align="left">Correo(*):</td>
-                            <td align="left">
-                                <p:inputText id="correo" style="text-transform:uppercase;"
+                            <td colspan="2" align="left">Correo(*):</td>
+                            <td colspan="2" align="left">
+                                <p:inputText id="correo" style="width: 400px;text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.correo}" maxlength="20"></p:inputText>
-                            </td>
-                            <td align="left">Siglas de Nombre(*):</td>
-                            <td align="left">
-                                <p:inputText id="siglasNom" style="text-transform:uppercase;"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="15"></p:inputText>
+                            </td>                            
+                        </tr>
+                        
+                         <tr>
+                            <td colspan="2" align="left">Dirección Obra:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px;text-transform:uppercase;" id="dirObra"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObra}" maxlength="100"></p:inputText>
                             </td>
                         </tr>
                         
@@ -267,8 +267,8 @@
                 </table>
             </p:dialog>
                 <p:dialog header="Modificar Empresa Supervisora" id="ModEmpSup" widgetVar="ModEmpSup" modal="true"
-                          resizable="false" height="250px" width="760px">
-                    <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                          resizable="false" height="380px" width="760px">
+                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;">
                         <tr>
                             <td>
                                 <h:inputHidden value="#{backing_ositran_parametros_MantenimientoEmpSup.idMod}"/>
@@ -281,6 +281,10 @@
                             </td>
                             <td>
                                 <h:inputHidden value="#{backing_ositran_parametros_MantenimientoEmpSup.nroRuc}"/>
+                            </td>
+                            
+                            <td>
+                                <h:inputHidden value="#{backing_ositran_parametros_MantenimientoEmpSup.terminalMod}"/>
                             </td>
                         </tr>
                          
@@ -309,14 +313,10 @@
                         </tr>
                          
                         <tr>
-                            <td align="left">Cargo(*):</td>
+                            <td align="left">Siglas de Nombre(*):</td>
                             <td align="left">
-                                <p:selectOneMenu id="cargoMod"
-                                                 value="#{backing_ositran_parametros_MantenimientoEmpSup.cargoMod}">
-                                    <f:selectItems value="#{backing_ositran_parametros_MantenimientoEmpSup.listaCargo}"
-                                                   var="lisCargo" itemLabel="#{lisCargo.crgNombre}"
-                                                   itemValue="#{lisCargo.crgId}" />
-                                </p:selectOneMenu>
+                                <p:inputText id="siglasNomMod" style="text-transform:uppercase;"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
                             </td>
                             <td align="left">Telefono(*):</td>
                             <td align="left">
@@ -341,17 +341,29 @@
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDocMod}" maxlength="20"></p:inputText>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <td colspan="2" align="left">Jefe de Supervisión:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px;text-transform:uppercase;" id="jefesupMod"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.jefesupMod}" maxlength="100"></p:inputText>
+                            </td>
+                        </tr>
                          
                         <tr>
-                            <td align="left">Correo(*):</td>
-                            <td align="left">
-                                <p:inputText id="correoMod" style="text-transform:uppercase;"
+                            <td colspan="2" align="left">Correo(*):</td>
+                            <td colspan="2" align="left">
+                                <p:inputText id="correoMod" style="width: 400px;text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.correoMod}" maxlength="20"></p:inputText>
                             </td>
-                            <td align="left">Siglas de Nombre(*):</td>
-                            <td align="left">
-                                <p:inputText id="siglasNomMod" style="text-transform:uppercase;"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="2" align="left">Dirección Obra:</td>
+                            <td colspan="2" align="left">
+                                <p:inputText style="width: 400px;text-transform:uppercase;" id="dirObraMod"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObraMod}" maxlength="100"></p:inputText>
                             </td>
                         </tr>
                          <tr>
@@ -363,42 +375,38 @@
                     </table>
                 </p:dialog>
                 <p:dialog header="Empresa Supervisora" id="verEmpSup" widgetVar="verEmpSup" modal="true"
-                          resizable="false" height="200px" width="450px">
-                    <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                          resizable="false" height="380px" width="720px">
+                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;width: 650px;">
                         <tr>
-                            <td colspan="2" align="left">Nombre de la Empresa Supervisora: </td>
-                            <td colspan="2" align="left">
+                            <td  align="left">Nombre de la Empresa Supervisora: </td>
+                            <td  align="left">
                                 <h:outputText style="width:400px;text-transform:uppercase;" id="nomEmpSupVer"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSupVer}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion: </td>
-                            <td colspan="2" align="left">
+                            <td  align="left">Direccion: </td>
+                            <td  align="left">
                                 <h:outputText style="width: 400px;text-transform:uppercase;" id="dirEmpSupVer"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupVer}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal: </td>
-                            <td colspan="2" align="left">
+                            <td  align="left">Representante Legal: </td>
+                            <td  align="left">
                                 <h:outputText style="width: 400px;text-transform:uppercase;" id="repLegalVer"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegalVer}"/>
                             </td>
                         </tr>
                          
-                        <tr>
-                            <td align="left">Cargo: </td>
+                        <tr>                           
+                            <td align="left">Siglas de Nombre: </td>
                             <td align="left">
-                            <h:outputText id="cargoVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.cargoVer}"/>
-                                
+                                <h:outputText id="siglasNomVer" style="text-transform:uppercase;"
+                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomVer}"/>
                             </td>
-                            <!--td align="left">
-                                <p:inputText id="cargo" value="#{backing_ositran_parametros_MantenimientoEmpSup.cargo}"></p:inputText>
-                            </td-->
                             <td align="left">Telefono: </td>
                             <td align="left">
                                 <h:outputText id="telefonoVer" style="text-transform:uppercase;"
@@ -418,6 +426,14 @@
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDocVer}"/>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <td align="left">Jefe de Supervisión:</td>
+                            <td  align="left">
+                                <h:outputText style="width: 400px;text-transform:uppercase;" id="jefesupVer"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.jefesupVer}" ></h:outputText>
+                            </td>
+                        </tr>
                          
                         <tr>
                             <td align="left">Correo: </td>
@@ -425,10 +441,13 @@
                                 <h:outputText id="correoVer" style="text-transform:uppercase;"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.correoVer}"/>
                             </td>
-                            <td align="left">Siglas de Nombre: </td>
-                            <td align="left">
-                                <h:outputText id="siglasNomVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomVer}"/>
+                           
+                        </tr>
+                        <tr>
+                            <td  align="left">Dirección Obra:</td>
+                            <td  align="left">
+                                <h:outputText style="width: 400px;text-transform:uppercase;" id="dirObraVer"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObraVer}"></h:outputText>
                             </td>
                         </tr>
                          
