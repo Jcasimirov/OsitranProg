@@ -1,12 +1,8 @@
 package com.ositran.model;
+
 import java.io.Serializable;
-
-
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,28 +10,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import javax.persistence.UniqueConstraint;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+/**
+ * To create ID generator sequence "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
+@NamedQueries({ @NamedQuery(name = "InfraestructuraTipo.findAll", query = "select o from InfraestructuraTipo o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
+@SequenceGenerator(name = "InfraestructuraTipo_Id_Seq_Gen", sequenceName = "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN",
+                   allocationSize = 50, initialValue = 50)
+
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURATIPO"))
 
-public class InfraestructuraTipo {
+public class InfraestructuraTipo implements Serializable {
+    private static final long serialVersionUID = -9018333581388462967L;
     @Column(name = "TIN_DESCRIPCION", nullable = false, length = 100)
     private String tinDescripcion;
     @Column(name = "TIN_ESTADO", nullable = false)
-    private Integer tinEstado;
+    private int tinEstado;
     @Temporal(TemporalType.DATE)
-    @Column(name = "TIN_FECHA_ALTA")
+    @Column(name = "TIN_FECHA_ALTA", nullable = false)
     private Date tinFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "TIN_FECHA_BAJA")
@@ -46,7 +48,7 @@ public class InfraestructuraTipo {
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "TIN_ID", nullable = false)
-    private Integer tinId;
+    private int tinId;
     @Column(name = "TIN_NOMBRE", nullable = false, length = 50)
     private String tinNombre;
     @Column(name = "TIN_TERMINAL", length = 20)
@@ -58,15 +60,11 @@ public class InfraestructuraTipo {
     @Column(name = "TIN_USUARIO_CAMBIO", length = 20)
     private String tinUsuarioCambio;
 
-    @OneToMany(mappedBy = "infraestructuraTipo", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<Concesion> concesionList;
-
-
     public InfraestructuraTipo() {
     }
 
-    public InfraestructuraTipo(String tinDescripcion, Integer tinEstado, Date tinFechaAlta, Date tinFechaBaja,
-                               Date tinFechaCambio, Integer tinId, String tinNombre, String tinTerminal,
+    public InfraestructuraTipo(String tinDescripcion, int tinEstado, Date tinFechaAlta, Date tinFechaBaja,
+                               Date tinFechaCambio, int tinId, String tinNombre, String tinTerminal,
                                String tinUsuarioAlta, String tinUsuarioBaja, String tinUsuarioCambio) {
         this.tinDescripcion = tinDescripcion;
         this.tinEstado = tinEstado;
@@ -89,11 +87,11 @@ public class InfraestructuraTipo {
         this.tinDescripcion = tinDescripcion;
     }
 
-    public Integer getTinEstado() {
+    public int getTinEstado() {
         return tinEstado;
     }
 
-    public void setTinEstado(Integer tinEstado) {
+    public void setTinEstado(int tinEstado) {
         this.tinEstado = tinEstado;
     }
 
@@ -121,9 +119,7 @@ public class InfraestructuraTipo {
         this.tinFechaCambio = tinFechaCambio;
     }
 
-    public Integer getTinId() {
-        return tinId;
-    }
+  
 
     public String getTinNombre() {
         return tinNombre;
@@ -165,18 +161,13 @@ public class InfraestructuraTipo {
         this.tinUsuarioCambio = tinUsuarioCambio;
     }
 
-    public void setTinId(Integer tinId) {
+
+    public void setTinId(int tinId) {
         this.tinId = tinId;
     }
-
-
-    public void setConcesionList(List<Concesion> concesionList) {
-        this.concesionList = concesionList;
+    
+    public int getTinId() {
+        return tinId;
     }
-
-    public List<Concesion> getConcesionList() {
-        return concesionList;
-    }
-
 
 }
