@@ -19,4 +19,6 @@ public interface ConcesionDAO {
     public int idConcesion(Concesion concesion)throws SQLException;
     public List<Concesion> queryfiltro(int codigo, String nombre)throws SQLException;
     /*  public Concesion get2(Integer id); */
+    // Iosusky
+    public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException;
 }
