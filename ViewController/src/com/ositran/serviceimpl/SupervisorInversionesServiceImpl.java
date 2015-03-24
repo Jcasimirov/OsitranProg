@@ -4,7 +4,6 @@ import com.ositran.daoimpl.SupervisorInversionesDAOImpl;
 import com.ositran.model.SupervisorInversiones;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.vo.bean.SupervisorInversionesVO;
-import com.ositran.vo.bean.VSupInvVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
