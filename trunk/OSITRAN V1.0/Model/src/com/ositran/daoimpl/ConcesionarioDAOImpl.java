@@ -123,5 +123,27 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     public Concesionario getConcesionario() {
         return concesionario;
     }
+    
+    //Ivan
+        public List<Concesionario> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception{
+            Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+            session.beginTransaction();
+            Query query;  
+            if(tipodoc == 0){
+                query = session.createQuery("FROM Concesionario c WHERE c.cncEstado <> 0 and lower(c.cncNombre) like lower(:busqueda1) and lower(c.cncDescripcion) like lower(:busqueda2)");
+                query.setParameter("busqueda1","%"+nombre+"%");
+                query.setParameter("busqueda2","%"+Siglas+"%");
+            }else{
+                query = session.createQuery("FROM Concesionario c WHERE c.cncEstado <> 0 and lower(c.cncNombre) like lower(:busqueda1) and lower(c.cncDescripcion) like lower(:busqueda2) and c.tdoId like :busqueda3 and c.cncNroDocumento like :busqueda4");
+                query.setParameter("busqueda1","%"+nombre+"%");
+                query.setParameter("busqueda2","%"+Siglas+"%");
+                query.setParameter("busqueda3",tipodoc);
+                query.setParameter("busqueda4",nrodoc);
+            }
+            List<Concesionario> list = query.list();
+            session.getTransaction().commit();
+            return list;
+            
+        }
 
 }
