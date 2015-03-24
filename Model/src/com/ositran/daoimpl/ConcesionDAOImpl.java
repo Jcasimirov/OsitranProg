@@ -70,14 +70,12 @@ public class ConcesionDAOImpl implements ConcesionDAO {
 
     @Override
     public int idConcesion(Concesion concesion) throws SQLException{
-        System.out.println("llego al ID concesion");
         int result = 0;
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.save(concesion);
             result=concesion.getCsiId();
-            System.out.println(result);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -146,7 +144,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.getTransaction().commit();
         return concesion;
     }
-    
+    //charles
     public List<Concesion> queryfiltro(int codigo, String nombre) throws SQLException{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -154,10 +152,11 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         if(codigo < 1 ){
             query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and lower(c.csiNombre) like lower(:busqueda2)");
         }else{
-            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.infraestructuraTipo.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
-            query.setParameter("busqueda1",codigo);
+            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
+          
+            query.setInteger("busqueda1",codigo);
         }        
-        query.setParameter("busqueda2","%"+nombre+"%");
+        query.setString("busqueda2","%"+nombre+"%");
         List<Concesion> list = query.list();
         session.getTransaction().commit();
         session.close();
