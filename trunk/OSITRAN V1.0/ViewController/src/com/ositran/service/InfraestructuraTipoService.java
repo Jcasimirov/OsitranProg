@@ -12,5 +12,6 @@ public interface InfraestructuraTipoService {
         public String update(InfraestructuraTipoVO infraestructuraTipoVO)throws SQLException;
         public InfraestructuraTipoVO get(Integer id) throws SQLException;
         public List<InfraestructuraTipoVO> AllSearch(String a, String b)throws SQLException;
+    public String getNombre(int codigo) throws SQLException;
 }
    
