@@ -1,0 +1,143 @@
+    <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body>
+         <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+
+        <p:layout fullPage="true" style="border:none">
+            <p:layoutUnit position="center" style="border:0px">
+                <h:form id="form">
+                    <ui:include src="/ositran/util/menu.xhtml"/>
+                    <div align="center">
+                        <h5 class="titulo">
+                            #{msg.tituloASICC}
+                        </h5>
+                    </div>
+                    <div align="center" style="font-size:11px">
+                        <div align="center" style="width:700px">
+                            <p:fieldset styleClass="fielsetinterno" >
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                    <tr>
+                                        <td align="left">
+                                            Tipo Infraestructura:
+                                        </td>
+                                        <td align="left">
+                                            <p:selectOneMenu 
+                                                id="tipoInfraestructura"
+                                                 value="#{supervisorContratoConcesionMB.tipoInfraestructura}" style="width:150px">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{supervisorContratoConcesionMB.listaInfraestructuraTipo}" var="ticc"
+                                                   itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
+                                                    />
+                        <p:ajax event="valueChange" update=":form:listaSupervisores" listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones}"  />                
+                
+                                    </p:selectOneMenu>	
+                                        </td>
+                                        <td align="left">
+                                            #{cam.sui}
+                                        </td>
+                                        <td align="left">
+                                    <p:selectOneMenu 
+                                                id="listaSupervisores"
+                                                 value="#{supervisorContratoConcesionMB.supervisorSelecionado}" style="width:150px">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{supervisorContratoConcesionMB.listaSupervisor}" var="tic"
+                                                   itemLabel="#{tic.tsiNombre}" itemValue="#{tic.tsiId}" />
+                     <p:ajax event="valueChange"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
+
+                                    </p:selectOneMenu>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset>
+                             
+                            <br></br>
+                             
+                            <p:fieldset styleClass="fielsetinterno" id="supervicionDeInversiones" legend="Datos Supervisor de Inversiones">
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                    <tr>
+                                        <td align="left">Nombres:</td>
+                                        <td align="left" colspan="3">
+                                            <p:inputText readonly="true" style="width:97.5%"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Tipo de Doc:</td>
+                                        <td align="left">
+                                            <p:inputText readonly="true" />
+                                        </td>
+                                        <td align="left">Numero de Documento:</td>
+                                        <td align="left">
+                                            <p:inputText readonly="true" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset>
+                             
+                            <br></br>
+                             
+                            <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}">
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                    <tr>
+                                        <td align="left" colspan="4">
+                                             Buscar Contrato Concesion:
+                                            <p:inputText readonly="true" id="cb2" style="width:300px"/>
+                                            <p:commandButton image="ui-icon-search"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset>
+                             
+                            <br></br>
+                             
+                            <p:fieldset styleClass="fielsetinterno" legend="Datos contrato Concecion">
+                                <table style="margin-bottom:5px;font-size: 11px">
+                                      
+                                    <tr>
+                                        <td align="left">
+                                            #{cam.concesion}
+                                        </td>
+                                        <td align="left" colspan="3">
+                                            <p:inputText  readonly="true" style="width:97.5%"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="left">
+                                            Tipo Infraestructura:
+                                        </td>
+                                        <td align="left">
+                                            <p:inputText readonly="true"  />
+                                        </td>
+                                        <td align="left">
+                                            #{cam.mc}
+                                        </td>
+                                        <td align="left">
+                                            <p:inputText readonly="true"  />
+                                        </td>
+                                    </tr>
+                                 
+                                     
+                                   
+                                </table>
+                            </p:fieldset>
+                        </div>
+                    </div>
+                    <table align="center" style="font-size: 11px">
+                        <tr>
+                            <td align="right">
+                                <p:commandButton value="#{btn.btn_guardar}"/>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="#{btn.btn_salir}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
