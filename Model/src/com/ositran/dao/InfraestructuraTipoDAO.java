@@ -19,4 +19,6 @@ public interface InfraestructuraTipoDAO {
     public InfraestructuraTipo get(Integer id) throws SQLException;
 
     public List<InfraestructuraTipo> AllSearch(String a, String b) throws SQLException;
+
+    public String getNombre(int codigo) throws SQLException;
 }
