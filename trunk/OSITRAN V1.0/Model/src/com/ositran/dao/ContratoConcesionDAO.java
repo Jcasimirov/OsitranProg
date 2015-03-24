@@ -1,6 +1,7 @@
 package com.ositran.dao;
 
 import com.ositran.model.Contrato;
+
 import java.sql.SQLException;
 import java.util.List;
 
