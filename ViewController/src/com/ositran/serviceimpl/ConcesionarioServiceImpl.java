@@ -173,5 +173,13 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     public ConcesionarioDAOImpl getConcesionarioDAOImpl() {
         return concesionarioDAOImpl;
     }
+    
+    //Ivan
+        public List<ConcesionarioVO> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception{
+            List<Concesionario> list=concesionarioDAOImpl.BusquedaConcesionario(nombre,Siglas,tipodoc,nrodoc);
+            List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
+            
+            return listVO;
+        }
 }
 
