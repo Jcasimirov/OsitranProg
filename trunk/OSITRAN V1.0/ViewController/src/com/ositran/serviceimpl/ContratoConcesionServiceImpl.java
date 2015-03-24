@@ -72,45 +72,66 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
     }
     private ContratoVO toContratoVO(Contrato contrato){
         ContratoVO contratoVO=new ContratoVO();
-        contratoVO.setAvanceObra(contrato.getAvanceObra());
         contratoVO.setCncId(contrato.getCncId());
-        contratoVO.setConConcesion(contrato.getConConcesion());
+        contratoVO.setConAnyo(contrato.getConAnyo());
+        contratoVO.setConAsunto(contrato.getConAsunto());
+        contratoVO.setConAvanceobra(contrato.getConAvanceobra());
+        contratoVO.setConDiames(contrato.getConDiames());
+        contratoVO.setConDomicilioLegal(contrato.getConDomicilioLegal());
         contratoVO.setConEstado(contrato.getConEstado());
         contratoVO.setConFechaAlta(contrato.getConFechaAlta());
         contratoVO.setConFechaBaja(contrato.getConFechaBaja());
         contratoVO.setConFechaCambio(contrato.getConFechaCambio());
+        contratoVO.setConFechaRegistro(contrato.getConFechaRegistro());
+        contratoVO.setConFechaSuscripcion(contrato.getConFechaSuscripcion());
+        contratoVO.setConFicharesumen(contrato.getConFicharesumen());
         contratoVO.setConId(contrato.getConId());
+        contratoVO.setConNumero(contrato.getConNumero());
+        contratoVO.setConPdfcontrato(contrato.getConPdfcontrato());
+        contratoVO.setConPlazoconcesion(contrato.getConPlazoconcesion());
+        contratoVO.setConPlazorevision(contrato.getConPlazorevision());
         contratoVO.setConTerminal(contrato.getConTerminal());
+        contratoVO.setConTipodias(contrato.getConTipodias());
         contratoVO.setConUsuarioAlta(contrato.getConUsuarioAlta());
         contratoVO.setConUsuarioBaja(contrato.getConUsuarioBaja());
         contratoVO.setConUsuarioCambio(contrato.getConUsuarioCambio());
+        contratoVO.setCsiId(contrato.getCsiId());
         contratoVO.setMcoId(contrato.getMcoId());
-        contratoVO.setMonId(contrato.getMonId());
+        contratoVO.setPerId(contrato.getPerId());
         contratoVO.setTinId(contrato.getTinId());
-        contratoVO.setTivId(contrato.getTivId());
-        contratoVO.setTotalDeLaValorización(contrato.getTotalDeLaValorización());
+        
        
         return contratoVO;
     }
     private Contrato toContrato(ContratoVO contratoVO){
         Contrato contrato=new Contrato();
-        contrato.setAvanceObra(contratoVO.getAvanceObra());
         contrato.setCncId(contratoVO.getCncId());
-        contrato.setConConcesion(contratoVO.getConConcesion());
+        contrato.setConAnyo(contratoVO.getConAnyo());
+        contrato.setConAsunto(contratoVO.getConAsunto());
+        contrato.setConAvanceobra(contratoVO.getConAvanceobra());
+        contrato.setConDiames(contratoVO.getConDiames());
+        contrato.setConDomicilioLegal(contratoVO.getConDomicilioLegal());
         contrato.setConEstado(contratoVO.getConEstado());
         contrato.setConFechaAlta(contratoVO.getConFechaAlta());
         contrato.setConFechaBaja(contratoVO.getConFechaBaja());
         contrato.setConFechaCambio(contratoVO.getConFechaCambio());
+        contrato.setConFechaRegistro(contratoVO.getConFechaRegistro());
+        contrato.setConFechaSuscripcion(contratoVO.getConFechaSuscripcion());
+        contrato.setConFicharesumen(contratoVO.getConFicharesumen());
         contrato.setConId(contratoVO.getConId());
+        contrato.setConNumero(contratoVO.getConNumero());
+        contrato.setConPdfcontrato(contratoVO.getConPdfcontrato());
+        contrato.setConPlazoconcesion(contratoVO.getConPlazoconcesion());
+        contrato.setConPlazorevision(contratoVO.getConPlazorevision());
         contrato.setConTerminal(contratoVO.getConTerminal());
+        contrato.setConTipodias(contratoVO.getConTipodias());
         contrato.setConUsuarioAlta(contratoVO.getConUsuarioAlta());
         contrato.setConUsuarioBaja(contratoVO.getConUsuarioBaja());
         contrato.setConUsuarioCambio(contratoVO.getConUsuarioCambio());
+        contrato.setCsiId(contratoVO.getCsiId());
         contrato.setMcoId(contratoVO.getMcoId());
-        contrato.setMonId(contratoVO.getMonId());
+        contrato.setPerId(contratoVO.getPerId());
         contrato.setTinId(contratoVO.getTinId());
-        contrato.setTivId(contratoVO.getTivId());
-        contrato.setTotalDeLaValorización(contratoVO.getTotalDeLaValorización());
         
         return contrato;
         
