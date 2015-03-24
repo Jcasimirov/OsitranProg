@@ -2,8 +2,6 @@ package com.ositran.service;
 
 import com.ositran.vo.bean.ConcesionVO;
 
-import com.ositran.vo.bean.InfraestructuraVO;
-
 import java.sql.SQLException;
 
 import java.util.List;
