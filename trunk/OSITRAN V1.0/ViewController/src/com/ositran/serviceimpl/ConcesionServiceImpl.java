@@ -145,6 +145,16 @@ public class ConcesionServiceImpl implements ConcesionService{
         List<ConcesionVO> listVO=toListConcesionVO(list);
         return listVO;
     }
+    
+    // Iosusky 
+        // Metodo: Filtrar la Concesión 
+        // Ventana: Registrar Contrato de Concesión
+        @Override
+        public List<ConcesionVO> filtrarConcesion(int tipoInfraestructura) throws SQLException{
+            List<Concesion> list=concesionDAOImpl.filtrarConcesion(tipoInfraestructura);
+            List<ConcesionVO> listVO=toListConcesionVO(list);
+            return listVO;
+        }
 
     
 
