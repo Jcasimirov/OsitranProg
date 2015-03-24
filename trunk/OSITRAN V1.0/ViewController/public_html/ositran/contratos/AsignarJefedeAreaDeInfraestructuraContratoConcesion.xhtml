@@ -9,13 +9,13 @@
 	<link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
 </h:head>
 <h:body>
-
-<p:layout fullPage="true" style="border:none">
-    <p:layoutUnit position="center"   style="border:0px">  
-    <ui:include src="/ositran/util/menu.xhtml"/>
+     <f:event listener="#{jefeAreaContratoConcecionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+    <p:layout fullPage="true" style="border:none">
+        <p:layoutUnit position="center"   style="border:0px">  
+        <ui:include src="/ositran/util/menu.xhtml"/>
     
-    	<h:form>
-        <div align="center">
+            <h:form id="form">
+            <div align="center">
                             <h5 class="titulo">
                                 #{msg.tituloAJAC}
                             </h5>
@@ -24,77 +24,83 @@
 			<div align="center"  style="font-size: 11px">
 			<div align="center" style="width:700px" >
 		
-			<p:fieldset  styleClass="fielsetinterno" legend="#{leg.CB}">
+			<p:fieldset  styleClass="fielsetinterno"  >
 				<table  style="font-size: 11px">
 				<tr>
 					<td align="left">#{cam.STI}</td>
 					<td align="left">
-						<p:selectOneMenu>
-                                                    <f:selectItem  itemLabel="#{cam.S}" itemValue="4" />
-                                                    <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-                                                    <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-                                                    <f:selectItem  itemLabel="Etapa3" itemValue="3" />
-                                                    </p:selectOneMenu>		
+                                <p:selectOneMenu 
+                                                id="tipoInfraestructura"
+                                                 value="#{jefeAreaContratoConcecionMB.tipoInfraestructura}" style="width:150px">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{jefeAreaContratoConcecionMB.listaInfraestructuraTipo}" var="ticc"
+                                                   itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
+                                                    />
+                                <p:ajax event="valueChange" update=":form:jefeArea" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
+                                </p:selectOneMenu>		
 					</td>
 				</tr>	
 			</table>
 		</p:fieldset>
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" legend="#{leg.djai}">
+		<p:fieldset styleClass="fielsetinterno" id="jefeArea" legend="#{leg.djai}">
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>
 	 				<td align="left" >#{cam.nom}</td>
-	 				<td align="left" colspan="3"><p:inputText  style="width:97.5%" /></td>
+	 				<td align="left" colspan="3">
+                                            <p:inputText readonly="true"  value="#{jefeAreaContratoConcecionMB.nombreJefeArea}" style="width:97.5%" />
+                                        </td>
 				</tr>
 				<tr>
 	 				<td align="left">#{cam.tipDoc}</td>
-	 				<td align="left"><p:inputText   /></td>
+	 				<td align="left">
+                                           <p:inputText readonly="true"  value="#{jefeAreaContratoConcecionMB.tipoDocumento}"/>
+                                        </td>
 	 				<td align="left">#{cam.numDoc}</td>
-	 				<td align="left"><p:inputText  /></td>
+	 				<td align="left">
+                                            <p:inputText readonly="true"  value="#{jefeAreaContratoConcecionMB.numeroDocumento}" style="width:97.5%" />
+
+                                        </td>
 				</tr>
 			</table>
 		</p:fieldset>
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}">
+		<p:fieldset styleClass="fielsetinterno" legend="Criterio Busqueda" >
+			<table  style="margin-bottom:5px;font-size: 11px">
+				<tr>    <td align="left" >Buscar Contrato Concecion: </td>
+	 				<td align="left" colspan="3"><p:inputText readonly="true" id="cb" style="width:390px" /> 
+                                        <p:commandButton image="ui-icon-search"  
+                                            actionListener="jefeAreaContratoConcecionMB.cargarContratosConcesion"                                
+                                            /></td>
+				</tr>
+			</table>
+		</p:fieldset>   
+		<br></br>
+		<p:fieldset styleClass="fielsetinterno" legend="Datos Contrato Concesion">
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>
+	 				<td align="left">#{cam.concesion}</td>
+	 				<td align="left" colspan="3"><p:inputText style="width:97.5%" /></td>
 	 				
-	 				<td align="left" colspan="4"><p:inputText id="cb" style="width:200px" /><p:watermark for="cb" value="#{cam.icb}" /><p:commandButton image="ui-icon-search" /></td>
 				</tr>
-			</table>
-		</p:fieldset>
-		<br></br>
-		<p:fieldset styleClass="fielsetinterno" legend="#{leg.djai}">
-			<table  style="margin-bottom:5px;font-size: 11px">
-				<tr>
-	 				<td align="left">#{cam.ncc}</td>
-	 				<td align="left" colspan="3"><p:inputText  style="width:97.5%"   /></td>	 				
-				</tr>
+				
 				<tr>
 	 				<td align="left">#{cam.ti}</td>
 	 				<td align="left"><p:inputText /></td>
 	 				<td align="left">#{cam.mc}</td>
 	 				<td align="left"><p:inputText /></td>
 				</tr>
-				<tr>
-	 				<td align="left">#{cam.concesion}</td>
-	 				<td align="left" colspan="3"><p:inputText style="width:97.5%" /></td>
-	 				
-				</tr>
-				<tr>
-	 				<td align="left">#{cam.nomConce}</td>
-	 				<td align="left" colspan="3"><p:inputText  style="width:97.5%"  /></td>
-				</tr> 
+				
 			</table>
 		</p:fieldset>
 			</div>
 	 	</div>	
                 
                 <table align="center" style="font-size: 11px">	
-	 			<tr>
-	 				<td align="right"><p:commandButton  value="#{btn.btn_guardar}" /></td>
-	 				<td align="left"><p:commandButton value="#{btn.btn_salir}" /></td>
-	 				</tr>
+	 			<tr>  
+	 				<td align="right"><p:commandButton  value="#{btn.btn_guardar}" style="width:80px" /></td>
+	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" style="width:80px" /></td>
+                                </tr>
 	 		</table>
 	</h:form>	
 
