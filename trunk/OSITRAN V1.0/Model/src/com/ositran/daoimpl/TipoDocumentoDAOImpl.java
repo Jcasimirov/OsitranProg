@@ -20,7 +20,7 @@ public class TipoDocumentoDAOImpl implements TipoDocumentoDAO {
     public List<TipoDocumento> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from TipoDocumento o").list();
+        List list=session.createQuery("From TipoDocumento o").list();
         session.getTransaction().commit();
         return list;
     }
