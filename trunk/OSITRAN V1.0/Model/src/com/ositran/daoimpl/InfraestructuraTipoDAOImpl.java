@@ -94,5 +94,17 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     public InfraestructuraTipo getInfraestructuraTipo() {
         return infraestructuraTipo;
     }
+    
+    @Override
+    public String getNombre(int codigo) throws SQLException {
+        String nombre;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        InfraestructuraTipo infraestructuraTipo = (InfraestructuraTipo) session.get(InfraestructuraTipo.class, codigo);
+        nombre=infraestructuraTipo.getTinNombre();
+        session.getTransaction().commit();
+        return nombre;
+    }
+    
 
 }
