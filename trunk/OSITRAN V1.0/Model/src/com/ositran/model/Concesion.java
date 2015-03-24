@@ -1,23 +1,14 @@
 package com.ositran.model;
 
 import java.io.Serializable;
-
-
-
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,14 +17,17 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "T_CONCESION")
+@NamedQueries({ @NamedQuery(name = "Concesion.findAll", query = "select o from Concesion o") })
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONCESION"))
+
+@Table(name = "T_CONCESION")
+
 public class Concesion implements Serializable {
     private static final long serialVersionUID = 4553963258432302939L;
-    @Column(name = "CSI_ESTADO")
-    private Integer csiEstado;
+    @Column(name = "CSI_ESTADO", nullable = false)
+    private int csiEstado;
     @Temporal(TemporalType.DATE)
-    @Column(name = "CSI_FECHA_ALTA")
+    @Column(name = "CSI_FECHA_ALTA", nullable = false)
     private Date csiFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "CSI_FECHA_BAJA")
@@ -44,34 +38,26 @@ public class Concesion implements Serializable {
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "CSI_ID", nullable = false)
-    private Integer csiId;
-    @Column(name = "CSI_NOMBRE", length = 50)
+    private int csiId;
+    @Column(name = "CSI_NOMBRE", nullable = false, length = 50)
     private String csiNombre;
-    @Column(name = "CSI_TERMINAL", length = 50)
+    @Column(name = "CSI_TERMINAL", length = 20)
     private String csiTerminal;
-    @Column(name = "CSI_USUARIO_ALTA", length = 50)
+    @Column(name = "CSI_USUARIO_ALTA", length = 20)
     private String csiUsuarioAlta;
-    @Column(name = "CSI_USUARIO_BAJA", length = 50)
+    @Column(name = "CSI_USUARIO_BAJA", length = 20)
     private String csiUsuarioBaja;
-    @Column(name = "CSI_USUARIO_CAMBIO", length = 50)
+    @Column(name = "CSI_USUARIO_CAMBIO", length = 20)
     private String csiUsuarioCambio;
-    
-
-
-    @ManyToOne
-    @JoinColumn(name = "TIN_ID")
-    private InfraestructuraTipo infraestructuraTipo;
-
-    @OneToMany(mappedBy = "concesion", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-     List<Infraestructura> infraestructuraList;
-
+    @Column(name = "TIN_ID", nullable = false)
+    private int tinId;
 
     public Concesion() {
     }
 
-    public Concesion(Integer csiEstado, Date csiFechaAlta, Date csiFechaBaja, Date csiFechaCambio, Integer csiId,
+    public Concesion(int csiEstado, Date csiFechaAlta, Date csiFechaBaja, Date csiFechaCambio, int csiId,
                      String csiNombre, String csiTerminal, String csiUsuarioAlta, String csiUsuarioBaja,
-                     String csiUsuarioCambio) {
+                     String csiUsuarioCambio, int tinId) {
         this.csiEstado = csiEstado;
         this.csiFechaAlta = csiFechaAlta;
         this.csiFechaBaja = csiFechaBaja;
@@ -82,17 +68,14 @@ public class Concesion implements Serializable {
         this.csiUsuarioAlta = csiUsuarioAlta;
         this.csiUsuarioBaja = csiUsuarioBaja;
         this.csiUsuarioCambio = csiUsuarioCambio;
-  
+        this.tinId = tinId;
     }
 
- 
-
-
-    public Integer getCsiEstado() {
+    public int getCsiEstado() {
         return csiEstado;
     }
 
-    public void setCsiEstado(Integer csiEstado) {
+    public void setCsiEstado(int csiEstado) {
         this.csiEstado = csiEstado;
     }
 
@@ -120,12 +103,12 @@ public class Concesion implements Serializable {
         this.csiFechaCambio = csiFechaCambio;
     }
 
-    public void setCsiId(Integer csiId) {
-        this.csiId = csiId;
+    public int getCsiId() {
+        return csiId;
     }
 
-    public Integer getCsiId() {
-        return csiId;
+    public void setCsiId(int csiId) {
+        this.csiId = csiId;
     }
 
     public String getCsiNombre() {
@@ -167,23 +150,15 @@ public class Concesion implements Serializable {
     public void setCsiUsuarioCambio(String csiUsuarioCambio) {
         this.csiUsuarioCambio = csiUsuarioCambio;
     }
+
+    public int getTinId() {
+        return tinId;
+    }
+
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
+    }
     
-    public InfraestructuraTipo getInfraestructuraTipo() {
-        return infraestructuraTipo;
-    }
-
-    public void setInfraestructuraTipo(InfraestructuraTipo infraestructuraTipo) {
-        this.infraestructuraTipo = infraestructuraTipo;
-    }
-
-
-    public void setInfraestructuraList(List<Infraestructura> infraestructuraList) {
-        this.infraestructuraList = infraestructuraList;
-    }
-
-    public List<Infraestructura> getInfraestructuraList() {
-        return infraestructuraList;
-    }
-
-
+    
+    
 }
