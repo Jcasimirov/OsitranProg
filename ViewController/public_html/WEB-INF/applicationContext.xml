@@ -25,11 +25,21 @@
     <bean id="usuario" class="com.ositran.model.Usuario" />
     <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO" />
     <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
+
+    <bean id="jefeAreaContratoConcecion" class="com.ositran.model.JefeAreaContratoConcecion" />
+    <bean id="jefeAreaContratoConcecionVO" class="com.ositran.vo.bean.JefeAreaContratoConcecionVO" />
+    <bean id="supervisorInversiones" class="com.ositran.model.SupervisorInversiones" />
+    <bean id="supervisorInversionesVO" class="com.ositran.vo.bean.SupervisorInversionesVO" />
+	
+
+
+
     <bean id="infraestructura" class="com.ositran.model.Infraestructura" />
     <bean id="vwDocInterno" class="com.ositran.model.VwDocInterno" />
     <bean id="vwDocInternoVO" class="com.ositran.vo.bean.VwDocInternoVO" />
     <bean id="contrato" class="com.ositran.model.Contrato" />
     <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO" />
+
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -191,6 +201,41 @@
 
     
     </bean>
+
+	
+<!--JefeAreaContratoConcecion-->
+    <bean id="jefeAreaContratoConcecionDAOImpl" class="com.ositran.daoimpl.JefeAreaContratoConcecionDAOImpl">
+           <property name="jefeAreaContratoConcecion" ref="jefeAreaContratoConcecion"/>
+    </bean>
+    <bean id="jefeAreaContratoConcecionServiceImpl" class="com.ositran.serviceimpl.JefeAreaContratoConcecionServiceImpl">
+        <property name="jefeAreaContratoConcecionDAOImpl" ref="jefeAreaContratoConcecionDAOImpl"/>
+        <property name="jefeAreaContratoConcecion" ref="jefeAreaContratoConcecion"/>
+        <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
+    </bean>
+	<bean id="jefeAreaContratoConcecionMB" class="com.ositran.contratos.JefeAreaContratoConcecionMB">
+        <property name="jefeAreaContratoConcecionServiceImpl" ref="jefeAreaContratoConcecionServiceImpl"/>
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
+    </bean>
+	
+	<!--Supervicion a Contrato Concecion-->
+    <bean id="supervisorInversionesDAOImpl" class="com.ositran.daoimpl.SupervisorInversionesDAOImpl">
+         
+    </bean>
+    <bean id="supervisorInversionesServiceImpl" class="com.ositran.serviceimpl.SupervisorInversionesServiceImpl">
+        <property name="supervisorInversionesDAOImpl" ref="supervisorInversionesDAOImpl"/>
+        <property name="supervisorInversiones" ref="supervisorInversiones"/>
+        <property name="supervisorInversionesVO" ref="supervisorInversionesVO"/>
+    </bean>
+	
+	<bean id="supervisorInversionesContratoConcecionMB" class="com.ositran.contratos.SupervisorInversionesContratoConcecionMB">
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="supervisorInversionesServiceImpl" ref="supervisorInversionesServiceImpl"/>
+    </bean>
+	
+	
+	
+
     
     <bean id="datosStdDAOImpl" class="com.ositran.daoimpl.DatosStdDAOImpl"/>         
     <bean id="datosStdServiceImpl" class="com.ositran.serviceimpl.DatosStdServiceImpl">
@@ -209,4 +254,5 @@
 		<property name="modalidadServiceImp" ref="modalidadServiceImp"/>
 		<property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
     </bean>
+
 </beans>
