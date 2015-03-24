@@ -3,26 +3,26 @@ package com.ositran.vo.bean;
 
 import java.util.Date;
 
-
 public class EmpresaSupervisoraVO {
     
-    private Integer crgId;   
-    private String supCorreo;    
-    private String supSiglas;    
-    private String supDireccion;    
-    private Integer supEstado;   
-    private Date supFechaAlta;    
-    private Date supFechaBaja;    
-    private Date supFechaCambio;    
-    private Integer supId;    
-    private String supNombre;    
-    private String supNroDocumento;    
-    private String supRepresentanteLegal;    
-    private String supTelefono;    
-    private String supTerminal;    
-    private String supUsuarioAlta;    
-    private String supUsuarioBaja;    
-    private String supUsuarioCambio;    
+    private String supCorreo;
+    private String supDireccion;
+    private Integer supEstado;
+    private Date supFechaAlta;
+    private Date supFechaBaja;
+    private Date supFechaCambio;
+    private Integer supId;
+    private String supJefeSupervision;
+    private String supNombre;
+    private String supNroDocumento;
+    private String supObra;
+    private String supRepresentanteLegal;
+    private String supSiglas;
+    private String supTelefono;
+    private String supTerminal;
+    private String supUsuarioAlta;
+    private String supUsuarioBaja;
+    private String supUsuarioCambio;
     private Integer tdoId;
     private String descripcionDoc;
 
@@ -35,29 +35,12 @@ public class EmpresaSupervisoraVO {
         return descripcionDoc;
     }
 
-    public void setCrgId(Integer crgId) {
-        this.crgId = crgId;
-    }
-
-    public Integer getCrgId() {
-        return crgId;
-    }
-
     public void setSupCorreo(String supCorreo) {
         this.supCorreo = supCorreo;
     }
 
     public String getSupCorreo() {
         return supCorreo;
-    }
-
-
-    public void setSupSiglas(String supSiglas) {
-        this.supSiglas = supSiglas;
-    }
-
-    public String getSupSiglas() {
-        return supSiglas;
     }
 
     public void setSupDireccion(String supDireccion) {
@@ -108,6 +91,14 @@ public class EmpresaSupervisoraVO {
         return supId;
     }
 
+    public void setSupJefeSupervision(String supJefeSupervision) {
+        this.supJefeSupervision = supJefeSupervision;
+    }
+
+    public String getSupJefeSupervision() {
+        return supJefeSupervision;
+    }
+
     public void setSupNombre(String supNombre) {
         this.supNombre = supNombre;
     }
@@ -124,12 +115,28 @@ public class EmpresaSupervisoraVO {
         return supNroDocumento;
     }
 
+    public void setSupObra(String supObra) {
+        this.supObra = supObra;
+    }
+
+    public String getSupObra() {
+        return supObra;
+    }
+
     public void setSupRepresentanteLegal(String supRepresentanteLegal) {
         this.supRepresentanteLegal = supRepresentanteLegal;
     }
 
     public String getSupRepresentanteLegal() {
         return supRepresentanteLegal;
+    }
+
+    public void setSupSiglas(String supSiglas) {
+        this.supSiglas = supSiglas;
+    }
+
+    public String getSupSiglas() {
+        return supSiglas;
     }
 
     public void setSupTelefono(String supTelefono) {
@@ -179,5 +186,4 @@ public class EmpresaSupervisoraVO {
     public Integer getTdoId() {
         return tdoId;
     }
-
 }
