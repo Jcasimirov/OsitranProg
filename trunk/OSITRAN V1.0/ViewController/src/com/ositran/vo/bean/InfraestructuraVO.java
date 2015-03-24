@@ -1,53 +1,58 @@
 package com.ositran.vo.bean;
 
-import com.ositran.model.Concesion;
-import com.ositran.model.InfraestructuraTipo;
-
 import java.util.Date;
 
-public class InfraestructuraVO{
-  
+public class InfraestructuraVO {
+
+    private int csiId;
+ 
+    private int infEstado;
     private Date infFechaAlta;
     private Date infFechaBaja;
-    private Date infFechaCambio;
-    private Integer infId;
+    private int infId;
     private String infNombre;
     private String infTerminal;
     private String infUsuarioAlta;
     private String infUsuarioBaja;
     private String infUsuarioCambio;
-    private Integer infEstado;
+    private Date infiFechaCambio;
+    private int tinId;
 
     public InfraestructuraVO() {
     }
 
-    public InfraestructuraVO( Date infFechaAlta, Date infFechaBaja, Date infFechaCambio,
-                           Integer infId, String infNombre, String infTerminal, String infUsuarioAlta,
-                           String infUsuarioBaja, String infUsuarioCambio,Integer infEstado) {
-        
+    public InfraestructuraVO(int csiId, int infEstado, Date infFechaAlta, Date infFechaBaja,
+                           int infId, String infNombre, String infTerminal, String infUsuarioAlta,
+                           String infUsuarioBaja, String infUsuarioCambio, Date infiFechaCambio, int tinId) {
+        this.csiId = csiId;
+        this.infEstado = infEstado;
         this.infFechaAlta = infFechaAlta;
         this.infFechaBaja = infFechaBaja;
-        this.infFechaCambio = infFechaCambio;
         this.infId = infId;
         this.infNombre = infNombre;
         this.infTerminal = infTerminal;
         this.infUsuarioAlta = infUsuarioAlta;
         this.infUsuarioBaja = infUsuarioBaja;
         this.infUsuarioCambio = infUsuarioCambio;
+        this.infiFechaCambio = infiFechaCambio;
+        this.tinId = tinId;
+    }
+
+    public int getCsiId() {
+        return csiId;
+    }
+
+    public void setCsiId(int csiId) {
+        this.csiId = csiId;
+    }
+
+    public int getInfEstado() {
+        return infEstado;
+    }
+
+    public void setInfEstado(int infEstado) {
         this.infEstado = infEstado;
     }
-
-    private Concesion concesion;
-
-
-    public void setConcesion(Concesion concesion) {
-        this.concesion = concesion;
-    }
-
-    public Concesion getConcesion() {
-        return concesion;
-    }
-   
 
     public Date getInfFechaAlta() {
         return infFechaAlta;
@@ -65,19 +70,11 @@ public class InfraestructuraVO{
         this.infFechaBaja = infFechaBaja;
     }
 
-    public Date getInfFechaCambio() {
-        return infFechaCambio;
-    }
-
-    public void setInfFechaCambio(Date infFechaCambio) {
-        this.infFechaCambio = infFechaCambio;
-    }
-
-    public Integer getInfId() {
+    public int getInfId() {
         return infId;
     }
 
-    public void setInfId(Integer infId) {
+    public void setInfId(int infId) {
         this.infId = infId;
     }
 
@@ -121,36 +118,19 @@ public class InfraestructuraVO{
         this.infUsuarioCambio = infUsuarioCambio;
     }
 
-
-    public void setInfEstado(Integer infEstado) {
-        this.infEstado = infEstado;
+    public Date getInfiFechaCambio() {
+        return infiFechaCambio;
     }
 
-    public Integer getInfEstado() {
-        return infEstado;
+    public void setInfiFechaCambio(Date infiFechaCambio) {
+        this.infiFechaCambio = infiFechaCambio;
     }
 
+    public int getTinId() {
+        return tinId;
+    }
 
-
-    public boolean equals(Object obj) {
-            if(!(obj instanceof InfraestructuraVO))
-                return false;
-             
-            InfraestructuraVO infr = (InfraestructuraVO) obj;
-             
-            return (infr.getInfNombre() != null && infr.getInfNombre().equals(infNombre));
-        }
-     
-        public int hashCode() {
-            int hash = 1;
-            if(infNombre != null)
-                hash = hash * 31 + infNombre.hashCode();
-             
-           
-            return hash;
-        }
-    
-    
-    
-    
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
+    }
 }
