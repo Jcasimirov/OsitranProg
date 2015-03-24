@@ -19,7 +19,7 @@ public interface InfraestructuraDAO {
 
     public InfraestructuraTipo get(Integer id) throws SQLException;
 
-    public List<Infraestructura> query1(Integer codigoC) throws SQLException;
+    public List<Infraestructura> query1(int codigoC) throws SQLException;
 
     public Infraestructura get2(Integer id) throws SQLException;
 
