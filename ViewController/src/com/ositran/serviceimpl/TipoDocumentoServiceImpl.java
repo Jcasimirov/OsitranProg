@@ -84,33 +84,16 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService{
     private TipoDocumentoVO toTipoDocumentoVO(TipoDocumento tipoDocumento){
         TipoDocumentoVO tipoDocumentoVO=new TipoDocumentoVO();
         tipoDocumentoVO.setTdoDescripcion(tipoDocumento.getTdoDescripcion());
-        tipoDocumentoVO.setTdoEstado(tipoDocumento.getTdoEstado());
-        tipoDocumentoVO.setTdoFechaAlta(tipoDocumento.getTdoFechaAlta());
-        tipoDocumentoVO.setTdoFechaBaja(tipoDocumento.getTdoFechaBaja());
-        tipoDocumentoVO.setTdoFechaCambio(tipoDocumento.getTdoFechaCambio());
         tipoDocumentoVO.setTdoId(tipoDocumento.getTdoId());
         tipoDocumentoVO.setTdoNombre(tipoDocumento.getTdoNombre());
-        tipoDocumentoVO.setTdoTerminal(tipoDocumento.getTdoTerminal());
-        tipoDocumentoVO.setTdoUsuarioAlta(tipoDocumento.getTdoUsuarioAlta());
-        tipoDocumentoVO.setTdoUsuarioBaja(tipoDocumento.getTdoUsuarioBaja());
-        tipoDocumentoVO.setTdoUsuarioCambio(tipoDocumento.getTdoUsuarioCambio()); 
               
         return tipoDocumentoVO;
     }
     private TipoDocumento toTipoDocumento(TipoDocumentoVO tipoDocumentoVO){
         TipoDocumento tipoDocumento=new TipoDocumento();
         tipoDocumento.setTdoDescripcion(tipoDocumentoVO.getTdoDescripcion());
-        tipoDocumento.setTdoEstado(tipoDocumentoVO.getTdoEstado());
-        tipoDocumento.setTdoFechaAlta(tipoDocumentoVO.getTdoFechaAlta());
-        tipoDocumento.setTdoFechaBaja(tipoDocumentoVO.getTdoFechaBaja());
-        tipoDocumento.setTdoFechaCambio(tipoDocumentoVO.getTdoFechaCambio());
         tipoDocumento.setTdoId(tipoDocumentoVO.getTdoId());
         tipoDocumento.setTdoNombre(tipoDocumentoVO.getTdoNombre());
-        tipoDocumento.setTdoTerminal(tipoDocumentoVO.getTdoTerminal());
-        tipoDocumento.setTdoUsuarioAlta(tipoDocumentoVO.getTdoUsuarioAlta());
-        tipoDocumento.setTdoUsuarioBaja(tipoDocumentoVO.getTdoUsuarioBaja());
-        tipoDocumento.setTdoUsuarioCambio(tipoDocumentoVO.getTdoUsuarioCambio()); 
-        
         
         return tipoDocumento;
         
