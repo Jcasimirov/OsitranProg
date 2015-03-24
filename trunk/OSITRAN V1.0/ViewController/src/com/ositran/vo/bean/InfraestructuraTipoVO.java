@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class InfraestructuraTipoVO {
     private String tinDescripcion;   
-    private Integer tinEstado;   
+    private int tinEstado;   
     private Date tinFechaAlta;    
     private Date tinFechaBaja;   
     private Date tinFechaCambio;   
-    private Integer tinId;    
+    private int tinId;    
     private String tinNombre;    
     private String tinTerminal;   
     private String tinUsuarioAlta;   
@@ -17,8 +17,8 @@ public class InfraestructuraTipoVO {
     public InfraestructuraTipoVO() {
     }
 
-    public InfraestructuraTipoVO(String tinDescripcion, Integer tinEstado, Date tinFechaAlta, Date tinFechaBaja,
-                               Date tinFechaCambio, Integer tinId, String tinNombre, String tinTerminal,
+    public InfraestructuraTipoVO(String tinDescripcion, int tinEstado, Date tinFechaAlta, Date tinFechaBaja,
+                               Date tinFechaCambio, int tinId, String tinNombre, String tinTerminal,
                                String tinUsuarioAlta, String tinUsuarioBaja, String tinUsuarioCambio) {
         this.tinDescripcion = tinDescripcion;
         this.tinEstado = tinEstado;
@@ -41,11 +41,11 @@ public class InfraestructuraTipoVO {
         this.tinDescripcion = tinDescripcion;
     }
 
-    public Integer getTinEstado() {
+    public int getTinEstado() {
         return tinEstado;
     }
 
-    public void setTinEstado(Integer tinEstado) {
+    public void setTinEstado(int tinEstado) {
         this.tinEstado = tinEstado;
     }
 
@@ -73,7 +73,7 @@ public class InfraestructuraTipoVO {
         this.tinFechaCambio = tinFechaCambio;
     }
 
-    public Integer getTinId() {
+    public int getTinId() {
         return tinId;
     }
 
@@ -117,7 +117,7 @@ public class InfraestructuraTipoVO {
         this.tinUsuarioCambio = tinUsuarioCambio;
     }
 
-    public void setTinId(Integer tinId) {
+    public void setTinId(int tinId) {
         this.tinId = tinId;
     }
 }
