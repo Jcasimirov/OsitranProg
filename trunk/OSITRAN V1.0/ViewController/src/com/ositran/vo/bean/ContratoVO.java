@@ -2,28 +2,42 @@ package com.ositran.vo.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 public class ContratoVO {
     
-    private Integer cncId;    
-    private String conConcesion;   
-    private Integer conEstado;    
-    private Date conFechaAlta;    
-    private Date conFechaBaja;   
-    private Date conFechaCambio;    
-    private Integer conId;    
-    private String conTerminal;   
-    private String conUsuarioAlta;    
-    private String conUsuarioBaja;    
-    private String conUsuarioCambio;   
-    private Integer mcoId;    
-    private Integer monId;    
-    private Integer tinId;    
-    private Integer tivId;   
-    private Integer totalDeLaValorización;
-    private Integer avanceObra;
-
+    private Integer cncId;
+    private Integer conAnyo;
+    private String conAsunto;
+    private Integer conAvanceobra;
+    private Integer conDiames;
+    private String conDomicilioLegal;
+    private Integer conEstado;
+    private Date conFechaAlta;
+    private Date conFechaBaja;
+    private Date conFechaCambio;
+    private Date conFechaRegistro;
+    private Date conFechaSuscripcion;
+    private String conFicharesumen;
+    private Integer conId;
+    private Integer conNumero;
+    private String conPdfcontrato;
+    @Temporal(TemporalType.DATE)
+    private Date conPlazoconcesion;
+    private Integer conPlazorevision;
+    private String conTerminal;
+    private Integer conTipodias;
+    private String conUsuarioAlta;
+    private String conUsuarioBaja;
+    private String conUsuarioCambio;
+    private Integer csiId;
+    private Integer mcoId;
+    private Integer perId;
+    private Integer tinId;
 
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
@@ -33,12 +47,44 @@ public class ContratoVO {
         return cncId;
     }
 
-    public void setConConcesion(String conConcesion) {
-        this.conConcesion = conConcesion;
+    public void setConAnyo(Integer conAnyo) {
+        this.conAnyo = conAnyo;
     }
 
-    public String getConConcesion() {
-        return conConcesion;
+    public Integer getConAnyo() {
+        return conAnyo;
+    }
+
+    public void setConAsunto(String conAsunto) {
+        this.conAsunto = conAsunto;
+    }
+
+    public String getConAsunto() {
+        return conAsunto;
+    }
+
+    public void setConAvanceobra(Integer conAvanceobra) {
+        this.conAvanceobra = conAvanceobra;
+    }
+
+    public Integer getConAvanceobra() {
+        return conAvanceobra;
+    }
+
+    public void setConDiames(Integer conDiames) {
+        this.conDiames = conDiames;
+    }
+
+    public Integer getConDiames() {
+        return conDiames;
+    }
+
+    public void setConDomicilioLegal(String conDomicilioLegal) {
+        this.conDomicilioLegal = conDomicilioLegal;
+    }
+
+    public String getConDomicilioLegal() {
+        return conDomicilioLegal;
     }
 
     public void setConEstado(Integer conEstado) {
@@ -73,6 +119,30 @@ public class ContratoVO {
         return conFechaCambio;
     }
 
+    public void setConFechaRegistro(Date conFechaRegistro) {
+        this.conFechaRegistro = conFechaRegistro;
+    }
+
+    public Date getConFechaRegistro() {
+        return conFechaRegistro;
+    }
+
+    public void setConFechaSuscripcion(Date conFechaSuscripcion) {
+        this.conFechaSuscripcion = conFechaSuscripcion;
+    }
+
+    public Date getConFechaSuscripcion() {
+        return conFechaSuscripcion;
+    }
+
+    public void setConFicharesumen(String conFicharesumen) {
+        this.conFicharesumen = conFicharesumen;
+    }
+
+    public String getConFicharesumen() {
+        return conFicharesumen;
+    }
+
     public void setConId(Integer conId) {
         this.conId = conId;
     }
@@ -81,12 +151,52 @@ public class ContratoVO {
         return conId;
     }
 
+    public void setConNumero(Integer conNumero) {
+        this.conNumero = conNumero;
+    }
+
+    public Integer getConNumero() {
+        return conNumero;
+    }
+
+    public void setConPdfcontrato(String conPdfcontrato) {
+        this.conPdfcontrato = conPdfcontrato;
+    }
+
+    public String getConPdfcontrato() {
+        return conPdfcontrato;
+    }
+
+    public void setConPlazoconcesion(Date conPlazoconcesion) {
+        this.conPlazoconcesion = conPlazoconcesion;
+    }
+
+    public Date getConPlazoconcesion() {
+        return conPlazoconcesion;
+    }
+
+    public void setConPlazorevision(Integer conPlazorevision) {
+        this.conPlazorevision = conPlazorevision;
+    }
+
+    public Integer getConPlazorevision() {
+        return conPlazorevision;
+    }
+
     public void setConTerminal(String conTerminal) {
         this.conTerminal = conTerminal;
     }
 
     public String getConTerminal() {
         return conTerminal;
+    }
+
+    public void setConTipodias(Integer conTipodias) {
+        this.conTipodias = conTipodias;
+    }
+
+    public Integer getConTipodias() {
+        return conTipodias;
     }
 
     public void setConUsuarioAlta(String conUsuarioAlta) {
@@ -113,6 +223,14 @@ public class ContratoVO {
         return conUsuarioCambio;
     }
 
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
     public void setMcoId(Integer mcoId) {
         this.mcoId = mcoId;
     }
@@ -121,12 +239,12 @@ public class ContratoVO {
         return mcoId;
     }
 
-    public void setMonId(Integer monId) {
-        this.monId = monId;
+    public void setPerId(Integer perId) {
+        this.perId = perId;
     }
 
-    public Integer getMonId() {
-        return monId;
+    public Integer getPerId() {
+        return perId;
     }
 
     public void setTinId(Integer tinId) {
@@ -136,30 +254,4 @@ public class ContratoVO {
     public Integer getTinId() {
         return tinId;
     }
-
-    public void setTivId(Integer tivId) {
-        this.tivId = tivId;
-    }
-
-    public Integer getTivId() {
-        return tivId;
-    }
-
-    public void setTotalDeLaValorización(Integer totalDeLaValorización) {
-        this.totalDeLaValorización = totalDeLaValorización;
-    }
-
-    public Integer getTotalDeLaValorización() {
-        return totalDeLaValorización;
-    }
-
-
-    public void setAvanceObra(Integer avanceObra) {
-        this.avanceObra = avanceObra;
-    }
-
-    public Integer getAvanceObra() {
-        return avanceObra;
-    }
-
 }
