@@ -132,4 +132,13 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         String result=this.infraestructuraTipoDAOImpl.delete(id);
         return result;
     }
+    
+    
+    @Override
+    public String getNombre(int codigo) throws SQLException {
+        String nombre=this.infraestructuraTipoDAOImpl.getNombre(codigo);
+        return nombre;
+    }
+    
+    
 }
