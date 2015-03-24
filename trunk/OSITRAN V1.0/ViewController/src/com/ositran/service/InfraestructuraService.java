@@ -14,6 +14,6 @@ public interface InfraestructuraService {
     public String delete(Integer id);
     public String update(InfraestructuraVO infraestructuraVO)throws SQLException;
     public InfraestructuraVO get2(Integer id)throws SQLException;
-    public List<InfraestructuraVO> query1(Integer CodigoC)throws SQLException;
+    public List<InfraestructuraVO> query1(int CodigoC)throws SQLException;
    
 }
