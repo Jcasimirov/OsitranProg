@@ -2,11 +2,8 @@ package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ConcesionDAOImpl;
 import com.ositran.model.Concesion;
-import com.ositran.model.Infraestructura;
 import com.ositran.service.ConcesionService;
 import com.ositran.vo.bean.ConcesionVO;
-
-import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
 
@@ -116,8 +113,8 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesionVO.setCsiUsuarioCambio(concesion.getCsiUsuarioCambio());   
         concesionVO.setCsiId(concesion.getCsiId());
         concesionVO.setCsiNombre(concesion.getCsiNombre());
-        concesionVO.setInfraestructuraTipo(concesion.getInfraestructuraTipo());
-       
+        concesionVO.setTinId(concesion.getTinId());
+        
         return concesionVO;
     }
     public Concesion toConcesion(ConcesionVO concesionVO) throws SQLException{
@@ -131,10 +128,9 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
         concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());
         concesion.setCsiId(concesionVO.getCsiId());
-        concesion.setInfraestructuraTipo(concesionVO.getInfraestructuraTipo());
         concesion.setCsiNombre(concesionVO.getCsiNombre());
         concesion.setCsiEstado(concesionVO.getCsiEstado());
-       
+        concesion.setTinId(concesionVO.getTinId());
         return concesion; 
         
     }
