@@ -1,15 +1,11 @@
 package com.ositran.model;
 
 import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,18 +28,14 @@ import org.hibernate.annotations.Parameter;
 
 public class EmpresaSupervisora implements Serializable {
     private static final long serialVersionUID = -5138390938685448144L;
-    @Column(name = "CRG_ID")
-    private Integer crgId;
-    @Column(name = "SUP_CORREO", length = 20)
+    @Column(name = "SUP_CORREO", length = 100)
     private String supCorreo;
-    @Column(name = "SUP_SIGLAS", nullable = false, length = 100)
-    private String supSiglas;
-    @Column(name = "SUP_DIRECCION", length = 20)
+    @Column(name = "SUP_DIRECCION", length = 100)
     private String supDireccion;
     @Column(name = "SUP_ESTADO", nullable = false)
     private Integer supEstado;
     @Temporal(TemporalType.DATE)
-    @Column(name = "SUP_FECHA_ALTA")
+    @Column(name = "SUP_FECHA_ALTA", nullable = false)
     private Date supFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "SUP_FECHA_BAJA")
@@ -55,12 +47,18 @@ public class EmpresaSupervisora implements Serializable {
     @Column(name = "SUP_ID", nullable = false)
     @GeneratedValue(generator = "generator")
     private Integer supId;
+    @Column(name = "SUP_JEFE_SUPERVISION", length = 1000)
+    private String supJefeSupervision;
     @Column(name = "SUP_NOMBRE", nullable = false, length = 100)
     private String supNombre;
     @Column(name = "SUP_NRO_DOCUMENTO", length = 20)
     private String supNroDocumento;
-    @Column(name = "SUP_REPRESENTANTE_LEGAL", length = 20)
+    @Column(name = "SUP_OBRA", length = 4000)
+    private String supObra;
+    @Column(name = "SUP_REPRESENTANTE_LEGAL", length = 100)
     private String supRepresentanteLegal;
+    @Column(name = "SUP_SIGLAS", nullable = false, length = 100)
+    private String supSiglas;
     @Column(name = "SUP_TELEFONO", length = 15)
     private String supTelefono;
     @Column(name = "SUP_TERMINAL", length = 20)
@@ -77,23 +75,24 @@ public class EmpresaSupervisora implements Serializable {
     public EmpresaSupervisora() {
     }
 
-    public EmpresaSupervisora(Integer crgId, String supCorreo, String supSiglas, String supDireccion,
-                              Integer supEstado, Date supFechaAlta, Date supFechaBaja, Date supFechaCambio,
-                              Integer supId, String supNombre, String supNroDocumento, String supRepresentanteLegal,
-                              String supTelefono, String supTerminal, String supUsuarioAlta, String supUsuarioBaja,
-                              String supUsuarioCambio, Integer tdoId) {
-        this.crgId = crgId;
+    public EmpresaSupervisora(String supCorreo, String supDireccion, Integer supEstado, Date supFechaAlta,
+                               Date supFechaBaja, Date supFechaCambio, Integer supId, String supJefeSupervision,
+                               String supNombre, String supNroDocumento, String supObra, String supRepresentanteLegal,
+                               String supSiglas, String supTelefono, String supTerminal, String supUsuarioAlta,
+                               String supUsuarioBaja, String supUsuarioCambio, Integer tdoId) {
         this.supCorreo = supCorreo;
-        this.supSiglas = supSiglas;
         this.supDireccion = supDireccion;
         this.supEstado = supEstado;
         this.supFechaAlta = supFechaAlta;
         this.supFechaBaja = supFechaBaja;
         this.supFechaCambio = supFechaCambio;
         this.supId = supId;
+        this.supJefeSupervision = supJefeSupervision;
         this.supNombre = supNombre;
         this.supNroDocumento = supNroDocumento;
+        this.supObra = supObra;
         this.supRepresentanteLegal = supRepresentanteLegal;
+        this.supSiglas = supSiglas;
         this.supTelefono = supTelefono;
         this.supTerminal = supTerminal;
         this.supUsuarioAlta = supUsuarioAlta;
@@ -103,29 +102,12 @@ public class EmpresaSupervisora implements Serializable {
     }
 
 
-    public void setCrgId(Integer crgId) {
-        this.crgId = crgId;
-    }
-
-    public Integer getCrgId() {
-        return crgId;
-    }
-
     public void setSupCorreo(String supCorreo) {
         this.supCorreo = supCorreo;
     }
 
     public String getSupCorreo() {
         return supCorreo;
-    }
-
-
-    public void setSupSiglas(String supSiglas) {
-        this.supSiglas = supSiglas;
-    }
-
-    public String getSupSiglas() {
-        return supSiglas;
     }
 
     public void setSupDireccion(String supDireccion) {
@@ -176,6 +158,14 @@ public class EmpresaSupervisora implements Serializable {
         return supId;
     }
 
+    public void setSupJefeSupervision(String supJefeSupervision) {
+        this.supJefeSupervision = supJefeSupervision;
+    }
+
+    public String getSupJefeSupervision() {
+        return supJefeSupervision;
+    }
+
     public void setSupNombre(String supNombre) {
         this.supNombre = supNombre;
     }
@@ -192,12 +182,28 @@ public class EmpresaSupervisora implements Serializable {
         return supNroDocumento;
     }
 
+    public void setSupObra(String supObra) {
+        this.supObra = supObra;
+    }
+
+    public String getSupObra() {
+        return supObra;
+    }
+
     public void setSupRepresentanteLegal(String supRepresentanteLegal) {
         this.supRepresentanteLegal = supRepresentanteLegal;
     }
 
     public String getSupRepresentanteLegal() {
         return supRepresentanteLegal;
+    }
+
+    public void setSupSiglas(String supSiglas) {
+        this.supSiglas = supSiglas;
+    }
+
+    public String getSupSiglas() {
+        return supSiglas;
     }
 
     public void setSupTelefono(String supTelefono) {
@@ -247,4 +253,5 @@ public class EmpresaSupervisora implements Serializable {
     public Integer getTdoId() {
         return tdoId;
     }
+
 }
