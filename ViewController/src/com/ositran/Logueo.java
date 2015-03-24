@@ -56,16 +56,20 @@ public class Logueo {
                                                                  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "El usuario ingresado no existe"));
                 }
-            else if (validar==true && contrasenha.equals(password)){                   
+            else if (validar==true && contrasenha.equals(password)){
+                   
+                    
                     faceContext=FacesContext.getCurrentInstance();
                     httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
                     HttpSession session = httpServletRequest.getSession();
-                    
                     session.setAttribute("UsuarioSesion", usuario);
                     session.setAttribute("PassSesion", contrasenha);
                     session.setAttribute("listaPermisos", listaRolOpciones);
                     session.setAttribute("listaUsuario", listaUsuario);
-
+                    
+                    
+                    
+                    
                      String redirectPath = "/faces/ositran/principal.xhtml";
                      externalContext.redirect(servletContext.getContextPath() + redirectPath);
   
