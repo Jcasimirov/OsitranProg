@@ -101,42 +101,43 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     }
     private EmpresaSupervisoraVO toEmpresaSupervisoraVO(EmpresaSupervisora empresaSupervisora){
         EmpresaSupervisoraVO empresaSupervisoraVO=new EmpresaSupervisoraVO();
-        empresaSupervisoraVO.setCrgId(empresaSupervisora.getCrgId());
         empresaSupervisoraVO.setSupCorreo(empresaSupervisora.getSupCorreo());
-        empresaSupervisoraVO.setSupSiglas(empresaSupervisora.getSupSiglas());
         empresaSupervisoraVO.setSupDireccion(empresaSupervisora.getSupDireccion());
         empresaSupervisoraVO.setSupEstado(empresaSupervisora.getSupEstado());
         empresaSupervisoraVO.setSupFechaAlta(empresaSupervisora.getSupFechaAlta());
         empresaSupervisoraVO.setSupFechaBaja(empresaSupervisora.getSupFechaBaja());
         empresaSupervisoraVO.setSupFechaCambio(empresaSupervisora.getSupFechaCambio());
         empresaSupervisoraVO.setSupId(empresaSupervisora.getSupId());
+        empresaSupervisoraVO.setSupJefeSupervision(empresaSupervisora.getSupJefeSupervision());
         empresaSupervisoraVO.setSupNombre(empresaSupervisora.getSupNombre());
         empresaSupervisoraVO.setSupNroDocumento(empresaSupervisora.getSupNroDocumento());
+        empresaSupervisoraVO.setSupObra(empresaSupervisora.getSupObra());
         empresaSupervisoraVO.setSupRepresentanteLegal(empresaSupervisora.getSupRepresentanteLegal());
+        empresaSupervisoraVO.setSupSiglas(empresaSupervisora.getSupSiglas());
         empresaSupervisoraVO.setSupTelefono(empresaSupervisora.getSupTelefono());
         empresaSupervisoraVO.setSupTerminal(empresaSupervisora.getSupTerminal());
         empresaSupervisoraVO.setSupUsuarioAlta(empresaSupervisora.getSupUsuarioAlta());
         empresaSupervisoraVO.setSupUsuarioBaja(empresaSupervisora.getSupUsuarioBaja());
         empresaSupervisoraVO.setSupUsuarioCambio(empresaSupervisora.getSupUsuarioCambio());
         empresaSupervisoraVO.setTdoId(empresaSupervisora.getTdoId());
-
        
         return empresaSupervisoraVO;
     }
     private EmpresaSupervisora toEmpresaSupervisora(EmpresaSupervisoraVO empresaSupervisoraVO){
         EmpresaSupervisora empresaSupervisora=new EmpresaSupervisora();
-        empresaSupervisora.setCrgId(empresaSupervisoraVO.getCrgId());
         empresaSupervisora.setSupCorreo(empresaSupervisoraVO.getSupCorreo());
-        empresaSupervisora.setSupSiglas(empresaSupervisoraVO.getSupSiglas());
         empresaSupervisora.setSupDireccion(empresaSupervisoraVO.getSupDireccion());
         empresaSupervisora.setSupEstado(empresaSupervisoraVO.getSupEstado());
         empresaSupervisora.setSupFechaAlta(empresaSupervisoraVO.getSupFechaAlta());
         empresaSupervisora.setSupFechaBaja(empresaSupervisoraVO.getSupFechaBaja());
         empresaSupervisora.setSupFechaCambio(empresaSupervisoraVO.getSupFechaCambio());
         empresaSupervisora.setSupId(empresaSupervisoraVO.getSupId());
+        empresaSupervisora.setSupJefeSupervision(empresaSupervisoraVO.getSupJefeSupervision());
         empresaSupervisora.setSupNombre(empresaSupervisoraVO.getSupNombre());
         empresaSupervisora.setSupNroDocumento(empresaSupervisoraVO.getSupNroDocumento());
+        empresaSupervisora.setSupObra(empresaSupervisoraVO.getSupObra());
         empresaSupervisora.setSupRepresentanteLegal(empresaSupervisoraVO.getSupRepresentanteLegal());
+        empresaSupervisora.setSupSiglas(empresaSupervisoraVO.getSupSiglas());
         empresaSupervisora.setSupTelefono(empresaSupervisoraVO.getSupTelefono());
         empresaSupervisora.setSupTerminal(empresaSupervisoraVO.getSupTerminal());
         empresaSupervisora.setSupUsuarioAlta(empresaSupervisoraVO.getSupUsuarioAlta());
