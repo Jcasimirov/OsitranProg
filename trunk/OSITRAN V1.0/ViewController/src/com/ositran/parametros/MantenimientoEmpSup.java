@@ -23,6 +23,8 @@ import com.ositran.vo.bean.CargoVO;
 
 import java.sql.SQLException;
 
+import java.util.Date;
+
 import javax.faces.application.FacesMessage;
 
 import org.primefaces.context.RequestContext;
@@ -147,14 +149,31 @@ public class MantenimientoEmpSup {
     
      private String nomEmpSup;
      private String dirEmpSup;
-     private String repLegal;
-     private int cargo;
+     private String repLegal;     
      private String telefono;
      private int tipoDocumento;
      private String nroDoc;
      private String correo;
      private String siglasNom;
+     private String jefesup;
+     private String dirObra;
 
+
+    public void setJefesup(String jefesup) {
+        this.jefesup = jefesup;
+    }
+
+    public String getJefesup() {
+        return jefesup;
+    }
+
+    public void setDirObra(String dirObra) {
+        this.dirObra = dirObra;
+    }
+
+    public String getDirObra() {
+        return dirObra;
+    }
 
     public void setNomEmpSup(String nomEmpSup) {
         this.nomEmpSup = nomEmpSup;
@@ -178,14 +197,6 @@ public class MantenimientoEmpSup {
 
     public String getRepLegal() {
         return repLegal;
-    }
-
-    public void setCargo(int cargo) {
-        this.cargo = cargo;
-    }
-
-    public int getCargo() {
-        return cargo;
     }
 
     public void setTelefono(String telefono) {
@@ -232,13 +243,14 @@ public class MantenimientoEmpSup {
     public void limpiarCampos (){
         nomEmpSup = "";
         dirEmpSup = "";
-        repLegal = "" ;
-        cargo = 0;
+        repLegal = "" ;       
         telefono = "";
         tipoDocumento = 0;
         nroDoc = "";
         correo = "";
         siglasNom = "";    
+        jefesup="";
+        dirObra="";
     }
     
     int idEliminar;
@@ -312,9 +324,6 @@ public class MantenimientoEmpSup {
         }else if (repLegal.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (cargo == 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Cargo del Representante Legal");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!correo.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -349,15 +358,16 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupNombre(nomEmpSup);
                 empSupVO.setSupDireccion(dirEmpSup);
                 empSupVO.setSupRepresentanteLegal(repLegal);
-                empSupVO.setCrgId(cargo);
                 empSupVO.setSupTelefono(telefono);
                 empSupVO.setSupNroDocumento(nroDoc);
                 empSupVO.setTdoId(tipoDocumento);
                 empSupVO.setSupCorreo(correo);
                 empSupVO.setSupSiglas(siglasNom); 
                 empSupVO.setSupEstado(1);
+                empSupVO.setSupJefeSupervision(jefesup);
+                empSupVO.setSupObra(dirObra);
                 empSupVO.setSupFechaAlta(util.getObtenerFechaHoy());
-                empSupVO.setSupTerminal(util.obtenerIpCliente());
+                empSupVO.setSupTerminal(util.obtenerIpCliente());                
                 this.empSupServiceImp.insert(empSupVO);        
                 getQuery();
                 limpiarCampos();
@@ -381,7 +391,6 @@ public class MantenimientoEmpSup {
     private String nomEmpSupMod;
     private String dirEmpSupMod;
     private String repLegalMod;
-    private int cargoMod;
     private String telefonoMod;
     private int tipoDocumentoMod;
     private String nroDocMod;
@@ -391,6 +400,44 @@ public class MantenimientoEmpSup {
     private int estadoMod;
     private String nommod;
     private String nroRuc;
+    private String jefesupMod;
+    private String dirObraMod;
+    private Date fechaaltaMod;
+    private String terminalMod;
+
+
+    public void setFechaaltaMod(Date fechaaltaMod) {
+        this.fechaaltaMod = fechaaltaMod;
+    }
+
+    public Date getFechaaltaMod() {
+        return fechaaltaMod;
+    }
+
+    public void setTerminalMod(String terminalMod) {
+        this.terminalMod = terminalMod;
+    }
+
+    public String getTerminalMod() {
+        return terminalMod;
+    }
+
+
+    public void setJefesupMod(String jefesupMod) {
+        this.jefesupMod = jefesupMod;
+    }
+
+    public String getJefesupMod() {
+        return jefesupMod;
+    }
+
+    public void setDirObraMod(String dirObraMod) {
+        this.dirObraMod = dirObraMod;
+    }
+
+    public String getDirObraMod() {
+        return dirObraMod;
+    }
 
     public void setNomEmpSupMod(String nomEmpSupMod) {
         this.nomEmpSupMod = nomEmpSupMod;
@@ -414,14 +461,6 @@ public class MantenimientoEmpSup {
 
     public String getRepLegalMod() {
         return repLegalMod;
-    }
-
-    public void setCargoMod(int cargoMod) {
-        this.cargoMod = cargoMod;
-    }
-
-    public int getCargoMod() {
-        return cargoMod;
     }
 
     public void setTelefonoMod(String telefonoMod) {
@@ -515,11 +554,13 @@ public class MantenimientoEmpSup {
         siglasNomMod = empSupVO.getSupSiglas();
         idMod = empSupVO.getSupId();
         estadoMod = empSupVO.getSupEstado();
-        cargoMod = empSupVO.getCrgId();
         tipoDocumentoMod = empSupVO.getTdoId();
         nommod = empSupVO.getSupNombre();
         nroRuc = empSupVO.getSupNroDocumento();
-        
+        jefesupMod = empSupVO.getSupJefeSupervision();
+        dirObraMod = empSupVO.getSupObra();
+        fechaaltaMod = empSupVO.getSupFechaAlta();
+        terminalMod = empSupVO.getSupTerminal();
     }
     
     public int validarRucMod (String ruc,String RucAnt, int documento) throws SQLException{
@@ -541,9 +582,6 @@ public class MantenimientoEmpSup {
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (repLegalMod.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (cargoMod == 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Cargo del Representante Legal");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
@@ -578,7 +616,6 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupNombre(nomEmpSupMod);
                 empSupVO.setSupDireccion(dirEmpSupMod);
                 empSupVO.setSupRepresentanteLegal(repLegalMod);
-                empSupVO.setCrgId(cargoMod);
                 empSupVO.setSupTelefono(telefonoMod);
                 empSupVO.setSupNroDocumento(nroDocMod);
                 empSupVO.setTdoId(tipoDocumentoMod);
@@ -588,6 +625,10 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupTerminal(util.obtenerIpCliente());
                 empSupVO.setSupId(idMod);
                 empSupVO.setSupEstado(estadoMod);
+                empSupVO.setSupJefeSupervision(jefesupMod);
+                empSupVO.setSupObra(dirObraMod);
+                empSupVO.setSupFechaAlta(this.empSupServiceImp.get(idMod).getSupFechaAlta());
+                empSupVO.setSupTerminal(terminalMod);
                 this.empSupServiceImp.update(empSupVO);        
                 getQuery();
                 limpiarCampos();
@@ -611,12 +652,30 @@ public class MantenimientoEmpSup {
     private String nomEmpSupVer;
     private String dirEmpSupVer;
     private String repLegalVer;
-    private String cargoVer;
     private String telefonoVer;
     private String tipoDocumentoVer;
     private String nroDocVer;
     private String correoVer;
     private String siglasNomVer;
+    private String jefesupVer;
+    private String dirObraVer;
+
+
+    public void setJefesupVer(String jefesupVer) {
+        this.jefesupVer = jefesupVer;
+    }
+
+    public String getJefesupVer() {
+        return jefesupVer;
+    }
+
+    public void setDirObraVer(String dirObraVer) {
+        this.dirObraVer = dirObraVer;
+    }
+
+    public String getDirObraVer() {
+        return dirObraVer;
+    }
 
 
     public void setNomEmpSupVer(String nomEmpSupVer) {
@@ -641,14 +700,6 @@ public class MantenimientoEmpSup {
 
     public String getRepLegalVer() {
         return repLegalVer;
-    }
-
-    public void setCargoVer(String cargoVer) {
-        this.cargoVer = cargoVer;
-    }
-
-    public String getCargoVer() {
-        return cargoVer;
     }
 
     public void setTelefonoVer(String telefonoVer) {
@@ -706,17 +757,14 @@ public class MantenimientoEmpSup {
         nroDocVer = empSupVO.getSupNroDocumento();
         correoVer = empSupVO.getSupCorreo();
         siglasNomVer = empSupVO.getSupSiglas();
+        jefesupVer = empSupVO.getSupJefeSupervision();
+        dirObraVer = empSupVO.getSupObra();
         for (int i=0; i<listaTipoDocumento.size();i++){
             if(listaTipoDocumento.get(i).getTdoId() == empSupVO.getTdoId()){
                 tipoDocumentoVer = listaTipoDocumento.get(i).getTdoNombre();
             }
         }
         
-        for (int i=0; i<listaCargo.size();i++){
-            if(listaCargo.get(i).getCrgId() == empSupVO.getCrgId()){
-                cargoVer = listaCargo.get(i).getCrgNombre();
-            }
-        }
     }
     
     
