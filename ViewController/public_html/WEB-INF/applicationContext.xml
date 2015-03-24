@@ -26,7 +26,10 @@
     <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO" />
     <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
     <bean id="infraestructura" class="com.ositran.model.Infraestructura" />
-    
+    <bean id="vwDocInterno" class="com.ositran.model.VwDocInterno" />
+    <bean id="vwDocInternoVO" class="com.ositran.vo.bean.VwDocInternoVO" />
+    <bean id="contrato" class="com.ositran.model.Contrato" />
+    <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO" />
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -187,5 +190,23 @@
             <property name="menVO" ref="menVO"/>
 
     
+    </bean>
+    
+    <bean id="datosStdDAOImpl" class="com.ositran.daoimpl.DatosStdDAOImpl"/>         
+    <bean id="datosStdServiceImpl" class="com.ositran.serviceimpl.DatosStdServiceImpl">
+                <property name="datosStdDAOImpl" ref="datosStdDAOImpl"/>
+    </bean>
+
+<bean id="contratoConcesionDAOImpl" class="com.ositran.daoimpl.ContratoConcesionDAOImpl"/>
+    <bean id="contratoConcesionServiceImp" class="com.ositran.serviceimpl.ContratoConcesionServiceImpl">
+        <property name="contratoConcesionDAOImpl" ref="contratoConcesionDAOImpl"/>
+    </bean>
+    <bean id="regcontratoConcesion" class="com.ositran.contratos.RegistrarContrato">        
+        <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
+        
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>
+		<property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+		<property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
     </bean>
 </beans>
