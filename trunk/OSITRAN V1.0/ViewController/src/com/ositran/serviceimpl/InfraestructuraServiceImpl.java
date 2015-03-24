@@ -1,19 +1,11 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
-
-import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
-
-import com.ositran.model.InversionTipo;
 import com.ositran.service.InfraestructuraService;
-import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 
-import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,13 +17,15 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
 
 
     @Override
-    public List<InfraestructuraVO> query1(Integer CodigoC) throws SQLException{
+    public List<InfraestructuraVO> query1(int CodigoC) throws SQLException{
         
         
         List<Infraestructura> list=infraestructuraDAOImpl.query1(CodigoC);
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
         return listVO;
     }
+    
+  
 
     @Override
     public List<InfraestructuraVO> query() throws SQLException{
@@ -85,7 +79,6 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         
         infraestructuraVO.setInfFechaAlta(infraestructura.getInfFechaAlta());
         infraestructuraVO.setInfFechaBaja(infraestructura.getInfFechaBaja());
-        infraestructuraVO.setInfFechaCambio(infraestructura.getInfFechaCambio());
         infraestructuraVO.setInfId(infraestructura.getInfId());
         infraestructuraVO.setInfNombre(infraestructura.getInfNombre());
         infraestructuraVO.setInfTerminal(infraestructura.getInfTerminal());
@@ -93,7 +86,9 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructuraVO.setInfUsuarioBaja(infraestructura.getInfUsuarioBaja());
         infraestructuraVO.setInfUsuarioCambio(infraestructura.getInfUsuarioCambio());
         infraestructuraVO.setInfEstado(infraestructura.getInfEstado());
-        infraestructuraVO.setConcesion(infraestructura.getConcesion());
+        infraestructuraVO.setCsiId(infraestructura.getCsiId());
+        infraestructuraVO.setTinId(infraestructura.getTinId());
+     
        return infraestructuraVO;
     }
     private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO)throws SQLException{
@@ -101,15 +96,15 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         
         infraestructura.setInfFechaAlta(infraestructuraVO.getInfFechaAlta());
         infraestructura.setInfFechaBaja(infraestructuraVO.getInfFechaBaja());
-        infraestructura.setInfFechaCambio(infraestructuraVO.getInfFechaCambio());
-        infraestructura.setInfId(infraestructuraVO.getInfId());
         infraestructura.setInfNombre(infraestructuraVO.getInfNombre());
         infraestructura.setInfTerminal(infraestructuraVO.getInfTerminal());
         infraestructura.setInfUsuarioAlta(infraestructuraVO.getInfUsuarioAlta());
         infraestructura.setInfUsuarioBaja(infraestructuraVO.getInfUsuarioBaja());
         infraestructura.setInfUsuarioCambio(infraestructuraVO.getInfUsuarioCambio());
         infraestructura.setInfEstado(infraestructuraVO.getInfEstado());
-        infraestructura.setConcesion(infraestructuraVO.getConcesion());
+        infraestructura.setCsiId(infraestructuraVO.getCsiId());
+        infraestructura.setTinId(infraestructuraVO.getTinId());
+        infraestructura.setInfId(infraestructuraVO.getInfId());
        
        return infraestructura;
        
@@ -123,7 +118,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
 
-   
+
 }
 
 
