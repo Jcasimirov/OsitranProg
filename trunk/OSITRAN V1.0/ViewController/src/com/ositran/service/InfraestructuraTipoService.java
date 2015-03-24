@@ -2,10 +2,7 @@ package com.ositran.service;
 
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
-
 import java.sql.SQLException;
-
 import java.util.List;
 
 public interface InfraestructuraTipoService {
