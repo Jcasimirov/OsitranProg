@@ -163,6 +163,23 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.close();
         return list;
     }
+    
+    // Iosusky
+        public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query;  
+            if(tipoInfraestructura > 0 ){
+                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.infraestructuraTipo.tinId = :busqueda");
+                query.setParameter("busqueda",tipoInfraestructura);
+            }else {
+                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 ");
+            }        
+            List<Concesion> list = query.list();
+            session.getTransaction().commit();
+            session.close();
+            return list;
+        }
 
 
    
