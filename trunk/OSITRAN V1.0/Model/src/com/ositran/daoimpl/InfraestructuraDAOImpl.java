@@ -15,24 +15,26 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
 public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 
     @Override
-    public List<Infraestructura> query1(Integer codigoC) {
+    public List<Infraestructura> query1(int codigoC) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query;
-        query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.concesion.csiId = :busqueda1");
+        query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
         query.setParameter("busqueda1",codigoC);
         List<Infraestructura> list = query.list();
         session.getTransaction().commit();
         session.close();
         return list; 
     }
+
+
+
 
     @Override
     public List<Infraestructura> query() {
@@ -52,7 +54,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
            Session session = sessionFactory.openSession();
            try {
                session.beginTransaction();
-               session.saveOrUpdate(infraestructura);
+               session.save(infraestructura);
                session.getTransaction().commit();
           } catch (Exception e) {  
                e.printStackTrace();  
@@ -110,10 +112,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         return infraestructura;
     }
      */
+
+
   
-
-    
-    
-    
-
 }
