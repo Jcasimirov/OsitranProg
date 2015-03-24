@@ -8,8 +8,14 @@ import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
 import com.ositran.vo.bean.ModalidadConcesionVO;
 
+import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.UsuarioVO;
+
+import java.io.IOException;
+
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Map;
@@ -22,8 +28,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
@@ -32,6 +43,80 @@ import org.primefaces.context.RequestContext;
 @Generated(value = "1ositran/parametros/mantenimientoModalidadConcesion.jsf",
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoModalidadConcesionMB {
+    
+    
+    //-----------------SESSION-----------------------//
+    public  final int formulario=1;
+    private  HttpServletRequest httpServletRequest=null;
+    private  FacesContext faceContext=null;
+     private   int leerSesion;
+    private   int ingresarSesion;
+    private  int eliminarSesion;
+    private   int actualizarSesion;
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
+    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
+    private String parametroValidacion;
+    
+    
+    public void validarSesion() throws IOException{
+        
+        try {
+           faceContext=FacesContext.getCurrentInstance();
+           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+           HttpSession session = httpServletRequest.getSession();
+           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
+           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
+          
+            for (RolOpcionesVO rolO:listaRolOpciones){
+                if (rolO.getMenId()==formulario){
+                    parametroValidacion="true";
+                    }
+                }
+           
+            if (!"true".equals(parametroValidacion)) {
+                    
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    ExternalContext externalContext = context.getExternalContext();
+                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+                    faceContext=FacesContext.getCurrentInstance();
+                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+                     String redirectPath = "/faces/ositran/logueo.xhtml";
+                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
+                }
+            else {
+                
+                for (RolOpcionesVO rolOpcion:listaRolOpciones){
+                    if (rolOpcion.getMenId()==formulario){
+                        leerSesion=rolOpcion.getTroConsultar();
+                        ingresarSesion=rolOpcion.getTroAgregar();
+                        actualizarSesion=rolOpcion.getTroModificar();
+                        eliminarSesion=rolOpcion.getTroEliminar();
+
+                        }
+                    }
+                
+                
+                }
+          
+           
+       } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+            faceContext=FacesContext.getCurrentInstance();
+            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+             String redirectPath = "/faces/ositran/logueo.xhtml";
+             externalContext.redirect(servletContext.getContextPath() + redirectPath);
+        }
+            
+            
+        
+        
+        
+        
+        }
+    //---------------------------------------------//
 
     //Mantenimiento Modalidad Concesion
 
