@@ -17,6 +17,7 @@
             <f:event listener="#{bk_registrarContrato.ListarTipoDocumento}" type="postAddToView"/>
             <f:event listener="#{bk_registrarContrato.ListarModalidad}" type="postAddToView"/>
             <h:form binding="#{bk_registrarContrato.form}" id = "form">
+            <p:growl id="mensaje" showDetail="true"  life="3000" /> 
             <p:layout fullPage="true" style="border:none">
                 <p:layoutUnit position="center" style="border:0px">
                     <ui:include src="/ositran/util/menu.xhtml"/>
@@ -165,6 +166,7 @@
             
             <p:dialog header="Buscar Concesionario" id="busconcesionario" widgetVar="busconcesionario" modal="true"
                           resizable="false" height="450px" width="760px">
+                          <p:growl id="mensaje2" showDetail="true"  life="3000" /> 
             <div align="center">
     <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}"  style="margin-bottom:5px;font-size: 11px;width:70%">
         <table  style="font-size:11px">
@@ -190,7 +192,7 @@
                                 </td>        			
         	</tr>
         	<tr>
-        		<td colspan="6" align="right" ><p:commandButton value="#{btn.btn_buscar}" actionListener="#{bk_registrarContrato.BusquedaConcesionario}" update=":form:tablaconcesionario"></p:commandButton></td>
+        		<td colspan="6" align="right" ><p:commandButton value="#{btn.btn_buscar}" actionListener="#{bk_registrarContrato.BusquedaConcesionario()}" update=":form:tablaconcesionario :form:mensaje2"></p:commandButton></td>
         	</tr>
         </table>   
     </p:fieldset>
@@ -218,7 +220,7 @@
                                         </p:column>
                                         
                                         
-                                        <p:column headerText="#{conces.cncId}" style="width:5%">
+                                        <p:column headerText="Acción" style="width:5%">
                                         <div style="text-align: center;">
                                             <p:commandButton actionListener="#{bk_registrarContrato.datosConcesionario()}"
                                                              image="ui-icon-search" style="width:25px"
