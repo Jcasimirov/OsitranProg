@@ -59,6 +59,12 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         return contratoVO;
     }
     
+    @Override
+    public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException{
+        int respuesta =contratoConcesionDAOImpl.ValidarContratoConcesion(concesion,tipoinfra);
+        return respuesta;        
+    }
+    
     //conversiones
     
     private List<ContratoVO> toListContratoVO(List<Contrato> list){
