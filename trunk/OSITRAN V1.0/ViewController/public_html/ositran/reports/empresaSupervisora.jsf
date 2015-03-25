@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:primefaces-p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>empresaSupervisora</title>
+        </h:head>
+        <h:body>
+            <primefaces-p:layout fullPage="true" style="border:none">
+                <primefaces-p:layoutUnit position="center" style="border:0px">
+                    <div align="center">
+                        <h4 class="titulo">
+                            #{rep.reporte_SUPERVISOR}
+                        </h4>
+                        <div style="width:80%">
+                            <div align="center" style="font-size: 11px">
+                                <h:form binding="#{backing_ositran_reports_empresaSupervisora.form1}"
+                                        id="formSupervisora">
+                                    <primefaces-p:panelGrid binding="#{backing_ositran_reports_empresaSupervisora.pnlgSupervisora}"
+                                                            id="pnlgSupervisora" columns="6">
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.lblTipoInfraestructura}"
+                                                                  id="lblTipoInfraestructura" value="Tipo infraestructura"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectTipoInfraestructura}"
+                                                                    id="selectTipoInfraestructura"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.lblConcesion}"
+                                                                  id="lblConcesion" value="Concesion"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectConcesion}"
+                                                                        id="selectConcesion"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.lblEstado}"
+                                                                id="lblEstado" value="Estado"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectEstado}"
+                                                                    id="selectEstado"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.outputLabel2}"
+                                                                  id="outputLabel2" value="Fecha suscripcion"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.lblFecIni}"
+                                                                  id="lblFecIni" value="Fecha inicio"/>
+                                        <primefaces-p:calendar binding="#{backing_ositran_reports_empresaSupervisora.calendarFecIni}"
+                                                               id="calendarFecIni"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.lblFecFin}"
+                                                                id="lblFecFin" value="Fecha fin"/>
+                                        <primefaces-p:calendar binding="#{backing_ositran_reports_empresaSupervisora.calendarFecFin}"
+                                                               id="calendarFecFin"/>
+                                        <primefaces-p:commandButton binding="#{backing_ositran_reports_empresaSupervisora.cmbGenerar}"
+                                                                    id="cmbGenerar" value="Generar"/> 
+                                        <h:commandLink>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                        </h:commandLink>                                                                    
+                                        <h:commandLink>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                        </h:commandLink>
+                                    </primefaces-p:panelGrid>
+                                </h:form>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                    <iframe id="iframeCenter" src="./../../images/reportes/reprotes de empresa supervisora.jpg" width="100%"  
+                        height="100%">  
+                    </iframe>
+                </primefaces-p:layoutUnit>
+            </primefaces-p:layout>            
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_empresaSupervisora-->
+</f:view>

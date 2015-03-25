@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:primefaces-p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>empresaSupervisoraVSInfraestructuraAeropuertos</title>
+        </h:head>
+        <h:body>
+            <primefaces-p:layout fullPage="true" style="border:none">
+                <primefaces-p:layoutUnit position="center" style="border:0px">
+                    <div align="center">
+                        <h4 class="titulo">
+                            #{rep.reporte_SUPVSINFRAAEROPUERTOS}
+                        </h4>
+                        <div style="width:80%">
+                            <div align="center" style="font-size: 11px">
+                                <h:form binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.formSupervisoraInfraestructuraAeropuertos}"
+                                        id="formSupervisoraInfraestructuraAeropuertos">
+                                    <primefaces-p:panelGrid binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.pnlgSupervisoraInfraestructuraAeropuertos}"
+                                                            id="pnlgSupervisoraInfraestructuraAeropuertos" columns="9">
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.lblTipoInfraestructura}"
+                                                                  id="lblTipoInfraestructura" value="Tipo infraestructura"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.selectTipoInfraestructura}"
+                                                                    id="selectTipoInfraestructura"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.lblConcesion}"
+                                                                  id="lblConcesion" value="Concesion"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.selectConcesion}"
+                                                                    id="selectConcesion"/>
+                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.lblEmpresaSupervisora}"
+                                                                  id="lblEmpresaSupervisora" value="Empresa supervisora"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.selectEmpresaSupervisora}"
+                                                                    id="selectEmpresaSupervisora"/>
+                                        <primefaces-p:commandButton binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.cmbGenerar}"
+                                                                        id="cmbGenerar" value="Generar"/> 
+                                        <h:commandLink>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                        </h:commandLink>                                                                    
+                                        <h:commandLink>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                        </h:commandLink>
+                                    </primefaces-p:panelGrid>
+                                </h:form>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                    <iframe id="iframeCenter" src="./../../images/reportes/reporte de empresa supervisora vs infraestructura aeropuerto.jpg" width="100%"  
+                        height="100%">  
+                    </iframe>
+                </primefaces-p:layoutUnit>
+            </primefaces-p:layout>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos-->
+</f:view>
