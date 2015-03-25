@@ -38,6 +38,9 @@ public class ContratoVO {
     private Integer mcoId;
     private Integer perId;
     private Integer tinId;
+    
+    //Atributo creado por Abel
+    private String nombreConcesion;
 
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
@@ -253,5 +256,14 @@ public class ContratoVO {
 
     public Integer getTinId() {
         return tinId;
+    }
+
+
+    public void setNombreConcesion(String nombreConcesion) {
+        this.nombreConcesion = nombreConcesion;
+    }
+
+    public String getNombreConcesion() {
+        return nombreConcesion;
     }
 }
