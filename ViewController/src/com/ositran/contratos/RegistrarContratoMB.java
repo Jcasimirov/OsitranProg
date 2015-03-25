@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.annotation.Generated;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -440,12 +441,28 @@ public class RegistrarContratoMB {
     }
 
     public void BusquedaConcesionario() throws SQLException {
+         
+        if (tipodocumento == 0 && nrodocumento.trim().equals("") && nomconcesionario.trim().equals("") && siglasconcesionario.trim().equals("") ) {
+                        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Criterio de Busqueda");
+                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                    
+        }else if (tipodocumento >0 && !nrodocumento.matches("[0-9]*") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipodocumento == 0 && !nrodocumento.trim().equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipodocumento > 0 && nrodocumento.trim().equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro. de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else{
 
         try {
-            listaConcesionario = this.concesionarioServiceImpl.BusquedaConcesionario(nomconcesionario, "", 0, "");
+            listaConcesionario = this.concesionarioServiceImpl.BusquedaConcesionario(nomconcesionario.trim(), siglasconcesionario.trim(), tipodocumento, nrodocumento.trim());
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
+        }
         }
     }
 
