@@ -94,5 +94,20 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
             session.close();
             return contrato;
         }
+        
+    @Override
+    public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException{
+        
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM Contrato c WHERE c.csiId like :busqueda1 and c.tinId like :busqueda2");
+        query.setParameter("busqueda1",concesion);
+        query.setParameter("busqueda2",tipoinfra);
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list.size();       
+    }
 
 }
