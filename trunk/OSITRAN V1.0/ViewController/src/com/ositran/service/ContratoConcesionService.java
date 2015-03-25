@@ -11,5 +11,6 @@ public interface ContratoConcesionService {
         public String delete(Integer id) throws SQLException;
         public String update(ContratoVO contratoVO) throws SQLException;
         public ContratoVO get(Integer id) throws SQLException;
+        public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException;
 }
    
