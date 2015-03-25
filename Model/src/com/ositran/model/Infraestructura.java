@@ -151,6 +151,7 @@ public class Infraestructura implements Serializable {
     public void setInfUsuarioCambio(String infUsuarioCambio) {
         this.infUsuarioCambio = infUsuarioCambio;
     }
+    
 
     public Date getInfiFechaCambio() {
         return infiFechaCambio;
