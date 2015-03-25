@@ -169,7 +169,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
             session.beginTransaction();
             Query query;  
             if(tipoInfraestructura > 0 ){
-                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.infraestructuraTipo.tinId = :busqueda");
+                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.tinId = :busqueda");
                 query.setParameter("busqueda",tipoInfraestructura);
             }else {
                 query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 ");
