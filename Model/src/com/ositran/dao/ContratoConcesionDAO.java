@@ -11,4 +11,5 @@ public interface ContratoConcesionDAO {
         public String delete(Integer id) throws SQLException;
         public String update(Contrato contrato) throws SQLException;
         public Contrato get(Integer id) throws SQLException;
+        public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException;
 }
