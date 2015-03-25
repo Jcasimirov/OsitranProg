@@ -9,7 +9,7 @@ package com.ositran.model;
     import javax.persistence.Id;
 
     @Entity
-    @Table(name = "VW_SUPERVISORINVERSIONES")
+    @Table(name = "VW_SUPERVISION_INVERSIONES")
     public class SupervisorInversiones implements Serializable {
         private static final long serialVersionUID = -8154584022329658272L;
         @Column(name = "CRG_ID")
@@ -26,17 +26,6 @@ package com.ositran.model;
         private String tsiDireccion;
         @Column(name = "TSI_ENCARGADO", nullable = false)
         private int tsiEncargado;
-        @Column(name = "TSI_ESTADO", nullable = false)
-        private int tsiEstado;
-        @Temporal(TemporalType.DATE)
-        @Column(name = "TSI_FECHA_ALTA")
-        private Date tsiFechaAlta;
-        @Temporal(TemporalType.DATE)
-        @Column(name = "TSI_FECHA_BAJA")
-        private Date tsiFechaBaja;
-        @Temporal(TemporalType.DATE)
-        @Column(name = "TSI_FECHA_CAMBIO")
-        private Date tsiFechaCambio;
         @Column(name = "TSI_HABILITADO")
         private int tsiHabilitado;
         @Id
@@ -50,23 +39,16 @@ package com.ositran.model;
         private String tsiSiglas;
         @Column(name = "TSI_TELEFONO", length = 20)
         private String tsiTelefono;
-        @Column(name = "TSI_TERMINAL", length = 20)
-        private String tsiTerminal;
-        @Column(name = "TSI_USUARIO_ALTA", length = 20)
-        private String tsiUsuarioAlta;
-        @Column(name = "TSI_USUARIO_BAJA", length = 20)
-        private String tsiUsuarioBaja;
-        @Column(name = "TSI_USUARIO_CAMBIO", length = 20)
-        private String tsiUsuarioCambio;
+
 
         public SupervisorInversiones() {
         }
 
         public SupervisorInversiones(int crgId, int tdoId, int tinId, String tsiCorreo, String tsiDescripcion,
-                            String tsiDireccion, int tsiEncargado, int tsiEstado, Date tsiFechaAlta,
-                            Date tsiFechaBaja, Date tsiFechaCambio, int tsiHabilitado, int tsiId,
-                            String tsiNombre, String tsiNroDocumento, String tsiSiglas, String tsiTelefono,
-                            String tsiTerminal, String tsiUsuarioAlta, String tsiUsuarioBaja, String tsiUsuarioCambio) {
+                            String tsiDireccion, int tsiEncargado,
+                           int tsiHabilitado, int tsiId,
+                            String tsiNombre, String tsiNroDocumento, String tsiSiglas, String tsiTelefono
+                         ) {
             this.crgId = crgId;
             this.tdoId = tdoId;
             this.tinId = tinId;
@@ -74,20 +56,14 @@ package com.ositran.model;
             this.tsiDescripcion = tsiDescripcion;
             this.tsiDireccion = tsiDireccion;
             this.tsiEncargado = tsiEncargado;
-            this.tsiEstado = tsiEstado;
-            this.tsiFechaAlta = tsiFechaAlta;
-            this.tsiFechaBaja = tsiFechaBaja;
-            this.tsiFechaCambio = tsiFechaCambio;
+      
             this.tsiHabilitado = tsiHabilitado;
             this.tsiId = tsiId;
             this.tsiNombre = tsiNombre;
             this.tsiNroDocumento = tsiNroDocumento;
             this.tsiSiglas = tsiSiglas;
             this.tsiTelefono = tsiTelefono;
-            this.tsiTerminal = tsiTerminal;
-            this.tsiUsuarioAlta = tsiUsuarioAlta;
-            this.tsiUsuarioBaja = tsiUsuarioBaja;
-            this.tsiUsuarioCambio = tsiUsuarioCambio;
+            
         }
 
         public int getCrgId() {
@@ -146,38 +122,7 @@ package com.ositran.model;
             this.tsiEncargado = tsiEncargado;
         }
 
-        public int getTsiEstado() {
-            return tsiEstado;
-        }
-
-        public void setTsiEstado(int tsiEstado) {
-            this.tsiEstado = tsiEstado;
-        }
-
-        public Date getTsiFechaAlta() {
-            return tsiFechaAlta;
-        }
-
-        public void setTsiFechaAlta(Date tsiFechaAlta) {
-            this.tsiFechaAlta = tsiFechaAlta;
-        }
-
-        public Date getTsiFechaBaja() {
-            return tsiFechaBaja;
-        }
-
-        public void setTsiFechaBaja(Date tsiFechaBaja) {
-            this.tsiFechaBaja = tsiFechaBaja;
-        }
-
-        public Date getTsiFechaCambio() {
-            return tsiFechaCambio;
-        }
-
-        public void setTsiFechaCambio(Date tsiFechaCambio) {
-            this.tsiFechaCambio = tsiFechaCambio;
-        }
-
+       
         public int getTsiHabilitado() {
             return tsiHabilitado;
         }
@@ -226,36 +171,6 @@ package com.ositran.model;
             this.tsiTelefono = tsiTelefono;
         }
 
-        public String getTsiTerminal() {
-            return tsiTerminal;
-        }
-
-        public void setTsiTerminal(String tsiTerminal) {
-            this.tsiTerminal = tsiTerminal;
-        }
-
-        public String getTsiUsuarioAlta() {
-            return tsiUsuarioAlta;
-        }
-
-        public void setTsiUsuarioAlta(String tsiUsuarioAlta) {
-            this.tsiUsuarioAlta = tsiUsuarioAlta;
-        }
-
-        public String getTsiUsuarioBaja() {
-            return tsiUsuarioBaja;
-        }
-
-        public void setTsiUsuarioBaja(String tsiUsuarioBaja) {
-            this.tsiUsuarioBaja = tsiUsuarioBaja;
-        }
-
-        public String getTsiUsuarioCambio() {
-            return tsiUsuarioCambio;
-        }
-
-        public void setTsiUsuarioCambio(String tsiUsuarioCambio) {
-            this.tsiUsuarioCambio = tsiUsuarioCambio;
-        }
+     
     }
 
