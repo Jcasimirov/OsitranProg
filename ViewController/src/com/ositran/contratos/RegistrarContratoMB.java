@@ -14,13 +14,18 @@ import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.VwDocInternoVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +38,89 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "bk_registrarContrato")
 @ViewScoped
 public class RegistrarContratoMB {
+    
+    //-----------------SESSION-----------------------//
+    public  final int formulario=1;
+    private  HttpServletRequest httpServletRequest=null;
+    private  FacesContext faceContext=null;
+     private   int leerSesion;
+    private   int ingresarSesion;
+    private  int eliminarSesion;
+    private   int actualizarSesion;
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
+    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
+    private String parametroValidacion;
+    
+    
+    public void validarSesion() throws IOException{
+        
+        try {
+           faceContext=FacesContext.getCurrentInstance();
+           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+           HttpSession session = httpServletRequest.getSession();
+           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
+           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
+          
+            for (RolOpcionesVO rolO:listaRolOpciones){
+                if (rolO.getMenId()==formulario){
+                    parametroValidacion="true";
+                    }
+                }
+           
+            if (!"true".equals(parametroValidacion)) {
+                    
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    ExternalContext externalContext = context.getExternalContext();
+                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+                    faceContext=FacesContext.getCurrentInstance();
+                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+                     String redirectPath = "/faces/ositran/logueo.xhtml";
+                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
+                }
+            else {
+                
+                for (RolOpcionesVO rolOpcion:listaRolOpciones){
+                    if (rolOpcion.getMenId()==formulario){
+                        leerSesion=rolOpcion.getTroConsultar();
+                        ingresarSesion=rolOpcion.getTroAgregar();
+                        actualizarSesion=rolOpcion.getTroModificar();
+                        eliminarSesion=rolOpcion.getTroEliminar();
+
+                        }
+                    }
+                
+                
+                }
+          
+           
+       } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+            faceContext=FacesContext.getCurrentInstance();
+            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+             String redirectPath = "/faces/ositran/logueo.xhtml";
+             externalContext.redirect(servletContext.getContextPath() + redirectPath);
+        }
+            
+            
+        
+        
+        
+        
+        }
+    //---------------------------------------------//
 
     private HtmlForm form;
     Util util = new Util();
@@ -238,11 +321,9 @@ public class RegistrarContratoMB {
 
     // Metodo para Filtrar la Lista de Concesión
     public void filtrarConcesion() throws SQLException {
-
         try {
             listaConcesiones = concesionServicesImpl.filtrarConcesion(tipoinfra);
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
     }
@@ -333,8 +414,27 @@ public class RegistrarContratoMB {
     int concesion;
     int concesionario;
     int modalidad;
+    int añohrbus;
+    int nrohrbus;
 
     // Get y Set de los Parametros
+
+
+    public void setAñohrbus(int añohrbus) {
+        this.añohrbus = añohrbus;
+    }
+
+    public int getAñohrbus() {
+        return añohrbus;
+    }
+
+    public void setNrohrbus(int nrohrbus) {
+        this.nrohrbus = nrohrbus;
+    }
+
+    public int getNrohrbus() {
+        return nrohrbus;
+    }
 
     public void setNrohr(String nrohr) {
         this.nrohr = nrohr;
@@ -477,22 +577,37 @@ public class RegistrarContratoMB {
             nombreConcesionarioBus = concesionarioVO.getCncNombre();
             siglasConcesionarioBus = concesionarioVO.getCncDescripcion();
             direccionConcesionarioBus = concesionarioVO.getCncDireccion();
+            concesionario = concesionarioVO.getCncId();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void BuscarStd() throws SQLException{
-        int año = 1900;
+        if (nrohr.trim().equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!nrohr.trim().equals("") && Integer.parseInt(nrohr) < 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (añohr.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Año de Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!añohr.trim().equals("") &&  Integer.parseInt(añohr) < 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!añohr.trim().equals("") && añohr.length() < 4 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else{
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
         try {
-            if (añohr.matches("[0-9]*")){
-                año = Integer.parseInt(añohr);
-            }
-            vwDocInternoVO = datosStdServiceImpl.BuscaStd(año, nrohr);
+            vwDocInternoVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
             if (vwDocInternoVO !=null){
                 freghr = dt1.format(vwDocInternoVO.getVdiFechaRegistro());
                 asuntohr = vwDocInternoVO.getVdiAsunto();
+                añohrbus = vwDocInternoVO.getVdiAnyo();
+                nrohrbus = Integer.parseInt(vwDocInternoVO.getVdiNumero());
             }else{
                 freghr = "";
                 asuntohr = "";
@@ -501,22 +616,79 @@ public class RegistrarContratoMB {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        }
     }
     
-    public void GrabarConcesion() throws SQLException{
+    public void GrabarContratoConcesion() throws SQLException{
+        if (freghr == null || freghr.trim().equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (freghr.trim().equals("") && asuntohr.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Asunto del Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoinfra == 0 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione una Tipo de Infraestructura");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (modalidad == 0 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione una Modalidad de Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (concesion == 0 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione una Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (concesionario == 0 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Concesionario");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (ValidaContratoConcesion(concesion,tipoinfra) > 0 ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ya Existe el Contrato de Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else{
         try{
             contratoVO.setConTerminal(util.obtenerIpCliente());
-           // contratoVO.setConFechaAlta(util.getObtenerFechaHoy());
+            contratoVO.setConFechaAlta(util.getObtenerFechaHoy());
             contratoVO.setMcoId(modalidad);
-            //contratoVO.setConTipo(tipoinfra);
+            contratoVO.setTinId(tipoinfra);
             contratoVO.setCsiId(concesion);
             contratoVO.setCncId(concesionario);
+            contratoVO.setConAnyo(añohrbus);
+            contratoVO.setConNumero(nrohrbus);
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+            contratoVO.setConFechaRegistro(dt1.parse(freghr));
+            contratoVO.setConAsunto(asuntohr);
             contratoVO.setConEstado(1);          
-            
             contratoConcesionServiceImp.insert(contratoVO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
+                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            limpiarCamposTotales();
         }catch(Exception e){
             System.out.println(e);
         }
+        }
+    }
+    
+    public int ValidaContratoConcesion (int concesion, int tipoinfra) throws SQLException{
+        int resultado = this.contratoConcesionServiceImp.ValidarContratoConcesion(concesion,tipoinfra);
+        return resultado;
+    }
+    
+    public void limpiarCamposTotales(){
+        nomconcesionario = "";
+        siglasconcesionario = "";
+        tipodocumento = 0;
+        nrodocumento = "";
+        busqueda = "";
+        nrohr = "";
+        añohr = "";
+        freghr = "";
+        asuntohr = "";
+        nombreConcesionarioBus = "";
+        siglasConcesionarioBus = "";
+        direccionConcesionarioBus = "";
+        tipoinfra = 0;
+        concesion = 0;
+        concesionario = 0;
+        modalidad = 0;
+        añohrbus = 0;
+        nrohrbus = 0;
     }
 
 
