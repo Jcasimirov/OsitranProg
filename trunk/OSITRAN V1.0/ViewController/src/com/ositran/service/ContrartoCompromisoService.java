@@ -1,0 +1,15 @@
+package com.ositran.service;
+
+import com.ositran.vo.bean.ContratoCompromisoVO;
+
+import java.sql.SQLException;
+
+import java.util.List;
+
+public interface ContrartoCompromisoService {
+    public List<ContratoCompromisoVO> query() throws SQLException;
+    public String insert(ContratoCompromisoVO contratoCompromisoVO) throws SQLException;
+    public String delete(Integer id) throws SQLException;
+    public String update(ContratoCompromisoVO contratoCompromisoVO) throws SQLException;
+    public ContratoCompromisoVO get(Integer id) throws SQLException;
+}
