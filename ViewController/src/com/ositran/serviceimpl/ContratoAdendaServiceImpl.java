@@ -79,6 +79,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdendaVO.setCadFecha(contratoAdenda.getCadFecha());
         contratoAdendaVO.setCadDescripcion(contratoAdenda.getCadDescripcion());
         contratoAdendaVO.setCadDocumentoFisico(contratoAdenda.getCadDocumentoFisico());
+        contratoAdendaVO.setCadEstado(contratoAdenda.getCadEstado());
                         
     
         return contratoAdendaVO;
@@ -95,6 +96,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadFecha(contratoAdendaVO.getCadFecha());
         contratoAdenda.setCadDescripcion(contratoAdendaVO.getCadDescripcion());
         contratoAdenda.setCadDocumentoFisico(contratoAdendaVO.getCadDocumentoFisico());
+        contratoAdenda.setCadEstado(contratoAdenda.getCadEstado());
         return contratoAdenda;
         
     }
