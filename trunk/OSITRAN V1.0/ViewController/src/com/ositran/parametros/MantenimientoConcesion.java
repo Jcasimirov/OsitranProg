@@ -485,8 +485,7 @@ public class MantenimientoConcesion {
         listaInfraestructuras.add(infra);
         nombreInfraestructuraNueva = "";
         contador++;
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        
 
     }
 
@@ -554,9 +553,7 @@ public class MantenimientoConcesion {
 
                 infraestructuraServiceImpl.update(infra);
                 
-                
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            
             }
             a = 0;
         }
