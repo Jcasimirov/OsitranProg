@@ -254,5 +254,13 @@
 		<property name="modalidadServiceImp" ref="modalidadServiceImp"/>
 		<property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
     </bean>
-
+<bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>  
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod" value="com.ositran.util.ControlAcceso.setNewInstance"/>
+    <property name="arguments">
+        <list>
+            <ref bean="controlacceso"/>
+        </list>
+   </property>
+</bean> 
 </beans>
