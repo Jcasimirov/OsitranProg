@@ -22,8 +22,11 @@
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblTipoInfraestructura}"
                                                                   id="lblTipoInfraestructura" value="Tipo infraestructura"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectTipoInfraestructura}"
-                                                                    id="selectTipoInfraestructura"/>
-                                                                    
+                                                                    id="selectTipoInfraestructura" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructura}">
+                                            <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructuraSelectItems}"/>
+                                            <f:ajax render="selectedItemTipoInfraestructura" event="change"
+                                                    execute="selectTipoInfraestructura"/>
+                                        </primefaces-p:selectOneMenu>
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblAnnio}"
                                                                   id="lblAnnio" value="Año"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectAnnio}"
@@ -52,7 +55,8 @@
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
                                         <h:inputHidden id="selectedItem" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedAnnio}"/> 
-                                        <h:inputHidden id="selectedItemMes" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedMes}"/>                                                                                 
+                                        <h:inputHidden id="selectedItemMes" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedMes}"/>   
+                                        <h:inputHidden id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedTipoInfraestructura}"/>
                                     </primefaces-p:panelGrid>
                                 </h:form>
                             </div>
