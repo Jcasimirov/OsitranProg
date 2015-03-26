@@ -152,6 +152,12 @@ public class ConcesionServiceImpl implements ConcesionService{
             return listVO;
         }
 
+    public List<ConcesionVO> listarConcesiones() throws SQLException{
+        List<Concesion> list=concesionDAOImpl.listarConcesiones();
+        List<ConcesionVO> listVO=toListConcesionVO(list);
+        return listVO;            
+    }
+
     
 
 
