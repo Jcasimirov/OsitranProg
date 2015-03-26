@@ -5,6 +5,8 @@ import com.ositran.model.Concesion;
 
 import com.ositran.model.Infraestructura;
 
+import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
 
 import java.util.Collections;
@@ -180,6 +182,12 @@ public class ConcesionDAOImpl implements ConcesionDAO {
             return list;
         }
 
+    public List<Concesion> listarConcesiones() throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        List list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by CSI_ID DESC").list();
+        return list;
+    }    
 
    
 }
