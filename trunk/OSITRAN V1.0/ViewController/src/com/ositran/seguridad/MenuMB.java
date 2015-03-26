@@ -18,10 +18,7 @@ import org.primefaces.component.submenu.Submenu;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
 import org.primefaces.component.menuitem.MenuItem;
-
-
 @ManagedBean(name = "menuMB")
-@RequestScoped
 public class MenuMB {
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
@@ -86,6 +83,16 @@ public class MenuMB {
             //cuarto submenu
             Submenu cuartoSubmenu = new Submenu();           
             cuartoSubmenu.setLabel("REPORTE ");  
+            for (int i=0;i<listaRolOpciones.size();i++){ 
+                 menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
+                if (menVO.getMenPadre()==2){
+                MenuItem item= new MenuItem();
+                item.setValue(menVO.getMenNombre());
+                item.setUrl(menVO.getMenUrl());
+                 cuartoSubmenu.getChildren().add(item);
+                 }
+                }
+            
             
             //quinto submenu
             Submenu quintoSubmenu = new Submenu();           
