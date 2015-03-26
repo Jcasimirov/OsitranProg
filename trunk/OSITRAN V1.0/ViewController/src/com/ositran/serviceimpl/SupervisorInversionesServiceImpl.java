@@ -17,7 +17,7 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     List<SupervisorInversionesVO> listVO;
 
     @Override
-    public List<SupervisorInversionesVO> buscarCoordinadorInSitu(int codTipoInfraestructura) throws SQLException {
+    public List<SupervisorInversionesVO> buscarSupervisoresxInfraestructura(int codTipoInfraestructura) throws SQLException {
         List<SupervisorInversiones> list=supervisorInversionesDAOImpl.buscarCoordinador(codTipoInfraestructura);
         List<SupervisorInversionesVO> listVO=toListV_BuscarEmpresaSupervisoraVO(list);
         return listVO;
@@ -47,14 +47,20 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
         supinvVO.setTsiDescripcion(supinv.getTsiDescripcion());
         supinvVO.setTsiDireccion(supinv.getTsiDireccion());
         supinvVO.setTsiEncargado(supinv.getTsiEncargado());
-    
+        /*supinvVO.setTsiEstado(supinv.getTsiEstado());
+        supinvVO.setTsiFechaAlta(supinv.getTsiFechaAlta());
+        supinvVO.setTsiFechaBaja(supinv.getTsiFechaBaja());
+        supinvVO.setTsiFechaCambio(supinv.getTsiFechaCambio());*/
         supinvVO.setTsiHabilitado(supinv.getTsiHabilitado());
         supinvVO.setTsiId(supinv.getTsiId());
         supinvVO.setTsiNombre(supinv.getTsiNombre());
         supinvVO.setTsiNroDocumento(supinv.getTsiNroDocumento());
         supinvVO.setTsiSiglas(supinv.getTsiSiglas());
         supinvVO.setTsiTelefono(supinv.getTsiTelefono());
-    
+        /*supinvVO.setTsiTerminal(supinv.getTsiTerminal());
+        supinvVO.setTsiUsuarioAlta(supinv.getTsiUsuarioAlta());
+        supinvVO.setTsiUsuarioBaja(supinv.getTsiUsuarioBaja());
+        supinvVO.setTsiUsuarioCambio(supinv.getTsiUsuarioCambio());  */     
         return supinvVO;
     }
 
@@ -68,14 +74,20 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
         supinv.setTsiDescripcion(supinvVO.getTsiDescripcion());
         supinv.setTsiDireccion(supinvVO.getTsiDireccion());
         supinv.setTsiEncargado(supinvVO.getTsiEncargado());
-    
+       /* supinv.setTsiEstado(supinvVO.getTsiEstado());
+        supinv.setTsiFechaAlta(supinvVO.getTsiFechaAlta());
+        supinv.setTsiFechaBaja(supinvVO.getTsiFechaBaja());
+        supinv.setTsiFechaCambio(supinvVO.getTsiFechaCambio());*/
         supinv.setTsiHabilitado(supinvVO.getTsiHabilitado());
         supinv.setTsiId(supinvVO.getTsiId());
         supinv.setTsiNombre(supinvVO.getTsiNombre());
         supinv.setTsiNroDocumento(supinvVO.getTsiNroDocumento());
         supinv.setTsiSiglas(supinvVO.getTsiSiglas());
         supinv.setTsiTelefono(supinvVO.getTsiTelefono());
-          
+        /*supinv.setTsiTerminal(supinvVO.getTsiTerminal());
+        supinv.setTsiUsuarioAlta(supinvVO.getTsiUsuarioAlta());
+        supinv.setTsiUsuarioBaja(supinvVO.getTsiUsuarioBaja());
+        supinv.setTsiUsuarioCambio(supinvVO.getTsiUsuarioCambio());  */      
         return supinv;
     }
 
