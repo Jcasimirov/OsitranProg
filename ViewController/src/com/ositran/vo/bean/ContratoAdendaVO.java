@@ -16,6 +16,7 @@ public class ContratoAdendaVO {
     private Integer conId;
     private Integer monId;
     private Integer tadId;
+    private Integer cadEstado;
 
     public String getCadDescripcion() {
         return cadDescripcion;
@@ -81,4 +82,11 @@ public class ContratoAdendaVO {
         this.tadId = tadId;
     }
 
+    public Integer getCadEstado() {
+        return cadEstado;
+    }
+
+    public void setCadEstado(Integer cadEstado) {
+        this.cadEstado = cadEstado;
+    }
 }
