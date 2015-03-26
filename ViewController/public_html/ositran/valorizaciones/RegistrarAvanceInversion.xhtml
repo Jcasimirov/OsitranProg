@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+           <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+           <script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','MiÃ©rcoles','Jueves','Viernes','SÃ¡bado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'SÃ³lo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'DÃ­a',
+			    allDayText : 'Todo el dÃ­a'
+			};
+			
+		</script>
+        </h:head>
+    <h:body>              
+	<h:form id="form">
+            <p:growl id="mensaje" showDetail="true" life="10000"/>
+            <p:layout fullPage="true" style="border:none">
+            <p:layoutUnit position="center" style="border:0px">
+            <ui:include src="/ositran/util/menu.xhtml"/>
+            <div align="center" >
+            
+                <div align="center" ><h4 style="color: #003194;">REGISTRAR AVANCE INVERSIÓN</h4></div>
+		<table style="font-size: 11px">
+			<tr>
+				<td valign="top">
+				<p:fieldset legend="Datos Contrato Concesión">
+				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
+					<table>
+							<tr>
+								<td>Núm. Ficha registro web concesionario </td>
+								<td >
+								 <p:inputText readonly="true" style="width:100px"/>
+                                                                  <h:outputText style="color:White" value="n"/>
+                                                                 <p:commandButton image="ui-icon-search" ></p:commandButton>
+	
+								</td>
+								</tr>
+							
+						</table>
+				</p:fieldset>
+				<br></br>
+				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
+                               
+                                        <h:outputText value="Buscar Contratos Concesión"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:commandButton image="ui-icon-search" />	
+                                                               
+				</p:fieldset>
+					<br></br>
+				<p:fieldset styleClass="fielsetinterno" legend="#{leg.des}">
+					<table>
+									<tr>
+										<td align="left">Concesión</td>
+										<td><p:inputText readonly="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo Infraestructura</td>
+										<td><p:inputText readonly="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Modalidad Concesión</td>
+										<td><p:inputText readonly="true"></p:inputText></td>
+									</tr>
+                                                                        <tr>
+										<td align="left">Aeropuerto</td>
+										<td><p:inputText readonly="true"></p:inputText></td>
+									</tr>	
+                                                                        <tr>
+										<td align="left">Inversión</td>
+										<td><p:inputText readonly="true"></p:inputText></td>
+									</tr>	
+								</table>
+				</p:fieldset>
+				<br></br>
+				<p:fieldset styleClass="fielsetinterno" legend="#{leg.etaCo}">
+								<table>
+									<tr>
+										<td colspan="2" align="left">#{cam.setapa}</td>
+										<td colspan="2" align="left">
+												<p:selectOneMenu  value="">
+					        					<f:selectItem  itemLabel="#{cam.S}" itemValue="4" />
+										        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+										        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+										        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+					    						</p:selectOneMenu>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">#{cam.al}</td>
+										<td colspan="3" align="left" ><p:inputText style="width: 300px" readonly="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">#{cam.ini}</td>
+										<td align="left"><p:calendar size="10" locale="es" pattern="dd/MM/yyyy" /></td>
+										<td align="left">#{cam.fin}</td>
+										<td align="left"><p:calendar size="10" locale="es" pattern="dd/MM/yyyy" /></td>
+									</tr>
+									<tr>
+										<td align="left">#{cam.tot}</td>
+										<td align="left" ><p:inputText size="10"></p:inputText></td>
+										<td align="left">#{cam.mon}</td>
+										<td align="left"><p:inputText size="10"></p:inputText></td>
+									</tr>
+								</table>
+							</p:fieldset>
+					</p:fieldset>				
+				</td>
+				<td valign="top">
+				<p:fieldset legend="Solicitud del Concesionario">
+					<p:fieldset styleClass="fielsetinterno" legend="Datos STD">
+                                        
+                                        <table>
+                                            <tr>
+                                                <td class="negrita">Nro HR: <h:outputText style="color:White" value="n"/></td>
+                                                 <td >
+                                                   
+                                                    Nro: <p:inputText style="width:60px"  />
+                                                     <h:outputText style="color:White" value="nnn"/>
+                                                    </td>
+                                                  <td >Año: <p:inputText style="width:60px" />
+                                                      
+                                                        <p:commandButton image="ui-icon-search" />  </td>
+                                                       
+                                                   <td> <h:outputText style="color:White" value="nn"/>
+                                                   Fecha Registro: <p:calendar locale="es" styleClass="calendario"  /></td>
+                                            </tr>
+                                             <tr>
+                                                <td class="negrita">Asunto:</td>
+                                                
+                                                 <td colspan="3"><p:inputTextarea   style="width:97%;height:25px" /></td>
+                                                  
+                                            </tr>
+                                             <tr>
+                                                <td class="negrita">Plazo:</td>
+                                                <td><p:inputText  style="width:70px" /></td>
+                                                 <td>
+                                                    <table style="font-size:9px">
+                                                            <tr>
+                                                                    <td><p:selectBooleanCheckbox  />Días Calendarios</td>
+                                                            </tr>
+                                                             <tr>
+                                                                    <td><p:selectBooleanCheckbox  />Días Habiles</td>
+                                                            </tr>
+                                                    </table>
+                                                 </td>
+                                                <td >Vencimiento Plazo: <p:calendar locale="es" styleClass="calendario"   /></td>
+                                            </tr>
+                                        </table>												
+					</p:fieldset>				 	
+					<br></br>
+					<p:fieldset styleClass="fielsetinterno" legend="Datos Valorización">
+					<br></br>
+                                        <table>
+                                            <tr>
+                                                <td>Periodo Ejecución(Inicio)</td> 
+                                                <td><p:calendar locale="es" styleClass="calendario" /></td> 
+                                                <td>Periodo Ejecución(Fin)</td> 
+                                                <td><p:calendar locale="es"  styleClass="calendario"  /></td> 
+                                                <td colspan="2">Moneda 
+                                                
+                                                    <p:selectOneMenu id="aeropuerto" value="">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                            </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                 <td>Aeropuerto</td> 
+                                                <td colspan="5">
+                                                    <p:selectOneMenu id="aeropuerto1" value="">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                            </p:selectOneMenu>
+                                                </td> 
+                                               
+                                            </tr>
+                                            <tr>
+                                                 <td>Concepto:</td> 
+                                                <td>
+                                                          <p:selectOneMenu id="aeropuerto2" value="">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
+                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
+                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
+                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                            </p:selectOneMenu>
+                                                </td> 
+                                                <td>Monto Presentado</td> 
+                                                <td>  <p:inputText style="width:60px" /></td> 
+                                                <td> <p:selectBooleanCheckbox  />
+                                                        <h:outputText style="font-size:9px" value="Con IGV" />
+                                                </td> 
+                                                <td>
+                                                <p:commandButton value="Agregar" image="ui-icon-circle-plus" />
+                                                </td>  
+                                            </tr>
+                                        </table>
+
+                                                        <p:dataTable editable="true">
+						       			 <p:column headerText="Aeropuertos" >
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	 
+						       			 <p:column headerText="Descripción del Concepto" style="width:25px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Moneda" style="width:15px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			<p:column headerText="Neto" style="width:15px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>	
+						       			<p:column headerText="Igv" style="width:15px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>
+                                                                        <p:column headerText="Total" style="width:15px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>
+                                                                        <p:column headerText="Eliminar" style="width:15px">
+						          			 <h:outputText></h:outputText>
+						       			</p:column>
+							</p:dataTable>
+							<div align="right" class="negrita">Total: 
+                                                            <p:inputText style="width:50px" />
+                                                             <p:inputText style="width:50px"/>
+                                                              <p:inputText style="width:50px"/>
+                                                        </div>
+							</p:fieldset>
+							<br></br>
+				</p:fieldset>		
+				</td>
+			</tr>
+		</table>	
+		</div>               
+                  <div style="text-align:center;font-size: 11px">
+                                 <p:commandButton  style="width:80px" value="Guardar"/>
+                                    <p:commandButton style="width:80px" value="Limpiar"/>
+                                    </div>
+                </p:layoutUnit>
+           
+               
+               
+              
+            
+            </p:layout>
+	</h:form>	
+    </h:body>
+    </html>
+</f:view>
