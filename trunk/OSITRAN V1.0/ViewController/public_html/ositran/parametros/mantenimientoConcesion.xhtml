@@ -32,10 +32,10 @@
                                 <table style="margin-bottom:5px;font-size: 11px">
                                     <tr>
                                         <td>
-                                            <h:outputLabel value="Tipo de Infraestructuras"
+                                            <h:outputLabel value="TIPO DE INFRAESTRUCTURA:"
                                                            style="align:left; text-align:left"></h:outputLabel>
                                         </td>
-                                        <td>
+                                        <td colspan="1">
                                             <p:selectOneMenu id="tipobuscar"
                                                              value="#{mantenimientoconcesionMB.codigoTipoInfraestructurafiltro}"
                                                              style="width:300px;text-transform:uppercase;width:70%">
@@ -53,20 +53,23 @@
                                             <p:inputText id="nombrebuscar"
                                                          value="#{mantenimientoconcesionMB.concesionbuscar}"
                                                          style="width:300px;text-transform:uppercase;"></p:inputText>
-                                        </td>
-                                        <td>
-                                            <p:commandButton value="#{btn.btn_buscar}"
+                                                         
+                                                         <p:commandButton value="#{btn.btn_buscar}"
                                                              actionListener="#{mantenimientoconcesionMB.buscarconcesion()}"
                                                              update=":form:tablaES"/>
                                              
                                             <p:commandButton value="Clear" type="reset" image="ui-icon-close"/>
+                                            
+                                         
                                         </td>
-                                        <td style=" width:40%"></td>
-                                        <td>
-                                            <p:commandButton actionListener="#{mantenimientoconcesionMB.resetear()}"
+                                       
+                                        <td style=" width:40%" align="right">
+                                           <p:commandButton actionListener="#{mantenimientoconcesionMB.resetear()}"
                                                              oncomplete="insertarPanel.show()"
                                                              update=":form:insertarPanel" value="Nueva Concesión"/>
-                                        </td>
+                                      
+                                          </td>  
+                                       
                                     </tr>
                                      
                                     <tr style=" text-align: right;">
