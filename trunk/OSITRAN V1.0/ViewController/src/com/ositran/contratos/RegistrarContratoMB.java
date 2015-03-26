@@ -670,7 +670,7 @@ public class RegistrarContratoMB {
         return resultado;
     }
     
-    public void limpiarCamposTotales(){
+    public void limpiarCamposTotales()throws SQLException{
         nomconcesionario = "";
         siglasconcesionario = "";
         tipodocumento = 0;
@@ -689,6 +689,7 @@ public class RegistrarContratoMB {
         modalidad = 0;
         añohrbus = 0;
         nrohrbus = 0;
+        filtrarConcesion();
     }
 
 
