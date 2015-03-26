@@ -35,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "mantenimientoconcesionMB")
 @ViewScoped
 
+
+
 public class MantenimientoConcesion {
 
     int contador = 0;
