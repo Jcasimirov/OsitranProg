@@ -21,4 +21,5 @@ public interface ConcesionDAO {
     /*  public Concesion get2(Integer id); */
     // Iosusky
     public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException;
+    public List<Concesion> listarConcesiones() throws SQLException;
 }
