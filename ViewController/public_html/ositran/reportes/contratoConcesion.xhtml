@@ -21,15 +21,27 @@
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_contratoConcesion.lblTipoInfraestructura}"
                                                                   id="lblTipoInfraestructura" value="Tipo infraestructura"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_contratoConcesion.selectTipoInfraestructura}"
-                                                                    id="selectTipoInfraestructura"/>
+                                                                    id="selectTipoInfraestructura" value="#{backing_ositran_reports_contratoConcesion.tipoInfraestructura}">
+                                            <f:selectItems value="#{backing_ositran_reports_contratoConcesion.tipoInfraestructuraSelectItems}"/>
+                                            <f:ajax render="selectedItemTipoInfraestructura" event="change"
+                                                    execute="selectTipoInfraestructura"/>
+                                        </primefaces-p:selectOneMenu>
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_contratoConcesion.lblConcesion}"
                                                                   id="lblConcesion" value="Concesion"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_contratoConcesion.selectConcesion}"
-                                                                        id="selectConcesion"/>
+                                                                        id="selectConcesion" value="#{backing_ositran_reports_contratoConcesion.concesion}">
+                                                                    <f:selectItems value="#{backing_ositran_reports_contratoConcesion.concesionSelectItems}"/>
+                                                                    <f:ajax render="selectedItemConcesion" event="change" execute="selectConcesion"/>
+                                        </primefaces-p:selectOneMenu>
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_contratoConcesion.lblModalidad}"
                                                                   id="lblModalidad" value="Modalidad"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_contratoConcesion.selectModalidad}"
-                                                                    id="selectModalidad"/>
+                                                                    id="selectModalidad"
+                                                                    value="#{backing_ositran_reports_contratoConcesion.modalidadConcesion}">
+                                            <f:selectItems value="#{backing_ositran_reports_contratoConcesion.modalidadConcesionSelectItems}"/>
+                                            <f:ajax render="selectedItemModalidadConcesion" event="change"
+                                                    execute="selectModalidad"/>
+                                        </primefaces-p:selectOneMenu>
                                         <primefaces-p:commandButton binding="#{backing_ositran_reports_contratoConcesion.cmbGenerar}"
                                                                         id="cmbGenerar" value="Generar"/>
                                         <h:commandLink>
@@ -38,6 +50,11 @@
                                         <h:commandLink>
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
+                                        <h:inputHidden id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_contratoConcesion.selectedTipoInfraestructura}"/>
+                                        <h:inputHidden id="selectedItemConcesion" value="#{backing_ositran_reports_contratoConcesion.selectedConcesion}"/>
+                                        <h:inputHidden id="selectedItemModalidadConcesion"
+                                                       value="#{backing_ositran_reports_contratoConcesion.selectedModalidad}"/>
+                                        
                                     </primefaces-p:panelGrid>
                                 </h:form>
                             </div>

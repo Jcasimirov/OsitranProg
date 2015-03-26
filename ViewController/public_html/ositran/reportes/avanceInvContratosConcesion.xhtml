@@ -53,7 +53,7 @@
                                                                   id="lblConcesion" value="Concesión"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectConcesion}"
                                                                     id="selectConcesion" value="#{backing_ositran_reports_avanceInvContratosConcesion.concesion}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.concesionesSelectItems}"/>
+                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.concesionSelectItems}"/>
                                                                     <f:ajax render="selectedItemConcesion" event="change" execute="selectConcesion"/>
                                         </primefaces-p:selectOneMenu>
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblModalidad}"
@@ -66,7 +66,7 @@
                                         <h:inputHidden id="selectedItem" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedAnnio}"/> 
                                         <h:inputHidden id="selectedItemMes" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedMes}"/> 
                                         <h:inputHidden id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedTipoInfraestructura}"/>
-                                        <h:inputHidden id="selectedItemConcesion" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedConcesiones}"/>
+                                        <h:inputHidden id="selectedItemConcesion" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedConcesion}"/>
                                         <h:inputHidden id="selectedItemModalidad" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedModalidades}"/> 
                                     </primefaces-p:panelGrid>
                                 </h:form>
