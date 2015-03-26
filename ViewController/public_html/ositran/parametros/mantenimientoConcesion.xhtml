@@ -207,7 +207,7 @@
                             </td>
                         </tr>
                     </table>
-                    <p:commandButton update=":form:tablaES" oncomplete="eliminarConcesionPanel.hide()"
+                    <p:commandButton update=":form:tablaES :form:mensaje" oncomplete="eliminarConcesionPanel.hide()"
                                      actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaConcesion()}"
                                      style="width:70px" value="#{btn.btn_eliminar}"/>
                 </p:dialog>
