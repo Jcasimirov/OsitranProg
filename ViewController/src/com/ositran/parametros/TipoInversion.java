@@ -1,6 +1,7 @@
 package com.ositran.parametros;
 
 import com.ositran.service.TipoInversionServices;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.MenVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
@@ -53,21 +54,21 @@ public class TipoInversion {
     
     //-----------------SESSION-----------------------//
     public  final int formulario=1;
-    private  HttpServletRequest httpServletRequest=null;
+    /*  private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
-     private   int leerSesion;
+    private   int leerSesion;
     private   int ingresarSesion;
     private  int eliminarSesion;
     private   int actualizarSesion;
     private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
     private List<UsuarioVO> listaUsuarios=new ArrayList<>();
-    private String parametroValidacion;
-      
+    private String parametroValidacion; */
+    private RolOpcionesVO rolOpcion;
     //----------------EDITAR------------------------//
     private int codigoE;
     private String nombreE;
     private String descripcionE;
-    
+
    
     @ManagedProperty(value = "#{tipoInversionVO}")
     TipoInversionVO tipoInversionVO;
@@ -77,7 +78,7 @@ public class TipoInversion {
 
     public void validarSesion() throws IOException{
         
-        try {
+        /* try {
            faceContext=FacesContext.getCurrentInstance();
            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
            HttpSession session = httpServletRequest.getSession();
@@ -88,8 +89,7 @@ public class TipoInversion {
                 if (rolO.getMenId()==formulario){
                     parametroValidacion="true";
                     }
-                }
-           
+                }          
             if (!"true".equals(parametroValidacion)) {
                     
                     FacesContext context = FacesContext.getCurrentInstance();
@@ -125,13 +125,11 @@ public class TipoInversion {
             httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
              String redirectPath = "/faces/ositran/logueo.xhtml";
              externalContext.redirect(servletContext.getContextPath() + redirectPath);
-        }
-            
-            
-        
-        
-        
-        
+        }    leerSesion=rolOpcion.getTroConsultar();
+            ingresarSesion=rolOpcion.getTroAgregar();
+            actualizarSesion=rolOpcion.getTroModificar();
+            eliminarSesion=rolOpcion.getTroEliminar();      */  
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
         }
     public void guardar() {
         int cantidad;
@@ -458,6 +456,7 @@ public class TipoInversion {
     }
 
 
+    /*
     public void setLeerSesion(int leerSesion) {
         this.leerSesion = leerSesion;
     }
@@ -529,7 +528,14 @@ public class TipoInversion {
 
     public String getParametroValidacion() {
         return parametroValidacion;
+    } */
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
     }
 
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
 
 }
