@@ -60,7 +60,7 @@
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                             </td>
                                             <td align="right">
-                                                <p:commandButton  rendered="#{tipoInversionMB.ingresarSesion eq 1}" actionListener="#{tipoInversionMB.limpiar}"
+                                                <p:commandButton  rendered="#{tipoInversionMB.rolOpcion.getTroAgregar() eq 1}" actionListener="#{tipoInversionMB.limpiar}"
                                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
                                                                  value=" Nueva Inversion" update=":form:registrar"
@@ -89,7 +89,7 @@
                                     <p:column headerText="Descripción" style="width:45%">
                                         <h:outputText value="#{inversion.tivDescripcion}"/>
                                     </p:column>
-                                    <p:column  rendered="#{tipoInversionMB.actualizarSesion eq 1}"  headerText="Editar" style="width:4%">
+                                    <p:column  rendered="#{tipoInversionMB.rolOpcion.getTroModificar() eq 1}"  headerText="Editar" style="width:4%">
                                         <div align="center">
                                             <p:commandButton
                                             
@@ -102,7 +102,7 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column   rendered="#{tipoInversionMB.eliminarSesion eq 1}"  headerText="Eliminar" style="width:4%">
+                                    <p:column   rendered="#{tipoInversionMB.rolOpcion.getTroEliminar() eq 1}"  headerText="Eliminar" style="width:4%">
                                         <div align="center">
                                             <p:commandButton 
                                            
