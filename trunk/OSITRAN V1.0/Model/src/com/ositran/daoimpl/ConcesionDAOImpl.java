@@ -48,7 +48,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         System.out.println("DAO");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by CSI_ID DESC ").list();
+        List list = session.createQuery("From Concesion o where o.csiEstado <> 0 order by CSI_ID DESC ").list();
         session.getTransaction().commit();
 
         
