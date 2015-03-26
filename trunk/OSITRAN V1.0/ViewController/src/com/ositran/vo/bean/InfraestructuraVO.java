@@ -1,3 +1,4 @@
+
 package com.ositran.vo.bean;
 
 import java.util.Date;
