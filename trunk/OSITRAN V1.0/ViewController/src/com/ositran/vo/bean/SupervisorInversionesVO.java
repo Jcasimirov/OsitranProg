@@ -12,20 +12,13 @@ public class SupervisorInversionesVO {
     private String tsiDescripcion;
     private String tsiDireccion;
     private int tsiEncargado;
-    private int tsiEstado;
-    private Date tsiFechaAlta;
-    private Date tsiFechaBaja;
-    private Date tsiFechaCambio;
+
     private int tsiHabilitado;
     private int tsiId;
     private String tsiNombre;
     private String tsiNroDocumento;
     private String tsiSiglas;
     private String tsiTelefono;
-    private String tsiTerminal;
-    private String tsiUsuarioAlta;
-    private String tsiUsuarioBaja;
-    private String tsiUsuarioCambio;
 
     public void setCrgId(int crgId) {
         this.crgId = crgId;
@@ -83,37 +76,6 @@ public class SupervisorInversionesVO {
         return tsiEncargado;
     }
 
-    public void setTsiEstado(int tsiEstado) {
-        this.tsiEstado = tsiEstado;
-    }
-
-    public int getTsiEstado() {
-        return tsiEstado;
-    }
-
-    public void setTsiFechaAlta(Date tsiFechaAlta) {
-        this.tsiFechaAlta = tsiFechaAlta;
-    }
-
-    public Date getTsiFechaAlta() {
-        return tsiFechaAlta;
-    }
-
-    public void setTsiFechaBaja(Date tsiFechaBaja) {
-        this.tsiFechaBaja = tsiFechaBaja;
-    }
-
-    public Date getTsiFechaBaja() {
-        return tsiFechaBaja;
-    }
-
-    public void setTsiFechaCambio(Date tsiFechaCambio) {
-        this.tsiFechaCambio = tsiFechaCambio;
-    }
-
-    public Date getTsiFechaCambio() {
-        return tsiFechaCambio;
-    }
 
     public void setTsiHabilitado(int tsiHabilitado) {
         this.tsiHabilitado = tsiHabilitado;
@@ -163,36 +125,5 @@ public class SupervisorInversionesVO {
         return tsiTelefono;
     }
 
-    public void setTsiTerminal(String tsiTerminal) {
-        this.tsiTerminal = tsiTerminal;
-    }
-
-    public String getTsiTerminal() {
-        return tsiTerminal;
-    }
-
-    public void setTsiUsuarioAlta(String tsiUsuarioAlta) {
-        this.tsiUsuarioAlta = tsiUsuarioAlta;
-    }
-
-    public String getTsiUsuarioAlta() {
-        return tsiUsuarioAlta;
-    }
-
-    public void setTsiUsuarioBaja(String tsiUsuarioBaja) {
-        this.tsiUsuarioBaja = tsiUsuarioBaja;
-    }
-
-    public String getTsiUsuarioBaja() {
-        return tsiUsuarioBaja;
-    }
-
-    public void setTsiUsuarioCambio(String tsiUsuarioCambio) {
-        this.tsiUsuarioCambio = tsiUsuarioCambio;
-    }
-
-    public String getTsiUsuarioCambio() {
-        return tsiUsuarioCambio;
-    }
 
 }
