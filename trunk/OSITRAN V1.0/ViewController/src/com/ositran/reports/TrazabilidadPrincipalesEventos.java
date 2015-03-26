@@ -202,7 +202,7 @@ public class TrazabilidadPrincipalesEventos {
 
     private List<InfraestructuraTipoVO> listaInfraestructura;
     
-    public List<InfraestructuraTipoVO> ListarInfraestructura() throws SQLException {
+    public List<InfraestructuraTipoVO> listarInfraestructura() throws SQLException {
         try {
             listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
         } catch (Exception e) {
@@ -215,14 +215,12 @@ public class TrazabilidadPrincipalesEventos {
      * @author Paul Rivera
      * @return tipo de infraestructura para que se renderize en el combo
      */
-    public List<SelectItem> getTipoInfraestructuraSelectItems() {
-        
+    public List<SelectItem> getTipoInfraestructuraSelectItems() throws SQLException {
         tipoInfraestructuraSelectItems.add(new SelectItem("-1","Seleccione"));
-        String[] mes=new String[2];
-        mes[0]="enero";
-        mes[1]="febrero";
-        for (int i = 0; i < mes.length; i++) {
-            tipoInfraestructuraSelectItems.add(new SelectItem(i, String.valueOf(mes[i])));
+        List<InfraestructuraTipoVO> lista=listarInfraestructura();
+        int i=0;
+        for(InfraestructuraTipoVO ivo:lista){
+            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
