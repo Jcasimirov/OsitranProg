@@ -531,9 +531,10 @@ public class MantenimientoConcesion {
         }
         for (int f = 0; f < listaInfraestructurasBD.size(); f++) {
             for (int c = 0; c < listaInfraestructuras.size(); c++) {
-              
+              String a1 = ""+listaInfraestructurasBD.get(f).getInfId();
+                String a2 = ""+listaInfraestructuras.get(c).getInfId();
                 if (listaInfraestructuras.get(c).getInfId() != 0 &&
-                    (listaInfraestructurasBD.get(f).getInfId() == (listaInfraestructuras.get(c).getInfId()))) {
+                    (a1.equals(a2))) {
                     a = 1;
                 }
             }
