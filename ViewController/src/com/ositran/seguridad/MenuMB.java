@@ -85,7 +85,8 @@ public class MenuMB {
             cuartoSubmenu.setLabel("REPORTE ");  
             for (int i=0;i<listaRolOpciones.size();i++){ 
                  menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
-                if (menVO.getMenPadre()==2){
+                if (menVO.getMenPadre()==4)
+                {
                 MenuItem item= new MenuItem();
                 item.setValue(menVO.getMenNombre());
                 item.setUrl(menVO.getMenUrl());
