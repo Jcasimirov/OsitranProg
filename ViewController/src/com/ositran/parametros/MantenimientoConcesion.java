@@ -91,24 +91,19 @@ public class MantenimientoConcesion {
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado tipo de infraestructura");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (nombre.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado nombre");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado Nombre de Concesion");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
                 int codigogenerado = 0;
 
-                //inicio de la carga para foreing key
-
-
                 concesionVO.setTinId(codigoTipoInfraestructuraInsert);
-                //finalización de la carga para foreing key
                 concesionVO.setCsiNombre(nombre);
                 concesionVO.setCsiEstado(1);
-                concesionVO.setCsiFechaAlta(new Date());
-                concesionVO.setCsiUsuarioAlta(obtenerIpCliente());
+                concesionVO.setCsiFechaAlta(util.getObtenerFechaHoy());
+                concesionVO.setCsiUsuarioAlta(util.obtenerIpCliente());
                 codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
-                System.out.println("************************************");
-                System.out.println(codigogenerado);
+
 
 
                 for (InfraestructuraVO infraestructuraVO : infraestructuras) {
@@ -119,19 +114,11 @@ public class MantenimientoConcesion {
                     infraestructuraVO.setInfFechaAlta(new Date());
                     infraestructuraVO.setInfEstado(1);
                     infraestructuraServiceImpl.insert(infraestructuraVO);
-
-
                 }
-
-
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                 infraestructuras.clear();
 
-               
-
-
                 listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
-
                 listarInfraestructuras();
                 RequestContext.getCurrentInstance().execute("window.location.reload()");
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
@@ -232,7 +219,7 @@ public class MantenimientoConcesion {
 
     public List<ConcesionVO> ListarConcesiones() {
         try {
-            System.out.println("llego al MB");
+          
             listaConcesiones = getConcesionServicesImpl().query();
             int contador = 1;
             for (ConcesionVO conc : listaConcesiones) {
@@ -439,6 +426,10 @@ public class MantenimientoConcesion {
             infraestructuraServiceImpl.update(infraestructuraVO);
 
             listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+            
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -459,7 +450,9 @@ public class MantenimientoConcesion {
         //fin de de captura de codigo a modificar
         codigoConcesion = concesionVO.getCsiId();
         nombreConcesion = concesionVO.getCsiNombre();
-
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        
 
     }
 
@@ -467,12 +460,18 @@ public class MantenimientoConcesion {
         listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
         for (InfraestructuraVO infra : listaInfraestructuras) {
             infra.setInfEstado(0);
+            infra.setInfFechaBaja(new Date());
+            infra.setInfUsuarioBaja(util.obtenerIpCliente());
+            
             infraestructuraServiceImpl.update(infra);
 
         }
         concesionVO.setCsiEstado(0);
         concesionServicesImpl.update(concesionVO);
+        
         ListarConcesiones();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
 
@@ -486,6 +485,8 @@ public class MantenimientoConcesion {
         listaInfraestructuras.add(infra);
         nombreInfraestructuraNueva = "";
         contador++;
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
 
@@ -495,7 +496,8 @@ public class MantenimientoConcesion {
         Object str = requestMap.get("rowId");
         int idcodigo = Integer.valueOf(str.toString());
         listaInfraestructuras.remove(idcodigo);
-        System.out.println(listaInfraestructuras.size());
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
 
@@ -505,9 +507,9 @@ public class MantenimientoConcesion {
         concesionVO.setCsiId(codigoE);
         concesionVO.setCsiNombre(nombreE);
         concesionVO.setTinId(codigoTipoInfraestructura);
-        concesionVO.setCsiFechaCambio(new Date());
-        concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
-
+        concesionVO.setCsiFechaCambio(util.getObtenerFechaHoy());
+        concesionVO.setCsiUsuarioCambio("charles");
+        concesionVO.setCsiTerminal(util.obtenerIpCliente());
         getConcesionServicesImpl().update(concesionVO);
 
 
@@ -526,6 +528,7 @@ public class MantenimientoConcesion {
                 vo.setCsiId(concesionVO.getCsiId());
                 vo.setInfFechaAlta(util.getObtenerFechaHoy());
                 vo.setInfTerminal(util.obtenerIpCliente());
+                vo.setInfUsuarioAlta("charles");
                 infraestructuraServiceImpl.insert(vo);
             }
         }
@@ -545,10 +548,15 @@ public class MantenimientoConcesion {
 
                 concesionVO.setCsiFechaCambio(new Date());
                 concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
+                concesionVO.setCsiUsuarioBaja("charles");
                 getConcesionServicesImpl().update(concesionVO);
 
 
                 infraestructuraServiceImpl.update(infra);
+                
+                
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
             a = 0;
         }
@@ -556,7 +564,7 @@ public class MantenimientoConcesion {
 
         ListarConcesiones();
           
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se actualizó con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
