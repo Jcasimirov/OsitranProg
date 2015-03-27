@@ -29,7 +29,7 @@ public class JefeAreaContratoConcecionServiceImpl implements JefeAreaContratoCon
 
     @Override
     public String insert(JefeAreaContratoConcecionVO jefeAreaContratoConcecionVO) throws SQLException, Exception {
-        // TODO Implement this method
+        
         return null;
     }
 
