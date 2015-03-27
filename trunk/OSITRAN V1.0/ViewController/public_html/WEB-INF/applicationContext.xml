@@ -28,12 +28,13 @@
     <bean id="supervisorInversiones" class="com.ositran.model.SupervisorInversiones"/>
     <bean id="supervisorInversionesVO" class="com.ositran.vo.bean.SupervisorInversionesVO"/>
     <bean id="infraestructura" class="com.ositran.model.Infraestructura"/>
-    <bean id="vwDocInterno" class="com.ositran.model.VwDocInterno"/>
-    <bean id="vwDocInternoVO" class="com.ositran.vo.bean.VwDocInternoVO"/>
     <bean id="contrato" class="com.ositran.model.Contrato"/>
     <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO"/>
     <bean id="conceptoInversionVO" class="com.ositran.vo.bean.ConceptoInversionVO"/>
     <bean id="conceptoInversion" class="com.ositran.model.ConceptoInversion"/>
+    <bean id="viewTdInternos" class="com.ositran.model.ViewTdInternos" />
+    <bean id="viewTdInternosVO" class="com.ositran.vo.bean.ViewTdInternosVO" />
+    
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -112,7 +113,7 @@
     <bean id="modalidadServiceImp" class="com.ositran.serviceimpl.ModalidadConcesionServiceImpl">
         <property name="modalidadConcesionDAOImpl" ref="modalidadConcesionDAOImpl"/>
     </bean>
-    <bean id="mantenimientoModalidadConcesion" class="com.ositran.parametros.MantenimientoModalidadConcesion">
+    <bean id="mantenimientoModalidadConcesion" class="com.ositran.parametros.MantenimientoModalidadConcesionMB">
         <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
     </bean>
     <!--S E G U R I D A D-->
@@ -212,7 +213,8 @@
     <bean id="contratoConcesionServiceImp" class="com.ositran.serviceimpl.ContratoConcesionServiceImpl">
         <property name="contratoConcesionDAOImpl" ref="contratoConcesionDAOImpl"/>
     </bean>
-    <bean id="regcontratoConcesion" class="com.ositran.contratos.RegistrarContrato">
+    <bean id="regcontratoConcesion" class="com.ositran.contratos.RegistrarContratoMB">        
+
         <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>
@@ -259,4 +261,5 @@
     <bean id="reporteModalidadConcesion" class="com.ositran.reports.InvReconocimContratosConcesionResumen">
         <property name="modalidadConcesionServiceImpl" ref="modalidadConcesionServiceImpl"/>
     </bean>
+    
 </beans>
