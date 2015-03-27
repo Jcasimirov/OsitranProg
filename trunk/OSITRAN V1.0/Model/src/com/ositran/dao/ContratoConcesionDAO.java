@@ -3,6 +3,8 @@ package com.ositran.dao;
 import com.ositran.model.Contrato;
 
 import java.sql.SQLException;
+
+import java.util.Date;
 import java.util.List;
 
 public interface ContratoConcesionDAO {
@@ -12,4 +14,5 @@ public interface ContratoConcesionDAO {
         public String update(Contrato contrato) throws SQLException;
         public Contrato get(Integer id) throws SQLException;
         public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException;
+        public List<Contrato> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException;
 }
