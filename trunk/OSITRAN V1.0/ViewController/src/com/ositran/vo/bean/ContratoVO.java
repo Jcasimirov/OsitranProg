@@ -26,7 +26,6 @@ public class ContratoVO {
     private Integer conId;
     private Integer conNumero;
     private String conPdfcontrato;
-    @Temporal(TemporalType.DATE)
     private Date conPlazoconcesion;
     private Integer conPlazorevision;
     private String conTerminal;
@@ -38,9 +37,10 @@ public class ContratoVO {
     private Integer mcoId;
     private Integer perId;
     private Integer tinId;
-    
-    //Atributo creado por Abel
+    private String nombreTipoInfraestructura;
     private String nombreConcesion;
+    private String nombreConcesionario;
+    private String nombreModalidad;
     private int codigoConcesion;
 
     public void setCncId(Integer cncId) {
@@ -259,6 +259,13 @@ public class ContratoVO {
         return tinId;
     }
 
+    public void setNombreTipoInfraestructura(String nombreTipoInfraestructura) {
+        this.nombreTipoInfraestructura = nombreTipoInfraestructura;
+    }
+
+    public String getNombreTipoInfraestructura() {
+        return nombreTipoInfraestructura;
+    }
 
     public void setNombreConcesion(String nombreConcesion) {
         this.nombreConcesion = nombreConcesion;
@@ -266,6 +273,22 @@ public class ContratoVO {
 
     public String getNombreConcesion() {
         return nombreConcesion;
+    }
+
+    public void setNombreConcesionario(String nombreConcesionario) {
+        this.nombreConcesionario = nombreConcesionario;
+    }
+
+    public String getNombreConcesionario() {
+        return nombreConcesionario;
+    }
+
+    public void setNombreModalidad(String nombreModalidad) {
+        this.nombreModalidad = nombreModalidad;
+    }
+
+    public String getNombreModalidad() {
+        return nombreModalidad;
     }
 
     public void setCodigoConcesion(int codigoConcesion) {
