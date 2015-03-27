@@ -9,12 +9,14 @@
 	<link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
 </h:head>
 <h:body>
+<h:form id="form">
+<p:growl id="mensaje" showDetail="true" life="10000"/>
      <f:event listener="#{jefeAreaContratoConcecionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
     <p:layout fullPage="true" style="border:none">
         <p:layoutUnit position="center"   style="border:0px">  
         <ui:include src="/ositran/util/menu.xhtml"/>
     
-            <h:form id="form">
+            
             <div align="center">
                             <h5 class="titulo">
                                 #{msg.tituloAJAC}
@@ -68,27 +70,32 @@
 		<p:fieldset styleClass="fielsetinterno" legend="Criterio Busqueda" >
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>    <td align="left" >Buscar Contrato Concecion: </td>
-	 				<td align="left" colspan="3"><p:inputText readonly="true" id="cb" style="width:390px" /> 
+	 				<td align="left" colspan="3"><p:inputText   value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  readonly="true" id="inputContrato" style="width:390px" /> 
                                         <p:commandButton image="ui-icon-search"  
-                                            actionListener="jefeAreaContratoConcecionMB.cargarContratosConcesion"                                
-                                            /></td>
+                                        update=":form:panelListaContratos "
+                                        oncomplete="panelListaContratos.show()"
+                                        actionListener="#{jefeAreaContratoConcecionMB.cargarListaContratos()}" 
+                                        
+                                        />
+                                        
+                                        </td>
 				</tr>
 			</table>
 		</p:fieldset>   
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" legend="Datos Contrato Concesion">
+		<p:fieldset styleClass="fielsetinterno" id="datosContratoConcesion" legend="Datos Contrato Concesion">
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>
 	 				<td align="left">#{cam.concesion}</td>
-	 				<td align="left" colspan="3"><p:inputText style="width:97.5%" /></td>
+	 				<td align="left"  colspan="3"><p:inputText  value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  style="width:97.5%" /></td>
 	 				
 				</tr>
 				
 				<tr>
 	 				<td align="left">#{cam.ti}</td>
-	 				<td align="left"><p:inputText /></td>
+	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.tipoInfraestructura}"  /></td>
 	 				<td align="left">#{cam.mc}</td>
-	 				<td align="left"><p:inputText /></td>
+	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.modalidadConcecion}"  /></td>
 				</tr>
 				
 			</table>
@@ -98,14 +105,48 @@
                 
                 <table align="center" style="font-size: 11px">	
 	 			<tr>  
-	 				<td align="right"><p:commandButton  value="#{btn.btn_guardar}" style="width:80px" /></td>
+	 				<td align="right"><p:commandButton actionListener="#{jefeAreaContratoConcecionMB.registrarContrato}"  update=":form:mensaje"   value="#{btn.btn_guardar}" style="width:80px" /></td>
 	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" style="width:80px" /></td>
                                 </tr>
 	 		</table>
-	</h:form>	
+                        
+                       
+	
 
     </p:layoutUnit>
 </p:layout>
 
+ <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
+                          style="text-align:center;">
+                    
+                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLC" var="lisContratos1"
+                                             value="#{jefeAreaContratoConcecionMB.listaContratos}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{lisContratos1.conId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{lisContratos1.nombreConcesion}" />
+                                    </p:column>
+                                  
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaContratos.hide()" 
+                                                actionListener="#{jefeAreaContratoConcecionMB.elegirContrato(lisContratos1)}"
+                                                image="ui-icon-circle-check"  
+                                                style="width:22px;height:22px"
+                                                update=":form:datosContratoConcesion :form:inputContrato"
+                                                >
+                                                
+                                                
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                </p:dialog>
+                	</h:form>
 </h:body>
 </html>
