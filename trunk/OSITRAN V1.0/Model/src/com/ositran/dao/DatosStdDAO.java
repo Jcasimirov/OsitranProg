@@ -1,9 +1,9 @@
 package com.ositran.dao;
 
-import com.ositran.model.VwDocInterno;
+import com.ositran.model.ViewTdInternos;
 import java.sql.SQLException;
 
 
 public interface DatosStdDAO {       
-        public VwDocInterno BuscaStd(Integer año, String nro) throws SQLException;        
+        public ViewTdInternos BuscaStd(Integer año, String nro) throws SQLException;        
 }
