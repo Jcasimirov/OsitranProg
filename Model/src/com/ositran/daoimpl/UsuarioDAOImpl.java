@@ -77,6 +77,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Usuario o order by USU_ID asc").list();
+        System.out.println("**************+");
+        System.out.println(list.size());
         return list;
     }
 
