@@ -17,7 +17,7 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;  
-        query = session.createQuery("From SupervisorInversiones c  WHERE c.tsiEstado != 0  and c.tinId = :busqueda");   
+        query = session.createQuery("From SupervisorInversiones c WHERE c.tinId = :busqueda");   
         query.setParameter("busqueda",codtipoInfraestructura);
         list = query.list();
         session.getTransaction().commit();
