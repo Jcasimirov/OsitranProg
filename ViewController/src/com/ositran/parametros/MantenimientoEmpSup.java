@@ -33,6 +33,7 @@ import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletContext;
@@ -43,7 +44,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "backing_ositran_parametros_MantenimientoEmpSup")
-@RequestScoped
+@ViewScoped
 @Generated(value = "1ositran/parametros/MantenimientoEmpSup.jsf",
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoEmpSup {
