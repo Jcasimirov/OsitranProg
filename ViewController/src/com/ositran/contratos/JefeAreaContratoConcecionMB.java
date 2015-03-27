@@ -2,83 +2,138 @@ package com.ositran.contratos;
 
 import com.ositran.model.Infraestructura;
 
+import com.ositran.service.ContratoJefeAreaService;
+import com.ositran.serviceimpl.ConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoJefeAreaServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.JefeAreaContratoConcecionServiceImpl;
+import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.ContratoJefeAreaVO;
+import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.JefeAreaContratoConcecionVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "jefeAreaContratoConcecionMB")
-@RequestScoped
 @ViewScoped
 public class JefeAreaContratoConcecionMB {
     private int tipoInfraestructura;
-    private String numeroDocumento="";
-    private String tipoDocumento="";
-    private String nombreJefeArea="";
-    private String  contratoConcesion;
+    private String numeroDocumento = "";
+    private String tipoDocumento = "";
+    private String nombreJefeArea = "";
+    private String contratoConcesion;
     private int tipoInfraestructuraC;
     private String modalidadConcecion;
-    
-    
-    
-    
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<>();
-    private List<JefeAreaContratoConcecionVO> listaJefeArea=new ArrayList<>();
-    
+    private int codigoConcesion;
+    private int codigoContrato;
+    private List<ContratoVO> listaContratos = new ArrayList<>();
+    private ContratoJefeAreaService contratoJefeAreaServiceImpl = new ContratoJefeAreaServiceImpl();
+    private ContratoJefeAreaVO contratoJefeAreaVO = new ContratoJefeAreaVO();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
+    private List<JefeAreaContratoConcecionVO> listaJefeArea = new ArrayList<>();
+
+
     @ManagedProperty(value = "#{jefeAreaContratoConcecionServiceImpl}")
     JefeAreaContratoConcecionServiceImpl jefeAreaContratoConcecionServiceImpl;
-    
+    private ContratoConcesionServiceImpl contratoServicesImpl = new ContratoConcesionServiceImpl();
+    ConcesionServiceImpl concesionServiceImpl = new ConcesionServiceImpl();
+
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
-    
+
     @ManagedProperty(value = "#{jefeAreaContratoConcecionVO}")
     JefeAreaContratoConcecionVO jefeAreaContratoConcecionVO;
-   
-   
-   
-    public void cargarListaInfraestructura(){
+
+
+    public void cargarListaInfraestructura() {
         try {
-            
-            
-           listaInfraestructuraTipo=infraestructuraTipoServiceImpl.query();
-       } catch (Exception e) {
+
+
+            listaInfraestructuraTipo = infraestructuraTipoServiceImpl.query();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-          
-        }
-    
-    public void cargarJefeAreaContratoConcesion(){
+
+    }
+
+    public void cargarJefeAreaContratoConcesion() {
         try {
-            
-            if (tipoInfraestructura!=0){
-            jefeAreaContratoConcecionVO =jefeAreaContratoConcecionServiceImpl.get(tipoInfraestructura);
-            nombreJefeArea=jefeAreaContratoConcecionVO.getSjaNombre();
-            tipoDocumento=jefeAreaContratoConcecionVO.getSjaTipoDocumento();
-            numeroDocumento=jefeAreaContratoConcecionVO.getSjaNumeroDocumento();
+
+            if (tipoInfraestructura != 0) {
+                jefeAreaContratoConcecionVO = jefeAreaContratoConcecionServiceImpl.get(tipoInfraestructura);
+                nombreJefeArea = jefeAreaContratoConcecionVO.getSjaNombre();
+                tipoDocumento = jefeAreaContratoConcecionVO.getSjaTipoDocumento();
+                numeroDocumento = jefeAreaContratoConcecionVO.getSjaNumeroDocumento();
             }
-            
+
             else {
-                    nombreJefeArea="";
-                    tipoDocumento="";
-                    numeroDocumento="";
-                }
-       } catch (Exception e) {
+                nombreJefeArea = "";
+                tipoDocumento = "";
+                numeroDocumento = "";
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-     
+
+    }
+
+
+    public void cargarListaContratos() {
+        try {
+            listaContratos = contratoServicesImpl.query();
+            for (ContratoVO contra : listaContratos) {
+                ConcesionVO concesion = new ConcesionVO();
+
+                concesion = concesionServiceImpl.get(contra.getCsiId());
+                contra.setNombreConcesion(concesion.getCsiNombre());
+                contra.setCodigoConcesion(concesion.getCsiId());
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
         }
+    }
 
+    public void elegirContrato(ContratoVO contrato1) {
+        contratoConcesion = contrato1.getNombreConcesion();
+        tipoInfraestructuraC = contrato1.getTinId();
+        codigoContrato = contrato1.getConId();
+        codigoConcesion = contrato1.getCsiId();
+        modalidadConcecion = "Modalidad1";
 
+    }
 
+    public void registrarContrato() {
+        try {
+            contratoJefeAreaVO.setCjaEstado(1);
+            contratoJefeAreaVO.setCjaFechaInicial(new Date());
+            contratoJefeAreaVO.setTdoId(1);
+            contratoJefeAreaVO.setCsiId(codigoConcesion);
+            contratoJefeAreaVO.setConId(codigoContrato);
+            contratoJefeAreaVO.setCjaNroDocumento(numeroDocumento);
+            contratoJefeAreaVO.setTinId(tipoInfraestructuraC);
+            contratoJefeAreaServiceImpl.insert(contratoJefeAreaVO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } catch (Exception e) {
+            System.out.println("SE CALLO EN EL METODO REGISTRAR CONTRATO");
+            e.printStackTrace();
+        }
+      
+
+    }
 
 
     public void setListaInfraestructuraTipo(List<InfraestructuraTipoVO> listaInfraestructuraTipo) {
@@ -178,5 +233,65 @@ public class JefeAreaContratoConcecionMB {
 
     public String getModalidadConcecion() {
         return modalidadConcecion;
+    }
+
+
+    public void setListaContratos(List<ContratoVO> listaContratos) {
+        this.listaContratos = listaContratos;
+    }
+
+    public List<ContratoVO> getListaContratos() {
+        return listaContratos;
+    }
+
+    public void setContratoServicesImpl(ContratoConcesionServiceImpl contratoServicesImpl) {
+        this.contratoServicesImpl = contratoServicesImpl;
+    }
+
+    public ContratoConcesionServiceImpl getContratoServicesImpl() {
+        return contratoServicesImpl;
+    }
+
+    public void setConcesionServiceImpl(ConcesionServiceImpl concesionServiceImpl) {
+        this.concesionServiceImpl = concesionServiceImpl;
+    }
+
+    public ConcesionServiceImpl getConcesionServiceImpl() {
+        return concesionServiceImpl;
+    }
+
+
+    public void setContratoJefeAreaServiceImpl(ContratoJefeAreaService contratoJefeAreaServiceImpl) {
+        this.contratoJefeAreaServiceImpl = contratoJefeAreaServiceImpl;
+    }
+
+    public ContratoJefeAreaService getContratoJefeAreaServiceImpl() {
+        return contratoJefeAreaServiceImpl;
+    }
+
+    public void setContratoJefeAreaVO(ContratoJefeAreaVO contratoJefeAreaVO) {
+        this.contratoJefeAreaVO = contratoJefeAreaVO;
+    }
+
+    public ContratoJefeAreaVO getContratoJefeAreaVO() {
+        return contratoJefeAreaVO;
+    }
+
+
+    public void setCodigoContrato(int codigoContrato) {
+        this.codigoContrato = codigoContrato;
+    }
+
+    public int getCodigoContrato() {
+        return codigoContrato;
+    }
+
+
+    public void setCodigoConcesion(int codigoConcesion) {
+        this.codigoConcesion = codigoConcesion;
+    }
+
+    public int getCodigoConcesion() {
+        return codigoConcesion;
     }
 }
