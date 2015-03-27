@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "TipoCambio.findAll", query = "select o from TipoCambio o") })
 @Table(name = "T_TIPO_CAMBIO")
-@IdClass(TipoCambioPK.class)
+
 public class TipoCambio implements Serializable {
     private static final long serialVersionUID = 4606476381038845547L;
     @Id
