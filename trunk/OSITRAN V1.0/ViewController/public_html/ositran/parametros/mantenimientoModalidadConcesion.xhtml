@@ -14,6 +14,7 @@
         </h:head>
         <ui:include src="/ositran/util/menu.xhtml"/>
         <h:body>
+        
         <f:event listener="#{backing_mantenimientoModalidadConcesion.getQuery}" type="postAddToView"/>
         <h:form binding="#{backing_mantenimientoModalidadConcesion.form1}" id="form1">
          <p:growl id="mensaje" showDetail="true"  life="3000" /> 
