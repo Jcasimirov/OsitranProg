@@ -3,6 +3,8 @@ package com.ositran.parametros;
 
 import com.ositran.model.Concesion;
 import com.ositran.model.InfraestructuraTipo;
+import com.ositran.service.InfraestructuraService;
+import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
@@ -74,10 +76,10 @@ public class MantenimientoConcesion {
     ConcesionServiceImpl concesionServicesImpl;
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
-    private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
+    private InfraestructuraTipoService infraestructuraTipoServiceImpl;
 
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
-    private InfraestructuraServiceImpl infraestructuraServiceImpl;
+    private InfraestructuraService infraestructuraServiceImpl;
 
     @ManagedProperty(value = "#{concesionVO}")
     ConcesionVO concesionVO;
@@ -643,11 +645,6 @@ public class MantenimientoConcesion {
         this.infraestructuraServiceImpl = infraestructuraServiceImpl;
     }
 
-    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
-        return infraestructuraServiceImpl;
-    }
-
-
     public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
         this.concesionServicesImpl = concesionServicesImpl;
     }
@@ -660,9 +657,6 @@ public class MantenimientoConcesion {
         this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
     }
 
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
 
     public void setListaAgregarInfraestructura(List<InfraestructuraVO> listaAgregarInfraestructura) {
         this.listaAgregarInfraestructura = listaAgregarInfraestructura;
