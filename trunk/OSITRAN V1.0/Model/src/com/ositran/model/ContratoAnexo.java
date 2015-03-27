@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({ @NamedQuery(name = "TContratoAnexo.findAll", query = "select o from TContratoAnexo o") })
 @Table(name = "T_CONTRATO_ANEXO")
-@IdClass(TContratoAnexoPK.class)
+
 public class ContratoAnexo implements Serializable {
     private static final long serialVersionUID = -3356747595198249329L;
     @Column(name = "CAX_DOCUMENTO_FISICO")
