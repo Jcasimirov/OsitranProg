@@ -94,5 +94,12 @@
 
 .ui-menubar .ui-menu-child .ui-menuitem .ui-menuitem-text  { 
     font-size: 10px;
-    
+}
+
+
+.calendario input {
+   vertical-align: middle;
+   margin-right: 1px;
+   width: 60px;
+       
 }
