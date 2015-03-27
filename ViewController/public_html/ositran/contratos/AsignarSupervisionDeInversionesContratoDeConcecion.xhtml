@@ -1,15 +1,29 @@
-    <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-    </h:head>
-    <h:body>
-         <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
 
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+            </script>
+        </h:head>
+        <h:body>
+         <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+        <h:form id="form">
+        <p:growl id="mensaje" showDetail="true" life="10000"/>
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
-                <h:form id="form">
+               
                     <ui:include src="/ositran/util/menu.xhtml"/>
                     <div align="center">
                         <h5 class="titulo">
@@ -46,7 +60,7 @@
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{supervisorContratoConcesionMB.listaSupervisor}" var="tic"
                                                    itemLabel="#{tic.tsiNombre}" itemValue="#{tic.tsiId}" />
-                     <p:ajax event="valueChange"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
+                     <p:ajax event="valueChange"  update=":form:supervicionDeInversiones"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
 
                                     </p:selectOneMenu>
                                         </td>
@@ -61,17 +75,17 @@
                                     <tr>
                                         <td align="left">Nombres:</td>
                                         <td align="left" colspan="3">
-                                            <p:inputText readonly="true" style="width:97.5%"/>
+                                            <p:inputText  value="#{supervisorContratoConcesionMB.nombreSupervisor}" readonly="true" style="width:97.5%"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="left">Tipo de Doc:</td>
                                         <td align="left">
-                                            <p:inputText readonly="true" />
+                                            <p:inputText value="#{supervisorContratoConcesionMB.tipoDocumento}"  readonly="true" />
                                         </td>
                                         <td align="left">Numero de Documento:</td>
                                         <td align="left">
-                                            <p:inputText readonly="true" />
+                                            <p:inputText  value="#{supervisorContratoConcesionMB.numeroDocumento}" readonly="true" />
                                         </td>
                                     </tr>
                                 </table>
@@ -79,13 +93,16 @@
                              
                             <br></br>
                              
-                            <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}">
+                            <p:fieldset styleClass="fielsetinterno" id="busqueda"   legend="#{leg.CB}">
                                 <table style="margin-bottom:5px;font-size: 11px">
                                     <tr>
                                         <td align="left" colspan="4">
                                              Buscar Contrato Concesion:
-                                            <p:inputText readonly="true" id="cb2" style="width:300px"/>
-                                            <p:commandButton image="ui-icon-search"/>
+                                            <p:inputText  value="#{supervisorContratoConcesionMB.contratoConcesion}"   readonly="true" id="cb2" style="width:300px"/>
+                                            <p:watermark value="Presione la lupa para elegir Contrato" for="cb2" />
+                
+                                            <p:commandButton   id="buscarContratos" oncomplete="panelListaContratos.show()"  update=":form:panelListaContratos"  actionListener="#{supervisorContratoConcesionMB.cargarListaContratos}"  image="ui-icon-search"/>
+                                             <p:tooltip id="toolTipFade" styleClass="tool" for="buscarContratos" value="Mostrar lista de contratos" />
                                         </td>
                                     </tr>
                                 </table>
@@ -93,7 +110,7 @@
                              
                             <br></br>
                              
-                            <p:fieldset styleClass="fielsetinterno" legend="Datos contrato Concecion">
+                            <p:fieldset id="datosContratoConcesion" styleClass="fielsetinterno" legend="Datos contrato Concecion">
                                 <table style="margin-bottom:5px;font-size: 11px">
                                       
                                     <tr>
@@ -101,7 +118,7 @@
                                             #{cam.concesion}
                                         </td>
                                         <td align="left" colspan="3">
-                                            <p:inputText  readonly="true" style="width:97.5%"/>
+                                            <p:inputText value="#{supervisorContratoConcesionMB.contratoConcesion}" readonly="true" style="width:97.5%"/>
                                         </td>
                                     </tr>
                                      
@@ -110,13 +127,13 @@
                                             Tipo Infraestructura:
                                         </td>
                                         <td align="left">
-                                            <p:inputText readonly="true"  />
+                                            <p:inputText value="#{supervisorContratoConcesionMB.tipoInfraestructuraC}"  readonly="true"  />
                                         </td>
                                         <td align="left">
                                             #{cam.mc}
                                         </td>
                                         <td align="left">
-                                            <p:inputText readonly="true"  />
+                                            <p:inputText value="#{supervisorContratoConcesionMB.modalidadConcecion}"  readonly="true"  />
                                         </td>
                                     </tr>
                                  
@@ -129,15 +146,48 @@
                     <table align="center" style="font-size: 11px">
                         <tr>
                             <td align="right">
-                                <p:commandButton value="#{btn.btn_guardar}"/>
+                                <p:commandButton update=":form:mensaje" actionListener="#{supervisorContratoConcesionMB.registrarContrato()}" value="#{btn.btn_guardar}"/>
                             </td>
                             <td align="left">
                                 <p:commandButton value="#{btn.btn_salir}"/>
                             </td>
                         </tr>
-                    </table>
-                </h:form>
+                    </table>                                  
             </p:layoutUnit>
         </p:layout>
-    </h:body>
-</html>
+        
+        <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
+                          style="text-align:center;">
+                    
+                      <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLC" var="lisContratos"
+                                             value="#{supervisorContratoConcesionMB.listaContratos}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{lisContratos.conId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{lisContratos.nombreConcesion}" />
+                                    </p:column>
+                                  
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                            oncomplete="panelListaContratos.hide()" update=":form:datosContratoConcesion :form:busqueda"
+                                                             actionListener="#{supervisorContratoConcesionMB.elegirContrato(lisContratos)}"
+                                                             image="ui-icon-circle-check"  
+                                                             style="width:22px;height:22px">
+                                                
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                   
+                                </p:dataTable>
+                    
+                    
+                </p:dialog>
+            </h:form>     
+      </h:body>
+    </html>
+</f:view>
