@@ -263,4 +263,36 @@
         </list>
    </property>
 </bean> 
+
+
+    <!--Concesion-->
+    <bean id="concesionDAOImpl" class="com.ositran.daoimpl.ConcesionDAOImpl"/>
+    <bean id="concesionServiceImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
+        <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
+    </bean>
+    <bean id="reporteConcesion" class="com.ositran.reports.InvReconocimContratosConcesionResumen">
+        <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
+    </bean>
+    <!--Empresa Supervisora-->
+    <bean id="empresaSupervisoraServiceImpl" class="com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl">
+        <property name="empresaSupervisoraDAOImpl" ref="empresaSupervisoraDAOImpl"/>
+    </bean>
+    <bean id="reporteEmpresaSupervisoraInfraAeropuertos" class="com.ositran.reports.EmpresaSupervisoraVSInfraestructuraAeropuertos">
+        <property name="empresaSupervisoraServiceImpl" ref="empresaSupervisoraServiceImpl"/>
+    </bean>
+    <!--ConceptoInversion-->
+    <bean id="conceptoInversionDAOImpl" class="com.ositran.daoimpl.ConceptoInversionDAOImpl"/>
+    <bean id="conceptoInversionServiceImpl" class="com.ositran.serviceimpl.ConceptoInversionServiceImpl">
+        <property name="conceptoInversionDAOImpl" ref="conceptoInversionDAOImpl"/>
+    </bean>
+    <bean id="reporteConceptoInversion" class="com.ositran.reports.InvPorTipoConcepto">
+        <property name="conceptoInversionServiceImpl" ref="conceptoInversionServiceImpl"/>
+    </bean>
+    <!--Modalidad Concesion-->    
+    <bean id="modalidadConcesionServiceImpl" class="com.ositran.serviceimpl.ModalidadConcesionServiceImpl">
+        <property name="modalidadConcesionDAOImpl" ref="modalidadConcesionDAOImpl"/>
+    </bean>    
+    <bean id="reporteModalidadConcesion" class="com.ositran.reports.InvReconocimContratosConcesionResumen">
+        <property name="modalidadConcesionServiceImpl" ref="modalidadConcesionServiceImpl"/>
+    </bean>
 </beans>
