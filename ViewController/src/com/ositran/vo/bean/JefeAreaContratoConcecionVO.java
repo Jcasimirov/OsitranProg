@@ -7,6 +7,7 @@ public class JefeAreaContratoConcecionVO {
     private String sjaNumeroDocumento;
     private String sjaTipoDocumento;
     private int sjaTipoInfraestructura;
+    
 
     public JefeAreaContratoConcecionVO() {
     }
