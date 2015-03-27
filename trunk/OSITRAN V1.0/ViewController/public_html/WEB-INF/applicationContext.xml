@@ -34,7 +34,6 @@
     <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO"/>
     <bean id="conceptoInversionVO" class="com.ositran.vo.bean.ConceptoInversionVO"/>
     <bean id="conceptoInversion" class="com.ositran.model.ConceptoInversion"/>
-    
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
