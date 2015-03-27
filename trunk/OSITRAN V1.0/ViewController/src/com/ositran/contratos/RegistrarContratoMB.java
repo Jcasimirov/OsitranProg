@@ -17,7 +17,7 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import com.ositran.vo.bean.UsuarioVO;
-import com.ositran.vo.bean.VwDocInternoVO;
+import com.ositran.vo.bean.ViewTdInternosVO;
 
 import java.io.IOException;
 
@@ -153,8 +153,8 @@ public class RegistrarContratoMB {
     @ManagedProperty(value = "#{concesionarioVO}")
     ConcesionarioVO concesionarioVO;
 
-    @ManagedProperty(value = "#{vwDocInternoVO}")
-    VwDocInternoVO vwDocInternoVO;
+    @ManagedProperty(value = "#{ViewTdInternosVO}")
+    ViewTdInternosVO viewTdInternosVO;
     
     @ManagedProperty(value = "#{contratoVO}")
     ContratoVO contratoVO;
@@ -268,12 +268,13 @@ public class RegistrarContratoMB {
         return datosStdServiceImpl;
     }
 
-    public void setVwDocInternoVO(VwDocInternoVO vwDocInternoVO) {
-        this.vwDocInternoVO = vwDocInternoVO;
+
+    public void setViewTdInternosVO(ViewTdInternosVO viewTdInternosVO) {
+        this.viewTdInternosVO = viewTdInternosVO;
     }
 
-    public VwDocInternoVO getVwDocInternoVO() {
-        return vwDocInternoVO;
+    public ViewTdInternosVO getViewTdInternosVO() {
+        return viewTdInternosVO;
     }
 
     public void setModalidadServiceImp(ModalidadConcesionServiceImpl modalidadServiceImp) {
@@ -602,12 +603,12 @@ public class RegistrarContratoMB {
         }else{
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
         try {
-            vwDocInternoVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
-            if (vwDocInternoVO !=null){
-                freghr = dt1.format(vwDocInternoVO.getVdiFechaRegistro());
-                asuntohr = vwDocInternoVO.getVdiAsunto();
-                añohrbus = vwDocInternoVO.getVdiAnyo();
-                nrohrbus = Integer.parseInt(vwDocInternoVO.getVdiNumero());
+            viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
+            if (viewTdInternosVO !=null){
+                freghr = dt1.format(viewTdInternosVO.getFechaRegistro());
+                asuntohr = viewTdInternosVO.getAsunto();
+                añohrbus = viewTdInternosVO.getAnyo();
+                nrohrbus = Integer.parseInt(viewTdInternosVO.getNroRegistro());
             }else{
                 freghr = "";
                 asuntohr = "";
