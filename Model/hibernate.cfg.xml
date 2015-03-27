@@ -35,7 +35,7 @@
         <mapping class="com.ositran.model.TipoDocumento"/>
         <mapping class="com.ositran.model.ModalidadConcesion"/>
         <mapping class="com.ositran.model.Contrato"/>
-        <mapping class="com.ositran.model.VwDocInterno"/>
+        <mapping class="com.ositran.model.ViewTdInternos"/>
         <mapping class="com.ositran.model.SupervisorInversiones"/>
     </session-factory>
 </hibernate-configuration>
