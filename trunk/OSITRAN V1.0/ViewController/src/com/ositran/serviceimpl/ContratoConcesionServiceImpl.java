@@ -7,6 +7,7 @@ import com.ositran.vo.bean.ContratoVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class ContratoConcesionServiceImpl implements ContratoConcesionService{
     public ContratoConcesionServiceImpl() {
@@ -63,6 +64,14 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
     public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException{
         int respuesta =contratoConcesionDAOImpl.ValidarContratoConcesion(concesion,tipoinfra);
         return respuesta;        
+    }
+    
+    @Override
+    public List<ContratoVO> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException{
+        List<Contrato> list=contratoConcesionDAOImpl.buscarContratos(tinfraestructura,concesion,modalidadConcesion,fechaInicio,fechaFin);
+        List<ContratoVO> listVO=toListContratoVO(list);
+        return listVO;
+        
     }
     
     //conversiones
