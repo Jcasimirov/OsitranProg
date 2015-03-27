@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import com.ositran.util.HibernateUtil;
 import com.ositran.model.EmpresaSupervisora;
 
+import java.util.Date;
+
 @Repository
 public class ContratoConcesionDAOImpl implements ContratoConcesionDAO { 
      
@@ -108,6 +110,45 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         session.getTransaction().commit();
         session.close();
         return list.size();       
+    }
+    
+    @Override
+    public List<Contrato> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();    
+        Query query;
+        if(fechaInicio == null && fechaFin == null){
+            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1 and c.csiId like :busqueda2 and c.mcoId like :busqueda3");
+            query.setParameter("busqueda1",tinfraestructura);
+            query.setParameter("busqueda2",concesion);
+            query.setParameter("busqueda3",modalidadConcesion);
+        
+        }else if((fechaInicio == null && fechaFin == null) && tinfraestructura == 0){
+            query=session.createQuery("FROM Contrato c WHERE c.mcoId like :busqueda");
+            query.setParameter("busqueda",modalidadConcesion);
+        
+        }else if((fechaInicio == null && fechaFin == null) && modalidadConcesion == 0){
+            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1 and c.csiId like :busqueda2 ");
+            query.setParameter("busqueda1",tinfraestructura);
+            query.setParameter("busqueda2",concesion);
+            
+        }else if((fechaInicio == null && fechaFin == null) && modalidadConcesion == 0 && concesion == 0){
+            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda");
+            query.setParameter("busqueda",tinfraestructura);
+            
+        }else {            
+            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1 and c.csiId like :busqueda2 and c.mcoId like :busqueda3 and c.conFechaSuscripcion >= busqueda4 and c.conFechaSuscripcion <= busqueda5");
+            query.setParameter("busqueda1",tinfraestructura);
+            query.setParameter("busqueda2",concesion);
+            query.setParameter("busqueda3",modalidadConcesion);
+            query.setParameter("busqueda4",fechaInicio);
+            query.setParameter("busqueda5",fechaFin);
+            
+        }
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
     }
 
 }
