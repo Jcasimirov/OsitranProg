@@ -1,19 +1,19 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
+import com.ositran.daoimpl.InfraestructuraDAOImpl;
 import com.ositran.model.Infraestructura;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InfraestructuraServiceImpl implements InfraestructuraService{
 
 
-    private InfraestructuraDAO infraestructuraDAOImpl;
+    private InfraestructuraDAO infraestructuraDAOImpl=new InfraestructuraDAOImpl();
 
 
     @Override
