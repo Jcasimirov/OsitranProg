@@ -1,19 +1,9 @@
 package com.ositran.serviceimpl;
 
-import com.ositran.daoimpl.CargoDAOImpl;
-
 import com.ositran.daoimpl.DatosStdDAOImpl;
-import com.ositran.model.Cargo;
-
-import com.ositran.model.VwDocInterno;
-import com.ositran.service.CargoService;
-
+import com.ositran.model.ViewTdInternos;
 import com.ositran.service.DatosStdService;
-import com.ositran.vo.bean.CargoVO;
-
-
-import com.ositran.vo.bean.VwDocInternoVO;
-
+import com.ositran.vo.bean.ViewTdInternosVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -40,11 +30,11 @@ public class DatosStdServiceImpl implements DatosStdService{
     }
 
     @Override
-    public VwDocInternoVO BuscaStd(Integer año, String nro) throws SQLException{
+    public ViewTdInternosVO BuscaStd(Integer año, String nro) throws SQLException{
         try {
-        VwDocInterno vista=this.datosStdDAOImpl.BuscaStd(año,nro);
+        ViewTdInternos vista=this.datosStdDAOImpl.BuscaStd(año,nro);
         if (vista != null){
-            VwDocInternoVO vistaVO=toVwDocInternoVO(vista);
+            ViewTdInternosVO vistaVO=toViewTdInternosVO(vista);
             return vistaVO;
         }
         } catch (Exception e) {
@@ -54,21 +44,29 @@ public class DatosStdServiceImpl implements DatosStdService{
     }
      
     
-    private VwDocInternoVO toVwDocInternoVO(VwDocInterno vwDocInterno){
-        VwDocInternoVO vwDocInternoVO=new VwDocInternoVO();
-        vwDocInternoVO.setVdiAnyo(vwDocInterno.getVdiAnyo());
-        vwDocInternoVO.setVdiArea(vwDocInterno.getVdiArea());
-        vwDocInternoVO.setVdiAsunto(vwDocInterno.getVdiAsunto());
-        vwDocInternoVO.setVdiDestino(vwDocInterno.getVdiDestino());
-        vwDocInternoVO.setVdiFecha(vwDocInterno.getVdiFecha());
-        vwDocInternoVO.setVdiFechaRegistro(vwDocInterno.getVdiFechaRegistro());
-        vwDocInternoVO.setVdiHr(vwDocInterno.getVdiHr());
-        vwDocInternoVO.setVdiNombre(vwDocInterno.getVdiNombre());
-        vwDocInternoVO.setVdiNroregistrosalida(vwDocInterno.getVdiNroregistrosalida());
-        vwDocInternoVO.setVdiNumero(vwDocInterno.getVdiNumero());
-        vwDocInternoVO.setVdiQuienremite(vwDocInterno.getVdiQuienremite());
-        vwDocInternoVO.setVdiTipo(vwDocInterno.getVdiTipo());
-        return vwDocInternoVO;
+    private ViewTdInternosVO toViewTdInternosVO(ViewTdInternos viewTdInternos){
+        ViewTdInternosVO viewTdInternosVO=new ViewTdInternosVO();
+        viewTdInternosVO.setAnyo(viewTdInternos.getAnyo());
+        viewTdInternosVO.setAnyoHtRefe(viewTdInternos.getAnyoHtRefe());
+        viewTdInternosVO.setAsunto(viewTdInternos.getAsunto());
+        viewTdInternosVO.setCargo(viewTdInternos.getCargo());
+        viewTdInternosVO.setCodDestinatario(viewTdInternos.getCodDestinatario());
+        viewTdInternosVO.setCodRemitente(viewTdInternos.getCodRemitente());
+        viewTdInternosVO.setCodTipEmpresa(viewTdInternos.getCodTipEmpresa());
+        viewTdInternosVO.setCod_Tip_Doc(viewTdInternos.getCod_Tip_Doc());
+        viewTdInternosVO.setEmpresa(viewTdInternos.getCodTipEmpresa());
+        viewTdInternosVO.setFecDoc(viewTdInternos.getFecDoc());
+        viewTdInternosVO.setFechaRegistro(viewTdInternos.getFechaRegistro());
+        viewTdInternosVO.setHtReferencia(viewTdInternos.getHtReferencia());
+        viewTdInternosVO.setNomDestinatario(viewTdInternos.getNomDestinatario());
+        viewTdInternosVO.setNroRegistro(viewTdInternos.getNroRegistro());
+        viewTdInternosVO.setNumDoc(viewTdInternos.getNumDoc());
+        viewTdInternosVO.setRemitente(viewTdInternos.getCodRemitente());
+        viewTdInternosVO.setTipDoc(viewTdInternos.getTipDoc());
+        viewTdInternosVO.setTipoDestino(viewTdInternos.getTipoDestino());
+        viewTdInternosVO.setTipoEmpresa(viewTdInternos.getTipoEmpresa());
+   
+        return viewTdInternosVO;
     }
 
 }
