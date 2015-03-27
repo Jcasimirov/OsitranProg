@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
               @NamedQuery(name = "InfraestructuraTipoPlantil.findAll",
                           query = "select o from InfraestructuraTipoPlantil o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO_PLANTIL")
-@IdClass(InfraestructuraTipoPlantilPK.class)
+
 public class InfraestructuraTipoPlantil implements Serializable {
     private static final long serialVersionUID = -6424775326177344157L;
     @Id
