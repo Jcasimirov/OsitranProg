@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({ @NamedQuery(name = "TipoDocumento.findAll", query = "select o from TipoDocumento o") })
 @Table(name = "T_TIPO_DOCUMENTO")
 @SequenceGenerator(name = "TIPO_DOCUMENTO_ID_SEQ_GEN", sequenceName = "TIPO_DOCUMENTO_ID_SEQ_GEN", allocationSize = 50, initialValue = 50)
-public class TipoDocumento implements Serializable {
+public class TipoDocumento implements Serializable{
     private static final long serialVersionUID = 7364990923850172691L;
     @Column(name = "TDO_DESCRIPCION", nullable = false, length = 100)
     private String tdoDescripcion;
