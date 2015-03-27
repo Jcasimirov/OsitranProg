@@ -7,6 +7,7 @@ import com.ositran.vo.bean.SupervisorInversionesVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SupervisorInversionesServiceImpl implements SupervisorInversionesService {
@@ -16,7 +17,7 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     private SupervisorInversiones supervisorInversiones;
     List<SupervisorInversionesVO> listVO;
 
-    @Override
+
     public List<SupervisorInversionesVO> buscarSupervisoresxInfraestructura(int codTipoInfraestructura) throws SQLException {
         List<SupervisorInversiones> list=supervisorInversionesDAOImpl.buscarCoordinador(codTipoInfraestructura);
         List<SupervisorInversionesVO> listVO=toListV_BuscarEmpresaSupervisoraVO(list);
@@ -125,5 +126,10 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     }
 
 
+    @Override
+    public List<SupervisorInversionesVO> buscarCoordinadorInSitu(int codTipoInfraestructura) throws SQLException {
+        // TODO Implement this method
+        return Collections.emptyList();
+    }
 }
 
