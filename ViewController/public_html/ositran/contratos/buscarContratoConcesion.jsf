@@ -17,7 +17,6 @@
             <f:event listener="#{bk_buscarContratoConcesion.filtrarConcesion}" type="postAddToView"/>
             <f:event listener="#{bk_buscarContratoConcesion.ListarModalidad}" type="postAddToView"/>
             <h:form binding="#{bk_buscarContratoConcesion.form}" id = "form">
-            <p:growl id="mensaje" showDetail="true"  life="3000" />
             
             <div align="center" style="font-size: 11px">
                             <div align="center" style="width:100%">
@@ -74,24 +73,12 @@
                                  
                                 <tr>
                                     <td colspan="4"></td>
-                                </tr>
+                                </tr>                          
                                  
                                 <tr>
-                                    <td align="left" colspan="4" style="font-weight: bold;">Rango de Fechas de
-                                                                                            Suscripcion</td>
-                                </tr>
-                                 
-                                <tr>
-                                    <td align="left">Fecha Inicio:</td>
-                                    <td>
-                                        <p:calendar locale="es" pattern="dd/mm/yyyy" value="#{bk_buscarContratoConcesion.fechaInicio}"/>
-                                    </td>
-                                    <td>Fecha Fin:</td>
-                                    <td>
-                                        <p:calendar locale="es" pattern="dd/mm/yyyy " value="#{bk_buscarContratoConcesion.fechaFin}" />
-                                    </td>
+                                    
                                     <td align="left" colspan="4">
-                                        <p:commandButton value="Buscar" actionListener="#{bk_buscarContratoConcesion.BuscarContratos}" update = ":form:contrato" />
+                                        <p:commandButton value="Buscar" actionListener="#{bk_buscarContratoConcesion.BuscarContratos()}" update=":form:contrato"/>
                                     </td>
                                 </tr>
                             </table>
@@ -100,8 +87,8 @@
                             <div style="width:60%" align="left">
                            
                             <p:dataTable value="#{bk_buscarContratoConcesion.listaContrato}" id="contrato"
-                                                 var="contrato" selectionMode="single" style="font-size:11px"
-                                                 rowKey="#{contrato.conId}"                                                 
+                                                 var="contrato11"  style="font-size:11px"
+                                                                                                 
                                                  emptyMessage="No se Encontraron Registros"
                                         rowIndexVar="rowIndex">
                                         <p:column headerText="N°" style="width:3%">
@@ -109,19 +96,19 @@
                                         </p:column> 
                                         <p:column headerText="Fecha Suscripción" style="width:7%">
                                         <div style="text-align: center;">
-                                            <h:outputText value="#{contrato.conFechaSuscripcion}" style="text-transform:uppercase;"/>
+                                            <h:outputText value="#{contrato11.conFechaSuscripcion}" style="text-transform:uppercase;"/>
                                         </div>                                        
                                         </p:column>
                                         <p:column headerText="Tipo de Infraestructura" style="width:7%">
                                         <div style="text-align: center;">
-                                            <h:outputText value="#{contrato.nombreTipoInfraestructura}" style="text-transform:uppercase;"/>
+                                            <h:outputText value="#{contrato11.nombreTipoInfraestructura}" style="text-transform:uppercase;"/>
                                         </div>                                        
                                         </p:column>
                                         <p:column headerText="Concesión" style="width:10%">
-                                            <h:outputText value="#{contrato.nombreConcesion}"/>
+                                            <h:outputText value="#{contrato11.nombreConcesion}"/>
                                         </p:column>
                                         <p:column headerText="Modalidad" style="width:35%">
-                                            <h:outputText value="#{contrato.nombreModalidad}" style="text-transform:uppercase;"/>
+                                            <h:outputText value="#{contrato11.nombreModalidad}" style="text-transform:uppercase;"/>
                                         </p:column>
                                     </p:dataTable>
                             
