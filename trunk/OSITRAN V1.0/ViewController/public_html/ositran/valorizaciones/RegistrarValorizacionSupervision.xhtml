@@ -25,41 +25,45 @@
                                 <tr>
                                     <td valign="top">
                                         <p:fieldset legend="Datos Contrato Concesión">
-                                            <p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
-                                                <table>
+                                            <p:fieldset styleClass="fielsetinterno" id="busquedacontrato" legend="Criterio de Busqueda">
+                                                <table style="margin-bottom:5px;font-size: 11px">
                                                     <tr>
-                                                        <td>Buscar contrato de Concesion</td>
-                                                        <td>
-                                                            <p:inputText readonly="true" style="width:100px"/>
+                                                        <td align="left" colspan="4">
+                                                            Buscar Contrato Concesion: 
+                                                            <h:inputHidden value="#{RegValorizacionSupervisionMB.contratoConcesion}"
+                                                                         readonly="false" id="inputContrato" style="width:300px"/>
                                                              
-                                                            <h:outputText style="color:White" value="n"/>
+                                                            <p:commandButton id="searchContratos" image="ui-icon-search"
+                                                                             update=":form:pListaContratos"
+                                                                             oncomplete="pListaContratos.show()"                                                                               
+                                                                             actionListener="#{RegValorizacionSupervisionMB.cargarListaContratos()}"/>
                                                              
-                                                            <p:commandButton image="ui-icon-search"></p:commandButton>
+                                                            <p:tooltip id="tool" styleClass="tool" for="searchContratos" value="Mostrar lista de contratos"/>
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" legend="#{leg.dcc}">
+                                            <p:fieldset styleClass="fielsetinterno" legend="Datos Contrato Concesion" id="dContratoConcesion">
                                                 <table>
                                                     <tr>
                                                         <td align="left">Concesion</td>
                                                         <td>
-                                                            <p:inputText readonly="true"></p:inputText>
+                                                            <p:inputText readonly="true" value="#{RegValorizacionSupervisionMB.t_concesion}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
                                                     <tr>
                                                         <td align="left">Tipo Infraestructura</td>
                                                         <td>
-                                                            <p:inputText readonly="true"></p:inputText>
+                                                            <p:inputText readonly="true" value="#{RegValorizacionSupervisionMB.t_tinfra}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
                                                     <tr>
-                                                        <td align="left">Modalidad Concesi&#243;n</td>
+                                                        <td align="left">Modalidad Concesion</td>
                                                         <td>
-                                                            <p:inputText readonly="true"></p:inputText>
+                                                            <p:inputText readonly="true" value="#{RegValorizacionSupervisionMB.t_modconc}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
@@ -71,7 +75,7 @@
                                                     </tr>
                                                      
                                                     <tr>
-                                                        <td align="left">Inversi&#243;n</td>
+                                                        <td align="left">Inversion</td>
                                                         <td>
                                                             <p:inputText readonly="true"></p:inputText>
                                                         </td>
@@ -84,7 +88,7 @@
                                                     <tr>
                                                         <td colspan="2" align="left">Etapa/Periodo:</td>
                                                         <td colspan="2" align="left">
-                                                            <p:selectOneMenu value="">
+                                                            <p:selectOneMenu >
                                                                 <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
                                                                 <f:selectItem itemLabel="Etapa1" itemValue="1"/>
                                                                 <f:selectItem itemLabel="Etapa2" itemValue="2"/>
@@ -171,7 +175,7 @@
                                                     <tr>
                                                         <td colspan="2" align="left">Moneda</td>
                                                         <td colspan="2" align="left">
-                                                            <p:selectOneMenu value="">
+                                                            <p:selectOneMenu >
                                                                 <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
                                                                 <f:selectItem itemLabel="Soles" itemValue="1"/>
                                                                 <f:selectItem itemLabel="Dolares" itemValue="2"/>
@@ -186,7 +190,7 @@
                                                     <tr>
                                                         <td>Concepto:</td>
                                                         <td>
-                                                            <p:selectOneMenu id="aeropuerto2" value="">
+                                                            <p:selectOneMenu id="aeropuerto" >
                                                                 <f:selectItem itemLabel="-Seleccione-" itemValue="4"/>
                                                                 <f:selectItem itemLabel="Etapa1" itemValue="1"/>
                                                                 <f:selectItem itemLabel="Etapa2" itemValue="2"/>
@@ -253,6 +257,27 @@
                         </div>
                     </p:layoutUnit>
                 </p:layout>
+                <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos" id="pListaContratos" 
+                          resizable="false" style="text-align:center;">
+                    <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px" id="tListaContrato"
+                                 var="lContrato" value="#{RegValorizacionSupervisionMB.listaContratos}">
+                        <p:column headerText="ID" style="width:5px">
+                            <h:outputText value="#{lContrato.conId}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width:50px">
+                            <h:outputText value="#{lContrato.nombreConcesion}"/>
+                        </p:column>
+                        <p:column headerText="Elegir" style="width:5px">
+                            <div align="center">
+                                <p:commandButton oncomplete="pListaContratos.hide()"
+                                                 actionListener="#{RegValorizacionSupervisionMB.elegirContrato(lContrato)}"
+                                                 image="ui-icon-circle-check" style="width:22px;height:22px"
+                                                 update=":form:dContratoConcesion :form:inputContrato"></p:commandButton>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
             </h:form>
         </h:body>
     </html>
