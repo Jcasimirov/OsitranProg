@@ -22,8 +22,7 @@ public class ConcesionServiceImpl implements ConcesionService{
     public ConcesionDAOImpl getConcesionDAOImpl() {
         return concesionDAOImpl;
     }
-
-
+    
     public ConcesionServiceImpl() {
         super();
     }
