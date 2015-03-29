@@ -46,7 +46,7 @@
                                     <f:selectItems value="#{supervisorContratoConcesionMB.listaInfraestructuraTipo}" var="ticc"
                                                    itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
                                                     />
-                        <p:ajax event="valueChange" update=":form:listaSupervisores" listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones}"  />                
+                        <p:ajax event="valueChange" update=":form:listaSupervisores " listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones()}"  />                
                 
                                     </p:selectOneMenu>	
                                         </td>
