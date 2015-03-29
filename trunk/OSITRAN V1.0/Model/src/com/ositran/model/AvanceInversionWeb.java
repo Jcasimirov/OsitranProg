@@ -15,8 +15,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "T_AVANCE_INVERSION_WEB",uniqueConstraints = @UniqueConstraint(columnNames = {"TIV_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "INVERSIONTIPODESCRIPCION_SEC"))
+@Table(name = "T_AVANCE_INVERSION_WEB")
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_AVANCE_INVERSION_WEB"))
 
 public class AvanceInversionWeb implements Serializable {
     private static final long serialVersionUID = -4685816540624051037L;
