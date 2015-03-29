@@ -16,9 +16,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversionesService{
-    ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
-    ContratoSubInversionesVO contratoSupInversionesVO=new ContratoSubInversionesVO();
-    ContratoSubInversionesDAO contratoSubInversionesDAOImpl=new ContratoSubInversionesDAOImpl();
+    ContratoSupInversiones contratoSupInversiones;
+    ContratoSubInversionesVO contratoSupInversionesVO;
+    ContratoSubInversionesDAO contratoSubInversionesDAOImpl;
+    
+    
 
     @Override
     public List<ContratoSubInversionesVO> query() throws SQLException, Exception {
@@ -129,4 +131,11 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
     }
 
 
+    public void setContratoSubInversionesDAOImpl(ContratoSubInversionesDAO contratoSubInversionesDAOImpl) {
+        this.contratoSubInversionesDAOImpl = contratoSubInversionesDAOImpl;
+    }
+
+    public ContratoSubInversionesDAO getContratoSubInversionesDAOImpl() {
+        return contratoSubInversionesDAOImpl;
+    }
 }
