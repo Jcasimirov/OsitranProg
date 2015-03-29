@@ -16,14 +16,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 public class TipoDocumentoServiceImpl implements TipoDocumentoService{
-    private TipoDocumentoDAOImpl tipodocumentoDAOImpl;
-    
-    public void setTipodocumentoDAOImpl(TipoDocumentoDAOImpl tipodocumentoDAOImpl) {
-        this.tipodocumentoDAOImpl = tipodocumentoDAOImpl;
-    }
-    public TipoDocumentoDAOImpl getTipodocumentoDAOImpl() {
-        return tipodocumentoDAOImpl;
-    }
+     TipoDocumentoDAOImpl tipodocumentoDAOImpl;
 
     public TipoDocumentoServiceImpl() {
         super();
@@ -49,11 +42,6 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService{
         return result;
     }
     
-     
-    /*   public Integer cambiarEstado(Integer estado) {
-        Integer result=this.igvDAOImpl.update(estado);
-        return result;
-    }  */
 
     @Override
     public String update(TipoDocumentoVO tipoDocumentoVO) throws SQLException{
@@ -64,12 +52,10 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService{
 
     @Override
     public TipoDocumentoVO get(Integer id) throws SQLException{
-        TipoDocumento tipoDocumento=this.tipodocumentoDAOImpl.get(id);
+       TipoDocumento tipoDocumento=tipodocumentoDAOImpl.get(id);
         TipoDocumentoVO tipoDocumentoVO=toTipoDocumentoVO(tipoDocumento);
         return tipoDocumentoVO;
     }
-    
-    
     
     //conversiones
     private List<TipoDocumentoVO> toListTipoDocumentoVO(List<TipoDocumento> list){
@@ -102,8 +88,12 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService{
 
 
 
-
-
+    public void setTipodocumentoDAOImpl(TipoDocumentoDAOImpl tipodocumentoDAOImpl) {
+        this.tipodocumentoDAOImpl = tipodocumentoDAOImpl;
+    }
+    public TipoDocumentoDAOImpl getTipodocumentoDAOImpl() {
+        return tipodocumentoDAOImpl;
+    }
 
    
 }
