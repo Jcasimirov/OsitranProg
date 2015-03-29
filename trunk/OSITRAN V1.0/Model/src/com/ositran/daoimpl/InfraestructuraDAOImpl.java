@@ -32,6 +32,19 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         session.close();
         return list; 
     }
+    
+    @Override
+    public List<Infraestructura> query2(int codigoC) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query;
+        query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
+        query.setParameter("busqueda1",codigoC);
+        List<Infraestructura> list = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list; 
+    }
 
 
 
