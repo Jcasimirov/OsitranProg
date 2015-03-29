@@ -20,6 +20,9 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
         query = session.createQuery("From SupervisorInversiones c WHERE c.tinId = :busqueda");   
         query.setParameter("busqueda",codtipoInfraestructura);
         list = query.list();
+            System.out.println("**********************");
+            System.out.println(codtipoInfraestructura);
+            System.out.println(list);
         session.getTransaction().commit();
         session.close();
             
