@@ -10,12 +10,7 @@ import java.util.List;
 import java.util.Date;
 
 public class ContratoConcesionServiceImpl implements ContratoConcesionService{
-    public ContratoConcesionServiceImpl() {
-        super();
-    }
-    
     private ContratoConcesionDAOImpl contratoConcesionDAOImpl;
-
 
     public void setContratoConcesionDAOImpl(ContratoConcesionDAOImpl contratoConcesionDAOImpl) {
         this.contratoConcesionDAOImpl = contratoConcesionDAOImpl;
