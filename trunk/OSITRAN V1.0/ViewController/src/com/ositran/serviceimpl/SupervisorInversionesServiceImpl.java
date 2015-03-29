@@ -6,7 +6,6 @@ import com.ositran.service.SupervisorInversionesService;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -118,6 +117,7 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     }
 
     public void setListVO(List<SupervisorInversionesVO> listVO) {
+        
         this.listVO = listVO;
     }
 
