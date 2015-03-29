@@ -5,13 +5,11 @@ import com.ositran.model.Infraestructura;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.ContratoSubInversionesService;
+import com.ositran.service.InfraestructuraService;
 import com.ositran.service.SupervisorInversionesService;
-import com.ositran.serviceimpl.ConcesionServiceImpl;
-import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
-import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
-import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
@@ -22,7 +20,6 @@ import com.ositran.vo.bean.TipoDocumentoVO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -34,6 +31,7 @@ import javax.faces.context.FacesContext;
 public class SupervisorInversionesContratoConcecionMB {
     private int codigoSupervisor;
     private int codigoInfraestructura;
+    
     private int tipoInfraestructura;
     private String numeroDocumento="";
     private String tipoDocumento="";
@@ -41,27 +39,39 @@ public class SupervisorInversionesContratoConcecionMB {
     private String nombreSupervisor="";
     private String  contratoConcesion;
     private int tipoInfraestructuraC;
+    private int tipoInfraestructuraF;
     private String modalidadConcecion;
     private int supervisorSelecionado;
     private int codigoContrato;
     private int codigoConcesion;
     private ContratoSubInversionesVO contratoSupInversionesVO= new ContratoSubInversionesVO();
     private ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
-    private ContratoSubInversionesService  contratoSubInversionesServiceImpl=new ContratoSubInversionesServiceImpl();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<>();
     private List<ContratoVO> listaContratos=new ArrayList<>();
-   private  Infraestructura infraestructura = new Infraestructura();
-    private  InfraestructuraVO infraestructuraVO = new InfraestructuraVO();
-   private InfraestructuraServiceImpl infraestructuraServiceImpl= new InfraestructuraServiceImpl();
-    
-    private ContratoConcesionServiceImpl  contratoServicesImpl=new ContratoConcesionServiceImpl();
-    ConcesionServiceImpl concesionServiceImpl=new ConcesionServiceImpl();
-    
     private List<SupervisorInversionesVO> listaSupervisor=new ArrayList<>();
-    TipoDocumentoVO tipDoc=new TipoDocumentoVO();
+    private  Infraestructura infraestructura = new Infraestructura();
     
-    TipoDocumentoServiceImpl tipoDocumentoServicesIm=new TipoDocumentoServiceImpl();
-
+    @ManagedProperty(value = "#{contratoSubInversionesServiceImpl}")
+    ContratoSubInversionesService contratoSubInversionesServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraServiceImpl}")
+    InfraestructuraService infraestructuraServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoConcesionServiceImp}")
+    ContratoConcesionService contratoConcesionServiceImp;
+    
+    @ManagedProperty(value = "#{infraestructuraVO}")
+    InfraestructuraVO infraestructuraVO;
+    
+    @ManagedProperty(value = "#{concesionServiceImpl}")
+    ConcesionService concesionServiceImpl;
+    
+    @ManagedProperty(value = "#{tipoDocumentoVO}")
+    TipoDocumentoVO tipoDocumentoVO;
+    
+    @ManagedProperty(value = "#{tipoDocumentoServiceImp}")
+    TipoDocumentoService tipoDocumentoServiceImp;
+    
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
     
@@ -92,11 +102,13 @@ public class SupervisorInversionesContratoConcecionMB {
             
             
             if (tipoInfraestructura!=0){
-            listaSupervisor=supervisorInversionesServiceImpl.buscarCoordinadorInSitu(tipoInfraestructura);   
+                System.out.println(tipoInfraestructura);
+            listaSupervisor=supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(tipoInfraestructura); 
+        
                
                 }
             else {
-                
+                   
                 }
        } catch (Exception e) {
             e.printStackTrace();
@@ -106,20 +118,17 @@ public class SupervisorInversionesContratoConcecionMB {
     public void cargarDatosSupervisor(){
         try {
             if (supervisorSelecionado!=0){
-               
-            listaSupervisor=supervisorInversionesServiceImpl.buscarCoordinadorInSitu(tipoInfraestructura);
-                   
+            listaSupervisor=supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(tipoInfraestructura);  
             for (SupervisorInversionesVO supervisor: listaSupervisor){                
                 if (supervisor.getTsiId()==supervisorSelecionado){
                     nombreSupervisor=supervisor.getTsiNombre();
                     codigoSupervisor=supervisor.getTsiId();
                     tipoDocumentoI=supervisor.getTdoId();
-                    tipDoc=tipoDocumentoServicesIm.get(tipoDocumentoI);
-                    tipoDocumento=tipDoc.getTdoNombre();
+                    tipoDocumentoVO=tipoDocumentoServiceImp.get(tipoDocumentoI);
+                    tipoDocumento=tipoDocumentoVO.getTdoNombre();
                     numeroDocumento=supervisor.getTsiNroDocumento();  
                     
                     }
-                
                 }
 
                 }
@@ -136,16 +145,18 @@ public class SupervisorInversionesContratoConcecionMB {
 
     public void cargarListaContratos(){
         try {
-           listaContratos=contratoServicesImpl.query();
+           listaContratos=contratoConcesionServiceImp.query();
             for (ContratoVO contra: listaContratos){ 
                 ConcesionVO concesion=new ConcesionVO();
-                concesion=concesionServiceImpl.get(contra.getCsiId());
+                concesion=concesionServiceImpl.get(contra.getCsiId());         
                 contra.setNombreConcesion(concesion.getCsiNombre()); 
                 codigoContrato = contra.getConId();
                 infraestructuraVO=infraestructuraServiceImpl.get2(concesion.getTinId());
-                tipoInfraestructura=infraestructuraVO.getTinId();
+                tipoInfraestructuraF=infraestructuraVO.getTinId();
                 codigoConcesion=infraestructuraVO.getCsiId();
                 codigoInfraestructura=infraestructuraVO.getInfId();
+
+                
                 }
        } catch (Exception e) {
             
@@ -164,8 +175,7 @@ public class SupervisorInversionesContratoConcecionMB {
     
     public void registrarContrato() {
         try {
-         
-            contratoSupInversionesVO.setTinId(tipoInfraestructura);  
+            contratoSupInversionesVO.setTinId(tipoInfraestructuraF);  
             contratoSupInversionesVO.setTsiId(codigoSupervisor);
             contratoSupInversionesVO.setConId(codigoContrato);
             contratoSupInversionesVO.setCsiId(codigoConcesion);
@@ -295,12 +305,12 @@ public class SupervisorInversionesContratoConcecionMB {
     }
 
 
-    public void setTipDoc(TipoDocumentoVO tipDoc) {
-        this.tipDoc = tipDoc;
+    public void setTipoDocumentoVO(TipoDocumentoVO tipoDocumentoVO) {
+        this.tipoDocumentoVO = tipoDocumentoVO;
     }
 
-    public TipoDocumentoVO getTipDoc() {
-        return tipDoc;
+    public TipoDocumentoVO getTipoDocumentoVO() {
+        return tipoDocumentoVO;
     }
 
     public void setListaContratos(List<ContratoVO> listaContratos) {
@@ -311,14 +321,14 @@ public class SupervisorInversionesContratoConcecionMB {
         return listaContratos;
     }
 
-    public void setTipoDocumentoServicesIm(TipoDocumentoServiceImpl tipoDocumentoServicesIm) {
-        this.tipoDocumentoServicesIm = tipoDocumentoServicesIm;
+
+    public void setTipoDocumentoServiceImp(TipoDocumentoService tipoDocumentoServiceImp) {
+        this.tipoDocumentoServiceImp = tipoDocumentoServiceImp;
     }
 
-    public TipoDocumentoServiceImpl getTipoDocumentoServicesIm() {
-        return tipoDocumentoServicesIm;
+    public TipoDocumentoService getTipoDocumentoServiceImp() {
+        return tipoDocumentoServiceImp;
     }
-
 
     public void setContratoSupInversiones(ContratoSupInversiones contratoSupInversiones) {
         this.contratoSupInversiones = contratoSupInversiones;
@@ -326,22 +336,6 @@ public class SupervisorInversionesContratoConcecionMB {
 
     public ContratoSupInversiones getContratoSupInversiones() {
         return contratoSupInversiones;
-    }
-
-    public void setContratoServicesImpl(ContratoConcesionServiceImpl contratoServicesImpl) {
-        this.contratoServicesImpl = contratoServicesImpl;
-    }
-
-    public ContratoConcesionServiceImpl getContratoServicesImpl() {
-        return contratoServicesImpl;
-    }
-
-    public void setConcesionServiceImpl(ConcesionServiceImpl concesionServiceImpl) {
-        this.concesionServiceImpl = concesionServiceImpl;
-    }
-
-    public ConcesionServiceImpl getConcesionServiceImpl() {
-        return concesionServiceImpl;
     }
 
 
@@ -413,11 +407,39 @@ public class SupervisorInversionesContratoConcecionMB {
         return infraestructuraVO;
     }
 
-    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
+
+    public void setInfraestructuraServiceImpl(InfraestructuraService infraestructuraServiceImpl) {
         this.infraestructuraServiceImpl = infraestructuraServiceImpl;
     }
 
-    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
+    public InfraestructuraService getInfraestructuraServiceImpl() {
         return infraestructuraServiceImpl;
     }
+
+
+    public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
+        this.contratoConcesionServiceImp = contratoConcesionServiceImp;
+    }
+
+    public ContratoConcesionService getContratoConcesionServiceImp() {
+        return contratoConcesionServiceImp;
+    }
+
+
+    public void setConcesionServiceImpl(ConcesionService concesionServiceImpl) {
+        this.concesionServiceImpl = concesionServiceImpl;
+    }
+
+    public ConcesionService getConcesionServiceImpl() {
+        return concesionServiceImpl;
+    }
+
+    public void setTipoInfraestructuraF(int tipoInfraestructuraF) {
+        this.tipoInfraestructuraF = tipoInfraestructuraF;
+    }
+
+    public int getTipoInfraestructuraF() {
+        return tipoInfraestructuraF;
+    }
+
 }
