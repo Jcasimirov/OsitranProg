@@ -43,7 +43,11 @@ public class OpcionesSistemaMB {
             listarOpcionesSistema();
             }
         else {
-        listaOpcionesSistema=menServiceImpl.query1(buscar);       
+        listaOpcionesSistema=menServiceImpl.query1(buscar); 
+        for (int i = 0; i < listaOpcionesSistema.size(); i++) {
+            listaOpcionesSistema.get(i).setContador(contador);
+            contador++;
+        }
     }
         
         }
