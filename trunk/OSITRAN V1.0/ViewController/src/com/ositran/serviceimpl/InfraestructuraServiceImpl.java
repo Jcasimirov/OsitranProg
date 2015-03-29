@@ -8,28 +8,29 @@ import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InfraestructuraServiceImpl implements InfraestructuraService{
-
-
-    private InfraestructuraDAO infraestructuraDAOImpl=new InfraestructuraDAOImpl();
-
+    private InfraestructuraDAO infraestructuraDAOImpl;
 
     @Override
     public List<InfraestructuraVO> query1(int CodigoC) throws SQLException{
-        
-        
         List<Infraestructura> list=infraestructuraDAOImpl.query1(CodigoC);
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
         return listVO;
     }
     
-  
+    @Override
+    public List<InfraestructuraVO> query2(int CodigoC) throws SQLException {
+        
+        List<Infraestructura> list=infraestructuraDAOImpl.query2(CodigoC);
+        List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
+        return listVO;
+    }
 
     @Override
     public List<InfraestructuraVO> query() throws SQLException{
-        System.out.println("Services");
         List<Infraestructura> list=infraestructuraDAOImpl.query();
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
         return listVO;
@@ -55,9 +56,9 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         return result;
     }
 
-   
+    
     public InfraestructuraVO get2(Integer id) throws SQLException{
-        Infraestructura infraestructura=this.infraestructuraDAOImpl.get2(id);
+        Infraestructura infraestructura=infraestructuraDAOImpl.get2(id);
         InfraestructuraVO infraestructuraVO=toInfraestructuraVO(infraestructura);
         return infraestructuraVO;
     }
@@ -75,22 +76,22 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
        return listVO;
     }
     private InfraestructuraVO toInfraestructuraVO(Infraestructura infraestructura)throws SQLException{
-       InfraestructuraVO infraestructuraVO=new InfraestructuraVO();
-        
-        infraestructuraVO.setInfFechaAlta(infraestructura.getInfFechaAlta());
-        infraestructuraVO.setInfFechaBaja(infraestructura.getInfFechaBaja());
-        infraestructuraVO.setInfId(infraestructura.getInfId());
-        infraestructuraVO.setInfNombre(infraestructura.getInfNombre());
-        infraestructuraVO.setInfTerminal(infraestructura.getInfTerminal());
-        infraestructuraVO.setInfUsuarioAlta(infraestructura.getInfUsuarioAlta());
-        infraestructuraVO.setInfUsuarioBaja(infraestructura.getInfUsuarioBaja());
-        infraestructuraVO.setInfUsuarioCambio(infraestructura.getInfUsuarioCambio());
-        infraestructuraVO.setInfEstado(infraestructura.getInfEstado());
-        infraestructuraVO.setCsiId(infraestructura.getCsiId());
-        infraestructuraVO.setTinId(infraestructura.getTinId());
-     
-       return infraestructuraVO;
+       InfraestructuraVO infraestructuraVO1=new InfraestructuraVO();
+        infraestructuraVO1.setInfFechaAlta(infraestructura.getInfFechaAlta());
+        infraestructuraVO1.setInfFechaBaja(infraestructura.getInfFechaBaja());
+        infraestructuraVO1.setInfId(infraestructura.getInfId());
+        infraestructuraVO1.setInfNombre(infraestructura.getInfNombre());
+        infraestructuraVO1.setInfTerminal(infraestructura.getInfTerminal());
+        infraestructuraVO1.setInfUsuarioAlta(infraestructura.getInfUsuarioAlta());
+        infraestructuraVO1.setInfUsuarioBaja(infraestructura.getInfUsuarioBaja());
+        infraestructuraVO1.setInfUsuarioCambio(infraestructura.getInfUsuarioCambio());
+        infraestructuraVO1.setInfEstado(infraestructura.getInfEstado());
+        infraestructuraVO1.setCsiId(infraestructura.getCsiId());
+        infraestructuraVO1.setTinId(infraestructura.getTinId());
+       return infraestructuraVO1;
     }
+    
+    
     private Infraestructura toInfraestructura(InfraestructuraVO infraestructuraVO)throws SQLException{
        Infraestructura infraestructura=new Infraestructura();
         
@@ -118,7 +119,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
 
-
+    
 }
 
 
