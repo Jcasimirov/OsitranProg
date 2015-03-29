@@ -5,14 +5,14 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <!--<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
         <property name="connection.username">SINV</property>
-        <property name="connection.password">SINV</property>
-        <!--property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.password">SINV</property>-->
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
-        <property name="connection.username">ositran</property>
-        <property name="connection.password">ositran</property-->
+        <property name="connection.username">OSITRAN</property>
+        <property name="connection.password">OSITRAN</property>
         <property name="connection.pool_size">5</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
@@ -37,5 +37,11 @@
         <mapping class="com.ositran.model.Contrato"/>
         <mapping class="com.ositran.model.ViewTdInternos"/>
         <mapping class="com.ositran.model.SupervisorInversiones"/>
+        <mapping class="com.ositran.model.ContratoSupInversiones"/>
+        <mapping class="com.ositran.model.JefeAreaContratoConcecion"/>
+        <mapping class="com.ositran.model.ContratoJefeArea"/>
+        <mapping class="com.ositran.model.AvanceInversionWeb"/>
+        <mapping class="com.ositran.model.Inversion"/>  
+         <mapping class="com.ositran.model.ContratoCompromiso"/> 
     </session-factory>
 </hibernate-configuration>
