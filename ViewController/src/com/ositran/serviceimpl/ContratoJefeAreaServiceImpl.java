@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ContratoJefeAreaServiceImpl implements ContratoJefeAreaService {
-    private ContratoJefeArea contratoJefeArea = new ContratoJefeArea();
-    private ContratoJefeAreaVO contratoJefeAreaVO = new ContratoJefeAreaVO();
-    private ContratoJefeAreaDAO contratoJefeAreaDAOImpl = new ContratoJefeAreaDAOImpl();
+    private ContratoJefeArea contratoJefeArea;
+    private ContratoJefeAreaVO contratoJefeAreaVO;
+    private ContratoJefeAreaDAO contratoJefeAreaDAOImpl;
     
     public ContratoJefeAreaServiceImpl() {
         super();
@@ -101,8 +101,30 @@ public class ContratoJefeAreaServiceImpl implements ContratoJefeAreaService {
         contratoJefeArea1.setTinId(contratoJefeAreaVO1.getTinId());
        return contratoJefeArea1;
     }
-    
-    
-    
-    
+
+
+    public void setContratoJefeArea(ContratoJefeArea contratoJefeArea) {
+        this.contratoJefeArea = contratoJefeArea;
+    }
+
+    public ContratoJefeArea getContratoJefeArea() {
+        return contratoJefeArea;
+    }
+
+    public void setContratoJefeAreaVO(ContratoJefeAreaVO contratoJefeAreaVO) {
+        this.contratoJefeAreaVO = contratoJefeAreaVO;
+    }
+
+    public ContratoJefeAreaVO getContratoJefeAreaVO() {
+        return contratoJefeAreaVO;
+    }
+
+    public void setContratoJefeAreaDAOImpl(ContratoJefeAreaDAO contratoJefeAreaDAOImpl) {
+        this.contratoJefeAreaDAOImpl = contratoJefeAreaDAOImpl;
+    }
+
+    public ContratoJefeAreaDAO getContratoJefeAreaDAOImpl() {
+        return contratoJefeAreaDAOImpl;
+    }
+
 }
