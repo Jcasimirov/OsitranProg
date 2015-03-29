@@ -22,17 +22,22 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
 
     @Override
     public String insert(ContratoSupInversiones contratoSupInversiones) throws SQLException, Exception {
-        
-        
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
+         System.out.println(contratoSupInversiones.getConId());
+            System.out.println(contratoSupInversiones.getCsiId());
+            System.out.println(contratoSupInversiones.getInfId());
+            System.out.println(contratoSupInversiones.getSivId());
+            
+            
             session.beginTransaction();
             session.save(contratoSupInversiones);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            e.printStackTrace();
         }
         return result;
         
