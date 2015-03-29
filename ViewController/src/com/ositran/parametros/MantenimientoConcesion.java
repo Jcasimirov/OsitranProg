@@ -39,6 +39,7 @@ import org.primefaces.context.RequestContext;
 
 
 
+
 public class MantenimientoConcesion {
 
     int contador = 0;
@@ -80,6 +81,7 @@ public class MantenimientoConcesion {
 
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
     private InfraestructuraService infraestructuraServiceImpl;
+                                    
 
     @ManagedProperty(value = "#{concesionVO}")
     ConcesionVO concesionVO;
@@ -194,25 +196,7 @@ public class MantenimientoConcesion {
     }
 
 
-    public void setNombreInfraestructuraNueva(String nombreInfraestructuraNueva) {
-        this.nombreInfraestructuraNueva = nombreInfraestructuraNueva;
-    }
-
-    public String getNombreInfraestructuraNueva() {
-        return nombreInfraestructuraNueva;
-    }
-
-    public void setCodigoCarritoConcesion(int codigoCarritoConcesion) {
-        this.codigoCarritoConcesion = codigoCarritoConcesion;
-    }
-
-    public int getCodigoCarritoConcesion() {
-        return codigoCarritoConcesion;
-    }
-
-    public void setInfraestructuraVO(InfraestructuraVO infraestructuraVO) {
-        this.infraestructuraVO = infraestructuraVO;
-    }
+   
 
     public InfraestructuraVO getInfraestructuraVO() {
         return infraestructuraVO;
@@ -247,90 +231,8 @@ public class MantenimientoConcesion {
         //   infraestructura.getConcesion().setCsiNombre(""); //para el carrito resetear nombre
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setConcesionVO(ConcesionVO concesionVO) {
-        this.concesionVO = concesionVO;
-    }
-
-    public ConcesionVO getConcesionVO() {
-        return concesionVO;
-    }
-
-    public void setListaInversiones(List<ConcesionVO> listaConcesiones) {
-        this.listaConcesiones = listaConcesiones;
-    }
-
-    public List<ConcesionVO> getListaConcesiones() {
-        return listaConcesiones;
-    }
-
-
-    public void setCodigoEliminar(int codigoEliminar) {
-        this.codigoEliminar = codigoEliminar;
-    }
-
-    public int getCodigoEliminar() {
-        return codigoEliminar;
-    }
-
-    public void setNombreEliminar(String nombreEliminar) {
-        this.nombreEliminar = nombreEliminar;
-    }
-
-    public String getNombreEliminar() {
-        return nombreEliminar;
-    }
-
-    public void setCodigoE(int codigoE) {
-        this.codigoE = codigoE;
-    }
-
-    public int getCodigoE() {
-        return codigoE;
-    }
-
-    public void setNombreE(String nombreE) {
-        this.nombreE = nombreE;
-    }
-
-    public String getNombreE() {
-        return nombreE;
-    }
-
-
-    public void setListaInfraestructura(List<InfraestructuraTipoVO> listaInfraestructuraTipos) {
-        this.listaInfraestructuraTipos = listaInfraestructuraTipos;
-    }
-
-    public List<InfraestructuraTipoVO> getListaInfraestructuraTipos() {
-        return listaInfraestructuraTipos;
-    }
-
-
-    public void setListaInfra(List<String> listaInfra) {
-        this.listaInfra = listaInfra;
-    }
-
-    public List<String> getListaInfra() {
-        return listaInfra;
-    }
-
-
-    public void setCodigoTipoInfraestructura(int codigoTipoInfraestructura) {
-        this.codigoTipoInfraestructura = codigoTipoInfraestructura;
-    }
-
-    public int getCodigoTipoInfraestructura() {
-        return codigoTipoInfraestructura;
-    }
+  
 
     public String obtenerIpCliente() {
         String remoteAddr =
@@ -343,24 +245,6 @@ public class MantenimientoConcesion {
 
     private String concesionbuscar;
     private int codigoTipoInfraestructurafiltro;
-
-    public void setConcesionbuscar(String concesionbuscar) {
-        this.concesionbuscar = concesionbuscar;
-    }
-
-    public String getConcesionbuscar() {
-        return concesionbuscar;
-    }
-
-
-    public void setCodigoTipoInfraestructurafiltro(int codigoTipoInfraestructurafiltro) {
-        this.codigoTipoInfraestructurafiltro = codigoTipoInfraestructurafiltro;
-    }
-
-    public int getCodigoTipoInfraestructurafiltro() {
-        return codigoTipoInfraestructurafiltro;
-    }
-
     public List<ConcesionVO> buscarconcesion() {
         try {
             listaConcesiones =
@@ -387,13 +271,6 @@ public class MantenimientoConcesion {
 
     //---------------------------------------------
 
-    public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
-        this.listaInfraestructuras = listaInfraestructuras;
-    }
-
-    public List<InfraestructuraVO> getListaInfraestructuras() {
-        return listaInfraestructuras;
-    }
     //----------------------------------------------
 
 
@@ -577,177 +454,11 @@ public class MantenimientoConcesion {
     }
 
 
-    public void setCodigoConcesion(int codigoConcesion) {
-        this.codigoConcesion = codigoConcesion;
-    }
-
-    public int getCodigoConcesion() {
-        return codigoConcesion;
-    }
-
-    public void setNombreConcesion(String nombreConcesion) {
-        this.nombreConcesion = nombreConcesion;
-    }
-
-    public String getNombreConcesion() {
-        return nombreConcesion;
-    }
-
-    //////////////////////////////FIN ELIMINAR CONSECION
+   
+    
 
 
-    public void setCodigoInfraestructura(int codigoInfraestructura) {
-        this.codigoInfraestructura = codigoInfraestructura;
-    }
-
-    public int getCodigoInfraestructura() {
-        return codigoInfraestructura;
-    }
-
-    public void setNombreInfraestructura(String nombreInfraestructura) {
-        this.nombreInfraestructura = nombreInfraestructura;
-    }
-
-    public String getNombreInfraestructura() {
-        return nombreInfraestructura;
-    }
-    //FIN DE ELIMINAR DE INFRAESTRUCTURA POR SU CODIGO
-
-
-    public void setCodigoConcesionNuevo(int codigoConcesionNuevo) {
-        this.codigoConcesionNuevo = codigoConcesionNuevo;
-    }
-
-    public int getCodigoConcesionNuevo() {
-        return codigoConcesionNuevo;
-    }
-
-    public void agregarInfraestructuraNueva() {
-
-
-    }
-
-    public void setAddInfraestructura(String addInfraestructura) {
-        this.addInfraestructura = addInfraestructura;
-    }
-
-    public String getAddInfraestructura() {
-        return addInfraestructura;
-    }
-
-    public void agregarInfraestructuras() {
-        listaInfra.add(addInfraestructura);
-
-    }
-
-
-    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
-        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
-    }
-
-    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
-        this.concesionServicesImpl = concesionServicesImpl;
-    }
-
-    public ConcesionServiceImpl getConcesionServicesImpl() {
-        return concesionServicesImpl;
-    }
-
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
-    }
-
-
-    public void setListaAgregarInfraestructura(List<InfraestructuraVO> listaAgregarInfraestructura) {
-        this.listaAgregarInfraestructura = listaAgregarInfraestructura;
-    }
-
-    public List<InfraestructuraVO> getListaAgregarInfraestructura() {
-        return listaAgregarInfraestructura;
-    }
-
-    public void setListaInfraestructurasBD(List<InfraestructuraVO> listaInfraestructurasBD) {
-        this.listaInfraestructurasBD = listaInfraestructurasBD;
-    }
-
-    public List<InfraestructuraVO> getListaInfraestructurasBD() {
-        return listaInfraestructurasBD;
-    }
-
-
-    public void setListaEliminarInfraestructura(List<InfraestructuraVO> listaEliminarInfraestructura) {
-        this.listaEliminarInfraestructura = listaEliminarInfraestructura;
-    }
-
-    public List<InfraestructuraVO> getListaEliminarInfraestructura() {
-        return listaEliminarInfraestructura;
-    }
-
-
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
-
-    public int getContador() {
-        return contador;
-    }
-
-    public void setNombreTipoInfra(String nombreTipoInfra) {
-        this.nombreTipoInfra = nombreTipoInfra;
-    }
-
-    public String getNombreTipoInfra() {
-        return nombreTipoInfra;
-    }
-
-    public void setLis(List<InfraestructuraVO> lis) {
-        this.lis = lis;
-    }
-
-    public List<InfraestructuraVO> getLis() {
-        return lis;
-    }
-
-    public void setListaAgregarInfra(List<String> listaAgregarInfra) {
-        this.listaAgregarInfra = listaAgregarInfra;
-    }
-
-    public List<String> getListaAgregarInfra() {
-        return listaAgregarInfra;
-    }
-
-    public void setListaQuitarInfra(List<String> listaQuitarInfra) {
-        this.listaQuitarInfra = listaQuitarInfra;
-    }
-
-    public List<String> getListaQuitarInfra() {
-        return listaQuitarInfra;
-    }
-
-    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
-        this.infraestructuraTipoVO = infraestructuraTipoVO;
-    }
-
-    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
-        return infraestructuraTipoVO;
-    }
-
-    public void setInfraestructura(InfraestructuraVO infraestructura) {
-        this.infraestructura = infraestructura;
-    }
-
-    public void setInfraestructuras(List<InfraestructuraVO> infraestructuras) {
-        this.infraestructuras = infraestructuras;
-    }
-
-
-    public void setCodigoT(int codigoT) {
-        this.codigoT = codigoT;
-    }
-
-    public int getCodigoT() {
-        return codigoT;
-    }
+   
 
 
     // -------------------------INICIO VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
@@ -781,13 +492,6 @@ public class MantenimientoConcesion {
         return null;
     }
 
-    public List<InfraestructuraVO> getInfraestructuras() {
-        return infraestructuras;
-    }
-
-    public InfraestructuraVO getInfraestructura() {
-        return infraestructura;
-    }
 
     // -------------------------FIN VOO CARRITO VER CLASE InfraestructuraVO--------------------------------------/
 
@@ -798,5 +502,307 @@ public class MantenimientoConcesion {
                 listaConcesiones.get(i).setNombreTipoInfra(nombreTipoInfra);
             }
         }
-    
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setCodigoT(int codigoT) {
+        this.codigoT = codigoT;
+    }
+
+    public int getCodigoT() {
+        return codigoT;
+    }
+
+    public void setCodigoE(int codigoE) {
+        this.codigoE = codigoE;
+    }
+
+    public int getCodigoE() {
+        return codigoE;
+    }
+
+    public void setNombreE(String nombreE) {
+        this.nombreE = nombreE;
+    }
+
+    public String getNombreE() {
+        return nombreE;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setAddInfraestructura(String addInfraestructura) {
+        this.addInfraestructura = addInfraestructura;
+    }
+
+    public String getAddInfraestructura() {
+        return addInfraestructura;
+    }
+
+    public void setNombreEliminar(String nombreEliminar) {
+        this.nombreEliminar = nombreEliminar;
+    }
+
+    public String getNombreEliminar() {
+        return nombreEliminar;
+    }
+
+    public void setCodigoEliminar(int codigoEliminar) {
+        this.codigoEliminar = codigoEliminar;
+    }
+
+    public int getCodigoEliminar() {
+        return codigoEliminar;
+    }
+
+    public void setCodigoTipoInfraestructura(int codigoTipoInfraestructura) {
+        this.codigoTipoInfraestructura = codigoTipoInfraestructura;
+    }
+
+    public int getCodigoTipoInfraestructura() {
+        return codigoTipoInfraestructura;
+    }
+
+    public void setCodigoInfraestructura(int codigoInfraestructura) {
+        this.codigoInfraestructura = codigoInfraestructura;
+    }
+
+    public int getCodigoInfraestructura() {
+        return codigoInfraestructura;
+    }
+
+    public void setCodigoCarritoConcesion(int codigoCarritoConcesion) {
+        this.codigoCarritoConcesion = codigoCarritoConcesion;
+    }
+
+    public int getCodigoCarritoConcesion() {
+        return codigoCarritoConcesion;
+    }
+
+    public void setListaEliminarInfraestructura(List<InfraestructuraVO> listaEliminarInfraestructura) {
+        this.listaEliminarInfraestructura = listaEliminarInfraestructura;
+    }
+
+    public List<InfraestructuraVO> getListaEliminarInfraestructura() {
+        return listaEliminarInfraestructura;
+    }
+
+    public void setListaAgregarInfraestructura(List<InfraestructuraVO> listaAgregarInfraestructura) {
+        this.listaAgregarInfraestructura = listaAgregarInfraestructura;
+    }
+
+    public List<InfraestructuraVO> getListaAgregarInfraestructura() {
+        return listaAgregarInfraestructura;
+    }
+
+    public void setCodigoConcesionNuevo(int codigoConcesionNuevo) {
+        this.codigoConcesionNuevo = codigoConcesionNuevo;
+    }
+
+    public int getCodigoConcesionNuevo() {
+        return codigoConcesionNuevo;
+    }
+
+    public void setNombreInfraestructuraNueva(String nombreInfraestructuraNueva) {
+        this.nombreInfraestructuraNueva = nombreInfraestructuraNueva;
+    }
+
+    public String getNombreInfraestructuraNueva() {
+        return nombreInfraestructuraNueva;
+    }
+
+    public void setNombreInfraestructura(String nombreInfraestructura) {
+        this.nombreInfraestructura = nombreInfraestructura;
+    }
+
+    public String getNombreInfraestructura() {
+        return nombreInfraestructura;
+    }
+
+    public void setCodigoConcesion(int codigoConcesion) {
+        this.codigoConcesion = codigoConcesion;
+    }
+
+    public int getCodigoConcesion() {
+        return codigoConcesion;
+    }
+
+    public void setNombreConcesion(String nombreConcesion) {
+        this.nombreConcesion = nombreConcesion;
+    }
+
+    public String getNombreConcesion() {
+        return nombreConcesion;
+    }
+
+    public void setListaConcesiones(List<ConcesionVO> listaConcesiones) {
+        this.listaConcesiones = listaConcesiones;
+    }
+
+    public List<ConcesionVO> getListaConcesiones() {
+        return listaConcesiones;
+    }
+
+    public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
+        this.listaInfraestructuras = listaInfraestructuras;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructuras() {
+        return listaInfraestructuras;
+    }
+
+    public void setListaInfraestructurasBD(List<InfraestructuraVO> listaInfraestructurasBD) {
+        this.listaInfraestructurasBD = listaInfraestructurasBD;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructurasBD() {
+        return listaInfraestructurasBD;
+    }
+
+    public void setLis(List<InfraestructuraVO> lis) {
+        this.lis = lis;
+    }
+
+    public List<InfraestructuraVO> getLis() {
+        return lis;
+    }
+
+    public void setListaInfra(List<String> listaInfra) {
+        this.listaInfra = listaInfra;
+    }
+
+    public List<String> getListaInfra() {
+        return listaInfra;
+    }
+
+    public void setListaInfraestructuraTipos(List<InfraestructuraTipoVO> listaInfraestructuraTipos) {
+        this.listaInfraestructuraTipos = listaInfraestructuraTipos;
+    }
+
+    public List<InfraestructuraTipoVO> getListaInfraestructuraTipos() {
+        return listaInfraestructuraTipos;
+    }
+
+    public void setNombreTipoInfra(String nombreTipoInfra) {
+        this.nombreTipoInfra = nombreTipoInfra;
+    }
+
+    public String getNombreTipoInfra() {
+        return nombreTipoInfra;
+    }
+
+    public void setUtil(Util util) {
+        this.util = util;
+    }
+
+    public Util getUtil() {
+        return util;
+    }
+
+    public void setListaAgregarInfra(List<String> listaAgregarInfra) {
+        this.listaAgregarInfra = listaAgregarInfra;
+    }
+
+    public List<String> getListaAgregarInfra() {
+        return listaAgregarInfra;
+    }
+
+    public void setListaQuitarInfra(List<String> listaQuitarInfra) {
+        this.listaQuitarInfra = listaQuitarInfra;
+    }
+
+    public List<String> getListaQuitarInfra() {
+        return listaQuitarInfra;
+    }
+
+    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
+        this.concesionServicesImpl = concesionServicesImpl;
+    }
+
+    public ConcesionServiceImpl getConcesionServicesImpl() {
+        return concesionServicesImpl;
+    }
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoService infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoService getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
+
+    public void setInfraestructuraServiceImpl(InfraestructuraService infraestructuraServiceImpl) {
+        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
+    }
+
+    public InfraestructuraService getInfraestructuraServiceImpl() {
+        return infraestructuraServiceImpl;
+    }
+
+    public void setConcesionVO(ConcesionVO concesionVO) {
+        this.concesionVO = concesionVO;
+    }
+
+    public ConcesionVO getConcesionVO() {
+        return concesionVO;
+    }
+
+    public void setInfraestructuraVO(InfraestructuraVO infraestructuraVO) {
+        this.infraestructuraVO = infraestructuraVO;
+    }
+
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
+    }
+
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
+    }
+
+    public void setConcesionbuscar(String concesionbuscar) {
+        this.concesionbuscar = concesionbuscar;
+    }
+
+    public String getConcesionbuscar() {
+        return concesionbuscar;
+    }
+
+    public void setCodigoTipoInfraestructurafiltro(int codigoTipoInfraestructurafiltro) {
+        this.codigoTipoInfraestructurafiltro = codigoTipoInfraestructurafiltro;
+    }
+
+    public int getCodigoTipoInfraestructurafiltro() {
+        return codigoTipoInfraestructurafiltro;
+    }
+
+    public void setInfraestructura(InfraestructuraVO infraestructura) {
+        this.infraestructura = infraestructura;
+    }
+
+    public InfraestructuraVO getInfraestructura() {
+        return infraestructura;
+    }
+
+    public void setInfraestructuras(List<InfraestructuraVO> infraestructuras) {
+        this.infraestructuras = infraestructuras;
+    }
+
+    public List<InfraestructuraVO> getInfraestructuras() {
+        return infraestructuras;
+    }
+
+
 }
