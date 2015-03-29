@@ -4,7 +4,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <script type="text/javascript">
             var valorSeleccionado;
               function pasarMayuscula(obj, id) {
@@ -125,7 +125,7 @@
                                 <p:selectOneMenu value="#{descripcionInversionMB.codigoInversion}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
-                                                   itemLabel="#{tip.rolNombre}" itemValue="#{tip.rolId}"/>
+                                                   itemLabel="#{tip.tivNombre}" itemValue="#{tip.tivId}"/>
                                 </p:selectOneMenu>
                                   <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
