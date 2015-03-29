@@ -1,7 +1,7 @@
 package com.ositran.contratos;
 
-import com.ositran.model.Infraestructura;
-
+import com.ositran.service.ConcesionService;
+import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.ContratoJefeAreaService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
@@ -13,16 +13,12 @@ import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.JefeAreaContratoConcecionVO;
-import com.ositran.vo.bean.TipoInversionVO;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -39,16 +35,24 @@ public class JefeAreaContratoConcecionMB {
     private int codigoConcesion;
     private int codigoContrato;
     private List<ContratoVO> listaContratos = new ArrayList<>();
-    private ContratoJefeAreaService contratoJefeAreaServiceImpl = new ContratoJefeAreaServiceImpl();
-    private ContratoJefeAreaVO contratoJefeAreaVO = new ContratoJefeAreaVO();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
     private List<JefeAreaContratoConcecionVO> listaJefeArea = new ArrayList<>();
+       
+    @ManagedProperty(value = "#{contratoJefeAreaVO}")
+    ContratoJefeAreaVO contratoJefeAreaVO;
+    
+    @ManagedProperty(value = "#{contratoJefeAreaServiceImpl}")
+    ContratoJefeAreaServiceImpl contratoJefeAreaServiceImpl;
+    
 
+    @ManagedProperty(value = "#{contratoConcesionServiceImp}")
+    ContratoConcesionService contratoConcesionServiceImp;
 
+    @ManagedProperty(value = "#{concesionServiceImpl}")
+    ConcesionService concesionServiceImpl;
+    
     @ManagedProperty(value = "#{jefeAreaContratoConcecionServiceImpl}")
     JefeAreaContratoConcecionServiceImpl jefeAreaContratoConcecionServiceImpl;
-    private ContratoConcesionServiceImpl contratoServicesImpl = new ContratoConcesionServiceImpl();
-    ConcesionServiceImpl concesionServiceImpl = new ConcesionServiceImpl();
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
@@ -92,7 +96,8 @@ public class JefeAreaContratoConcecionMB {
 
     public void cargarListaContratos() {
         try {
-            listaContratos = contratoServicesImpl.query();
+            listaContratos = contratoConcesionServiceImp.query();
+            System.out.println(listaContratos.size());
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
 
@@ -244,28 +249,28 @@ public class JefeAreaContratoConcecionMB {
         return listaContratos;
     }
 
-    public void setContratoServicesImpl(ContratoConcesionServiceImpl contratoServicesImpl) {
-        this.contratoServicesImpl = contratoServicesImpl;
+    public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
+        this.contratoConcesionServiceImp = contratoConcesionServiceImp;
     }
 
-    public ContratoConcesionServiceImpl getContratoServicesImpl() {
-        return contratoServicesImpl;
+    public ContratoConcesionService getContratoConcesionServiceImp() {
+        return contratoConcesionServiceImp;
     }
 
-    public void setConcesionServiceImpl(ConcesionServiceImpl concesionServiceImpl) {
+    public void setConcesionServiceImpl(ConcesionService concesionServiceImpl) {
         this.concesionServiceImpl = concesionServiceImpl;
     }
 
-    public ConcesionServiceImpl getConcesionServiceImpl() {
+    public ConcesionService getConcesionServiceImpl() {
         return concesionServiceImpl;
     }
 
 
-    public void setContratoJefeAreaServiceImpl(ContratoJefeAreaService contratoJefeAreaServiceImpl) {
+    public void setContratoJefeAreaServiceImpl(ContratoJefeAreaServiceImpl contratoJefeAreaServiceImpl) {
         this.contratoJefeAreaServiceImpl = contratoJefeAreaServiceImpl;
     }
 
-    public ContratoJefeAreaService getContratoJefeAreaServiceImpl() {
+    public ContratoJefeAreaServiceImpl getContratoJefeAreaServiceImpl() {
         return contratoJefeAreaServiceImpl;
     }
 
