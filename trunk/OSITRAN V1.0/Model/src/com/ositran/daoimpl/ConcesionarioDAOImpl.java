@@ -67,7 +67,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            session.persist(concesionario);
+            session.save(concesionario);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
