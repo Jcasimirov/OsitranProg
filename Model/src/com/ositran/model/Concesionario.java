@@ -19,7 +19,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "T_CONCESIONARIO",uniqueConstraints = @UniqueConstraint(columnNames = {"CNC_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONCESIONARIO"))
 
 public class Concesionario implements Serializable {
     private static final long serialVersionUID = -5209185194740198073L;
