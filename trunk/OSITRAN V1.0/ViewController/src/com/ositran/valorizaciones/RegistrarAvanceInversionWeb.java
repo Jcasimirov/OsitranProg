@@ -57,6 +57,10 @@ public class RegistrarAvanceInversionWeb {
              }
     }
 
+
+
+
+
     public MonedaServiceImpl getMonedaServiceImpl() {
         return monedaServiceImpl;
     }
