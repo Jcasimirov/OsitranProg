@@ -15,7 +15,7 @@ package com.ositran.model;
     
     @Entity(name = "InversionTipoDescripcion")
     @Table(name = "T_INVERSION_TIPO_DESCRIPCION",uniqueConstraints = @UniqueConstraint(columnNames = {"DTI_ID"}))
-    @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "INVERSIONTIPODESCRIPCION_SEC"))
+    @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_INVERSION_TIPO_DESCRIPCIO"))
     
     public class InversionTipoDescripcion implements Serializable {
         private static final long serialVersionUID = -1816130139407701837L;
