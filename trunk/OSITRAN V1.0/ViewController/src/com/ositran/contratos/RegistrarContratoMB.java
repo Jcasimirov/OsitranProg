@@ -130,8 +130,8 @@ public class RegistrarContratoMB {
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
-    @ManagedProperty(value = "#{concesionServicesImpl}")
-    ConcesionServiceImpl concesionServicesImpl;
+    @ManagedProperty(value = "#{concesionServiceImpl}")
+    ConcesionServiceImpl concesionServiceImpl;
 
     @ManagedProperty(value = "#{tipoDocumentoServiceImp}")
     private TipoDocumentoServiceImpl tipoDocumentoServiceImp;
@@ -200,12 +200,12 @@ public class RegistrarContratoMB {
     }
 
 
-    public void setConcesionServicesImpl(ConcesionServiceImpl concesionServicesImpl) {
-        this.concesionServicesImpl = concesionServicesImpl;
+    public void setConcesionServiceImpl(ConcesionServiceImpl concesionServiceImpl) {
+        this.concesionServiceImpl = concesionServiceImpl;
     }
 
-    public ConcesionServiceImpl getConcesionServicesImpl() {
-        return concesionServicesImpl;
+    public ConcesionServiceImpl getConcesionServiceImpl() {
+        return concesionServiceImpl;
     }
 
     public void setListaConcesiones(List<ConcesionVO> listaConcesiones) {
@@ -323,7 +323,7 @@ public class RegistrarContratoMB {
     // Metodo para Filtrar la Lista de Concesión
     public void filtrarConcesion() throws SQLException {
         try {
-            listaConcesiones = concesionServicesImpl.filtrarConcesion(tipoinfra);
+            listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoinfra);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -662,6 +662,8 @@ public class RegistrarContratoMB {
             limpiarCamposTotales();
         }catch(Exception e){
             System.out.println(e);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Puedo Registrar el Contrato de Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
         }
     }
