@@ -6,32 +6,7 @@
         <h:head>
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
            <script type="text/javascript">
-		PrimeFaces.locales['es'] = {
-			    closeText: 'Cerrar',
-			    prevText: 'Anterior',
-			    nextText: 'Siguiente',
-			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-			    dayNames: ['Domingo','Lunes','Martes','MiÃ©rcoles','Jueves','Viernes','SÃ¡bado'],
-			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-			    dayNamesMin: ['D','L','M','X','J','V','S'],
-			    weekHeader: 'Semana',
-			    firstDay: 1,
-			    isRTL: false,
-			    showMonthAfterYear: false,
-			    yearSuffix: '',
-			    timeOnlyTitle: 'SÃ³lo hora',
-			    timeText: 'Tiempo',
-			    hourText: 'Hora',
-			    minuteText: 'Minuto',
-			    secondText: 'Segundo',
-			    currentText: 'Fecha actual',
-			    ampm: false,
-			    month: 'Mes',
-			    week: 'Semana',
-			    day: 'DÃ­a',
-			    allDayText : 'Todo el dÃ­a'
-			};
+		
 			
 		</script>
         </h:head>
@@ -53,16 +28,19 @@
 							<tr>
 								<td>Núm. Ficha registro web concesionario </td>
 								<td >
-								 <p:inputText readonly="true" style="width:100px"/>
+								 <p:inputText value="#{registrarAvanceInversionMB.fichaRegistro}"  style="width:100px"/>
                                                                   <h:outputText style="color:White" value="n"/>
-                                                                 <p:commandButton image="ui-icon-search" ></p:commandButton>
-	
+                                                                 <p:commandButton 
+                                                                    update=":form:mensaje :form:datosConcesion" 
+                                                                    actionListener="#{registrarAvanceInversionMB.buscarFichaRegistroWeb()}" 
+                                                                    image="ui-icon-search" >
+                                                                 </p:commandButton>
 								</td>
 								</tr>
 							
 						</table>
 				</p:fieldset>
-				<br></br>
+					<br></br>
 				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
                                
                                         <h:outputText value="Buscar Contratos Concesión"></h:outputText>
@@ -71,63 +49,73 @@
                                                                
 				</p:fieldset>
 					<br></br>
-				<p:fieldset styleClass="fielsetinterno" legend="#{leg.des}">
+				<p:fieldset styleClass="fielsetinterno" id="datosConcesion" legend="Datos Concesión">
 					<table>
 									<tr>
 										<td align="left">Concesión</td>
-										<td><p:inputText readonly="true"></p:inputText></td>
+										<td><p:inputText value="#{registrarAvanceInversionMB.nombreConcecion}" readonly="true" ></p:inputText></td>
 									</tr>
 									<tr>
 										<td align="left">Tipo Infraestructura</td>
-										<td><p:inputText readonly="true"></p:inputText></td>
+										<td><p:inputText value="#{registrarAvanceInversionMB.nombreTipoInfraestructura}"  readonly="true"></p:inputText></td>
 									</tr>
 									<tr>
 										<td align="left">Modalidad Concesión</td>
-										<td><p:inputText readonly="true"></p:inputText></td>
+										<td><p:inputText value="#{registrarAvanceInversionMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
 									</tr>
                                                                         <tr>
 										<td align="left">Aeropuerto</td>
-										<td><p:inputText readonly="true"></p:inputText></td>
+										<td>
+                                                                                     <p:selectOneMenu value="#{registrarAvanceInversionMB.codigoInfraestructura}" >
+										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
+                                                                                                <f:selectItems value="#{registrarAvanceInversionMB.listaInfraestructuras}" var="tip"
+                                                                                                               itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
+                                                                                                        <p:ajax event="valueChange" update=":form:lista :form:datosCompromiso" listener="#{registrarAvanceInversionMB.cargarInversion()}"  />                
+
+                                                                                        <f:selectItem  itemLabel="-Otros-" itemValue="01" />
+										       
+					    						</p:selectOneMenu>
+                                                                                </td>
 									</tr>	
                                                                         <tr>
 										<td align="left">Inversión</td>
-										<td><p:inputText readonly="true"></p:inputText></td>
+										<td>
+                                                                                     <p:selectOneMenu id="lista"  value="#{registrarAvanceInversionMB.codigoInversion}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{registrarAvanceInversionMB.listaInversiones}" var="tip1"
+                                                                                                               itemLabel="#{tip1.invDescripcion}" itemValue="#{tip1.invId}"/>
+					    						</p:selectOneMenu>
+                                                                                </td>
 									</tr>	
 								</table>
 				</p:fieldset>
-				<br></br>
-				<p:fieldset styleClass="fielsetinterno" legend="#{leg.etaCo}">
+                               <br></br>
+				<p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
 								<table>
 									<tr>
-										<td colspan="2" align="left">#{cam.setapa}</td>
-										<td colspan="2" align="left">
-												<p:selectOneMenu  value="">
-					        					<f:selectItem  itemLabel="#{cam.S}" itemValue="4" />
-										        <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-										        <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-										        <f:selectItem  itemLabel="Etapa3" itemValue="3" />
-					    						</p:selectOneMenu>
+										<td colspan="1" align="left">#{cam.setapa}</td>
+										<td colspan="3" align="left">
+                                                                                    <p:selectOneMenu id="listaCompromiso"  value="#{registrarAvanceInversionMB}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{registrarAvanceInversionMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}"  itemValue="#{tip2}"/>
+                                                                                    </p:selectOneMenu>
 										</td>
 									</tr>
+									
 									<tr>
-										<td align="left">#{cam.al}</td>
-										<td colspan="3" align="left" ><p:inputText style="width: 300px" readonly="true"></p:inputText></td>
+										<td align="left">Plazo:</td>
+										<td align="left" colspan="3"><p:inputText size="10"  /></td>
+										
 									</tr>
 									<tr>
-										<td align="left">#{cam.ini}</td>
-										<td align="left"><p:calendar size="10" locale="es" pattern="dd/MM/yyyy" /></td>
-										<td align="left">#{cam.fin}</td>
-										<td align="left"><p:calendar size="10" locale="es" pattern="dd/MM/yyyy" /></td>
-									</tr>
-									<tr>
-										<td align="left">#{cam.tot}</td>
+										<td align="left">Total:</td>
 										<td align="left" ><p:inputText size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
 										<td align="left"><p:inputText size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
-					</p:fieldset>				
+					</p:fieldset>	
 				</td>
 				<td valign="top">
 				<p:fieldset legend="Solicitud del Concesionario">
@@ -182,7 +170,7 @@
                                                 <td><p:calendar locale="es"  styleClass="calendario"  /></td> 
                                                 <td colspan="2">Moneda 
                                                 
-                                                    <p:selectOneMenu id="aeropuerto" value="">
+                                                    <p:selectOneMenu id="aeropuerto">
                                                                 <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
                                                                 <f:selectItem  itemLabel="Etapa1" itemValue="1" />
                                                                 <f:selectItem  itemLabel="Etapa2" itemValue="2" />
@@ -193,7 +181,7 @@
                                             <tr>
                                                  <td>Aeropuerto</td> 
                                                 <td colspan="5">
-                                                    <p:selectOneMenu id="aeropuerto1" value="">
+                                                    <p:selectOneMenu id="aeropuerto1">
                                                                 <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
                                                                 <f:selectItem  itemLabel="Etapa1" itemValue="1" />
                                                                 <f:selectItem  itemLabel="Etapa2" itemValue="2" />
@@ -205,7 +193,7 @@
                                             <tr>
                                                  <td>Concepto:</td> 
                                                 <td>
-                                                          <p:selectOneMenu id="aeropuerto2" value="">
+                                                          <p:selectOneMenu id="aeropuerto2" >
                                                                 <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
                                                                 <f:selectItem  itemLabel="Etapa1" itemValue="1" />
                                                                 <f:selectItem  itemLabel="Etapa2" itemValue="2" />
@@ -269,7 +257,8 @@
               
             
             </p:layout>
-	</h:form>	
+	</h:form>
+      
     </h:body>
     </html>
 </f:view>
