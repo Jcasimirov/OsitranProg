@@ -19,8 +19,8 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Inversion.findAll", query = "select o from Inversion o") })
-@Table(name = "T_INVERSION")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INVERSION"))
+@Table(name = "T_CONTRATO_INVERSION")
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_INVERSION"))
 public class Inversion implements Serializable {
     private static final long serialVersionUID = 4950860685481990821L;
     @Column(name = "INF_ID")
@@ -37,7 +37,6 @@ public class Inversion implements Serializable {
     @GeneratedValue(generator = "generator")
     @Column(name = "INV_ID", nullable = false)
     private Integer invId;
-    
     
     public Inversion() {
     }
