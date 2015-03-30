@@ -84,7 +84,7 @@
                                             </td>
                                             <td align="right">
                                                 <p:commandButton id="nuevo"
-                                                rendered="#{concesionarioMB.rolOpcion.troAgregar}"
+                                                rendered="#{concesionarioMB.rolOpcion.troAgregar eq 1}"
                                                 actionListener="#{concesionarioMB.limpiarCampos}"
                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
@@ -121,7 +121,7 @@
                                     <p:column headerText="N° de Documento" >
                                         <h:outputText value="#{conc1.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Editar" rendered="#{concesionarioMB.rolOpcion.troModificar}" style="width:4%">
+                                    <p:column headerText="Editar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" style="width:4%">
                                     
                                     <div align="center">
                                                 <p:commandButton 
@@ -136,7 +136,7 @@
                                                                  </div>
                                        
                                     </p:column>
-                                    <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar}" headerText="Eliminar" style="width:4%" >
+                                    <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar eq 1}" headerText="Eliminar" style="width:4%" >
                                     
                                      <div align="center">
                                                 
