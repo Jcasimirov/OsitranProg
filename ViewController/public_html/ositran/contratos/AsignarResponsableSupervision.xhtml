@@ -35,16 +35,15 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                   <p:fieldset legend="Conceción">
-                    <p:inputText id="idNombreConcesion" value="#{asignarResponsableMB.nombreContratoConcesion}"
-                               style="width:300px;text-transform:uppercase;">
-             
-                    </p:inputText>
-                   
-                    <p:commandButton value="#{btn.btn_buscar}" oncomplete="Dialog_ResultadoBusquedaContratoConcesion.show()"
-                                   actionListener="#{asignarResponsableMB.cargarListaContratos()}"
-                                   update=":form:DataTable_ResultadoBusquedaContratosConcesion"/>
-                </p:fieldset>
+                                                <p:fieldset legend="Conceción">
+                                                    <p:inputText id="idNombreConcesion"
+                                                                 value="#{asignarResponsableMB.nombreContratoConcesion}"
+                                                                 style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                    <p:commandButton value="#{btn.btn_buscar}"
+                                                                     oncomplete="Dialog_ResultadoBusquedaContratoConcesion.show()"
+                                                                     actionListener="#{asignarResponsableMB.cargarListaContratos()}"
+                                                                     update=":form:DataTable_ResultadoBusquedaContratosConcesion"/>
+                                                </p:fieldset>
                                             </td>
                                         </tr>
                                          
@@ -53,14 +52,12 @@
                                                 <p:fieldset styleClass="fielsetinterno"
                                                             legend="Datos Contrato de Concesion">
                                                     <table>
-                                                        
-                                                         
-                                                         <tr>
-                                                            <td align="left">Nombre de concesión</td>
+                                                        <tr>
+                                                            <td align="left">Nombre de concesi&#243;n</td>
                                                             <td>
                                                                 <p:inputText id="idNameConcesion"
-                                                             value="#{asignarResponsableMB.nameContrato}"
-                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             value="#{asignarResponsableMB.nameContrato}"
+                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
@@ -68,21 +65,19 @@
                                                             <td align="left">Tipo de infraestructura</td>
                                                             <td>
                                                                 <p:inputText id="idNameTipoInfraestructura"
-                                                             value="#{asignarResponsableMB.nameTipoInfraestructura}"
-                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             value="#{asignarResponsableMB.nameTipoInfraestructura}"
+                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
                                                         <tr>
-                                                            <td align="left">Modalidad de Concesión</td>
+                                                            <td align="left">Modalidad de Concesi&#243;n</td>
                                                             <td>
                                                                 <p:inputText id="idNameModalidadConceción"
-                                                             value="#{asignarResponsableMB.nameModalidadConcesion}"
-                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             value="#{asignarResponsableMB.nameModalidadConcesion}"
+                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
                                                             </td>
                                                         </tr>
-                                                         
-                                                       
                                                          
                                                         <tr>
                                                             <td align="left">Modelaidad de inversion</td>
@@ -214,7 +209,7 @@
                                                 <p:inputText id="idRucEmpresaSupervisora"
                                                              value="#{asignarResponsableMB.rucEmpresaSupervisora}"
                                                              style="width:300px;text-transform:uppercase;"></p:inputText>
-                                               
+                                                 
                                                 <p:commandButton value="#{btn.btn_buscar}"
                                                                  actionListener="#{asignarResponsableMB.filtrarListaEmpSup()}"
                                                                  update=":form:DataTable_ResultadoBusquedaEmpresa"
@@ -341,29 +336,25 @@
                         </td>
                     </tr>
                 </table>
-                
                 <p:dialog header="CONCESIONES" widgetVar="Dialog_ResultadoBusquedaContratoConcesion"
-                        id="Dialog_ResultadoBusquedaContratoConcesion" modal="true" style="text-align:center;">
-                    
-                    <p:dataTable style="font-size:11px;text-align:center" id="DataTable_ResultadoBusquedaContratosConcesion"
-                               var="var2" value="#{asignarResponsableMB.listaContratosConcesion}">
+                          id="Dialog_ResultadoBusquedaContratoConcesion" modal="true" style="text-align:center;">
+                    <p:dataTable style="font-size:11px;text-align:center"
+                                 id="DataTable_ResultadoBusquedaContratosConcesion" var="var2"
+                                 value="#{asignarResponsableMB.listaContratosConcesion}">
                         <p:column headerText="emps sup">
-                            <h:outputText value="#{var2.nombreConcesion}" style="width:300px;text-transform:uppercase;"/>
+                            <h:outputText value="#{var2.nombreConcesion}"
+                                          style="width:300px;text-transform:uppercase;"/>
                         </p:column>
-                       
-                                  
                         <p:column headerText="Elegir">
-                           <p:commandButton actionListener="#{asignarResponsableMB.seleccionarContratoConcesion1}" icon="ui-search"
-                                           update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConceción"
-                                           oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
+                            <p:commandButton actionListener="#{asignarResponsableMB.seleccionarContratoConcesion1}"
+                                             icon="ui-search"
+                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConceción"
+                                             oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
                                 <f:attribute name="contrato" value="#{var2}"></f:attribute>
                             </p:commandButton>
                         </p:column>
-                       
                     </p:dataTable>
                 </p:dialog>
-                
-                
             </div>
         </h:form>
     </h:body>
