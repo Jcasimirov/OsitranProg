@@ -22,6 +22,7 @@ import org.hibernate.annotations.Parameter;
 
 @Table(name = "T_CONCESION")
 
+
 public class Concesion implements Serializable {
     private static final long serialVersionUID = 4553963258432302939L;
     @Column(name = "CSI_ESTADO", nullable = false)
