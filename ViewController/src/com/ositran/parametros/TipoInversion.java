@@ -31,7 +31,7 @@ public class TipoInversion {
     private String descripcionE;
 
     @ManagedProperty(value = "#{tipoInversionVO}")
-    TipoInversionVO tipoInversionVO=new TipoInversionVO();
+    TipoInversionVO tipoInversionVO;
     @ManagedProperty(value = "#{tipoInversionServicesImpl}")
     TipoInversionServices tipoInversionServicesImpl;
 
