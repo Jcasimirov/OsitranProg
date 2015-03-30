@@ -5,6 +5,7 @@ import com.ositran.model.TipoDocumento;
 import com.ositran.serviceimpl.CargoServiceImpl;
 import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import java.util.List;
@@ -51,80 +52,23 @@ public class MantenimientoEmpSup {
     
     
     //-----------------SESSION-----------------------//
-    public  final int formulario=1;
-    private  HttpServletRequest httpServletRequest=null;
-    private  FacesContext faceContext=null;
-     private   int leerSesion;
-    private   int ingresarSesion;
-    private  int eliminarSesion;
-    private   int actualizarSesion;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
-    private String parametroValidacion;
-    
-    
-    public void validarSesion() throws IOException{
-        
-        try {
-           faceContext=FacesContext.getCurrentInstance();
-           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-           HttpSession session = httpServletRequest.getSession();
-           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
-           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
-          
-            for (RolOpcionesVO rolO:listaRolOpciones){
-                if (rolO.getMenId()==formulario){
-                    parametroValidacion="true";
-                    }
-                }
-           
-            if (!"true".equals(parametroValidacion)) {
-                    
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    ExternalContext externalContext = context.getExternalContext();
-                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-                    faceContext=FacesContext.getCurrentInstance();
-                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-                     String redirectPath = "/faces/ositran/logueo.xhtml";
-                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
-                }
-            else {
-                
-                for (RolOpcionesVO rolOpcion:listaRolOpciones){
-                    if (rolOpcion.getMenId()==formulario){
-                        leerSesion=rolOpcion.getTroConsultar();
-                        ingresarSesion=rolOpcion.getTroAgregar();
-                        actualizarSesion=rolOpcion.getTroModificar();
-                        eliminarSesion=rolOpcion.getTroEliminar();
+    public  final int formulario=8;
+    private RolOpcionesVO rolOpcion;
 
-                        }
-                    }
-                
-                
-                }
-          
-           
-       } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-            faceContext=FacesContext.getCurrentInstance();
-            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-             String redirectPath = "/faces/ositran/logueo.xhtml";
-             externalContext.redirect(servletContext.getContextPath() + redirectPath);
+    public void validarSesion() throws IOException{              
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
         }
-            
-            
-        
-        
-        
-        
-        }
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
     //---------------------------------------------//
-    
-    
-    
+  
+  
     private HtmlForm form1;
     
     Util util = new Util();
