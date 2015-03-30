@@ -43,12 +43,17 @@ public class ContratoEntrega implements Serializable {
     private Integer conId;
     @Column(name = "MON_ID")
     private Integer monId;
+    
+    @Column(name = "CEN_ESTADO")
+    private Integer cenEstado;
+    @Column(name = "CEN_NOMBRE")
+    private String cenNombre;
 
     public ContratoEntrega() {
     }
 
     public ContratoEntrega(String cenDescripcion, String cenDocumentoFisico, Date cenFecha, Integer cenId,
-                           Long cenMonto, Integer conId, Integer monId) {
+                           Long cenMonto, Integer conId, Integer monId, Integer cenEstado, String cenNombre) {
         this.cenDescripcion = cenDescripcion;
         this.cenDocumentoFisico = cenDocumentoFisico;
         this.cenFecha = cenFecha;
@@ -56,6 +61,8 @@ public class ContratoEntrega implements Serializable {
         this.cenMonto = cenMonto;
         this.conId = conId;
         this.monId = monId;
+        this.cenNombre = cenNombre;
+        this.cenEstado = cenEstado;
     }
 
     public String getCenDescripcion() {
@@ -112,5 +119,21 @@ public class ContratoEntrega implements Serializable {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getCenEstado() {
+        return cenEstado;
+    }
+
+    public void setCenEstado(Integer cenEstado) {
+        this.cenEstado = cenEstado;
+    }
+
+    public String getCenNombre() {
+        return cenNombre;
+    }
+
+    public void setCenNombre(String cenNombre) {
+        this.cenNombre = cenNombre;
     }
 }
