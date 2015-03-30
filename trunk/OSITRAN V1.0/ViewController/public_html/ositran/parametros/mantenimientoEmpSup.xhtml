@@ -12,8 +12,9 @@
             </style>
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
         </h:head>
-        <ui:include src="/ositran/util/menu.xhtml"/>
+        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
+            <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.validarSesion()}" type="postAddToView"></f:event>
             <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getQuery}" type="postAddToView"/>             
             <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.getListaTipoDocumento}" type="postAddToView"/>             
              
@@ -79,7 +80,7 @@
                                 <table>
                                     <tr>
                                         <td align="right">
-                                        <p:commandButton value="Nueva Empresa Supervisora"  
+                                        <p:commandButton rendered="#{backing_ositran_parametros_MantenimientoEmpSup.rolOpcion.troAgregar eq 1}" value="Nueva Empresa Supervisora"  
                                                            actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.limpiarCampos}"  update=":form1:regEmpSup" oncomplete="regEmpSup.show()" ></p:commandButton>
                                         
                                         </td>
@@ -125,7 +126,7 @@
                                             </p:commandButton>
                                         </div>
                                         </p:column>
-                                        <p:column headerText="Modificar" style="width:5%">
+                                        <p:column headerText="Modificar" style="width:5%" rendered="#{backing_ositran_parametros_MantenimientoEmpSup.rolOpcion.troModificar eq 1}">
                                         <div style="text-align: center;">
                                             <p:commandButton actionListener="#{backing_ositran_parametros_MantenimientoEmpSup.EmpSupUpd1}"
                                                              image="ui-icon-pencil" style="width:25px"
@@ -135,7 +136,7 @@
                                             <h:outputText value=""/>
                                         </div>
                                         </p:column>
-                                        <p:column headerText="Eliminar" style="width:5%">
+                                        <p:column headerText="Eliminar" style="width:5%" rendered="#{backing_ositran_parametros_MantenimientoEmpSup.rolOpcion.troEliminar eq 1}">
                                         <div style="text-align: center;">
                                             <p:commandButton 
                                             
