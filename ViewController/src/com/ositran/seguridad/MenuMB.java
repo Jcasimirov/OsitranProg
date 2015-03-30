@@ -22,7 +22,7 @@ import org.primefaces.component.menuitem.MenuItem;
 public class MenuMB {
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<RolOpcionesVO>();
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
     private List<MenVO> listaMenu=new ArrayList<>();
     private List<UsuarioVO> listaUsuarios=new ArrayList<>();
     private int padre;
@@ -78,7 +78,16 @@ public class MenuMB {
             //tercero submenu
             Submenu tercerSubmenu = new Submenu();           
             tercerSubmenu.setLabel("CONTRATO ");  
-            
+            for (int i=0;i<listaRolOpciones.size();i++){ 
+                 menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
+                if (menVO.getMenPadre()==3)
+                {
+                MenuItem item= new MenuItem();
+                item.setValue(menVO.getMenNombre());
+                item.setUrl(menVO.getMenUrl());
+                 tercerSubmenu.getChildren().add(item);
+                 }
+                }
             
             //cuarto submenu
             Submenu cuartoSubmenu = new Submenu();           
