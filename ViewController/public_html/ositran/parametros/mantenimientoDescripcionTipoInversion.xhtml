@@ -55,7 +55,7 @@
                                             </td>
                                             
                                              <td align="right">
-                                                <p:commandButton rendered="#{descripcionInversionMB.rolOpcion.troAgregar}" 
+                                                <p:commandButton rendered="#{descripcionInversionMB.rolOpcion.troAgregar eq 1}" 
                                                             actionListener="#{descripcionInversionMB.limpiarCampos}"
                                                                  image="ui-icon-circle-plus"
                                                                oncomplete="insertarDesc.show()"
@@ -85,7 +85,7 @@
                                     <p:column headerText="Descripción">
                                         <h:outputText value="#{inversionDes.itdDescripcion}"/>
                                     </p:column>
-                                    <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar}"  style="width:4%">
+                                    <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:4%">
                                         <div align="center">
                                         <p:commandButton image="ui-icon-document" update=":form:editarPanel :form:nombreAntiguo"
                                                          oncomplete="editarPanel.show()"
@@ -95,7 +95,7 @@
                                                          </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eliminar"  rendered="#{descripcionInversionMB.rolOpcion.troEliminar}"  style="width:4%">
+                                    <p:column headerText="Eliminar"  rendered="#{descripcionInversionMB.rolOpcion.troEliminar eq 1}"  style="width:4%">
                                       <div align="center">
                                     <p:commandButton update=":form:codEliminar"
                                                          actionListener="#{descripcionInversionMB.cargarEliminar(inversionDes.itdId)}"
