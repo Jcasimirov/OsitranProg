@@ -8,10 +8,15 @@ import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.util.Util;
+
+import com.ositran.vo.bean.RolOpcionesVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -41,7 +46,10 @@ import org.primefaces.context.RequestContext;
 
 
 public class MantenimientoConcesion {
-
+    //sesiones inicio
+    public  final int formulario=7;
+    private RolOpcionesVO rolOpcion;
+    //sessiones 
     int contador = 0;
     private int codigoT;
     private int codigoE;
@@ -89,6 +97,15 @@ public class MantenimientoConcesion {
     @ManagedProperty(value = "#{infraestructuraVO}")
     InfraestructuraVO infraestructuraVO;
 
+    public void validarSesion() throws IOException{
+      rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
+
+
+
+
+
+
 
     public void guardar() {
 
@@ -130,7 +147,7 @@ public class MantenimientoConcesion {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
-
+              
             }
 
             catch (Exception e) {
@@ -804,5 +821,12 @@ public class MantenimientoConcesion {
         return infraestructuras;
     }
 
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
 
 }
