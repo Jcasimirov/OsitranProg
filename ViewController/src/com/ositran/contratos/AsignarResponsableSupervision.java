@@ -10,15 +10,19 @@ import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import com.ositran.vo.bean.VEmpSupVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -46,6 +50,13 @@ import javax.faces.event.ActionEvent;
 @ManagedBean(name = "asignarResponsableMB")
 @ViewScoped
 public class AsignarResponsableSupervision {
+
+
+//sesiones inicio
+public  final int formulario=7;
+private RolOpcionesVO rolOpcion;
+//sessiones
+
 
 private String nameContrato;
 private String nameTipoInfraestructura;
@@ -76,6 +87,11 @@ private List<ContratoVO> listaContratos = new ArrayList<>();
 
 List<TipoDocumentoVO> listaTipoDocumento;
  List<HashMap<String, Object>>  listaResponsables=new ArrayList<HashMap<String, Object>>();;
+
+
+    public void validarSesion() throws IOException{
+      rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
 
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
@@ -534,6 +550,15 @@ List<TipoDocumentoVO> listaTipoDocumento;
 
     public String getNameModalidadConcesion() {
         return nameModalidadConcesion;
+    }
+
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
     }
 
 
