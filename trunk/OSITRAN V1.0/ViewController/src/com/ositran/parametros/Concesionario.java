@@ -3,7 +3,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.ositran.service.CargoService;
 import com.ositran.service.ConcesionarioService;
+import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.CargoVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.RolOpcionesVO;
@@ -68,16 +70,13 @@ public class Concesionario {
     private int concesionarioId;
     //********************EDITAR***********************************/
     
-    public  final int formulario=1;
-    private  HttpServletRequest httpServletRequest=null;
-    private  FacesContext faceContext=null;
-     private   int leerSesion;
-    private   int ingresarSesion;
-    private  int eliminarSesion;
-    private   int actualizarSesion;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
-    private String parametroValidacion;
+    public  final int formulario=2;
+    private RolOpcionesVO rolOpcion;
+    
+    public void validarSesion() throws IOException{
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
+    
     private Pattern pattern;
     private Matcher matcher;
     int cantidad;
@@ -97,58 +96,7 @@ public class Concesionario {
     @ManagedProperty(value = "#{cargoServiceImp}")
     CargoService cargoServiceImp;
 
-    public void validarSesion() throws IOException{
-        
-        try {
-           faceContext=FacesContext.getCurrentInstance();
-           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-           HttpSession session = httpServletRequest.getSession();
-           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
-           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
-          
-            for (RolOpcionesVO rolO:listaRolOpciones){
-                if (rolO.getMenId()==formulario){
-                    parametroValidacion="true";
-                    }
-                }
-           
-            if (!"true".equals(parametroValidacion)) {
-                    
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    ExternalContext externalContext = context.getExternalContext();
-                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-                    faceContext=FacesContext.getCurrentInstance();
-                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-                     String redirectPath = "/faces/ositran/logueo.xhtml";
-                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
-                }
-            else {
-                
-                for (RolOpcionesVO rolOpcion:listaRolOpciones){
-                    if (rolOpcion.getMenId()==formulario){
-                        leerSesion=rolOpcion.getTroConsultar();
-                        ingresarSesion=rolOpcion.getTroAgregar();
-                        actualizarSesion=rolOpcion.getTroModificar();
-                        eliminarSesion=rolOpcion.getTroEliminar();
-
-                        }
-                    }
-                
-                
-                }
-          
-           
-       } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-            faceContext=FacesContext.getCurrentInstance();
-            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-             String redirectPath = "/faces/ositran/logueo.xhtml";
-             externalContext.redirect(servletContext.getContextPath() + redirectPath);
-        }
-        }
+   
 
 
     public void guardar() {
