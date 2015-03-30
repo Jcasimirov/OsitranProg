@@ -59,7 +59,7 @@
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                             </td>
                                             <td align="right">
-                                                <p:commandButton  rendered="#{tipoInversionMB.rolOpcion.troAgregar}"  actionListener="#{tipoInversionMB.limpiar}"
+                                                <p:commandButton rendered="#{tipoInversionMB.rolOpcion.troAgregar eq 1}"  actionListener="#{tipoInversionMB.limpiar}"
                                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
                                                                  value=" Nueva Inversion" update=":form:registrar"
@@ -88,7 +88,7 @@
                                     <p:column headerText="Descripción" style="width:45%">
                                         <h:outputText value="#{inversion.tivDescripcion}"/>
                                     </p:column>
-                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troModificar}"  headerText="Editar" style="width:4%">
+                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troModificar eq 1}"  headerText="Editar" style="width:4%">
                                         <div align="center">
                                             <p:commandButton
                                             
@@ -101,7 +101,7 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troEliminar}"  headerText="Eliminar"  style="width:4%">
+                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troEliminar eq 1}"  headerText="Eliminar"  style="width:4%">
                                         <div align="center">
                                             <p:commandButton 
                                            
