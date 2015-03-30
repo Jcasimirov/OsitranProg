@@ -4,34 +4,38 @@
        xmlns:sca="http://xmlns.oracle.com/weblogic/weblogic-sca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--Beans*****************************************************************************-->
-    <bean id="tipoInversionVO" class="com.ositran.vo.bean.TipoInversionVO"/>
-    <bean id="inversionTipo" class="com.ositran.model.InversionTipo"/>
-    <bean id="concesionarioVO" class="com.ositran.vo.bean.ConcesionarioVO"/>
-    <bean id="concesionario" class="com.ositran.model.Concesionario"/>
-    <bean id="inversionDescripcionVO" class="com.ositran.vo.bean.InversionDescripcionVO"/>
-    <bean id="inversionTipoDescripcion" class="com.ositran.model.InversionTipoDescripcion"/>
-    <bean id="rolVO" class="com.ositran.vo.bean.RolVO"/>
-    <bean id="rol" class="com.ositran.model.Rol"/>
-    <bean id="menVO" class="com.ositran.vo.bean.MenVO"/>
-    <bean id="men" class="com.ositran.model.Men"/>
-    <bean id="rolOpcionesVO" class="com.ositran.vo.bean.RolOpcionesVO"/>
-    <bean id="rolOpciones" class="com.ositran.model.RolOpciones"/>
-    <bean id="concesionVO" class="com.ositran.vo.bean.ConcesionVO"/>
-    <bean id="concesion" class="com.ositran.model.Concesion"/>
-    <bean id="infraestructuraTipo" class="com.ositran.model.InfraestructuraTipo"/>
-    <bean id="infraestructuraTipoVO" class="com.ositran.vo.bean.InfraestructuraTipoVO"/>
-    <bean id="usuario" class="com.ositran.model.Usuario"/>
-    <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO"/>
-    <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO"/>
-    <bean id="jefeAreaContratoConcecion" class="com.ositran.model.JefeAreaContratoConcecion"/>
-    <bean id="jefeAreaContratoConcecionVO" class="com.ositran.vo.bean.JefeAreaContratoConcecionVO"/>
-    <bean id="supervisorInversiones" class="com.ositran.model.SupervisorInversiones"/>
-    <bean id="supervisorInversionesVO" class="com.ositran.vo.bean.SupervisorInversionesVO"/>
-    <bean id="infraestructura" class="com.ositran.model.Infraestructura"/>
-    <bean id="contrato" class="com.ositran.model.Contrato"/>
-    <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO"/>
+    <bean id="tipoInversionVO" class="com.ositran.vo.bean.TipoInversionVO" />
+    <bean id="inversionTipo" class="com.ositran.model.InversionTipo" />
+    <bean id="concesionarioVO" class="com.ositran.vo.bean.ConcesionarioVO" />
+    <bean id="concesionario" class="com.ositran.model.Concesionario" />
+    <bean id="inversionDescripcionVO" class="com.ositran.vo.bean.InversionDescripcionVO" />
+    <bean id="inversionTipoDescripcion" class="com.ositran.model.InversionTipoDescripcion" />
+    <bean id="rolVO" class="com.ositran.vo.bean.RolVO" />
+    <bean id="rol" class="com.ositran.model.Rol" />
+    <bean id="menVO" class="com.ositran.vo.bean.MenVO" />
+    <bean id="men" class="com.ositran.model.Men" />
+    <bean id="rolOpcionesVO" class="com.ositran.vo.bean.RolOpcionesVO" />
+    <bean id="rolOpciones" class="com.ositran.model.RolOpciones" />
+    <bean id="concesionVO" class="com.ositran.vo.bean.ConcesionVO" />
+    <bean id="concesion" class="com.ositran.model.Concesion" />
+    <bean id="infraestructuraTipo" class="com.ositran.model.InfraestructuraTipo" />
+    <bean id="infraestructuraTipoVO" class="com.ositran.vo.bean.InfraestructuraTipoVO" />
+    <bean id="usuario" class="com.ositran.model.Usuario" />
+    <bean id="usuarioVO" class="com.ositran.vo.bean.UsuarioVO" />
+    <bean id="infraestructuraVO" class="com.ositran.vo.bean.InfraestructuraVO" />
+    <bean id="contratoAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO" />
+    <bean id="jefeAreaContratoConcecion" class="com.ositran.model.JefeAreaContratoConcecion" />
+    <bean id="jefeAreaContratoConcecionVO" class="com.ositran.vo.bean.JefeAreaContratoConcecionVO" />
+    <bean id="supervisorInversiones" class="com.ositran.model.SupervisorInversiones" />
+    <bean id="supervisorInversionesVO" class="com.ositran.vo.bean.SupervisorInversionesVO" />
+    <bean id="infraestructura" class="com.ositran.model.Infraestructura" />
+    <bean id="contrato" class="com.ositran.model.Contrato" />
+    <bean id="contratoVO" class="com.ositran.vo.bean.ContratoVO" />
     <bean id="conceptoInversionVO" class="com.ositran.vo.bean.ConceptoInversionVO"/>
     <bean id="conceptoInversion" class="com.ositran.model.ConceptoInversion"/>
+    <bean id="viewTdInternos" class="com.ositran.model.ViewTdInternos" />
+    <bean id="viewTdInternosVO" class="com.ositran.vo.bean.ViewTdInternosVO" />
+    <bean id="contratoEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO" />
     <bean id="viewTdInternos" class="com.ositran.model.ViewTdInternos"/>
     <bean id="viewTdInternosVO" class="com.ositran.vo.bean.ViewTdInternosVO"/>
     <bean id="contratoSupInversionesVO" class="com.ositran.vo.bean.ContratoSubInversionesVO"/>
@@ -86,7 +90,7 @@
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
         <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
     </bean>
-    <!--Tipo de inversión-->
+    <!--Tipo de inversiÃ³n-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl">
         <property name="inversionTipo" ref="inversionTipo"/>
     </bean>
@@ -100,14 +104,14 @@
     </bean>
     <!--Tipo de infraestructura-->
     <bean id="infraestructuraTipoDAOImpl" class="com.ositran.daoimpl.InfraestructuraTipoDAOImpl">
-        <property name="infraestructuraTipo" ref="infraestructuraTipo"/>
+		<property name="infraestructuraTipo" ref="infraestructuraTipo"/>
     </bean>
-    <bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
+	<bean id="infraestructuraTipoServiceImpl" class="com.ositran.serviceimpl.InfraestructuraTipoServiceImpl">
         <property name="infraestructuraTipoDAOImpl" ref="infraestructuraTipoDAOImpl"/>
         <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
         <property name="infraestructuraTipo" ref="infraestructuraTipo"/>
     </bean>
-    <bean id="mantenimientoInfraestructuraTipo" class="com.ositran.parametros.MantenimientoTipoInfraestructura">
+	<bean id="mantenimientoInfraestructuraTipo" class="com.ositran.parametros.MantenimientoTipoInfraestructura">
         <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
     </bean>
     <!--Modalidad de Concesion-->
@@ -122,18 +126,18 @@
     <!--S E G U R I D A D-->
     <!--Usuario-->
     <bean id="usuarioDAOImpl" class="com.ositran.daoimpl.UsuarioDAOImpl">
-        <property name="usuario" ref="usuario"/>
+		<property name="usuario" ref="usuario"/>
     </bean>
-    <bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
+	<bean id="usuarioServiceImpl" class="com.ositran.serviceimpl.UsuarioServiceImpl">
         <property name="usuarioDAOImpl" ref="usuarioDAOImpl"/>
     </bean>
-    <bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
+	<bean id="mantenimientoUsuario" class="com.ositran.seguridad.MantenimientoUsuario">
         <property name="usuarioVO" ref="usuarioVO"/>
         <property name="rolServiceImpl" ref="rolServiceImpl"/>
     </bean>
     <!--Rol-->
     <bean id="rolDAOImpl" class="com.ositran.daoimpl.RolDAOImpl">
-        <property name="rol" ref="rol"/>
+            <property name="rol" ref="rol"/>
     </bean>
     <bean id="rolServiceImpl" class="com.ositran.serviceimpl.RolServiceImpl">
         <property name="rolDAOImpl" ref="rolDAOImpl"/>
@@ -147,43 +151,43 @@
         <property name="menVO" ref="menVO"/>
         <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
     </bean>
-    <!--Menu-->
+<!--Menu-->
     <bean id="menDAOImpl" class="com.ositran.daoimpl.MenDAOImpl">
-        <property name="men" ref="men"/>
+            <property name="men" ref="men"/>
     </bean>
     <bean id="menServiceImpl" class="com.ositran.serviceimpl.MenServiceImpl">
         <property name="menDAOImpl" ref="menDAOImpl"/>
         <property name="men" ref="men"/>
         <property name="menVO" ref="menVO"/>
     </bean>
-    <bean id="opcionesSistema" class="com.ositran.seguridad.OpcionesSistemaMB">
+	<bean id="opcionesSistema" class="com.ositran.seguridad.OpcionesSistemaMB">
         <property name="menServiceImpl" ref="menServiceImpl"/>
         <property name="menVO" ref="menVO"/>
     </bean>
-    <!--Rol Opciones-->
+<!--Rol Opciones-->
     <bean id="rolOpcionesDAOImpl" class="com.ositran.daoimpl.RolOpcionesDAOImpl">
-        <property name="rolOpciones" ref="rolOpciones"/>
+            <property name="rolOpciones" ref="rolOpciones"/>
     </bean>
     <bean id="rolOpcionesServiceImpl" class="com.ositran.serviceimpl.RolOpcionesServiceImpl">
         <property name="rolOpcionesDAOImpl" ref="rolOpcionesDAOImpl"/>
         <property name="rolOpciones" ref="rolOpciones"/>
         <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
     </bean>
-    <!--Logueo-->
+<!--Logueo-->
     <bean id="logueoMB" class="com.ositran.Logueo">
         <property name="usuarioServiceImpl" ref="usuarioServiceImpl"/>
         <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
     </bean>
     <!--Menu-->
     <bean id="menuMB" class="com.ositran.seguridad.MenuMB">
-        <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
-        <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
-        <property name="menServiceImpl" ref="menServiceImpl"/>
-        <property name="menVO" ref="menVO"/>
+            <property name="rolOpcionesServiceImpl" ref="rolOpcionesServiceImpl"/>
+            <property name="rolOpcionesVO" ref="rolOpcionesVO"/>
+            <property name="menServiceImpl" ref="menServiceImpl"/>
+            <property name="menVO" ref="menVO"/>
     </bean>
-    <!--JefeAreaContratoConcecion-->
+<!--JefeAreaContratoConcecion-->
     <bean id="jefeAreaContratoConcecionDAOImpl" class="com.ositran.daoimpl.JefeAreaContratoConcecionDAOImpl">
-        <property name="jefeAreaContratoConcecion" ref="jefeAreaContratoConcecion"/>
+           <property name="jefeAreaContratoConcecion" ref="jefeAreaContratoConcecion"/>
     </bean>
     <bean id="jefeAreaContratoConcecionServiceImpl"
           class="com.ositran.serviceimpl.JefeAreaContratoConcecionServiceImpl">
@@ -191,7 +195,7 @@
         <property name="jefeAreaContratoConcecion" ref="jefeAreaContratoConcecion"/>
         <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
     </bean>
-    <bean id="jefeAreaContratoConcecionMB" class="com.ositran.contratos.JefeAreaContratoConcecionMB">
+	<bean id="jefeAreaContratoConcecionMB" class="com.ositran.contratos.JefeAreaContratoConcecionMB">
         <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
         <property name="jefeAreaContratoConcecionServiceImpl" ref="jefeAreaContratoConcecionServiceImpl"/>
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
@@ -205,7 +209,7 @@
         <property name="contratoJefeAreaVO" ref="contratoJefeAreaVO"/>
         <property name="contratoJefeAreaDAOImpl" ref="contratoJefeAreaDAOImpl"/>
     </bean>
-    <!--Supervicion a Contrato Concecion-->
+	<!--Supervicion a Contrato Concecion-->
     <bean id="supervisorInversionesDAOImpl" class="com.ositran.daoimpl.SupervisorInversionesDAOImpl"></bean>
     <bean id="supervisorInversionesServiceImpl" class="com.ositran.serviceimpl.SupervisorInversionesServiceImpl">
         <property name="supervisorInversionesDAOImpl" ref="supervisorInversionesDAOImpl"/>
@@ -222,11 +226,11 @@
         <property name="infraestructuraVO" ref="infraestructuraVO"/>
         <property name="contratoSubInversionesServiceImpl" ref="contratoSubInversionesServiceImpl"/>
     </bean>
-    <bean id="datosStdDAOImpl" class="com.ositran.daoimpl.DatosStdDAOImpl"/>
+    <bean id="datosStdDAOImpl" class="com.ositran.daoimpl.DatosStdDAOImpl"/>         
     <bean id="datosStdServiceImpl" class="com.ositran.serviceimpl.DatosStdServiceImpl">
-        <property name="datosStdDAOImpl" ref="datosStdDAOImpl"/>
+                <property name="datosStdDAOImpl" ref="datosStdDAOImpl"/>
     </bean>
-    <bean id="contratoConcesionDAOImpl" class="com.ositran.daoimpl.ContratoConcesionDAOImpl"/>
+<bean id="contratoConcesionDAOImpl" class="com.ositran.daoimpl.ContratoConcesionDAOImpl"/>
     <bean id="contratoConcesionServiceImp" class="com.ositran.serviceimpl.ContratoConcesionServiceImpl">
         <property name="contratoConcesionDAOImpl" ref="contratoConcesionDAOImpl"/>
     </bean>
@@ -238,8 +242,8 @@
         <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>
-        <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
-        <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+		<property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+		<property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
     </bean>
     <bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -281,6 +285,21 @@
     <bean id="reporteModalidadConcesion" class="com.ositran.reports.InvReconocimContratosConcesionResumen">
         <property name="modalidadConcesionServiceImpl" ref="modalidadConcesionServiceImpl"/>
     </bean>
+    <!-- Contrato Adenda -->
+    <bean id="adendaTipoDAOImpl" class="com.ositran.daoimpl.AdendaTipoDAOImpl"/>
+    <bean id="adendaTipoServiceImpl" class="com.ositran.serviceimpl.AdendaTipoServiceImpl">
+        <property name="adendaTipoDAOImpl" ref="adendaTipoDAOImpl"/>
+    </bean>
+    <bean id="contratoAdendaDAOImpl" class="com.ositran.daoimpl.ContratoAdendaDAOImpl"/>
+    <bean id="contratoAdendaServiceImpl" class="com.ositran.serviceimpl.ContratoAdendaServiceImpl">
+        <property name="contratoAdendaDAOImpl" ref="contratoAdendaDAOImpl"/>
+    </bean>
+    <bean id="actualizarContratoAdenda" class="com.ositran.contratos.ActualizarContratoAdenda">
+        <property name="adendaTipoServiceImpl" ref="adendaTipoServiceImpl"/>
+        <property name="contratoAdendaServiceImpl" ref="contratoAdendaServiceImpl"/>        
+        <property name="contratoAdendaVO" ref="contratoAdendaVO"/>
+    </bean>
+
     <!--Contrato SubInversionesServices-->
     <bean id="contratoSubInversionesDAOImpl" class="com.ositran.daoimpl.ContratoSubInversionesDAOImpl"/>
     <bean id="contratoSubInversionesServiceImpl" class="com.ositran.serviceimpl.ContratoSubInversionesServiceImpl">
@@ -303,4 +322,14 @@
         <property name="avanceInversionWebServiceImpl" ref="avanceInversionWebServiceImpl"/>
         <property name="avanceInversionWebVO" ref="avanceInversionWebVO"/>
     </bean>
+    <!-- Contrato Entrega -->    
+    <bean id="contratoEntregaDAOImpl" class="com.ositran.daoimpl.ContratoEntregaDAOImpl"/>
+    <bean id="contratoEntregaServiceImpl" class="com.ositran.serviceimpl.ContratoEntregaServiceImpl">
+        <property name="contratoEntregaDAOImpl" ref="contratoEntregaDAOImpl"/>
+    </bean>
+    <bean id="actualizarContratoEntrega" class="com.ositran.contratos.ActualizarContratoEntrega">        
+        <property name="contratoEntregaServiceImpl" ref="contratoEntregaServiceImpl"/>        
+        <property name="contratoEntregaVO" ref="contratoEntregaVO"/>
+    </bean>
+
 </beans>
