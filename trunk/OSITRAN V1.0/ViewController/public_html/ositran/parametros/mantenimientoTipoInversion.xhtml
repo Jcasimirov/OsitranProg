@@ -77,16 +77,16 @@
                                              paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="6,8,10" resizableColumns="true"
-                                             style="font-size:11px;" id="tablaES" var="inversion"
+                                             style="font-size:11px;" id="tablaES" var="inversion1"
                                              value="#{tipoInversionMB.listaInversiones}">
                                  <p:column headerText="N°ro" style="width:3%">
-                                        <h:outputText value="#{inversion.contador}"/>
+                                        <h:outputText value="#{inversion1.contador}"/>
                                     </p:column>
                                     <p:column headerText="Nombre" style="width:15%">
-                                        <h:outputText value="#{inversion.tivNombre}"/>
+                                        <h:outputText value="#{inversion1.tivNombre}"/>
                                     </p:column>
                                     <p:column headerText="Descripción" style="width:45%">
-                                        <h:outputText value="#{inversion.tivDescripcion}"/>
+                                        <h:outputText value="#{inversion1.tivDescripcion}"/>
                                     </p:column>
                                     <p:column rendered="#{tipoInversionMB.rolOpcion.troModificar eq 1}"  headerText="Editar" style="width:4%">
                                         <div align="center">
@@ -97,7 +97,7 @@
                                                              oncomplete="editarPanel.show()" image="ui-icon-document"
                                                              style="width:22px;height:22px">
                                                 <f:param id="idModificar" name="idModificar"
-                                                         value="#{inversion.tivId}"/>
+                                                         value="#{inversion1.tivId}"/>
                                             </p:commandButton>
                                         </div>
                                     </p:column>
