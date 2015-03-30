@@ -12,19 +12,14 @@
             </style>
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
         </h:head>
-        <ui:include src="/ositran/util/menu.xhtml"/>
+        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
-        
+        <f:event listener="#{backing_mantenimientoModalidadConcesion.validarSesion()}" type="postAddToView"></f:event>
         <f:event listener="#{backing_mantenimientoModalidadConcesion.getQuery}" type="postAddToView"/>
         <h:form binding="#{backing_mantenimientoModalidadConcesion.form1}" id="form1">
          <p:growl id="mensaje" showDetail="true"  life="3000" /> 
                          <p:layout style="min-width:400px;min-height:500px;">
-                    <!--p:layoutUnit position="north">
-                        <div style="text-align: center;">
-                            <p:outputLabel value="MANTENIMIENTO MODALIDAD DE CONCESION"/>
-                        </div>
-                    </p:layoutUnit-->
-                    <!--p:layoutUnit position="south"></p:layoutUnit-->
+                 
                     <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
                      <div align="center">
                 <h3 style="color:Black;font-weight:bold;font-family: sans-serif;" >MANTENIMIENTO DE MODALIDAD DE CONCESION</h3>
@@ -75,7 +70,7 @@
                                 <table>
                                     <tr>
                                         <td align="right">    
-                                            <p:commandButton value="Nueva Modalidad de Concesión" actionListener="#{backing_mantenimientoModalidadConcesion.limpiarCampos}" update=":form1:regModalidad"  oncomplete="regModalidad.show()"></p:commandButton>
+                                            <p:commandButton rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troAgregar eq 1}" value="Nueva Modalidad de Concesión" actionListener="#{backing_mantenimientoModalidadConcesion.limpiarCampos}" update=":form1:regModalidad"  oncomplete="regModalidad.show()"></p:commandButton>
                                         </td>
                                     </tr>
                                 </table>
@@ -102,7 +97,7 @@
                                         <p:column headerText="Descripción" style="width:50%">
                                             <h:outputText value="#{modalidad.mcoDescripcion}" style="text-transform:uppercase;"/>
                                         </p:column>
-                                        <p:column headerText="Modificar" style="width:7%">
+                                        <p:column headerText="Modificar" style="width:7%" rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troModificar eq 1}">
                                         <div style="text-align: center;">
                                             <p:commandButton actionListener="#{backing_mantenimientoModalidadConcesion.EmpSupUpd1}"
                                                              image="ui-icon-pencil" style="width:25px"
@@ -114,7 +109,7 @@
                                         </p:column>
                                         <p:column headerText="Eliminar" style="width:7%">
                                         <div style="text-align: center;">
-                                            <p:commandButton 
+                                            <p:commandButton rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troEliminar eq 1}">
                                                              image="ui-icon-trash"
                                                              actionListener="#{backing_mantenimientoModalidadConcesion.confirmarEliminar}" oncomplete="confirEliminar.show()" update=":form1:confirEliminar">                                                             
                                             <f:param id="idEliminar" name="idEliminar" value="#{modalidad.mcoId}"/>
