@@ -1,6 +1,7 @@
 package com.ositran.service;
 
 
+import com.ositran.model.ContratoAdenda;
 import com.ositran.vo.bean.ContratoAdendaVO;
 
 import java.sql.SQLException;
@@ -13,4 +14,5 @@ public interface ContratoAdendaService {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoAdendaVO contratoAdendaVO) throws SQLException;
     public ContratoAdendaVO get(Integer id) throws SQLException;
+    public List<ContratoAdendaVO> getAdendasContrato(Integer ConId) throws SQLException; 
 }
