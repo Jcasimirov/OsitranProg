@@ -15,6 +15,7 @@
             <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
         </h:head>
         <h:body>
+         <f:event listener="#{mantenimientoconcesionMB.validarSesion}" type="postAddToView"></f:event>
             <f:event listener="#{mantenimientoconcesionMB.listarTipInfraestructura}" type="postAddToView"></f:event>
              
             <f:event listener="#{mantenimientoconcesionMB.ListarConcesiones}" type="postAddToView"></f:event>
