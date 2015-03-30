@@ -179,7 +179,7 @@
                                                 <td>
                                                     <p:selectOneMenu id="tipobuscar"
                                                                      value="#{asignarResponsableMB.codigoTipoInfraestructurafiltro}"
-                                                                     style="width:50px;text-transform:uppercase">
+                                                                     style="width:150px;text-transform:uppercase">
                                                         <p:ajax listener="#{asignarResponsableMB.cargarSupervisoresxInfraestructura()}"
                                                                 update=":form:cbosupervisor"/>
                                                         <f:selectItem itemValue="0" itemLabel="-Seleccione-"/>
@@ -192,7 +192,7 @@
                                                 <td>
                                                     <p:selectOneMenu id="cbosupervisor"
                                                                      value="#{asignarResponsableMB.codigoSupervisor}"
-                                                                     style="width:50px;text-transform:uppercase;">
+                                                                     style="width:150px;text-transform:uppercase;">
                                                         <p:ajax listener="#{asignarResponsableMB.seleccionarSupervisor()}"
                                                                 update=":form:listaResponsables"/>
                                                         <f:selectItem itemValue="0" itemLabel="-Seleccione-"/>
