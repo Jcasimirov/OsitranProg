@@ -2,6 +2,7 @@ package com.ositran.parametros;
 
 import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.TipoInversionServices;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
@@ -48,16 +49,7 @@ public class DescripcionTipoInversion {
     private int codigoInversionDescripcion;
     
     //-----------------SESSION-----------------------//
-    public  final int formulario=1;
-    private  HttpServletRequest httpServletRequest=null;
-    private  FacesContext faceContext=null;
-     private   int leerSesion;
-    private   int ingresarSesion;
-    private  int eliminarSesion;
-    private   int actualizarSesion;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
-    private String parametroValidacion;
+   
     //--------EDITAR-------------//
     private int codigoInversionE;
     private String nombreE;
@@ -65,59 +57,13 @@ public class DescripcionTipoInversion {
     //--------EDITAR-------------//
     int cantidad;
     
+    public  final int formulario=21;
+    private RolOpcionesVO rolOpcion;
     public void validarSesion() throws IOException{
-        
-        try {
-           faceContext=FacesContext.getCurrentInstance();
-           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-           HttpSession session = httpServletRequest.getSession();
-           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
-           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
-          
-            for (RolOpcionesVO rolO:listaRolOpciones){
-                if (rolO.getMenId()==formulario){
-                    parametroValidacion="true";
-                    }
-                }
-           
-            if (!"true".equals(parametroValidacion)) {
-                    
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    ExternalContext externalContext = context.getExternalContext();
-                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-                    faceContext=FacesContext.getCurrentInstance();
-                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-                     String redirectPath = "/faces/ositran/logueo.xhtml";
-                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
-                }
-            else {
-                
-                for (RolOpcionesVO rolOpcion:listaRolOpciones){
-                    if (rolOpcion.getMenId()==formulario){
-                        leerSesion=rolOpcion.getTroConsultar();
-                        ingresarSesion=rolOpcion.getTroAgregar();
-                        actualizarSesion=rolOpcion.getTroModificar();
-                        eliminarSesion=rolOpcion.getTroEliminar();
-
-                        }
-                    }
-                
-                
-                }
-          
-           
-       } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-            faceContext=FacesContext.getCurrentInstance();
-            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-             String redirectPath = "/faces/ositran/logueo.xhtml";
-             externalContext.redirect(servletContext.getContextPath() + redirectPath);
-        }
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
         }
     
+  
     
     
     @ManagedProperty(value = "#{inversionDescripcionVO}")
