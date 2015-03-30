@@ -4,10 +4,14 @@ import com.ositran.model.Rol;
 import com.ositran.service.RolService;
 import com.ositran.serviceimpl.RolServiceImpl;
 import com.ositran.serviceimpl.UsuarioServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 import com.ositran.vo.bean.UsuarioVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -45,6 +49,8 @@ public class MantenimientoUsuario {
     private List<RolVO> listaRoles1=new ArrayList<>();
     private int codigoROl;
     private int codigoROl2;
+    public  final int formulario=4;
+    private RolOpcionesVO rolOpcion;
 
     @ManagedProperty(value = "#{usuarioVO}")
     private UsuarioVO usuarioVO;
@@ -54,7 +60,22 @@ public class MantenimientoUsuario {
 
     @ManagedProperty(value = "#{usuarioServiceImpl}")
     private UsuarioServiceImpl usuarioServiceImpl;
-
+    
+    public void validarSesion() throws IOException{        
+        
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void  listarRoles(){
         listaRoles=rolServiceImpl.query();
         }
@@ -552,5 +573,14 @@ public class MantenimientoUsuario {
 
     public int getCodigoROl2() {
         return codigoROl2;
+    }
+
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
     }
 }
