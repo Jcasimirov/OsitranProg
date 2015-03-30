@@ -44,7 +44,6 @@ import org.primefaces.context.RequestContext;
 
 
 
-
 public class MantenimientoConcesion {
     //sesiones inicio
     public  final int formulario=7;
