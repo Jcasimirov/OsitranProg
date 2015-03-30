@@ -109,7 +109,7 @@
                                         </p:column>
                                         <p:column headerText="Eliminar" style="width:7%" rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troEliminar eq 1}">
                                         <div style="text-align: center;">
-                                            <p:commandButton >
+                                            <p:commandButton 
                                                              image="ui-icon-trash"
                                                              actionListener="#{backing_mantenimientoModalidadConcesion.confirmarEliminar}" oncomplete="confirEliminar.show()" update=":form1:confirEliminar">                                                             
                                             <f:param id="idEliminar" name="idEliminar" value="#{modalidad.mcoId}"/>
