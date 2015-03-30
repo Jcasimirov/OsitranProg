@@ -18,6 +18,7 @@
             </script>
         </h:head>
         <h:body>
+        <f:event listener="#{tipoInversionMB.validarSesion}" type="postAddToView"></f:event>
             <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
@@ -58,7 +59,7 @@
                                                 <p:tooltip  styleClass="tool"    id="toolTipFade11" for="limpiar" value="Limpiar campo de busqueda" />
                                             </td>
                                             <td align="right">
-                                                <p:commandButton   actionListener="#{tipoInversionMB.limpiar}"
+                                                <p:commandButton  rendered="#{tipoInversionMB.rolOpcion.troAgregar}"  actionListener="#{tipoInversionMB.limpiar}"
                                                                  image="ui-icon-circle-plus"
                                                                  oncomplete="insertarPanel.show()"
                                                                  value=" Nueva Inversion" update=":form:registrar"
@@ -87,7 +88,7 @@
                                     <p:column headerText="Descripción" style="width:45%">
                                         <h:outputText value="#{inversion.tivDescripcion}"/>
                                     </p:column>
-                                    <p:column   headerText="Editar" style="width:4%">
+                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troModificar}"  headerText="Editar" style="width:4%">
                                         <div align="center">
                                             <p:commandButton
                                             
@@ -100,7 +101,7 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column   headerText="Eliminar" style="width:4%">
+                                    <p:column rendered="#{tipoInversionMB.rolOpcion.troEliminar}"  headerText="Eliminar"  style="width:4%">
                                         <div align="center">
                                             <p:commandButton 
                                            
