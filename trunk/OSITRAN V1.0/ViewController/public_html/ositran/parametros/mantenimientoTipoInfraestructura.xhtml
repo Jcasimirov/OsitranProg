@@ -31,11 +31,11 @@
                             </h3>
                         </div>
                         <div align="center">
-                            <table style="width:80% ;font-size:11px;">
+                            <table style="width:80% ;font-size:11px;" rendered="#{infraestructuraMB.rolOpcion.troConsultar  eq 1}">
                                 <tr>
                                     <td>
                                         <p:fieldset legend="Criterio de Busqueda" 
-                                                    rendered="#{infraestructuraMB.rolOpcion.troConsultar  eq 1}"
+                                                    
                                                     style="width:10%;margin-bottom:5px;">
                                             <table>
                                                 <tr>
@@ -111,7 +111,7 @@
                                                 </f:facet>
                                                 <h:outputText value="#{mti.tinDescripcion}"/>
                                             </p:column>
-                                            <p:column width="8">
+                                            <p:column width="8" rendered="#{infraestructuraMB.rolOpcion.troModificar  eq 1}">
                                                 <f:facet name="header">
                                                     <h:outputText value="Actualizar"/>
                                                 </f:facet>
@@ -119,12 +119,12 @@
                                                     <p:commandButton update=":form:popupeditar"
                                                                      action="#{infraestructuraMB.cargarEditar(mti)}"
                                                                      oncomplete="popupeditar.show()"
-                                                                     rendered="#{infraestructuraMB.rolOpcion.troModificar  eq 1}"
+                                                                     
                                                                      image="ui-icon-document"
                                                                      style="width:25px;height:25px"/>
                                                 </div>
                                             </p:column>
-                                            <p:column width="8">
+                                            <p:column width="8" rendered="#{infraestructuraMB.rolOpcion.troEliminar  eq 1}">
                                                 <f:facet name="header">
                                                     <h:outputText value="Eliminar"/>
                                                 </f:facet>
@@ -132,7 +132,7 @@
                                                     <p:commandButton update=":form:popupeliminar :form:codEliminar"
                                                                      actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"
                                                                      oncomplete="popupeliminar.show()"
-                                                                     rendered="#{infraestructuraMB.rolOpcion.troEliminar  eq 1}"
+                                                                     
                                                                      image="ui-icon-closethick"
                                                                      style="width:25px;height:25px"/>
                                                 </div>
