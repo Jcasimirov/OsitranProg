@@ -17,13 +17,14 @@
             
         </h:head>
         <h:body>
+            <f:event listener="#{infraestructuraMB.validarSesion}" type="postAddToView"></f:event>
             <f:event listener="#{infraestructuraMB.ListarInfraestructura}" type="postAddToView"></f:event>
              
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
                                 #{msg.tituloMTI}
@@ -33,7 +34,9 @@
                             <table style="width:80% ;font-size:11px;">
                                 <tr>
                                     <td>
-                                        <p:fieldset legend="Criterio de Busqueda" style="width:10%;margin-bottom:5px;">
+                                        <p:fieldset legend="Criterio de Busqueda" 
+                                                    rendered="#{infraestructuraMB.rolOpcion.troConsultar  eq 1}"
+                                                    style="width:10%;margin-bottom:5px;">
                                             <table>
                                                 <tr>
                                                     <td>
@@ -76,6 +79,7 @@
                                     <td align="right" colspan="3">
                                         <p:commandButton value="Nuevo Tipo de Infraestructura" id="nuevoinfra"
                                                          onclick="popupagregar.show()" type="reset"
+                                                         rendered="#{infraestructuraMB.rolOpcion.troAgregar  eq 1}"
                                                          image="ui-icon-document"/>
                                          
                                         <p:tooltip styleClass="tool" id="tool3" for="nuevoinfra"
@@ -115,6 +119,7 @@
                                                     <p:commandButton update=":form:popupeditar"
                                                                      action="#{infraestructuraMB.cargarEditar(mti)}"
                                                                      oncomplete="popupeditar.show()"
+                                                                     rendered="#{infraestructuraMB.rolOpcion.troModificar  eq 1}"
                                                                      image="ui-icon-document"
                                                                      style="width:25px;height:25px"/>
                                                 </div>
@@ -127,6 +132,7 @@
                                                     <p:commandButton update=":form:popupeliminar :form:codEliminar"
                                                                      actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"
                                                                      oncomplete="popupeliminar.show()"
+                                                                     rendered="#{infraestructuraMB.rolOpcion.troEliminar  eq 1}"
                                                                      image="ui-icon-closethick"
                                                                      style="width:25px;height:25px"/>
                                                 </div>
