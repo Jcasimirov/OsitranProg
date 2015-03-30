@@ -107,14 +107,14 @@
                                         <h:outputText value="#{var1.nombreTipoInfra}"
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
-                                    <p:column headerText="Editar">
+                                    <p:column headerText="Editar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
                                                          oncomplete="editarPanel.show()" image="ui-icon-document"
                                                          style="width:25px;height:25px" update=":form:editarPanel">
                                             <f:param id="idModificar" name="idModificar" value="#{var1.csiId}"/>
                                         </p:commandButton>
                                     </p:column>
-                                    <p:column headerText="ELIMINAR">
+                                    <p:column headerText="ELIMINAR"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
                                                          oncomplete="eliminarConcesionPanel.show()"
                                                          image="ui-icon-document" style="width:25px;height:25px"
@@ -302,7 +302,7 @@
                         <p:column headerText="Infraestructura">
                             <h:outputText value="#{var2.infNombre}"/>
                         </p:column>
-                        <p:column headerText="ELIMINAR">
+                        <p:column headerText="ELIMINAR"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                             <p:commandButton actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaInfraestructura2()}"
                                              image="ui-icon-document" style="width:25px;height:25px"
                                              update=":form:tablaES2">
