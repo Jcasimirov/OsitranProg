@@ -1,27 +1,23 @@
 package com.ositran.parametros;
 
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-
 import com.ositran.util.Util;
-
+import com.ositran.vo.bean.RolOpcionesVO;
+import java.io.IOException;
 import java.sql.SQLException;
-
 import java.util.Date;
-
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "infraestructuraMB")
-@RequestScoped
+@ViewScoped
 
 public class MantenimientoTipoInfraestructura {
 
@@ -31,13 +27,23 @@ public class MantenimientoTipoInfraestructura {
     private String nombreEliminar;
     private int codigoE;
     private String tinNombreE;
-    private String tinDescripcionE;
+    private String tinDescripcionE;    
+    public  final int formulario=9;
+    private RolOpcionesVO rolOpcion;
+    
 
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
     
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
+
+
+    public void validarSesion() throws IOException{        
+        
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
+     
 
 
     public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
@@ -289,5 +295,12 @@ public class MantenimientoTipoInfraestructura {
     }
 
 
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
 
 }
