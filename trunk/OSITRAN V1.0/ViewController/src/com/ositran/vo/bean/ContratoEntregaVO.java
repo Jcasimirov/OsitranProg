@@ -10,6 +10,8 @@ public class ContratoEntregaVO {
     private Long cenMonto;
     private Integer conId;
     private Integer monId;
+    private String cenNombre;
+    private Integer cenEstado;
 
     public ContratoEntregaVO() {
         super();
@@ -70,5 +72,21 @@ public class ContratoEntregaVO {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public String getCenNombre() {
+        return cenNombre;
+    }
+
+    public void setCenNombre(String cenNombre) {
+        this.cenNombre = cenNombre;
+    }
+
+    public Integer getCenEstado() {
+        return cenEstado;
+    }
+
+    public void setCenEstado(Integer cenEstado) {
+        this.cenEstado = cenEstado;
     }
 }

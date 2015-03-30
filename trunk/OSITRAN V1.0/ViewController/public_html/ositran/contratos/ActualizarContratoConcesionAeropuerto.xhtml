@@ -1,0 +1,1539 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <style type="text/css">
+            .ui-dialog-titlebar {
+                font-size: 13px;
+                font-family: sans-serif;
+            }
+        </style>
+        <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript">
+          function pasarMayuscula(obj, id) {
+              obj = obj.toUpperCase();
+              document.getElementById(id).value = obj;
+          }
+
+          function pasarMinuscula(obj, id) {
+              obj = obj.toLowerCase();
+              document.getElementById(id).value = obj;
+          }
+        </script>
+        <meta content="1500" http-equiv="REFRESH"></meta>
+        <script type="text/javascript">
+          PrimeFaces.locales['es'] = {
+              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
+          };
+        </script>
+    </h:head>
+    <h:body>
+        <f:event listener="#{actualizarContratoAdendaMB.cargarListaAdendaTipo}" type="postAddToView"></f:event>
+         
+        <h:form id="form">
+            <p:growl id="mensaje" showDetail="true" life="10000"/>
+            <p:layout fullPage="true" style="border:none">
+                <p:layoutUnit position="center" style="border:0px">
+                    <ui:include src="/ositran/util/menu.xhtml"/>
+                    <div align="center">
+                        <h4 class="titulo">ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N - AEROPUERTO</h4>
+                    </div>
+                    <div align="center" style="font-size: 11px">
+                        <p:tabView style="width: 80%" id="tab">
+                            <p:tab title="Datos Básicos">
+                                <table>
+                                    <tr>
+                                        <td align="left">
+                                            <p:fieldset styleClass="fielsetinterno" legend="Criterios de Busqueda">
+                                                <p:inputText id="cb" style="width:200px"/>
+                                                <p:watermark for="cb" value="Buscar Contrato Concesión"/>
+                                                <p:commandButton image="ui-icon-search"></p:commandButton>
+                                            </p:fieldset>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td>
+                                            <p:fieldset styleClass="fielsetinterno" legend="Datos Basicos">
+                                                <table>
+                                                    <tr>
+                                                        <td align="left">Tipo De Infraestuctura:</td>
+                                                        <td>
+                                                            <p:inputText></p:inputText>
+                                                        </td>
+                                                        <td align="left">Modalidad de Concepci&#243;n:</td>
+                                                        <td>
+                                                            <p:inputText></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Concesi&#243;n :</td>
+                                                        <td colspan="3" align="left">
+                                                            <p:inputText style="width:97.5%"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Nombre Consecionario:</td>
+                                                        <td>
+                                                            <p:inputText></p:inputText>
+                                                        </td>
+                                                        <td align="left">Siglas del Nombre:</td>
+                                                        <td>
+                                                            <p:inputText></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Domicilio Legal :</td>
+                                                        <td colspan="3">
+                                                            <p:inputText style="width:97.5%"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td>
+                                            <br></br>
+                                            <table>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <p:fieldset styleClass="fielsetinterno"
+                                                                    legend="Reporte Avance de Obra">
+                                                            <table style="width:350px">
+                                                                <tr>
+                                                                    <td align="left" colspan="2">
+                                                                        <p:selectBooleanCheckbox id="reporte"/>
+                                                                         Aplica Reporte Avance de Obra
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td align="left">Periodo:</td>
+                                                                    <td>
+                                                                        <p:selectOneMenu>
+                                                                            <f:selectItem itemLabel="-Seleccione-"
+                                                                                          itemValue="4"/>
+                                                                            <f:selectItem itemLabel="Etapa1"
+                                                                                          itemValue="1"/>
+                                                                            <f:selectItem itemLabel="Etapa2"
+                                                                                          itemValue="2"/>
+                                                                            <f:selectItem itemLabel="Etapa3"
+                                                                                          itemValue="3"/>
+                                                                        </p:selectOneMenu>
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td align="left">Dia Mes:</td>
+                                                                    <td>
+                                                                        <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </p:fieldset>
+                                                    </td>
+                                                    <td></td>
+                                                    <td valign="top">
+                                                        <p:fieldset styleClass="fielsetinterno"
+                                                                    legend="Plazos de Revisión">
+                                                            <table style="width:400px">
+                                                                <tr>
+                                                                    <td align="left">Plazo de revisi&#243;n de
+                                                                                     valorizacion y/o reconocimiento:</td>
+                                                                    <td style="width:120px">
+                                                                        <p:inputText style="width:70px;"></p:inputText>
+                                                                         (dias)
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td colspan="2" align="center">
+                                                                        <p:selectOneRadio id="Dias">
+                                                                            <f:selectItem itemLabel="Dias Calendario"
+                                                                                          itemValue="DC"/>
+                                                                            <f:selectItem itemLabel="Dias Habiles"
+                                                                                          itemValue="DH"/>
+                                                                        </p:selectOneRadio>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </p:fieldset>
+                                                         
+                                                        <p:fieldset styleClass="fielsetinterno" legend="Otros Datos">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Fecha de Suscripcion:</td>
+                                                                    <td>
+                                                                        <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td>Plazo de Consesi&#243;n:</td>
+                                                                    <td>
+                                                                        <p:inputTextarea rows="3" cols="31"
+                                                                                         id="plazoConcesion"/>
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td align="left">Adjuntar Contrato:</td>
+                                                                    <td>
+                                                                        <p:inputText></p:inputText>
+                                                                         
+                                                                        <p:commandButton image="ui-icon-folder-open"/>
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td align="left">Adjuntar Ficha de Resumen:</td>
+                                                                    <td>
+                                                                        <p:inputText></p:inputText>
+                                                                         
+                                                                        <p:commandButton image="ui-icon-folder-open"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </p:fieldset>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2">
+                                            <p:commandButton value="Guardar"></p:commandButton>
+                                             
+                                            <p:commandButton value="Salir"></p:commandButton>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                            <p:tab title="Adendas - Entregas">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre y
+                                                                                    Otros</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Adenta" id="nuevaadenda"
+                                                             onclick="popupAgregarAdenda.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaAdenda" var="tAdenda"
+                                                         value="#{actualizarContratoAdendaMB.listContratoAdenda}">
+                                                <p:column headerText="Adenda" style="width:20%">
+                                                    <h:outputText value="#{tAdenda.nombre}"/>
+                                                </p:column>
+                                                <p:column headerText="Tipo" style="width:15%">
+                                                    <h:outputText value="#{tAdenda.cncRepresentanteLegal}"/>
+                                                </p:column>
+                                                <p:column headerText="Objeto">
+                                                    <h:outputText value="#{tAdenda.objeto}"/>
+                                                </p:column>
+                                                <p:column headerText="Fecha" style="width:4%">
+                                                    <h:outputText value="#{tAdenda.fecha}"/>
+                                                </p:column>
+                                                <p:column headerText="Ver" style="width:4%">
+                                                    <div align="center">
+                                                        <p:commandButton oncomplete="editarPanel.show()"
+                                                                         update=":form:editarPanel :form:oculto1 :form:oculto2"
+                                                                         actionListener="#{concesionarioMB.cargarEditar}"
+                                                                         image="ui-icon-document"
+                                                                         style="width:22px;height:22px;aling:center">
+                                                            <f:param id="idModificar" name="idModificar"
+                                                                     value="#{tAdenda.documento}"/>
+                                                        </p:commandButton>
+                                                    </div>
+                                                </p:column>
+                                                <p:column headerText="Quitar" style="width:4%">
+                                                    <div align="center">
+                                                        <p:commandButton actionListener="#{actualizarContratoAdendaMB.cargarEliminar(tAdenda)}"
+                                                                         update=":form:confirEliminarAdenda :form:oculto"
+                                                                         oncomplete="confirEliminarAdenda.show()"
+                                                                         image="ui-icon-closethick"
+                                                                         style="width:22px;height:22px;align:center"/>
+                                                    </div>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Registro de entrega del area de
+                                                                                    Bienes de Concesion</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Entrega" id="nuevaEntrega"
+                                                             onclick="popupAgregarEntrega.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaEngrega" var="entrega">
+                                                <p:column headerText="Entrega" style="width:20%">&gt;</p:column>
+                                                <p:column headerText="Descripcion"></p:column>
+                                                <p:column headerText="Fecha" style="width:4%"></p:column>
+                                                <p:column headerText="Acta" style="width:4%"></p:column>
+                                                <p:column headerText="Quitar" style="width:4%"></p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                            <p:tab title="Compromiso - Penalidades">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
+                                                                                    Periodo/Etapa - Indicado en el
+                                                                                    Contrato:</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoIndicado"
+                                                             onclick="popupAgregarCompromisoIndicado.show()"
+                                                             type="reset" image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaCompromisoIndicado"
+                                                         var="rol1">
+                                                <p:column headerText="Periodo/Etapa" style="width:15%"></p:column>
+                                                <p:column headerText="Alcance"></p:column>
+                                                <p:column headerText="Tipo de Inversión"></p:column>
+                                                <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                <p:column headerText="Neto" style="width:4%"></p:column>
+                                                <p:column headerText="IGV" style="width:4%"></p:column>
+                                                <p:column headerText="Total" style="width:4%"></p:column>
+                                                <p:column headerText="Plazo" style="width:4%"></p:column>
+                                                <p:column headerText="Quitar" style="width:4%"></p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
+                                                                                    Periodo/Etapa - Supervisado por
+                                                                                    Ositran:</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoSupervisado"
+                                                             onclick="popupAgregarCompromisoSupervisado.show()"
+                                                             type="reset" image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaComprmisoSupervisado"
+                                                         var="rol1">
+                                                <p:column headerText="Etapa" style="width:15%"></p:column>
+                                                <p:column headerText="Alcance"></p:column>
+                                                <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                <p:column headerText="Neto" style="width:4%"></p:column>
+                                                <p:column headerText="IGV" style="width:4%"></p:column>
+                                                <p:column headerText="Total" style="width:4%"></p:column>
+                                                <p:column headerText="Plazo" style="width:4%"></p:column>
+                                                <p:column headerText="% IGV" style="width:4%"></p:column>
+                                                <p:column headerText="Tipo Cambio" style="width:7%"></p:column>
+                                                <p:column headerText="Quitar" style="width:4%"></p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Penalidades</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Penalidad" id="nuevPenalidad"
+                                                             onclick="popupAgregarPenalidad.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaPenalidad" var="rol1">
+                                                <p:column headerText="Mótivo"></p:column>
+                                                <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                <p:column headerText="Monto" style="width:4%"></p:column>
+                                                <p:column headerText="Fecha" style="width:4%"></p:column>
+                                                <p:column headerText="Estado" style="width:4%"></p:column>
+                                                <p:column headerText="Ver" style="width:4%"></p:column>
+                                                <p:column headerText="Quitar" style="width:4%"></p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                            <p:tab title="CAO - Hito - POO">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">CAO</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar CAO" id="nuevoCAO"
+                                                             onclick="popupAgregarCAO.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px;" id="tablaCAO" var="cao">
+                                                    <p:column headerText="Inversión"></p:column>
+                                                    <p:column headerText="Nro" style="width:14%"></p:column>
+                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
+                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
+                                                    <p:column headerText="Monto" style="width:4%"></p:column>
+                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                    <p:column headerText="Ver" style="width:4%"></p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Hito</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Hito" id="nuevoHito"
+                                                             onclick="popupAgregarHito.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px;" id="tablaHito" var="hito">
+                                                    <p:column headerText="Aeropuerto"></p:column>
+                                                    <p:column headerText="Nro" style="width:14%"></p:column>
+                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
+                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
+                                                    <p:column headerText="Monto" style="width:4%"></p:column>
+                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                    <p:column headerText="Ver" style="width:4%"></p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="center" colspan="2"></td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">PPO</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar PPO" id="nuevoPPO"
+                                                             onclick="popupAgregarPPO.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px;" id="tablaPPO" var="ppo">
+                                                    <p:column headerText="Aeropuerto"></p:column>
+                                                    <p:column headerText="Nro" style="width:14%"></p:column>
+                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
+                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
+                                                    <p:column headerText="Monto" style="width:4%"></p:column>
+                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
+                                                    <p:column headerText="Ver" style="width:4%"></p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                            <p:tab title="Alertas Personalizadas">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Alertas</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Alerta" id="nuevaAlerta"
+                                                             onclick="popupAgregarAlerta.show()" type="reset"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px;" id="tablaAlerta" var="alerta">
+                                                    <p:column headerText="Aeropuerto" style="width:14%"></p:column>
+                                                    <p:column headerText="Descripcion"></p:column>
+                                                    <p:column headerText="Fecha Inicio" style="width:6%"></p:column>
+                                                    <p:column headerText="Fecha Fin" style="width:5%"></p:column>
+                                                    <p:column headerText="Plazo" style="width:4%"></p:column>
+                                                    <p:column headerText="Dia de Presentación" style="width:11%"></p:column>
+                                                    <p:column headerText="Estado" style="width:4%"></p:column>
+                                                    <p:column headerText="Activar" style="width:4%"></p:column>
+                                                    <p:column headerText="Desactivar" style="width:5%"></p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                            <p:tab title="Inversiones">
+                                <table>
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2" align="left" style="font-weight: bold;">Inversiones</td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>Aeropuerto</td>
+                                                    <td>
+                                                        <p:selectOneMenu onchange="cargarValor(this)"
+                                                                         widgetVar="AeropuertoInversion" id="MonedaPPO"
+                                                                         value="#{concesionarioMB.tipDocumentoE}"
+                                                                         style="width:210px">
+                                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                            <f:selectItems value="#{concesionarioMB.listaTipoDoc}"
+                                                                           var="tip" itemLabel="#{tip.tdoNombre}"
+                                                                           itemValue="#{tip.tdoId}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>Inversi&#243;n</td>
+                                                    <td>
+                                                        <p:inputTextarea id="descInversion"
+                                                                         style="width:500px; height:40px;"/>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandButton value="Agregar Inversion" id="nuevaInversion"
+                                                                         type="reset" image="ui-icon-document"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px;" id="tablaContratoInversion"
+                                                             var="alerta">
+                                                    <p:column headerText="Aeropuerto" style="width:20%"></p:column>
+                                                    <p:column headerText="Inversion"></p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:tab>
+                        </p:tabView>
+                    </div>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                              collapsible="true">
+                    <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
+                                                                                   AsisTP-2015</div>
+                </p:layoutUnit>
+            </p:layout>
+            <p:dialog header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center; width:600px;">
+                    <tr>
+                        <td align="left">Nombre Documento</td>
+                        <td align="left">
+                            <p:inputText id="contratoAdenda" value="#{actualizarContratoAdendaMB.contratoId}"
+                                         style="display:none"/>
+                             
+                            <p:inputText value="#{actualizarContratoAdendaMB.nombre}" style="width:300px"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"
+                                         onkeydown="return validarLetras(event)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Tipo</td>
+                        <td align="left">
+                            <p:selectOneMenu widgetVar="tipoAdenda" id="tipoAdenda"
+                                             value="#{actualizarContratoAdendaMB.adendaTipo}" style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{actualizarContratoAdendaMB.listaAdendaTipo}" var="tipAdenda"
+                                               itemLabel="#{tipAdenda.tadNombre}" itemValue="#{tipAdenda.tadId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Objeto</td>
+                        <td align="left">
+                            <p:inputTextarea style="width:300px; height:40px" queryDelay="750" minQueryLength="4"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             value="#{actualizarContratoAdendaMB.objeto}"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy" value="#{actualizarContratoAdendaMB.fecha}"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Documento</td>
+                        <td align="left">
+                            <p:inputText widgetVar="docuAdenda" id="docAdenda" style="width:400px"
+                                         value="#{actualizarContratoAdendaMB.documento}" readonly="true"/>
+                             
+                            <p:commandButton oncomplete="fileAdenda.jq.show(); quitarDocAdenda.jq.hide(); docuAdenda.jq.val('')"
+                                             icon="ui-icon-trash" widgetVar="quitarDocAdenda" style="display:none;"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td colspan="2" align="left">
+                            <p:fileUpload fileUploadListener="#{actualizarContratoAdendaMB.subirArchivo}"
+                                          update=":form:docAdenda" widgetVar="fileAdenda" label="Archivo"
+                                          oncomplete="fileAdenda.jq.hide(); quitarDocAdenda.jq.show(); docuAdenda.jq.show()"
+                                          value="#{actualizarContratoAdendaMB.documento}" style="width:600px"
+                                          auto="true"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaAdenda"
+                                             action="#{actualizarContratoAdendaMB.guardar}" style="width:70px"
+                                             value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarAdenda.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Entrega de Area o Bien de Conseción" widgetVar="popupAgregarEntrega" modal="true"
+                      resizable="false" style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Nombre Entrega</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"
+                                         onkeydown="return validarLetras(event)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Descripci&#243;n</td>
+                        <td align="left">
+                            <p:inputTextarea style="width:300px; height:50px" queryDelay="750" minQueryLength="4"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Documento</td>
+                        <td align="left">
+                            <p:inputText widgetVar="docuEntrega" id="docEntrega" style="width:400px"
+                                         value="#{actualizarContratoEntregaMB.documento}" readonly="true"/>
+                             
+                            <p:commandButton oncomplete="fileEntrega.jq.show(); quitarDocEntrega.jq.hide(); docuEntrega.jq.val('')"
+                                             icon="ui-icon-trash" widgetVar="quitarDocEntrega" style="display:none;"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td colspan="2" align="left">
+                            <p:fileUpload fileUploadListener="#{actualizarContratoEntregaMB.subirArchivo}"
+                                          update=":form:docEntrega" widgetVar="fileEntrega" label="Archivo"
+                                          oncomplete="fileEntrega.jq.hide(); quitarDocEntrega.jq.show(); docuEntrega.jq.show()"
+                                          value="#{actualizarContratoEntregaMB.documento}" style="width:600px"
+                                          auto="true"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaEngrega" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarEntrega.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" widgetVar="popupAgregarCompromisoIndicado"
+                      modal="true" resizable="false" style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Perioro / Etapa</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Alcance</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Tipo de Inversion</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="compromisoIndicadoTipoInversion"
+                                             id="compromisoIndicadoTipoInversion"
+                                             value="#{concesionarioMB.tipDocumentoE}" style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion"
+                                             id="MonedaInversion" value="#{concesionarioMB.tipDocumentoE}"
+                                             style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Neto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">IGV</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Valor Total</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Plazo</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaEngrega" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarCompromisoIndicado.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Compromiso (Supervisado)" widgetVar="popupAgregarCompromisoSupervisado"
+                      modal="true" resizable="false" style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Etapa</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Alcance</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion"
+                                             id="MonedaCompromiso" value="#{concesionarioMB.tipDocumentoE}"
+                                             style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Neto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">IGV</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Valor Total</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Plazo</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">% IGV</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:100px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Tipo de Cambios</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:100px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaEngrega" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}"
+                                             oncomplete="popupAgregarCompromisoSupervisado.hide()" style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Penalidad" widgetVar="popupAgregarPenalidad" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Motivo</td>
+                        <td align="left">
+                            <p:inputTextarea style="width:400px; height:50px" queryDelay="750" minQueryLength="4"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaPenalidad"
+                                             id="monedaPenalidad" value="#{concesionarioMB.tipDocumentoE}"
+                                             style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Monto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Estado</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="estadoPenalidad"
+                                             id="estadoPenalidad" value="#{concesionarioMB.tipDocumentoE}"
+                                             style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaPenalidad" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarPenalidad.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Inversi&#243;n</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Nro</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Oficio</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Monto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion" id="MonedaCAO"
+                                             value="#{concesionarioMB.tipDocumentoE}" style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Documento</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaPenalidad" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarCAO.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Aeropuerto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Nro</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Oficio</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Monto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion" id="MonedaHito"
+                                             value="#{concesionarioMB.tipDocumentoE}" style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Documento</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaPenalidad" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarHito.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Aeropuerto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Nro</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Oficio</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Monto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Moneda</td>
+                        <td align="left">
+                            <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion" id="MonedaPPO"
+                                             value="#{concesionarioMB.tipDocumentoE}" style="width:210px">
+                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
+                                               itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                            </p:selectOneMenu>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Documento</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaPenalidad" action="#{infraestructuraMB.guardar}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarPPO.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta" modal="true" resizable="false"
+                      style="text-align:center;">
+                <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                    <tr>
+                        <td align="left">Aeropuerto</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:300px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Descripci&#243;n</td>
+                        <td align="left">
+                            <p:inputTextarea style="width:300px; height:40px" queryDelay="750" minQueryLength="4"
+                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha de Inicio</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Fecha de Fin</td>
+                        <td align="left">
+                            <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Plazo</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="left">Dia de Presentaci&#243;n</td>
+                        <td align="left">
+                            <p:inputText value="#{infraestructuraMB.tinDescripcion}" style="width:200px;"
+                                         onkeyup="pasarMayuscula(this.value,this.id)"/>
+                             
+                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                            Campos obligatorios ( 
+                            <img src="../../images/obligatorio.gif"/>)
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:commandButton update=":form:tab:tablaPenalidad"
+                                             action="#{actualizarContratoAdendaMB.guardarAdendaAeropuerto}"
+                                             style="width:70px" value="#{btn.btn_guardar}"/>
+                             
+                            <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarAlerta.hide()"
+                                             style="width:70px"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            <p:dialog id="confirEliminarAdenda" widgetVar="confirEliminarAdenda" header="Confirmar" modal="true">
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Eliminar La Adenda: " 
+                                #{actualizarContratoAdendaMB.nombre}"
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton update=":form:tab:tablaAdenda :form:mensaje" value="Eliminar"
+                                                 actionListener="#{actualizarContratoAdendaMB.eliminar}"
+                                                 oncomplete="confirEliminarAdenda.hide()"></p:commandButton>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="Cancelar" onclick="confirEliminarAdenda.hide()"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+        </h:form>
+    </h:body>
+</html>

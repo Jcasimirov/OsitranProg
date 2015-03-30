@@ -1,10 +1,9 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ContratoAdendaDAOImpl;
-import com.ositran.model.AdendaTipo;
 import com.ositran.model.ContratoAdenda;
 import com.ositran.service.ContratoAdendaService;
-import com.ositran.vo.bean.AdendaTipoVO;
+
 import com.ositran.vo.bean.ContratoAdendaVO;
 
 
@@ -80,7 +79,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdendaVO.setCadDescripcion(contratoAdenda.getCadDescripcion());
         contratoAdendaVO.setCadDocumentoFisico(contratoAdenda.getCadDocumentoFisico());
         contratoAdendaVO.setCadEstado(contratoAdenda.getCadEstado());
-                        
+        contratoAdendaVO.setCadNombre(contratoAdenda.getCadNombre());
     
         return contratoAdendaVO;
     }
@@ -97,6 +96,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadDescripcion(contratoAdendaVO.getCadDescripcion());
         contratoAdenda.setCadDocumentoFisico(contratoAdendaVO.getCadDocumentoFisico());
         contratoAdenda.setCadEstado(contratoAdenda.getCadEstado());
+        contratoAdenda.setCadNombre(contratoAdenda.getCadNombre());
         return contratoAdenda;
         
     }
@@ -107,5 +107,12 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
 
     public void setContratoAdendaDAOImpl(ContratoAdendaDAOImpl contratoAdendaDAOImpl) {
         this.contratoAdendaDAOImpl = contratoAdendaDAOImpl;
+    }
+    
+    @Override    
+    public List<ContratoAdendaVO> getAdendasContrato(Integer ConId) throws SQLException{
+        List<ContratoAdenda> list = contratoAdendaDAOImpl.getAdendasContrato(ConId);
+        List<ContratoAdendaVO> listVO=toListContratoAdendaVO(list);
+        return listVO;
     }
 }
