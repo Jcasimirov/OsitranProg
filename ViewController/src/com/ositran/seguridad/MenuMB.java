@@ -22,7 +22,7 @@ import org.primefaces.component.menuitem.MenuItem;
 public class MenuMB {
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<RolOpcionesVO>();
     private List<MenVO> listaMenu=new ArrayList<>();
     private List<UsuarioVO> listaUsuarios=new ArrayList<>();
     private int padre;
