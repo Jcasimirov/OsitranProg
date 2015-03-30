@@ -67,7 +67,8 @@
                                         <td style=" width:40%" align="right">
                                            <p:commandButton actionListener="#{mantenimientoconcesionMB.resetear()}"
                                                              oncomplete="insertarPanel.show()"
-                                                             update=":form:insertarPanel" value="Nueva Concesión"/>
+                                                             update=":form:insertarPanel" value="Nueva Concesión"
+                                                             rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"/>
                                       
                                           </td>  
                                        
@@ -312,6 +313,7 @@
                                 <p:commandButton update=":form:tablaES :form:tablaES2 :form:mensaje"
                                                  oncomplete="editarPanel.hide()"
                                                  actionListener="#{mantenimientoconcesionMB.editar()}"
+                                                 rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"
                                                  style="width:auto " value="Grabar"/>
                             </td>
                             <td align="left">
