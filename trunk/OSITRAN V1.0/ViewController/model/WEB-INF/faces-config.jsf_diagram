@@ -13,18 +13,6 @@
       <property
          name="jspName">/error.jsf</property>
    </Page>
-   <NavigationCase
-      islink="true"
-      id="NavigationCase14"
-      from="Page20"
-      to="Page12">
-      <property
-         name="fromOutcome">error</property>
-      <property
-         name="description">Navigation Case</property>
-      <property
-         name="sdm:polyPoints">T50,-286.6872,-162.38885,-269.67285,-237.44495,B50</property>
-   </NavigationCase>
    <Page
       id="Page20">
       <property
@@ -57,7 +45,7 @@
       <property
          name="description">Navigation Case</property>
       <property
-         name="sdm:polyPoints">R50,-245.6872,-108.388855,-110.31055,-230.30469,L50</property>
+         name="sdm:polyPoints">R46,-245.6872,-111.888855,-110.31055,-230.30469,L50</property>
    </NavigationCase>
    <Page
       id="Page23">
@@ -70,4 +58,23 @@
       <property
          name="jspName">/ositran/parametros/mantenimientoConcesion.xhtml</property>
    </Page>
+   <Page
+      id="Page8">
+      <property
+         name="wildcard">false</property>
+      <property
+         name="jspName">/error.xhtml</property>
+   </Page>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase9"
+      from="Page20"
+      to="Page8">
+      <property
+         name="fromOutcome">error</property>
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="sdm:polyPoints">R54,-245.6872,-104.888855,-21.0,33.0,L50</property>
+   </NavigationCase>
 </SDM>
