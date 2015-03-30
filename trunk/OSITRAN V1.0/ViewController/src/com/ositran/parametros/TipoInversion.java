@@ -26,17 +26,12 @@ public class TipoInversion {
     private String nombre;
     private String descripcion;
     private String buscar;
-    
-    
-   
-  
     private int codigoE;
     private String nombreE;
     private String descripcionE;
 
-    
     @ManagedProperty(value = "#{tipoInversionVO}")
-    TipoInversionVO tipoInversionVO;
+    TipoInversionVO tipoInversionVO=new TipoInversionVO();
     @ManagedProperty(value = "#{tipoInversionServicesImpl}")
     TipoInversionServices tipoInversionServicesImpl;
 
