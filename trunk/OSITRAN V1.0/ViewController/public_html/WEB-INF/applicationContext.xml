@@ -248,15 +248,7 @@
 		<property name="modalidadServiceImp" ref="modalidadServiceImp"/>
 		<property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
     </bean>
-    <bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod" value="com.ositran.util.ControlAcceso.setNewInstance"/>
-        <property name="arguments">
-            <list>
-                <ref bean="controlacceso"/>
-            </list>
-        </property>
-    </bean>
+   
     <!--Concesion-->
     <bean id="concesionDAOImpl" class="com.ositran.daoimpl.ConcesionDAOImpl"/>
     <bean id="concesionServiceImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
@@ -339,7 +331,7 @@
 	<!-- Moneda -->
 	<bean id="monedaDaoImpl" class="com.ositran.daoimpl.MonedaDAOImpl"/>
     <bean id="monedaServiceImpl" class="com.ositran.serviceimpl.MonedaServiceImpl">
-        <property name="MonedaDAOImpl" ref="monedaDAOImpl"/>
+        <property name="monedaDaoImpl" ref="monedaDaoImpl"/>
     </bean>
 	
     <!--bean id="actualizarContratoEntrega" class="com.ositran.contratos.ActualizarContratoEntrega">        
@@ -363,13 +355,11 @@
         <property name="contratoEntregaServiceImpl" ref="contratoEntregaServiceImpl"/>        
         <property name="contratoEntregaVO" ref="contratoEntregaVO"/>
 		
-		<property name="contratoCompromisoDAOImpl" ref="contratoCompromisoDAOImpl"/>
+		<property name="contratoCompromisoServiceImpl" ref="contratoCompromisoServiceImpl"/>
 		<property name="contratoCompromisoVO" ref="contratoCompromisoVO"/>
 		
-		<property name="tipoInversionServiceImpl" ref="tipoInversionServiceImpl"/>
-		<property name="tipoInversionVO" ref="tipoInversionVO"/>
-		
-		<property name="tipoInversionServiceImpl" ref="tipoInversionServiceImpl"/>
+				
+		<property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
 		<property name="tipoInversionVO" ref="tipoInversionVO"/>
 		
 		<property name="monedaServiceImpl" ref="monedaServiceImpl"/>
@@ -378,4 +368,23 @@
         
         
     </bean>
+     <bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="com.ositran.util.ControlAcceso.setNewInstance"/>
+        <property name="arguments">
+            <list>
+                <ref bean="controlacceso"/>
+            </list>
+        </property>
+    </bean>
+     <bean id="reutilizar" class="com.ositran.util.Reutilizar"/>
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="com.ositran.util.Reutilizar.setNewInstance"/>
+        <property name="arguments">
+            <list>
+                <ref bean="reutilizar"/>
+            </list>
+        </property>
+    </bean>
+    
 </beans>
