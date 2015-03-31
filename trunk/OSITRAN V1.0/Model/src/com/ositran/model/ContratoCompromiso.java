@@ -50,13 +50,15 @@ public class ContratoCompromiso implements Serializable {
     private Integer tccTipo;
     @Column(name = "TIV_ID")
     private Integer tivId;
+    @Column(name = "CCO_ESTADO")
+    private Integer ccoEstado;
 
     public ContratoCompromiso() {
     }
 
     public ContratoCompromiso(String ccoAlcance, Long ccoNeto, Integer ccoId, Long ccoIgv, String ccoPeriodo,
                               Integer ccoPlazo, Integer ccoTipoCambio, Long ccoTotal, Integer conId,
-                              Integer monId, Integer porIgv, Integer tccTipo, Integer tivId) {
+                              Integer monId, Integer porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
         this.ccoAlcance = ccoAlcance;
         this.ccoNeto = ccoNeto;
         this.ccoId = ccoId;
@@ -70,6 +72,7 @@ public class ContratoCompromiso implements Serializable {
         this.porIgv = porIgv;
         this.tccTipo = tccTipo;
         this.tivId = tivId;
+        this.ccoEstado  = ccoEstado;
     }
 
     public String getCcoAlcance() {
@@ -174,5 +177,13 @@ public class ContratoCompromiso implements Serializable {
 
     public void setTivId(Integer tivId) {
         this.tivId = tivId;
+    }
+
+    public Integer getCcoEstado() {
+        return ccoEstado;
+    }
+
+    public void setCcoEstado(Integer ccoEstado) {
+        this.ccoEstado = ccoEstado;
     }
 }
