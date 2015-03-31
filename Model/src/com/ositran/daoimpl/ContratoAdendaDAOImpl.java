@@ -84,8 +84,8 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.conId DESC");
-        query.setParameter("busqueda1","%"+conId+"%");            
+        query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.cadId DESC");
+        query.setParameter("busqueda1",conId);            
         List<ContratoAdenda> list = query.list();
         session.getTransaction().commit();
         return list;        
