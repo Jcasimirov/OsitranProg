@@ -13,6 +13,7 @@ public class ContratoCompromisoVO {
     private Integer porIgv;
     private Integer tccTipo;
     private Integer tivId;
+    private Integer ccoEstado;
 
     public ContratoCompromisoVO() {
         super();
@@ -121,5 +122,13 @@ public class ContratoCompromisoVO {
 
     public void setTivId(Integer tivId) {
         this.tivId = tivId;
+    }
+
+    public Integer getCcoEstado() {
+        return ccoEstado;
+    }
+
+    public void setCcoEstado(Integer ccoEstado) {
+        this.ccoEstado = ccoEstado;
     }
 }
