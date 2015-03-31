@@ -42,7 +42,7 @@ public class ActualizarContratoAdenda {
 
     // campos de formulario
     private List<AdendaTipoVO> listaAdendaTipo;
-    private Integer adendaTipo;
+    private Integer adendaTipo = 0;
     private String nombre;
     private String objeto;
     private Date fecha;
@@ -67,7 +67,7 @@ public class ActualizarContratoAdenda {
 
     public void cargarListaAdendaTipo() {
         try {
-            listaAdendaTipo = getAdendaTipoServiceImpl().query();
+            listaAdendaTipo = adendaTipoServiceImpl.query();
         } catch (Exception e) {
             System.out.println(e.getMessage().toString());
             FacesContext.getCurrentInstance().addMessage(null,
@@ -217,7 +217,9 @@ public class ActualizarContratoAdenda {
     public void cargarListaContratoAdenda() {
         try {
             //int contador=1;
-           listContratoAdenda = contratoAdendaServiceImpl.query();
+            System.out.println("########################### llego ################");
+            System.out.println(contratoId);
+           listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(contratoId);
             /*for(int i=0;i<listContratoAdenda.size();i++){
               listContratoAdenda.get(i).setContador(contador);
                 contador++;

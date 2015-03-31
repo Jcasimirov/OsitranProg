@@ -35,9 +35,7 @@
     <bean id="conceptoInversion" class="com.ositran.model.ConceptoInversion"/>
     <bean id="viewTdInternos" class="com.ositran.model.ViewTdInternos" />
     <bean id="viewTdInternosVO" class="com.ositran.vo.bean.ViewTdInternosVO" />
-    <bean id="contratoEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO" />
-    <bean id="viewTdInternos" class="com.ositran.model.ViewTdInternos"/>
-    <bean id="viewTdInternosVO" class="com.ositran.vo.bean.ViewTdInternosVO"/>
+    <bean id="contratoEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO" />    
     <bean id="contratoSupInversionesVO" class="com.ositran.vo.bean.ContratoSubInversionesVO"/>
     <bean id="contratoSupInversiones" class="com.ositran.model.ContratoSupInversiones"/>
     <bean id="contratoJefeAreaVO" class="com.ositran.vo.bean.ContratoJefeAreaVO"/>
@@ -331,5 +329,15 @@
         <property name="contratoEntregaServiceImpl" ref="contratoEntregaServiceImpl"/>        
         <property name="contratoEntregaVO" ref="contratoEntregaVO"/>
     </bean>
-
+    
+    
+    <!-- actualizar contrato -->
+    <bean id="actualizarContrato" class="com.ositran.contratos.ActualizarContrato">        
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>        
+        <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
+        <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+        <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+        <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>        
+        
+    </bean>
 </beans>
