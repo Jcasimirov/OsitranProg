@@ -47,6 +47,7 @@
          <mapping class="com.ositran.model.AdendaTipo"/> 
          <mapping class="com.ositran.model.ContratoAdenda"/> 
          <mapping class="com.ositran.model.ContratoEntrega"/> 
+         <mapping class="com.ositran.model.ContratoCompromiso"/> 
          
          
     </session-factory>

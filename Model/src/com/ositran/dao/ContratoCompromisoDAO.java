@@ -13,4 +13,5 @@ public interface ContratoCompromisoDAO {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoCompromiso contratoCompromiso) throws SQLException;
     public ContratoCompromiso get(Integer id) throws SQLException;
+    public List<ContratoCompromiso> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException;
 }
