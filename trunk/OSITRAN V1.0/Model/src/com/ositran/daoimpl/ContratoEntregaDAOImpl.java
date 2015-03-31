@@ -1,10 +1,7 @@
 package com.ositran.daoimpl;
- 
+
 import com.ositran.dao.ContratoEntregaDAO;
-
 import com.ositran.model.ContratoEntrega;
-
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
@@ -14,6 +11,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class ContratoEntregaDAOImpl implements ContratoEntregaDAO {
     
     public ContratoEntregaDAOImpl() {
