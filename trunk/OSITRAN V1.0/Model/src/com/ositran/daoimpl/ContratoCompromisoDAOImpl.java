@@ -3,6 +3,7 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ContratoCompromisoDAO;
 import com.ositran.model.ContratoCompromiso;
 
+import com.ositran.model.ContratoEntrega;
 import com.ositran.model.RolOpciones;
 import com.ositran.util.HibernateUtil;
 
@@ -57,6 +58,23 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         // TODO Implement this method
         return null;
     }
+    
+    @Override
+    public List<ContratoCompromiso> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        Query query; 
+        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 and cc.ccoId = :busqueda1 AND cc.tccTipo = :busqueda2 order by ccoId DESC");
+        query.setParameter("busqueda1",conId);            
+        query.setParameter("busqueda2",tccTipo);            
+        List<ContratoCompromiso> list = query.list();
+        session.getTransaction().commit();
+        return list;        
+              
+        
+        
+    }   
+    
 
    
 }
