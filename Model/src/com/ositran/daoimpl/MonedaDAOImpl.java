@@ -1,23 +1,23 @@
 package com.ositran.daoimpl;
 
-import java.util.List;
-import org.hibernate.Session;
-import org.springframework.stereotype.Repository;
 import com.ositran.dao.MonedaDAO;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.Moneda;
-import com.ositran.model.Rol;
 import com.ositran.util.HibernateUtil;
-import java.sql.SQLException;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 
+import java.sql.SQLException;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class MonedaDAOImpl implements MonedaDAO{
        
 
-    private Moneda moneda;
+  
     
     @Override    
     public String insert(Moneda moneda) throws SQLException {
@@ -104,11 +104,5 @@ public class MonedaDAOImpl implements MonedaDAO{
             return query.list();
         }
 
-    public Moneda getMoneda() {
-        return moneda;
-    }
 
-    public void setMoneda(Moneda moneda) {
-        this.moneda = moneda;
-    }
 }
