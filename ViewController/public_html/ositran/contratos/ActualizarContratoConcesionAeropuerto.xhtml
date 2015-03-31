@@ -28,8 +28,10 @@
         </script>
     </h:head>
     <h:body>
-        <f:event listener="#{actualizarContratoAdendaMB.cargarListaAdendaTipo}" type="postAddToView"></f:event>
-         
+        <f:event listener="#{actualizarContratoAdendaMB.cargarListaAdendaTipo()}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.ListarInfraestructura}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="postAddToView"/> 
         <h:form id="form">
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
@@ -47,7 +49,8 @@
                                             <p:fieldset styleClass="fielsetinterno" legend="Criterios de Busqueda">
                                                 <p:inputText id="cb" style="width:200px"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
-                                                <p:commandButton image="ui-icon-search"></p:commandButton>
+                                                <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
+                                                                 onclick="popupBuscarContrato.show()" type="reset"></p:commandButton>
                                             </p:fieldset>
                                         </td>
                                     </tr>
@@ -222,7 +225,7 @@
                                         <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre y
                                                                                     Otros</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Adenta" id="nuevaadenda"
+                                            <p:commandButton value="Agregar Adenda" id="nuevaadenda"
                                                              onclick="popupAgregarAdenda.show()" type="reset"
                                                              image="ui-icon-document"/>
                                         </td>
@@ -668,6 +671,7 @@
                                     </tr>
                                 </table>
                             </p:tab>
+                                                                                                                                   
                         </p:tabView>
                     </div>
                 </p:layoutUnit>
@@ -677,13 +681,12 @@
                                                                                    AsisTP-2015</div>
                 </p:layoutUnit>
             </p:layout>
-            <p:dialog header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center; width:600px;">
                     <tr>
                         <td align="left">Nombre Documento</td>
                         <td align="left">
-                            <p:inputText id="contratoAdenda" value="#{actualizarContratoAdendaMB.contratoId}"
+                            <p:inputText widgetVar="contratoIdAdenda" id="contratoAdenda" value="#{actualizarContratoAdendaMB.contratoId}"
                                          style="display:none"/>
                              
                             <p:inputText value="#{actualizarContratoAdendaMB.nombre}" style="width:300px"
@@ -697,8 +700,8 @@
                     <tr>
                         <td align="left">Tipo</td>
                         <td align="left">
-                            <p:selectOneMenu widgetVar="tipoAdenda" id="tipoAdenda"
-                                             value="#{actualizarContratoAdendaMB.adendaTipo}" style="width:210px">
+                            <p:selectOneMenu widgetVar="ta" id="tipoAdenda1"
+                                             value="0" style="width:210px">
                                 <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                 <f:selectItems value="#{actualizarContratoAdendaMB.listaAdendaTipo}" var="tipAdenda"
                                                itemLabel="#{tipAdenda.tadNombre}" itemValue="#{tipAdenda.tadId}"/>
@@ -770,8 +773,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Entrega de Area o Bien de Conseción" widgetVar="popupAgregarEntrega" modal="true"
-                      resizable="false" style="text-align:center;">
+            <p:dialog header="Agregar Entrega de Area o Bien de Conseción" widgetVar="popupAgregarEntrega" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Nombre Entrega</td>
@@ -844,8 +846,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" widgetVar="popupAgregarCompromisoIndicado"
-                      modal="true" resizable="false" style="text-align:center;">
+            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" widgetVar="popupAgregarCompromisoIndicado" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Perioro / Etapa</td>
@@ -955,8 +956,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Compromiso (Supervisado)" widgetVar="popupAgregarCompromisoSupervisado"
-                      modal="true" resizable="false" style="text-align:center;">
+            <p:dialog header="Agregar Compromiso (Supervisado)" widgetVar="popupAgregarCompromisoSupervisado" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Etapa</td>
@@ -1071,8 +1071,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Penalidad" widgetVar="popupAgregarPenalidad" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar Penalidad" widgetVar="popupAgregarPenalidad" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Motivo</td>
@@ -1151,8 +1150,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Inversi&#243;n</td>
@@ -1245,8 +1243,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Aeropuerto</td>
@@ -1339,8 +1336,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Aeropuerto</td>
@@ -1433,8 +1429,7 @@
                     </tr>
                 </table>
             </p:dialog>
-            <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta" modal="true" resizable="false"
-                      style="text-align:center;">
+            <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta" modal="true" resizable="false" style="text-align:center;">
                 <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                     <tr>
                         <td align="left">Aeropuerto</td>
@@ -1514,26 +1509,130 @@
                 </table>
             </p:dialog>
             <p:dialog id="confirEliminarAdenda" widgetVar="confirEliminarAdenda" header="Confirmar" modal="true">
-                    <table style="font-size: 11px">
-                        <tr>
-                            <td colspan="2">
-                                Eliminar La Adenda: " 
-                                #{actualizarContratoAdendaMB.nombre}"
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="right">
-                                <p:commandButton update=":form:tab:tablaAdenda :form:mensaje" value="Eliminar"
-                                                 actionListener="#{actualizarContratoAdendaMB.eliminar}"
-                                                 oncomplete="confirEliminarAdenda.hide()"></p:commandButton>
-                            </td>
-                            <td align="left">
-                                <p:commandButton value="Cancelar" onclick="confirEliminarAdenda.hide()"></p:commandButton>
-                            </td>
-                        </tr>
-                    </table>
-                </p:dialog>
+                <table style="font-size: 11px">
+                    <tr>
+                        <td colspan="2">
+                            Eliminar La Adenda: " 
+                            #{actualizarContratoAdendaMB.nombre}"
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right">
+                            <p:commandButton update=":form:tab:tablaAdenda :form:mensaje" value="Eliminar"
+                                             actionListener="#{actualizarContratoAdendaMB.eliminar}"
+                                             oncomplete="confirEliminarAdenda.hide()"></p:commandButton>
+                        </td>
+                        <td align="left">
+                            <p:commandButton value="Cancelar" onclick="confirEliminarAdenda.hide()"></p:commandButton>
+                        </td>
+                    </tr>
+                </table>
+            </p:dialog>
+            
+            <p:dialog widgetVar="popupBuscarContrato" header="Buscar COntrato" modal="true" resizable="false">                
+                <div align="center" style="font-size: 11px">
+                    <div align="center" style="width:100%">
+                        <div align="left" style="width:600px">
+                            <table style="width:100% ;font-size:11px;">
+                                <tr>
+                                    <td align="left">
+                                        #{cam.ti}
+                                    </td>
+                                    <td align="left">
+                                        <p:selectOneMenu id="tipoinfra" value="#{actualizarContratoMB.tipoinfra}">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}"
+                                                           var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
+                                                           itemValue="#{lisinfra.tinId}"/>
+                                            <p:ajax listener="#{actualizarContratoMB.filtrarConcesion}"
+                                                    update=":form:concesion"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td align="left">
+                                        #{cam.mc}
+                                    </td>
+                                    <td align="left">
+                                        <p:selectOneMenu id="modalidad" value="#{actualizarContratoMB.modalidad}">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listaModalidad}" var="listamod"
+                                                           itemLabel="#{listamod.mcoNombre}"
+                                                           itemValue="#{listamod.mcoId}"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="left">
+                                        #{cam.concesion}
+                                    </td>
+                                    <td align="left" colspan="3">
+                                        <p:selectOneMenu id="concesion" value="#{actualizarContratoMB.concesion}">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listaConcesiones}"
+                                                           var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}"
+                                                           itemValue="#{lisConcesion.csiId}"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="right" colspan="4">                                    
+                                        <p:commandButton value="Buscar Contrato" id="btnBuscarContrato"
+                                                         actionListener="#{actualizarContratoMB.buscarContratos()}"
+                                                         update=":form:contrato"/>                                    
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width:100%" align="left">
+                            <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11"
+                                         style="font-size:11px" emptyMessage="No se Encontraron Registros"
+                                         rowIndexVar="rowIndex">
+                                <p:column headerText="N°" style="width:3%">
+                                    <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                </p:column>
+                                <p:column headerText="Fecha Suscripción" style="width:7%">
+                                    <div style="text-align: center;">
+                                        <h:outputText value="#{contrato11.conFechaSuscripcion}"
+                                                      style="text-transform:uppercase;"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="Tipo de Infraestructura" style="width:7%">
+                                    <div style="text-align: center;">
+                                        <h:outputText value="#{contrato11.nombreTipoInfraestructura}"
+                                                      style="text-transform:uppercase;"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="Concesión" style="width:10%">
+                                    <h:outputText value="#{contrato11.nombreConcesion}"/>
+                                </p:column>
+                                <p:column headerText="Modalidad" style="width:35%">
+                                    <h:outputText value="#{contrato11.nombreModalidad}"
+                                                  style="text-transform:uppercase;"/>
+                                </p:column>
+                                <p:column headerText="Seleccionar" style="width:4%">
+                                 <center>
+                                 <p:commandButton icon="ui-icon-check"
+                                                  onclick="contratoIdAdenda.jq.val(#{contrato11.conId})"
+                                                  update=":form:tab:tablaAdenda">
+                                    <f:actionListener binding="#{actualizarContratoAdendaMB.cargarListaContratoAdenda()}"/>                                    
+                                                  </p:commandButton>                              
+                                 </center> 
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>
