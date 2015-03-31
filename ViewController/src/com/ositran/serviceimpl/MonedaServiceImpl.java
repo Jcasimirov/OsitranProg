@@ -46,17 +46,10 @@ public class MonedaServiceImpl implements MonedaService{
     
     private MonedaVO toMonedaVO(Moneda moneda)throws SQLException{
         MonedaVO monedaVO = new MonedaVO();
-        monedaVO.setMonEstado(moneda.getMonEstado());
-        monedaVO.setMonFechaAlta(moneda.getMonFechaAlta());
-        monedaVO.setMonFechaBaja(moneda.getMonFechaBaja());
-        monedaVO.setMonFechaCambio(moneda.getMonFechaCambio());
         monedaVO.setMonNombre(moneda.getMonNombre());
-        monedaVO.setMonSimbolo(moneda.getMonSimbolo());
-        monedaVO.setMonTerminal(moneda.getMonTerminal());
-        monedaVO.setMonUsuarioAlta(moneda.getMonUsuarioAlta());
-        monedaVO.setMonUsuarioBaja(moneda.getMonUsuarioBaja());
-        monedaVO.setMonUsuarioCambio(moneda.getMonUsuarioCambio());   
+        monedaVO.setMonSimbolo(moneda.getMonSimbolo());   
         monedaVO.setMonId(moneda.getMonId());
+        monedaVO.setMonAbreviatura(moneda.getMonAbreviatura());
         
         return monedaVO;
     }
