@@ -11,23 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MonedaServiceImpl implements MonedaService{
-    private MonedaDAOImpl monedaDAOImpl;
+    private MonedaDAOImpl monedaDaoImpl;
     
     public MonedaServiceImpl(){
         super();
     }
 
-    public MonedaDAOImpl getmonedaDAOImpl() {
-        return monedaDAOImpl;
+
+    public void setMonedaDaoImpl(MonedaDAOImpl monedaDaoImpl) {
+        this.monedaDaoImpl = monedaDaoImpl;
     }
 
-    public void setmonedaDAOImpl(MonedaDAOImpl monedaDAOImpl) {
-        this.monedaDAOImpl = monedaDAOImpl;
+    public MonedaDAOImpl getMonedaDaoImpl() {
+        return monedaDaoImpl;
     }
-    
+
     @Override
     public List<MonedaVO> query()  throws Exception{
-        List<Moneda> list = monedaDAOImpl.query();
+        List<Moneda> list = monedaDaoImpl.query();
         List<MonedaVO> listVO = toListMonedaVO(list);
         return listVO;
     }
