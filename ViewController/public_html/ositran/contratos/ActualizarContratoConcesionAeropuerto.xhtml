@@ -32,7 +32,8 @@
         <f:event listener="#{actualizarContratoMB.ListarInfraestructura}" type="postAddToView"/>
         <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="postAddToView"/>
         <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="postAddToView"/> 
-        <h:form id="form">
+        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="postAddToView"/> 
+        <h:form id="form"  enctype="multipart/form-data">
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
                 <p:layoutUnit position="center" style="border:0px">
@@ -62,36 +63,36 @@
                                                     <tr>
                                                         <td align="left">Tipo De Infraestuctura:</td>
                                                         <td>
-                                                            <p:inputText></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.contratoVO.nombreTipoInfraestructura}"></p:inputText>
                                                         </td>
-                                                        <td align="left">Modalidad de Concepci&#243;n:</td>
+                                                        <td align="left">Modalidad de Concesi&#243;n:</td>
                                                         <td>
-                                                            <p:inputText></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.contratoVO.nombreModalidad}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
                                                     <tr>
                                                         <td align="left">Concesi&#243;n :</td>
                                                         <td colspan="3" align="left">
-                                                            <p:inputText style="width:97.5%"></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.contratoVO.nombreConcesion}" style="width:97.5%"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
                                                     <tr>
                                                         <td align="left">Nombre Consecionario:</td>
                                                         <td>
-                                                            <p:inputText></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.concesionarioVO.cncNombre}"></p:inputText>
                                                         </td>
                                                         <td align="left">Siglas del Nombre:</td>
                                                         <td>
-                                                            <p:inputText></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.concesionarioVO.cncDescripcion}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
                                                     <tr>
                                                         <td align="left">Domicilio Legal :</td>
                                                         <td colspan="3">
-                                                            <p:inputText style="width:97.5%"></p:inputText>
+                                                            <p:inputText value="#{actualizarContratoMB.contratoVO.conDomicilioLegal}" style="width:97.5%"></p:inputText>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -110,7 +111,7 @@
                                                             <table style="width:350px">
                                                                 <tr>
                                                                     <td align="left" colspan="2">
-                                                                        <p:selectBooleanCheckbox id="reporte"/>
+                                                                        <p:selectBooleanCheckbox id="reporte" value="#{actualizarContratoMB.aplicaAvancedeObra}"/>
                                                                          Aplica Reporte Avance de Obra
                                                                     </td>
                                                                 </tr>
@@ -118,23 +119,14 @@
                                                                 <tr>
                                                                     <td align="left">Periodo:</td>
                                                                     <td>
-                                                                        <p:selectOneMenu>
-                                                                            <f:selectItem itemLabel="-Seleccione-"
-                                                                                          itemValue="4"/>
-                                                                            <f:selectItem itemLabel="Etapa1"
-                                                                                          itemValue="1"/>
-                                                                            <f:selectItem itemLabel="Etapa2"
-                                                                                          itemValue="2"/>
-                                                                            <f:selectItem itemLabel="Etapa3"
-                                                                                          itemValue="3"/>
-                                                                        </p:selectOneMenu>
+                                                                      
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
                                                                     <td>
-                                                                        <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conDiames}" style="width:97.5%"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -149,18 +141,18 @@
                                                                     <td align="left">Plazo de revisi&#243;n de
                                                                                      valorizacion y/o reconocimiento:</td>
                                                                     <td style="width:120px">
-                                                                        <p:inputText style="width:70px;"></p:inputText>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conPlazorevision}"  style="width:70px;"></p:inputText>
                                                                          (dias)
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td colspan="2" align="center">
-                                                                        <p:selectOneRadio id="Dias">
+                                                                        <p:selectOneRadio id="Dias" value="#{actualizarContratoMB.contratoVO.conTipodias}">
                                                                             <f:selectItem itemLabel="Dias Calendario"
-                                                                                          itemValue="DC"/>
+                                                                                          itemValue="0"/>
                                                                             <f:selectItem itemLabel="Dias Habiles"
-                                                                                          itemValue="DH"/>
+                                                                                          itemValue="1"/>
                                                                         </p:selectOneRadio>
                                                                     </td>
                                                                 </tr>
@@ -172,33 +164,39 @@
                                                                 <tr>
                                                                     <td>Fecha de Suscripcion:</td>
                                                                     <td>
-                                                                        <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                                        <p:calendar value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd-MMM-yyyy"/>
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td>Plazo de Consesi&#243;n:</td>
                                                                     <td>
-                                                                        <p:inputTextarea rows="3" cols="31"
-                                                                                         id="plazoConcesion"/>
+                                                                      <p:calendar  value="#{actualizarContratoMB.contratoVO.conPlazoconcesion}"
+                                                                                         id="plazoConcesion" pattern="dd/MM/yyyy"></p:calendar>
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
                                                                     <td>
-                                                                        <p:inputText></p:inputText>
-                                                                         
-                                                                        <p:commandButton image="ui-icon-folder-open"/>
+                                                                        <h:outputText id="conPdfcontrato" value="#{actualizarContratoMB.contratoVO.conPdfcontrato}"/>
+                                                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirContratoPDF}"
+                                                                                        allowTypes="/(\.|\/)(pdf)$/" 
+                                                                                        sizeLimit="100000" 
+                                                                                        description="Select Images" update="conPdfcontrato"/>
+                                                                        <p:commandButton value="subir" image="ui-icon-folder-open"/>
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Ficha de Resumen:</td>
                                                                     <td>
-                                                                        <p:inputText></p:inputText>
-                                                                         
-                                                                        <p:commandButton image="ui-icon-folder-open"/>
+                                                                       <h:outputText id="conFicharesumen" value="#{actualizarContratoMB.contratoVO.conFicharesumen}"/>
+                                                                        <p:fileUpload fileUploadListener="#{fileUploadController.subirFichaResumen}"
+                                                                                        allowTypes="/(\.|\/)(pdf)$/" 
+                                                                                        sizeLimit="100000" 
+                                                                                        description="Select Images" update="conFicharesumen"/>
+                                                                        <p:commandButton value="subir" image="ui-icon-folder-open"/>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -763,8 +761,8 @@
                      
                     <tr>
                         <td align="center" colspan="2">
-                            <p:commandButton update=":form:tab:tablaAdenda"
-                                             action="#{actualizarContratoAdendaMB.guardar}" style="width:70px"
+                            <p:commandButton action="#{actualizarContratoAdendaMB.guardar}" style="width:70px"
+                                             update=":form:tab:tablaAdenda"
                                              value="#{btn.btn_guardar}"/>
                              
                             <p:commandButton value="#{btn.btn_salir}" oncomplete="popupAgregarAdenda.hide()"
@@ -1622,9 +1620,10 @@
                                 <p:column headerText="Seleccionar" style="width:4%">
                                  <center>
                                  <p:commandButton icon="ui-icon-check"
-                                                  onclick="contratoIdAdenda.jq.val(#{contrato11.conId})"
-                                                  update=":form:tab:tablaAdenda">
-                                    <f:actionListener binding="#{actualizarContratoAdendaMB.cargarListaContratoAdenda()}"/>                                    
+                                                  actionListener="#{actualizarContratoMB.seleccionarContrato}"
+                                                  update=":form:tab"  
+                                                  oncomplete="popupBuscarContrato.hide();" >
+                                                  <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
                                                   </p:commandButton>                              
                                  </center> 
                                 </p:column>
