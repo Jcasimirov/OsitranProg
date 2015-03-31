@@ -44,5 +44,7 @@
         <mapping class="com.ositran.model.AvanceInversionWeb"/>
         <mapping class="com.ositran.model.Inversion"/>  
          <mapping class="com.ositran.model.ContratoCompromiso"/> 
+         <mapping class="com.ositran.model.AdendaTipo"/> 
+         
     </session-factory>
 </hibernate-configuration>

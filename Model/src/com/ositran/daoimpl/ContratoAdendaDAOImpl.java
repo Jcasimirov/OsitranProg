@@ -20,7 +20,7 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     public List<ContratoAdenda> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from ContratoAdenda ca o where ca.cadEstado != 0").list();
+        List list=session.createQuery("from ContratoAdenda ca where ca.cadEstado != 0").list();
         session.getTransaction().commit();
         return list;      
     }
@@ -84,7 +84,7 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("select o from ContratoAdenda ca where ca.cadEstado <> 0 and ca.conId = :busqueda1 order by CAD_ID DESC");
+        query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.conId DESC");
         query.setParameter("busqueda1","%"+conId+"%");            
         List<ContratoAdenda> list = query.list();
         session.getTransaction().commit();
