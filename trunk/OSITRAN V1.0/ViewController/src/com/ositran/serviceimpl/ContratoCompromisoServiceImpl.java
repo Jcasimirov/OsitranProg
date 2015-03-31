@@ -1,12 +1,10 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ContratoCompromisoDAOImpl;
+
 import com.ositran.model.ContratoCompromiso;
-import com.ositran.model.TipoDocumento;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.vo.bean.ContratoCompromisoVO;
-
-import com.ositran.vo.bean.TipoDocumentoVO;
 
 import java.sql.SQLException;
 
@@ -134,5 +132,15 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         return contratoCompromisoDAOImpl;
     }
 
+    public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
+        
+        List<ContratoCompromiso> list = contratoCompromisoDAOImpl.getCompromisosContrato(conId,tccTipo );
+        List<ContratoCompromisoVO> listVO=toListContratoCompromisoVO(list);
+        return listVO;
+    }
+    
+    
+    
 
+    
 }

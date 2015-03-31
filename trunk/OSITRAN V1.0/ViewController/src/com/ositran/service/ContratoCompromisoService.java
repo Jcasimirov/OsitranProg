@@ -1,5 +1,6 @@
 package com.ositran.service;
 
+import com.ositran.model.ContratoCompromiso;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 
 import java.sql.SQLException;
@@ -13,4 +14,5 @@ public interface ContratoCompromisoService {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoCompromisoVO contratoCompromisoVO) throws SQLException;
     public ContratoCompromisoVO get(Integer id) throws SQLException;
+    public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException;
 }

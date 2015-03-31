@@ -40,6 +40,11 @@
     <bean id="contratoSupInversiones" class="com.ositran.model.ContratoSupInversiones"/>
     <bean id="contratoJefeAreaVO" class="com.ositran.vo.bean.ContratoJefeAreaVO"/>
     <bean id="contratoJefeArea" class="com.ositran.model.ContratoJefeArea"/>
+	
+	<bean id="contratoCompromisoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
+	<bean id="monedaVO" class="com.ositran.vo.bean.MonedaVO"/>
+	
+	
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -292,11 +297,11 @@
     <bean id="contratoAdendaServiceImpl" class="com.ositran.serviceimpl.ContratoAdendaServiceImpl">
         <property name="contratoAdendaDAOImpl" ref="contratoAdendaDAOImpl"/>
     </bean>
-    <bean id="actualizarContratoAdenda" class="com.ositran.contratos.ActualizarContratoAdenda">
+    <!--bean id="actualizarContratoAdenda" class="com.ositran.contratos.ActualizarContratoAdenda">
         <property name="adendaTipoServiceImpl" ref="adendaTipoServiceImpl"/>
         <property name="contratoAdendaServiceImpl" ref="contratoAdendaServiceImpl"/>        
         <property name="contratoAdendaVO" ref="contratoAdendaVO"/>
-    </bean>
+    </bean-->
 
     <!--Contrato SubInversionesServices-->
     <bean id="contratoSubInversionesDAOImpl" class="com.ositran.daoimpl.ContratoSubInversionesDAOImpl"/>
@@ -325,10 +330,22 @@
     <bean id="contratoEntregaServiceImpl" class="com.ositran.serviceimpl.ContratoEntregaServiceImpl">
         <property name="contratoEntregaDAOImpl" ref="contratoEntregaDAOImpl"/>
     </bean>
-    <bean id="actualizarContratoEntrega" class="com.ositran.contratos.ActualizarContratoEntrega">        
+	<!-- Contrato Compromiso -->
+	<bean id="contratoCompromisoDAOImpl" class="com.ositran.daoimpl.ContratoCompromisoDAOImpl"/>
+    <bean id="contratoCompromisoServiceImpl" class="com.ositran.serviceimpl.ContratoCompromisoServiceImpl">
+        <property name="contratoCompromisoDAOImpl" ref="contratoCompromisoDAOImpl"/>
+    </bean>
+	
+	<!-- Moneda -->
+	<bean id="monedaDaoImpl" class="com.ositran.daoimpl.MonedaDAOImpl"/>
+    <bean id="monedaServiceImpl" class="com.ositran.serviceimpl.MonedaServiceImpl">
+        <property name="MonedaDAOImpl" ref="monedaDAOImpl"/>
+    </bean>
+	
+    <!--bean id="actualizarContratoEntrega" class="com.ositran.contratos.ActualizarContratoEntrega">        
         <property name="contratoEntregaServiceImpl" ref="contratoEntregaServiceImpl"/>        
         <property name="contratoEntregaVO" ref="contratoEntregaVO"/>
-    </bean>
+    </bean-->
     
     
     <!-- actualizar contrato -->
@@ -337,7 +354,28 @@
         <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
         <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
         <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
-        <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>        
+        <property name="concesionarioServiceImpl" ref="concesionarioServiceImpl"/>   
+        
+        <property name="adendaTipoServiceImpl" ref="adendaTipoServiceImpl"/>
+        <property name="contratoAdendaServiceImpl" ref="contratoAdendaServiceImpl"/>        
+        <property name="contratoAdendaVO" ref="contratoAdendaVO"/>
+        
+        <property name="contratoEntregaServiceImpl" ref="contratoEntregaServiceImpl"/>        
+        <property name="contratoEntregaVO" ref="contratoEntregaVO"/>
+		
+		<property name="contratoCompromisoDAOImpl" ref="contratoCompromisoDAOImpl"/>
+		<property name="contratoCompromisoVO" ref="contratoCompromisoVO"/>
+		
+		<property name="tipoInversionServiceImpl" ref="tipoInversionServiceImpl"/>
+		<property name="tipoInversionVO" ref="tipoInversionVO"/>
+		
+		<property name="tipoInversionServiceImpl" ref="tipoInversionServiceImpl"/>
+		<property name="tipoInversionVO" ref="tipoInversionVO"/>
+		
+		<property name="monedaServiceImpl" ref="monedaServiceImpl"/>
+		<property name="monedaVO" ref="monedaVO"/>
+		
+        
         
     </bean>
 </beans>
