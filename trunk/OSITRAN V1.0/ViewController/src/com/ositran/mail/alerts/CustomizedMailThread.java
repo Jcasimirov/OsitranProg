@@ -2,14 +2,10 @@ package com.ositran.mail.alerts;
 
 import com.ositran.mail.SenderMail;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class CustomizedMailThread extends Thread
 {
-    private final Logger logger = Logger.getLogger(CustomizedMailThread.class);
-    
     private final int THREAD_SLEEP = 500; //milliseconds
     private boolean runMe = true;
     
@@ -19,7 +15,6 @@ public class CustomizedMailThread extends Thread
      */
     public void run()
     {
-        if (logger.isDebugEnabled()) {logger.debug("+run()");}
         while (runMe)
         {
             try
@@ -27,7 +22,6 @@ public class CustomizedMailThread extends Thread
                 if (true)
                 {
                     
-                    if (logger.isInfoEnabled()) {logger.info("");}
                     SenderMail senderMail = new SenderMail(null);
                     senderMail.start();
                 }
@@ -38,10 +32,9 @@ public class CustomizedMailThread extends Thread
             }
             catch (Exception e)
             {
-                logger.error("run() Exception(" + e.getClass().getName() + ") -->" + ExceptionUtils.get);
+                
             }
         }
-        if (logger.isDebugEnabled()) {logger.debug("-run()");}
     } //run
     
 } //CustomizedMailThread
