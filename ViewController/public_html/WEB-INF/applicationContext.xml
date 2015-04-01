@@ -199,11 +199,16 @@
         <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
     </bean>
 	<bean id="jefeAreaContratoConcecionMB" class="com.ositran.contratos.JefeAreaContratoConcecionMB">
-        <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
-        <property name="jefeAreaContratoConcecionServiceImpl" ref="jefeAreaContratoConcecionServiceImpl"/>
-        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
-        <property name="contratoJefeAreaVO" ref="contratoJefeAreaVO"/>
-        <property name="contratoJefeAreaServiceImpl" ref="contratoJefeAreaServiceImpl"/>
+           <property name="jefeAreaContratoConcecionVO" ref="jefeAreaContratoConcecionVO"/>
+                    <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+                    <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
+                    <property name="jefeAreaContratoConcecionServiceImpl" ref="jefeAreaContratoConcecionServiceImpl"/>
+                    <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+            <property name="contratoJefeAreaVO" ref="contratoJefeAreaVO"/>
+            <property name="contratoJefeAreaServiceImpl" ref="contratoJefeAreaServiceImpl"/>    
+            <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+                    <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
+                    <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
     </bean>
     <!--Contrato Jefe Area-->
     <bean id="contratoJefeAreaDAOImpl" class="com.ositran.daoimpl.ContratoJefeAreaDAOImpl"/>
@@ -228,6 +233,10 @@
         <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
         <property name="infraestructuraVO" ref="infraestructuraVO"/>
         <property name="contratoSubInversionesServiceImpl" ref="contratoSubInversionesServiceImpl"/>
+        
+        <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
+                    <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
+                    <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
     </bean>
     <bean id="datosStdDAOImpl" class="com.ositran.daoimpl.DatosStdDAOImpl"/>         
     <bean id="datosStdServiceImpl" class="com.ositran.serviceimpl.DatosStdServiceImpl">
