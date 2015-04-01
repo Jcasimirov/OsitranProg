@@ -14,6 +14,7 @@ public class ContratoAlertaVO {
     private Integer calPlazo;  
     private Integer conId;
     private Integer perId;
+    private Integer calEstado;
 
     public ContratoAlertaVO() {
         super();
@@ -98,5 +99,13 @@ public class ContratoAlertaVO {
 
     public void setPerId(Integer perId) {
         this.perId = perId;
+    }
+
+    public Integer getCalEstado() {
+        return calEstado;
+    }
+
+    public void setCalEstado(Integer calEstado) {
+        this.calEstado = calEstado;
     }
 }

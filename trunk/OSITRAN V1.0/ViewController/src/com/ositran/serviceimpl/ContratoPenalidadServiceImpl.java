@@ -1,45 +1,113 @@
 package com.ositran.serviceimpl;
 
+import com.ositran.daoimpl.ContratoPenalidadDAOImpl;
+import com.ositran.model.ContratoPenalidad;
 import com.ositran.service.ContratoPenalidadService;
+import com.ositran.vo.bean.ContratoPenalidadVO;
 import com.ositran.vo.bean.ContratoPenalidadVO;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
+    private ContratoPenalidadDAOImpl contratoPenalidadDAOImpl;
+    
     public ContratoPenalidadServiceImpl() {
         super();
     }
 
     @Override
     public List<ContratoPenalidadVO> query() throws SQLException {
-        // TODO Implement this method
-        return Collections.emptyList();
+        List<ContratoPenalidad> list = contratoPenalidadDAOImpl.query();
+        List<ContratoPenalidadVO> listVO=toListContratoPenalidadVO(list);
+        return listVO;
     }
 
     @Override
     public String insert(ContratoPenalidadVO contratoPenalidadVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoPenalidad contratoPenalidad=toContratoPenalidad(contratoPenalidadVO);
+        String result = contratoPenalidadDAOImpl.insert(contratoPenalidad);
+        return result;
     }
 
     @Override
     public String delete(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result = contratoPenalidadDAOImpl.delete(id);
+        return result;
     }
 
     @Override
     public String update(ContratoPenalidadVO contratoPenalidadVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoPenalidad contratoPenalidad=toContratoPenalidad(contratoPenalidadVO);
+        String result = contratoPenalidadDAOImpl.update(contratoPenalidad);
+        return result;
     }
 
     @Override
     public ContratoPenalidadVO get(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoPenalidad contratoPenalidad= contratoPenalidadDAOImpl.get(id);
+        ContratoPenalidadVO contratoPenalidadVO=toContratoPenalidadVO(contratoPenalidad);
+        return contratoPenalidadVO;
+    }
+    
+    // conversiones
+    private List<ContratoPenalidadVO> toListContratoPenalidadVO(List<ContratoPenalidad> list){
+        List<ContratoPenalidadVO> listVO=new ArrayList<ContratoPenalidadVO>();
+        for(int i=0;i<list.size();i++){
+            ContratoPenalidad contratoPenalidad=(ContratoPenalidad)list.get(i);
+            ContratoPenalidadVO contratoPenalidadVO=toContratoPenalidadVO(contratoPenalidad);
+            listVO.add(contratoPenalidadVO);
+        }
+        return listVO;
+    }
+    
+    private ContratoPenalidadVO toContratoPenalidadVO(ContratoPenalidad contratoPenalidad){
+        ContratoPenalidadVO contratoPenalidadVO=new ContratoPenalidadVO();
+        
+        contratoPenalidadVO.setConId(contratoPenalidad.getConId());
+        contratoPenalidadVO.setMonId(contratoPenalidad.getMonId());
+        contratoPenalidadVO.setPesId(contratoPenalidad.getPesId());
+        contratoPenalidadVO.setTcpTotal(contratoPenalidad.getTcpTotal());
+        contratoPenalidadVO.setTcpEstado(contratoPenalidad.getTcpEstado());
+        contratoPenalidadVO.setTcpId(contratoPenalidad.getTcpId());
+        contratoPenalidadVO.setTcpFecha(contratoPenalidad.getTcpFecha());
+        contratoPenalidadVO.setTcpMotivo(contratoPenalidad.getTcpMotivo());
+    
+        
+    
+        return contratoPenalidadVO;
+    }
+    
+    private ContratoPenalidad toContratoPenalidad(ContratoPenalidadVO contratoPenalidadVO){
+        ContratoPenalidad contratoPenalidad=new ContratoPenalidad();        
+        
+        contratoPenalidad.setConId(contratoPenalidadVO.getConId());
+        contratoPenalidad.setMonId(contratoPenalidadVO.getMonId());
+        contratoPenalidad.setPesId(contratoPenalidadVO.getPesId());
+        contratoPenalidad.setTcpTotal(contratoPenalidadVO.getTcpTotal());
+        contratoPenalidad.setTcpEstado(contratoPenalidadVO.getTcpEstado());
+        contratoPenalidad.setTcpId(contratoPenalidadVO.getTcpId());
+        contratoPenalidad.setTcpFecha(contratoPenalidadVO.getTcpFecha());
+        contratoPenalidad.setTcpMotivo(contratoPenalidadVO.getTcpMotivo());
+        return contratoPenalidad;
+        
+    }
+
+    public ContratoPenalidadDAOImpl getContratoPenalidadDAOImpl() {
+        return contratoPenalidadDAOImpl;
+    }
+
+    public void setContratoPenalidadDAOImpl(ContratoPenalidadDAOImpl contratoPenalidadDAOImpl) {
+        this.contratoPenalidadDAOImpl = contratoPenalidadDAOImpl;
+    }
+    
+    @Override    
+    public List<ContratoPenalidadVO> getPenalidadesContrato(Integer ConId) throws SQLException{
+        List<ContratoPenalidad> list = contratoPenalidadDAOImpl.getPenalidadesContrato(ConId);
+        List<ContratoPenalidadVO> listVO=toListContratoPenalidadVO(list);
+        return listVO;
     }
 }

@@ -12,6 +12,7 @@ public class ContratoCaoVO {
     private String caoPdf;
     private Integer conId;
     private Integer monId;
+    private Integer caoEstado;
 
     public ContratoCaoVO() {
     }
@@ -70,6 +71,14 @@ public class ContratoCaoVO {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getCaoEstado() {
+        return caoEstado;
+    }
+
+    public void setCaoEstado(Integer caoEstado) {
+        this.caoEstado = caoEstado;
     }
 }
 

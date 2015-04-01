@@ -1,45 +1,111 @@
 package com.ositran.serviceimpl;
 
+import com.ositran.daoimpl.ContratoCaoDAOImpl;
+import com.ositran.model.ContratoCao;
 import com.ositran.service.ContratoCaoService;
+import com.ositran.vo.bean.ContratoCaoVO;
 import com.ositran.vo.bean.ContratoCaoVO;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ContratoCaoServiceImpl implements ContratoCaoService {
+    private ContratoCaoDAOImpl contratoCaoDAOImpl;
+    
     public ContratoCaoServiceImpl() {
         super();
     }
 
     @Override
     public List<ContratoCaoVO> query() throws SQLException {
-        // TODO Implement this method
-        return Collections.emptyList();
+        List<ContratoCao> list = contratoCaoDAOImpl.query();
+        List<ContratoCaoVO> listVO=toListContratoCaoVO(list);
+        return listVO;
     }
 
     @Override
     public String insert(ContratoCaoVO contratoCaoVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCao contratoCao=toContratoCao(contratoCaoVO);
+        String result = contratoCaoDAOImpl.insert(contratoCao);
+        return result;
     }
 
     @Override
     public String delete(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result = contratoCaoDAOImpl.delete(id);
+        return result;
     }
 
     @Override
     public String update(ContratoCaoVO contratoCaoVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCao contratoCao=toContratoCao(contratoCaoVO);
+        String result = contratoCaoDAOImpl.update(contratoCao);
+        return result;
     }
 
     @Override
     public ContratoCaoVO get(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCao contratoCao= contratoCaoDAOImpl.get(id);
+        ContratoCaoVO contratoCaoVO=toContratoCaoVO(contratoCao);
+        return contratoCaoVO;
+    }
+    
+    // conversiones
+    private List<ContratoCaoVO> toListContratoCaoVO(List<ContratoCao> list){
+        List<ContratoCaoVO> listVO=new ArrayList<ContratoCaoVO>();
+        for(int i=0;i<list.size();i++){
+            ContratoCao contratoCao=(ContratoCao)list.get(i);
+            ContratoCaoVO contratoCaoVO=toContratoCaoVO(contratoCao);
+            listVO.add(contratoCaoVO);
+        }
+        return listVO;
+    }
+    
+    private ContratoCaoVO toContratoCaoVO(ContratoCao contratoCao){
+        ContratoCaoVO contratoCaoVO=new ContratoCaoVO();
+        
+        contratoCaoVO.setCaoEstado(contratoCao.getCaoEstado());
+        contratoCaoVO.setCaoFecha(contratoCao.getCaoFecha());
+        contratoCaoVO.setCaoId(contratoCao.getCaoId());
+        contratoCaoVO.setCaoMonto(contratoCao.getCaoMonto());
+        contratoCaoVO.setCaoOficio(contratoCao.getCaoOficio());
+        contratoCaoVO.setCaoPdf(contratoCao.getCaoPdf());
+        contratoCaoVO.setConId(contratoCao.getConId());
+        contratoCaoVO.setMonId(contratoCao.getMonId());                
+    
+        return contratoCaoVO;
+    }
+    
+    private ContratoCao toContratoCao(ContratoCaoVO contratoCaoVO){
+        ContratoCao contratoCao=new ContratoCao();        
+            
+        contratoCao.setCaoEstado(contratoCaoVO.getCaoEstado());
+        contratoCao.setCaoFecha(contratoCaoVO.getCaoFecha());
+        contratoCao.setCaoId(contratoCaoVO.getCaoId());
+        contratoCao.setCaoMonto(contratoCaoVO.getCaoMonto());
+        contratoCao.setCaoOficio(contratoCaoVO.getCaoOficio());
+        contratoCao.setCaoPdf(contratoCaoVO.getCaoPdf());
+        contratoCao.setConId(contratoCaoVO.getConId());
+        contratoCao.setMonId(contratoCaoVO.getMonId());
+        return contratoCao;
+        
+    }
+
+    public ContratoCaoDAOImpl getContratoCaoDAOImpl() {
+        return contratoCaoDAOImpl;
+    }
+
+    public void setContratoCaoDAOImpl(ContratoCaoDAOImpl contratoCaoDAOImpl) {
+        this.contratoCaoDAOImpl = contratoCaoDAOImpl;
+    }
+    
+    @Override    
+    public List<ContratoCaoVO> getCaosContrato(Integer ConId) throws SQLException{
+        List<ContratoCao> list = contratoCaoDAOImpl.getCaosContrato(ConId);
+        List<ContratoCaoVO> listVO=toListContratoCaoVO(list);
+        return listVO;
     }
 }

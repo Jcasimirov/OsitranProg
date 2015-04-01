@@ -12,4 +12,5 @@ public interface ContratoHitoService {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoHitoVO contratoHitoVO) throws SQLException;
     public ContratoHitoVO get(Integer id) throws SQLException;
+    public List<ContratoHitoVO> getHitosContrato(Integer conId) throws SQLException;
 }

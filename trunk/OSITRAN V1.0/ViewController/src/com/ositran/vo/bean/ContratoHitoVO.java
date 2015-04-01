@@ -11,6 +11,7 @@ public class ContratoHitoVO {
     private String htoOficio;
     private String htoPdf;
     private Integer monId;
+    private Integer htoEstado;
 
     public ContratoHitoVO() {
         super();
@@ -71,5 +72,13 @@ public class ContratoHitoVO {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getHtoEstado() {
+        return htoEstado;
+    }
+
+    public void setHtoEstado(Integer htoEstado) {
+        this.htoEstado = htoEstado;
     }
 }

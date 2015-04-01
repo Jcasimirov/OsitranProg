@@ -1,3 +1,4 @@
+
 package com.ositran.vo.bean;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ public class ContratoPenalidadVO {
     private Integer tcpId;
     private String tcpMotivo;
     private Long tcpTotal;
+    private String tcpEstado;
 
     public ContratoPenalidadVO() {
         super();
@@ -71,5 +73,13 @@ public class ContratoPenalidadVO {
 
     public void setTcpTotal(Long tcpTotal) {
         this.tcpTotal = tcpTotal;
+    }
+
+    public String getTcpEstado() {
+        return tcpEstado;
+    }
+
+    public void setTcpEstado(String tcpEstado) {
+        this.tcpEstado = tcpEstado;
     }
 }
