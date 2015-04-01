@@ -6,6 +6,7 @@ import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.ContratoSubInversionesService;
 import com.ositran.service.InfraestructuraService;
+import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
@@ -15,6 +16,7 @@ import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
+import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import java.util.ArrayList;
@@ -31,9 +33,9 @@ import javax.faces.context.FacesContext;
 public class SupervisorInversionesContratoConcecionMB {
     private int codigoSupervisor;
     private int codigoInfraestructura;
-    
     private int tipoInfraestructura;
     private String numeroDocumento="";
+    private String tipoInfraestructuraS;
     private String tipoDocumento="";
     private int tipoDocumentoI;
     private String nombreSupervisor="";
@@ -77,6 +79,14 @@ public class SupervisorInversionesContratoConcecionMB {
     
     @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
     SupervisorInversionesService supervisorInversionesServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraTipoVO}")
+    InfraestructuraTipoVO infraestructuraTipoVO;
+    
+    @ManagedProperty(value = "#{modalidadServiceImp}")
+    ModalidadConcesionService modalidadServiceImp;
+    
+    ModalidadConcesionVO modalidadConcesionVO=new ModalidadConcesionVO();
     
 
     public void cargarListaInfraestructura(){
@@ -166,15 +176,44 @@ public class SupervisorInversionesContratoConcecionMB {
         
         }
     
+    
+    
     public void elegirContrato(ContratoVO contrato1){
-        contratoConcesion=contrato1.getNombreConcesion();
-        tipoInfraestructuraC=contrato1.getTinId();
-        modalidadConcecion="Modalidad1";
+        try {
+           contratoConcesion=contrato1.getNombreConcesion();
+           tipoInfraestructuraC=contrato1.getTinId();
+               infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contrato1.getTinId());
+               modalidadConcesionVO = modalidadServiceImp.get(contrato1.getMcoId());
+               tipoInfraestructuraS = infraestructuraTipoVO.getTinDescripcion();
+               modalidadConcecion = modalidadConcesionVO.getMcoNombre();
+               tipoInfraestructuraC=contrato1.getTinId();
+            if (tipoInfraestructuraC==1){
+                tipoInfraestructuraS="DNI";
+                }
+            else {
+                
+                tipoInfraestructuraS="RUC";
+                    }
+            
+       } catch (Exception e) {
+            System.out.println("ERROR EN EL METODO ELEGIR CONTRATO");
+            e.printStackTrace();
+        }
+       
             
         }
     
     public void registrarContrato() {
         try {
+            if (supervisorSelecionado==0){
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar un supervisor de inversiones");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            else if (tipoInfraestructuraC==0){
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar un contrato concesion");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            else {
             contratoSupInversionesVO.setTinId(tipoInfraestructuraF);  
             contratoSupInversionesVO.setTsiId(codigoSupervisor);
             contratoSupInversionesVO.setConId(codigoContrato);
@@ -185,10 +224,10 @@ public class SupervisorInversionesContratoConcecionMB {
             contratoSupInversionesVO.setSivFechaInicial(new Date());
             contratoSupInversionesVO.setSivNombre(nombreSupervisor);
             contratoSubInversionesServiceImpl.insert(contratoSupInversionesVO);
-            
-            
+            limpiar();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
 
         } catch (Exception e) {
             System.out.println("SE CALLO EN EL METODO REGISTRAR CONTRATO");
@@ -197,6 +236,23 @@ public class SupervisorInversionesContratoConcecionMB {
     
     }
     
+    public void limpiar(){
+        codigoSupervisor=0;
+        codigoInfraestructura=0;
+        tipoInfraestructura=0;
+        numeroDocumento="";
+        tipoInfraestructuraS="";
+        tipoDocumento="";
+        tipoDocumentoI=0;
+        nombreSupervisor="";
+        contratoConcesion="";
+        tipoInfraestructuraC=0;
+          tipoInfraestructuraF=0;
+          modalidadConcecion="";
+          supervisorSelecionado=0;
+          codigoContrato=0;
+          codigoConcesion=0;
+        }
     public void setTipoInfraestructura(int tipoInfraestructura) {
         this.tipoInfraestructura = tipoInfraestructura;
     }
@@ -442,4 +498,36 @@ public class SupervisorInversionesContratoConcecionMB {
         return tipoInfraestructuraF;
     }
 
+
+    public void setTipoInfraestructuraS(String tipoInfraestructuraS) {
+        this.tipoInfraestructuraS = tipoInfraestructuraS;
+    }
+
+    public String getTipoInfraestructuraS() {
+        return tipoInfraestructuraS;
+    }
+
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
+    }
+
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
+    }
+
+    public void setModalidadServiceImp(ModalidadConcesionService modalidadServiceImp) {
+        this.modalidadServiceImp = modalidadServiceImp;
+    }
+
+    public ModalidadConcesionService getModalidadServiceImp() {
+        return modalidadServiceImp;
+    }
+
+    public void setModalidadConcesionVO(ModalidadConcesionVO modalidadConcesionVO) {
+        this.modalidadConcesionVO = modalidadConcesionVO;
+    }
+
+    public ModalidadConcesionVO getModalidadConcesionVO() {
+        return modalidadConcesionVO;
+    }
 }
