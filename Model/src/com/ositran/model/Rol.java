@@ -17,7 +17,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "T_ROL",uniqueConstraints = @UniqueConstraint(columnNames = {"ROL_ID"}))
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "EmpresaSupervisora_Id_Seq_Gen"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_ROL"))
 public class Rol implements Serializable {
     private static final long serialVersionUID = 6192435439624100845L;
     @Column(name = "ROL_DESCRIPCION", nullable = false, length = 100)
