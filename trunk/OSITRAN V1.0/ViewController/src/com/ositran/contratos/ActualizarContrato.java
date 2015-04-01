@@ -104,7 +104,7 @@ public class ActualizarContrato {
     private PeriodoVO periodoVO;    
     // Lista Bean VO
 
-    List<InfraestructuraTipoVO> listaInfraestructura;
+    List<InfraestructuraTipoVO> listaTipoInfraestructura;
 
     List<ConcesionVO> listaConcesiones;
 
@@ -150,9 +150,9 @@ public class ActualizarContrato {
     }
     // Metodo Para Listar Tipo de Infraestructuras
 
-    public void ListarInfraestructura() throws SQLException {
+    public void listarTiposdeInfraestructura() throws SQLException {
         try {
-            listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
+            listaTipoInfraestructura = getInfraestructuraTipoServiceImpl().query();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -178,7 +178,7 @@ public class ActualizarContrato {
         }
     }
 
-    // Metodo para Buscar Contrato de Concesion
+    // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
 
     public void buscarContratos() {
         System.out.println("actualizarContratoMB.buscarContratos");
@@ -191,7 +191,7 @@ public class ActualizarContrato {
                     if (concesion.getCsiId() == aux.getCsiId())
                         aux.setNombreConcesion(concesion.getCsiNombre());
                 }
-                for (InfraestructuraTipoVO infraestructuratipo : listaInfraestructura) {
+                for (InfraestructuraTipoVO infraestructuratipo : listaTipoInfraestructura) {
                     if (infraestructuratipo.getTinId() == aux.getTinId())
                         aux.setNombreTipoInfraestructura(infraestructuratipo.getTinNombre());
                 }
@@ -200,7 +200,7 @@ public class ActualizarContrato {
                         aux.setNombreModalidad(modalidad.getMcoNombre());
                 }
 
-                System.out.println("conPlazoconcesion: " + aux.getConPlazorevision());
+             
             }
 
             /*  for (int i = 0; i < listaContrato.size(); i++) {
@@ -216,7 +216,7 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
 
-        System.out.println(listaContrato.size());
+ 
     }
 
     public void seleccionarContrato(ActionEvent e) {
@@ -325,6 +325,8 @@ public class ActualizarContrato {
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
+    
+    //************************Termina Contrato Adenda**********************//
     public void guardar() {
         if (adendaTipo == 0) {
             FacesMessage mensaje =
@@ -398,7 +400,20 @@ public class ActualizarContrato {
         }
 
     }
-    //************************Termina Contrato Adenda**********************************//
+ 
+    
+    
+    //*********************************************************************//
+    //**************************Empieza Contrato Entrega********************//
+    //*********************************************************************//
+    
+    public void cargarListaContratoEntregas(){
+        
+    }
+    //*********************************************************************//
+    //**************************Termina Contrato Entrega********************//
+    //*********************************************************************//   
+    
     public void setListContratoAdenda(List<ContratoAdendaVO> listContratoAdenda) {
         this.listContratoAdenda = listContratoAdenda;
     }
@@ -528,12 +543,13 @@ public class ActualizarContrato {
         return contratoConcesionServiceImp;
     }
 
-    public void setListaInfraestructura(List<InfraestructuraTipoVO> listaInfraestructura) {
-        this.listaInfraestructura = listaInfraestructura;
+
+    public void setListaTipoInfraestructura(List<InfraestructuraTipoVO> listaTipoInfraestructura) {
+        this.listaTipoInfraestructura = listaTipoInfraestructura;
     }
 
-    public List<InfraestructuraTipoVO> getListaInfraestructura() {
-        return listaInfraestructura;
+    public List<InfraestructuraTipoVO> getListaTipoInfraestructura() {
+        return listaTipoInfraestructura;
     }
 
     public void setListaConcesiones(List<ConcesionVO> listaConcesiones) {
