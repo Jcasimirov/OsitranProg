@@ -30,7 +30,7 @@
     <h:body>
         <f:event listener="#{actualizarContratoAdendaMB.cargarListaAdendaTipo()}" type="postAddToView"/>
          
-        <f:event listener="#{actualizarContratoMB.ListarInfraestructura}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="postAddToView"/>
          
         <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="postAddToView"/>
          
@@ -204,6 +204,8 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>
                                                                         <h:outputText id="conPdfcontrato"
                                                                                       value="#{actualizarContratoMB.contratoVO.conPdfcontrato}"/>
@@ -225,6 +227,8 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Ficha de Resumen:</td>
+                                                                 </tr>
+                                                                <tr>
                                                                     <td>
                                                                         <br/><br/><br/>
                                                                          
@@ -1578,7 +1582,7 @@
                                     <td align="left">
                                         <p:selectOneMenu id="tipoinfra" value="#{actualizarContratoMB.tipoinfra}">
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                            <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}"
+                                            <f:selectItems value="#{actualizarContratoMB.listaTipoInfraestructura}"
                                                            var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
                                                            itemValue="#{lisinfra.tinId}"/>
                                             <p:ajax listener="#{actualizarContratoMB.filtrarConcesion}"
