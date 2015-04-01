@@ -24,7 +24,7 @@ public class ContratoEntregaDAOImpl implements ContratoEntregaDAO {
     public List<ContratoEntrega> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from ContratoEntrega  o where ca.cadEstado != 0").list();
+        List list=session.createQuery("select ca from ContratoEntrega  ca where ca.cadEstado != 0").list();
         session.getTransaction().commit();
         return list;      
     }
@@ -83,7 +83,7 @@ public class ContratoEntregaDAOImpl implements ContratoEntregaDAO {
         session.getTransaction().commit();
         return contratoEntrega;
     }
-    
+    @Override
     public List<ContratoEntrega> getEntregasContrato(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();

@@ -43,12 +43,15 @@ public class ContratoPpo implements Serializable {
     private Integer ppoMonto;
     @Column(name = "PPO_OFICIO", length = 20)
     private String ppoOficio;
+    @Column(name = "PPO_ESTADO")
+    private Integer ppoEstado;
+    
 
     public ContratoPpo() {
     }
 
     public ContratoPpo(Integer conId, Integer monId, String ppoArchivoPdf, Date ppoFecha, Integer ppoId,
-                       Integer ppoMonto, String ppoOficio) {
+                       Integer ppoMonto, String ppoOficio, Integer ppoEstado) {
         this.conId = conId;
         this.monId = monId;
         this.ppoArchivoPdf = ppoArchivoPdf;
@@ -56,6 +59,7 @@ public class ContratoPpo implements Serializable {
         this.ppoId = ppoId;
         this.ppoMonto = ppoMonto;
         this.ppoOficio = ppoOficio;
+        this.ppoEstado = ppoEstado;
     }
 
     public Integer getConId() {
@@ -112,5 +116,13 @@ public class ContratoPpo implements Serializable {
 
     public void setPpoOficio(String ppoOficio) {
         this.ppoOficio = ppoOficio;
+    }
+
+    public Integer getPpoEstado() {
+        return ppoEstado;
+    }
+
+    public void setPpoEstado(Integer ppoEstado) {
+        this.ppoEstado = ppoEstado;
     }
 }

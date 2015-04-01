@@ -12,4 +12,5 @@ public interface ContratoPenalidadDAO {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoPenalidad contratoPenalidad) throws SQLException;
     public ContratoPenalidad get(Integer id) throws SQLException;
+    public List<ContratoPenalidad> getPenalidadesContrato(Integer conId) throws SQLException;
 }
