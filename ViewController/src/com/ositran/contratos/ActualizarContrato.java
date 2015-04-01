@@ -230,13 +230,13 @@ public class ActualizarContrato {
     public void subirContratoPDF(FileUploadEvent event) throws IOException{
         Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF+ event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConPdfcontrato(event.getFile().getFileName());
-        System.out.println("event.getFile().getFileName() "+event.getFile().getFileName());
+       
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
         Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN+ event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConFicharesumen(event.getFile().getFileName());
-        System.out.println("event.getFile().getFileName() "+event.getFile().getFileName());
+      
     }
     public void preDownloadContratoPDF(String nombreArchivo) {
         try {
