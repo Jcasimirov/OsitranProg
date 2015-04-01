@@ -3,6 +3,8 @@ package com.ositran.contratos;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoEntregaService;
+import com.ositran.service.MonedaService;
+import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
@@ -10,7 +12,6 @@ import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
-import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.util.Constantes;
 import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AdendaTipoVO;
@@ -23,16 +24,14 @@ import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
+import com.ositran.vo.bean.PeriodoVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +82,10 @@ public class ActualizarContrato {
     @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
     ContratoCompromisoService contratoCompromisoServiceImpl;
     @ManagedProperty(value = "#{monedaServiceImpl}")
-    MonedaServiceImpl monedaServiceImpl;
+    MonedaService monedaServiceImpl;
+    @ManagedProperty(value = "#{periodoServiceImpl}")
+    PeriodoService periodoServiceImpl; 
+    
     @ManagedProperty(value = "#{contratoVO}")
     private ContratoVO contratoVO;
     @ManagedProperty(value = "#{concesionarioVO}")
@@ -96,6 +98,8 @@ public class ActualizarContrato {
     private ContratoCompromisoVO contratoCompromisoVO;
     @ManagedProperty(value = "#{tipoInversionVO}")
     private TipoInversionVO tipoInversionVO;
+    @ManagedProperty(value = "#{periodoVO}")
+    private PeriodoVO periodoVO;    
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaInfraestructura;
@@ -106,7 +110,7 @@ public class ActualizarContrato {
 
     List<ContratoVO> listaContrato;
 
-    List listaPeriodos;
+    List<PeriodoVO> listarPeriodos=new ArrayList<PeriodoVO>();
 
     private List<AdendaTipoVO> listaAdendaTipo;
     private Integer adendaTipo = 0;
@@ -121,7 +125,7 @@ public class ActualizarContrato {
     private int periodoseleccionado;
     private UploadedFile fileContrato;
     private UploadedFile fileFicharesumen;
-
+   
     // Metodos Get y Set
 
     public ActualizarContrato() {
@@ -130,7 +134,12 @@ public class ActualizarContrato {
     }
 
     public void listaPeriodos(){
-        
+        try {
+            listarPeriodos = periodoServiceImpl.query();
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
     }
     // Metodo Para Listar Tipo de Infraestructuras
 
@@ -212,12 +221,12 @@ public class ActualizarContrato {
     }
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException{
-        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINO, event.getFile().getFileName(), event.getFile().getInputstream());
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINOCONTRATOSPDF, event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConPdfcontrato(event.getFile().getFileName());
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
-        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINO, event.getFile().getFileName(), event.getFile().getInputstream());
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINOFICHASRESUMEN, event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConFicharesumen(event.getFile().getFileName());
     }
 
@@ -260,26 +269,7 @@ public class ActualizarContrato {
 
     }
 
-    public void subirArchivo(FileUploadEvent event) throws IOException {
-        System.out.println("Inicio Carga documendo Adenda");
-        System.out.println(event.getFile().getFileName());
-        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        ///////////////////////////////////////////////////////
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-        File file = new File(Constantes.RUTADESTINO + event.getFile().getFileName());
-        InputStream is = event.getFile().getInputstream();
-        OutputStream out = new FileOutputStream(file);
-        byte buf[] = new byte[1024];
-        int len;
-        while ((len = is.read(buf)) > 0)
-            out.write(buf, 0, len);
-        is.close();
-        out.close();
-        //////////////////////////////////////////////////////
-        documento = event.getFile().getFileName();
-        System.out.println("Fin Carga documendo Adenda");
-    }
+    
 
     public void guardar() {
         if (adendaTipo == 0) {
@@ -672,13 +662,6 @@ public class ActualizarContrato {
         return contratoEntregaVO;
     }
 
-    public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
-        this.monedaServiceImpl = monedaServiceImpl;
-    }
-
-    public MonedaServiceImpl getMonedaServiceImpl() {
-        return monedaServiceImpl;
-    }
 
     public void setMonedaVO(MonedaVO monedaVO) {
         this.monedaVO = monedaVO;
@@ -702,6 +685,39 @@ public class ActualizarContrato {
 
     public TipoInversionVO getTipoInversionVO() {
         return tipoInversionVO;
+    }
+
+
+    public void setPeriodoServiceImpl(PeriodoService periodoServiceImpl) {
+        this.periodoServiceImpl = periodoServiceImpl;
+    }
+
+    public PeriodoService getPeriodoServiceImpl() {
+        return periodoServiceImpl;
+    }
+
+    public void setPeriodoVO(PeriodoVO periodoVO) {
+        this.periodoVO = periodoVO;
+    }
+
+    public PeriodoVO getPeriodoVO() {
+        return periodoVO;
+    }
+
+    public void setListarPeriodos(List<PeriodoVO> listarPeriodos) {
+        this.listarPeriodos = listarPeriodos;
+    }
+
+    public List<PeriodoVO> getListarPeriodos() {
+        return listarPeriodos;
+    }
+
+    public void setMonedaServiceImpl(MonedaService monedaServiceImpl) {
+        this.monedaServiceImpl = monedaServiceImpl;
+    }
+
+    public MonedaService getMonedaServiceImpl() {
+        return monedaServiceImpl;
     }
 
 }
