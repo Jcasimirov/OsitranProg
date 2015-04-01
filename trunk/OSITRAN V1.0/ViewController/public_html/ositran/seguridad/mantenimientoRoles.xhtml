@@ -113,8 +113,8 @@
                                                                                        AsisTP-2015</div>
                     </p:layoutUnit>
                 </p:layout>
-                <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
-                          style="text-align:center;">
+                <p:dialog   id="registrar" header="Registrar"   height="500" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td align="center" colspan="5">
@@ -222,7 +222,7 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:dataTable id="menuOpciones" var="me" value="#{rolMB.listaMen}"
+                                <p:dataTable    id="menuOpciones" var="me" value="#{rolMB.listaMen}"
                                              selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
@@ -246,7 +246,7 @@
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:dataTable id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
+                                <p:dataTable   id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
                                              selection="#{rolMB.listaMenSeleccionado2}"  rowIndexVar="indexRegistrar"   rowKey="#{me1.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
@@ -397,7 +397,7 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:dataTable id="menuOpcionesE" var="meE" value="#{rolMB.listaMenE}"
+                                <p:dataTable    id="menuOpcionesE" var="meE" value="#{rolMB.listaMenE}"
                                              selection="#{rolMB.listaMenSeleccionadoE}" rowKey="#{meE.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
@@ -421,7 +421,7 @@
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:dataTable  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
+                                <p:dataTable   rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
                                              selection="#{rolMB.listaMenSeleccionadoE2}" rowKey="#{me1E.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
