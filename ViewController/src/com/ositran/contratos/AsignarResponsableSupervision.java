@@ -1,46 +1,28 @@
 package com.ositran.contratos;
 
-import com.ositran.parametros.MantenimientoConcesion;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.EmpresaSupervisoraService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
-import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
-
-import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
-
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
-
 import java.io.IOException;
-
 import java.sql.SQLException;
-
-import java.util.AbstractList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.HashMap;
-
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
