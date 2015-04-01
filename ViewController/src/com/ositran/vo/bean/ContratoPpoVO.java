@@ -12,6 +12,7 @@ public class ContratoPpoVO {
     private Integer ppoId;
     private Integer ppoMonto;
     private String ppoOficio;
+    private Integer ppoEstado;
 
     public ContratoPpoVO() {
         super();
@@ -71,5 +72,13 @@ public class ContratoPpoVO {
 
     public void setPpoOficio(String ppoOficio) {
         this.ppoOficio = ppoOficio;
+    }
+
+    public Integer getPpoEstado() {
+        return ppoEstado;
+    }
+
+    public void setPpoEstado(Integer ppoEstado) {
+        this.ppoEstado = ppoEstado;
     }
 }
