@@ -8,7 +8,7 @@
         <!--<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
         <property name="connection.username">SINV</property>
-        <property name="connection.password">SINV</property>-->
+        <property name="connection.password">SINV</property-->
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
         <property name="connection.username">ositran</property>
@@ -48,7 +48,13 @@
          <mapping class="com.ositran.model.ContratoAdenda"/> 
          <mapping class="com.ositran.model.ContratoEntrega"/> 
          <mapping class="com.ositran.model.ContratoCompromiso"/> 
-         <mapping class="com.ositran.model.Moneda"/>          
+         <mapping class="com.ositran.model.Moneda"/>
+         <mapping class="com.ositran.model.ContratoPenalidad"/> 
+         <mapping class="com.ositran.model.ContratoCao"/>
          <mapping class="com.ositran.model.Periodo"/>  
+         <mapping class="com.ositran.model.ContratoHito"/>
+         <mapping class="com.ositran.model.ContratoPpo"/>
+         <mapping class="com.ositran.model.ContratoAlerta"/>
+         <mapping class="com.ositran.model.ContratoAlertaEstado"/>
     </session-factory>
 </hibernate-configuration>
