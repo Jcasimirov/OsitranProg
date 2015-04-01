@@ -18,27 +18,27 @@
     
             
             <div align="center">
-                            <h5 class="titulo">
+                            <h5 class="titulo" style="color: #003194;">
                                 #{msg.tituloAJAC}
                             </h5>
                         </div>
         
 			<div align="center"  style="font-size: 11px">
-			<div align="center" style="width:700px" >
+			<div align="center"  style="width:700px" >
 		
-			<p:fieldset  styleClass="fielsetinterno"  >
+			<p:fieldset  styleClass="fielsetinterno" legend="Selecionar tipo infraestructura" id="tipInfraestructura" >
 				<table  style="font-size: 11px">
 				<tr>
-					<td align="left">#{cam.STI}</td>
+					<td align="left" >#{cam.STI}</td>
 					<td align="left">
                                 <p:selectOneMenu 
-                                                id="tipoInfraestructura"
-                                                 value="#{jefeAreaContratoConcecionMB.tipoInfraestructura}" style="width:150px">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{jefeAreaContratoConcecionMB.listaInfraestructuraTipo}" var="ticc"
+                                                    id="tipoInfraestructura"
+                                                    value="#{jefeAreaContratoConcecionMB.tipoInfraestructura}" style="width:150px">
+                                    <f:selectItem   itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems  value="#{jefeAreaContratoConcecionMB.listaInfraestructuraTipo}" var="ticc"
                                                    itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
                                                     />
-                                <p:ajax event="valueChange" update=":form:jefeArea" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
+                                <p:ajax event="valueChange" update=":form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
                                 </p:selectOneMenu>		
 					</td>
 				</tr>	
@@ -50,13 +50,13 @@
 				<tr>
 	 				<td align="left" >#{cam.nom}</td>
 	 				<td align="left" colspan="3">
-                                            <p:inputText readonly="true"  value="#{jefeAreaContratoConcecionMB.nombreJefeArea}" style="width:97.5%" />
+                                            <p:inputText  readonly="true"  value="#{jefeAreaContratoConcecionMB.nombreJefeArea}" style="width:97.5%" />
                                         </td>
 				</tr>
 				<tr>
 	 				<td align="left">#{cam.tipDoc}</td>
 	 				<td align="left">
-                                           <p:inputText readonly="true"  value="#{jefeAreaContratoConcecionMB.tipoDocumento}"/>
+                                           <p:inputText readonly="true" value="#{jefeAreaContratoConcecionMB.tipoDocumento}"/>
                                         </td>
 	 				<td align="left">#{cam.numDoc}</td>
 	 				<td align="left">
@@ -67,16 +67,19 @@
 			</table>
 		</p:fieldset>
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" legend="Criterio Busqueda" >
+		<p:fieldset styleClass="fielsetinterno" id="buscarContratoConcesion" legend="Criterio Busqueda" >
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>    <td align="left" >Buscar Contrato Concecion: </td>
 	 				<td align="left" colspan="3"><p:inputText   value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  readonly="true" id="inputContrato" style="width:390px" /> 
                                         <p:commandButton image="ui-icon-search"  
+                                        id="cargarLista"
                                         update=":form:panelListaContratos "
                                         oncomplete="panelListaContratos.show()"
                                         actionListener="#{jefeAreaContratoConcecionMB.cargarListaContratos()}" 
                                         
                                         />
+                                         <p:tooltip styleClass="tool" id="tool2" for="cargarLista"
+                                                          value="Cargar lista de contrato concesion"/>
                                         
                                         </td>
 				</tr>
@@ -93,7 +96,7 @@
 				
 				<tr>
 	 				<td align="left">#{cam.ti}</td>
-	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.tipoInfraestructura}"  /></td>
+	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.tipoInfraestructuraS}"  /></td>
 	 				<td align="left">#{cam.mc}</td>
 	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.modalidadConcecion}"  /></td>
 				</tr>
@@ -105,8 +108,8 @@
                 
                 <table align="center" style="font-size: 11px">	
 	 			<tr>  
-	 				<td align="right"><p:commandButton actionListener="#{jefeAreaContratoConcecionMB.registrarContrato}"  update=":form:mensaje"   value="#{btn.btn_guardar}" style="width:80px" /></td>
-	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" style="width:80px" /></td>
+	 				<td align="right"><p:commandButton  onclick="confirmarGuardar.show()"   value="#{btn.btn_guardar}" style="width:80px" /></td>
+	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" onclick="confirmarLimpiar.show()" style="width:80px" /></td>
                                 </tr>
 	 		</table>
                         
@@ -137,16 +140,63 @@
                                                 oncomplete="panelListaContratos.hide()" 
                                                 actionListener="#{jefeAreaContratoConcecionMB.elegirContrato(lisContratos1)}"
                                                 image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
                                                 style="width:22px;height:22px"
                                                 update=":form:datosContratoConcesion :form:inputContrato"
                                                 >
                                                 
                                                 
                                             </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
                                         </div>
                                     </p:column>
                                 </p:dataTable>                   
                 </p:dialog>
+                
+                
+                      <p:dialog id="confirLimpiar" widgetVar="confirmarLimpiar" header="Confirmar" modal="true">
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Esta seguro que desea limpiar todos los campos?
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton  update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion" value="Limpiar"
+                                                 actionListener="#{jefeAreaContratoConcecionMB.limpiar()}"
+                                                 oncomplete="confirmarLimpiar.hide()"></p:commandButton>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="Cancelar" onclick="confirmarLimpiar.hide()"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                
+                  <p:dialog id="confirmarGuardar" widgetVar="confirmarGuardar" header="Confirmar" modal="true">
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Esta seguro que desea asignar el Jefe de Area?
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:mensaje" value="Guardar"
+                                                 actionListener="#{jefeAreaContratoConcecionMB.registrarContrato()}"
+                                                 oncomplete="confirmarGuardar.hide()"></p:commandButton>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide()"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                
                 	</h:form>
 </h:body>
 </html>
