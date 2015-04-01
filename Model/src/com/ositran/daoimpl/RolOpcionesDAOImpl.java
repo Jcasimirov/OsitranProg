@@ -54,7 +54,7 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.saveOrUpdate(rolOpciones);
+            session.save(rolOpciones);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
