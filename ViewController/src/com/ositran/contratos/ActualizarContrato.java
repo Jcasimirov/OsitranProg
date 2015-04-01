@@ -27,6 +27,7 @@ import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.PeriodoVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "actualizarContratoMB")
@@ -111,7 +113,7 @@ public class ActualizarContrato {
     List<ContratoVO> listaContrato;
 
     List<PeriodoVO> listarPeriodos=new ArrayList<PeriodoVO>();
-
+    List<AdendaTipoVO> listarAdendasTipo=new ArrayList<AdendaTipoVO>();
     private List<AdendaTipoVO> listaAdendaTipo;
     private Integer adendaTipo = 0;
     private String nombre;
@@ -125,7 +127,12 @@ public class ActualizarContrato {
     private int periodoseleccionado;
     private UploadedFile fileContrato;
     private UploadedFile fileFicharesumen;
-   
+    private DefaultStreamedContent downloadContratoPDF;
+    private DefaultStreamedContent downloadFichaResumen;
+    private DefaultStreamedContent downloadAdendas;
+    private DefaultStreamedContent downloadAdendasEntregas;
+    
+    private int tipoArchivoEnContratoConcesion;
     // Metodos Get y Set
 
     public ActualizarContrato() {
@@ -221,16 +228,35 @@ public class ActualizarContrato {
     }
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException{
-        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINOCONTRATOSPDF, event.getFile().getFileName(), event.getFile().getInputstream());
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF+ event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConPdfcontrato(event.getFile().getFileName());
+        System.out.println("event.getFile().getFileName() "+event.getFile().getFileName());
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
-        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINOFICHASRESUMEN, event.getFile().getFileName(), event.getFile().getInputstream());
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN+ event.getFile().getFileName(), event.getFile().getInputstream());
         contratoVO.setConFicharesumen(event.getFile().getFileName());
+        System.out.println("event.getFile().getFileName() "+event.getFile().getFileName());
     }
-
-   
+    public void preDownloadContratoPDF(String nombreArchivo) {
+        try {
+            downloadContratoPDF = Reutilizar.getNewInstance().preDownload(Constantes.RUTACONTRATOSPDF + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }
+    public void preDownloadFichaResumen(String nombreArchivo) {
+        try {
+            downloadFichaResumen =
+                Reutilizar.getNewInstance().preDownload(Constantes.RUTAFICHASRESUMEN + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }   
 
     public void cargarDatosAvanceReportedeObra() {
         aplicaAvancedeObra = contratoVO.getConAvanceobra() == 1 ? true : false;
@@ -255,22 +281,50 @@ public class ActualizarContrato {
     //*********************************************************************//
     //**************************Empieza Contrato Adenda********************//
     //*********************************************************************//
-    public void cargarListaAdendaTipo() {
+    public void cargarListaAdendas(int idcontrato) {
         try {
-            listaAdendaTipo = adendaTipoServiceImpl.query();
-        } catch (Exception e) {
-            System.out.println(e.getMessage().toString());
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                                                                          "Error",
-
-                                                                                " No se puede listar los tipos de Adenda"));
+            System.out.println("idcontrato: " + idcontrato);
+            listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
+            for(ContratoAdendaVO contratoAdendaVO : listContratoAdenda){
+                for(AdendaTipoVO aux : listarAdendasTipo){
+                    if(aux.getTadId()==contratoAdendaVO.getTadId()){
+                        contratoAdendaVO.setTadNombre(aux.getTadNombre());
+                    }  
+                }         
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();          
         }
-
     }
-
+  
+    public void listarTiposAdendas(){
+        try {
+          listarAdendasTipo= adendaTipoServiceImpl.query();
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
     
-
+    public void preDownloadAdendas(String nombreArchivo){           
+            try {
+            downloadAdendas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDA + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }       
+    }
+    public void preDownloadAdendasEntrega(String nombreArchivo){           
+            try {
+            downloadAdendasEntregas =
+                Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDAENTREGA + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }
     public void guardar() {
         if (adendaTipo == 0) {
             FacesMessage mensaje =
@@ -309,18 +363,7 @@ public class ActualizarContrato {
     }
 
 
-    public void cargarListaAdendas(int idcontrato) {
-        try {
-            System.out.println("idcontrato: " + idcontrato);
-            listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
 
-        } catch (SQLException s) {
-            s.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo editar el concecionario "));
-        }
-    }
 
     public void limpiarCampos() {
         nombre = "";
@@ -718,6 +761,56 @@ public class ActualizarContrato {
 
     public MonedaService getMonedaServiceImpl() {
         return monedaServiceImpl;
+    }
+
+    public void setListarAdendasTipo(List<AdendaTipoVO> listarAdendasTipo) {
+        this.listarAdendasTipo = listarAdendasTipo;
+    }
+
+    public List<AdendaTipoVO> getListarAdendasTipo() {
+        return listarAdendasTipo;
+    }
+
+    
+
+    public void setTipoArchivoEnContratoConcesion(int tipoArchivoEnContratoConcesion) {
+        this.tipoArchivoEnContratoConcesion = tipoArchivoEnContratoConcesion;
+    }
+
+    public int getTipoArchivoEnContratoConcesion() {
+        return tipoArchivoEnContratoConcesion;
+    }
+
+    public void setDownloadAdendas(DefaultStreamedContent downloadAdendas) {
+        this.downloadAdendas = downloadAdendas;
+    }
+
+    public DefaultStreamedContent getDownloadAdendas() {
+        return downloadAdendas;
+    }
+
+    public void setDownloadAdendasEntregas(DefaultStreamedContent downloadAdendasEntregas) {
+        this.downloadAdendasEntregas = downloadAdendasEntregas;
+    }
+
+    public DefaultStreamedContent getDownloadAdendasEntregas() {
+        return downloadAdendasEntregas;
+    }
+
+    public void setDownloadContratoPDF(DefaultStreamedContent downloadContratoPDF) {
+        this.downloadContratoPDF = downloadContratoPDF;
+    }
+
+    public DefaultStreamedContent getDownloadContratoPDF() {
+        return downloadContratoPDF;
+    }
+
+    public void setDownloadFichaResumen(DefaultStreamedContent downloadFichaResumen) {
+        this.downloadFichaResumen = downloadFichaResumen;
+    }
+
+    public DefaultStreamedContent getDownloadFichaResumen() {
+        return downloadFichaResumen;
     }
 
 }
