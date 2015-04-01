@@ -110,6 +110,18 @@
                                                                     legend="Reporte Avance de Obra">
                                                             <table style="width:350px">
                                                                 <tr>
+                                                                 <td>Periodo</td>
+                                                    <td>
+                                                        <p:selectOneMenu 
+                                                                         id="periodo1"
+                                                                         value="#{actualizarContratoMB.periodoseleccionado}"
+                                                                         style="width:210px">
+                                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                            <f:selectItems value="#{actualizarContratoMB.listarPeriodos}"
+                                                                           var="per" itemLabel="#{per.perNombre}"
+                                                                           itemValue="#{per.perId}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
                                                                     <td align="left" colspan="2">
                                                                         <p:selectBooleanCheckbox id="reporte" value="#{actualizarContratoMB.aplicaAvancedeObra}"/>
                                                                          Aplica Reporte Avance de Obra
@@ -164,7 +176,7 @@
                                                                 <tr>
                                                                     <td>Fecha de Suscripcion:</td>
                                                                     <td>
-                                                                        <p:calendar value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd-MMM-yyyy"/>
+                                                                        <p:calendar value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"/>
                                                                     </td>
                                                                 </tr>
                                                                  
@@ -180,23 +192,26 @@
                                                                     <td align="left">Adjuntar Contrato:</td>
                                                                     <td>
                                                                         <h:outputText id="conPdfcontrato" value="#{actualizarContratoMB.contratoVO.conPdfcontrato}"/>
-                                                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirContratoPDF}"
-                                                                                        allowTypes="/(\.|\/)(pdf)$/" 
-                                                                                        sizeLimit="100000" 
-                                                                                        description="Select Images" update="conPdfcontrato"/>
-                                                                        <p:commandButton value="subir" image="ui-icon-folder-open"/>
+                                                                         <p:fileUpload id="file1" fileUploadListener="#{actualizarContratoMB.subirContratoPDF}" 
+                                                                                        
+                                                                                        
+                                                                                         update="conPdfcontrato" auto="false" showButtons="false" mode="advanced" >
+                                                                                        </p:fileUpload>
+                                                                 
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Ficha de Resumen:</td>
-                                                                    <td>
+                                                                    <td><br/><br/><br/>
+                                                             
                                                                        <h:outputText id="conFicharesumen" value="#{actualizarContratoMB.contratoVO.conFicharesumen}"/>
-                                                                        <p:fileUpload fileUploadListener="#{fileUploadController.subirFichaResumen}"
-                                                                                        allowTypes="/(\.|\/)(pdf)$/" 
-                                                                                        sizeLimit="100000" 
-                                                                                        description="Select Images" update="conFicharesumen"/>
-                                                                        <p:commandButton value="subir" image="ui-icon-folder-open"/>
+                                                                       
+                                                                        <p:fileUpload id="file2" fileUploadListener="#{actualizarContratoMB.subirFichaResumen}" 
+                                                                                       
+                                                                                        mode="advanced" 
+                                                                                        update="conFicharesumen" auto="false" showButtons="false" />
+                                                                       
                                                                     </td>
                                                                 </tr>
                                                             </table>
