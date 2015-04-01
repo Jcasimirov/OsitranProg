@@ -2,16 +2,17 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.PeriodoDAO;
 import com.ositran.model.Periodo;
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PeriodoDAOImpl implements PeriodoDAO {
     public PeriodoDAOImpl() {
         super();
