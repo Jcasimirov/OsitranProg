@@ -20,7 +20,6 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
-import com.ositran.vo.bean.VEmpSupVO;
 
 import java.io.IOException;
 
