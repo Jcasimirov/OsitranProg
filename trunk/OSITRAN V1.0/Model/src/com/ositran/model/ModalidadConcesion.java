@@ -28,7 +28,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ModalidadConcesion.findAll", query = "select o from ModalidadConcesion o") })
 @Table(name = "T_MODALIDAD_CONCESION")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "Seq_ModalidadConcesion"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_MODALIDAD_CONCESION"))
 
 public class ModalidadConcesion implements Serializable {
     private static final long serialVersionUID = 4435829443044178951L;
