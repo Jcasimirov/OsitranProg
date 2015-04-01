@@ -12,4 +12,5 @@ public interface ContratoAlertaDAO {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoAlerta contratoAlerta) throws SQLException;
     public ContratoAlerta get(Integer id) throws SQLException;
+    public List<ContratoAlerta> getAlertasContrato(Integer conId) throws SQLException;
 }

@@ -43,12 +43,15 @@ public class ContratoPenalidad implements Serializable {
     private String tcpMotivo;
     @Column(name = "TCP_TOTAL", nullable = false)
     private Long tcpTotal;
+    @Column(name = "TCP_ESTADO")
+    private String tcpEstado;
+    
 
     public ContratoPenalidad() {
     }
 
     public ContratoPenalidad(Integer conId, Integer monId, Integer pesId, Date tcpFecha, Integer tcpId,
-                             String tcpMotivo, Long tcpTotal) {
+                             String tcpMotivo, Long tcpTotal, String tcpEstado) {
         this.conId = conId;
         this.monId = monId;
         this.pesId = pesId;
@@ -56,6 +59,7 @@ public class ContratoPenalidad implements Serializable {
         this.tcpId = tcpId;
         this.tcpMotivo = tcpMotivo;
         this.tcpTotal = tcpTotal;
+        this.tcpEstado = tcpEstado;
     }
 
     public Integer getConId() {
@@ -112,5 +116,13 @@ public class ContratoPenalidad implements Serializable {
 
     public void setTcpTotal(Long tcpTotal) {
         this.tcpTotal = tcpTotal;
+    }
+
+    public String getTcpEstado() {
+        return tcpEstado;
+    }
+
+    public void setTcpEstado(String tcpEstado) {
+        this.tcpEstado = tcpEstado;
     }
 }

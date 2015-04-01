@@ -41,12 +41,15 @@ public class ContratoHito implements Serializable {
     private String htoPdf;
     @Column(name = "MON_ID")
     private Integer monId;
+    @Column(name = "HTO_ESTADO")
+    private Integer htoEstado;
+    
 
     public ContratoHito() {
     }
 
     public ContratoHito(Integer conId, Date htoFecha, Integer htoId, Integer htoMonto, String htoOficio,
-                        String htoPdf, Integer monId) {
+                        String htoPdf, Integer monId, Integer htoEstado) {
         this.conId = conId;
         this.htoFecha = htoFecha;
         this.htoId = htoId;
@@ -54,6 +57,7 @@ public class ContratoHito implements Serializable {
         this.htoOficio = htoOficio;
         this.htoPdf = htoPdf;
         this.monId = monId;
+        this.htoEstado = htoEstado;
     }
 
     public Integer getConId() {
@@ -110,5 +114,13 @@ public class ContratoHito implements Serializable {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getHtoEstado() {
+        return htoEstado;
+    }
+
+    public void setHtoEstado(Integer htoEstado) {
+        this.htoEstado = htoEstado;
     }
 }

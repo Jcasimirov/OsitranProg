@@ -42,12 +42,15 @@ public class ContratoCao implements Serializable {
     private Integer conId;
     @Column(name = "MON_ID")
     private Integer monId;
+    @Column(name = "CAO_ESTADO")
+    private Integer caoEstado;
+    
 
     public ContratoCao() {
     }
 
     public ContratoCao(Date caoFecha, Integer caoId, Long caoMonto, String caoOficio, String caoPdf,
-                       Integer conId, Integer monId) {
+                       Integer conId, Integer monId, Integer caoEstado) {
         this.caoFecha = caoFecha;
         this.caoId = caoId;
         this.caoMonto = caoMonto;
@@ -55,6 +58,7 @@ public class ContratoCao implements Serializable {
         this.caoPdf = caoPdf;
         this.conId = conId;
         this.monId = monId;
+        this.caoEstado = caoEstado;
     }
 
     public Date getCaoFecha() {
@@ -111,5 +115,13 @@ public class ContratoCao implements Serializable {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getCaoEstado() {
+        return caoEstado;
+    }
+
+    public void setCaoEstado(Integer caoEstado) {
+        this.caoEstado = caoEstado;
     }
 }
