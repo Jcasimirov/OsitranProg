@@ -43,8 +43,8 @@
 	
 	<bean id="contratoCompromisoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
 	<bean id="monedaVO" class="com.ositran.vo.bean.MonedaVO"/>
-	
-	
+	<bean id="periodoVO" class="com.ositran.vo.bean.PeriodoVO"/>
+	<bean id="periodo" class="com.ositran.model.Periodo"/>	
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -364,8 +364,8 @@
 		
 		<property name="monedaServiceImpl" ref="monedaServiceImpl"/>
 		<property name="monedaVO" ref="monedaVO"/>
-		
-        
+		<property name="periodoServiceImpl" ref="periodoServiceImpl"/>
+        <property name="periodoVO" ref="periodoVO"/>
         
     </bean>
      <bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>
@@ -386,5 +386,9 @@
             </list>
         </property>
     </bean>
-    
+   	<!-- Perido -->
+	<bean id="periodoDAOImpl" class="com.ositran.daoimpl.PeriodoDAOImpl"/>
+    <bean id="periodoServiceImpl" class="com.ositran.serviceimpl.PeriodoServiceImpl">
+        <property name="periodoDAOImpl" ref="periodoDAOImpl"/>
+    </bean>
 </beans>
