@@ -17,17 +17,23 @@ public class OsitranListener implements ServletContextListener
 {
     private final Logger logger = Logger.getLogger(OsitranListener.class);
     
-    /* Defines sender mail to process the alerts */
-    private SenderMail senderMail;
-    
     /* Defines the mail threads */
     private CustomizedMailThread  customizedThread;
+    
     
     
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent)
     {
         if (logger.isDebugEnabled()) {logger.debug("+contextInitialized()");}
+        
+        if (logger.isInfoEnabled()) {logger.info("contextInitialized() Initialize Customized Mail Thread.");}    
+        customizedThread = new CustomizedMailThread();
+        customizedThread.start();
+        
+        if (logger.isInfoEnabled()) {logger.info("contextInitialized() Initialize  ");}
+        
+        
         
         
         if (logger.isDebugEnabled()) {logger.debug("-contextInitialized()");}
