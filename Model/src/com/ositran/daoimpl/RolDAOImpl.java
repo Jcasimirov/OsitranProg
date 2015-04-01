@@ -59,7 +59,7 @@ public class RolDAOImpl implements  RolDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.saveOrUpdate(rol);
+            session.save(rol);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
