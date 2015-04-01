@@ -18,7 +18,7 @@
             <ui:include src="/ositran/util/menu.xhtml"/>
             <div align="center" >
             
-                <div align="center" ><h4 style="color: #003194;">REGISTRAR AVANCE INVERSIÓN</h4></div>
+                    <div align="center" ><h4 style="color: #003194;">REGISTRAR AVANCE INVERSIÓN</h4></div>
 		<table style="font-size: 11px">
 			<tr>
 				<td valign="top">
@@ -69,11 +69,11 @@
                                                                                      <p:selectOneMenu value="#{registrarAvanceInversionMB.codigoInfraestructura}" >
 										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
                                                                                                 <f:selectItems value="#{registrarAvanceInversionMB.listaInfraestructuras}" var="tip"
-                                                                                                               itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
+                                                                                                        itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
                                                                                                         <p:ajax event="valueChange" update=":form:lista :form:datosCompromiso" listener="#{registrarAvanceInversionMB.cargarInversion()}"  />                
 
                                                                                         <f:selectItem  itemLabel="-Otros-" itemValue="01" />
-										       
+        
 					    						</p:selectOneMenu>
                                                                                 </td>
 									</tr>	
@@ -91,27 +91,34 @@
 				</p:fieldset>
                                <br></br>
 				<p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
-								<table>
+                                                <table>
 									<tr>
 										<td colspan="1" align="left">#{cam.setapa}</td>
 										<td colspan="3" align="left">
-                                                                                    <p:selectOneMenu id="listaCompromiso"  value="#{registrarAvanceInversionMB}">
+                                                                                    <p:selectOneMenu id="listaCompromiso"  value="#{registrarAvanceInversionMB.contratoCompromisoSeleccionado}">
 										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
-										        <f:selectItems value="#{registrarAvanceInversionMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}"  itemValue="#{tip2}"/>
+										        <f:selectItems  
+                                                                                                value="#{registrarAvanceInversionMB.listaContratoCompromiso}"  
+                                                                                                var="tip2"
+                                                                                                itemLabel="#{tip2.ccoPeriodo}" 
+                                                                                                itemValue="#{tip2.ccoId}"/>
+                                                                                        <p:ajax event="valueChange" 
+                                                                                                update=":form:datosCompromiso " 
+                                                                                                listener="#{registrarAvanceInversionMB.cargarDatosCompromiso()}"  /> 
                                                                                     </p:selectOneMenu>
 										</td>
 									</tr>
 									
 									<tr>
 										<td align="left">Plazo:</td>
-										<td align="left" colspan="3"><p:inputText size="10"  /></td>
+										<td align="left" colspan="3"><p:inputText value="#{registrarAvanceInversionMB.plazo}" size="10"  /></td>
 										
 									</tr>
 									<tr>
 										<td align="left">Total:</td>
-										<td align="left" ><p:inputText size="10"></p:inputText></td>
+										<td align="left" ><p:inputText value="#{registrarAvanceInversionMB.plazo}" size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
-										<td align="left"><p:inputText size="10"></p:inputText></td>
+										<td align="left"><p:inputText value="#{registrarAvanceInversionMB.plazo}"  size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
@@ -119,39 +126,40 @@
 				</td>
 				<td valign="top">
 				<p:fieldset legend="Solicitud del Concesionario">
-					<p:fieldset styleClass="fielsetinterno" legend="Datos STD">
+					<p:fieldset styleClass="fielsetinterno" id="datosSDT" legend="Datos STD">
                                         
                                         <table>
                                             <tr>
                                                 <td class="negrita">Nro HR: <h:outputText style="color:White" value="n"/></td>
                                                  <td >
                                                    
-                                                    Nro: <p:inputText style="width:60px"  />
+                                                    Nro: <p:inputText value="#{registrarAvanceInversionMB.numero}"  style="width:60px"  />
                                                      <h:outputText style="color:White" value="nnn"/>
                                                     </td>
-                                                  <td >Año: <p:inputText style="width:60px" />
-                                                      
-                                                        <p:commandButton image="ui-icon-search" />  </td>
+                                                  <td >Año: <p:inputText value="#{registrarAvanceInversionMB.anio}" style="width:60px" />
+                                                    <p:commandButton image="ui-icon-search" 
+                                                                     actionListener="#{registrarAvanceInversionMB.cargarDatosSDT()}"  
+                                                                     update=":form:datosSDT :form:mensaje"/>  </td>
                                                        
                                                    <td> <h:outputText style="color:White" value="nn"/>
-                                                   Fecha Registro: <p:calendar locale="es" styleClass="calendario"  /></td>
+                                                   Fecha Registro: <p:calendar value="#{registrarAvanceInversionMB.fechaRegistroSDT}" locale="es" styleClass="calendario"  /></td>
                                             </tr>
                                              <tr>
                                                 <td class="negrita">Asunto:</td>
                                                 
-                                                 <td colspan="3"><p:inputTextarea   style="width:97%;height:25px" /></td>
+                                                 <td colspan="3"><p:inputTextarea  value="#{registrarAvanceInversionMB.asunto}"  style="width:97%;height:25px" /></td>
                                                   
                                             </tr>
                                              <tr>
                                                 <td class="negrita">Plazo:</td>
-                                                <td><p:inputText  style="width:70px" /></td>
+                                                <td><p:inputText value="#{registrarAvanceInversionMB.plazo}"  style="width:70px" /></td>
                                                  <td>
                                                     <table style="font-size:9px">
                                                             <tr>
-                                                                    <td><p:selectBooleanCheckbox  />Días Calendarios</td>
+                                                                <td><p:selectBooleanCheckbox  />Días Calendarios</td>
                                                             </tr>
                                                              <tr>
-                                                                    <td><p:selectBooleanCheckbox  />Días Habiles</td>
+                                                                <td><p:selectBooleanCheckbox  />Días Habiles</td>
                                                             </tr>
                                                     </table>
                                                  </td>
@@ -251,11 +259,6 @@
                                     <p:commandButton style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
-           
-               
-               
-              
-            
             </p:layout>
 	</h:form>
       
