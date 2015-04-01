@@ -1,50 +1,67 @@
 package com.ositran.contratos;
 
 import com.ositran.service.ConcesionarioService;
+import com.ositran.service.ContratoCompromisoService;
+import com.ositran.service.ContratoEntregaService;
+import com.ositran.service.TipoInversionServices;
+import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
+import com.ositran.serviceimpl.MonedaServiceImpl;
+import com.ositran.util.Constantes;
+import com.ositran.util.Reutilizar;
+import com.ositran.vo.bean.AdendaTipoVO;
 import com.ositran.vo.bean.ConcesionVO;
-
+import com.ositran.vo.bean.ConcesionarioVO;
+import com.ositran.vo.bean.ContratoAdendaVO;
+import com.ositran.vo.bean.ContratoCompromisoVO;
+import com.ositran.vo.bean.ContratoEntregaVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
+import com.ositran.vo.bean.MonedaVO;
+import com.ositran.vo.bean.TipoInversionVO;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.sql.SQLException;
 
-import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.Generated;
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "actualizarContratoMB")
 @ViewScoped
 public class ActualizarContrato {
-    private HtmlForm form;
 
 
-    public void setForm(HtmlForm form) {
-        this.form = form;
-    }
-
-    public HtmlForm getForm() {
-        return form;
-    }
-    
     // Service
+    // campos de formulario
 
+
+    private List<ContratoAdendaVO> listContratoAdenda;
+    @ManagedProperty(value = "#{ContratoAdendaVO}")
+    ContratoAdendaVO contratoAdendaVO;
+    @ManagedProperty(value = "#{adendaTipoServiceImpl}")
+    private AdendaTipoServiceImpl adendaTipoServiceImpl;
+    @ManagedProperty(value = "#{contratoAdendaServiceImpl}")
+    private ContratoAdendaServiceImpl contratoAdendaServiceImpl;
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -53,13 +70,32 @@ public class ActualizarContrato {
 
     @ManagedProperty(value = "#{modalidadServiceImp}")
     ModalidadConcesionServiceImpl modalidadServiceImp;
-    
+
     @ManagedProperty(value = "#{contratoConcesionServiceImp}")
     ContratoConcesionServiceImpl contratoConcesionServiceImp;
-    
+
     @ManagedProperty(value = "#{concesionarioServiceImpl}")
     ConcesionarioService concesionarioServiceImpl;
-    
+    @ManagedProperty(value = "#{tipoInversionServicesImpl}")
+    TipoInversionServices tipoInversionServicesImpl;
+    @ManagedProperty(value = "#{contratoEntregaServiceImpl}")
+    ContratoEntregaService contratoEntregaServiceImpl;   
+    @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
+    ContratoCompromisoService contratoCompromisoServiceImpl;
+    @ManagedProperty(value = "#{monedaServiceImpl}")
+    MonedaServiceImpl monedaServiceImpl;
+    @ManagedProperty(value = "#{contratoVO}")
+    private ContratoVO contratoVO;
+    @ManagedProperty(value = "#{concesionarioVO}")
+    private ConcesionarioVO concesionarioVO;
+    @ManagedProperty(value = "#{contratoEntregaVO}")
+    private ContratoEntregaVO contratoEntregaVO;
+    @ManagedProperty(value = "#{monedaVO}")
+    private MonedaVO monedaVO;
+    @ManagedProperty(value = "#{contratoCompromisoVO}")
+    private ContratoCompromisoVO contratoCompromisoVO;
+    @ManagedProperty(value = "#{tipoInversionVO}")
+    private TipoInversionVO tipoInversionVO;
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaInfraestructura;
@@ -67,15 +103,365 @@ public class ActualizarContrato {
     List<ConcesionVO> listaConcesiones;
 
     List<ModalidadConcesionVO> listaModalidad;
-    
+
     List<ContratoVO> listaContrato;
-    
+
+    List listaPeriodos;
+
+    private List<AdendaTipoVO> listaAdendaTipo;
+    private Integer adendaTipo = 0;
+    private String nombre;
+    private String objeto;
+    private Date fecha;
+    private String documento;
+    private Integer contratoId;
+    private Integer adendaId;
+    private boolean aplicaAvancedeObra;
+    private boolean diascalendario;
+    private int periodoseleccionado;
+    private UploadedFile fileContrato;
+    private UploadedFile fileFicharesumen;
+
     // Metodos Get y Set
 
     public ActualizarContrato() {
         super();
 
     }
+
+    public void listaPeriodos(){
+        
+    }
+    // Metodo Para Listar Tipo de Infraestructuras
+
+    public void ListarInfraestructura() throws SQLException {
+        try {
+            listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo para Filtrar la Lista de Concesión
+    public void filtrarConcesion() {
+        try {
+            listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoinfra);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo para Listar Modalidad de Concesión
+    public void ListarModalidad() throws SQLException {
+        try {
+            listaModalidad = this.modalidadServiceImp.query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo para Buscar Contrato de Concesion
+
+    public void buscarContratos() {
+        System.out.println("actualizarContratoMB.buscarContratos");
+        try {
+            listaContrato =
+                this.contratoConcesionServiceImp.buscarContratos(tipoinfra, concesion, modalidad, fechaInicio,
+                                                                 fechaFin);
+            for (ContratoVO aux : listaContrato) {
+                for (ConcesionVO concesion : listaConcesiones) {
+                    if (concesion.getCsiId() == aux.getCsiId())
+                        aux.setNombreConcesion(concesion.getCsiNombre());
+                }
+                for (InfraestructuraTipoVO infraestructuratipo : listaInfraestructura) {
+                    if (infraestructuratipo.getTinId() == aux.getTinId())
+                        aux.setNombreTipoInfraestructura(infraestructuratipo.getTinNombre());
+                }
+                for (ModalidadConcesionVO modalidad : listaModalidad) {
+                    if (modalidad.getMcoId() == aux.getMcoId())
+                        aux.setNombreModalidad(modalidad.getMcoNombre());
+                }
+
+                System.out.println("conPlazoconcesion: " + aux.getConPlazorevision());
+            }
+
+            /*  for (int i = 0; i < listaContrato.size(); i++) {
+                listaContrato.get(i).setNombreConcesion(concesionServiceImpl.get(listaContrato.get(i).getCsiId()).getCsiNombre());
+                //listaContrato.get(i).setNombreConcesionario(concesionarioServiceImpl.get(listaContrato.get(i).getCncId()).getCncNombre());
+                listaContrato.get(i).setNombreModalidad(modalidadServiceImp.get(listaContrato.get(i).getMcoId()).getMcoNombre());
+                listaContrato.get(i).setNombreTipoInfraestructura(infraestructuraTipoServiceImpl.get(listaContrato.get(i).getTinId()).getTinNombre());
+
+            } */
+
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
+        System.out.println(listaContrato.size());
+    }
+
+    public void seleccionarContrato(ActionEvent e) {
+        contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
+        cargarDatosConcesionario(contratoVO.getCncId());
+        cargarListaAdendas(contratoVO.getConId());
+        cargarDatosAvanceReportedeObra();
+
+    }
+
+    public void subirContratoPDF(FileUploadEvent event) throws IOException{
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINO, event.getFile().getFileName(), event.getFile().getInputstream());
+        contratoVO.setConPdfcontrato(event.getFile().getFileName());
+    }
+
+    public void subirFichaResumen(FileUploadEvent event) throws IOException {
+        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTADESTINO, event.getFile().getFileName(), event.getFile().getInputstream());
+        contratoVO.setConFicharesumen(event.getFile().getFileName());
+    }
+
+   
+
+    public void cargarDatosAvanceReportedeObra() {
+        aplicaAvancedeObra = contratoVO.getConAvanceobra() == 1 ? true : false;
+        cargarPeriodo();
+    }
+
+    public void cargarPeriodo() {
+        periodoseleccionado = contratoVO.getPerId();
+        //listaPeriodos=
+
+    }
+
+    public void cargarDatosConcesionario(int idconcesionario) {
+        try {
+            concesionarioVO = concesionarioServiceImpl.get(idconcesionario);
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
+    }
+    //*********************************************************************//
+    //**************************Empieza Contrato Adenda********************//
+    //*********************************************************************//
+    public void cargarListaAdendaTipo() {
+        try {
+            listaAdendaTipo = adendaTipoServiceImpl.query();
+        } catch (Exception e) {
+            System.out.println(e.getMessage().toString());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                                                          "Error",
+
+                                                                                " No se puede listar los tipos de Adenda"));
+        }
+
+    }
+
+    public void subirArchivo(FileUploadEvent event) throws IOException {
+        System.out.println("Inicio Carga documendo Adenda");
+        System.out.println(event.getFile().getFileName());
+        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        ///////////////////////////////////////////////////////
+        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        File file = new File(Constantes.RUTADESTINO + event.getFile().getFileName());
+        InputStream is = event.getFile().getInputstream();
+        OutputStream out = new FileOutputStream(file);
+        byte buf[] = new byte[1024];
+        int len;
+        while ((len = is.read(buf)) > 0)
+            out.write(buf, 0, len);
+        is.close();
+        out.close();
+        //////////////////////////////////////////////////////
+        documento = event.getFile().getFileName();
+        System.out.println("Fin Carga documendo Adenda");
+    }
+
+    public void guardar() {
+        if (adendaTipo == 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado el tipo de Adenda");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (nombre.equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado nombre");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else {
+            try {
+
+                contratoAdendaVO.setConId(contratoId);
+                contratoAdendaVO.setCadNombre(nombre);
+                contratoAdendaVO.setCadDescripcion(objeto);
+                contratoAdendaVO.setCadFecha(fecha);
+                contratoAdendaVO.setCadDocumentoFisico(documento);
+                contratoAdendaVO.setTadId(adendaTipo);
+                contratoAdendaServiceImpl.insert(contratoAdendaVO);
+
+                /* cargarListaContratoAdenda(); */
+                limpiarCampos();
+
+            } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+            }
+
+        }
+
+    }
+
+
+    public void cargarListaAdendas(int idcontrato) {
+        try {
+            System.out.println("idcontrato: " + idcontrato);
+            listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
+
+        } catch (SQLException s) {
+            s.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo editar el concecionario "));
+        }
+    }
+
+    public void limpiarCampos() {
+        nombre = "";
+        contratoId = 0;
+        documento = "";
+        objeto = "";
+        fecha = null;
+        adendaTipo = 0;
+    }
+
+    public void cargarEliminar(ContratoAdendaVO contratoAdendaVO) {
+        nombre = contratoAdendaVO.getCadNombre();
+        adendaId = contratoAdendaVO.getCadId();
+    }
+
+    public void eliminar() {
+        try {
+            contratoAdendaServiceImpl.delete(adendaId);
+            /* cargarListaContratoAdenda(); */
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se elimino correctamente"));
+        } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo editar el concecionario "));
+
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo editar el concecionario "));
+        }
+
+    }
+    //************************Termina Contrato Adenda**********************************//
+    public void setListContratoAdenda(List<ContratoAdendaVO> listContratoAdenda) {
+        this.listContratoAdenda = listContratoAdenda;
+    }
+
+    public List<ContratoAdendaVO> getListContratoAdenda() {
+        return listContratoAdenda;
+    }
+
+    public void setContratoAdendaVO(ContratoAdendaVO contratoAdendaVO) {
+        this.contratoAdendaVO = contratoAdendaVO;
+    }
+
+    public ContratoAdendaVO getContratoAdendaVO() {
+        return contratoAdendaVO;
+    }
+
+    public void setAdendaTipoServiceImpl(AdendaTipoServiceImpl adendaTipoServiceImpl) {
+        this.adendaTipoServiceImpl = adendaTipoServiceImpl;
+    }
+
+    public AdendaTipoServiceImpl getAdendaTipoServiceImpl() {
+        return adendaTipoServiceImpl;
+    }
+
+    public void setContratoAdendaServiceImpl(ContratoAdendaServiceImpl contratoAdendaServiceImpl) {
+        this.contratoAdendaServiceImpl = contratoAdendaServiceImpl;
+    }
+
+    public ContratoAdendaServiceImpl getContratoAdendaServiceImpl() {
+        return contratoAdendaServiceImpl;
+    }
+
+    public void setListaAdendaTipo(List<AdendaTipoVO> listaAdendaTipo) {
+        this.listaAdendaTipo = listaAdendaTipo;
+    }
+
+    public List<AdendaTipoVO> getListaAdendaTipo() {
+        return listaAdendaTipo;
+    }
+
+    public void setAdendaTipo(Integer adendaTipo) {
+        this.adendaTipo = adendaTipo;
+    }
+
+    public Integer getAdendaTipo() {
+        return adendaTipo;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setObjeto(String objeto) {
+        this.objeto = objeto;
+    }
+
+    public String getObjeto() {
+        return objeto;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setContratoId(Integer contratoId) {
+        this.contratoId = contratoId;
+    }
+
+    public Integer getContratoId() {
+        return contratoId;
+    }
+
+    public void setAdendaId(Integer adendaId) {
+        this.adendaId = adendaId;
+    }
+
+    public Integer getAdendaId() {
+        return adendaId;
+    }
+
     public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
         this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
     }
@@ -149,10 +535,10 @@ public class ActualizarContrato {
     public ConcesionarioService getConcesionarioServiceImpl() {
         return concesionarioServiceImpl;
     }
-    
+
     // Parametros de busqueda
-    int tipoinfra,modalidad,concesion ;
-    Date fechaInicio,fechaFin;
+    int tipoinfra, modalidad, concesion;
+    Date fechaInicio, fechaFin;
 
 
     public void setTipoinfra(int tipoinfra) {
@@ -198,56 +584,124 @@ public class ActualizarContrato {
         return fechaFin;
     }
 
-
-    // Metodo Para Listar Tipo de Infraestructuras
-
-    public void ListarInfraestructura() throws SQLException {
-        try {
-            listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
+    public void setContratoVO(ContratoVO contratoVO) {
+        this.contratoVO = contratoVO;
     }
 
-    // Metodo para Filtrar la Lista de Concesión
-    public void filtrarConcesion()  {
-        try {
-            listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoinfra);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public ContratoVO getContratoVO() {
+        return contratoVO;
     }
-    
-    // Metodo para Listar Modalidad de Concesión
-    public void ListarModalidad() throws SQLException {
-        try {
-            listaModalidad = this.modalidadServiceImp.query();
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
+
+    public void setConcesionarioVO(ConcesionarioVO concesionarioVO) {
+        this.concesionarioVO = concesionarioVO;
     }
-    
-    // Metodo para Buscar Contrato de Concesion
-    
-    public void buscarContratos() {
-    System.out.println("actualizarContratoMB.buscarContratos");
-        try {
-            listaContrato = this.contratoConcesionServiceImp.buscarContratos(tipoinfra,concesion,modalidad,fechaInicio,fechaFin);
-            for (int i=0; i< listaContrato.size(); i++){                
-                listaContrato.get(i).setNombreConcesion(concesionServiceImpl.get(listaContrato.get(i).getCsiId()).getCsiNombre());
-                //listaContrato.get(i).setNombreConcesionario(concesionarioServiceImpl.get(listaContrato.get(i).getCncId()).getCncNombre());
-                listaContrato.get(i).setNombreModalidad(modalidadServiceImp.get(listaContrato.get(i).getMcoId()).getMcoNombre());
-                listaContrato.get(i).setNombreTipoInfraestructura(infraestructuraTipoServiceImpl.get(listaContrato.get(i).getTinId()).getTinNombre());
-                
-            }
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-        
-            System.out.println(listaContrato.size());
+
+    public ConcesionarioVO getConcesionarioVO() {
+        return concesionarioVO;
     }
-    
+
+    public void setAplicaAvancedeObra(boolean aplicaAvancedeObra) {
+        this.aplicaAvancedeObra = aplicaAvancedeObra;
+    }
+
+    public boolean isAplicaAvancedeObra() {
+        return aplicaAvancedeObra;
+    }
+
+    public void setPeriodoseleccionado(int periodoseleccionado) {
+        this.periodoseleccionado = periodoseleccionado;
+    }
+
+    public int getPeriodoseleccionado() {
+        return periodoseleccionado;
+    }
+
+    public void setDiascalendario(boolean diascalendario) {
+        this.diascalendario = diascalendario;
+    }
+
+    public boolean isDiascalendario() {
+        return diascalendario;
+    }
+
+    public void setFileContrato(UploadedFile fileContrato) {
+        this.fileContrato = fileContrato;
+    }
+
+    public UploadedFile getFileContrato() {
+        return fileContrato;
+    }
+
+    public void setFileFicharesumen(UploadedFile fileFicharesumen) {
+        this.fileFicharesumen = fileFicharesumen;
+    }
+
+    public UploadedFile getFileFicharesumen() {
+        return fileFicharesumen;
+    }
+
+    public void setTipoInversionServicesImpl(TipoInversionServices tipoInversionServicesImpl) {
+        this.tipoInversionServicesImpl = tipoInversionServicesImpl;
+    }
+
+    public TipoInversionServices getTipoInversionServicesImpl() {
+        return tipoInversionServicesImpl;
+    }
+
+    public void setContratoEntregaServiceImpl(ContratoEntregaService contratoEntregaServiceImpl) {
+        this.contratoEntregaServiceImpl = contratoEntregaServiceImpl;
+    }
+
+    public ContratoEntregaService getContratoEntregaServiceImpl() {
+        return contratoEntregaServiceImpl;
+    }
+
+    public void setContratoCompromisoServiceImpl(ContratoCompromisoService contratoCompromisoServiceImpl) {
+        this.contratoCompromisoServiceImpl = contratoCompromisoServiceImpl;
+    }
+
+    public ContratoCompromisoService getContratoCompromisoServiceImpl() {
+        return contratoCompromisoServiceImpl;
+    }
+
+    public void setContratoEntregaVO(ContratoEntregaVO contratoEntregaVO) {
+        this.contratoEntregaVO = contratoEntregaVO;
+    }
+
+    public ContratoEntregaVO getContratoEntregaVO() {
+        return contratoEntregaVO;
+    }
+
+    public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
+        this.monedaServiceImpl = monedaServiceImpl;
+    }
+
+    public MonedaServiceImpl getMonedaServiceImpl() {
+        return monedaServiceImpl;
+    }
+
+    public void setMonedaVO(MonedaVO monedaVO) {
+        this.monedaVO = monedaVO;
+    }
+
+    public MonedaVO getMonedaVO() {
+        return monedaVO;
+    }
+
+    public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
+        this.contratoCompromisoVO = contratoCompromisoVO;
+    }
+
+    public ContratoCompromisoVO getContratoCompromisoVO() {
+        return contratoCompromisoVO;
+    }
+
+    public void setTipoInversionVO(TipoInversionVO tipoInversionVO) {
+        this.tipoInversionVO = tipoInversionVO;
+    }
+
+    public TipoInversionVO getTipoInversionVO() {
+        return tipoInversionVO;
+    }
+
 }
