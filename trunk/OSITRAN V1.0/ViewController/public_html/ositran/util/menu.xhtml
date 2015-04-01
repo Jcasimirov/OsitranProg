@@ -3,8 +3,17 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
-        <img src="../../images/logo.png" width="249" height="56"/>
-        <div align="center">
+           <table width="90%" align="center" >
+                
+                    <tr>
+                    <td rowspan="2" align="left" style="width:20%"><img src="../../images/logoOsitran.jpg" height="100" width="220"/></td>
+                    <td style="height: 60px"></td>
+                    <td align="right">  </td>
+                    </tr>
+                    <tr>
+                    
+                    <td style="width:55%">
+                        <div align="center">
             <p:megaMenu style="margin-top:15px;width:98%;font-size:small">
                 <p:submenu label="#{menu.m_home}" icon="ui-icon-check" url="/" styleClass="homeLink"></p:submenu>
                
@@ -166,12 +175,6 @@
                     <p:column>
                         <img src="../../images/parametros.png" width="150px" height="150px"/>
                     </p:column>
-                    
-                    
-                    
-                    
-                    
-                    
                 </p:submenu>
                 <p:menuitem value="#{menu.m_exit}" url="/faces/ositran/logueo.xhtml" icon="ui-icon-close"/>
             </p:megaMenu>
@@ -181,6 +184,16 @@
             });
         </script>            
         </div>
+                    </td>
+                    <td >
+                      
+                        
+                    </td>
+                    </tr>
+                
+                  
+                </table>
+        
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_seguridad_menu-->
 </f:view>
