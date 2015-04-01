@@ -4,12 +4,10 @@ import com.ositran.daoimpl.PeriodoDAOImpl;
 import com.ositran.model.Periodo;
 import com.ositran.service.PeriodoService;
 import com.ositran.vo.bean.PeriodoVO;
-import com.ositran.vo.bean.PeriodoVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PeriodoServiceImpl implements PeriodoService {
@@ -75,7 +73,7 @@ public class PeriodoServiceImpl implements PeriodoService {
     private PeriodoVO toPeriodoVO(Periodo periodo){
         PeriodoVO periodoVO=new PeriodoVO();
         
-        periodoVO.setPerId(periodoVO.getPerId());
+        periodoVO.setPerId(periodo.getPerId());
         periodoVO.setPerCantidadendías(periodo.getPerCantidadendías());
         periodoVO.setPerDescripcion(periodo.getPerDescripcion());
         periodoVO.setPerNombre(periodo.getPerNombre());
