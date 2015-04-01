@@ -4,10 +4,12 @@ import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
+import com.ositran.service.DatosStdService;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
+import com.ositran.serviceimpl.DatosStdServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -16,7 +18,10 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
+import com.ositran.vo.bean.ViewTdInternosVO;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -28,8 +33,6 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class RegistrarAvanceInversionMB {
     private int fichaRegistro;
-    //*********************Concesion
-    private int contratoCompromisoSeleccionado;
     private int codigoInfraestructura;
     private String  nombreConcecion;
     private String nombreTipoInfraestructura;
@@ -39,6 +42,17 @@ public class RegistrarAvanceInversionMB {
     private int codigoInversion;
     private int idTipoInfraestructura;
     private int codigoContrato;
+    //***************************DATOS SDT******************************//
+    private String numero;
+    private int anio;
+    private Date fechaRegistroSDT;
+    private String asunto;
+    //*********************DATOS CONTRATO COMPROMISO********************//
+    private int contratoCompromisoSeleccionado;
+    private int plazo;
+    private long total;
+    private int codigoMoneda;
+    
     List<InfraestructuraVO> listaInfraestructuras=new ArrayList<>();
     List<InversionVO> listaInversiones=new ArrayList<>();
     List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
@@ -91,9 +105,16 @@ public class RegistrarAvanceInversionMB {
     @ManagedProperty(value = "#{contratoCompromisoVO}")
     ContratoCompromisoVO contratoCompromisoVO;  
     
+    @ManagedProperty(value = "#{datosStdServiceImpl}")
+    DatosStdService datosStdServiceImpl;  
+    
+    @ManagedProperty(value = "#{viewTdInternosVO}")
+    ViewTdInternosVO viewTdInternosVO; 
+    
     
     public void buscarFichaRegistroWeb(){
         try {
+            
             avanceInversionWebVO=avanceInversionWebServiceImpl.get(fichaRegistro);
             codigoConcesion=avanceInversionWebVO.getCsiId();
             idModalidadConcesion=avanceInversionWebVO.getMcoId();
@@ -107,8 +128,6 @@ public class RegistrarAvanceInversionMB {
             infraestructuraTipoVO=infraestructuraTipoServiceImpl.get(idTipoInfraestructura);
             nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();           
             listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            
-            
             
        } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -130,7 +149,33 @@ public class RegistrarAvanceInversionMB {
             e.printStackTrace();
         }   }
     
-    
+    public void cargarDatosCompromiso(){
+        try {
+           contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+           plazo=contratoCompromisoVO.getCcoPlazo();
+           total=contratoCompromisoVO.getCcoTotal();
+           codigoMoneda=contratoCompromisoVO.getMonId();  
+       } catch (Exception e) {
+           System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
+            
+        }        
+    }
+    public void cargarDatosSDT(){
+        try {
+        viewTdInternosVO=datosStdServiceImpl.BuscaStd(anio,numero);
+        
+        fechaRegistroSDT=viewTdInternosVO.getFechaRegistro();
+        asunto=viewTdInternosVO.getAsunto();
+           
+       } catch (Exception e) {
+            asunto="";
+                System.out.println("PROBLEMAS AL TRAER LOS DATOS INTERNOS");
+                e.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","NO HAY DATOS SDT QUE MOSTRAR"));
+                e.printStackTrace();
+        }
+    }
     
     public void setFichaRegistro(int fichaRegistro) {
         this.fichaRegistro = fichaRegistro;
@@ -363,4 +408,91 @@ public class RegistrarAvanceInversionMB {
     public int getContratoCompromisoSeleccionado() {
         return contratoCompromisoSeleccionado;
     }
+
+
+    public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
+        this.contratoCompromisoVO = contratoCompromisoVO;
+    }
+
+    public ContratoCompromisoVO getContratoCompromisoVO() {
+        return contratoCompromisoVO;
+    }
+
+
+    public void setPlazo(int plazo) {
+        this.plazo = plazo;
+    }
+
+    public int getPlazo() {
+        return plazo;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setCodigoMoneda(int codigoMoneda) {
+        this.codigoMoneda = codigoMoneda;
+    }
+
+    public int getCodigoMoneda() {
+        return codigoMoneda;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setDatosStdServiceImpl(DatosStdService datosStdServiceImpl) {
+        this.datosStdServiceImpl = datosStdServiceImpl;
+    }
+
+    public DatosStdService getDatosStdServiceImpl() {
+        return datosStdServiceImpl;
+    }
+
+
+    public void setViewTdInternosVO(ViewTdInternosVO viewTdInternosVO) {
+        this.viewTdInternosVO = viewTdInternosVO;
+    }
+
+    public ViewTdInternosVO getViewTdInternosVO() {
+        return viewTdInternosVO;
+    }
+
+
+    public void setFechaRegistroSDT(Date fechaRegistroSDT) {
+        this.fechaRegistroSDT = fechaRegistroSDT;
+    }
+
+    public Date getFechaRegistroSDT() {
+        return fechaRegistroSDT;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public String getAsunto() {
+        return asunto;
+    }
+    
+    
 }
