@@ -32,7 +32,7 @@
                     </div>
                     <div align="center" style="font-size:11px">
                         <div align="center" style="width:700px">
-                            <p:fieldset styleClass="fielsetinterno" >
+                            <p:fieldset styleClass="fielsetinterno" legend="Seleccionar inversiones" >
                                 <table style="margin-bottom:5px;font-size: 11px">
                                     <tr>
                                         <td align="left">
@@ -60,7 +60,7 @@
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{supervisorContratoConcesionMB.listaSupervisor}" var="tic"
                                                    itemLabel="#{tic.tsiNombre}" itemValue="#{tic.tsiId}" />
-                     <p:ajax event="valueChange"  update=":form:supervicionDeInversiones"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
+                                                    <p:ajax event="valueChange"  update=":form:supervicionDeInversiones"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
 
                                     </p:selectOneMenu>
                                         </td>
@@ -127,7 +127,7 @@
                                             Tipo Infraestructura:
                                         </td>
                                         <td align="left">
-                                            <p:inputText value="#{supervisorContratoConcesionMB.tipoInfraestructuraC}"  readonly="true"  />
+                                            <p:inputText value="#{supervisorContratoConcesionMB.tipoInfraestructuraS}"  readonly="true"  />
                                         </td>
                                         <td align="left">
                                             #{cam.mc}
