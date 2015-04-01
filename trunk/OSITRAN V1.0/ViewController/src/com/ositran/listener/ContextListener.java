@@ -1,5 +1,9 @@
 package com.ositran.listener;
 
+import com.ositran.mail.SenderMail;
+
+import com.ositran.mail.alerts.CustomizedMailThread;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -14,7 +18,13 @@ public class ContextListener implements ServletContextListener
 {
     private final Logger logger = Logger.getLogger(ContextListener.class);
     
-
+    /* Defines sender mail to process the alerts */
+    private SenderMail senderMail;
+    
+    /* Defines the mail threads */
+    private CustomizedMailThread  customizedThread;
+    
+    
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent)
     {
