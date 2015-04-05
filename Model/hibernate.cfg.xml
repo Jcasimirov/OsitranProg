@@ -4,21 +4,28 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+    
         <!-- Database connection settings -->
         <!--<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
         <property name="connection.username">SINV</property>
-        <property name="connection.password">SINV</property-->
+        <property name="connection.password">SINV</property>-->
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
-        <property name="connection.username">ositran</property>
-        <property name="connection.password">ositran</property>
+        <property name="connection.username">OSITRAN</property>
+        <property name="connection.password">OSITRAN</property>
         <property name="connection.pool_size">5</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="show_sql">true</property>
         <property name="hibernate.jdbc.use_get_generated_keys">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
+        
+        <!-- Use EHCache for cache-->
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        
         <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.ConceptoInversion"/>
         <mapping class="com.ositran.model.Concesion"/>
@@ -42,17 +49,15 @@
         <mapping class="com.ositran.model.JefeAreaContratoConcecion"/>
         <mapping class="com.ositran.model.ContratoJefeArea"/>
         <mapping class="com.ositran.model.AvanceInversionWeb"/>
-        <mapping class="com.ositran.model.Inversion"/>  
-         <mapping class="com.ositran.model.ContratoCompromiso"/> 
-         <mapping class="com.ositran.model.AdendaTipo"/> 
-         <mapping class="com.ositran.model.ContratoAdenda"/> 
-         <mapping class="com.ositran.model.ContratoEntrega"/> 
-         <mapping class="com.ositran.model.ContratoCompromiso"/> 
-         <mapping class="com.ositran.model.Moneda"/>
-         <mapping class="com.ositran.model.ContratoPenalidad"/> 
-         <mapping class="com.ositran.model.ContratoCao"/>
-         <mapping class="com.ositran.model.Periodo"/>  
-         <mapping class="com.ositran.model.ContratoHito"/>
+        <mapping class="com.ositran.model.Inversion"/>
+        <mapping class="com.ositran.model.ContratoCompromiso"/>
+        <mapping class="com.ositran.model.AdendaTipo"/>
+        <mapping class="com.ositran.model.ContratoAdenda"/>
+        <mapping class="com.ositran.model.ContratoEntrega"/>
+        <mapping class="com.ositran.model.ContratoCompromiso"/>
+        <mapping class="com.ositran.model.Moneda"/>
+        <mapping class="com.ositran.model.Periodo"/>
+		 <mapping class="com.ositran.model.ContratoHito"/>
          <mapping class="com.ositran.model.ContratoPpo"/>
          <mapping class="com.ositran.model.ContratoAlerta"/>
          <mapping class="com.ositran.model.ContratoAlertaEstado"/>
