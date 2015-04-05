@@ -22,6 +22,10 @@ public class ContratoJefeAreaVO {
     private int csiId;
     private int tdoId;
     private int tinId;
+    
+    private String nombreJefeArea;
+    private String concesionNombre;
+    private int contador;
 
     public ContratoJefeAreaVO() {
     }
@@ -111,4 +115,32 @@ public class ContratoJefeAreaVO {
     public void setTinId(int tinId) {
         this.tinId = tinId;
     }
+
+
+    public void setNombreJefeArea(String nombreJefeArea) {
+        this.nombreJefeArea = nombreJefeArea;
+    }
+
+    public String getNombreJefeArea() {
+        return nombreJefeArea;
+    }
+
+
+    public void setConcesionNombre(String concesionNombre) {
+        this.concesionNombre = concesionNombre;
+    }
+
+    public String getConcesionNombre() {
+        return concesionNombre;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
 }
