@@ -11,12 +11,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 
 @Entity
 @Table(name = "T_ROL_OPCIONES")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RolOpciones implements Serializable {
     private static final long serialVersionUID = 4090813506078356308L;
     
