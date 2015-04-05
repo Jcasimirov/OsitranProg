@@ -1,6 +1,7 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoSubInversionesDAO;
+import com.ositran.model.ContratoJefeArea;
 import com.ositran.model.ContratoSupInversiones;
 
 import com.ositran.util.HibernateUtil;
@@ -15,9 +16,10 @@ import org.hibernate.Session;
 public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO {
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<ContratoSupInversiones> query() throws SQLException, Exception {
-        // TODO Implement this method
-        return Collections.emptyList();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(ContratoSupInversiones.class).list();
     }
 
     @Override
