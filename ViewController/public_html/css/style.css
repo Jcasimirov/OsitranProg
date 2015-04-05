@@ -29,7 +29,6 @@
     margin:0 0 10px;
     color: #0A81F7;
 
-
 }    
 
 #titulo2{
@@ -100,7 +99,7 @@
 .ui-menubar .ui-menu-child .ui-menuitem {
     background-image: none;
     border-bottom-color: blue; 
-    background: #b5b5b5  !important; 
+    background: #d6ffff   !important; 
     font-size: 11px;
     color: #2121ff;
     font-weight: bold;
