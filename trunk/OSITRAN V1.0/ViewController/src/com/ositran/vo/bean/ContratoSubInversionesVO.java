@@ -20,6 +20,10 @@ public class ContratoSubInversionesVO {
     private int tdoId;
     private int tinId;
     private int tsiId;
+    
+    private String nombreSupervicion;
+    private String concesionNombre;
+    private int contador;
 
     public ContratoSubInversionesVO(){
         
@@ -136,5 +140,30 @@ public class ContratoSubInversionesVO {
 
     public void setTsiId(int tsiId) {
         this.tsiId = tsiId;
+    }
+
+
+    public void setNombreSupervicion(String nombreSupervicion) {
+        this.nombreSupervicion = nombreSupervicion;
+    }
+
+    public String getNombreSupervicion() {
+        return nombreSupervicion;
+    }
+
+    public void setConcesionNombre(String concesionNombre) {
+        this.concesionNombre = concesionNombre;
+    }
+
+    public String getConcesionNombre() {
+        return concesionNombre;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
