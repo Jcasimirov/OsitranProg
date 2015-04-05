@@ -11,16 +11,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
 @Table(name = "T_OPCIONES",uniqueConstraints = @UniqueConstraint(columnNames = {"OPC_ID"}))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true,selectBeforeUpdate = true)
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_OPCIONTIPO"))
 public class Men implements Serializable {
     private static final long serialVersionUID = 7895582654359795714L;
-    
-    
+
     @Column(name="OPC_DESCRIPCION",nullable = false, length = 4000)
     private String descripcion;
     @Column(name = "OPC_ESTADO", nullable = false)
