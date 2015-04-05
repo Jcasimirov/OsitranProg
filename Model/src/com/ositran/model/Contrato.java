@@ -13,7 +13,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.GeneratedValue;
 
 @Entity
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO"))
 @Table(name = "T_CONTRATO")
 public class Contrato implements Serializable {
     private static final long serialVersionUID = 1607891868505474553L;
