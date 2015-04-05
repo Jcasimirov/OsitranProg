@@ -7,11 +7,11 @@ import com.ositran.util.HibernateUtil;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class MenDAOImpl implements MenDAO{
@@ -52,7 +52,7 @@ public class MenDAOImpl implements MenDAO{
     public List<Men> query() {
         System.out.println("DAOO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Men.class).list();
+        return session.createCriteria(Men.class).addOrder(Order.asc("menNombre")).list();
     }
 
     @Override
@@ -73,11 +73,6 @@ public class MenDAOImpl implements MenDAO{
 
     @Override
     public String update(Men men) {
-        System.out.println("llego hasta el DAO IMPL");
-        System.out.println(men.getMenId());
-        System.out.println(men.getMenNombre());
-        System.out.println(men.getDescripcion());
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$");
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
