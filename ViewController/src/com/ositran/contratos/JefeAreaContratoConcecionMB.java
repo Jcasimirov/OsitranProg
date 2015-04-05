@@ -36,11 +36,10 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "jefeAreaContratoConcecionMB")
 @ViewScoped
-
-@SessionScoped
 public class JefeAreaContratoConcecionMB {
     private int tipoInfraestructura;
     private String tipoInfraestructuraS;
+    private String buscar;
     private String numeroDocumento = "";
     private String tipoDocumento = "";
     private String nombreJefeArea = "";
@@ -51,7 +50,8 @@ public class JefeAreaContratoConcecionMB {
     private int codigoContrato;
     private List<ContratoVO> listaContratos = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
-    private List<JefeAreaContratoConcecionVO> listaJefeArea = new ArrayList<>();
+    private List<ContratoJefeAreaVO> listaJefeArea = new ArrayList<>();
+   
 
     @ManagedProperty(value = "#{contratoJefeAreaVO}")
     ContratoJefeAreaVO contratoJefeAreaVO;
@@ -83,12 +83,15 @@ public class JefeAreaContratoConcecionMB {
 
     @ManagedProperty(value = "#{tipoDocumentoServiceImp}")
     TipoDocumentoService tipoDocumentoServiceImp;
-
+    
+    @ManagedProperty(value = "#{concesionVO}")
+    ConcesionVO concesionVO;
     TipoDocumentoVO tipoDocumentoVO = new TipoDocumentoVO();
-
     ModalidadConcesionVO modalidadConcesionVO = new ModalidadConcesionVO();
 
-
+    public void busqueda(){
+        
+        }
     public void limpiar() {
         tipoInfraestructura = 0;
         numeroDocumento = "";
@@ -110,7 +113,6 @@ public class JefeAreaContratoConcecionMB {
         }
 
     }
-
 
     public void cargarJefeAreaContratoConcesion() {
         try {
@@ -180,11 +182,11 @@ public class JefeAreaContratoConcecionMB {
         try {
             if (tipoInfraestructura == 0) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe selecionar el tipo de infraestructura");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar el tipo de infraestructura");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else if (codigoConcesion == 0) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe selecionar un contrato");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar un contrato");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
 
@@ -195,6 +197,7 @@ public class JefeAreaContratoConcecionMB {
                 contratoJefeAreaVO.setCsiId(codigoConcesion);
                 contratoJefeAreaVO.setConId(codigoContrato);
                 contratoJefeAreaVO.setCjaNroDocumento(numeroDocumento);
+                contratoJefeAreaVO.setCjaNroDocumento("45860672");
                 contratoJefeAreaVO.setTinId(tipoInfraestructuraC);
                 contratoJefeAreaServiceImpl.insert(contratoJefeAreaVO);
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
@@ -205,10 +208,29 @@ public class JefeAreaContratoConcecionMB {
             System.out.println("SE CALLO EN EL METODO REGISTRAR CONTRATO");
             e.printStackTrace();
         }
-
-
+        listarJefeAreaContrato();
     }
-
+    
+    public void listarJefeAreaContrato(){
+        System.out.println("LLego al metodo");
+        try {
+           int contador=1;
+           listaJefeArea=contratoJefeAreaServiceImpl.query();
+            System.out.println(listaJefeArea.size());
+            for (ContratoJefeAreaVO contratoJefeAreaVO1:listaJefeArea){
+                concesionVO=concesionServiceImpl.get(contratoJefeAreaVO1.getCsiId());
+                contratoJefeAreaVO1.setConcesionNombre(concesionVO.getCsiNombre());
+                contratoJefeAreaVO1.setNombreJefeArea("Jefe Area");
+                contratoJefeAreaVO1.setContador(contador);
+                contador++;
+                
+                       
+                }
+       } catch (Exception e) {
+            System.out.println("PROBLEMAS AL LISTAR LISTA JEFE DE AREA CONTRATO CONCECION");
+            e.printStackTrace();
+        }
+        }
 
     public void setListaInfraestructuraTipo(List<InfraestructuraTipoVO> listaInfraestructuraTipo) {
         this.listaInfraestructuraTipo = listaInfraestructuraTipo;
@@ -273,14 +295,6 @@ public class JefeAreaContratoConcecionMB {
 
     public String getNombreJefeArea() {
         return nombreJefeArea;
-    }
-
-    public void setListaJefeArea(List<JefeAreaContratoConcecionVO> listaJefeArea) {
-        this.listaJefeArea = listaJefeArea;
-    }
-
-    public List<JefeAreaContratoConcecionVO> getListaJefeArea() {
-        return listaJefeArea;
     }
 
 
@@ -416,6 +430,32 @@ public class JefeAreaContratoConcecionMB {
 
     public TipoDocumentoService getTipoDocumentoServiceImp() {
         return tipoDocumentoServiceImp;
+    }
+
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setListaJefeArea(List<ContratoJefeAreaVO> listaJefeArea) {
+        this.listaJefeArea = listaJefeArea;
+    }
+
+    public List<ContratoJefeAreaVO> getListaJefeArea() {
+        return listaJefeArea;
+    }
+
+
+    public void setConcesionVO(ConcesionVO concesionVO) {
+        this.concesionVO = concesionVO;
+    }
+
+    public ConcesionVO getConcesionVO() {
+        return concesionVO;
     }
 }
 
