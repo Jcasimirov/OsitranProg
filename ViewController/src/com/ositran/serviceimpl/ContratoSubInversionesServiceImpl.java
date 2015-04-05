@@ -2,9 +2,11 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.ContratoSubInversionesDAO;
 import com.ositran.daoimpl.ContratoSubInversionesDAOImpl;
+import com.ositran.model.ContratoJefeArea;
 import com.ositran.model.ContratoSupInversiones;
 import com.ositran.model.InversionTipo;
 import com.ositran.service.ContratoSubInversionesService;
+import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
@@ -24,7 +26,9 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
 
     @Override
     public List<ContratoSubInversionesVO> query() throws SQLException, Exception {
-        return Collections.emptyList();
+        List<ContratoSupInversiones> list=contratoSubInversionesDAOImpl.query();
+        List<ContratoSubInversionesVO> listVO=toListTipoInversionVO(list);
+        return listVO;
     }
 
     @Override
