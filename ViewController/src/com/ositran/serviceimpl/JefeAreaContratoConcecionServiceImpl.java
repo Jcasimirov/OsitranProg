@@ -23,8 +23,9 @@ public class JefeAreaContratoConcecionServiceImpl implements JefeAreaContratoCon
 
     @Override
     public List<JefeAreaContratoConcecionVO> query() throws SQLException, Exception {
-        // TODO Implement this method
-        return Collections.emptyList();
+        List<JefeAreaContratoConcecion> list=jefeAreaContratoConcecionDAOImpl.query();
+        List<JefeAreaContratoConcecionVO> listVO=toListJefeAreaContratoConcecionVO(list);
+        return listVO;
     }
 
     @Override
@@ -42,7 +43,6 @@ public class JefeAreaContratoConcecionServiceImpl implements JefeAreaContratoCon
     @Override
     public String update(JefeAreaContratoConcecionVO jefeAreaContratoConcecionVO) throws ParseException, SQLException,
                                                                                          Exception {
-     
         return null;
     }
 
@@ -54,7 +54,7 @@ public class JefeAreaContratoConcecionServiceImpl implements JefeAreaContratoCon
     }
 
     //conversiones
-    private List<JefeAreaContratoConcecionVO> toJefeAreaContratoConcecionVO(List<JefeAreaContratoConcecion> list)  {
+    private List<JefeAreaContratoConcecionVO> toListJefeAreaContratoConcecionVO(List<JefeAreaContratoConcecion> list)  {
        List<JefeAreaContratoConcecionVO> listVO=new ArrayList<JefeAreaContratoConcecionVO>();
        for(int i=0;i<list.size();i++){
            jefeAreaContratoConcecion=(JefeAreaContratoConcecion)list.get(i);
