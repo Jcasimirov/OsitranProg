@@ -24,8 +24,9 @@ public class ContratoJefeAreaServiceImpl implements ContratoJefeAreaService {
 
     @Override
     public List<ContratoJefeAreaVO> query() {
-        // TODO Implement this method
-        return Collections.emptyList();
+        List<ContratoJefeArea> list=contratoJefeAreaDAOImpl.query();
+        List<ContratoJefeAreaVO> listVO=toListContratoJefeAreaVO(list);
+        return listVO;
     }
 
     @Override
