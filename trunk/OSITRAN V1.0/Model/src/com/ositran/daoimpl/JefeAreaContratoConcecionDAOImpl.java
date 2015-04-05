@@ -21,8 +21,10 @@ public class JefeAreaContratoConcecionDAOImpl implements JefeAreaContratoConceci
     JefeAreaContratoConcecion jefeAreaContratoConcecion;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<JefeAreaContratoConcecion> query() throws SQLException, Exception {
-        return Collections.emptyList();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(JefeAreaContratoConcecion.class).list();
     }
 
     @Override
