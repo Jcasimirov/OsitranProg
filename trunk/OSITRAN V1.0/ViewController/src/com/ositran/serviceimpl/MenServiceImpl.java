@@ -115,7 +115,7 @@ public class MenServiceImpl implements  MenService{
        men1.setMenUsuarioAlta(menVO1.getMenUsuarioAlta());
        men1.setMenUsuarioBaja(menVO1.getMenUsuarioBaja());
        men1.setMenUsuarioCambio(menVO1.getMenUsuarioCambio());
-       men1.setMenUrl(menVO1.getMenUrl());
+        men1.setMenUrl(menVO1.getMenUrl());
         return men1;
     }
 
