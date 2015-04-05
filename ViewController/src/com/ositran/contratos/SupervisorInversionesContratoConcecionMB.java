@@ -12,6 +12,7 @@ import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
@@ -51,6 +52,7 @@ public class SupervisorInversionesContratoConcecionMB {
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<>();
     private List<ContratoVO> listaContratos=new ArrayList<>();
     private List<SupervisorInversionesVO> listaSupervisor=new ArrayList<>();
+    private List<ContratoSubInversionesVO> listaContratoSupervisor = new ArrayList<>();
     private  Infraestructura infraestructura = new Infraestructura();
     
     @ManagedProperty(value = "#{contratoSubInversionesServiceImpl}")
@@ -86,6 +88,9 @@ public class SupervisorInversionesContratoConcecionMB {
     @ManagedProperty(value = "#{modalidadServiceImp}")
     ModalidadConcesionService modalidadServiceImp;
     
+    @ManagedProperty(value = "#{concesionVO}")
+    ConcesionVO concesionVO;
+    
     ModalidadConcesionVO modalidadConcesionVO=new ModalidadConcesionVO();
     
 
@@ -103,11 +108,8 @@ public class SupervisorInversionesContratoConcecionMB {
             
             for (InfraestructuraTipoVO infraestructuraTipoVO: listaInfraestructuraTipo){
                 if(infraestructuraTipoVO.getTinId()==tipoInfraestructura){
-                    codigoInfraestructura=infraestructuraTipoVO.getTinId();
-                    
-                    
+                    codigoInfraestructura=infraestructuraTipoVO.getTinId(); 
                     }
-                
                 }
             
             
@@ -227,6 +229,7 @@ public class SupervisorInversionesContratoConcecionMB {
             limpiar();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                listarSupervisionDeInversiones();
             }
 
         } catch (Exception e) {
@@ -235,6 +238,25 @@ public class SupervisorInversionesContratoConcecionMB {
         }
     
     }
+    
+    public void listarSupervisionDeInversiones(){
+        System.out.println("LLego al metodo");
+        try {
+           int contador=1;
+           listaContratoSupervisor=contratoSubInversionesServiceImpl.query();
+           
+            for (ContratoSubInversionesVO contratoSubInversionesVO1:listaContratoSupervisor){
+                concesionVO=concesionServiceImpl.get(contratoSubInversionesVO1.getCsiId());
+                contratoSubInversionesVO1.setConcesionNombre(concesionVO.getCsiNombre());
+                contratoSubInversionesVO1.setNombreSupervicion("Supervisor");
+                contratoSubInversionesVO1.setContador(contador);
+                contador++;     
+                }
+       } catch (Exception e) {
+            System.out.println("PROBLEMAS AL LISTAR SUPERVISOR DE INVERSIONES");
+            e.printStackTrace();
+        }
+        }
     
     public void limpiar(){
         codigoSupervisor=0;
@@ -529,5 +551,23 @@ public class SupervisorInversionesContratoConcecionMB {
 
     public ModalidadConcesionVO getModalidadConcesionVO() {
         return modalidadConcesionVO;
+    }
+
+
+    public void setListaContratoSupervisor(List<ContratoSubInversionesVO> listaContratoSupervisor) {
+        this.listaContratoSupervisor = listaContratoSupervisor;
+    }
+
+    public List<ContratoSubInversionesVO> getListaContratoSupervisor() {
+        return listaContratoSupervisor;
+    }
+
+
+    public void setConcesionVO(ConcesionVO concesionVO) {
+        this.concesionVO = concesionVO;
+    }
+
+    public ConcesionVO getConcesionVO() {
+        return concesionVO;
     }
 }
