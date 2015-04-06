@@ -31,15 +31,19 @@ public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
     @Override
     public String insert(ContratoAlerta contratoAlerta) throws SQLException {
         String result=null;
+        System.out.print("#######  INCIO INSERT contratoAlerta \n ");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.persist(contratoAlerta);
             session.getTransaction().commit();
+            System.out.print("inserto contratoAlerta \n ");
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            System.out.print(" error al insertar contratoAlerta \n ");
         }
+        System.out.print("#######   FIN INSERT contratoAlerta \n ");
         return result;
     }
 
