@@ -6,22 +6,16 @@ import com.ositran.service.RolService;
 import com.ositran.vo.bean.MenVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Map;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
 import javax.faces.context.FacesContext;
-
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name = "rolMB")
 @RequestScoped
