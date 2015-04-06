@@ -1,5 +1,6 @@
 package com.ositran.service;
 
+import com.ositran.model.Infraestructura;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 
@@ -16,5 +17,6 @@ public interface InfraestructuraService {
     public InfraestructuraVO get2(Integer id)throws SQLException;
     public List<InfraestructuraVO> query1(int CodigoC)throws SQLException;
     public List<InfraestructuraVO> query2(int CodigoC)throws SQLException;
+    public List<InfraestructuraVO> getInfraestructurasContrato(int codigoContrato) throws SQLException;
    
 }

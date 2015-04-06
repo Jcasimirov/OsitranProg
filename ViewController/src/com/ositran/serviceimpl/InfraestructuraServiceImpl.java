@@ -117,6 +117,12 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     public InfraestructuraDAO getInfraestructuraDAOImpl() throws SQLException{
         return infraestructuraDAOImpl;
     }
+    
+    public List<InfraestructuraVO> getInfraestructurasContrato(int codigoContrato) throws SQLException{
+        List<Infraestructura> list =infraestructuraDAOImpl.getInfraestructurasContrato(codigoContrato);;        
+        List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
+        return listVO;
+    }
 
 
     

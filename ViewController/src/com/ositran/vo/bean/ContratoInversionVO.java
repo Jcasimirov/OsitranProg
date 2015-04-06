@@ -9,6 +9,7 @@ public class ContratoInversionVO {
     private Integer invId;
     private Integer tinId;
     private Integer invEstado;
+    private String infNombre;
     
     public ContratoInversionVO() {
         super();
@@ -68,5 +69,13 @@ public class ContratoInversionVO {
 
     public void setInvEstado(Integer invEstado) {
         this.invEstado = invEstado;
+    }
+
+    public String getInfNombre() {
+        return infNombre;
+    }
+
+    public void setInfNombre(String infNombre) {
+        this.infNombre = infNombre;
     }
 }

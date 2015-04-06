@@ -11,10 +11,11 @@ public class ContratoAlertaVO {
     private Date calFechaInicio;
     private Integer calId;   
     private String calNombreconcesion;
-    private Integer calPlazo;  
+    private String calPlazo;  
     private Integer conId;
     private Integer perId;
     private Integer calEstado;
+    private String caeNombre;
 
     public ContratoAlertaVO() {
         super();
@@ -74,14 +75,14 @@ public class ContratoAlertaVO {
     }
 
     public void setCalNombreconcesion(String calNombreconcesion) {
-        this.calNombreconcesion = calNombreconcesion;
+        this.calNombreconcesion = calNombreconcesion; 
     }
 
-    public Integer getCalPlazo() {
+    public String getCalPlazo() {
         return calPlazo;
     }
 
-    public void setCalPlazo(Integer calPlazo) {
+    public void setCalPlazo(String calPlazo) {
         this.calPlazo = calPlazo;
     }
 
@@ -107,5 +108,13 @@ public class ContratoAlertaVO {
 
     public void setCalEstado(Integer calEstado) {
         this.calEstado = calEstado;
+    }
+
+    public String getCaeNombre() {
+        return caeNombre;
+    }
+
+    public void setCaeNombre(String caeNombre) {
+        this.caeNombre = caeNombre;
     }
 }
