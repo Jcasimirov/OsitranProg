@@ -10,8 +10,6 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateUtil {
 
     private static SessionFactory sessionAnnotationFactory;
-    private static int countNC = 0;
-    private static int countC = 0;
 
     private static SessionFactory buildSessionAnnotationFactory() {
         try {
@@ -30,10 +28,7 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionAnnotationFactory() {
         if (sessionAnnotationFactory == null) {
-            System.out.println("Contador C = " + (++countC));
             sessionAnnotationFactory = buildSessionAnnotationFactory();
-        } else {
-            System.out.println("Contador NC = " + (++countNC));
         }
         return sessionAnnotationFactory;
     }
