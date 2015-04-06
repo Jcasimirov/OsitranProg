@@ -5,53 +5,25 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <script type="text/javascript">
-              function pasarMayuscula(obj, id) {
-                  obj = obj.toUpperCase();
-                  document.getElementById(id).value = obj;
-              }
-
-              function pasarMinuscula(obj, id) {
-                  obj = obj.toLowerCase();
-                  document.getElementById(id).value = obj;
-              }
-            </script>
         </h:head>
         <h:body>
-        <f:event listener="#{menuMB.cargarMenu()}" type="postAddToView"></f:event>
-            <h:form id="form">  
-             
-                <p:growl id="mensaje" showDetail="true" life="10000"/>
-                
-                <table width="90%" align="center" >
-                
-                    <tr>
-                    <td rowspan="2" align="left" style="width:20%"><img src="../../images/logoOsitran.jpg" height="100" width="220"/></td>
-                    <td style="height: 60px"></td>
-                    <td align="right">  </td>
-                    </tr>
-                    <tr>
-                    
-                    <td style="width:55%"><p:menubar model="#{menuMB.model}"  /></td>
-                    <td >
-                      
-                        
+            <f:event listener="#{menuMB.init}" type="preRenderView"></f:event>
+            <table width="90%" align="center">
+                <tr>
+                    <td rowspan="2" align="left" style="width:20%">
+                        <img src="../../images/logoOsitran.jpg" height="100" width="220"/>
                     </td>
-                    </tr>
-                
-                  
-                </table>
-                
-                
-               
-                
-                
-                
-                <div align="center">
-                    <script type="text/javascript"> $(function(){ $(".homeLink a:first").attr('href', "#{request.contextPath}/faces/ositran/principal.xhtml"); }); </script>
-                </div>
-
-            </h:form>
+                    <td style="height: 60px"></td>
+                    <td align="right"></td>
+                </tr>
+                 
+                <tr>
+                    <td style="width:55%">
+                        <p:menubar model="#{menuMB.model}"/>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
         </h:body>
     </html>
 </f:view>
