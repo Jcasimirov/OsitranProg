@@ -43,7 +43,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -123,18 +122,18 @@ public class ActualizarContrato {
     private ContratoInversionVO contratoInversionVO;    
     @ManagedProperty(value = "#{contratoInversionServiceImpl}")
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
-    private List<ContratoInversionVO> listContratoInversion;
+    List<ContratoInversionVO> listContratoInversion;
     
     @ManagedProperty(value = "#{contratoAlertaVO}")
     private ContratoAlertaVO contratoAlertaVO;
     @ManagedProperty(value = "#{contratoAlertaServiceImpl}")
     private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
-    private List<ContratoAlertaVO> listContratoAlerta;
+    List<ContratoAlertaVO> listContratoAlerta;
     
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaTipoInfraestructura=new ArrayList<InfraestructuraTipoVO>();
-    private List<InfraestructuraVO> listaInfraestructura;
+    List<InfraestructuraVO> listaInfraestructura=new ArrayList<InfraestructuraVO>();
 
     List<ConcesionVO> listaConcesiones=new ArrayList<ConcesionVO>();
 
@@ -197,6 +196,14 @@ public class ActualizarContrato {
         super();
 
     }
+    public void listarTiposAdendas() {
+           try {
+               listarAdendasTipo = adendaTipoServiceImpl.query();
+           } catch (SQLException sqle) {
+               // TODO: Add catch code
+               sqle.printStackTrace();
+           }
+       }
     public void listarTiposMoneda(){
         try {
             listarTipoMonedas = monedaServiceImpl.query();
@@ -396,6 +403,14 @@ public class ActualizarContrato {
         try {
             System.out.println("idcontrato: " + idcontrato);
             listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
+            for (ContratoAdendaVO contratoAdendaVO : listContratoAdenda) {
+                           System.out.println("contratoAdendaVO.getCadEstado(): " + contratoAdendaVO.getCadEstado());
+                           for (AdendaTipoVO aux : listarAdendasTipo) {
+                               if (aux.getTadId() == contratoAdendaVO.getTadId()) {
+                                   contratoAdendaVO.setTadNombre(aux.getTadNombre());
+                               }
+                           }
+            }
         } catch (SQLException s) {
             s.printStackTrace();
         }
@@ -405,7 +420,7 @@ public class ActualizarContrato {
         try {
             System.out.println("contratoNuevaAdendaVO.getTadId():"+contratoNuevaAdendaVO.getTadId());
             contratoNuevaAdendaVO.setCadMonto(1L);            
-            
+            contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
             listContratoAdenda.add(contratoNuevaAdendaVO);
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
@@ -481,7 +496,16 @@ public class ActualizarContrato {
         }
     }
 
-
+    public String obtenerNombreTipoAdenda(int tadid) {
+        String nombreadenda = "";
+        for (AdendaTipoVO adendaTipoVO : listarAdendasTipo) {
+            if (tadid == adendaTipoVO.getTadId()) {
+                nombreadenda = adendaTipoVO.getTadNombre();
+            }
+            ;
+        }
+        return nombreadenda;
+    }
 
     //************************Termina Contrato Adenda**********************//
     public void limpiarCampos() {
