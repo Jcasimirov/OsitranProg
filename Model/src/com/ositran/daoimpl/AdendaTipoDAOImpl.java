@@ -23,7 +23,7 @@ public class AdendaTipoDAOImpl implements AdendaTipoDAO {
     public List<AdendaTipo> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from AdendaTipo o").list();
+        List list=session.createQuery("From AdendaTipo").list();
         session.getTransaction().commit();
         return list;
     }

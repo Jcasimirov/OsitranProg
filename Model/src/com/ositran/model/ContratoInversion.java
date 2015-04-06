@@ -16,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoInversion.findAll", query = "select o from ContratoInversion o") })
 @Table(name = "T_CONTRATO_INVERSION")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "sq_t_contrato_inversion"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_INVERSION"))
 public class ContratoInversion implements Serializable {
     private static final long serialVersionUID = 5582300002098147769L;
     @Column(name = "CON_ID", nullable = false)

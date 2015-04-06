@@ -24,5 +24,7 @@ public interface InfraestructuraDAO {
     public List<Infraestructura> query2(int codigoC) throws SQLException;
 
     public Infraestructura get2(Integer id) throws SQLException;
+    
+    public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) throws SQLException;
 
 }

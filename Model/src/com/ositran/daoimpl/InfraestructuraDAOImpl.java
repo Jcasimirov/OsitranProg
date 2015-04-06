@@ -125,6 +125,24 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         return infraestructura;
     }
      */
+        
+    @Override
+    public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query;
+        query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i\n" + 
+                                        "INNER JOIN t_contrato ct \n" + 
+                                        "ON i.CSI_ID = ct.CSI_ID \n" + 
+                                        "AND i.TIN_ID = ct.TIN_ID \n" + 
+                                        "WHERE i.INF_ESTADO <> 0 \n" + 
+                                        "AND ct.CON_ID = :busqueda1").addEntity(Infraestructura.class);
+        query.setParameter("busqueda1",codigoContrato);
+        List<Infraestructura> list = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list; 
+    }
 
 
   

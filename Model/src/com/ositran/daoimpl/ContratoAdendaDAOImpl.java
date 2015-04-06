@@ -85,6 +85,7 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
         return contratoAdenda;
     }
     
+    @Override
     public List<ContratoAdenda> getAdendasContrato(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query; 

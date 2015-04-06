@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoAlerta.findAll", query = "select o from ContratoAlerta o") })
 @Table(name = "T_CONTRATO_ALERTA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO_ALERTA"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_ALERTA"))
 public class ContratoAlerta implements Serializable {
     private static final long serialVersionUID = 8920954827070543587L;
     @Column(name = "CAE_ID")
@@ -43,7 +43,7 @@ public class ContratoAlerta implements Serializable {
     @Column(name = "CAL_NOMBRECONCESION", nullable = false, length = 4000)
     private String calNombreconcesion;
     @Column(name = "CAL_PLAZO", nullable = false)
-    private Integer calPlazo;
+    private String calPlazo;
     //@Id
     @Column(name = "CON_ID", nullable = false)
     private Integer conId;
@@ -57,7 +57,7 @@ public class ContratoAlerta implements Serializable {
     }
 
     public ContratoAlerta(Integer caeId, String calAeropuerto, Date calDiaPresentación, Date calFechaFin,
-                          Date calFechaInicio, Integer calId, String calNombreconcesion, Integer calPlazo,
+                          Date calFechaInicio, Integer calId, String calNombreconcesion, String calPlazo,
                           Integer conId, Integer perId, Integer calEstado) {
         this.caeId = caeId;
         this.calAeropuerto = calAeropuerto;
@@ -128,11 +128,11 @@ public class ContratoAlerta implements Serializable {
         this.calNombreconcesion = calNombreconcesion;
     }
 
-    public Integer getCalPlazo() {
+    public String getCalPlazo() {
         return calPlazo;
     }
 
-    public void setCalPlazo(Integer calPlazo) {
+    public void setCalPlazo(String calPlazo) {
         this.calPlazo = calPlazo;
     }
 
