@@ -7,22 +7,32 @@
 <h:head>
 	<script type="text/javascript"></script>
 	<link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+         <script type="text/javascript">
+              function pasarMayuscula(obj, id) {
+                  obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;
+              }
+
+              function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
+                  document.getElementById(id).value = obj;
+              }
+            </script>
 </h:head>
 <h:body>
 <h:form id="form">
 <p:growl id="mensaje" showDetail="true" life="10000"/>
-     <f:event listener="#{jefeAreaContratoConcecionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+     <f:event listener="#{jefeAreaContratoConcecionMB.cargarListaInfraestructura()}" type="postAddToView"></f:event>
+     <f:event listener="#{jefeAreaContratoConcecionMB.listarJefeAreaContrato()}" type="postAddToView"></f:event>
     <p:layout fullPage="true" style="border:none">
         <p:layoutUnit position="center"   style="border:0px">  
         <ui:include src="/ositran/util/menu.xhtml"/>
-    
-            
             <div align="center">
-                            <h5 class="titulo" style="color: #003194;">
+                    <h5 class="titulo" style="color: #003194;">
                                 #{msg.tituloAJAC}
-                            </h5>
-                        </div>
-        
+                    </h5>
+            </div>
+   
 			<div align="center"  style="font-size: 11px">
 			<div align="center"  style="width:700px" >
 		
@@ -105,17 +115,41 @@
 		</p:fieldset>
 			</div>
 	 	</div>	
-                
+               
                 <table align="center" style="font-size: 11px">	
 	 			<tr>  
 	 				<td align="right"><p:commandButton  onclick="confirmarGuardar.show()"   value="#{btn.btn_guardar}" style="width:80px" /></td>
 	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" onclick="confirmarLimpiar.show()" style="width:80px" /></td>
                                 </tr>
 	 		</table>
+                         <div align="center">
+                        <div style="width:70%">
+                                <br></br>
+                                <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             style="font-size:11px;" id="tablaAJ" var="jefearea1"
+                                             value="#{jefeAreaContratoConcecionMB.listaJefeArea}">
+                                 <p:column headerText="Nro" style="width:3%" >
+                                        <h:outputText value="#{jefearea1.contador}"  />
+                                    </p:column>
+                                    <p:column headerText="Cod Concesion" >
+                                        <h:outputText value="#{jefearea1.concesionNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Jefe Area" >
+                                        <h:outputText value="#{jefearea1.nombreJefeArea}"/>
+                                    </p:column>
+                                     <p:column headerText="Documento" >
+                                        <h:outputText value="#{jefearea1.cjaNroDocumento}"/>
+                                    </p:column>
+                                     <p:column headerText="Activar" style="width:5%">
+                                        <p:commandButton value="Des" />
+                                    </p:column>
+                                </p:dataTable>
+                    </div>
+                    </div>
                         
-                       
-	
-
     </p:layoutUnit>
 </p:layout>
 
@@ -186,7 +220,7 @@
                          
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:mensaje" value="Guardar"
+                                <p:commandButton update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:mensaje :form:tablaAJ" value="Guardar"
                                                  actionListener="#{jefeAreaContratoConcecionMB.registrarContrato()}"
                                                  oncomplete="confirmarGuardar.hide()"></p:commandButton>
                             </td>
