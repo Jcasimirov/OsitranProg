@@ -2,6 +2,9 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ConcesionarioDAO;
 import com.ositran.model.Concesionario;
+import com.ositran.model.InversionTipo;
+import com.ositran.model.Men;
+import com.ositran.util.Entity;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
@@ -12,12 +15,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 
 public class ConcesionarioDAOImpl implements ConcesionarioDAO {
-
     Concesionario concesionario;
-
     public ConcesionarioDAOImpl() {
         super();
     }
@@ -40,11 +42,11 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
     @Override
     public List<Concesionario> query() throws SQLException, Exception {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Concesionario o").list();
+        List list = session.createQuery("From Concesionario o where o.cncEstado <> 0").list();
         session.getTransaction().commit();
-        return list;
+        return  list;
     }
 
     @Override
@@ -78,12 +80,18 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
     @Override
     public String delete(Integer id) throws SQLException, Exception {
+      
         String result = null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
+           
             session.beginTransaction();
-            concesionario = (Concesionario) session.get(Concesionario.class, id);
-            session.delete(concesionario);
+          
+            concesionario =get(id);
+           
+            concesionario.setCncEstado(0);
+            session.update(concesionario);
+           
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -95,12 +103,21 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     @Override
     public String update(Concesionario concesionario) throws SQLException, Exception {
         String result = null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.update(concesionario);
+            
+            this.concesionario = get(concesionario.getCncId());
+            System.out.println("1");
+            this.concesionario = (Concesionario)Entity.updateChanges(this.concesionario, concesionario);
+            System.out.println("1");
+            session.update(this.concesionario);
+            System.out.println("1");
+            session.flush();
+            System.out.println("1");
             session.getTransaction().commit();
         } catch (Exception e) {
+            e.printStackTrace();
             session.getTransaction().rollback();
             result = e.getMessage();
         }
