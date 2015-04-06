@@ -1,11 +1,8 @@
 package com.ositran.vo.bean;
 
-import java.util.Date;
+import java.io.InputStream;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.Date;
 
 
 public class ContratoVO {
@@ -42,6 +39,8 @@ public class ContratoVO {
     private String nombreConcesionario;
     private String nombreModalidad;
     private int codigoConcesion;
+    private InputStream inputStreamFichaResumen;
+    private InputStream inputStreamContratoPDF;
 
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
@@ -299,5 +298,20 @@ public class ContratoVO {
         return codigoConcesion;
     }
 
+    public void setInputStreamFichaResumen(InputStream inputStreamFichaResumen) {
+        this.inputStreamFichaResumen = inputStreamFichaResumen;
+    }
+
+    public InputStream getInputStreamFichaResumen() {
+        return inputStreamFichaResumen;
+    }
+
+    public void setInputStreamContratoPDF(InputStream inputStreamContratoPDF) {
+        this.inputStreamContratoPDF = inputStreamContratoPDF;
+    }
+
+    public InputStream getInputStreamContratoPDF() {
+        return inputStreamContratoPDF;
+    }
 
 }

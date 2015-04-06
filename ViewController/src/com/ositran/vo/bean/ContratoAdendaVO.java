@@ -1,6 +1,8 @@
 package com.ositran.vo.bean;
 
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 public class ContratoAdendaVO {
@@ -10,6 +12,7 @@ public class ContratoAdendaVO {
     
     private String cadDescripcion;
     private String cadDocumentoFisico;
+    private InputStream inputStreamNuevaAdenda;
     private Date cadFecha;
     private Integer cadId;
     private Long cadMonto;
@@ -116,4 +119,13 @@ public class ContratoAdendaVO {
     public String getCadFechaDescripcion() {
         return cadFechaDescripcion;
     }
+
+    public void setInputStreamNuevaAdenda(InputStream inputStreamNuevaAdenda) {
+        this.inputStreamNuevaAdenda = inputStreamNuevaAdenda;
+    }
+
+    public InputStream getInputStreamNuevaAdenda() {
+        return inputStreamNuevaAdenda;
+    }
+
 }
