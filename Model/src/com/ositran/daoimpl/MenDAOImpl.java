@@ -3,6 +3,7 @@ package com.ositran.daoimpl;
 import com.ositran.dao.MenDAO;
 import com.ositran.model.InversionTipo;
 import com.ositran.model.Men;
+import com.ositran.util.Entity;
 import com.ositran.util.HibernateUtil;
 
 import java.util.Collections;
@@ -17,10 +18,10 @@ import org.hibernate.criterion.Restrictions;
 public class MenDAOImpl implements MenDAO{
 
     Men men;
+    
     public MenDAOImpl() {
         super();
     }
-    
     
     @Override
     public int getPadre(Integer codigo) {
@@ -77,7 +78,9 @@ public class MenDAOImpl implements MenDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.update(men);
+            this.men = get(men.getMenId());
+            this.men = (Men)Entity.updateChanges(this.men, men);
+            session.update(this.men);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
