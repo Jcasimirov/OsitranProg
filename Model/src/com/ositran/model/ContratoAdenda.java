@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoAdenda.findAll", query = "select o from ContratoAdenda o") })
 @Table(name = "T_CONTRATO_ADENDA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO_ADENDA"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_ADENDA"))
 public class ContratoAdenda implements Serializable {
     private static final long serialVersionUID = 3393451982851266458L;
     @Column(name = "CAD_DESCRIPCION", nullable = false, length = 4000)
