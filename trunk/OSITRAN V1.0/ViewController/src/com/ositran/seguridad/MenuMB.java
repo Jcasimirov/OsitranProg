@@ -7,10 +7,12 @@ import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,14 +21,17 @@ import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
 import org.primefaces.component.menuitem.MenuItem;
 @ManagedBean(name = "menuMB")
+@SessionScoped
 public class MenuMB {
+
+    private MenuModel model;
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
     private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
     private List<MenVO> listaMenu=new ArrayList<>();
     private List<UsuarioVO> listaUsuarios=new ArrayList<>();
     private int padre;
-    private MenuModel model;
+    
     
     @ManagedProperty(value = "#{rolOpcionesServiceImpl}")
     RolOpcionesService rolOpcionesServiceImpl;
@@ -40,8 +45,13 @@ public class MenuMB {
     @ManagedProperty(value = "#{menVO}")
     MenVO menVO;
     
+    public MenuMB(){
+        
+        }
+    
     @PostConstruct
-    public void cargarMenu(){
+    public void init(){
+        
             model = new DefaultMenuModel();
             faceContext=FacesContext.getCurrentInstance();
             httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
