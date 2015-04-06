@@ -60,7 +60,8 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
     }
     
     private ContratoEntregaVO toContratoEntregaVO(ContratoEntrega contratoEntrega){
-        ContratoEntregaVO contratoEntregaVO=new ContratoEntregaVO();                
+        ContratoEntregaVO contratoEntregaVO=new ContratoEntregaVO();   
+        contratoEntregaVO.setCenNombre(contratoEntrega.getCenNombre());
         contratoEntregaVO.setMonId(contratoEntrega.getMonId());
         contratoEntregaVO.setConId(contratoEntrega.getConId());                
         contratoEntregaVO.setCenId(contratoEntrega.getCenId());  

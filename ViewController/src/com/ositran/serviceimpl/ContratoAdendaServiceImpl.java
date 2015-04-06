@@ -63,7 +63,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
     private ContratoAdendaVO toContratoAdendaVO(ContratoAdenda contratoAdenda){
         ContratoAdendaVO contratoAdendaVO=new ContratoAdendaVO();
         
-        contratoAdendaVO.setTadId(contratoAdenda.getTadId());
+        
         contratoAdendaVO.setMonId(contratoAdenda.getMonId());
         contratoAdendaVO.setConId(contratoAdenda.getConId());
         contratoAdendaVO.setCadMonto(contratoAdenda.getCadMonto());
@@ -81,7 +81,6 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
     private ContratoAdenda toContratoAdenda(ContratoAdendaVO contratoAdendaVO){
         ContratoAdenda contratoAdenda=new ContratoAdenda();        
         System.out.println("contratoNuevaAdendaVO.getTadId():"+contratoAdendaVO.getTadId());
-        contratoAdenda.setTadId(contratoAdendaVO.getTadId());
         contratoAdenda.setMonId(contratoAdendaVO.getMonId());
         contratoAdenda.setConId(contratoAdendaVO.getConId());
         contratoAdenda.setCadMonto(contratoAdendaVO.getCadMonto());
