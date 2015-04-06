@@ -13,6 +13,7 @@ import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.Constantes;
+import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AdendaTipoVO;
 import com.ositran.vo.bean.ConcesionVO;
@@ -25,6 +26,7 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.PeriodoVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
 import java.io.FileNotFoundException;
@@ -141,9 +143,14 @@ public class ActualizarContrato {
     private DefaultStreamedContent downloadFichaResumen;
     private DefaultStreamedContent downloadAdendas;
     private DefaultStreamedContent downloadEntregas;
-
+    
+    public  final int formulario=29;
+    private RolOpcionesVO rolOpcion;
     private int tipoArchivoEnContratoConcesion;
-    // Metodos Get y Set
+
+    public void validarSesion() throws IOException{
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
 
     public ActualizarContrato() {
         super();
@@ -344,16 +351,6 @@ public class ActualizarContrato {
         try {
             System.out.println("idcontrato: " + idcontrato);
             listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
-            for (ContratoAdendaVO contratoAdendaVO : listContratoAdenda) {
-                System.out.println("contratoAdendaVO.getCadEstado(): " + contratoAdendaVO.getCadEstado());
-                for (AdendaTipoVO aux : listarAdendasTipo) {
-                    if (aux.getTadId() == contratoAdendaVO.getTadId()) {
-                        contratoAdendaVO.setTadNombre(aux.getTadNombre());
-                    }
-                }
-            }
-
-
         } catch (SQLException s) {
             s.printStackTrace();
         }
@@ -363,7 +360,7 @@ public class ActualizarContrato {
         try {
             System.out.println("contratoNuevaAdendaVO.getTadId():"+contratoNuevaAdendaVO.getTadId());
             contratoNuevaAdendaVO.setCadMonto(1L);            
-            contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
+            
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
             listContratoAdenda.add(contratoNuevaAdendaVO);
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
@@ -405,16 +402,7 @@ public class ActualizarContrato {
     }
 
 
-    public String obtenerNombreTipoAdenda(int tadid) {
-        String nombreadenda = "";
-        for (AdendaTipoVO adendaTipoVO : listarAdendasTipo) {
-            if (tadid == adendaTipoVO.getTadId()) {
-                nombreadenda = adendaTipoVO.getTadNombre();
-            }
-            ;
-        }
-        return nombreadenda;
-    }
+
 
     public void resetearNuevaAdenda() {
         if(contratoVO!=null){
@@ -428,15 +416,6 @@ public class ActualizarContrato {
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.SELECCIONECONTRATO));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");    
-        }
-    }
-
-    public void listarTiposAdendas() {
-        try {
-            listarAdendasTipo = adendaTipoServiceImpl.query();
-        } catch (SQLException sqle) {
-            // TODO: Add catch code
-            sqle.printStackTrace();
         }
     }
 
@@ -476,9 +455,7 @@ public class ActualizarContrato {
     public void cargarListaContratoEntregas(int idcontrato) {
         try {
             listarEntregas = contratoEntregaServiceImpl.getEntregasContrato(idcontrato);
-            for (ContratoEntregaVO e : listarEntregas) {
-                System.out.println("e.getConId()+e.getCenId(): " + e.getConId() + e.getCenId());
-            }
+ 
 
         } catch (Exception sqle) {
             sqle.printStackTrace();
@@ -1011,6 +988,14 @@ public class ActualizarContrato {
 
     public List<MonedaVO> getListarTipoMonedas() {
         return listarTipoMonedas;
+    }
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
     }
 
 }
