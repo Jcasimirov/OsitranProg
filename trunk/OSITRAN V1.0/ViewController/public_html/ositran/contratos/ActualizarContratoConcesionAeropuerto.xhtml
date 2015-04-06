@@ -66,7 +66,7 @@
     </h:head>
     <h:body>
         
-         
+        <f:event listener="#{actualizarContratoMB.validarSesion}" type="postAddToView"/>
         <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="postAddToView"/>
         
         <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="postAddToView"/>
@@ -77,7 +77,7 @@
          
         <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="postAddToView"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposAdendas}" type="postAddToView"/>
+        
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
@@ -86,7 +86,7 @@
                     <h4 class="titulo">ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N - AEROPUERTO</h4>
                 </div>
                 <div align="center" style="font-size: 11px">
-                    <p:tabView style="width: 80%" id="tab">
+                    <p:tabView style="width: 80%" id="tab"  rendered="#{actualizarContratoMB.rolOpcion.troConsultar eq 1}">
                         <p:tab title="Datos Básicos">
                             <h:form id="form" enctype="multipart/form-data">
                                 <p:growl id="mensaje" showDetail="true" life="3000"/>
@@ -98,7 +98,7 @@
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
                                                                  update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
-                                                                 oncomplete="popupBuscarContrato.show();">
+                                                                 oncomplete="popupBuscarContrato.show();" >
                                                 <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                 </p:commandButton>
                                             </p:fieldset>
@@ -425,7 +425,7 @@
                                             <p:commandButton  value="Agregar Adenda" id="nuevaadenda"
                                                              actionListener="#{actualizarContratoMB.resetearNuevaAdenda()}"                                                        
                                                              
-                                                             image="ui-icon-document"></p:commandButton>
+                                                             image="ui-icon-document" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"></p:commandButton>
                                         </td>
                                     </tr>
                                      
@@ -477,7 +477,7 @@
                                             <p:commandButton value="Agregar Entrega" id="nuevaEntrega"
                                                              image="ui-icon-document"
                                                              actionListener="#{actualizarContratoMB.resetearNuevaEntrega()}"
-                                                               />
+                                                             rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"  />
                                         </td>
                                     </tr>
                                      
@@ -535,17 +535,7 @@
                                         <h:outputText value=""/>
                                         
                                        
-                                        <p:outputLabel for="tipoAdenda1" value="Tipo de Adenda"/>
-                                        <p:selectOneMenu id="tipoAdenda1"
-                                                         value="#{actualizarContratoMB.contratoNuevaAdendaVO.tadId}"
-                                                         required="true" style="width:100% !important;">
-                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
-                                            <f:selectItems value="#{actualizarContratoMB.listarAdendasTipo}"
-                                                           var="tipAdenda" itemLabel="#{tipAdenda.tadNombre}"
-                                                           itemValue="#{tipAdenda.tadId}"/>
-                                        </p:selectOneMenu>
-                                        <p:message for="tipoAdenda1" display="icon"/>
-                                        <h:outputText value=""/>                                     
+                                                                          
                                                                               
                                        
                                         <p:outputLabel for="objeto" value="Objeto"/>
