@@ -77,7 +77,7 @@
          
         <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="postAddToView"/>
          
-        
+        <f:event listener="#{actualizarContratoMB.listarTiposAdendas}" type="postAddToView"/>
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
@@ -535,7 +535,17 @@
                                         <h:outputText value=""/>
                                         
                                        
-                                                                          
+                                        <p:outputLabel for="tipoAdenda1" value="Tipo de Adenda"/>
+                                        <p:selectOneMenu id="tipoAdenda1"
+                                                         value="#{actualizarContratoMB.contratoNuevaAdendaVO.tadId}"
+                                                         required="true" style="width:100% !important;">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarAdendasTipo}"
+                                                           var="tipAdenda" itemLabel="#{tipAdenda.tadNombre}"
+                                                           itemValue="#{tipAdenda.tadId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="tipoAdenda1" display="icon"/>
+                                        <h:outputText value=""/>                                    
                                                                               
                                        
                                         <p:outputLabel for="objeto" value="Objeto"/>
@@ -659,7 +669,7 @@
                             </p:dialog>
                         </p:tab>
                         <p:tab title="Compromiso - Penalidades">
-                       
+                        
                         </p:tab>
                         <p:tab title="CAO - Hito - POO"></p:tab>
                         <p:tab title="Alertas Personalizadas"></p:tab>
