@@ -19,6 +19,7 @@
         </h:head>
         <h:body>
          <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+         <f:event listener="#{supervisorContratoConcesionMB.listarSupervisionDeInversiones}" type="postAddToView"></f:event>
         <h:form id="form">
         <p:growl id="mensaje" showDetail="true" life="10000"/>
         <p:layout fullPage="true" style="border:none">
@@ -146,13 +147,41 @@
                     <table align="center" style="font-size: 11px">
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form:mensaje" actionListener="#{supervisorContratoConcesionMB.registrarContrato()}" value="#{btn.btn_guardar}"/>
+                                <p:commandButton update=":form:mensaje :form:tablaSI" actionListener="#{supervisorContratoConcesionMB.registrarContrato()}" value="#{btn.btn_guardar}"/>
                             </td>
                             <td align="left">
                                 <p:commandButton value="#{btn.btn_salir}"/>
                             </td>
                         </tr>
-                    </table>                                  
+                    </table> 
+                    
+                        <div align="center">
+                        <div style="width:70%">
+                                <br></br>
+                                <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             style="font-size:11px;" id="tablaSI" var="supervicion1"
+                                             value="#{supervisorContratoConcesionMB.listaContratoSupervisor}">
+                                 <p:column headerText="Nro" style="width:3%" >
+                                        <h:outputText value="#{supervicion1.contador}"  />
+                                    </p:column>
+                                    <p:column headerText="Cod Concesion" >
+                                        <h:outputText value="#{supervicion1.concesionNombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Supervisor" >
+                                        <h:outputText value="#{supervicion1.nombreSupervicion}"/>
+                                    </p:column>
+                                     <p:column headerText="Documento" >
+                                        <h:outputText value="#{supervicion1.sivUmero}"/>
+                                    </p:column>
+                                     <p:column headerText="Activar" style="width:5%">
+                                        <p:commandButton value="Des" />
+                                    </p:column>
+                                </p:dataTable>
+                    </div>
+                    </div>
             </p:layoutUnit>
         </p:layout>
         
