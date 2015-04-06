@@ -1,17 +1,18 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoAdendaDAO;
-
 import com.ositran.model.ContratoAdenda;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
+
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     public ContratoAdendaDAOImpl() {
@@ -33,12 +34,14 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoAdenda);
+            session.save(contratoAdenda);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 
@@ -84,12 +87,11 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     
     public List<ContratoAdenda> getAdendasContrato(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
         Query query; 
         query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.cadId DESC");
         query.setParameter("busqueda1",conId);            
-        List<ContratoAdenda> list = query.list();
-        session.getTransaction().commit();
+        List<ContratoAdenda> list = query.list();    
+        session.close();
         return list;        
               
         

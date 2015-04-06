@@ -35,12 +35,15 @@ public class ContratoEntregaDAOImpl implements ContratoEntregaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoEntrega);
+            session.save(contratoEntrega);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+                
+        session.flush();
+        session.close();
         return result;
     }
 
