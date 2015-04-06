@@ -19,17 +19,19 @@
         </h:head>
         <h:body>
         <f:event listener="#{tipoInversionMB.validarSesion}" type="postAddToView"></f:event>
-            <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
+        <f:event listener="#{tipoInversionMB.ListarInversiones}" type="postAddToView"></f:event>
+           
+             
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:messages autoUpdate="true"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h4 class="titulo">
+                            <h5 class="titulo">
                                 #{msg.titulo_MANTTIPINV}
-                            </h4>
+                            </h5>
                             <div style="width:80%">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
