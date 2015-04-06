@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 public class ContratoEntregaVO {
@@ -12,7 +14,9 @@ public class ContratoEntregaVO {
     private Integer monId;
     private String cenNombre;
     private Integer cenEstado;
-
+    private String cenFechaDescripcion;
+    private Integer cenEntrega;
+    private InputStream inputStreamNuevaEntrega;
     public ContratoEntregaVO() {
         super();
    }
@@ -88,5 +92,29 @@ public class ContratoEntregaVO {
 
     public void setCenEstado(Integer cenEstado) {
         this.cenEstado = cenEstado;
+    }
+
+    public void setCenFechaDescripcion(String cenFechaDescripcion) {
+        this.cenFechaDescripcion = cenFechaDescripcion;
+    }
+
+    public String getCenFechaDescripcion() {
+        return cenFechaDescripcion;
+    }
+
+    public void setInputStreamNuevaEntrega(InputStream inputStreamNuevaEntrega) {
+        this.inputStreamNuevaEntrega = inputStreamNuevaEntrega;
+    }
+
+    public InputStream getInputStreamNuevaEntrega() {
+        return inputStreamNuevaEntrega;
+    }
+
+    public void setCenEntrega(Integer cenEntrega) {
+        this.cenEntrega = cenEntrega;
+    }
+
+    public Integer getCenEntrega() {
+        return cenEntrega;
     }
 }

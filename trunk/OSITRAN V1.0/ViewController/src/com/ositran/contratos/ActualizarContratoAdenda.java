@@ -3,34 +3,28 @@ package com.ositran.contratos;
 import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.util.Util;
+import com.ositran.vo.bean.AdendaTipoVO;
+import com.ositran.vo.bean.ContratoAdendaVO;
 
 import java.io.File;
-import com.ositran.vo.bean.AdendaTipoVO;
-import com.ositran.vo.bean.ConcesionarioVO;
-import com.ositran.vo.bean.ContratoAdendaVO;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.io.InputStream;
-
 import java.io.OutputStream;
 
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean(name = "actualizarContratoAdendaMB")
@@ -272,26 +266,7 @@ public class ActualizarContratoAdenda {
         adendaId = contratoAdendaVO.getCadId();
     }
 
-    public void eliminar() {
-        try {
-           contratoAdendaServiceImpl.delete(adendaId);
-           cargarListaContratoAdenda();
-           FacesContext.getCurrentInstance().addMessage(null,
-                                                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                         "Se elimino correctamente"));
-       }  catch (SQLException s) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",                                                                          
-                                                                          " No se pudo editar el concecionario ")); 
-            
-        } 
-        catch ( Exception e){
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",                                                                              
-                                                                              " No se pudo editar el concecionario "));
-            }
-    
-    }
+   
 
     public Integer getAdendaId() {
         return adendaId;

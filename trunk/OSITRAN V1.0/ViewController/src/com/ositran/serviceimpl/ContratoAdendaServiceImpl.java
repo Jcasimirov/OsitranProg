@@ -3,15 +3,12 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoAdendaDAOImpl;
 import com.ositran.model.ContratoAdenda;
 import com.ositran.service.ContratoAdendaService;
-
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoAdendaVO;
-
-
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoAdendaServiceImpl implements ContratoAdendaService {
@@ -36,11 +33,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         return result;
     }
 
-    @Override
-    public String delete(Integer id) throws SQLException {
-        String result = contratoAdendaDAOImpl.delete(id);
-        return result;
-    }
+
 
     @Override
     public String update(ContratoAdendaVO contratoAdendaVO) throws SQLException {
@@ -76,6 +69,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdendaVO.setCadMonto(contratoAdenda.getCadMonto());
         contratoAdendaVO.setCadId(contratoAdenda.getCadId());
         contratoAdendaVO.setCadFecha(contratoAdenda.getCadFecha());
+        contratoAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAdenda.getCadFecha()));
         contratoAdendaVO.setCadDescripcion(contratoAdenda.getCadDescripcion());
         contratoAdendaVO.setCadDocumentoFisico(contratoAdenda.getCadDocumentoFisico());
         contratoAdendaVO.setCadEstado(contratoAdenda.getCadEstado());
@@ -86,7 +80,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
     
     private ContratoAdenda toContratoAdenda(ContratoAdendaVO contratoAdendaVO){
         ContratoAdenda contratoAdenda=new ContratoAdenda();        
-        
+        System.out.println("contratoNuevaAdendaVO.getTadId():"+contratoAdendaVO.getTadId());
         contratoAdenda.setTadId(contratoAdendaVO.getTadId());
         contratoAdenda.setMonId(contratoAdendaVO.getMonId());
         contratoAdenda.setConId(contratoAdendaVO.getConId());
@@ -95,8 +89,8 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadFecha(contratoAdendaVO.getCadFecha());
         contratoAdenda.setCadDescripcion(contratoAdendaVO.getCadDescripcion());
         contratoAdenda.setCadDocumentoFisico(contratoAdendaVO.getCadDocumentoFisico());
-        contratoAdenda.setCadEstado(contratoAdenda.getCadEstado());
-        contratoAdenda.setCadNombre(contratoAdenda.getCadNombre());
+        contratoAdenda.setCadEstado(contratoAdendaVO.getCadEstado());
+        contratoAdenda.setCadNombre(contratoAdendaVO.getCadNombre());
         return contratoAdenda;
         
     }
@@ -115,4 +109,6 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         List<ContratoAdendaVO> listVO=toListContratoAdendaVO(list);
         return listVO;
     }
+
+
 }
