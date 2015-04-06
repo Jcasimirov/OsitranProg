@@ -6,13 +6,13 @@
         <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript">
           PrimeFaces.locales['es'] = {
-              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'SÃ³lo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'DÃ­a', allDayText : 'Todo el dÃ­a'
+              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
           };
         </script>
         <style type="text/css">
             .ui-panel .ui-panel-titlebar {
                 color: #333333;
-                font-family: Century Gothic, sans-serif;
+                font-family: Arial;
             }
         </style>
     </h:head>
@@ -35,7 +35,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <p:fieldset legend="Conceción">
+                                                <p:fieldset legend="Concecion" >
                                                     <p:inputText id="idNombreConcesion"
                                                                  value="#{asignarResponsableMB.nombreContratoConcesion}"
                                                                  style="width:300px;text-transform:uppercase;"></p:inputText>
@@ -53,7 +53,7 @@
                                                             legend="Datos Contrato de Concesion">
                                                     <table>
                                                         <tr>
-                                                            <td align="left">Nombre de concesi&#243;n</td>
+                                                            <td align="left">Nombre de concesion </td>
                                                             <td>
                                                                 <p:inputText id="idNameConcesion"
                                                                              value="#{asignarResponsableMB.nameContrato}"
@@ -71,43 +71,19 @@
                                                         </tr>
                                                          
                                                         <tr>
-                                                            <td align="left">Modalidad de Concesi&#243;n</td>
+                                                            <td align="left">Modalidad de Concesion </td>
                                                             <td>
-                                                                <p:inputText id="idNameModalidadConceción"
+                                                                <p:inputText id="idNameModalidadConcecion"
                                                                              value="#{asignarResponsableMB.nameModalidadConcesion}"
                                                                              style="width:300px;text-transform:uppercase;"></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
-                                                        <tr>
-                                                            <td align="left">Modelaidad de inversion</td>
-                                                            <td>
-                                                                <p:inputText></p:inputText>
-                                                            </td>
-                                                        </tr>
+                                                        
                                                          
-                                                        <tr>
-                                                            <td align="left">Nombre de concesionario</td>
-                                                            <td>
-                                                                <p:inputText></p:inputText>
-                                                            </td>
-                                                        </tr>
+                                                        
                                                          
-                                                        <tr>
-                                                            <td align="left">Infraestructura</td>
-                                                            <td>
-                                                                <p:selectOneMenu>
-                                                                    <f:selectItem itemLabel="-Seleccione-"
-                                                                                  itemValue="4"/>
-                                                                    <f:selectItem itemLabel="Infraestructura1"
-                                                                                  itemValue="1"/>
-                                                                    <f:selectItem itemLabel="Infraestructura2"
-                                                                                  itemValue="2"/>
-                                                                    <f:selectItem itemLabel="Infraestructura3"
-                                                                                  itemValue="3"/>
-                                                                </p:selectOneMenu>
-                                                            </td>
-                                                        </tr>
+                                                       
                                                     </table>
                                                 </p:fieldset>
                                             </td>
@@ -115,50 +91,33 @@
                                          
                                         <tr>
                                             <td>
-                                                <p:fieldset styleClass="fielsetinterno" legend="Etapa ConcesiÃ³n">
+                                            <p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
+                                               
                                                     <table>
                                                         <tr>
                                                             <td colspan="2" align="left">Seleccione Etapa</td>
                                                             <td colspan="2" align="left">
-                                                                <p:selectOneMenu>
-                                                                    <f:selectItem itemLabel="-Seleccione-"
-                                                                                  itemValue="4"/>
-                                                                    <f:selectItem itemLabel="Etapa1" itemValue="1"/>
-                                                                    <f:selectItem itemLabel="Etapa2" itemValue="2"/>
-                                                                    <f:selectItem itemLabel="Etapa3" itemValue="3"/>
+                                                                <p:selectOneMenu id="listaCompromiso"  value="#{asignarResponsableMB.contratoCompromisoSeleccionado}">
+                                                                    <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+                                                                    <f:selectItems  value="#{asignarResponsableMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}" itemValue="#{tip2.ccoId}"/>
+                                                                    <p:ajax event="valueChange" update="form:datosCompromiso" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
-                                                         
                                                         <tr>
-                                                            <td align="left">Alcance</td>
-                                                            <td colspan="3" align="left">
-                                                                <p:inputText style="width: 300px" disabled="true"></p:inputText>
-                                                            </td>
-                                                        </tr>
+          <td align="left">Plazo:</td>
+          <td align="left" colspan="3"><p:inputText value="#{asignarResponsableMB.plazo}" size="10"  /></td>
+         </tr>
+ 
+         <tr>
+          <td align="left">Total:</td>
+          <td align="left" ><p:inputText value="#{asignarResponsableMB.total}" size="10"></p:inputText></td>
+          <td align="left">#{cam.mon}</td>
+          <td align="left"><p:inputText value="#{asignarResponsableMB.codigoMoneda}"  size="10"></p:inputText></td>
+         </tr>
+         </table>
                                                          
-                                                        <tr>
-                                                            <td align="left">Inicio</td>
-                                                            <td align="left">
-                                                                <p:calendar locale="es" pattern="yyyy-MMM-dd "/>
-                                                            </td>
-                                                            <td align="left">Fin</td>
-                                                            <td align="left">
-                                                                <p:calendar locale="es" pattern="yyyy-MMM-dd"/>
-                                                            </td>
-                                                        </tr>
-                                                         
-                                                        <tr>
-                                                            <td align="left">Total</td>
-                                                            <td align="left" disabled="true">
-                                                                <p:inputText></p:inputText>
-                                                            </td>
-                                                            <td align="left">Moneda</td>
-                                                            <td align="left" disabled="true">
-                                                                <p:inputText></p:inputText>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                                       
                                                 </p:fieldset>
                                             </td>
                                         </tr>
@@ -167,50 +126,43 @@
                             </td>
                             <td>
                                 <p:fieldset styleClass="fielsetinterno" legend="Criterios de Busqueda">
-                                    <p:fieldset id="idBusquedaSupervisor" legend="Busqueda Supervisor">
+                                    <p:fieldset id="idBusquedaSupervisor" legend="Busqueda Coordinador Insitu">
                                         <table>
                                             <tr>
-                                                <td>Tipo Infraestructura</td>
-                                                <td>
-                                                    <p:selectOneMenu id="tipobuscar"
-                                                                     value="#{asignarResponsableMB.codigoTipoInfraestructurafiltro}"
-                                                                     style="width:150px;text-transform:uppercase">
-                                                        <p:ajax listener="#{asignarResponsableMB.cargarSupervisoresxInfraestructura()}"
-                                                                update=":form:cbosupervisor"/>
-                                                        <f:selectItem itemValue="0" itemLabel="-Seleccione-"/>
-                                                        <f:selectItems value="#{asignarResponsableMB.listaInfraestructuraTipos}"
-                                                                       var="tip" itemLabel="#{tip.tinNombre}"
-                                                                       itemValue="#{tip.tinId}"/>
-                                                    </p:selectOneMenu>
-                                                </td>
+                                                
                                                 <td>Supervision de Inversiones</td>
                                                 <td>
                                                     <p:selectOneMenu id="cbosupervisor"
                                                                      value="#{asignarResponsableMB.codigoSupervisor}"
                                                                      style="width:150px;text-transform:uppercase;">
-                                                        <p:ajax listener="#{asignarResponsableMB.seleccionarSupervisor()}"
-                                                                update=":form:listaResponsables"/>
+                                                       
                                                         <f:selectItem itemValue="0" itemLabel="-Seleccione-"/>
                                                         <f:selectItems value="#{asignarResponsableMB.listarSupervisoresxInfraestructura}"
                                                                        var="sup" itemLabel="#{sup.tsiNombre}"
                                                                        itemValue="#{sup.tsiId}"/>
-                                                    </p:selectOneMenu>
+                                                    </p:selectOneMenu></td>
+                                                    <td>
+                                                    <p:commandButton value="Asignar"
+                                                                 actionListener="#{asignarResponsableMB.seleccionarSupervisor()}"
+                                                                 update=":form:listaResponsables"/>
                                                 </td>
                                             </tr>
                                         </table>
                                     </p:fieldset>
+                                    <br></br>
+                                    <p:fieldset id="idBusquedaEmpSup" legend="Busqueda Empresa Supervisora">
                                     <table>
                                         <tr>
                                             <td>
                                             Nombre Empresa
                                                 <p:inputText  id="idNombreEmpresaSupervisora"
                                                              value="#{asignarResponsableMB.nombreEmpresaSupervisora}"
-                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                             style="width:200px;text-transform:uppercase;"></p:inputText>
                                                              </td><td>
                                            Ruc Empresa      
                                                 <p:inputText id="idRucEmpresaSupervisora"
                                                              value="#{asignarResponsableMB.rucEmpresaSupervisora}"
-                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                             style="width:100px;text-transform:uppercase;"></p:inputText>
                                                  
                                                 <p:commandButton value="#{btn.btn_buscar}"
                                                                  actionListener="#{asignarResponsableMB.filtrarListaEmpSup()}"
@@ -242,6 +194,10 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    </p:fieldset>
+                                     </p:fieldset>
+                                     <br></br>
+                                     <p:fieldset id="idResultadoAsig" legend="Lista Responsables Asignados">
                                     <p:dataTable value="#{asignarResponsableMB.listaResponsables}" rowIndexVar="rowId"
                                                  var="list" id="listaResponsables">
                                         <p:column headerText="numeroDocumento">
@@ -302,14 +258,22 @@
                     <p:dataTable style="font-size:11px;text-align:center"
                                  id="DataTable_ResultadoBusquedaContratosConcesion" var="var2"
                                  value="#{asignarResponsableMB.listaContratosConcesion}">
-                        <p:column headerText="emps sup">
+                        <p:column headerText="Nombre de la Concesion" > 
                             <h:outputText value="#{var2.nombreConcesion}"
+                                          style="width:300px;text-transform:uppercase;"/>
+                        </p:column>
+                        <p:column headerText="Nombre del Tipo Infraestructura">
+                            <h:outputText value="#{var2.nombreTipoInfraestructura}"
+                                          style="width:300px;text-transform:uppercase;"/>
+                        </p:column>
+                        <p:column headerText="Nombre de la Modalidad">
+                            <h:outputText value="#{var2.nombreModalidad}"
                                           style="width:300px;text-transform:uppercase;"/>
                         </p:column>
                         <p:column headerText="Elegir">
                             <p:commandButton actionListener="#{asignarResponsableMB.seleccionarContratoConcesion1}"
                                              icon="ui-search"
-                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConceción"
+                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion :form:cbosupervisor :form:listaCompromiso"
                                              oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
                                 <f:attribute name="contrato" value="#{var2}"></f:attribute>
                             </p:commandButton>
