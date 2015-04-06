@@ -46,7 +46,8 @@ public class ContratoAdenda implements Serializable {
     private Integer cadEstado;
     @Column(name = "CAD_NOMBRE")
     private String cadNombre;
-    
+    @Column(name = "TAD_ID")
+    private Integer tadId;
 
     public ContratoAdenda() {
     }
@@ -134,5 +135,13 @@ public class ContratoAdenda implements Serializable {
 
     public void setCadNombre(String cadNombre) {
         this.cadNombre = cadNombre;
+    }
+
+    public void setTadId(Integer tadId) {
+        this.tadId = tadId;
+    }
+
+    public Integer getTadId() {
+        return tadId;
     }
 }
