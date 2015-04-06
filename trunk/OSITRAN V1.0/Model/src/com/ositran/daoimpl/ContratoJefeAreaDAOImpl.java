@@ -17,9 +17,10 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<ContratoJefeArea> query() {
-        // TODO Implement this method
-        return Collections.emptyList();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(ContratoJefeArea.class).list();
     }
 
     @Override
