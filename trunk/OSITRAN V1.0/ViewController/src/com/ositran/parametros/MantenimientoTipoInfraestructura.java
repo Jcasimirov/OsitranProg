@@ -3,17 +3,25 @@ package com.ositran.parametros;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+
 import com.ositran.util.Util;
 import com.ositran.vo.bean.RolOpcionesVO;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.Date;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "infraestructuraMB")
@@ -27,23 +35,22 @@ public class MantenimientoTipoInfraestructura {
     private String nombreEliminar;
     private int codigoE;
     private String tinNombreE;
-    private String tinDescripcionE;    
-    public  final int formulario=9;
+    private String tinDescripcionE;
+    public final int formulario = 9;
     private RolOpcionesVO rolOpcion;
-    
+
 
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
-    
+
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
 
-    public void validarSesion() throws IOException{        
-        
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        }
-     
+    public void validarSesion() throws IOException {
+
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
 
 
     public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
@@ -73,17 +80,18 @@ public class MantenimientoTipoInfraestructura {
         return listaInfraestructura;
     }
 
-  
 
     /* Guardar */
-    public void guardar()  {
+    public void guardar() {
 
-        if (tinNombre.equals("") || tinDescripcion.equals("")) {
-            System.out.println("no se puede guardar");
-
+        if (tinNombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No se ha completado con el Registro"));
+                                                                          "No se ha registrado el nombre"));
+        } else if (tinDescripcion.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No se registrado la descripccion"));
         } else {
             try {
 
@@ -95,16 +103,16 @@ public class MantenimientoTipoInfraestructura {
                 getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
                 RequestContext.getCurrentInstance().execute("popupagregar.hide()");
                 limpiar();
-                
+
                 ListarInfraestructura();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                               "Se Registro con Exito"));
             } catch (SQLException e) {
-                
+
                 e.printStackTrace();
             }
-           
+
         }
     }
 
@@ -122,7 +130,7 @@ public class MantenimientoTipoInfraestructura {
     }
 
     public void editar() throws SQLException {
-        
+
         try {
             infraestructuraTipoVO.setTinId(codigoE);
             infraestructuraTipoVO.setTinNombre(tinNombreE.toUpperCase());
