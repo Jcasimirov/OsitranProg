@@ -380,7 +380,7 @@
                                             <p:column headerText="Seleccionar" style="width:4%">
                                                 <p:commandButton icon="ui-icon-check"
                                                                  actionListener="#{actualizarContratoMB.seleccionarContrato}"
-                                                                 update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg                                                                           :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg                                                                          :tab:form :tab:frmAdenda:tablaAdenda :tab:frmAdenda:tablaEngrega :tab:frmAlerta:tablaAlerta :tab:frmInversion:tablaContratoInversion: :tab:frmAgregarInversion:AeropuertoInversion :tab:frmAgregarCAO:monedaCAO"
+                                                                 update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg                                                                           :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg                                                                          :tab:form :tab:frmAdenda:tablaAdenda :tab:frmAdenda:tablaEngrega :tab:frmAlerta:tablaAlerta :tab:frmInversion:tablaContratoInversion: :tab:frmAgregarInversion:AeropuertoInversion :tab:frmAgregarCAO:monedaCAO :tab:frmCHP:tablaCAO"
                                                                  process="@this"
                                                                  oncomplete="popupBuscarContrato.hide();">
                                                     <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
@@ -667,15 +667,39 @@
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px;" id="tablaCAO" var="cao">
-                                                    <p:column headerText="Inversión"></p:column>
-                                                    <p:column headerText="Nro" style="width:14%"></p:column>
-                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
-                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
-                                                    <p:column headerText="Monto" style="width:4%"></p:column>
-                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
-                                                    <p:column headerText="Ver" style="width:4%"></p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                             style="font-size:11px;" id="tablaCAO" var="tCao"
+                                                             value="#{actualizarContratoMB.listContratoCaoVO}">
+                                                    <p:column headerText="Inversión">
+                                                        <h:outputText value="#{tCao.caoNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Nro" style="width:12%">
+                                                        <h:outputText value="#{tCao.caoId}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:10%">
+                                                        <h:outputText value="#{tCao.caoFecha}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Oficio" style="width:10%">
+                                                        <h:outputText value="#{tCao.caoOficio}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto" style="width:4%">
+                                                        <h:outputText value="#{tCao.caoMonto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:8%">
+                                                        <h:outputText value="#{tCao.monNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Ver" style="width:4%">
+                                                        <h:outputText value="#{tCao.caoPdf}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%">
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarCao()}"
+                                                                         oncomplete="popupEliminarCAO.show()"
+                                                                         image="ui-icon-trash"
+                                                                         style="width:25px;height:25px"
+                                                                         update=":tab:frmCHP:tablaCAO :tab:formEliminarCAO">
+                                                            <f:param id="idContratoCaoE" name="idContratoCaoE"
+                                                                     value="#{tCao.caoId}"/>
+                                                        </p:commandButton>
+                                                    </p:column>
                                                 </p:dataTable>
                                             </div>
                                         </td>
@@ -780,8 +804,7 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombreCAO}"
                                                              style="width:300px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>                                                 
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
@@ -800,7 +823,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaCAO}"/>
+                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaCAO}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -846,10 +869,12 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.documentoCAO}"
+                                                <p:inputText id="docCao"
+                                                             value="#{actualizarContratoMB.documentoCAO}"
                                                              style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                             readonly="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"/>
+                                                <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}"
+                                                      update="docCao" label="Archivo" auto="true"/> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -865,7 +890,8 @@
                                         <tr>
                                             <td align="center" colspan="2">
                                                 <p:commandButton update=":tab:frmCHP:tablaCAO"
-                                                                 action="#{actualizarContratoMB.guardarCAO()}"
+                                                                 oncomplete="popupAgregarCAO.hide()"
+                                                                 actionListener="#{actualizarContratoMB.guardarCAO()}"
                                                                  style="width:70px" value="#{btn.btn_guardar}"/>
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
@@ -876,6 +902,31 @@
                                     </table>
                                 </h:form>
                             </p:dialog>
+                            <p:dialog appendToBody="true" header="Eliminar CAO" widgetVar="popupEliminarCAO"
+                                      modal="true" style="text-align:center; font-size:11px;">
+                                <h:form id="formEliminarCAO" enctype="multipart/form-data">
+                                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                                        <tr>
+                                            <td align="left">
+                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El CAO ????? :
+                                            </td>
+                                            <td align="left">
+                                                <h:outputText value="#{actualizarContratoMB.nombreCao2}"
+                                                              style="align:left; text-align:left"></h:outputText>
+                                            </td>
+                                            <td align="left"></td>
+                                        </tr>
+                                    </table>
+                                    <p:commandButton update=":tab:frmCHP:tablaCAO"
+                                                     oncomplete="popupEliminarCAO.hide()"
+                                                     actionListener="#{actualizarContratoMB.eliminarCao}"
+                                                     value="Eliminar">
+                                        <f:attribute name="codigoCaoE"
+                                                     value="#{actualizarContratoMB.codigoCao}"/>
+                                    </p:commandButton>
+                                </h:form>
+                            </p:dialog>
+                        
                             <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito">
                                 <h:form id="frmAgregarHito">
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
