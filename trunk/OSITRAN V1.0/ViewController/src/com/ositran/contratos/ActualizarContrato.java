@@ -42,6 +42,10 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 
+import java.text.DateFormat;
+
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -136,7 +140,7 @@ public class ActualizarContrato {
     private ContratoCaoVO contratoCaoVO;
     @ManagedProperty(value = "#{contratoCaoServiceImpl}")
     private ContratoCaoServiceImpl contratoCaoServiceImpl;
-    List<ContratoCaoVO> listContratoCaoVO;
+    private List<ContratoCaoVO> listContratoCaoVO;
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaTipoInfraestructura=new ArrayList<InfraestructuraTipoVO>();
@@ -185,7 +189,9 @@ public class ActualizarContrato {
     private String oficioCAO;
     private Long montoCAO;
     private String documentoCAO;
-    private Integer monedaCAOId;
+    private Integer monedaCAOId;    
+    private Integer codigoCao;
+    private String nombreCao2;
     //inversion
     private Integer infraestructuraId = 0;
     private String descInversion;
@@ -318,6 +324,7 @@ public class ActualizarContrato {
         cargarInfraestructurasContrato(contratoVO.getConId());
         cargarListaInversiones(contratoVO.getConId());
         cargarListaAlertas(contratoVO.getConId());
+        cargarListaCaos(contratoVO.getConId());
         resetDialogoBuscarContrato();
 
         
@@ -612,6 +619,15 @@ public class ActualizarContrato {
     public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
         contratoNuevaEntregaVO.setCenDocumentoFisico(event.getFile().getFileName());
         contratoNuevaEntregaVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
+
+    }
+    
+    
+    public void subirArchivoCao(FileUploadEvent event) throws IOException {
+        //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
+        documentoCAO = event.getFile().getFileName();
+        contratoCaoVO.setFileCao(event.getFile().getInputstream());
+        System.out.println("documentoCAO: " +  documentoCAO);
 
     }
     public void preDownloadEntrega(String nombreArchivo) {
@@ -1303,6 +1319,21 @@ public class ActualizarContrato {
         this.contratoAlertaVO = contratoAlertaVO;
     }
     
+    public void cargarListaCaos(int idcontrato) {
+        try {
+            System.out.println("idcontrato: " + idcontrato);
+            setListContratoCaoVO(contratoCaoServiceImpl.getCaosContrato(idcontrato));
+            for(ContratoCaoVO contratoCaoVO : getListContratoCaoVO()) {
+                for(MonedaVO aux : listarTipoMonedas){
+                    if(aux.getMonId() == contratoCaoVO.getMonId()){
+                        contratoCaoVO.setMonNombre(aux.getMonNombre());
+                    }  
+                }             
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();          
+        }
+    }
     public void cargarListaAlertas(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
@@ -1367,6 +1398,7 @@ public class ActualizarContrato {
         contratoAlertaServiceImpl.update(contratoAlertaVO);
             
         cargarListaAlertas(contratoVO.getConId());
+        
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
@@ -1380,6 +1412,18 @@ public class ActualizarContrato {
         System.out.println("### FIN ELIMINAR INVERSION");    
         cargarListaInversiones(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino la Inversion");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void eliminarCao(ActionEvent event) throws SQLException {
+        System.out.println("### INICIO ELIMINAR CAO");
+        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoCaoE");
+        contratoCaoVO = contratoCaoServiceImpl.get(codigo);
+        contratoCaoVO.setCaoEstado(0);
+        contratoCaoServiceImpl.update(contratoCaoVO);
+        System.out.println("### FIN ELIMINAR CAO");    
+        cargarListaCaos(contratoVO.getConId());
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino El Registro");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
@@ -1444,6 +1488,23 @@ public class ActualizarContrato {
         //fin de de captura de codigo a modificar
         codigoInversion = contratoInversionVO.getInvId();
         nombreInversion = contratoInversionVO.getInvDescripcion();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        
+
+    }
+    
+    public void cargarEliminarCao() throws SQLException {
+
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idContratoCaoE");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        contratoCaoVO = contratoCaoServiceImpl.get(idcodigo);
+        //fin de de captura de codigo a modificar
+        codigoCao = contratoCaoVO.getCaoId();
+        nombreCao2 = contratoCaoVO.getCaoNombre();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
         
@@ -1588,29 +1649,46 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
+                Date date = new Date();
+                DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                String convertido = fechaHora.format(date);
+                documentoCAO = "DOCUMENT_CAO_" + convertido;
+                
+                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACAO+documentoCAO, contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
+                                                                                                                
                 contratoCaoVO.setConId(contratoVO.getConId());
+                System.out.println("contratoVO.getConId(): " + contratoVO.getConId());
                 contratoCaoVO.setCaoEstado(1);
                 contratoCaoVO.setCaoMonto(montoCAO);
+                System.out.println("montoCAO:" + montoCAO);
                 contratoCaoVO.setMonId(monedaCAOId);
+                System.out.println("monedaCAOId: " + monedaCAOId);
                 contratoCaoVO.setCaoFecha(fechaCAO);
+                System.out.println("fechaCAO: " + fechaCAO);
                 contratoCaoVO.setCaoOficio(oficioCAO);
-                contratoCaoVO.setCaoNombre(nombreCAO);
-                contratoCaoVO.setCaoPdf(documentoCAO);
-                                                        
+                System.out.println("oficioCAO:" + oficioCAO);
+                contratoCaoVO.setCaoNombre(nombreCAO);                
+                System.out.println("nombreCAO:" + nombreCAO);
+                contratoCaoVO.setCaoPdf(documentoCAO);  
+                System.out.println("documentoCAO:" + documentoCAO);                                                    
                 contratoCaoServiceImpl.insert(contratoCaoVO);
+                System.out.println("guardo ok");
 
-                //cargarListaInversiones(contratoVO.getConId());
+                cargarListaCaos(contratoVO.getConId());
                 limpiarCampos();
 
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Adenda "));
-
+                s.printStackTrace();
+                System.out.println("ERROR SQLE: " + s.getMessage());    
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Adenda "));
+                e.printStackTrace();
+                System.out.println("ERROR E: " + e.getMessage());
             }
         System.out.println("############# FIN GUARDAR CAO");
         
@@ -1631,5 +1709,31 @@ public class ActualizarContrato {
 
     public void setContratoCaoVO(ContratoCaoVO contratoCaoVO) {
         this.contratoCaoVO = contratoCaoVO;
+    }
+
+    public List<ContratoCaoVO> getListContratoCaoVO() {
+        return listContratoCaoVO;
+    }
+
+    public void setListContratoCaoVO(List<ContratoCaoVO> listContratoCaoVO) {
+        this.listContratoCaoVO = listContratoCaoVO;
+    }
+
+    public Integer getCodigoCao() {
+        return codigoCao;
+    }
+
+    public void setCodigoCao(Integer codigoCao) {
+        this.codigoCao = codigoCao;
+    }
+    
+
+
+    public String getNombreCao2() {
+        return nombreCao2;
+    }
+
+    public void setNombreCao2(String nombreCao2) {
+        this.nombreCao2 = nombreCao2;
     }
 }
