@@ -10,6 +10,7 @@ import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoAlertaServiceImpl;
+import com.ositran.serviceimpl.ContratoCaoServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoInversionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
@@ -23,6 +24,7 @@ import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.ContratoAdendaVO;
 import com.ositran.vo.bean.ContratoAlertaVO;
+import com.ositran.vo.bean.ContratoCaoVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoEntregaVO;
 import com.ositran.vo.bean.ContratoInversionVO;
@@ -130,6 +132,11 @@ public class ActualizarContrato {
     private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
     List<ContratoAlertaVO> listContratoAlerta;
     
+    @ManagedProperty(value = "#{contratoCaoVO}")
+    private ContratoCaoVO contratoCaoVO;
+    @ManagedProperty(value = "#{contratoCaoServiceImpl}")
+    private ContratoCaoServiceImpl contratoCaoServiceImpl;
+    List<ContratoCaoVO> listContratoCaoVO;
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaTipoInfraestructura=new ArrayList<InfraestructuraTipoVO>();
@@ -170,6 +177,15 @@ public class ActualizarContrato {
     
     public  final int formulario=29;
     private RolOpcionesVO rolOpcion;
+    
+    // CAO
+    private String nombreCAO;
+    private Integer codigoCAO;
+    private Date fechaCAO;
+    private String oficioCAO;
+    private Long montoCAO;
+    private String documentoCAO;
+    private Integer monedaCAOId;
     //inversion
     private Integer infraestructuraId = 0;
     private String descInversion;
@@ -294,6 +310,7 @@ public class ActualizarContrato {
 
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
+        listarTiposMoneda();
         cargarDatosConcesionario(contratoVO.getCncId());
         cargarListaAdendas(contratoVO.getConId());
         cargarListaContratoEntregas(contratoVO.getConId());
@@ -1490,4 +1507,129 @@ public class ActualizarContrato {
         return rolOpcion;
     }
 
+    public String getNombreCAO() {
+        return nombreCAO;
+    }
+
+    public void setNombreCAO(String nombreCAO) {
+        this.nombreCAO = nombreCAO;
+    }
+
+    public Integer getCodigoCAO() {
+        return codigoCAO;
+    }
+
+    public void setCodigoCAO(Integer codigoCAO) {
+        this.codigoCAO = codigoCAO;
+    }
+
+    public Date getFechaCAO() {
+        return fechaCAO;
+    }
+
+    public void setFechaCAO(Date fechaCAO) {
+        this.fechaCAO = fechaCAO;
+    }
+
+    public String getOficioCAO() {
+        return oficioCAO;
+    }
+
+    public void setOficioCAO(String oficioCAO) {
+        this.oficioCAO = oficioCAO;
+    }
+
+    public Long getMontoCAO() {
+        return montoCAO;
+    }
+
+    public void setMontoCAO(Long montoCAO) {
+        this.montoCAO = montoCAO;
+    }
+
+    public String getDocumentoCAO() {
+        return documentoCAO;
+    }
+
+    public void setDocumentoCAO(String documentoCAO) {
+        this.documentoCAO = documentoCAO;
+    }
+
+    public Integer getMonedaCAOId() {
+        return monedaCAOId;
+    }
+
+    public void setMonedaCAOId(Integer monedaCAOId) {
+        this.monedaCAOId = monedaCAOId;
+    }
+    
+    public void guardarCAO(){
+        System.out.println("############# INI GUARDAR CAO");
+        if (monedaCAOId == 0) {
+            System.out.println("monedaCAOId: " + monedaCAOId);
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (fechaCAO == null) {
+            System.out.println("fechaCAO: " + fechaCAO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (oficioCAO.equals("")) {
+            System.out.println("oficioCAO: " + oficioCAO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (montoCAO == null) {
+            System.out.println("montoCAO: " + montoCAO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (documentoCAO.equals("")) {
+            System.out.println("documentoCAO: " + documentoCAO);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Inversion");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else {
+            try {
+                contratoCaoVO.setConId(contratoVO.getConId());
+                contratoCaoVO.setCaoEstado(1);
+                contratoCaoVO.setCaoMonto(montoCAO);
+                contratoCaoVO.setMonId(monedaCAOId);
+                contratoCaoVO.setCaoFecha(fechaCAO);
+                contratoCaoVO.setCaoOficio(oficioCAO);
+                contratoCaoVO.setCaoNombre(nombreCAO);
+                contratoCaoVO.setCaoPdf(documentoCAO);
+                                                        
+                contratoCaoServiceImpl.insert(contratoCaoVO);
+
+                //cargarListaInversiones(contratoVO.getConId());
+                limpiarCampos();
+
+            } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+            }
+        System.out.println("############# FIN GUARDAR CAO");
+        
+    }
+}
+
+    public ContratoCaoServiceImpl getContratoCaoServiceImpl() {
+        return contratoCaoServiceImpl;
+    }
+
+    public void setContratoCaoServiceImpl(ContratoCaoServiceImpl contratoCaoServiceImpl) {
+        this.contratoCaoServiceImpl = contratoCaoServiceImpl;
+    }
+
+    public ContratoCaoVO getContratoCaoVO() {
+        return contratoCaoVO;
+    }
+
+    public void setContratoCaoVO(ContratoCaoVO contratoCaoVO) {
+        this.contratoCaoVO = contratoCaoVO;
+    }
 }
