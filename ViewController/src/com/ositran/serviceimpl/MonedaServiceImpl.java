@@ -17,7 +17,6 @@ public class MonedaServiceImpl implements MonedaService{
         super();
     }
 
-
     public void setMonedaDaoImpl(MonedaDAOImpl monedaDaoImpl) {
         this.monedaDaoImpl = monedaDaoImpl;
     }
