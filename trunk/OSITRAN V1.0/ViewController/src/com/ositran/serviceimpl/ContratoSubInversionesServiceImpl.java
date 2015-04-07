@@ -54,8 +54,10 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
     }
 
     @Override
-    public List<ContratoSubInversionesVO> query1(String buscar) throws SQLException, Exception {
-        return Collections.emptyList();
+    public List<ContratoSubInversionesVO> query1(int filtro ) throws SQLException, Exception {
+        List<ContratoSupInversiones> list=contratoSubInversionesDAOImpl.query1(filtro);
+        List<ContratoSubInversionesVO> listVO=toListTipoInversionVO(list);
+        return listVO;
     }
 
     @Override
