@@ -173,10 +173,7 @@ public class SupervisorInversionesContratoConcecionMB {
        } catch (Exception e) {
             
             e.printStackTrace();
-        }
-        
-        
-        }
+        } }
     
     
     
@@ -196,7 +193,7 @@ public class SupervisorInversionesContratoConcecionMB {
                 
                 tipoInfraestructuraS="RUC";
                     }
-            
+           listarSupervisionDeInversiones();
        } catch (Exception e) {
             System.out.println("ERROR EN EL METODO ELEGIR CONTRATO");
             e.printStackTrace();
@@ -229,7 +226,7 @@ public class SupervisorInversionesContratoConcecionMB {
             limpiar();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                listarSupervisionDeInversiones();
+                
             }
 
         } catch (Exception e) {
@@ -240,11 +237,11 @@ public class SupervisorInversionesContratoConcecionMB {
     }
     
     public void listarSupervisionDeInversiones(){
-        System.out.println("LLego al metodo");
+       
         try {
            int contador=1;
-           listaContratoSupervisor=contratoSubInversionesServiceImpl.query();
-           
+           listaContratoSupervisor=contratoSubInversionesServiceImpl.query1(codigoContrato);
+            System.out.println(listaContratoSupervisor.size());
             for (ContratoSubInversionesVO contratoSubInversionesVO1:listaContratoSupervisor){
                 concesionVO=concesionServiceImpl.get(contratoSubInversionesVO1.getCsiId());
                 contratoSubInversionesVO1.setConcesionNombre(concesionVO.getCsiNombre());
