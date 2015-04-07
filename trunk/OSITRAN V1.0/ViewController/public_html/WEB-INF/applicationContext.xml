@@ -446,4 +446,17 @@
         <property name="inversion" ref="inversion"/>
         <property name="infraestructura" ref="infraestructura"/>
     </bean>
+    <bean id="asiResSup" class="com.ositran.contratos.AsignarResponsableSupervision">
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+        <property name="concesionServicesImpl" ref="concesionServicesImpl"/>
+        <property name="supervisorInversionesServiceImpl" ref="supervisorInversionesServiceImpl"/>
+        <property name="supervisorInversionesVO" ref="supervisorInversionesVO"/>
+        <property name="empSupVO" ref="empSupVO"/>
+        <property name="empSupServiceImp" ref="empSupServiceImp"/>
+        <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
+    </bean>
+    <bean id="concesionServicesImpl" class="com.ositran.serviceimpl.ConcesionServiceImpl">
+        <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
+    </bean>
 </beans>
