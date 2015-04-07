@@ -32,12 +32,12 @@
                             </h5>
                         </div>
                         <div align="center">
-                            <table style="width:80% ;font-size:11px;">
+                            <table style="width:80% ;font-size:11px;" >
                                 <tr>
                                     <td>
                                         <p:fieldset rendered="#{mantenimientoUsuarioMB.rolOpcion.troConsultar  eq 1}"
-                                                    legend="Criterio de Busqueda" style="width:10%;margin-bottom:5px;">
-                                            <table >
+                                                    legend="Criterio de Busqueda" style="margin-bottom:5px;">
+                                            <table style="width:100%" >
                                                 <tr>
                                                     <td>
                                                         #{etq.etq_usu}
@@ -45,26 +45,25 @@
                                                     <td>
                                                         <p:inputText id="usuario"
                                                                      value="#{mantenimientoUsuarioMB.nomUserSearch}"
-                                                                     size="35"
+                                                                     size="45"
                                                                      onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                     </td>
                                                     <td>
                                                         #{cam.nom}
                                                     </td>
                                                     <td colspan="4">
-                                                        <p:inputText size="35" id="nombre"
+                                                        <p:inputText size="55" id="nombre"
                                                                      value="#{mantenimientoUsuarioMB.nomNomSearch}"
                                                                      onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                     </td>
-                                                    <td>
+                                                    <td align="right">
                                                         <p:commandButton image="ui-icon-search" id="buscar"
                                                                          style="width:30px" update=":form:tablaUSU"
                                                                          action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
                                                          
                                                         <p:tooltip id="toolTipFade" for="buscar" styleClass="tool"
                                                                    value="Buscqueda por criterio en registro de usuario"/>
-                                                    </td>
-                                                    <td align="right">
+                                                   
                                                         <p:commandButton id="btnlimpiar" value="#{btn.btn_limpiar}"
                                                                          style="width:75px" type="reset"/>
                                                          
@@ -111,30 +110,16 @@
                                             </table>
                                         </p:fieldset>
                                     </td>
-                                    <td rendered="#{mantenimientoUsuarioMB.rolOpcion.troAgregar  eq 1}">
-                                        <p:commandButton id="btnnuevo" image="ui-icon-document" value="Nuevo Usuario"
-                                                            
-                                                         onclick="agregarUsuario.show()" type="reset"/>
-                                         
-                                        <p:tooltip styleClass="tool" id="toolTipFade7" for="btnnuevo"
-                                                   value="Boton que permitira un nuevo registro de usuario"/>
-                                    </td>
                                     
-                                    <td>
-                                        <p:commandButton id="btnvalidar" value="#{btn.btn_valusuint}"/>
-                                         
-                                        <p:tooltip id="toolTipFade6" for="btnvalidar" styleClass="tool"
-                                                   value="Boton que validara los usuarios internos"/>
-                                    </td>
                                 </tr>
                                  
                                 <tr>
-                                    <td colspan="3">
+                                    <td >
                                         <p:dataTable style="font-size:11px;" id="tablaUSU" var="usu"
-                                                     value="#{mantenimientoUsuarioMB.listaUsuario}" rows="10"
+                                                     value="#{mantenimientoUsuarioMB.listaUsuario}" rows="5"
                                                      paginator="true" paginatorPosition="bottom"
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="10" selectionMode="single"
+                                                     rowsPerPageTemplate="5,10,15" selectionMode="single"
                                                      rowKey="#{usu.usuId}" rowIndexVar="rowIndex">
                                             <p:column headerText="N°" style="width:3%">
                                                 <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
@@ -180,7 +165,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Modificar"/>
                                                 </f:facet>
-                                                <center>
+                                                <div align="center">
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.cargarEditar}"
                                                                      update=":form:modificarUsuario"
                                                                      
@@ -190,7 +175,7 @@
                                                         <f:param id="idModificar" name="idModificar"
                                                                  value="#{usu.usuId}"/>
                                                     </p:commandButton>
-                                                </center>
+                                                </div>
                                             </p:column>
                                             <p:column width="8" rendered="#{mantenimientoUsuarioMB.rolOpcion.troModificar  eq 1}">
                                                 <f:facet name="header">
@@ -208,23 +193,43 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Desactivar"   />
                                                 </f:facet>
-                                                <center>
+                                                <div align="center">
                                                     <p:commandButton action="#{mantenimientoUsuarioMB.desactivarUsuario(usu)}"
                                                                      update=":form:tablaUSU" image="ui-icon-closethick"
                                                                      
                                                                      style="width:25px;height:25px"
                                                                      rendered="#{usu.usuEstado eq 1}"/>
-                                                </center>
+                                                </div>
                                             </p:column>
                                         </p:dataTable>
                                     </td>
                                 </tr>
+                            
+                            <tr>
+                                <td rendered="#{mantenimientoUsuarioMB.rolOpcion.troAgregar  eq 1}" align="center">
+                                        <p:commandButton id="btnnuevo" image="ui-icon-document" value="Nuevo"
+                                                         onclick="agregarUsuario.show()" type="reset"/>
+                                         
+                                        <p:tooltip styleClass="tool" id="toolTipFade7" for="btnnuevo"
+                                                   value="Boton que permitira un nuevo registro de usuario"/>
+                                   
+                                        <p:commandButton id="btncerrar" image="ui-icon-document" value="Cerrar"/>
+                                        <p:tooltip id="toolTipFade8" for="btncerrar" styleClass="tool"
+                                                   value="Boton que redirecciona al menu principal"/>
+                                   
+                                        <p:commandButton id="btnvalidar" value="Validar Usuario Interno"/>
+                                         
+                                        <p:tooltip id="toolTipFade6" for="btnvalidar" styleClass="tool"
+                                                   value="Boton que validara los usuarios internos"/>
+                                    </td>
+                            </tr>
                             </table>
                         </div>
                     </p:layoutUnit>
                 </p:layout>
                 <!-- pdialog para boton agregar -->
                 <p:dialog header="Agregar Usuario" widgetVar="agregarUsuario" modal="true" resizable="false">
+                    <div align="center"><h4>REGISTRAR USUARIO</h4></div>                    
                     <table style="margin-bottom:5px;font-size: 11px">
                         <tr>
                             <td>
@@ -340,8 +345,8 @@
                 </p:dialog>
                 <!-- fin pdialog para boton agregar -->
                 <!-- pdialog para boton modificar -->
-                <p:dialog id="modificarUsuario" header="Modificar Usuario" widgetVar="modificarUsuario" modal="true"
-                          resizable="false">
+                <p:dialog id="modificarUsuario" header="Modificar Usuario" widgetVar="modificarUsuario" modal="true" resizable="false">
+                    <div align="center"><h4>MODIFICAR USUARIO</h4></div>                          
                     <table style="margin-bottom:5px;font-size: 11px">
                         <tr>
                             <td>
