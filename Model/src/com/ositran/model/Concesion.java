@@ -18,7 +18,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Concesion.findAll", query = "select o from Concesion o") })
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONCESION"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONCESION"))
 
 @Table(name = "T_CONCESION")
 
