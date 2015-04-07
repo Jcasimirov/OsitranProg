@@ -29,10 +29,12 @@ public class ContratoJefeAreaServiceImpl implements ContratoJefeAreaService {
         return listVO;
     }
 
+    
     @Override
-    public List<ContratoJefeAreaVO> query1(String filtro) {
-        // TODO Implement this method
-        return Collections.emptyList();
+    public List<ContratoJefeAreaVO> query1(int filtro) {
+        List<ContratoJefeArea> list=contratoJefeAreaDAOImpl.query1(filtro);
+        List<ContratoJefeAreaVO> listVO=toListContratoJefeAreaVO(list);
+        return listVO;
     }
 
     @Override
