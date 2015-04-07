@@ -1,9 +1,12 @@
 package com.ositran.serviceimpl;
 
+
 import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.InfraestructuraTipoService;
+
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
