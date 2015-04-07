@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ContratoJefeAreaService {
     public List<ContratoJefeAreaVO> query();
-    public List<ContratoJefeAreaVO> query1(String filtro);
+    public List<ContratoJefeAreaVO> query1(int filtro);
     public String insert(ContratoJefeAreaVO contratoJefeAreaVO);
     public String delete(Integer id);
     public String update(ContratoJefeAreaVO contratoJefeAreaVO);
