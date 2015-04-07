@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,12 +25,9 @@ import org.hibernate.annotations.Parameter;
  * CREATE SEQUENCE "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "InfraestructuraTipo.findAll", query = "select o from InfraestructuraTipo o") })
 @Table(name = "T_INFRAESTRUCTURA_TIPO")
-@SequenceGenerator(name = "InfraestructuraTipo_Id_Seq_Gen", sequenceName = "T_INFRAESTRUCTURA_TIPO_ID_SEQ_GEN",
-                   allocationSize = 50, initialValue = 50)
-
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURATIPO"))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_INFRAESTRUCTURA_TIPO"))
 
 public class InfraestructuraTipo implements Serializable {
     private static final long serialVersionUID = -9018333581388462967L;
