@@ -2,6 +2,10 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoCompromisoDAO;
 import com.ositran.model.ContratoCompromiso;
+
+import com.ositran.model.ContratoEntrega;
+import com.ositran.model.EmpresaSupervisora;
+import com.ositran.model.RolOpciones;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
@@ -12,8 +16,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import org.springframework.stereotype.Repository;
-@Repository
 public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
     public ContratoCompromisoDAOImpl() {
         super();
@@ -27,11 +29,15 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
 
     @Override
     public List<ContratoCompromiso> query1(int codigo) throws SQLException {
+        System.out.println("DAOOOOOOOOOOOOOOOOOOOOOO");
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        query =session.createQuery("FROM ContratoCompromiso  E WHERE upper(E.conId) = :filtro");
+        session.beginTransaction();
+        query =session.createQuery("FROM ContratoCompromiso cc where cc.conId = :filtro");
         query.setParameter("filtro",codigo);
-        return query.list();
+        List<ContratoCompromiso> list = query.list();
+        session.getTransaction().commit();
+        return list;        
     }
     
     @Override
@@ -54,12 +60,17 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
 
     @Override
     public ContratoCompromiso get(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+                    session.beginTransaction();
+                    ContratoCompromiso contratoCompromiso=(ContratoCompromiso)session.get(ContratoCompromiso.class, id);
+                    session.getTransaction().commit();
+                    session.close();
+                    return contratoCompromiso;
     }
     
     @Override
     public List<ContratoCompromiso> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
+        System.out.println("hola llega hasta aqui");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
