@@ -15,3 +15,4 @@ public interface ContratoCompromisoDAO {
     public ContratoCompromiso get(Integer id) throws SQLException;
     public List<ContratoCompromiso> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException;
 }
+
