@@ -10,6 +10,7 @@ import java.util.List;
 public interface ContratoJefeAreaDAO {
     
     public List<ContratoJefeArea> query();
+    public List<ContratoJefeArea> query1(int filtro);
     public String insert(ContratoJefeArea contratoJefeArea);
        public String delete(Integer id);
        public String update(ContratoJefeArea contratoJefeArea);
