@@ -23,10 +23,12 @@
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
         <property name="hibernate.cache.use_second_level_cache">true</property>
         <property name="hibernate.cache.use_query_cache">true</property>
+        
         <mapping class="com.ositran.model.Cargo"/>
         <mapping class="com.ositran.model.ConceptoInversion"/>
         <mapping class="com.ositran.model.Concesion"/>
         <mapping class="com.ositran.model.Concesionario"/>
+        <mapping class="com.ositran.model.ContratoSupervisora"/>
         <mapping class="com.ositran.model.EmpresaSupervisora"/>
         <mapping class="com.ositran.model.Infraestructura"/>
         <mapping class="com.ositran.model.InfraestructuraTipo"/>
@@ -55,9 +57,14 @@
         <mapping class="com.ositran.model.Moneda"/>
         <mapping class="com.ositran.model.Periodo"/>
         <mapping class="com.ositran.model.ContratoHito"/>
+         <mapping class="com.ositran.model.ContratoPpo"/>
+         <mapping class="com.ositran.model.ContratoAlerta"/>
+         <mapping class="com.ositran.model.ContratoAlertaEstado"/>
+        <mapping class="com.ositran.model.ContratoHito"/>
         <mapping class="com.ositran.model.ContratoPpo"/>
         <mapping class="com.ositran.model.ContratoAlerta"/>
         <mapping class="com.ositran.model.ContratoAlertaEstado"/>
         <mapping class="com.ositran.model.ContratoInversion"/>
+        
     </session-factory>
 </hibernate-configuration>
