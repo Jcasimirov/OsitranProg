@@ -21,7 +21,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoCao.findAll", query = "select o from ContratoCao o") })
 @Table(name = "T_CONTRATO_CAO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO_CAO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_CAO"))
 public class ContratoCao implements Serializable {
     private static final long serialVersionUID = -1519274592126508975L;
     @Temporal(TemporalType.DATE)
@@ -44,13 +44,16 @@ public class ContratoCao implements Serializable {
     private Integer monId;
     @Column(name = "CAO_ESTADO")
     private Integer caoEstado;
+    @Column(name = "CAO_NOMBRE")
+    private String caoNombre;
+    
     
 
     public ContratoCao() {
     }
 
     public ContratoCao(Date caoFecha, Integer caoId, Long caoMonto, String caoOficio, String caoPdf,
-                       Integer conId, Integer monId, Integer caoEstado) {
+                       Integer conId, Integer monId, Integer caoEstado, String caoNombre) {
         this.caoFecha = caoFecha;
         this.caoId = caoId;
         this.caoMonto = caoMonto;
@@ -59,6 +62,7 @@ public class ContratoCao implements Serializable {
         this.conId = conId;
         this.monId = monId;
         this.caoEstado = caoEstado;
+        this.caoNombre = caoNombre;
     }
 
     public Date getCaoFecha() {
@@ -123,5 +127,13 @@ public class ContratoCao implements Serializable {
 
     public void setCaoEstado(Integer caoEstado) {
         this.caoEstado = caoEstado;
+    }
+
+    public String getCaoNombre() {
+        return caoNombre;
+    }
+
+    public void setCaoNombre(String caoNombre) {
+        this.caoNombre = caoNombre;
     }
 }
