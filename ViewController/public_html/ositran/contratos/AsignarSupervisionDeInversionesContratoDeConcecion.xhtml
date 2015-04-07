@@ -19,16 +19,15 @@
         </h:head>
         <h:body>
          <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
-         <f:event listener="#{supervisorContratoConcesionMB.listarSupervisionDeInversiones}" type="postAddToView"></f:event>
         <h:form id="form">
         <p:growl id="mensaje" showDetail="true" life="10000"/>
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
                
-                    <ui:include src="/ositran/util/menu.xhtml"/>
+                    <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                     <div align="center">
-                        <h5 class="titulo">
-                            #{msg.tituloASICC}
+                        <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                           ASIGNAR SUPERVISION DE INVERSIONES A CONTRATO CONCESION
                         </h5>
                     </div>
                     <div align="center" style="font-size:11px">
@@ -203,7 +202,7 @@
                                     <p:column   headerText="Elegir" style="width:5px" >
                                         <div align="center">
                                             <p:commandButton
-                                                            oncomplete="panelListaContratos.hide()" update=":form:datosContratoConcesion :form:busqueda"
+                                                            oncomplete="panelListaContratos.hide()" update=":form:datosContratoConcesion :form:busqueda :form:tablaSI"
                                                              actionListener="#{supervisorContratoConcesionMB.elegirContrato(lisContratos)}"
                                                              image="ui-icon-circle-check"  
                                                              style="width:22px;height:22px">
