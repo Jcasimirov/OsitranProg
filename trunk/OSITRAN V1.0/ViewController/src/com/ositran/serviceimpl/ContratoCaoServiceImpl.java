@@ -75,6 +75,7 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         contratoCaoVO.setCaoPdf(contratoCao.getCaoPdf());
         contratoCaoVO.setConId(contratoCao.getConId());
         contratoCaoVO.setMonId(contratoCao.getMonId());                
+        contratoCaoVO.setCaoNombre(contratoCao.getCaoNombre());
     
         return contratoCaoVO;
     }
@@ -90,6 +91,7 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         contratoCao.setCaoPdf(contratoCaoVO.getCaoPdf());
         contratoCao.setConId(contratoCaoVO.getConId());
         contratoCao.setMonId(contratoCaoVO.getMonId());
+        contratoCao.setCaoNombre(contratoCaoVO.getCaoNombre());
         return contratoCao;
         
     }
