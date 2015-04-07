@@ -19,7 +19,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "Infraestructura.findAll", query = "select o from Infraestructura o") })
 @Table(name = "T_INFRAESTRUCTURA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_INFRAESTRUCTURA"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_INFRAESTRUCTURA"))
 
 public class Infraestructura implements Serializable {
     private static final long serialVersionUID = 8660387470661914737L;
@@ -104,9 +104,6 @@ public class Infraestructura implements Serializable {
     public void setInfFechaBaja(Date infFechaBaja) {
         this.infFechaBaja = infFechaBaja;
     }
-
-
- 
 
     public int getInfId() {
         return infId;
