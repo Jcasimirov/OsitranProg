@@ -16,7 +16,16 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
     ContratoCompromisoVO contratoCompromisoVO;
     ContratoCompromiso contratoCompromiso;
     ContratoCompromisoDAOImpl contratoCompromisoDAOImpl;
-    
+
+
+    public void setContratoCompromisoDAOImpl(ContratoCompromisoDAOImpl contratoCompromisoDAOImpl) {
+        this.contratoCompromisoDAOImpl = contratoCompromisoDAOImpl;
+    }
+
+    public ContratoCompromisoDAOImpl getContratoCompromisoDAOImpl() {
+        return contratoCompromisoDAOImpl;
+    }
+
     public ContratoCompromisoServiceImpl() {
         super();
     }
@@ -57,8 +66,10 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
 
     @Override
     public ContratoCompromisoVO get(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCompromiso contratoCompromiso=this.contratoCompromisoDAOImpl.get(id);
+                ContratoCompromisoVO contratoCompromisoVO=toContratoCompromisoVO(contratoCompromiso);
+                return contratoCompromisoVO;
+        
     }
     
     
@@ -122,14 +133,6 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
 
     public ContratoCompromiso getContratoCompromiso() {
         return contratoCompromiso;
-    }
-
-    public void setContratoCompromisoDAOImpl(ContratoCompromisoDAOImpl contratoCompromisoDAOImpl) {
-        this.contratoCompromisoDAOImpl = contratoCompromisoDAOImpl;
-    }
-
-    public ContratoCompromisoDAOImpl getContratoCompromisoDAOImpl() {
-        return contratoCompromisoDAOImpl;
     }
 
     public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
