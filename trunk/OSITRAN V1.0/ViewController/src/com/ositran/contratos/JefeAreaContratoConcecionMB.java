@@ -169,13 +169,13 @@ public class JefeAreaContratoConcecionMB {
             tipoInfraestructuraS = infraestructuraTipoVO.getTinDescripcion();
             modalidadConcecion = modalidadConcesionVO.getMcoNombre();
             tipoInfraestructuraC=contrato1.getTinId();
-
+            listarJefeAreaContrato();
         } catch (SQLException e) {
 
             e.printStackTrace();
         }
 
-
+        
     }
 
     public void registrarContrato() {
@@ -212,19 +212,16 @@ public class JefeAreaContratoConcecionMB {
     }
     
     public void listarJefeAreaContrato(){
-        System.out.println("LLego al metodo");
+        
         try {
            int contador=1;
-           listaJefeArea=contratoJefeAreaServiceImpl.query();
-            System.out.println(listaJefeArea.size());
+           listaJefeArea=contratoJefeAreaServiceImpl.query1(codigoContrato);
             for (ContratoJefeAreaVO contratoJefeAreaVO1:listaJefeArea){
                 concesionVO=concesionServiceImpl.get(contratoJefeAreaVO1.getCsiId());
                 contratoJefeAreaVO1.setConcesionNombre(concesionVO.getCsiNombre());
                 contratoJefeAreaVO1.setNombreJefeArea("Jefe Area");
                 contratoJefeAreaVO1.setContador(contador);
-                contador++;
-                
-                       
+                contador++;    
                 }
        } catch (Exception e) {
             System.out.println("PROBLEMAS AL LISTAR LISTA JEFE DE AREA CONTRATO CONCECION");
