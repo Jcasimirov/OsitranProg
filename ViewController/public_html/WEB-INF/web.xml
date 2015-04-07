@@ -12,7 +12,9 @@
     <listener>
         <listener-class>com.ositran.listener.OsitranListener</listener-class>
     </listener>
-   
+<listener>
+        <listener-class>oracle.adf.mbean.share.connection.ADFConnectionLifeCycleCallBack</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
