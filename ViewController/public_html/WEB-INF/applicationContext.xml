@@ -46,7 +46,8 @@
     <bean id="contratoAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO"/>
 	<bean id="monedaVO" class="com.ositran.vo.bean.MonedaVO"/>
 	<bean id="periodoVO" class="com.ositran.vo.bean.PeriodoVO"/>
-        <bean id="contratoInversionVO" class="com.ositran.vo.bean.ContratoInversionVO"/>        
+        <bean id="contratoInversionVO" class="com.ositran.vo.bean.ContratoInversionVO"/>      
+        <bean id="contratoCaoVO" class="com.ositran.vo.bean.ContratoCaoVO"/>
         <bean id="contratoAlertaVO" class="com.ositran.vo.bean.ContratoAlertaVO"/>                
 	<bean id="periodo" class="com.ositran.model.Periodo"/>	
     <bean id="contratoNuevaAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO"/>
@@ -366,6 +367,11 @@
     <bean id="contratoAlertaServiceImpl" class="com.ositran.serviceimpl.ContratoAlertaServiceImpl">
         <property name="contratoAlertaDAOImpl" ref="contratoAlertaDAOImpl"/>
     </bean>
+    <!-- contratoCao -->
+    <bean id="contratoCaoDAOImpl" class="com.ositran.daoimpl.ContratoCaoDAOImpl"/>
+    <bean id="contratoCaoServiceImpl" class="com.ositran.serviceimpl.ContratoCaoServiceImpl">
+        <property name="contratoCaoDAOImpl" ref="contratoCaoDAOImpl"/>
+    </bean>
 	<!-- Moneda -->
 	<bean id="monedaDaoImpl" class="com.ositran.daoimpl.MonedaDAOImpl"/>
     <bean id="monedaServiceImpl" class="com.ositran.serviceimpl.MonedaServiceImpl">
@@ -402,6 +408,8 @@
                 <property name="contratoAlertaServiceImpl" ref="contratoAlertaServiceImpl"/>
                 <property name="contratoAlertaVO" ref="contratoAlertaVO"/>
                 
+                <property name="contratoCaoServiceImpl" ref="contratoCaoServiceImpl"/>
+                <property name="contratoCaoVO" ref="contratoCaoVO"/>
                 
         <property name="periodoVO" ref="periodoVO"/>
         <property name="contratoNuevaAdendaVO" ref="contratoNuevaAdendaVO"/>
