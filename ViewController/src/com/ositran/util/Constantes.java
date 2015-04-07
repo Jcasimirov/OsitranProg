@@ -8,6 +8,7 @@ public class Constantes {
     public static String RUTAFICHASRESUMEN="D:/filesositran/temp/resumen/";
     public static String RUTAADENDA="D:/filesositran/temp/adendas/";
     public static String RUTAADENDAENTREGA="D:/filesositran/temp/entrega/";
+    public static String RUTACAO="D:/filesositran/cao/";
 
     public static String ARCHIVONOENCONTRADO = "Archivo no encontrado.";
     public static String EXITOCONTRATOACTUALIZADO = "Contrato Actualizado Satisfactoriamente.";
