@@ -9,6 +9,7 @@ import com.ositran.util.HibernateUtil;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
@@ -67,5 +68,16 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     public int getCanNombres(String nombre) {
         // TODO Implement this method
         return 0;
+    }
+
+    @Override
+    public List<ContratoJefeArea> query1(int filtro) {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM ContratoJefeArea  E WHERE E.conId=:filtro");
+        query.setParameter("filtro",filtro );
+        list= query.list();   
+        return list;
     }
 }
