@@ -64,8 +64,8 @@ private int codigoSupervisor;
 private int codigoContrato;
 
 // de  abel 
-
-
+  
+  
   //Bean VO
     private RolOpcionesVO rolOpcion;
 
@@ -82,11 +82,11 @@ private int codigoContrato;
 
     public void validarSesion() throws IOException{
       rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-                    }
+    }
 
-        
+
 // Listas
-
+    
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
     private List<EmpresaSupervisoraVO> empresasSupervisoras ;
     private List<SupervisorInversionesVO> listarSupervisoresxInfraestructura;
@@ -96,39 +96,39 @@ private int codigoContrato;
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     List<TipoDocumentoVO> listaTipoDocumento;
     List<HashMap<String, Object>>  listaResponsables=new ArrayList<HashMap<String, Object>>();
-
-
+     
+     
      // service implement
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
-
-
+    
+    
     @ManagedProperty(value="#{empSupServiceImp}")
     private EmpresaSupervisoraService empSupServiceImp;
-
+    
     @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
       ContratoCompromisoService contratoCompromisoServiceImpl;
-
+    
     @ManagedProperty(value="#{tipoDocumentoServiceImp}")
     private TipoDocumentoService tipoDocumentoServiceImp;
     //CARRITO CHARLES -- EMPRESAS SUPERVISORA
-
+   
     @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
     private SupervisorInversionesService supervisorInversionesServiceImpl;
- 
- 
-    
+
+
+
 //get y set
     
         public void buscarContratoConcesion(){
-    
-    
-    }
-    
-    
+        
+        
+        }
+
+
     public void setCodigoContrato(int codigoContrato) {
         this.codigoContrato = codigoContrato;
-            }
+    }
 
     public int getCodigoContrato() {
         return codigoContrato;
@@ -404,7 +404,7 @@ private int codigoContrato;
 
     public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
         this.infraestructuraTipoVO = infraestructuraTipoVO;
-}
+    }
 
     public InfraestructuraTipoVO getInfraestructuraTipoVO() {
         return infraestructuraTipoVO;
@@ -552,18 +552,25 @@ private int codigoContrato;
     
     public void seleccionarContratoConcesion1(ActionEvent actionEvent) throws Exception{      
             ContratoVO contrato = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
-         
+         System.out.println("A");
             nameTipoInfraestructura=contrato.getNombreTipoInfraestructura();
+                System.out.println("A");
+                
             System.out.println(nameTipoInfraestructura);
+                System.out.println("A");
                 nameContrato=contrato.getNombreConcesion();
+                System.out.println("A");
                 System.out.println(nameContrato);
+                System.out.println("A");
             nameModalidadConcesion=contrato.getNombreModalidad();
+                System.out.println("A");
             System.out.println(nameModalidadConcesion);
                 codigoContrato = contrato.getConId();
+                System.out.println("A");
                 codigoTipoInfraestructurafiltro = contrato.getTinId();
-                listarSupervisoresxInfraestructura =
-                    supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
-                System.out.println(""+listarSupervisoresxInfraestructura.size());
+                listarSupervisoresxInfraestructura =supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
+                System.out.println("HOLAAAAA");
+                
                 cargarInversion();
                 
             }
@@ -698,6 +705,7 @@ private int codigoContrato;
     public void cargarInversion(){
            try {
         listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
+               
           } catch (Exception e) {
                e.printStackTrace();
            }   
