@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 
@@ -15,7 +17,7 @@ public class ContratoCaoVO {
     private Integer caoEstado;
     private String caoNombre;
     private String monNombre;
-    
+    private InputStream fileCao;
 
     public ContratoCaoVO() {
     }
@@ -98,6 +100,14 @@ public class ContratoCaoVO {
 
     public void setMonNombre(String monNombre) {
         this.monNombre = monNombre;
+    }
+
+    public InputStream getFileCao() {
+        return fileCao;
+    }
+
+    public void setFileCao(InputStream fileCao) {
+        this.fileCao = fileCao;
     }
 }
 
