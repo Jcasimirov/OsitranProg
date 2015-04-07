@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO {
@@ -22,6 +23,17 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
         return session.createCriteria(ContratoSupInversiones.class).list();
     }
 
+    @Override
+    public List<ContratoSupInversiones> query1(int filtro) throws SQLException, Exception {
+        System.out.println("LLEGO AL DAO IMPLLLL");
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM ContratoSupInversiones  E WHERE E.conId=:filtro");
+        query.setParameter("filtro",filtro );
+        list= query.list();   
+        return list;
+    }
     @Override
     public String insert(ContratoSupInversiones contratoSupInversiones) throws SQLException, Exception {
         String result=null;
@@ -62,4 +74,6 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
         // TODO Implement this method
         return null;
     }
+
+  
 }
