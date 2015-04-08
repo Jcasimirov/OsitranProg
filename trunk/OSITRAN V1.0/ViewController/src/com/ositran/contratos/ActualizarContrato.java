@@ -12,7 +12,9 @@ import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoAlertaServiceImpl;
 import com.ositran.serviceimpl.ContratoCaoServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoHitoServiceImpl;
 import com.ositran.serviceimpl.ContratoInversionServiceImpl;
+import com.ositran.serviceimpl.ContratoPpoServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
@@ -27,7 +29,9 @@ import com.ositran.vo.bean.ContratoAlertaVO;
 import com.ositran.vo.bean.ContratoCaoVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoEntregaVO;
+import com.ositran.vo.bean.ContratoHitoVO;
 import com.ositran.vo.bean.ContratoInversionVO;
+import com.ositran.vo.bean.ContratoPpoVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
@@ -106,7 +110,7 @@ public class ActualizarContrato {
     MonedaService monedaServiceImpl;
     @ManagedProperty(value = "#{periodoServiceImpl}")
 
-    PeriodoService periodoServiceImpl; 
+    PeriodoService periodoServiceImpl;
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
     private InfraestructuraServiceImpl infraestructuraServiceImpl;
 
@@ -126,40 +130,53 @@ public class ActualizarContrato {
     private TipoInversionVO tipoInversionVO;
     @ManagedProperty(value = "#{periodoVO}")
     private PeriodoVO periodoVO;
-    @ManagedProperty(value = "#{contratoInversionVO}")    
-    private ContratoInversionVO contratoInversionVO;    
+    @ManagedProperty(value = "#{contratoInversionVO}")
+    private ContratoInversionVO contratoInversionVO;
     @ManagedProperty(value = "#{contratoInversionServiceImpl}")
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
     List<ContratoInversionVO> listContratoInversion;
-    
+
     @ManagedProperty(value = "#{contratoAlertaVO}")
     private ContratoAlertaVO contratoAlertaVO;
     @ManagedProperty(value = "#{contratoAlertaServiceImpl}")
     private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
     List<ContratoAlertaVO> listContratoAlerta;
-    
+
     @ManagedProperty(value = "#{contratoCaoVO}")
     private ContratoCaoVO contratoCaoVO;
     @ManagedProperty(value = "#{contratoCaoServiceImpl}")
     private ContratoCaoServiceImpl contratoCaoServiceImpl;
     private List<ContratoCaoVO> listContratoCaoVO;
+
+    @ManagedProperty(value = "#{contratoHitoVO}")
+    private ContratoHitoVO contratoHitoVO;
+    @ManagedProperty(value = "#{contratoHitoServiceImpl}")
+    private ContratoHitoServiceImpl contratoHitoServiceImpl;
+    private List<ContratoHitoVO> listContratoHitoVO;
+
+    @ManagedProperty(value = "#{contratoPpoVO}")
+    private ContratoPpoVO contratoPpoVO;
+    @ManagedProperty(value = "#{contratoPpoServiceImpl}")
+    private ContratoPpoServiceImpl contratoPpoServiceImpl;
+    private List<ContratoPpoVO> listContratoPpoVO;
+
     // Lista Bean VO
 
-    List<InfraestructuraTipoVO> listaTipoInfraestructura=new ArrayList<InfraestructuraTipoVO>();
-    List<InfraestructuraVO> listaInfraestructura=new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<InfraestructuraTipoVO>();
+    List<InfraestructuraVO> listaInfraestructura = new ArrayList<InfraestructuraVO>();
 
-    List<ConcesionVO> listaConcesiones=new ArrayList<ConcesionVO>();
+    List<ConcesionVO> listaConcesiones = new ArrayList<ConcesionVO>();
 
-    List<ModalidadConcesionVO> listaModalidad=new ArrayList<ModalidadConcesionVO>();
+    List<ModalidadConcesionVO> listaModalidad = new ArrayList<ModalidadConcesionVO>();
 
-    List<ContratoVO> listaContrato=new ArrayList<ContratoVO>();
+    List<ContratoVO> listaContrato = new ArrayList<ContratoVO>();
 
-    List<ContratoAdendaVO> listContratoAdenda=new ArrayList<ContratoAdendaVO>();
+    List<ContratoAdendaVO> listContratoAdenda = new ArrayList<ContratoAdendaVO>();
 
-    List<ContratoEntregaVO> listarEntregas=new ArrayList<ContratoEntregaVO>();
+    List<ContratoEntregaVO> listarEntregas = new ArrayList<ContratoEntregaVO>();
 
-    List<MonedaVO> listarTipoMonedas=new ArrayList<MonedaVO>();
-    
+    List<MonedaVO> listarTipoMonedas = new ArrayList<MonedaVO>();
+
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
     List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
@@ -182,10 +199,13 @@ public class ActualizarContrato {
     private DefaultStreamedContent downloadFichaResumen;
     private DefaultStreamedContent downloadAdendas;
     private DefaultStreamedContent downloadEntregas;
-    
-    public  final int formulario=29;
+    private DefaultStreamedContent downloadCao;
+    private DefaultStreamedContent downloadHito;
+    private DefaultStreamedContent downloadPpo;
+
+    public final int formulario = 29;
     private RolOpcionesVO rolOpcion;
-    
+
     // CAO
     private String nombreCAO;
     private Integer codigoCAO;
@@ -193,15 +213,37 @@ public class ActualizarContrato {
     private String oficioCAO;
     private Long montoCAO;
     private String documentoCAO;
-    private Integer monedaCAOId;    
+    private Integer monedaCAOId;
     private Integer codigoCao;
     private String nombreCao2;
+
+    // HITO
+    private String nombreHito;
+    private Integer codigoHito;
+    private Date fechaHito;
+    private String oficioHito;
+    private Long montoHito;
+    private String documentoHito;
+    private Integer monedaHitoId;
+    private Integer codigoHito2;
+    private String nombreHito2;
+
+    //PPO
+    private String nombrePpo;
+    private Integer codigoPpo;
+    private Date fechaPpo;
+    private String oficioPpo;
+    private Long montoPpo;
+    private String documentoPpo;
+    private Integer monedaPpoId;
+    private Integer codigoPpo2;
+    private String nombrePpo2;
     //inversion
     private Integer infraestructuraId = 0;
     private String descInversion;
     private String nombreInversion;
     private Integer codigoInversion;
-    
+
     //alertas
     private String nombAeropuerto;
     private String descAlerta;
@@ -216,23 +258,25 @@ public class ActualizarContrato {
     private boolean tabDeshabilitado=true;
     private int tipoArchivoEnContratoConcesion;
 
-    public void validarSesion() throws IOException{
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
     public ActualizarContrato() {
         super();
 
     }
+
     public void listarTiposAdendas() {
-           try {
-               listarAdendasTipo = adendaTipoServiceImpl.query();
-           } catch (SQLException sqle) {
-               // TODO: Add catch code
-               sqle.printStackTrace();
-           }
-       }
-    public void listarTiposMoneda(){
+        try {
+            listarAdendasTipo = adendaTipoServiceImpl.query();
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
+
+    public void listarTiposMoneda() {
         try {
             listarTipoMonedas = monedaServiceImpl.query();
         } catch (Exception e) {
@@ -240,6 +284,7 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
+
     public void listaPeriodos() {
         try {
             listarPeriodos = periodoServiceImpl.query();
@@ -331,6 +376,8 @@ public class ActualizarContrato {
         cargarListaInversiones(contratoVO.getConId());
         cargarListaAlertas(contratoVO.getConId());
         cargarListaCaos(contratoVO.getConId());
+        cargarListaHitos(contratoVO.getConId());
+        cargarListaPpos(contratoVO.getConId());
         resetDialogoBuscarContrato();
         listaContratoCompromiso(contratoVO.getConId());
         tabDeshabilitado=false;
@@ -349,12 +396,13 @@ public class ActualizarContrato {
      * contratoVO.conFicharesumen*/
     public void guardarContrato() {
         try {
-            contratoVO.setPerId(periodoseleccionado); 
+            contratoVO.setPerId(periodoseleccionado);
             contratoVO.setConAvanceobra(aplicaAvancedeObra ? 1 : 0);
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN +
                                                                 contratoVO.getConFicharesumen(),
                                                                 contratoVO.getInputStreamFichaResumen());
-            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF + contratoVO.getConPdfcontrato(),
+            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF +
+                                                                contratoVO.getConPdfcontrato(),
                                                                 contratoVO.getInputStreamContratoPDF());
             contratoConcesionServiceImp.update(contratoVO);
             FacesContext.getCurrentInstance().addMessage(null,
@@ -424,8 +472,8 @@ public class ActualizarContrato {
         }
 
     }
-    
-    
+
+
     //*********************************************************************//
     //**************************Empieza Contrato Adenda********************//
     //*********************************************************************//
@@ -434,12 +482,12 @@ public class ActualizarContrato {
             System.out.println("idcontrato: " + idcontrato);
             listContratoAdenda = contratoAdendaServiceImpl.getAdendasContrato(idcontrato);
             for (ContratoAdendaVO contratoAdendaVO : listContratoAdenda) {
-                           System.out.println("contratoAdendaVO.getCadEstado(): " + contratoAdendaVO.getCadEstado());
-                           for (AdendaTipoVO aux : listarAdendasTipo) {
-                               if (aux.getTadId() == contratoAdendaVO.getTadId()) {
-                                   contratoAdendaVO.setTadNombre(aux.getTadNombre());
-                               }
-                           }
+                System.out.println("contratoAdendaVO.getCadEstado(): " + contratoAdendaVO.getCadEstado());
+                for (AdendaTipoVO aux : listarAdendasTipo) {
+                    if (aux.getTadId() == contratoAdendaVO.getTadId()) {
+                        contratoAdendaVO.setTadNombre(aux.getTadNombre());
+                    }
+                }
             }
         } catch (SQLException s) {
             s.printStackTrace();
@@ -448,8 +496,8 @@ public class ActualizarContrato {
 
     public void agregarAdenda() {
         try {
-            System.out.println("contratoNuevaAdendaVO.getTadId():"+contratoNuevaAdendaVO.getTadId());
-            contratoNuevaAdendaVO.setCadMonto(1L);            
+            System.out.println("contratoNuevaAdendaVO.getTadId():" + contratoNuevaAdendaVO.getTadId());
+            contratoNuevaAdendaVO.setCadMonto(1L);
             contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
@@ -464,7 +512,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORGUARDAR));
-        }finally{
+        } finally {
 
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -486,26 +534,24 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORBORRAR));
-        }finally{           
+        } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
 
 
-
-
     public void resetearNuevaAdenda() {
-        if(contratoVO!=null){
-        contratoNuevaAdendaVO = new ContratoAdendaVO();
-        contratoNuevaAdendaVO.setConId(contratoVO.getConId());
-            RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg");  
-            RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg");             
-            RequestContext.getCurrentInstance().execute("popupAgregarAdenda.show();");  
-        }else{
+        if (contratoVO != null) {
+            contratoNuevaAdendaVO = new ContratoAdendaVO();
+            contratoNuevaAdendaVO.setConId(contratoVO.getConId());
+            RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg");
+            RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg");
+            RequestContext.getCurrentInstance().execute("popupAgregarAdenda.show();");
+        } else {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.SELECCIONECONTRATO));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");    
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
 
@@ -519,6 +565,36 @@ public class ActualizarContrato {
     public void preDownloadAdendas(String nombreArchivo) {
         try {
             downloadAdendas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDA + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }
+
+    public void preDownloadCao(String nombreArchivo) {
+        try {
+            downloadCao = Reutilizar.getNewInstance().preDownload(Constantes.RUTACAO + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }
+    
+    public void preDownloadHito(String nombreArchivo) {
+        try {
+            setDownloadHito(Reutilizar.getNewInstance().preDownload(Constantes.RUTAHITO + nombreArchivo));
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }
+    }
+    
+    public void preDownloadPpo(String nombreArchivo) {
+        try {
+            setDownloadPpo(Reutilizar.getNewInstance().preDownload(Constantes.RUTAPPO + nombreArchivo));
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
@@ -554,7 +630,7 @@ public class ActualizarContrato {
     public void cargarListaContratoEntregas(int idcontrato) {
         try {
             listarEntregas = contratoEntregaServiceImpl.getEntregasContrato(idcontrato);
- 
+
 
         } catch (Exception sqle) {
             sqle.printStackTrace();
@@ -562,17 +638,17 @@ public class ActualizarContrato {
     }
 
     public void resetearNuevaEntrega() {
-        if(contratoVO!=null){
-        contratoNuevaEntregaVO = new ContratoEntregaVO();
-        contratoNuevaEntregaVO.setConId(contratoVO.getConId());
-        RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg");  
-        RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg");  
-        RequestContext.getCurrentInstance().execute("popupAgregarEntrega.show();");  
-        }else{
+        if (contratoVO != null) {
+            contratoNuevaEntregaVO = new ContratoEntregaVO();
+            contratoNuevaEntregaVO.setConId(contratoVO.getConId());
+            RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg");
+            RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg");
+            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.show();");
+        } else {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.SELECCIONECONTRATO));
- 
+
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
@@ -590,14 +666,14 @@ public class ActualizarContrato {
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoNuevaEntregaVO.getCenDocumentoFisico(), contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                  Constantes.GRABARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");            
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORGUARDAR));
-        }finally{
+        } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
@@ -617,29 +693,45 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORBORRAR));
-        }finally{
+        } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
-    
+
     public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
         contratoNuevaEntregaVO.setCenDocumentoFisico(event.getFile().getFileName());
         contratoNuevaEntregaVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
 
     }
-    
-    
+
+
     public void subirArchivoCao(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
         documentoCAO = event.getFile().getFileName();
         contratoCaoVO.setFileCao(event.getFile().getInputstream());
-        System.out.println("documentoCAO: " +  documentoCAO);
+        System.out.println("documentoCAO: " + documentoCAO);
 
     }
+
+    public void subirArchivoHito(FileUploadEvent event) throws IOException {
+        //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
+        documentoHito = event.getFile().getFileName();
+        getContratoHitoVO().setFileHito(event.getFile().getInputstream());
+        System.out.println("documentoHito: " + documentoHito);
+
+    }
+    
+    public void subirArchivoPpo(FileUploadEvent event) throws IOException {
+        //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
+        documentoPpo = event.getFile().getFileName();
+        getContratoPpoVO().setFilePpo(event.getFile().getInputstream());
+        System.out.println("documentoPpo: " + documentoPpo);
+
+    }
+
     public void preDownloadEntrega(String nombreArchivo) {
         try {
-            downloadEntregas =
-                Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDAENTREGA + nombreArchivo);
+            downloadEntregas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDAENTREGA + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
@@ -1072,13 +1164,13 @@ public class ActualizarContrato {
     public void setListaInfraestructura(List<InfraestructuraVO> listaInfraestructura) {
         this.listaInfraestructura = listaInfraestructura;
     }
-    
-    
+
+
     // Metodo Para Listar Infraestructuras
 
     public void cargarInfraestructurasContrato(Integer contratoId) {
         try {
-            
+
             listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
         } catch (Exception e) {
             // TODO: Add catch code
@@ -1109,14 +1201,16 @@ public class ActualizarContrato {
     public void setDescInversion(String descInversion) {
         this.descInversion = descInversion;
     }
-    
-    public void guardarContratoInversion(){
+
+    public void guardarContratoInversion() {
         if (infraestructuraId == 0) {
             FacesMessage mensaje =
                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Infreaestructura");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (descInversion.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Inversion");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "no ha ingresado La descripcion de la Inversion");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
@@ -1126,7 +1220,7 @@ public class ActualizarContrato {
                 contratoInversionVO.setTinId(contratoVO.getTinId());
                 contratoInversionVO.setInfId(infraestructuraId);
                 contratoInversionVO.setInvDescripcion(descInversion);
-                contratoInversionVO.setInvEstado(1);                            
+                contratoInversionVO.setInvEstado(1);
                 contratoInversionServiceImpl.insert(contratoInversionVO);
 
                 cargarListaInversiones(contratoVO.getConId());
@@ -1142,9 +1236,9 @@ public class ActualizarContrato {
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Adenda "));
             }
-        
+
+        }
     }
-}
 
     public ContratoInversionVO getContratoInversionVO() {
         return contratoInversionVO;
@@ -1169,20 +1263,20 @@ public class ActualizarContrato {
     public void setListContratoInversion(List<ContratoInversionVO> listContratoInversion) {
         this.listContratoInversion = listContratoInversion;
     }
-    
+
     public void cargarListaInversiones(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
             listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
-            for(ContratoInversionVO contratoInversionVO : listContratoInversion){
-                for(InfraestructuraVO aux : listaInfraestructura){
-                    if(aux.getInfId() == contratoInversionVO.getInfId()){
+            for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
+                for (InfraestructuraVO aux : listaInfraestructura) {
+                    if (aux.getInfId() == contratoInversionVO.getInfId()) {
                         contratoInversionVO.setInfNombre(aux.getInfNombre());
-                    }  
-                }         
+                    }
+                }
             }
         } catch (SQLException s) {
-            s.printStackTrace();          
+            s.printStackTrace();
         }
     }
 
@@ -1233,9 +1327,9 @@ public class ActualizarContrato {
     public void setDiaPresAlerta(Date diaPresAlerta) {
         this.diaPresAlerta = diaPresAlerta;
     }
-    
-    public void guardarAlerta(){
-        
+
+    public void guardarAlerta() {
+
         if (nombAeropuerto.equals("")) {
             System.out.print("nombAeropuerto" + nombAeropuerto);
             FacesMessage mensaje =
@@ -1243,23 +1337,28 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (descAlerta.equals("")) {
             System.out.print("descAlerta" + descAlerta);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Alerta");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Alerta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (fechaIniAlerta == null) {
             System.out.print("fechaIniAlerta: " + fechaIniAlerta);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha Inicio");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha Inicio");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (fechaFinAlerta == null) {
             System.out.print("fechaFinAlerta" + fechaFinAlerta);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha de Fin");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha de Fin");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (plazoAlerta.equals("")) {
             System.out.print("plazoAlerta: " + plazoAlerta);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El Plazo para la Alerta");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El Plazo para la Alerta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (diaPresAlerta == null) {
             System.out.print("diaPresAlerta: " + diaPresAlerta);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El dia de Presentacion");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El dia de Presentacion");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
@@ -1275,7 +1374,7 @@ public class ActualizarContrato {
                 contratoAlertaVO.setCalFechaFin(fechaFinAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
                 contratoAlertaServiceImpl.insert(contratoAlertaVO);
-                    
+
                 cargarListaAlertas(contratoVO.getConId());
                 limpiarCampos();
 
@@ -1289,7 +1388,7 @@ public class ActualizarContrato {
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Alerta "));
             }
-        
+
         }
     }
 
@@ -1324,38 +1423,72 @@ public class ActualizarContrato {
     public void setContratoAlertaVO(ContratoAlertaVO contratoAlertaVO) {
         this.contratoAlertaVO = contratoAlertaVO;
     }
-    
+
     public void cargarListaCaos(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
             setListContratoCaoVO(contratoCaoServiceImpl.getCaosContrato(idcontrato));
-            for(ContratoCaoVO contratoCaoVO : getListContratoCaoVO()) {
-                for(MonedaVO aux : listarTipoMonedas){
-                    if(aux.getMonId() == contratoCaoVO.getMonId()){
+            for (ContratoCaoVO contratoCaoVO : getListContratoCaoVO()) {
+                for (MonedaVO aux : listarTipoMonedas) {
+                    if (aux.getMonId() == contratoCaoVO.getMonId()) {
                         contratoCaoVO.setMonNombre(aux.getMonNombre());
-                    }  
-                }             
+                    }
+                }
             }
         } catch (SQLException s) {
-            s.printStackTrace();          
+            s.printStackTrace();
         }
     }
+    
+    public void cargarListaHitos(int idcontrato) {
+        try {
+            System.out.println("idcontrato: " + idcontrato);
+            setListContratoHitoVO(getContratoHitoServiceImpl().getHitosContrato(idcontrato));
+            for (ContratoHitoVO contratoHitoVO : getListContratoHitoVO()) {
+                for (MonedaVO aux : listarTipoMonedas) {
+                    if (aux.getMonId() == contratoHitoVO.getMonId()) {
+                        contratoHitoVO.setMonNombre(aux.getMonNombre());
+                    }
+                }
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        }
+    }
+    
+    
+    public void cargarListaPpos(int idcontrato) {
+            try {
+                System.out.println("idcontrato: " + idcontrato);
+            setListContratoPpoVO(getContratoPpoServiceImpl().getPposContrato(idcontrato));
+                for (ContratoPpoVO contratoPpoVO : getListContratoPpoVO()) {
+                    for (MonedaVO aux : listarTipoMonedas) {
+                        if (aux.getMonId() == contratoPpoVO.getMonId()) {
+                            contratoPpoVO.setMonNombre(aux.getMonNombre());
+                        }
+                    }
+                }
+            } catch (SQLException s) {
+                s.printStackTrace();
+            }
+        }
+
     public void cargarListaAlertas(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
             listContratoAlerta = contratoAlertaServiceImpl.getAlertasContrato(idcontrato);
-            for(ContratoAlertaVO contratoAlertaVO : listContratoAlerta){
+            for (ContratoAlertaVO contratoAlertaVO : listContratoAlerta) {
                 /*for(VO aux : listaInfraestructura){
                     if(aux.getInfId() == contratoInversionVO.getInfId()){
                         contratoInversionVO.setInfNombre(aux.getInfNombre());
-                    }  
+                    }
                 } */
-                if(contratoAlertaVO.getCaeId() == 1){
+                if (contratoAlertaVO.getCaeId() == 1) {
                     contratoAlertaVO.setCaeNombre("ACTIVO");
                 }
             }
         } catch (SQLException s) {
-            s.printStackTrace();          
+            s.printStackTrace();
         }
     }
 
@@ -1374,65 +1507,90 @@ public class ActualizarContrato {
     public void setCodigoAlerta(Integer codigoAlerta) {
         this.codigoAlerta = codigoAlerta;
     }
-    
+
     public void activarAlerta(ActionEvent event) throws SQLException {
-        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoAlerta");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlerta");
         contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
         contratoAlertaVO.setCalEstado(1);
         contratoAlertaServiceImpl.update(contratoAlertaVO);
-            
+
         cargarListaAlertas(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void desactivarAlerta(ActionEvent event) throws SQLException {
-        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoAlertaD");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlertaD");
         contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
         contratoAlertaVO.setCalEstado(2);
         contratoAlertaServiceImpl.update(contratoAlertaVO);
-            
+
         cargarListaAlertas(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void eliminarAlerta(ActionEvent event) throws SQLException {
-        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoAlertaE");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlertaE");
         contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
         contratoAlertaVO.setCalEstado(0);
         contratoAlertaServiceImpl.update(contratoAlertaVO);
-            
+
         cargarListaAlertas(contratoVO.getConId());
-        
+
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void eliminarInversion(ActionEvent event) throws SQLException {
         System.out.println("### INICIO ELIMINAR INVERSION");
-        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoInversionE");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoInversionE");
         contratoInversionVO = contratoInversionServiceImpl.get(codigo);
         contratoInversionVO.setInvEstado(0);
         contratoInversionServiceImpl.update(contratoInversionVO);
-        System.out.println("### FIN ELIMINAR INVERSION");    
+        System.out.println("### FIN ELIMINAR INVERSION");
         cargarListaInversiones(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino la Inversion");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void eliminarCao(ActionEvent event) throws SQLException {
         System.out.println("### INICIO ELIMINAR CAO");
-        int codigo =  (Integer)event.getComponent().getAttributes().get("codigoCaoE");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoCaoE");
         contratoCaoVO = contratoCaoServiceImpl.get(codigo);
         contratoCaoVO.setCaoEstado(0);
         contratoCaoServiceImpl.update(contratoCaoVO);
-        System.out.println("### FIN ELIMINAR CAO");    
+        System.out.println("### FIN ELIMINAR CAO");
         cargarListaCaos(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino El Registro");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
+    public void eliminarHito(ActionEvent event) throws SQLException {
+        System.out.println("### INICIO ELIMINAR HITO");
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoHitoE");
+        setContratoHitoVO(getContratoHitoServiceImpl().get(codigo));
+        getContratoHitoVO().setHtoEstado(0);
+        getContratoHitoServiceImpl().update(getContratoHitoVO());
+        System.out.println("### FIN ELIMINAR HITO");
+        cargarListaHitos(getContratoHitoVO().getConId());
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino El Registro");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void eliminarPpo(ActionEvent event) throws SQLException {
+        System.out.println("### INICIO ELIMINAR PPO");        
+        int codigo = (Integer) event.getComponent().getAttributes().get("codigoPpoE");
+        System.out.println("codigo: " + codigo);
+        setContratoPpoVO(getContratoPpoServiceImpl().get(codigo));
+        getContratoPpoVO().setPpoEstado(0);
+        getContratoPpoServiceImpl().update(getContratoPpoVO());
+        System.out.println("### FIN ELIMINAR PPO");
+        cargarListaPpos(getContratoPpoVO().getConId());
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino El Registro");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+
     public void cargarActivarAlerta() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -1446,10 +1604,10 @@ public class ActualizarContrato {
         nombreAlerta = contratoAlertaVO.getCalAeropuerto();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        
+
 
     }
-    
+
     public void cargarDesactivarAlerta() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -1462,9 +1620,9 @@ public class ActualizarContrato {
         codigoAlerta = contratoAlertaVO.getCalId();
         nombreAlerta = contratoAlertaVO.getCalAeropuerto();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Desactivo con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);        
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
-    
+
     public void cargarEliminarAlerta() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -1478,11 +1636,11 @@ public class ActualizarContrato {
         nombreAlerta = contratoAlertaVO.getCalAeropuerto();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        
+
 
     }
-    
-    
+
+
     public void cargarEliminarInversion() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -1496,10 +1654,10 @@ public class ActualizarContrato {
         nombreInversion = contratoInversionVO.getInvDescripcion();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        
+
 
     }
-    
+
     public void cargarEliminarCao() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -1513,8 +1671,38 @@ public class ActualizarContrato {
         nombreCao2 = contratoCaoVO.getCaoNombre();
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        
 
+
+    }
+    
+    public void cargarEliminarHito() throws SQLException {
+
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idContratoHitoE");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        setContratoHitoVO(getContratoHitoServiceImpl().get(idcodigo));
+        //fin de de captura de codigo a modificar
+        codigoHito = getContratoHitoVO().getHtoId();
+        nombreHito2 = getContratoHitoVO().getHtoNombre();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    
+    public void cargarEliminarPpo() throws SQLException {
+
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idContratoPpoE");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        setContratoPpoVO(getContratoPpoServiceImpl().get(idcodigo));
+        //fin de de captura de codigo a modificar
+        codigoPpo = getContratoPpoVO().getPpoId();
+        nombrePpo2 = getContratoPpoVO().getPpoNombre();
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
     public String getNombreInversion() {
@@ -1532,7 +1720,7 @@ public class ActualizarContrato {
     public void setCodigoInversion(Integer codigoInversion) {
         this.codigoInversion = codigoInversion;
     }
-    
+
     public void setContratoNuevaAdendaVO(ContratoAdendaVO contratoNuevaAdendaVO) {
         this.contratoNuevaAdendaVO = contratoNuevaAdendaVO;
     }
@@ -1629,8 +1817,8 @@ public class ActualizarContrato {
     public void setMonedaCAOId(Integer monedaCAOId) {
         this.monedaCAOId = monedaCAOId;
     }
-    
-    public void guardarCAO(){
+
+    public void guardarCAO() {
         System.out.println("############# INI GUARDAR CAO");
         if (monedaCAOId == 0) {
             System.out.println("monedaCAOId: " + monedaCAOId);
@@ -1651,17 +1839,20 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (documentoCAO.equals("")) {
             System.out.println("documentoCAO: " + documentoCAO);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Inversion");
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "no ha ingresado La descripcion de la Inversion");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
-                Date date = new Date();
-                DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
-                String convertido = fechaHora.format(date);
-                documentoCAO = "DOCUMENT_CAO_" + convertido;
-                
-                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACAO+documentoCAO, contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
-                                                                                                                
+                //Date date = new Date();
+                //DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                //String convertido = fechaHora.format(date);
+                //documentoCAO = "DOCUMENT_CAO_" + convertido;
+
+                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACAO + documentoCAO,
+                                                                    contratoCaoVO.getFileCao());
+
                 contratoCaoVO.setConId(contratoVO.getConId());
                 System.out.println("contratoVO.getConId(): " + contratoVO.getConId());
                 contratoCaoVO.setCaoEstado(1);
@@ -1673,10 +1864,10 @@ public class ActualizarContrato {
                 System.out.println("fechaCAO: " + fechaCAO);
                 contratoCaoVO.setCaoOficio(oficioCAO);
                 System.out.println("oficioCAO:" + oficioCAO);
-                contratoCaoVO.setCaoNombre(nombreCAO);                
+                contratoCaoVO.setCaoNombre(nombreCAO);
                 System.out.println("nombreCAO:" + nombreCAO);
-                contratoCaoVO.setCaoPdf(documentoCAO);  
-                System.out.println("documentoCAO:" + documentoCAO);                                                    
+                contratoCaoVO.setCaoPdf(documentoCAO);
+                System.out.println("documentoCAO:" + documentoCAO);
                 contratoCaoServiceImpl.insert(contratoCaoVO);
                 System.out.println("guardo ok");
 
@@ -1688,7 +1879,7 @@ public class ActualizarContrato {
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Adenda "));
                 s.printStackTrace();
-                System.out.println("ERROR SQLE: " + s.getMessage());    
+                System.out.println("ERROR SQLE: " + s.getMessage());
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -1696,10 +1887,158 @@ public class ActualizarContrato {
                 e.printStackTrace();
                 System.out.println("ERROR E: " + e.getMessage());
             }
-        System.out.println("############# FIN GUARDAR CAO");
-        
+            System.out.println("############# FIN GUARDAR CAO");
+
+        }
     }
-}
+    
+    public void guardarPpo() {
+            System.out.println("############# INI GUARDAR Ppo");
+            if (monedaPpoId == 0) {
+                System.out.println("monedaPpoId: " + monedaPpoId);
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else if (fechaPpo == null) {
+                System.out.println("fechaPpo: " + fechaPpo);
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else if (oficioPpo.equals("")) {
+                System.out.println("oficioPpo: " + oficioPpo);
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else if (montoPpo == null) {
+                System.out.println("montoPpo: " + montoPpo);
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else if (documentoPpo.equals("")) {
+                System.out.println("documentoPpo: " + documentoPpo);
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                     "no ha ingresado El Documento");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else {
+                try {
+                    //Date date = new Date();
+                    //DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                    //String convertido = fechaHora.format(date);
+                    //documentoCAO = "DOCUMENT_CAO_" + convertido;
+
+                    Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAPPO + documentoPpo,
+                                                                    getContratoPpoVO().getFilePpo());
+
+                getContratoPpoVO().setConId(contratoVO.getConId());
+                    System.out.println("contratoVO.getConId(): " + contratoVO.getConId());
+                getContratoPpoVO().setPpoEstado(1);
+                getContratoPpoVO().setPpoMonto(montoPpo);
+                    System.out.println("montoPpo:" + montoPpo);
+                getContratoPpoVO().setMonId(monedaPpoId);
+                    System.out.println("monedaPpoId: " + monedaPpoId);
+                getContratoPpoVO().setPpoFecha(fechaPpo);
+                    System.out.println("fechaPpo: " + fechaPpo);
+                getContratoPpoVO().setPpoOficio(oficioPpo);
+                    System.out.println("oficioPpo:" + oficioPpo);
+                getContratoPpoVO().setPpoNombre(nombrePpo);
+                    System.out.println("nombrePpo:" + nombrePpo);
+                getContratoPpoVO().setPpoArchivoPdf(documentoPpo);
+                    System.out.println("documentoPpo:" + documentoPpo);
+                getContratoPpoServiceImpl().insert(getContratoPpoVO());
+                    System.out.println("guardo ok");
+
+                    cargarListaPpos(contratoVO.getConId());
+                    limpiarCampos();
+
+                } catch (SQLException s) {
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                  " No se pudo registrar la Adenda "));
+                    s.printStackTrace();
+                    System.out.println("ERROR SQLE: " + s.getMessage());
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                  " No se pudo registrar la Adenda "));
+                    e.printStackTrace();
+                    System.out.println("ERROR E: " + e.getMessage());
+                }
+                System.out.println("############# FIN GUARDAR CAO");
+
+            }
+        }
+    
+    public void guardarHito() {
+        System.out.println("############# INI GUARDAR HITO");
+        if (monedaHitoId == 0) {
+            System.out.println("monedaHitoId: " + monedaHitoId);
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (fechaHito == null) {
+            System.out.println("fechaHito: " + fechaHito);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (oficioHito.equals("")) {
+            System.out.println("oficioHito: " + oficioHito);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (montoHito == null) {
+            System.out.println("montoHito: " + montoHito);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (documentoHito.equals("")) {
+            System.out.println("documentoHito: " + documentoHito);
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 "no ha ingresado El Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else {
+            try {
+                //Date date = new Date();
+                //DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                //String convertido = fechaHora.format(date);
+                //documentoCAO = "DOCUMENT_CAO_" + convertido;
+
+                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAHITO + documentoHito,
+                                                                    getContratoHitoVO().getFileHito());
+
+                contratoHitoVO.setConId(contratoVO.getConId());
+                System.out.println("contratoVO.getConId(): " + contratoVO.getConId());
+                contratoHitoVO.setHtoEstado(1);
+                contratoHitoVO.setHtoMonto(montoHito);
+                System.out.println("montoHito:" + montoHito);
+                contratoHitoVO.setMonId(monedaHitoId);
+                System.out.println("monedaHitoId: " + monedaHitoId);
+                contratoHitoVO.setHtoFecha(fechaHito);
+                System.out.println("fechaHito: " + fechaHito);
+                contratoHitoVO.setHtoOficio(oficioHito);
+                System.out.println("oficioHito:" + oficioHito);
+                contratoHitoVO.setHtoNombre(nombreHito);
+                System.out.println("nombreHito:" + nombreHito);
+                contratoHitoVO.setHtoPdf(documentoHito);
+                System.out.println("documentoHito:" + documentoHito);
+                contratoHitoServiceImpl.insert(contratoHitoVO);
+                System.out.println("guardo ok");
+
+                cargarListaHitos(contratoVO.getConId());
+                limpiarCampos();
+
+            } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+                s.printStackTrace();
+                System.out.println("ERROR SQLE: " + s.getMessage());
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Adenda "));
+                e.printStackTrace();
+                System.out.println("ERROR E: " + e.getMessage());
+            }
+            System.out.println("############# FIN GUARDAR CAO");
+
+        }
+    }
 
     public ContratoCaoServiceImpl getContratoCaoServiceImpl() {
         return contratoCaoServiceImpl;
@@ -1732,7 +2071,6 @@ public class ActualizarContrato {
     public void setCodigoCao(Integer codigoCao) {
         this.codigoCao = codigoCao;
     }
-    
 
 
     public String getNombreCao2() {
@@ -1741,6 +2079,222 @@ public class ActualizarContrato {
 
     public void setNombreCao2(String nombreCao2) {
         this.nombreCao2 = nombreCao2;
+    }
+
+    public DefaultStreamedContent getDownloadCao() {
+        return downloadCao;
+    }
+
+    public void setDownloadCao(DefaultStreamedContent downloadCao) {
+        this.downloadCao = downloadCao;
+    }
+
+    public String getNombreHito() {
+        return nombreHito;
+    }
+
+    public void setNombreHito(String nombreHito) {
+        this.nombreHito = nombreHito;
+    }
+
+    public Integer getCodigoHito() {
+        return codigoHito;
+    }
+
+    public void setCodigoHito(Integer codigoHito) {
+        this.codigoHito = codigoHito;
+    }
+
+    public Date getFechaHito() {
+        return fechaHito;
+    }
+
+    public void setFechaHito(Date fechaHito) {
+        this.fechaHito = fechaHito;
+    }
+
+    public String getOficioHito() {
+        return oficioHito;
+    }
+
+    public void setOficioHito(String oficioHito) {
+        this.oficioHito = oficioHito;
+    }
+
+    public Long getMontoHito() {
+        return montoHito;
+    }
+
+    public void setMontoHito(Long montoHito) {
+        this.montoHito = montoHito;
+    }
+
+    public String getDocumentoHito() {
+        return documentoHito;
+    }
+
+    public void setDocumentoHito(String documentoHito) {
+        this.documentoHito = documentoHito;
+    }
+
+    public Integer getMonedaHitoId() {
+        return monedaHitoId;
+    }
+
+    public void setMonedaHitoId(Integer monedaHitoId) {
+        this.monedaHitoId = monedaHitoId;
+    }
+
+    public String getNombreHito2() {
+        return nombreHito2;
+    }
+
+    public void setNombreHito2(String nombreHito2) {
+        this.nombreHito2 = nombreHito2;
+    }
+
+    public Integer getCodigoHito2() {
+        return codigoHito2;
+    }
+
+    public void setCodigoHito2(Integer codigoHito2) {
+        this.codigoHito2 = codigoHito2;
+    }
+
+    public String getNombrePpo() {
+        return nombrePpo;
+    }
+
+    public void setNombrePpo(String nombrePpo) {
+        this.nombrePpo = nombrePpo;
+    }
+
+    public Integer getCodigoPpo() {
+        return codigoPpo;
+    }
+
+    public void setCodigoPpo(Integer codigoPpo) {
+        this.codigoPpo = codigoPpo;
+    }
+
+    public Date getFechaPpo() {
+        return fechaPpo;
+    }
+
+    public void setFechaPpo(Date fechaPpo) {
+        this.fechaPpo = fechaPpo;
+    }
+
+    public String getOficioPpo() {
+        return oficioPpo;
+    }
+
+    public void setOficioPpo(String oficioPpo) {
+        this.oficioPpo = oficioPpo;
+    }
+
+    public Long getMontoPpo() {
+        return montoPpo;
+    }
+
+    public void setMontoPpo(Long montoPpo) {
+        this.montoPpo = montoPpo;
+    }
+
+    public String getDocumentoPpo() {
+        return documentoPpo;
+    }
+
+    public void setDocumentoPpo(String documentoPpo) {
+        this.documentoPpo = documentoPpo;
+    }
+
+    public Integer getMonedaPpoId() {
+        return monedaPpoId;
+    }
+
+    public void setMonedaPpoId(Integer monedaPpoId) {
+        this.monedaPpoId = monedaPpoId;
+    }
+
+    public Integer getCodigoPpo2() {
+        return codigoPpo2;
+    }
+
+    public void setCodigoPpo2(Integer codigoPpo2) {
+        this.codigoPpo2 = codigoPpo2;
+    }
+
+    public String getNombrePpo2() {
+        return nombrePpo2;
+    }
+
+    public void setNombrePpo2(String nombrePpo2) {
+        this.nombrePpo2 = nombrePpo2;
+    }
+
+    public DefaultStreamedContent getDownloadHito() {
+        return downloadHito;
+    }
+
+    public void setDownloadHito(DefaultStreamedContent downloadHito) {
+        this.downloadHito = downloadHito;
+    }
+
+    public DefaultStreamedContent getDownloadPpo() {
+        return downloadPpo;
+    }
+
+    public void setDownloadPpo(DefaultStreamedContent downloadPpo) {
+        this.downloadPpo = downloadPpo;
+    }
+
+    public ContratoHitoServiceImpl getContratoHitoServiceImpl() {
+        return contratoHitoServiceImpl;
+    }
+
+    public void setContratoHitoServiceImpl(ContratoHitoServiceImpl contratoHitoServiceImpl) {
+        this.contratoHitoServiceImpl = contratoHitoServiceImpl;
+    }
+
+    public ContratoHitoVO getContratoHitoVO() {
+        return contratoHitoVO;
+    }
+
+    public void setContratoHitoVO(ContratoHitoVO contratoHitoVO) {
+        this.contratoHitoVO = contratoHitoVO;
+    }
+
+    public List<ContratoHitoVO> getListContratoHitoVO() {
+        return listContratoHitoVO;
+    }
+
+    public void setListContratoHitoVO(List<ContratoHitoVO> listContratoHitoVO) {
+        this.listContratoHitoVO = listContratoHitoVO;
+    }
+
+    public ContratoPpoVO getContratoPpoVO() {
+        return contratoPpoVO;
+    }
+
+    public void setContratoPpoVO(ContratoPpoVO contratoPpoVO) {
+        this.contratoPpoVO = contratoPpoVO;
+    }
+
+    public ContratoPpoServiceImpl getContratoPpoServiceImpl() {
+        return contratoPpoServiceImpl;
+    }
+
+    public void setContratoPpoServiceImpl(ContratoPpoServiceImpl contratoPpoServiceImpl) {
+        this.contratoPpoServiceImpl = contratoPpoServiceImpl;
+    }
+
+    public List<ContratoPpoVO> getListContratoPpoVO() {
+        return listContratoPpoVO;
+    }
+
+    public void setListContratoPpoVO(List<ContratoPpoVO> listContratoPpoVO) {
+        this.listContratoPpoVO = listContratoPpoVO;
     }
     
     //*********************************************************************//
@@ -1917,4 +2471,5 @@ public class ActualizarContrato {
     public boolean isTabDeshabilitado() {
         return tabDeshabilitado;
     }
+
 }
