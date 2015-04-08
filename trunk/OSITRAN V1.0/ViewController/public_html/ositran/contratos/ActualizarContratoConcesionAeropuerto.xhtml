@@ -52,6 +52,14 @@
               obj = obj.toLowerCase();
               document.getElementById(id).value = obj;
           }
+         function validarNum(e) {
+              tecla = (document.all) ? e.keyCode : e.which;
+              if (tecla == 8)
+                  return true;
+              patron = /\d/;
+              te = String.fromCharCode(tecla);
+              return patron.test(te);
+          }
         </script>
         <meta content="1500" http-equiv="REFRESH"></meta>
         <script type="text/javascript">
@@ -78,14 +86,17 @@
         <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="postAddToView"/>
          
         <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="postAddToView"/> 
          
         <p:layout fullPage="true" style="border:none">
-            <p:layoutUnit position="center" style="border:0px">
+            <p:layoutUnit  position="center" style="border:0px">
                 <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                 <div align="center">
-                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;" >ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N - AEROPUERTO</h5>
+                   <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO
+                                                                                      CONCESI&#211;N - AEROPUERTO</h5>
                 </div>
                 <div align="center" style="font-size: 11px">
+                
                     <p:tabView style="width: 80%" id="tab"
                                rendered="#{actualizarContratoMB.rolOpcion.troConsultar eq 1}">
                         <p:tab title="Datos Básicos">
@@ -380,8 +391,17 @@
                                             <p:column headerText="Seleccionar" style="width:4%">
                                                 <p:commandButton icon="ui-icon-check"
                                                                  actionListener="#{actualizarContratoMB.seleccionarContrato}"
-                                                                 update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg                                                                           :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg                                                                          :tab:form :tab:frmAdenda:tablaAdenda :tab:frmAdenda:tablaEngrega :tab:frmAlerta:tablaAlerta :tab:frmInversion:tablaContratoInversion: :tab:frmAgregarInversion:AeropuertoInversion :tab:frmAgregarCAO:monedaCAO :tab:frmCHP:tablaCAO"
-                                                                 process="@this"
+                                                                 update=":op :tab:tab1 :tab:tab2 :tab:tab3 :tab:tab4 :tab:tab5 :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg 
+                                                                 :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg
+                                                                 :tab:form :tab:frmAdenda:tablaAdenda 
+                                                                 :tab:frmAdenda:tablaEngrega 
+                                                                 :tab:frmAlerta:tablaAlerta 
+                                                                 :tab:frmInversion:tablaContratoInversion: 
+                                                                 :tab:frmAgregarInversion:AeropuertoInversion 
+                                                                 :tab:frmAgregarCAO:monedaCAO 
+                                                                 :tab:frmCHP:tablaCAO
+                                                                 :tab:frmCompromisoIndicado:tablaCompromisoIndicado"
+                                                                 ajax="false"
                                                                  oncomplete="popupBuscarContrato.hide();">
                                                     <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
@@ -415,7 +435,7 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab title="Adendas - Entregas">
+                        <p:tab id="tab1" title="Adendas - Entregas" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmAdenda">
                                 <table>
                                     <tr>
@@ -447,7 +467,7 @@
                                                 <p:column headerText="Fecha">
                                                     <h:outputText value="#{tAdenda.cadFechaDescripcion}"/>
                                                 </p:column>
-                                                <p:column headerText="Ver" style="width:5%">
+                                                <p:column headerText="Quitar" style="width:5%">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
                                                                      actionListener="#{actualizarContratoMB.preDownloadAdendas(tAdenda.cadDocumentoFisico)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadAdendas}"></p:fileDownload>
@@ -499,7 +519,7 @@
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadEntregas}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </p:column>
-                                                <p:column style="width:10%;" headerText="Eliminar">
+                                                <p:column style="width:10%;" headerText="Quitar">
                                                     <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{actualizarContratoMB.borrarEntrega}"
                                                                      update=":tab:frmAdenda:tablaEngrega                                                                               :tab:form:mensaje">
@@ -644,8 +664,156 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab title="Compromiso - Penalidades"></p:tab>
-                        <p:tab title="CAO - Hito - POO">
+                        <p:tab id="tab2" title="Compromiso - Penalidades" disabled="#{actualizarContratoMB.tabDeshabilitado}">
+                         <h:form id="frmCompromisoIndicado">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
+                                                                                    Periodo/Etapa - Indicado en el
+                                                                                    Contrato:</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoIndicado"
+                                                             actionListener="#{actualizarContratoMB.resetearNuevoCompromisoInversion()}"
+                                                             rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaCompromisoIndicado" 
+                                                         value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
+                                                <p:column headerText="Periodo/Etapa" style="width:15%"><h:outputText value="#{compromiso.ccoPeriodo}"/></p:column>
+                                                <p:column headerText="Alcance"><h:outputText value="#{compromiso.ccoAlcance}"/></p:column>
+                                                <p:column headerText="Tipo de Inversión"><h:outputText value="#{compromiso.tivNombre}"/></p:column>
+                                                <p:column headerText="Moneda" style="width:4%"><h:outputText value="#{compromiso.monNombre}"/></p:column>
+                                                <p:column headerText="Neto" style="width:4%"><h:outputText value="#{compromiso.ccoNeto}"/></p:column>
+                                                <p:column headerText="IGV" style="width:4%"><h:outputText value="#{compromiso.ccoIgv}"/></p:column>
+                                                <p:column headerText="Total" style="width:4%"><h:outputText value="#{compromiso.ccoTotal}"/></p:column>
+                                                <p:column headerText="Plazo" style="width:4%"><h:outputText value="#{compromiso.ccoPlazo}"/></p:column>
+                                                <p:column headerText="Quitar" style="width:4%">
+                                                 <p:commandButton icon="ui-icon-trash"
+                                                                     actionListener="#{actualizarContratoMB.borrarCompromiso}"
+                                                                     update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado :tab:form:mensaje">
+                                                        <f:attribute name="compromiso" value="#{compromiso}"></f:attribute>
+                                                </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+                            <p:dialog header="Agregar Compromiso de Inversion (Indicado)"
+                                      widgetVar="popupAgregarCompromiso"  modal="true" resizable="false" appendToBody="true" closable="false">
+                                <h:form id="frmNuevoCompromisoDlg">
+                                    <p:panelGrid id="pnlNuevoCompromisoDlg" styleClass="pnlEdicion" columns="3"
+                                                 columnClasses="etiquetas,cajas,validadores">
+                                        <p:outputLabel for="periodoetapacom" value="Periodo / Etapa"/>
+                                        <p:inputText id="periodoetapacom" style="width:200px;" required="true"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPeriodo}"
+                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                        <p:message for="periodoetapacom" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="alcancecom" value="Alcance"/>
+                                        <p:inputTextarea id="alcancecom" style="width:200px;" required="true"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoAlcance}"
+                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                        <p:message for="alcancecom" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="tipoinversioncom" value="Tipo de Inversion"/>
+                                        <p:selectOneMenu id="tipoinversioncom"
+                                                         value="#{actualizarContratoMB.contratoNuevoCompromisoVO.tivId}"
+                                                         style="width:210px" required="true">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listaTipoInversion}" var="tiv"
+                                                           itemLabel="#{tiv.tivNombre}" itemValue="#{tiv.tivId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="tipoinversioncom" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="monedaInversioncom" value="Moneda"/>
+                                        <p:selectOneMenu 
+                                                         value="#{actualizarContratoMB.contratoNuevoCompromisoVO.monId}"
+                                                         id="monedaInversioncom" style="width:210px" required="true">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
+                                                           itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="monedaInversioncom" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="valortotalcom" value="Valor Total"/>
+                                        <p:inputText id="valortotalcom" style="width:200px;" required="true"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTotal}"
+                                                   onkeypress="return validarNum(event);" />
+                                        <p:message for="valortotalcom" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="incigvcom" value="Incluye IGV?"/>
+                                        <p:selectOneRadio id="incigvcom" value="#{actualizarContratoMB.incIgv}">
+                                            <p:ajax listener="#{actualizarContratoMB.activaCamposIGV()}" update="igvcom"/>
+                                            <f:selectItem itemLabel="Si" itemValue="1"/>
+                                            <f:selectItem itemLabel="No" itemValue="0"/>
+                                        </p:selectOneRadio>
+                                         <p:message for="incigvcom" display="icon"/>
+
+                                        <p:outputLabel for="igvcom" value="%IGV"/>
+                                        <p:inputMask id="igvcom" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
+                                                     onkeypress="return validarNum(event);"
+                                                     disabled="#{actualizarContratoMB.activaIGV}" mask="0.99" size="3">
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this,valortotalcom"
+                                                    update="netocom"/>
+                                        </p:inputMask>
+                                         <p:message for="igvcom" display="icon"/>
+                                        
+                                        <p:outputLabel for="netocom" value="Neto"/>
+                                        <p:inputText id="netocom" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoNeto}"
+                                                     disabled="true" onkeypress="return validarNum(event);"/>
+                                         <p:message for="netocom" display="icon"/>
+                                        
+                                        <p:outputLabel for="plazocom" value="Plazo"/>
+                                        <p:inputText id="plazocom" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPlazo}"
+                                                      required="true"/>
+                                        <p:message for="plazocom" display="icon"/>
+                                        
+                                        <p:outputLabel for="estadocompromisocom" value="Estado"/>
+                                        <p:selectOneRadio id="estadocompromisocom"
+                                                          value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoEstado}" required="true">
+                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                                        </p:selectOneRadio>
+                                        <p:message for="estadocompromisocom" display="icon"/>
+                                        
+                                    </p:panelGrid>
+                                    <p:panelGrid id="pnlNuevoCompromisoBtnDlg" columns="2" styleClass="pnlEdicion">
+                                        <p:commandButton id="grabarcompromiso" 
+                                                         value="guardar"
+                                                         actionListener="#{actualizarContratoMB.grabarContratoCompromisoIndicado()}"
+                                                         update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado
+                                                         :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg 
+                                                         :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" />
+                                        <p:commandButton id="cancelarcompromiso" value="salir"
+                                                         oncomplete="popupAgregarCompromiso.hide();" 
+                                                         process="@this"
+                                                         >
+                                        <p:resetInput target=":tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg 
+                                                              :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" />
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
+                        </p:tab>
+                        <p:tab id="tab3" title="CAO - Hito - POO" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmCHP">
                                 <table>
                                     <tr>
@@ -1139,7 +1307,7 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab title="Alertas Personalizadas">
+                        <p:tab id="tab4" title="Alertas Personalizadas" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmAlerta">
                                 <table>
                                     <tr>
@@ -1384,7 +1552,7 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab title="Inversiones">
+                        <p:tab id="tab5" title="Inversiones" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmInversion">
                                 <table>
                                     <tr>
@@ -1502,6 +1670,7 @@
                             </p:dialog>
                         </p:tab>
                     </p:tabView>
+                    
                 </div>
             </p:layoutUnit>
             <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"

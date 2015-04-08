@@ -52,6 +52,7 @@
 	<bean id="periodo" class="com.ositran.model.Periodo"/>	
     <bean id="contratoNuevaAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO"/>
     <bean id="contratoNuevaEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO"/>
+	<bean id="contratoNuevoCompromisoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -409,11 +410,15 @@
                 <property name="contratoAlertaVO" ref="contratoAlertaVO"/>
                 
                 <property name="contratoCaoServiceImpl" ref="contratoCaoServiceImpl"/>
+                
                 <property name="contratoCaoVO" ref="contratoCaoVO"/>
                 
         <property name="periodoVO" ref="periodoVO"/>
         <property name="contratoNuevaAdendaVO" ref="contratoNuevaAdendaVO"/>
         <property name="contratoNuevaEntregaVO" ref="contratoNuevaEntregaVO"/>
+		<property name="contratoNuevoCompromisoVO" ref="contratoNuevoCompromisoVO"/>
+                		
+		
     </bean>
      <bean id="controlacceso" class="com.ositran.util.ControlAcceso"/>
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
