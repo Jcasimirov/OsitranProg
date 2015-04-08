@@ -73,20 +73,20 @@
         </script>
     </h:head>
     <h:body>
-        <f:event listener="#{actualizarContratoMB.validarSesion}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.validarSesion}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="postAddToView"/>
+        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="postAddToView"/>
-        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="postAddToView"/> 
+        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderComponent"/> 
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
@@ -1032,17 +1032,24 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombreCAO}"
                                                              style="width:300px;"
-                                                             required="true" id="caoInversion"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>                                                             
-                                                <p:message for="caoInversion" display="icon" />
+                                                             id="nombreCAO" required="true"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/> 
+                                                <p:message for="nombreCAO" display="icon" />
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
-                                        </tr>                                                                                                                         
+                                        </tr>
+                                         
+                                        
+                                         
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaCAO}"/>
-                                                 
+                                                <p:calendar locale="es" 
+                                                            pattern="dd-MM-yyyy" 
+                                                            value="#{actualizarContratoMB.fechaCAO}"
+                                                            required="true"
+                                                            id="fechaCAO"/>
+                                                 <p:message for="fechaCAO" display="icon" />
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -1052,8 +1059,10 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.oficioCAO}"
                                                              style="width:300px;"
+                                                             id="oficioCAO"
+                                                             required="true"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                 <p:message for="oficioCAO" display="icon" />
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -1063,8 +1072,10 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.montoCAO}"
                                                              style="width:200px;"
+                                                             id="montoCAO"
+                                                             required="true"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                <p:message for="montoCAO" display="icon" /> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -1087,10 +1098,14 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
+                                            
                                                 <p:inputText id="docCao"
                                                              value="#{actualizarContratoMB.documentoCAO}"
                                                              style="width:200px;"
-                                                             readonly="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"/>
+                                                             required="true"
+                                                             readonly="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"
+                                                             />
+                                                <p:message for="docCao" display="icon" />            
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}"
                                                       update="docCao" label="Archivo" auto="true"/> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
