@@ -37,7 +37,20 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         session.getTransaction().commit();
         return list;        
     }
-    
+    public List<ContratoCompromiso> querySupervisado(Integer conId) throws SQLException {
+        System.out.println("hola llega hasta aqui");
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        Query query; 
+        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0" +
+                                    "and cc.conId = :busqueda1 AND cc.tccTipo = 1 order by ccoId DESC");
+        query.setParameter("busqueda1",conId);            
+              
+      
+        List<ContratoCompromiso> list = query.list();
+        session.close();
+        return list;
+    }
     @Override
     public String insert(ContratoCompromiso contratoCompromiso) throws SQLException {
         String result=null;
@@ -87,14 +100,15 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
     }
     
     @Override
-    public List<ContratoCompromiso> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
+    public List<ContratoCompromiso> getCompromisosContrato(Integer conId) throws SQLException{
         System.out.println("hola llega hasta aqui");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 and cc.conId = :busqueda1 AND cc.tccTipo = :busqueda2 order by ccoId DESC");
+        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 " +
+                                    "and cc.conId = :busqueda1 AND cc.tccTipo = 0 order by ccoId DESC");
         query.setParameter("busqueda1",conId);            
-        query.setParameter("busqueda2",tccTipo);            
+             
         List<ContratoCompromiso> list = query.list();
         session.getTransaction().commit();
         return list;        
