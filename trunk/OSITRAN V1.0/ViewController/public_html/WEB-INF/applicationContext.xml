@@ -55,6 +55,7 @@
     <bean id="contratoNuevaAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO"/>
     <bean id="contratoNuevaEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO"/>
 	<bean id="contratoNuevoCompromisoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
+        <bean id="contratoNuevoCompromisoSupervisadoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -436,7 +437,8 @@
         <property name="periodoVO" ref="periodoVO"/>
         <property name="contratoNuevaAdendaVO" ref="contratoNuevaAdendaVO"/>
         <property name="contratoNuevaEntregaVO" ref="contratoNuevaEntregaVO"/>
-		<property name="contratoNuevoCompromisoVO" ref="contratoNuevoCompromisoVO"/>
+        <property name="contratoNuevoCompromisoSupervisadoVO" ref="contratoNuevoCompromisoSupervisadoVO"/>
+        <property name="contratoNuevoCompromisoVO" ref="contratoNuevoCompromisoVO"/>
                 		
 		
     </bean>
