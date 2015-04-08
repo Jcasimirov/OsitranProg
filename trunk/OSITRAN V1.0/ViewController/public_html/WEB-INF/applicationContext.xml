@@ -48,6 +48,8 @@
 	<bean id="periodoVO" class="com.ositran.vo.bean.PeriodoVO"/>
         <bean id="contratoInversionVO" class="com.ositran.vo.bean.ContratoInversionVO"/>      
         <bean id="contratoCaoVO" class="com.ositran.vo.bean.ContratoCaoVO"/>
+        <bean id="contratoHitoVO" class="com.ositran.vo.bean.ContratoHitoVO"/>
+        <bean id="contratoPpoVO" class="com.ositran.vo.bean.ContratoPpoVO"/>
         <bean id="contratoAlertaVO" class="com.ositran.vo.bean.ContratoAlertaVO"/>                
 	<bean id="periodo" class="com.ositran.model.Periodo"/>	
     <bean id="contratoNuevaAdendaVO" class="com.ositran.vo.bean.ContratoAdendaVO"/>
@@ -373,6 +375,18 @@
     <bean id="contratoCaoServiceImpl" class="com.ositran.serviceimpl.ContratoCaoServiceImpl">
         <property name="contratoCaoDAOImpl" ref="contratoCaoDAOImpl"/>
     </bean>
+    
+    <!-- contratoHito -->
+    <bean id="contratoHitoDAOImpl" class="com.ositran.daoimpl.ContratoHitoDAOImpl"/>
+    <bean id="contratoHitoServiceImpl" class="com.ositran.serviceimpl.ContratoHitoServiceImpl">
+        <property name="contratoHitoDAOImpl" ref="contratoHitoDAOImpl"/>
+    </bean>
+    
+    <!-- contratoPpo -->
+    <bean id="contratoPpoDAOImpl" class="com.ositran.daoimpl.ContratoPpoDAOImpl"/>
+    <bean id="contratoPpoServiceImpl" class="com.ositran.serviceimpl.ContratoPpoServiceImpl">
+        <property name="contratoPpoDAOImpl" ref="contratoPpoDAOImpl"/>
+    </bean>
 	<!-- Moneda -->
 	<bean id="monedaDaoImpl" class="com.ositran.daoimpl.MonedaDAOImpl"/>
     <bean id="monedaServiceImpl" class="com.ositran.serviceimpl.MonedaServiceImpl">
@@ -412,6 +426,12 @@
                 <property name="contratoCaoServiceImpl" ref="contratoCaoServiceImpl"/>
                 
                 <property name="contratoCaoVO" ref="contratoCaoVO"/>
+                
+                <property name="contratoHitoServiceImpl" ref="contratoHitoServiceImpl"/>
+                <property name="contratoHitoVO" ref="contratoHitoVO"/>
+                
+                <property name="contratoPpoServiceImpl" ref="contratoPpoServiceImpl"/>
+                <property name="contratoPpoVO" ref="contratoPpoVO"/>
                 
         <property name="periodoVO" ref="periodoVO"/>
         <property name="contratoNuevaAdendaVO" ref="contratoNuevaAdendaVO"/>
