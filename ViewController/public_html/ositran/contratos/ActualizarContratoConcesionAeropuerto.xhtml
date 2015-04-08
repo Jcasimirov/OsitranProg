@@ -73,20 +73,19 @@
         </script>
     </h:head>
     <h:body>
-        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderView"/>
          
-        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderView"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderView"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderView"/>
          
-        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderComponent"/>
+        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="preRenderView"/>
          
-        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="preRenderComponent"/>
-         
-        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="preRenderComponent"/>
-        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderComponent"/> 
+        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="preRenderView"/>
+        
+        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderView" /> 
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
