@@ -831,6 +831,168 @@
                                         </p:commandButton>
                                     </p:panelGrid>
                                 </h:form>
+                                <h:form id="frmCompromisoSupervisado">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
+                                                                                    Periodo/Etapa - Supervisado por
+                                                                                    Ositran:</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoSupervisado" 
+                                                             actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}"
+                                                             update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
+                                                             :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"
+                                                             onclick="popupAgregarCompromisoSupervisado.show();"
+                                                             rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="4,6,8" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaComprmisoSupervisado"
+                                                         value="#{actualizarContratoMB.listarContratoCompromisoSupervisado}"
+                                                         var="comsup">
+                                                 <p:column headerText="Periodo/Etapa" style="width:7%">
+                                                    <h:outputText value="#{comsup.ccoPeriodo}"/>
+                                                </p:column>
+                                                <p:column headerText="Alcance" style="width:10%">
+                                                    <h:outputText value="#{comsup.ccoAlcance}"/>
+                                                </p:column>
+                                                
+                                                <p:column headerText="Moneda" style="width:6%">
+                                                    <h:outputText value="#{comsup.monNombre}"/>
+                                                </p:column>
+                                                <p:column headerText="Neto" style="width:8%">
+                                                    <h:outputText value="#{comsup.ccoNeto}"/>
+                                                </p:column>
+                                                <p:column headerText="IGV" style="width:4%">
+                                                    <h:outputText value="#{comsup.ccoIgv}"/>
+                                                </p:column>
+                                                <p:column headerText="Total" style="width:8%">
+                                                    <h:outputText value="#{comsup.ccoTotal}"/>
+                                                </p:column>
+                                                <p:column headerText="Plazo" style="width:6%">
+                                                    <h:outputText value="#{comsup.ccoPlazo}"/>
+                                                </p:column>
+                                                <p:column headerText="%IGV" style="width:4%">
+                                                    <h:outputText value="#{comsup.porIgv}"/>
+                                                </p:column>
+                                                 <p:column headerText="Tipo de Cambio" style="width:8%">
+                                                    <h:outputText value="#{comsup.ccoTipoCambio}"/>
+                                                </p:column>
+                                                <p:column headerText="Eliminar" style="width:4%">
+                                                    <p:commandButton icon="ui-icon-trash"
+                                                                     actionListener="#{actualizarContratoMB.borrarCompromisoSupervisado}"
+                                                                     update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado :tab:form:mensaje">
+                                                        <f:attribute name="comsup" value="#{comsup}"></f:attribute>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+                            <p:dialog header="Agregar Compromiso (Supervisado)"
+                                      widgetVar="popupAgregarCompromisoSupervisado" modal="true" resizable="false"
+                                      appendToBody="true" closable="true">
+                                <h:form id="frmNuevoCompromisoSupervisadoDlg">
+                                    <p:panelGrid id="pnlNuevoCompromisoSupervisadoDlg" styleClass="pnlEdicion" columns="3"
+                                                 columnClasses="etiquetas,cajas,validadores">
+                                       <p:outputLabel for="etapasup" value="Etapa"/>
+                                       <p:inputText id="etapasup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPeriodo}"
+                                                    style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)" required="true"/>
+                                       <p:message for="etapasup" display="icon"/>
+                                        
+                                       <p:outputLabel for="alcancesup"  value="Alcance"/>
+                                       <p:inputText id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}"
+                                                             style="width:200px;" required="true"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:message for="alcancesup" display="icon"/>
+                                        
+                                       <p:outputLabel for="monedacompromisocomsup" value="Moneda"/>                                             
+                                        <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId}"
+                                                         id="monedacompromisocomsup" style="width:210px" required="true">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
+                                                           itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="monedacompromisocomsup" display="icon"/>   
+                                        
+                                        <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
+                                        <p:inputText id="valortotalcomsup" style="width:200px;" required="true"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTotal}"
+                                                     onkeypress="return validarNum(event);"/>
+                                        <p:message for="valortotalcomsup" display="icon"/>
+                                        
+                                        <p:outputLabel for="incigvcomsup" value="Incluye IGV?"/>
+                                        <p:selectOneRadio id="incigvcomsup" value="#{actualizarContratoMB.incIgvSup}">
+                                            <p:ajax listener="#{actualizarContratoMB.activaCamposIGVSupervisado()}"
+                                                    update="igvcomsup"/>
+                                            <f:selectItem itemLabel="Si" itemValue="1"/>
+                                            <f:selectItem itemLabel="No" itemValue="0"/>
+                                        </p:selectOneRadio>
+                                        <p:message for="incigvcomsup" display="icon"/>
+                                        
+                                        
+                                        <p:outputLabel for="igvcomsup" value="%IGV"/>
+                                        <p:inputMask id="igvcomsup" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.porIgv}"
+                                                     onkeypress="return validarNum(event);"
+                                                     disabled="#{actualizarContratoMB.activaIGVSup}" mask="0.99" size="3">
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNetoSupervisado}"
+                                                    process="@this valortotalcomsup" update="netocomsup"/>
+                                        </p:inputMask>
+                                        <p:message for="igvcomsup" display="icon"/>
+                                        
+                                        <p:outputLabel for="netocomsup" value="Neto"/>
+                                        <p:inputText id="netocomsup" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}"
+                                                     disabled="true" />
+                                        <p:message for="netocomsup" display="icon"/> 
+                                                
+                                                                              
+                                        <p:outputLabel for="plazocomsup" value="Plazo"/>
+                                        <p:inputText id="plazocomsup" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPlazo}"
+                                                     required="true"/>
+                                        <p:message for="plazocomsup" display="icon"/>
+                                         
+                                     
+                                         <p:outputLabel for="tipocambiosup"  value="Tipo de Cambio"/>                                          
+                                        
+                                         <p:inputMask id="tipocambiosup" style="width:200px;"
+                                                     value="#{actualizarContratoMB.tipocambiosup}"
+                                                     mask="9.99" size="3" onkeypress="return validarNum(event);" >
+                                           
+                                         </p:inputMask>
+                                         <p:message for="tipocambiosup" display="icon"/>      
+                                         
+                                        </p:panelGrid>
+                                        
+                                         <p:panelGrid id="pnlNuevoCompromisoSupervisadoBtnDlg" columns="2" styleClass="pnlEdicion">
+                                         <p:commandButton id="grabarcompromisosup" value="Guardar" 
+                                                         actionListener="#{actualizarContratoMB.grabarContratoCompromisoSupervisado()}" 
+                                                         update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado
+                                                         :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
+                                                         :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"/>
+                                         <p:commandButton id="cancelarcompromisosup" value="Salir" process="@this"
+                                                 update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
+                                                         :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"
+                                                         oncomplete="popupAgregarCompromisoSupervisado.hide();" >
+                                            <p:resetInput target=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
+                                                              :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"/>
+                                         </p:commandButton>
+                                         </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                             </p:dialog>
                         </p:tab>
                         <p:tab id="tab3" title="CAO - Hito - POO" disabled="#{actualizarContratoMB.tabDeshabilitado}">
