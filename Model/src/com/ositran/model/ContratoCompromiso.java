@@ -32,9 +32,9 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "CCO_PERIODO", nullable = false, length = 4000)
     private String ccoPeriodo;
     @Column(name = "CCO_PLAZO", nullable = false)
-    private Integer ccoPlazo;
+    private String ccoPlazo;
     @Column(name = "CCO_TIPO_CAMBIO", nullable = false)
-    private Integer ccoTipoCambio;
+    private Long ccoTipoCambio;
     @Column(name = "CCO_TOTAL", nullable = false)
     private Long ccoTotal;
     //@Id
@@ -56,7 +56,7 @@ public class ContratoCompromiso implements Serializable {
     }
 
     public ContratoCompromiso(String ccoAlcance, Long ccoNeto, Integer ccoId, Long ccoIgv, String ccoPeriodo,
-                              Integer ccoPlazo, Integer ccoTipoCambio, Long ccoTotal, Integer conId,
+                              String ccoPlazo, Long ccoTipoCambio, Long ccoTotal, Integer conId,
                               Integer monId, Double porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
         this.ccoAlcance = ccoAlcance;
         this.ccoNeto = ccoNeto;
@@ -114,19 +114,19 @@ public class ContratoCompromiso implements Serializable {
         this.ccoPeriodo = ccoPeriodo;
     }
 
-    public Integer getCcoPlazo() {
+    public String getCcoPlazo() {
         return ccoPlazo;
     }
 
-    public void setCcoPlazo(Integer ccoPlazo) {
+    public void setCcoPlazo(String ccoPlazo) {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Integer getCcoTipoCambio() {
+    public Long getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Integer ccoTipoCambio) {
+    public void setCcoTipoCambio(Long ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
