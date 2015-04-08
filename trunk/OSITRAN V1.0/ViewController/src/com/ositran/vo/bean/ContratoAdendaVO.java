@@ -21,8 +21,8 @@ public class ContratoAdendaVO {
     private Integer tadId;
     private Integer cadEstado;
     private String cadNombre;
-    private String tadNombre;
     private String cadFechaDescripcion;
+    private String tadNombre;
     public String getCadDescripcion() {
         return cadDescripcion;
     }
@@ -103,14 +103,6 @@ public class ContratoAdendaVO {
         this.cadNombre = cadNombre;
     }
 
-    public void setTadNombre(String tadNombre) {
-        this.tadNombre = tadNombre;
-    }
-
-    public String getTadNombre() {
-        return tadNombre;
-    }
-
 
     public void setCadFechaDescripcion(String cadFechaDescripcion) {
         this.cadFechaDescripcion = cadFechaDescripcion;
@@ -128,4 +120,11 @@ public class ContratoAdendaVO {
         return inputStreamNuevaAdenda;
     }
 
+    public void setTadNombre(String tadNombre) {
+        this.tadNombre = tadNombre;
+    }
+
+    public String getTadNombre() {
+        return tadNombre;
+    }
 }

@@ -1,4 +1,6 @@
 package com.ositran.vo.bean;
+
+
 public class ContratoCompromisoVO {
     private String ccoAlcance;
     private Long ccoNeto;
@@ -10,9 +12,11 @@ public class ContratoCompromisoVO {
     private Long ccoTotal;
     private Integer conId;
     private Integer monId;
-    private Integer porIgv;
+    private Double porIgv;
     private Integer tccTipo;
     private Integer tivId;
+    private String tivNombre;
+    private String monNombre;
     private Integer ccoEstado;
 
     public ContratoCompromisoVO() {
@@ -100,11 +104,11 @@ public class ContratoCompromisoVO {
         this.monId = monId;
     }
 
-    public Integer getPorIgv() {
+    public Double getPorIgv() {
         return porIgv;
     }
 
-    public void setPorIgv(Integer porIgv) {
+    public void setPorIgv(Double porIgv) {
         this.porIgv = porIgv;
     }
 
@@ -130,5 +134,21 @@ public class ContratoCompromisoVO {
 
     public void setCcoEstado(Integer ccoEstado) {
         this.ccoEstado = ccoEstado;
+    }
+
+    public void setTivNombre(String tivNombre) {
+        this.tivNombre = tivNombre;
+    }
+
+    public String getTivNombre() {
+        return tivNombre;
+    }
+
+    public void setMonNombre(String monNombre) {
+        this.monNombre = monNombre;
+    }
+
+    public String getMonNombre() {
+        return monNombre;
     }
 }

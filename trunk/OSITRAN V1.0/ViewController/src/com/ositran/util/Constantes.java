@@ -19,4 +19,6 @@ public class Constantes {
     public static String EXITO = "Exito";
     public static String ERROR = "Error";
     public static String SELECCIONECONTRATO = "Seleccione un Contrato";
+    public static Integer SUPERVISADOXOSITRAN=1;
+    public static Integer SUPERVISADOXINDICACION=0;
 }
