@@ -7,8 +7,8 @@ public class ContratoCompromisoVO {
     private Integer ccoId;
     private Long ccoIgv;
     private String ccoPeriodo;
-    private Integer ccoPlazo;
-    private Integer ccoTipoCambio;
+    private String ccoPlazo;
+    private Long ccoTipoCambio;
     private Long ccoTotal;
     private Integer conId;
     private Integer monId;
@@ -64,19 +64,19 @@ public class ContratoCompromisoVO {
         this.ccoPeriodo = ccoPeriodo;
     }
 
-    public Integer getCcoPlazo() {
+    public String getCcoPlazo() {
         return ccoPlazo;
     }
 
-    public void setCcoPlazo(Integer ccoPlazo) {
+    public void setCcoPlazo(String ccoPlazo) {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Integer getCcoTipoCambio() {
+    public Long getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Integer ccoTipoCambio) {
+    public void setCcoTipoCambio(Long ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
