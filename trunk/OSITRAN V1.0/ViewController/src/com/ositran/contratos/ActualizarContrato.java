@@ -46,9 +46,6 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -126,6 +123,8 @@ public class ActualizarContrato {
     private ContratoCompromisoVO contratoCompromisoVO;
     @ManagedProperty(value = "#{contratoNuevoCompromisoVO}")
     private ContratoCompromisoVO contratoNuevoCompromisoVO;
+    @ManagedProperty(value = "#{contratoNuevoCompromisoSupervisadoVO}")
+    private ContratoCompromisoVO contratoNuevoCompromisoSupervisadoVO;
     @ManagedProperty(value = "#{tipoInversionVO}")
     private TipoInversionVO tipoInversionVO;
     @ManagedProperty(value = "#{periodoVO}")
@@ -180,6 +179,7 @@ public class ActualizarContrato {
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
     List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+    List<ContratoCompromisoVO> listarContratoCompromisoSupervisado = new ArrayList<ContratoCompromisoVO>();
     List<TipoInversionVO> listaTipoInversion = new ArrayList<TipoInversionVO>();
     private List<InfraestructuraVO> listarInfraestructura = new ArrayList<InfraestructuraVO>();
     private List<AdendaTipoVO> listaAdendaTipo;
@@ -257,7 +257,9 @@ public class ActualizarContrato {
     private boolean activaIGV=true;
     private boolean tabDeshabilitado=true;
     private int tipoArchivoEnContratoConcesion;
-
+    private int incIgvSup;
+    private boolean activaIGVSup=true;
+    private double tipocambiosup;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
@@ -380,6 +382,7 @@ public class ActualizarContrato {
         cargarListaPpos(contratoVO.getConId());
         resetDialogoBuscarContrato();
         listaContratoCompromiso(contratoVO.getConId());
+        listaContratoCompromisoSupervisado(contratoVO.getConId());
         tabDeshabilitado=false;
     }
     /*--Reporte de Avance de Obra
@@ -541,18 +544,12 @@ public class ActualizarContrato {
 
 
     public void resetearNuevaAdenda() {
-        if (contratoVO != null) {
             contratoNuevaAdendaVO = new ContratoAdendaVO();
             contratoNuevaAdendaVO.setConId(contratoVO.getConId());
             RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg");
             RequestContext.getCurrentInstance().update("tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg");
             RequestContext.getCurrentInstance().execute("popupAgregarAdenda.show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.SELECCIONECONTRATO));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }
+        
     }
 
 
@@ -630,27 +627,19 @@ public class ActualizarContrato {
     public void cargarListaContratoEntregas(int idcontrato) {
         try {
             listarEntregas = contratoEntregaServiceImpl.getEntregasContrato(idcontrato);
-
-
         } catch (Exception sqle) {
             sqle.printStackTrace();
         }
     }
 
     public void resetearNuevaEntrega() {
-        if (contratoVO != null) {
+  
             contratoNuevaEntregaVO = new ContratoEntregaVO();
             contratoNuevaEntregaVO.setConId(contratoVO.getConId());
             RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg");
             RequestContext.getCurrentInstance().update("tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg");
             RequestContext.getCurrentInstance().execute("popupAgregarEntrega.show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.SELECCIONECONTRATO));
-
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }
+        
     }
 
     public void agregarEntrega() {
@@ -2303,18 +2292,16 @@ public class ActualizarContrato {
     public void listaContratoCompromiso(int codigocontrato){
         try {
             listarContratoCompromiso =
-                contratoCompromisoServiceImpl.getCompromisosContrato(codigocontrato,Constantes.SUPERVISADOXINDICACION);
+                contratoCompromisoServiceImpl.getCompromisosContrato(codigocontrato);
             System.out.println("listarContratoCompromiso.size():"+listarContratoCompromiso.size());
-            descripciones(listarContratoCompromiso);
-           
-           
+            listarContratoCompromiso= descripciones(listarContratoCompromiso);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
     
-    public void descripciones(List<ContratoCompromisoVO> lista){
+    public List<ContratoCompromisoVO>  descripciones(List<ContratoCompromisoVO> lista){
         for (ContratoCompromisoVO contratoComprom : lista) {
             for (TipoInversionVO tipoInversion : listaTipoInversion) {
                 if(tipoInversion.getTivId()==contratoComprom.getTivId()){
@@ -2327,22 +2314,22 @@ public class ActualizarContrato {
                }
            }
         }
+        return lista;
+    }
+    public List<ContratoCompromisoVO>  descripcionesSup(List<ContratoCompromisoVO> lista){
+        for (ContratoCompromisoVO contratoComprom : lista) {
+            
+           for (MonedaVO moneda : listarTipoMonedas) {
+               if(moneda.getMonId()==contratoComprom.getMonId()){
+                   contratoComprom.setMonNombre(moneda.getMonNombre());
+               }
+           }
+        }
+        return lista;
     }
     public void resetearNuevoCompromisoInversion(){
-     
-        if(contratoVO!=null){
-            System.out.println("resetearNuevoCompromisoInversion");
-        contratoNuevoCompromisoVO=new ContratoCompromisoVO();
-        contratoNuevoCompromisoVO.setConId(contratoVO.getConId());
-            RequestContext.getCurrentInstance().update("tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg");  
-            RequestContext.getCurrentInstance().update("tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg");             
-            RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.show();");  
-        }else{
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.SELECCIONECONTRATO));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");    
-        }
+            contratoNuevoCompromisoVO=new ContratoCompromisoVO();
+            contratoNuevoCompromisoVO.setConId(contratoVO.getConId());
     }
     public void listarTipoInversion(){
         try {
@@ -2366,16 +2353,10 @@ public class ActualizarContrato {
             contratoNuevoCompromisoVO.setPorIgv(0.0);
             activaIGV=true;    
         }
-      
-        
     }
     public void calculaNeto(AjaxBehaviorEvent event){
-        System.out.println("calculaNeto()");
-        System.out.println("calculaNeto()"+contratoNuevoCompromisoVO.getCcoTotal());
-        System.out.println("calculaNeto()"+contratoNuevoCompromisoVO.getPorIgv());
         double calculadoIGV=((double)contratoNuevoCompromisoVO.getCcoTotal())*(contratoNuevoCompromisoVO.getPorIgv()); 
         contratoNuevoCompromisoVO.setCcoIgv((long)calculadoIGV);  
-        System.out.println("calculaNeto()");
         contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal()-contratoNuevoCompromisoVO.getCcoIgv());
 
     }
@@ -2383,11 +2364,12 @@ public class ActualizarContrato {
     public void grabarContratoCompromisoIndicado(){
         System.out.println("grabarContratoCompromisoIndicado");
         try {
-            contratoNuevoCompromisoVO.setCcoTipoCambio(1);
+            contratoNuevoCompromisoVO.setCcoTipoCambio(0L);
             contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
-            listarContratoCompromiso.add(contratoNuevoCompromisoVO);
+            contratoNuevoCompromisoVO.setCcoEstado(1);
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoVO);
-            descripciones(listarContratoCompromiso);
+            listarContratoCompromiso.add(contratoNuevoCompromisoVO);
+            listarContratoCompromiso=descripciones(listarContratoCompromiso);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                   Constantes.GRABARMENSAJESATISFACTORIO));
@@ -2406,16 +2388,95 @@ public class ActualizarContrato {
         try {
             ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("compromiso");
             compromiso.setCcoEstado(0);
-            contratoNuevoCompromisoVO.setCcoTipoCambio(1);
-            contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            compromiso.setCcoTipoCambio(0L);
+            compromiso.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             contratoCompromisoServiceImpl.update(compromiso);
             listarContratoCompromiso.remove(compromiso);
-            descripciones(listarContratoCompromiso);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarAdenda.hide();");
+            RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.hide();");
         } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORBORRAR));
+        }finally{           
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }
+    }
+    
+    //*********************************************************************//
+    //**********EMPIEZA CONTRATO COMPROMISO SUPERVISADO********************//
+    //*********************************************************************// 
+    public void listaContratoCompromisoSupervisado(int codigocontrato){
+        try {
+            listarContratoCompromisoSupervisado =
+                contratoCompromisoServiceImpl.querySupervisado(codigocontrato);
+            System.out.println("listarContratoCompromisoSupervisado.size():"+listarContratoCompromisoSupervisado.size());
+            listarContratoCompromisoSupervisado= descripciones(listarContratoCompromisoSupervisado);
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
+    
+    public void resetearNuevoCompromisoSupervisado(){
+            contratoNuevoCompromisoSupervisadoVO=new ContratoCompromisoVO();
+            contratoNuevoCompromisoSupervisadoVO.setConId(contratoVO.getConId());
+    }
+    public void activaCamposIGVSupervisado(){
+        if(incIgvSup==1){
+            activaIGVSup=false;
+        }else{
+            contratoNuevoCompromisoSupervisadoVO.setCcoNeto(0L);
+            contratoNuevoCompromisoSupervisadoVO.setCcoIgv(0L);
+            contratoNuevoCompromisoSupervisadoVO.setPorIgv(0.0);
+            activaIGVSup=true;    
+        }
+    }
+    public void calculaNetoSupervisado(AjaxBehaviorEvent event){
+        double calculadoIGV=((double)contratoNuevoCompromisoSupervisadoVO.getCcoTotal())*(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
+        contratoNuevoCompromisoSupervisadoVO.setCcoIgv((long)calculadoIGV);  
+        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()-contratoNuevoCompromisoSupervisadoVO.getCcoIgv());
+
+    }
+    public void grabarContratoCompromisoSupervisado(){
+        System.out.println("tipocambiosup:"+tipocambiosup);
+        try {
+            contratoNuevoCompromisoSupervisadoVO.setTccTipo(Constantes.SUPERVISADOXOSITRAN);          
+            contratoNuevoCompromisoSupervisadoVO.setCcoEstado(1);
+            contratoNuevoCompromisoSupervisadoVO.setCcoTipoCambio((long)tipocambiosup);
+            contratoNuevoCompromisoSupervisadoVO.setTivId(0);
+            contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoSupervisadoVO);
+            listarContratoCompromisoSupervisado.add(contratoNuevoCompromisoSupervisadoVO);
+            listarContratoCompromisoSupervisado=descripciones(listarContratoCompromisoSupervisado);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                  Constantes.GRABARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarCompromisoSupervisado.hide();"); 
+        } catch (Exception sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORGUARDAR));
+        }finally{
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }
+    }
+
+    public void borrarCompromisoSupervisado(ActionEvent e) {
+        try {
+            ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("comsup");
+            compromiso.setCcoEstado(0);
+            compromiso.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            contratoCompromisoServiceImpl.update(compromiso);
+            listarContratoCompromisoSupervisado.remove(compromiso);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.ELIMINARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarCompromisoSupervisado.hide();");
+        } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
@@ -2472,4 +2533,44 @@ public class ActualizarContrato {
         return tabDeshabilitado;
     }
 
+    public void setListarContratoCompromisoSupervisado(List<ContratoCompromisoVO> listarContratoCompromisoSupervisado) {
+        this.listarContratoCompromisoSupervisado = listarContratoCompromisoSupervisado;
+    }
+
+    public List<ContratoCompromisoVO> getListarContratoCompromisoSupervisado() {
+        return listarContratoCompromisoSupervisado;
+    }
+
+    public void setContratoNuevoCompromisoSupervisadoVO(ContratoCompromisoVO contratoNuevoCompromisoSupervisadoVO) {
+        this.contratoNuevoCompromisoSupervisadoVO = contratoNuevoCompromisoSupervisadoVO;
+    }
+
+    public ContratoCompromisoVO getContratoNuevoCompromisoSupervisadoVO() {
+        return contratoNuevoCompromisoSupervisadoVO;
+    }
+
+    public void setIncIgvSup(int incIgvSup) {
+        this.incIgvSup = incIgvSup;
+    }
+
+    public int getIncIgvSup() {
+        return incIgvSup;
+    }
+
+
+    public void setActivaIGVSup(boolean activaIGVSup) {
+        this.activaIGVSup = activaIGVSup;
+    }
+
+    public boolean isActivaIGVSup() {
+        return activaIGVSup;
+    }
+
+    public void setTipocambiosup(double tipocambiosup) {
+        this.tipocambiosup = tipocambiosup;
+    }
+
+    public double getTipocambiosup() {
+        return tipocambiosup;
+    }
 }
