@@ -5,11 +5,11 @@ import com.ositran.model.InversionTipo;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
-import org.hibernate.Query;
+
 import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class TipoInversionDAOImpl implements TipoInversionDAO {
 
@@ -19,7 +19,9 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     @SuppressWarnings("unchecked")
     public List<InversionTipo> query() throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(InversionTipo.class).list();
+         List list=session.createQuery("FROM InversionTipo  E WHERE E.tivId <> 0").list();
+         session.close();
+        return list;
     }
     
     @Override
