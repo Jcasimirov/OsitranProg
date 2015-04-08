@@ -6,7 +6,6 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -24,7 +23,7 @@ public class ContratoCaoDAOImpl implements ContratoCaoDAO {
     public List<ContratoCao> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list=session.createQuery("from ContratoCao cc where cc.tcpEstado != 0").list();
+        List list=session.createQuery("from ContratoCao cc where cc.caoEstado != 0").list();
         session.getTransaction().commit();
         return list;
     }
@@ -89,7 +88,7 @@ public class ContratoCaoDAOImpl implements ContratoCaoDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoCao cc where cc.tcpEstado <> 0 and cc.conId = :busqueda1 order by caoId DESC");
+        query = session.createQuery("FROM ContratoCao cc where cc.caoEstado <> 0 and cc.conId = :busqueda1 order by caoId DESC");
         query.setParameter("busqueda1",conId);            
         List<ContratoCao> list = query.list();
         session.getTransaction().commit();
