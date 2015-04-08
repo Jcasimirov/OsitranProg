@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 
@@ -10,9 +12,12 @@ public class ContratoPpoVO {
     private String ppoArchivoPdf;
     private Date ppoFecha;
     private Integer ppoId;
-    private Integer ppoMonto;
+    private Long ppoMonto;
     private String ppoOficio;
     private Integer ppoEstado;
+    private String ppoNombre;
+    private InputStream filePpo;
+    private String monNombre;
 
     public ContratoPpoVO() {
         super();
@@ -58,11 +63,11 @@ public class ContratoPpoVO {
         this.ppoId = ppoId;
     }
 
-    public Integer getPpoMonto() {
+    public Long getPpoMonto() {
         return ppoMonto;
     }
 
-    public void setPpoMonto(Integer ppoMonto) {
+    public void setPpoMonto(Long ppoMonto) {
         this.ppoMonto = ppoMonto;
     }
 
@@ -80,5 +85,29 @@ public class ContratoPpoVO {
 
     public void setPpoEstado(Integer ppoEstado) {
         this.ppoEstado = ppoEstado;
+    }
+
+    public String getPpoNombre() {
+        return ppoNombre;
+    }
+
+    public void setPpoNombre(String ppoNombre) {
+        this.ppoNombre = ppoNombre;
+    }
+
+    public InputStream getFilePpo() {
+        return filePpo;
+    }
+
+    public void setFilePpo(InputStream filePpo) {
+        this.filePpo = filePpo;
+    }
+
+    public String getMonNombre() {
+        return monNombre;
+    }
+
+    public void setMonNombre(String monNombre) {
+        this.monNombre = monNombre;
     }
 }

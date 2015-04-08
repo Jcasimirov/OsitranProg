@@ -27,8 +27,10 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
 
     @Override
     public String insert(ContratoHitoVO contratoHitoVO) throws SQLException {
+        System.out.println("INICIO HitoServ");
         ContratoHito contratoHito=toContratoHito(contratoHitoVO);
         String result = contratoHitoDAOImpl.insert(contratoHito);
+        System.out.println("FIN HitoServ");
         return result;
     }
 
@@ -74,6 +76,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHitoVO.setHtoOficio(contratoHito.getHtoOficio());
         contratoHitoVO.setHtoPdf(contratoHito.getHtoPdf());
         contratoHitoVO.setMonId(contratoHito.getMonId());
+        contratoHitoVO.setHtoNombre(contratoHito.getHtoNombre());
                     
     
         return contratoHitoVO;
@@ -90,6 +93,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHito.setHtoOficio(contratoHitoVO.getHtoOficio());
         contratoHito.setHtoPdf(contratoHitoVO.getHtoPdf());
         contratoHito.setMonId(contratoHitoVO.getMonId());
+        contratoHito.setHtoNombre(contratoHitoVO.getHtoNombre());
         
         return contratoHito;
         

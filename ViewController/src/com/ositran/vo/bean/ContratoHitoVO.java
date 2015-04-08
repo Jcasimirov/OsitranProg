@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 public class ContratoHitoVO {
@@ -7,11 +9,14 @@ public class ContratoHitoVO {
     private Integer conId;
     private Date htoFecha;
     private Integer htoId;
-    private Integer htoMonto;
+    private Long htoMonto;
     private String htoOficio;
     private String htoPdf;
     private Integer monId;
     private Integer htoEstado;
+    private String htoNombre;
+    private InputStream fileHito;
+    private String monNombre;
 
     public ContratoHitoVO() {
         super();
@@ -42,11 +47,11 @@ public class ContratoHitoVO {
         this.htoId = htoId;
     }
 
-    public Integer getHtoMonto() {
+    public Long getHtoMonto() {
         return htoMonto;
     }
 
-    public void setHtoMonto(Integer htoMonto) {
+    public void setHtoMonto(Long htoMonto) {
         this.htoMonto = htoMonto;
     }
 
@@ -80,5 +85,29 @@ public class ContratoHitoVO {
 
     public void setHtoEstado(Integer htoEstado) {
         this.htoEstado = htoEstado;
+    }
+
+    public InputStream getFileHito() {
+        return fileHito;
+    }
+
+    public void setFileHito(InputStream fileHito) {
+        this.fileHito = fileHito;
+    }
+
+    public String getMonNombre() {
+        return monNombre;
+    }
+
+    public void setMonNombre(String monNombre) {
+        this.monNombre = monNombre;
+    }
+
+    public String getHtoNombre() {
+        return htoNombre;
+    }
+
+    public void setHtoNombre(String htoNombre) {
+        this.htoNombre = htoNombre;
     }
 }
