@@ -41,7 +41,7 @@ public class ContratoVO {
     private int codigoConcesion;
     private InputStream inputStreamFichaResumen;
     private InputStream inputStreamContratoPDF;
-
+    
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
     }

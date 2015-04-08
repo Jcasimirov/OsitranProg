@@ -1,7 +1,6 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ContratoCompromisoDAOImpl;
-
 import com.ositran.model.ContratoCompromiso;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -9,12 +8,9 @@ import com.ositran.vo.bean.ContratoCompromisoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoCompromisoServiceImpl implements ContratoCompromisoService {
-    ContratoCompromisoVO contratoCompromisoVO;
-    ContratoCompromiso contratoCompromiso;
     ContratoCompromisoDAOImpl contratoCompromisoDAOImpl;
 
 
@@ -48,8 +44,9 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
     
     @Override
     public String insert(ContratoCompromisoVO contratoCompromisoVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCompromiso contratoCompromiso=toContratoCompromiso(contratoCompromisoVO);
+       String resultado= contratoCompromisoDAOImpl.insert(contratoCompromiso);
+        return resultado;
     }
 
     @Override
@@ -60,8 +57,9 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
 
     @Override
     public String update(ContratoCompromisoVO contratoCompromisoVO) throws SQLException {
-        // TODO Implement this method
-        return null;
+        ContratoCompromiso contratoCompromiso=toContratoCompromiso(contratoCompromisoVO);
+        String result = contratoCompromisoDAOImpl.update(contratoCompromiso);
+        return result;
     }
 
     @Override
@@ -97,7 +95,7 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromisoVO1.setMonId(contratoCompromiso1.getMonId());
         contratoCompromisoVO1.setPorIgv(contratoCompromiso1.getPorIgv());
         contratoCompromisoVO1.setTccTipo(contratoCompromiso1.getTccTipo());
-        contratoCompromisoVO1.setTivId(contratoCompromiso1.getTivId());
+        contratoCompromisoVO1.setTivId(contratoCompromiso1.getTivId());        
         return contratoCompromisoVO1;
     }
     private ContratoCompromiso toContratoCompromiso(ContratoCompromisoVO contratoCompromisoVO1){
@@ -114,26 +112,14 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromiso1.setMonId(contratoCompromisoVO1.getMonId());
         contratoCompromiso1.setPorIgv(contratoCompromisoVO1.getPorIgv());
         contratoCompromiso1.setTccTipo(contratoCompromisoVO1.getTccTipo());
+        System.out.println("SERVICE*****contratoCompromisoVO1.getTccTipo():"+contratoCompromisoVO1.getTccTipo());
         contratoCompromiso1.setTivId(contratoCompromisoVO1.getTivId());
-        return contratoCompromiso;
+        contratoCompromiso1.setCcoEstado(contratoCompromisoVO1.getCcoEstado());
+        return contratoCompromiso1;
         
     }
 
-    public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
-        this.contratoCompromisoVO = contratoCompromisoVO;
-    }
 
-    public ContratoCompromisoVO getContratoCompromisoVO() {
-        return contratoCompromisoVO;
-    }
-
-    public void setContratoCompromiso(ContratoCompromiso contratoCompromiso) {
-        this.contratoCompromiso = contratoCompromiso;
-    }
-
-    public ContratoCompromiso getContratoCompromiso() {
-        return contratoCompromiso;
-    }
 
     public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
         

@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import java.text.DateFormat;
-
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -57,6 +56,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -120,6 +120,8 @@ public class ActualizarContrato {
     private MonedaVO monedaVO;
     @ManagedProperty(value = "#{contratoCompromisoVO}")
     private ContratoCompromisoVO contratoCompromisoVO;
+    @ManagedProperty(value = "#{contratoNuevoCompromisoVO}")
+    private ContratoCompromisoVO contratoNuevoCompromisoVO;
     @ManagedProperty(value = "#{tipoInversionVO}")
     private TipoInversionVO tipoInversionVO;
     @ManagedProperty(value = "#{periodoVO}")
@@ -160,6 +162,8 @@ public class ActualizarContrato {
     
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
+    List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+    List<TipoInversionVO> listaTipoInversion = new ArrayList<TipoInversionVO>();
     private List<InfraestructuraVO> listarInfraestructura = new ArrayList<InfraestructuraVO>();
     private List<AdendaTipoVO> listaAdendaTipo;
     private Integer adendaTipo = 0;
@@ -207,7 +211,9 @@ public class ActualizarContrato {
     private Date diaPresAlerta;
     private String nombreAlerta;
     private Integer codigoAlerta;
-    
+    private int incIgv;
+    private boolean activaIGV=true;
+    private boolean tabDeshabilitado=true;
     private int tipoArchivoEnContratoConcesion;
 
     public void validarSesion() throws IOException{
@@ -326,8 +332,8 @@ public class ActualizarContrato {
         cargarListaAlertas(contratoVO.getConId());
         cargarListaCaos(contratoVO.getConId());
         resetDialogoBuscarContrato();
-
-        
+        listaContratoCompromiso(contratoVO.getConId());
+        tabDeshabilitado=false;
     }
     /*--Reporte de Avance de Obra
      * periodoseleccionado=contratoVO.getPerId();
@@ -446,8 +452,8 @@ public class ActualizarContrato {
             contratoNuevaAdendaVO.setCadMonto(1L);            
             contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
-            listContratoAdenda.add(contratoNuevaAdendaVO);
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
+            listContratoAdenda.add(contratoNuevaAdendaVO);
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDA+contratoNuevaAdendaVO.getCadDocumentoFisico(), contratoNuevaAdendaVO.getInputStreamNuevaAdenda());
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
@@ -468,9 +474,9 @@ public class ActualizarContrato {
     public void borrarAdenda(ActionEvent e) {
         try {
             ContratoAdendaVO adenda = (ContratoAdendaVO) e.getComponent().getAttributes().get("adenda");
-            listContratoAdenda.remove(adenda);
             adenda.setCadEstado(0);
             contratoAdendaServiceImpl.update(adenda);
+            listContratoAdenda.remove(adenda);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
@@ -578,9 +584,9 @@ public class ActualizarContrato {
             contratoNuevaEntregaVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaEntregaVO.getCenFecha()));
             contratoNuevaEntregaVO.setCenMonto(1L);
             contratoNuevaEntregaVO.setMonId(1);
-            contratoNuevaEntregaVO.setCenEntrega(1);
-            listarEntregas.add(contratoNuevaEntregaVO);
+            contratoNuevaEntregaVO.setCenEntrega(1);            
             contratoEntregaServiceImpl.insert(contratoNuevaEntregaVO);
+            listarEntregas.add(contratoNuevaEntregaVO);
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoNuevaEntregaVO.getCenDocumentoFisico(), contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
@@ -598,10 +604,10 @@ public class ActualizarContrato {
 
     public void borrarEntrega(ActionEvent e) {
         try {
-            ContratoEntregaVO entrega = (ContratoEntregaVO) e.getComponent().getAttributes().get("entrega");
-            listarEntregas.remove(entrega);
+            ContratoEntregaVO entrega = (ContratoEntregaVO) e.getComponent().getAttributes().get("entrega");           
             entrega.setCenEstado(0);
             contratoEntregaServiceImpl.update(entrega);
+            listarEntregas.remove(entrega);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
@@ -1735,5 +1741,180 @@ public class ActualizarContrato {
 
     public void setNombreCao2(String nombreCao2) {
         this.nombreCao2 = nombreCao2;
+    }
+    
+    //*********************************************************************//
+    //**************************EMPIEZA CONTRATO COMPROMISO********************//
+    //*********************************************************************//  
+    public void listaContratoCompromiso(int codigocontrato){
+        try {
+            listarContratoCompromiso =
+                contratoCompromisoServiceImpl.getCompromisosContrato(codigocontrato,Constantes.SUPERVISADOXINDICACION);
+            System.out.println("listarContratoCompromiso.size():"+listarContratoCompromiso.size());
+            descripciones(listarContratoCompromiso);
+           
+           
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
+    
+    public void descripciones(List<ContratoCompromisoVO> lista){
+        for (ContratoCompromisoVO contratoComprom : lista) {
+            for (TipoInversionVO tipoInversion : listaTipoInversion) {
+                if(tipoInversion.getTivId()==contratoComprom.getTivId()){
+                    contratoComprom.setTivNombre(tipoInversion.getTivNombre());
+                }
+           }
+           for (MonedaVO moneda : listarTipoMonedas) {
+               if(moneda.getMonId()==contratoComprom.getMonId()){
+                   contratoComprom.setMonNombre(moneda.getMonNombre());
+               }
+           }
+        }
+    }
+    public void resetearNuevoCompromisoInversion(){
+     
+        if(contratoVO!=null){
+            System.out.println("resetearNuevoCompromisoInversion");
+        contratoNuevoCompromisoVO=new ContratoCompromisoVO();
+        contratoNuevoCompromisoVO.setConId(contratoVO.getConId());
+            RequestContext.getCurrentInstance().update("tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg");  
+            RequestContext.getCurrentInstance().update("tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg");             
+            RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.show();");  
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.SELECCIONECONTRATO));
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");    
+        }
+    }
+    public void listarTipoInversion(){
+        try {
+            listaTipoInversion = tipoInversionServicesImpl.query();
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+        
+    }
+
+    public void activaCamposIGV(){
+        if(incIgv==1){
+            activaIGV=false;
+        }else{
+            contratoNuevoCompromisoVO.setCcoNeto(0L);
+            contratoNuevoCompromisoVO.setCcoIgv(0L);
+            contratoNuevoCompromisoVO.setPorIgv(0.0);
+            activaIGV=true;    
+        }
+      
+        
+    }
+    public void calculaNeto(AjaxBehaviorEvent event){
+        System.out.println("calculaNeto()");
+        System.out.println("calculaNeto()"+contratoNuevoCompromisoVO.getCcoTotal());
+        System.out.println("calculaNeto()"+contratoNuevoCompromisoVO.getPorIgv());
+        double calculadoIGV=((double)contratoNuevoCompromisoVO.getCcoTotal())*(contratoNuevoCompromisoVO.getPorIgv()); 
+        contratoNuevoCompromisoVO.setCcoIgv((long)calculadoIGV);  
+        System.out.println("calculaNeto()");
+        contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal()-contratoNuevoCompromisoVO.getCcoIgv());
+
+    }
+    
+    public void grabarContratoCompromisoIndicado(){
+        System.out.println("grabarContratoCompromisoIndicado");
+        try {
+            contratoNuevoCompromisoVO.setCcoTipoCambio(1);
+            contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            listarContratoCompromiso.add(contratoNuevoCompromisoVO);
+            contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoVO);
+            descripciones(listarContratoCompromiso);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                  Constantes.GRABARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.hide();"); 
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORGUARDAR));
+        }finally{
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }
+    }
+
+    public void borrarCompromiso(ActionEvent e) {
+        try {
+            ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("compromiso");
+            compromiso.setCcoEstado(0);
+            contratoNuevoCompromisoVO.setCcoTipoCambio(1);
+            contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            contratoCompromisoServiceImpl.update(compromiso);
+            listarContratoCompromiso.remove(compromiso);
+            descripciones(listarContratoCompromiso);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.ELIMINARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarAdenda.hide();");
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORBORRAR));
+        }finally{           
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }
+    }
+    public void setContratoNuevoCompromisoVO(ContratoCompromisoVO contratoNuevoCompromisoVO) {
+        this.contratoNuevoCompromisoVO = contratoNuevoCompromisoVO;
+    }
+
+    public ContratoCompromisoVO getContratoNuevoCompromisoVO() {
+        return contratoNuevoCompromisoVO;
+    }
+
+    public void setListarContratoCompromiso(List<ContratoCompromisoVO> listarContratoCompromiso) {
+        this.listarContratoCompromiso = listarContratoCompromiso;
+    }
+
+    public List<ContratoCompromisoVO> getListarContratoCompromiso() {
+        return listarContratoCompromiso;
+    }
+
+    public void setListaTipoInversion(List<TipoInversionVO> listaTipoInversion) {
+        this.listaTipoInversion = listaTipoInversion;
+    }
+
+    public List<TipoInversionVO> getListaTipoInversion() {
+        return listaTipoInversion;
+    }
+
+    public void setIncIgv(int incIgv) {
+        this.incIgv = incIgv;
+    }
+
+    public int getIncIgv() {
+        return incIgv;
+    }
+
+    public void setActivaIGV(boolean activaIGV) {
+        this.activaIGV = activaIGV;
+    }
+
+    public boolean isActivaIGV() {
+        return activaIGV;
+    }
+
+    public void setTabDeshabilitado(boolean tabDeshabilitado) {
+        this.tabDeshabilitado = tabDeshabilitado;
+    }
+
+    public boolean isTabDeshabilitado() {
+        return tabDeshabilitado;
     }
 }
