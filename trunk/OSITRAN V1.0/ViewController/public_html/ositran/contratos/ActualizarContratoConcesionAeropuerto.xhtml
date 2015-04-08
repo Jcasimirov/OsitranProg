@@ -690,21 +690,38 @@
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                          style="font-size:11px;" id="tablaCompromisoIndicado" 
-                                                         value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
-                                                <p:column headerText="Periodo/Etapa" style="width:15%"><h:outputText value="#{compromiso.ccoPeriodo}"/></p:column>
-                                                <p:column headerText="Alcance"><h:outputText value="#{compromiso.ccoAlcance}"/></p:column>
-                                                <p:column headerText="Tipo de Inversión"><h:outputText value="#{compromiso.tivNombre}"/></p:column>
-                                                <p:column headerText="Moneda" style="width:4%"><h:outputText value="#{compromiso.monNombre}"/></p:column>
-                                                <p:column headerText="Neto" style="width:4%"><h:outputText value="#{compromiso.ccoNeto}"/></p:column>
-                                                <p:column headerText="IGV" style="width:4%"><h:outputText value="#{compromiso.ccoIgv}"/></p:column>
-                                                <p:column headerText="Total" style="width:4%"><h:outputText value="#{compromiso.ccoTotal}"/></p:column>
-                                                <p:column headerText="Plazo" style="width:4%"><h:outputText value="#{compromiso.ccoPlazo}"/></p:column>
-                                                <p:column headerText="Quitar" style="width:4%">
-                                                 <p:commandButton icon="ui-icon-trash"
+                                                        value="#{actualizarContratoMB.listarContratoCompromiso}"
+                                                         var="compromiso">
+                                                <p:column headerText="Periodo/Etapa" style="width:4%">
+                                                    <h:outputText value="#{compromiso.ccoPeriodo}"/>
+                                                </p:column>
+                                                <p:column headerText="Alcance" style="width:10%">
+                                                    <h:outputText value="#{compromiso.ccoAlcance}"/>
+                                                </p:column>
+                                                <p:column headerText="Tipo de Inversión" style="width:15%">
+                                                    <h:outputText value="#{compromiso.tivNombre}"/>
+                                                </p:column>
+                                                <p:column headerText="Moneda" style="width:4%">
+                                                    <h:outputText value="#{compromiso.monNombre}"/>
+                                                </p:column>
+                                                <p:column headerText="Neto" style="width:4%">
+                                                    <h:outputText value="#{compromiso.ccoNeto}"/>
+                                                </p:column>
+                                                <p:column headerText="IGV" style="width:4%">
+                                                    <h:outputText value="#{compromiso.ccoIgv}"/>
+                                                </p:column>
+                                                <p:column headerText="Total" style="width:4%">
+                                                    <h:outputText value="#{compromiso.ccoTotal}"/>
+                                                </p:column>
+                                                <p:column headerText="Plazo" style="width:4%">
+                                                    <h:outputText value="#{compromiso.ccoPlazo}"/>
+                                                </p:column>
+                                                <p:column headerText="Eliminar" style="width:4%">
+                                                    <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{actualizarContratoMB.borrarCompromiso}"
                                                                      update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado :tab:form:mensaje">
                                                         <f:attribute name="compromiso" value="#{compromiso}"></f:attribute>
-                                                </p:commandButton>
+                                                    </p:commandButton>
                                                 </p:column>
                                             </p:dataTable>
                                         </td>
