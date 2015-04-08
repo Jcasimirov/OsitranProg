@@ -31,15 +31,19 @@ public class ContratoCaoDAOImpl implements ContratoCaoDAO {
     @Override
     public String insert(ContratoCao contratoCao) throws SQLException {
         String result=null;
+        System.out.println("## INI INSERT CAO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.persist(contratoCao);
             session.getTransaction().commit();
+            System.out.println("## Insert OK");
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            System.out.println("## Insert rollback");
         }
+        System.out.println("## FIN INSERT CAO");
         return result;
     }
 

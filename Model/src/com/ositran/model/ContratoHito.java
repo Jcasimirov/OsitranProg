@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoHito.findAll", query = "select o from ContratoHito o") })
 @Table(name = "T_CONTRATO_HITO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "sq_t_contrato_hito"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_HITO"))
 public class ContratoHito implements Serializable {
     private static final long serialVersionUID = 3483267862987759620L;
     //@Id
@@ -34,7 +34,7 @@ public class ContratoHito implements Serializable {
     @Column(name = "HTO_ID", nullable = false)
     private Integer htoId;
     @Column(name = "HTO_MONTO", nullable = false)
-    private Integer htoMonto;
+    private Long htoMonto;
     @Column(name = "HTO_OFICIO", length = 20)
     private String htoOficio;
     @Column(name = "HTO_PDF")
@@ -43,13 +43,16 @@ public class ContratoHito implements Serializable {
     private Integer monId;
     @Column(name = "HTO_ESTADO")
     private Integer htoEstado;
+    @Column(name = "HTO_NOMBRE")
+    private String htoNombre;
+    
     
 
     public ContratoHito() {
     }
 
-    public ContratoHito(Integer conId, Date htoFecha, Integer htoId, Integer htoMonto, String htoOficio,
-                        String htoPdf, Integer monId, Integer htoEstado) {
+    public ContratoHito(Integer conId, Date htoFecha, Integer htoId, Long htoMonto, String htoOficio,
+                        String htoPdf, Integer monId, Integer htoEstado, String htoNombre) {
         this.conId = conId;
         this.htoFecha = htoFecha;
         this.htoId = htoId;
@@ -58,6 +61,7 @@ public class ContratoHito implements Serializable {
         this.htoPdf = htoPdf;
         this.monId = monId;
         this.htoEstado = htoEstado;
+        this.htoNombre = htoNombre;
     }
 
     public Integer getConId() {
@@ -84,11 +88,11 @@ public class ContratoHito implements Serializable {
         this.htoId = htoId;
     }
 
-    public Integer getHtoMonto() {
+    public Long getHtoMonto() {
         return htoMonto;
     }
 
-    public void setHtoMonto(Integer htoMonto) {
+    public void setHtoMonto(Long htoMonto) {
         this.htoMonto = htoMonto;
     }
 
@@ -122,5 +126,13 @@ public class ContratoHito implements Serializable {
 
     public void setHtoEstado(Integer htoEstado) {
         this.htoEstado = htoEstado;
+    }
+
+    public String getHtoNombre() {
+        return htoNombre;
+    }
+
+    public void setHtoNombre(String htoNombre) {
+        this.htoNombre = htoNombre;
     }
 }
