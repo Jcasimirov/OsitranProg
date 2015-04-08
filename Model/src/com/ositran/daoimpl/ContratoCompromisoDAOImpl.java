@@ -2,20 +2,18 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoCompromisoDAO;
 import com.ositran.model.ContratoCompromiso;
-
-import com.ositran.model.ContratoEntrega;
-import com.ositran.model.EmpresaSupervisora;
-import com.ositran.model.RolOpciones;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
     public ContratoCompromisoDAOImpl() {
         super();
@@ -42,8 +40,19 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
     
     @Override
     public String insert(ContratoCompromiso contratoCompromiso) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(contratoCompromiso);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+        }
+        session.flush();
+        session.close();
+        return result;
     }
 
     @Override
@@ -54,8 +63,17 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
 
     @Override
     public String update(ContratoCompromiso contratoCompromiso) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(contratoCompromiso);
+            session.getTransaction().commit();            
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+        }
+        return result;
     }
 
     @Override
@@ -74,7 +92,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 and cc.ccoId = :busqueda1 AND cc.tccTipo = :busqueda2 order by ccoId DESC");
+        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 and cc.conId = :busqueda1 AND cc.tccTipo = :busqueda2 order by ccoId DESC");
         query.setParameter("busqueda1",conId);            
         query.setParameter("busqueda2",tccTipo);            
         List<ContratoCompromiso> list = query.list();

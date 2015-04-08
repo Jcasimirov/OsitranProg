@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoCompromiso.findAll", query = "select o from ContratoCompromiso o") })
 @Table(name = "T_CONTRATO_COMPROMISO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "sq_t_contrato_compromiso"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_COMPROMISO"))
 public class ContratoCompromiso implements Serializable {
     private static final long serialVersionUID = -4038858335843227367L;
     @Column(name = "CCO_ALCANCE", nullable = false, length = 4000)
@@ -44,7 +43,7 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "MON_ID")
     private Integer monId;
     @Column(name = "POR_IGV", nullable = false)
-    private Integer porIgv;
+    private Double porIgv;
     //@Id
     @Column(name = "TCC_TIPO", nullable = false)
     private Integer tccTipo;
@@ -58,7 +57,7 @@ public class ContratoCompromiso implements Serializable {
 
     public ContratoCompromiso(String ccoAlcance, Long ccoNeto, Integer ccoId, Long ccoIgv, String ccoPeriodo,
                               Integer ccoPlazo, Integer ccoTipoCambio, Long ccoTotal, Integer conId,
-                              Integer monId, Integer porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
+                              Integer monId, Double porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
         this.ccoAlcance = ccoAlcance;
         this.ccoNeto = ccoNeto;
         this.ccoId = ccoId;
@@ -155,11 +154,11 @@ public class ContratoCompromiso implements Serializable {
         this.monId = monId;
     }
 
-    public Integer getPorIgv() {
+    public Double getPorIgv() {
         return porIgv;
     }
 
-    public void setPorIgv(Integer porIgv) {
+    public void setPorIgv(Double porIgv) {
         this.porIgv = porIgv;
     }
 
