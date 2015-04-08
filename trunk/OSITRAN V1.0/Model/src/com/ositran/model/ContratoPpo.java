@@ -22,7 +22,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoPpo.findAll", query = "select o from ContratoPpo o") })
 @Table(name = "T_CONTRATO_PPO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO_PPO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_PPO"))
 public class ContratoPpo implements Serializable {
     private static final long serialVersionUID = -3386497231833748913L;
     //@Id
@@ -40,18 +40,21 @@ public class ContratoPpo implements Serializable {
     @Column(name = "PPO_ID", nullable = false)
     private Integer ppoId;
     @Column(name = "PPO_MONTO", nullable = false)
-    private Integer ppoMonto;
+    private Long ppoMonto;
     @Column(name = "PPO_OFICIO", length = 20)
     private String ppoOficio;
     @Column(name = "PPO_ESTADO")
     private Integer ppoEstado;
+    @Column(name = "PPO_NOMBRE")
+    private String ppoNombre;
+    
     
 
     public ContratoPpo() {
     }
 
     public ContratoPpo(Integer conId, Integer monId, String ppoArchivoPdf, Date ppoFecha, Integer ppoId,
-                       Integer ppoMonto, String ppoOficio, Integer ppoEstado) {
+                       Long ppoMonto, String ppoOficio, Integer ppoEstado, String ppoNombre) {
         this.conId = conId;
         this.monId = monId;
         this.ppoArchivoPdf = ppoArchivoPdf;
@@ -60,6 +63,7 @@ public class ContratoPpo implements Serializable {
         this.ppoMonto = ppoMonto;
         this.ppoOficio = ppoOficio;
         this.ppoEstado = ppoEstado;
+        this.ppoNombre = ppoNombre;
     }
 
     public Integer getConId() {
@@ -102,11 +106,11 @@ public class ContratoPpo implements Serializable {
         this.ppoId = ppoId;
     }
 
-    public Integer getPpoMonto() {
+    public Long getPpoMonto() {
         return ppoMonto;
     }
 
-    public void setPpoMonto(Integer ppoMonto) {
+    public void setPpoMonto(Long ppoMonto) {
         this.ppoMonto = ppoMonto;
     }
 
@@ -124,5 +128,13 @@ public class ContratoPpo implements Serializable {
 
     public void setPpoEstado(Integer ppoEstado) {
         this.ppoEstado = ppoEstado;
+    }
+
+    public String getPpoNombre() {
+        return ppoNombre;
+    }
+
+    public void setPpoNombre(String ppoNombre) {
+        this.ppoNombre = ppoNombre;
     }
 }

@@ -32,15 +32,21 @@ public class ContratoHitoDAOImpl implements ContratoHitoDAO {
     @Override
     public String insert(ContratoHito contratoHito) throws SQLException {
         String result=null;
+        System.out.println("INICIO DAOHito");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.persist(contratoHito);
             session.getTransaction().commit();
+            System.out.println("guardo DAOHito");
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            e.printStackTrace();
+            System.out.println("eliminar DAOHito");
         }
+        
+        System.out.println("FIN DAOHito");
         return result;
     }
 
