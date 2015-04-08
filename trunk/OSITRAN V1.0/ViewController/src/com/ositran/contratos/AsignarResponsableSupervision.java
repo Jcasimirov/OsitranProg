@@ -1,4 +1,5 @@
 package com.ositran.contratos;
+
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
@@ -17,18 +18,22 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "asignarResponsableMB")
@@ -50,7 +55,7 @@ private String nombreDescripcionModalidadConcesion;
 private String nombreDescripcionTipoInfraestructura;
 private String nombreDescripcionContratoConcesion;
 private int codigoEtapa;
-private int plazo;
+private String plazo;
 private Double moneda;
 private int codigoMoneda;
 private long total;
@@ -166,11 +171,11 @@ private int codigoContrato;
         return codigoEtapa;
     }
 
-    public void setPlazo(int plazo) {
+    public void setPlazo(String plazo) {
         this.plazo = plazo;
     }
 
-    public int getPlazo() {
+    public String getPlazo() {
         return plazo;
     }
 
