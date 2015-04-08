@@ -41,6 +41,12 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         List<ContratoCompromisoVO> listVO=toListContratoCompromisoVO(list);
         return listVO;
     }
+    public List<ContratoCompromisoVO> querySupervisado(Integer conId) throws SQLException {
+        System.out.println("LEGO AL SERVICES");
+        List<ContratoCompromiso> list=contratoCompromisoDAOImpl.querySupervisado(conId);
+        List<ContratoCompromisoVO> listVO=toListContratoCompromisoVO(list);
+        return listVO;
+    }
     
     @Override
     public String insert(ContratoCompromisoVO contratoCompromisoVO) throws SQLException {
@@ -121,9 +127,9 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
 
 
 
-    public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId,Integer tccTipo) throws SQLException{
+    public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId) throws SQLException{
         
-        List<ContratoCompromiso> list = contratoCompromisoDAOImpl.getCompromisosContrato(conId,tccTipo );
+        List<ContratoCompromiso> list = contratoCompromisoDAOImpl.getCompromisosContrato(conId );
         List<ContratoCompromisoVO> listVO=toListContratoCompromisoVO(list);
         return listVO;
     }
