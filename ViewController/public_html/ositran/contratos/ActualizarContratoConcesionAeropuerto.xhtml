@@ -109,7 +109,7 @@
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
                                                                  update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
-                                                                 oncomplete="popupBuscarContrato.show();">
+                                                                 onclick="popupBuscarContrato.show();">
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                 </p:commandButton>
                                             </p:fieldset>
@@ -324,7 +324,7 @@
                                 </table>
                             </h:form>
                             <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar COntrato" modal="true"
-                                      resizable="false" appendToBody="true" closable="false">
+                                      resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                                  columnClasses="etiquetas,cajas,validadores">
@@ -399,7 +399,8 @@
                                                                  :tab:frmAgregarInversion:AeropuertoInversion 
                                                                  :tab:frmAgregarCAO:monedaCAO 
                                                                  :tab:frmCHP:tablaCAO
-                                                                 :tab:frmCompromisoIndicado:tablaCompromisoIndicado"
+                                                                 :tab:frmCompromisoIndicado:tablaCompromisoIndicado
+                                                                 :tab:frmCompromisoSupervisado:tablaComprmisoSupervisado"
                                                                  ajax="false"
                                                                  oncomplete="popupBuscarContrato.hide();">
                                                     <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
@@ -409,7 +410,7 @@
                                         </p:dataTable>
                                         <p:commandButton update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg  :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
                                                          process="@this" value="salir"
-                                                         oncomplete="popupBuscarContrato.hide();">
+                                                         onclick="popupBuscarContrato.hide();">
                                             <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
@@ -531,7 +532,7 @@
                                 </table>
                             </h:form>
                             <p:dialog id="dlgadenda" header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda"
-                                      modal="true" resizable="false" appendToBody="true" closable="false">
+                                      modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevaAdendaDlg">
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="4"
                                                  columnClasses=" etiquetas,cajas,validadores,nomarchivo">
@@ -603,7 +604,7 @@
                                 </h:form>
                             </p:dialog>
                             <p:dialog header="Agregar Entrega de Area o Bien de Conseción" appendToBody="true"
-                                      widgetVar="popupAgregarEntrega" modal="true" resizable="false" closable="false"
+                                      widgetVar="popupAgregarEntrega" modal="true" resizable="false" closable="true"
                                       style="text-align:center;">
                                 <h:form id="frmNuevaEntregaDlg">
                                     <p:panelGrid id="pnlNuevaEntregaDlg" styleClass="pnlEdicion" columns="4"
