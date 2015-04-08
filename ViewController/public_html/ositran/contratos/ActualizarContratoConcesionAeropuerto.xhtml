@@ -729,7 +729,7 @@
                                 </table>
                             </h:form>
                             <p:dialog header="Agregar Compromiso de Inversion (Indicado)"
-                                      widgetVar="popupAgregarCompromiso"  modal="true" resizable="false" appendToBody="true" closable="false">
+                                      widgetVar="popupAgregarCompromiso"  modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevoCompromisoDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoDlg" styleClass="pnlEdicion" columns="3"
                                                  columnClasses="etiquetas,cajas,validadores">
@@ -789,7 +789,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGV}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this,valortotalcom"
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this valortotalcom"
                                                     update="netocom"/>
                                         </p:inputMask>
                                          <p:message for="igvcom" display="icon"/>
