@@ -856,7 +856,11 @@
                                                         <h:outputText value="#{tCao.monNombre}"/>
                                                     </p:column>
                                                     <p:column headerText="Ver" style="width:4%">
-                                                        <h:outputText value="#{tCao.caoPdf}"/>
+                                                        <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadCao(tCao.caoPdf)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadCao}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                        
                                                     </p:column>
                                                     <p:column headerText="Eliminar" style="width:4%">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarCao()}"
@@ -904,15 +908,43 @@
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px;" id="tablaHito" var="hito">
-                                                    <p:column headerText="Aeropuerto"></p:column>
-                                                    <p:column headerText="Nro" style="width:14%"></p:column>
-                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
-                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
-                                                    <p:column headerText="Monto" style="width:4%"></p:column>
-                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
-                                                    <p:column headerText="Ver" style="width:4%"></p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                             style="font-size:11px;" id="tablaHito" var="tHito"
+                                                             value="#{actualizarContratoMB.listContratoHitoVO}">
+                                                    <p:column headerText="Aeropuerto">
+                                                        <h:outputText value="#{tHito.htoNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Nro" style="width:12%">
+                                                        <h:outputText value="#{tHito.htoId}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:10%">
+                                                        <h:outputText value="#{tHito.htoFecha}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Oficio" style="width:10%">
+                                                        <h:outputText value="#{tHito.htoOficio}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto" style="width:4%">
+                                                        <h:outputText value="#{tHito.htoMonto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:8%">
+                                                        <h:outputText value="#{tHito.htoNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Ver" style="width:4%">
+                                                        <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadHito(tHito.htoPdf)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadHito}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                        
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%">
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarHito()}"
+                                                                         oncomplete="popupEliminarHito.show()"
+                                                                         image="ui-icon-trash"
+                                                                         style="width:25px;height:25px"
+                                                                         update=":tab:frmCHP:tablaHito :tab:formEliminarHito">
+                                                            <f:param id="idContratoHitoE" name="idContratoHitoE"
+                                                                     value="#{tHito.htoId}"/>
+                                                        </p:commandButton>
+                                                    </p:column>
                                                 </p:dataTable>
                                             </div>
                                         </td>
@@ -949,15 +981,43 @@
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px;" id="tablaPPO" var="ppo">
-                                                    <p:column headerText="Aeropuerto"></p:column>
-                                                    <p:column headerText="Nro" style="width:14%"></p:column>
-                                                    <p:column headerText="Fecha" style="width:4%"></p:column>
-                                                    <p:column headerText="Oficio" style="width:10%"></p:column>
-                                                    <p:column headerText="Monto" style="width:4%"></p:column>
-                                                    <p:column headerText="Moneda" style="width:4%"></p:column>
-                                                    <p:column headerText="Ver" style="width:4%"></p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%"></p:column>
+                                                             style="font-size:11px;" id="tablaPPO" var="tPpo"
+                                                             value="#{actualizarContratoMB.listContratoPpoVO}">
+                                                    <p:column headerText="Aeropuerto">
+                                                        <h:outputText value="#{tHito.htoNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Nro" style="width:12%">
+                                                        <h:outputText value="#{tPpo.ppoId}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:10%">
+                                                        <h:outputText value="#{tPpo.ppoFecha}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Oficio" style="width:10%">
+                                                        <h:outputText value="#{tPpo.ppoOficio}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto" style="width:4%">
+                                                        <h:outputText value="#{tPpo.ppoMonto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:8%">
+                                                        <h:outputText value="#{tPpo.monNombre}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Ver" style="width:4%">
+                                                        <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadPpo(tPpo.ppoArchivoPdf)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadPpo}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                        
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="width:4%">
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarPpo()}"
+                                                                         oncomplete="popupEliminarPpo.show()"
+                                                                         image="ui-icon-trash"
+                                                                         style="width:25px;height:25px"
+                                                                         update=":tab:frmCHP:tablaPPO :tab:formEliminarPpo">
+                                                            <f:param id="idContratoPpoE" name="idContratoPpoE"
+                                                                     value="#{tPpo.ppoId}"/>
+                                                        </p:commandButton>
+                                                    </p:column>
                                                 </p:dataTable>
                                             </div>
                                         </td>
@@ -1101,29 +1161,18 @@
                                         <tr>
                                             <td align="left">Aeropuerto</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.nombreHito}"
                                                              style="width:300px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Nro</td>
-                                            <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
-                                                             style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
+                                                            value="#{actualizarContratoMB.fechaHito}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1132,7 +1181,7 @@
                                         <tr>
                                             <td align="left">Oficio</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.oficioHito}"
                                                              style="width:300px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
@@ -1143,7 +1192,7 @@
                                         <tr>
                                             <td align="left">Monto</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.montoHito}"
                                                              style="width:200px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
@@ -1154,14 +1203,13 @@
                                         <tr>
                                             <td align="left">Moneda</td>
                                             <td align="left">
-                                                <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion"
-                                                                 id="MonedaHito"
-                                                                 value="#{concesionarioMB.tipDocumentoE}"
+                                                <p:selectOneMenu widgetVar="monedaH" id="monedaHito"
+                                                                 value="#{actualizarContratoMB.monedaHitoId}"
                                                                  style="width:210px">
                                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
-                                                                   itemLabel="#{tip.tdoNombre}"
-                                                                   itemValue="#{tip.tdoId}"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}"
+                                                                   var="mon" itemLabel="#{mon.monNombre}"
+                                                                   itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -1171,9 +1219,12 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText id="docHito"
+                                                             value="#{actualizarContratoMB.documentoHito}"
                                                              style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                             readonly="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}"
+                                                      update="docHito" label="Archivo" auto="true"/> 
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1190,8 +1241,9 @@
                                         <tr>
                                             <td align="center" colspan="2">
                                                 <p:commandButton update=":tab:frmCHP:tablaHito"
-                                                                 action="#{infraestructuraMB.guardar}"
-                                                                 style="width:70px" value="#{btn.btn_guardar}"/>
+                                                                 action="#{actualizarContratoMB.guardarHito}"
+                                                                 style="width:70px" value="#{btn.btn_guardar}"
+                                                                 oncomplete="popupAgregarHito.hide()"/>
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarHito.hide()"
@@ -1201,35 +1253,48 @@
                                     </table>
                                 </h:form>
                             </p:dialog>
+                            <p:dialog appendToBody="true" header="Eliminar Hito" widgetVar="popupEliminarHito"
+                                      modal="true" style="text-align:center; font-size:11px;">
+                                <h:form id="formEliminarHito" enctype="multipart/form-data">
+                                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                                        <tr>
+                                            <td align="left">
+                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El Hito ????? :
+                                            </td>
+                                            <td align="left">
+                                                <h:outputText value="#{actualizarContratoMB.nombreHito2}"
+                                                              style="align:left; text-align:left"></h:outputText>
+                                            </td>
+                                            <td align="left"></td>
+                                        </tr>
+                                    </table>
+                                    <p:commandButton update=":tab:frmCHP:tablaHito"
+                                                     oncomplete="popupEliminarHito.hide()"
+                                                     actionListener="#{actualizarContratoMB.eliminarHito}"
+                                                     value="Eliminar">
+                                        <f:attribute name="codigoHitoE"
+                                                     value="#{actualizarContratoMB.codigoHito}"/>
+                                    </p:commandButton>
+                                </h:form>
+                            </p:dialog>
                             <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO">
-                                <h:form id="frmAgregarPPO">
+                                <h:form id="frmAgregarPpo">
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
                                             <td align="left">Aeropuerto</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.nombrePpo}"
                                                              style="width:300px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Nro</td>
-                                            <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
-                                                             style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MMM-yyyy"/>
+                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
+                                                            value="#{actualizarContratoMB.fechaPpo}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1238,7 +1303,7 @@
                                         <tr>
                                             <td align="left">Oficio</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.oficioPpo}"
                                                              style="width:300px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
@@ -1249,7 +1314,7 @@
                                         <tr>
                                             <td align="left">Monto</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText value="#{actualizarContratoMB.montoPpo}"
                                                              style="width:200px;"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
@@ -1260,13 +1325,13 @@
                                         <tr>
                                             <td align="left">Moneda</td>
                                             <td align="left">
-                                                <p:selectOneMenu onchange="cargarValor(this)" widgetVar="monedaInverion"
-                                                                 id="MonedaPPO" value="#{concesionarioMB.tipDocumentoE}"
+                                                <p:selectOneMenu widgetVar="monedaP" id="monedaPpo"
+                                                                 value="#{actualizarContratoMB.monedaPpoId}"
                                                                  style="width:210px">
                                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
-                                                                   itemLabel="#{tip.tdoNombre}"
-                                                                   itemValue="#{tip.tdoId}"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}"
+                                                                   var="mon" itemLabel="#{mon.monNombre}"
+                                                                   itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -1276,9 +1341,12 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
+                                                <p:inputText id="docPpo"
+                                                             value="#{actualizarContratoMB.documentoPpo}"
                                                              style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                             readonly="#{not empty actualizarContratoMB.contratoPpoVO.filePpo}"/>
+                                                <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPpo}"
+                                                      update="docPpo" label="Archivo" auto="true"/> 
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1295,8 +1363,9 @@
                                         <tr>
                                             <td align="center" colspan="2">
                                                 <p:commandButton update=":tab:frmCHP:tablaPPO"
-                                                                 action="#{infraestructuraMB.guardar}"
-                                                                 style="width:70px" value="#{btn.btn_guardar}"/>
+                                                                 action="#{actualizarContratoMB.guardarPpo}"
+                                                                 style="width:70px" value="#{btn.btn_guardar}"
+                                                                 oncomplete="popupAgregarPPO.hide()"/>
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarPPO.hide()"
@@ -1304,6 +1373,30 @@
                                             </td>
                                         </tr>
                                     </table>
+                                </h:form>
+                            </p:dialog>
+                            <p:dialog appendToBody="true" header="Eliminar PPO" widgetVar="popupEliminarPpo"
+                                      modal="true" style="text-align:center; font-size:11px;">
+                                <h:form id="formEliminarPpo" enctype="multipart/form-data">
+                                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                                        <tr>
+                                            <td align="left">
+                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El PPO ????? :
+                                            </td>
+                                            <td align="left">
+                                                <h:outputText value="#{actualizarContratoMB.nombrePpo2}"
+                                                              style="align:left; text-align:left"></h:outputText>
+                                            </td>
+                                            <td align="left"></td>
+                                        </tr>
+                                    </table>
+                                    <p:commandButton update=":tab:frmCHP:tablaPPO"
+                                                     oncomplete="popupEliminarPpo.hide()"
+                                                     actionListener="#{actualizarContratoMB.eliminarPpo}"
+                                                     value="Eliminar">
+                                        <f:attribute name="codigoPpoE"
+                                                     value="#{actualizarContratoMB.codigoPpo}"/>
+                                    </p:commandButton>
                                 </h:form>
                             </p:dialog>
                         </p:tab>
