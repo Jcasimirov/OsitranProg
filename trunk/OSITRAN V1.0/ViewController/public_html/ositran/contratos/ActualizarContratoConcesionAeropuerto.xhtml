@@ -597,7 +597,7 @@
                                                          value="Agregar"/>
                                         <p:commandButton value="#{btn.btn_salir}"
                                                          update=":tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg                                                  :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg"
-                                                         process="@this" oncomplete="popupAgregarAdenda.hide();">
+                                                         process="@this" onclick="popupAgregarAdenda.hide();">
                                             <p:resetInput target=":tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg                                                                    :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
@@ -656,7 +656,7 @@
                                                          value="Agregar Entrega"/>
                                         <p:commandButton value="#{btn.btn_salir}"
                                                          update=":tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg                                                                   :tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg"
-                                                         process="@this" oncomplete="popupAgregarEntrega.hide();"
+                                                         process="@this" onclick="popupAgregarEntrega.hide();"
                                                          style="width:70px">
                                             <p:resetInput target=":tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg                                                                    :tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg"/>
                                         </p:commandButton>
@@ -674,6 +674,9 @@
                                         <td align="right">
                                             <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoIndicado"
                                                              actionListener="#{actualizarContratoMB.resetearNuevoCompromisoInversion()}"
+                                                              update=":tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg
+                                                             :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg"
+                                                             onclick="popupAgregarCompromiso.show();"
                                                              rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
                                                              image="ui-icon-document"/>
                                         </td>
