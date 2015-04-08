@@ -1032,22 +1032,12 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombreCAO}"
                                                              style="width:300px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>                                                 
+                                                             required="true" id="caoInversion"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>                                                             
+                                                <p:message for="caoInversion" display="icon" />
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
-                                        </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Nro</td>
-                                            <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.codigoCAO}"
-                                                             style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
+                                        </tr>                                                                                                                         
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
