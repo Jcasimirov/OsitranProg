@@ -19,8 +19,10 @@ public class ConcesionarioVO {
     private String cncUsuarioAlta;
     private String cncUsuarioBaja;
     private String cncUsuarioCambio;
+    private String cncSiglas;
     private int tdoId;
     private int contador;
+    
     
     public ConcesionarioVO() {
         super();
@@ -168,6 +170,14 @@ public class ConcesionarioVO {
 
     public int getContador() {
         return contador;
+    }
+
+    public void setCncSiglas(String cncSiglas) {
+        this.cncSiglas = cncSiglas;
+    }
+
+    public String getCncSiglas() {
+        return cncSiglas;
     }
 
 }
