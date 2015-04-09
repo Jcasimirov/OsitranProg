@@ -62,6 +62,8 @@ public class Concesionario implements Serializable {
     private String cncUsuarioCambio;
     @Column(name = "TDO_ID")
     private int tdoId;
+    @Column(name = "CNC_SIGLAS")
+    private String cncSiglas;
 
     public Concesionario() {
     }
@@ -225,5 +227,14 @@ public class Concesionario implements Serializable {
 
     public void setTdoId(int tdoId) {
         this.tdoId = tdoId;
+    }
+
+
+    public void setCncSiglas(String cncSiglas) {
+        this.cncSiglas = cncSiglas;
+    }
+
+    public String getCncSiglas() {
+        return cncSiglas;
     }
 }
