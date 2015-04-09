@@ -9,6 +9,8 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -32,7 +34,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         List list;
         session.getTransaction();
         session.beginTransaction();
-        query = session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :nombre");
+        query = session.createQuery("FROM Concesionario  E WHERE  E.cncNombre like :nombre and E.cncEstado <> 0");
         query.setParameter("nombre", nombre);
         list = query.list();
         cantidad = list.size();
@@ -54,15 +56,27 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         session.beginTransaction();
-        query = session.createQuery("FROM Concesionario  E WHERE   upper(E.cncNombre) like :filtro1");
+        query = session.createQuery("FROM Concesionario  E WHERE  ( upper(E.cncNombre) like :filtro1 or upper(E.cncSiglas) like:filtro1 or upper(E.cncDescripcion) like:filtro1) and E.cncEstado <> 0");
         query.setParameter("filtro1", "%" + filtro + "%");
-        /*query = session.createQuery("FROM Concesionario  E WHERE  E.cncDescripcion like :filtro1 or E.cncRepresentanteLegal like :filtro1");
-        query.setParameter("filtro1", "%" + filtro + "%");*/
         List list = query.list();
         session.getTransaction().commit();
         return list;
     }
 
+    @Override
+    public List<Concesionario> queryTD(int filtro) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Query query;
+        session.beginTransaction();
+        query = session.createQuery("FROM Concesionario  E WHERE upper(E.tdoId)= :filtro1  and E.cncEstado <> 0");
+        query.setParameter("filtro1",  filtro);
+        List list = query.list();
+        session.getTransaction().commit();
+        return list;
+    }
+    
+    
+    
     @Override
     public String insert(Concesionario concesionario) throws SQLException, Exception {
         String result = null;
@@ -84,14 +98,11 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
-           
             session.beginTransaction();
-          
             concesionario =get(id);
-           
             concesionario.setCncEstado(0);
+            concesionario.setCncFechaBaja(new Date());
             session.update(concesionario);
-           
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -163,4 +174,5 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
             
         }
 
+   
 }
