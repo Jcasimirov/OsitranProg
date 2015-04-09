@@ -15,6 +15,7 @@ public interface ConcesionarioService {
     public String update(ConcesionarioVO concesionarioVO)  throws SQLException ,Exception;
     public ConcesionarioVO get(Integer id)  throws SQLException ,Exception;
     public List<ConcesionarioVO> queryF(String filtro)  throws SQLException ,Exception;
+    public List<ConcesionarioVO> queryTD(int filtro)  throws SQLException ,Exception;
     public int getCanNombres(String nombre)  throws SQLException ,Exception;
     //Ivan
     public List<ConcesionarioVO> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception;
