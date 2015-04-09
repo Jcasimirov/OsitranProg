@@ -28,8 +28,8 @@ public class ContratoAlerta implements Serializable {
     @Column(name = "CAL_AEROPUERTO", nullable = false, length = 4000)
     private String calAeropuerto;
     @Temporal(TemporalType.DATE)
-    @Column(name = "CAL_DIA_PRESENTACIÓN")
-    private Date calDiaPresentación;
+    @Column(name = "CAL_DIA_PRESENTACION")
+    private Date calDiaPresentacion;
     @Temporal(TemporalType.DATE)
     @Column(name = "CAL_FECHA_FIN")
     private Date calFechaFin;
@@ -56,12 +56,12 @@ public class ContratoAlerta implements Serializable {
     public ContratoAlerta() {
     }
 
-    public ContratoAlerta(Integer caeId, String calAeropuerto, Date calDiaPresentación, Date calFechaFin,
+    public ContratoAlerta(Integer caeId, String calAeropuerto, Date calDiaPresentacion, Date calFechaFin,
                           Date calFechaInicio, Integer calId, String calNombreconcesion, String calPlazo,
                           Integer conId, Integer perId, Integer calEstado) {
         this.caeId = caeId;
         this.calAeropuerto = calAeropuerto;
-        this.calDiaPresentación = calDiaPresentación;
+        this.calDiaPresentacion = calDiaPresentacion;
         this.calFechaFin = calFechaFin;
         this.calFechaInicio = calFechaInicio;
         this.calId = calId;
@@ -88,12 +88,12 @@ public class ContratoAlerta implements Serializable {
         this.calAeropuerto = calAeropuerto;
     }
 
-    public Date getCalDiaPresentación() {
-        return calDiaPresentación;
+    public Date getCalDiaPresentacion() {
+        return calDiaPresentacion;
     }
 
-    public void setCalDiaPresentación(Date calDiaPresentación) {
-        this.calDiaPresentación = calDiaPresentación;
+    public void setCalDiaPresentacion(Date calDiaPresentación) {
+        this.calDiaPresentacion = calDiaPresentación;
     }
 
     public Date getCalFechaFin() {
