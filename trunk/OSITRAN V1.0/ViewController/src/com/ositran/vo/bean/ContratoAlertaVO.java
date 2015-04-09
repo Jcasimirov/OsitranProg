@@ -6,7 +6,7 @@ public class ContratoAlertaVO {
     
     private Integer caeId;
     private String calAeropuerto; 
-    private Date calDiaPresentación;   
+    private Date calDiaPresentacion;   
     private Date calFechaFin;   
     private Date calFechaInicio;
     private Integer calId;   
@@ -38,12 +38,12 @@ public class ContratoAlertaVO {
         this.calAeropuerto = calAeropuerto;
     }
 
-    public Date getCalDiaPresentación() {
-        return calDiaPresentación;
+    public Date getCalDiaPresentacion() {
+        return calDiaPresentacion;
     }
 
-    public void setCalDiaPresentación(Date calDiaPresentación) {
-        this.calDiaPresentación = calDiaPresentación;
+    public void setCalDiaPresentacion(Date calDiaPresentacion) {
+        this.calDiaPresentacion = calDiaPresentacion;
     }
 
     public Date getCalFechaFin() {
