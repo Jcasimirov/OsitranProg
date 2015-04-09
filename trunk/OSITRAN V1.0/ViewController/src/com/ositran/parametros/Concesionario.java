@@ -55,6 +55,7 @@ public class Concesionario {
     private String correo;
     private String representante;
     private int codigoCargo;
+    private int codigoDocumentoFiltro;
     //********************EDITAR***********************************/
     private int codigoConcesionarioE;
     private String nombreE;
@@ -85,6 +86,7 @@ public class Concesionario {
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     List<ConcesionarioVO> listaCon;
+    List<TipoDocumentoVO> listaTipDoc1;
     List<TipoDocumentoVO> listaTipoDoc;
     List<CargoVO> listCargo;
     @ManagedProperty(value = "#{concesionarioVO}")
@@ -136,7 +138,13 @@ public class Concesionario {
                                                                           correo +
                                                                           " No es un formato de correo valido "));
 
-        } else {
+        } else if (representante.equals("")){
+                          FacesContext.getCurrentInstance().addMessage(null,
+                                                                       new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                        " Debe ingresar el representante legal ")); 
+                      }
+        
+        else {
             try {
                concesionarioVO.setCncCorreo(correo);
                concesionarioVO.setCncDescripcion(descripcion);
@@ -144,6 +152,7 @@ public class Concesionario {
                concesionarioVO.setCncEstado(1);
                concesionarioVO.setCncFechaAlta(new Date());
                concesionarioVO.setCncNombre(nombre);
+                concesionarioVO.setCncSiglas(siglasNombre);
                concesionarioVO.setCncNroDocumento(numeroDocumento);
                concesionarioVO.setCncRepresentanteLegal(representante);
                concesionarioVO.setCncTelefono(telefono);
@@ -184,7 +193,7 @@ public class Concesionario {
             nombreAntiguo=concesionarioVO.getCncNombre();
            nombreE = concesionarioVO.getCncNombre();
            descripcionE = concesionarioVO.getCncDescripcion();
-           siglasNombre = "SIGLASS";
+           siglasNombreE = concesionarioVO.getCncSiglas();
            telefonoE = concesionarioVO.getCncTelefono();
            tipDocumentoE = concesionarioVO.getTdoId();
            numeroDocumentoE = concesionarioVO.getCncNroDocumento();
@@ -243,19 +252,32 @@ public class Concesionario {
                                                                           correoE +
                                                                           " No es un formato de correo valido "));
 
-        } else {
+        } 
+        
+        else if (representanteE.equals("")){
+                                  FacesContext.getCurrentInstance().addMessage(null,
+                                                                               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                                " Debe ingresar el representante legal ")); 
+                              }
+        
+        else {
             
             try {
+                
+                concesionarioVO=concesionarioServiceImpl.get(concesionarioId);
+                System.out.println("hola");
+                System.out.println(concesionarioVO.getCncFechaAlta());
                 concesionarioVO.setCncId(concesionarioId);
                 concesionarioVO.setCncCorreo(correoE);
                 concesionarioVO.setCncDescripcion(descripcionE);
                 concesionarioVO.setCncDireccion(direccionE);
-                concesionarioVO.setCncEstado(2);
+                concesionarioVO.setCncEstado(1);
                 concesionarioVO.setCncFechaCambio(new Date());
                 concesionarioVO.setCncNombre(nombreE);
                 concesionarioVO.setCncNroDocumento(numeroDocumentoE);
                 concesionarioVO.setCncRepresentanteLegal(representanteE);
                 concesionarioVO.setCncTelefono(telefonoE);
+                concesionarioVO.setCncSiglas(siglasNombreE);
                 concesionarioVO.setTdoId(tipDocumentoE);
                 concesionarioServiceImpl.update(concesionarioVO);
                 cargarListaConcesionarios();
@@ -280,38 +302,87 @@ public class Concesionario {
           
         }
     }
+    
+    
+    
+    public void buscarTipoDocumento(){
+        try {
+            
+          
+            
+            
+            if (codigoDocumentoFiltro==0){
+                    int contador=1;
+                    listaCon = concesionarioServiceImpl.query();
+                    for(int i=0;i<listaCon.size();i++){
+                      listaCon.get(i).setContador(contador);
+                        contador++;
+                        }
+                
+                }
+            else{
+                    
+                    int contador=1;
+                    listaCon = concesionarioServiceImpl.queryTD(codigoDocumentoFiltro);
+                    for(int i=0;i<listaCon.size();i++){
+                      listaCon.get(i).setContador(contador);
+                        contador++;
+                        }
+                }
+            
+           
+       } catch (Exception e) {
+            
+            e.printStackTrace();
+        }
+           
+        
+        }
 
     public void busqueda() {
-      try {
-            int contador=1;
-            listaCon = concesionarioServiceImpl.queryF(buscar);
-           
-          
-            for(int i=0;i<listaCon.size();i++){
-              listaCon.get(i).setContador(contador);
-                contador++;
-                }
-          
-          
-          
-        } catch (SQLException s) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          correo +
-                                                                          " No se pudo editar el concecionario ")); 
+       
+                try {
+                    
+                      if (!buscar.equals("")){
+                      int contador=1;
+                      listaCon = concesionarioServiceImpl.queryF(buscar);
+                      for(int i=0;i<listaCon.size();i++){
+                        listaCon.get(i).setContador(contador);
+                          contador++;
+                          }}
+                      else {
+                              FacesContext.getCurrentInstance().addMessage(null,
+                                                                           new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                            correo +
+                                                                                            " Debe ingresar criterios de busqueda "));
+                          }
+                    
+                    
+                  } catch (SQLException s) {
+                      FacesContext.getCurrentInstance().addMessage(null,
+                                                                   new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                    correo +
+                                                                                    " Problemas en la busqueda de concesionario ")); 
+                      
+                  } 
+                    
+                  catch ( Exception e){
+                          FacesContext.getCurrentInstance().addMessage(null,
+                                                                       new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                        correo +
+                                                                                        "Problemas en la busqueda de concesionario  "));
+                      
             
-        } 
-        catch ( Exception e){
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              correo +
-                                                                              " No se pudo editar el concecionario "));
             }
+        
+       
+      
       
     }
 
     public void cargarListaTipoDocumento() {
         try {
+            listaTipDoc1=tipoDocumentoServiceImp.query();
            listaTipoDoc = tipoDocumentoServiceImp.query();
        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -322,17 +393,6 @@ public class Concesionario {
         
     }
 
-    public void cargarListaCargo() {
-        try {
-           listCargo = cargoServiceImp.query();
-       } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          correo +
-                                                                          " No se pudo editar el concecionario "));
-        }
-       
-    }
 
     public void cargarListaConcesionarios() {
         try {
@@ -361,9 +421,26 @@ public class Concesionario {
         
     }
 
-    public void cargarEliminar(ConcesionarioVO concesionarioVO) {
-        descripcion = concesionarioVO.getCncDescripcion();
-        codigoConcesionario = concesionarioVO.getCncId();
+    public void cargarEliminar() {
+        try {
+           FacesContext context=FacesContext.getCurrentInstance();
+           Map requestMap=context.getExternalContext().getRequestParameterMap();
+            System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+           Object str=requestMap.get("idEliminar");
+           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+           int idcodigo=Integer.valueOf(str.toString());
+           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+           concesionarioVO=concesionarioServiceImpl.get(idcodigo);
+           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+           descripcion = concesionarioVO.getCncDescripcion();
+           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+           codigoConcesionario = concesionarioVO.getCncId();
+           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+       } catch (Exception e) {
+            
+            e.printStackTrace();
+        }
+      
     }
 
     public void eliminar() {
@@ -723,5 +800,22 @@ public class Concesionario {
 
     public int getCantidad() {
         return cantidad;
+    }
+
+
+    public void setCodigoDocumentoFiltro(int codigoDocumentoFiltro) {
+        this.codigoDocumentoFiltro = codigoDocumentoFiltro;
+    }
+
+    public int getCodigoDocumentoFiltro() {
+        return codigoDocumentoFiltro;
+    }
+
+    public void setListaTipDoc1(List<TipoDocumentoVO> listaTipDoc1) {
+        this.listaTipDoc1 = listaTipDoc1;
+    }
+
+    public List<TipoDocumentoVO> getListaTipDoc1() {
+        return listaTipDoc1;
     }
 }
