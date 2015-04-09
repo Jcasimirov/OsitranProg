@@ -53,6 +53,15 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
         return listVO;
     }
+    
+    @Override
+    public List<ConcesionarioVO> queryTD(int filtro) throws SQLException, Exception {
+        List<Concesionario> list=concesionarioDAOImpl.queryTD(filtro);
+        List<ConcesionarioVO> listVO=toListConcesionarioVO(list);
+        return listVO;
+    }
+    
+    
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
         
@@ -115,6 +124,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         conce.setCncUsuarioAlta(concesionario.getCncUsuarioAlta());
         conce.setCncUsuarioBaja(concesionario.getCncUsuarioBaja());
         conce.setCncUsuarioCambio(concesionario.getCncUsuarioCambio());
+        conce.setCncSiglas(concesionario.getCncSiglas());
       
         conce.setTdoId(concesionario.getTdoId());        
         return conce;
@@ -122,6 +132,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     private Concesionario toConcesionario(ConcesionarioVO concesionarioVO){
         Concesionario concec=new Concesionario();
         concec.setCncId(concesionarioVO.getCncId());
+        concec.setCncSiglas(concesionarioVO.getCncSiglas());
         concec.setCncCorreo(concesionarioVO.getCncCorreo());
         concec.setCncDescripcion(concesionarioVO.getCncDescripcion());
         concec.setCncDireccion(concesionarioVO.getCncDireccion());
@@ -181,5 +192,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
             
             return listVO;
         }
+
+  
 }
 
