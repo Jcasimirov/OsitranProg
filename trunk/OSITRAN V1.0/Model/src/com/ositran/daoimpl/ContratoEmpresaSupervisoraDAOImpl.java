@@ -3,11 +3,11 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ContratoEmpresaSupervisoraDAO;
 import com.ositran.model.ContratoSupervisora;
 
+import com.ositran.model.EmpresaSupervisora;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -19,10 +19,10 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
     public List<ContratoSupervisora> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        list= session.createQuery("select o from ContratoSupervisora o").list();
+        list= session.createQuery("select o from ContratoSupervisora o where o.cpsEstado <> 2").list();
         session.getTransaction().commit();
         session.close();
-        return list;    
+        return list;
     }
 
     @Override
@@ -50,14 +50,29 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
 
     @Override
     public String update(ContratoSupervisora contratoSupervisora) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(contratoSupervisora);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+            System.out.println(result);
+        }
+        session.close();
+        return result;
     }
 
     @Override
-    public ContratoSupervisora get(Integer integer) throws SQLException {
-        // TODO Implement this method
-        return null;
+    public ContratoSupervisora get(Integer id) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        ContratoSupervisora contratoSupervisora=(ContratoSupervisora)session.get(ContratoSupervisora.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return contratoSupervisora;        
     }
 
     @Override
@@ -66,4 +81,3 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
         return 0;
     }
 }
-
