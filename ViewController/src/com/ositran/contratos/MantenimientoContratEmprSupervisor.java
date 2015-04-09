@@ -11,18 +11,28 @@ import com.ositran.vo.bean.MonedaVO;
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import java.util.Map;
+
 import javax.annotation.Generated;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlForm;
+
 import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.component.html.HtmlOutputText;
+
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.columngroup.ColumnGroup;
@@ -41,7 +51,7 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "backing_ositran_parametros_mantenimientoContratEmprSupervisor")
-@RequestScoped
+@ViewScoped
 @Generated(value = "1ositran/parametros/mantenimientoContratEmprSupervisor.jsf",
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoContratEmprSupervisor {
@@ -68,7 +78,7 @@ public class MantenimientoContratEmprSupervisor {
     private CommandButton commandButtonModificar;
     private CommandButton commandButtonEliminar;
     private Column columnEliminar;
-    private Column column8;
+    private Column columnTipoInfraestructura;
     private HtmlOutputText outputText2;
     private HtmlOutputText outputText3;
     private OutputLabel outputLabel1;
@@ -154,6 +164,60 @@ public class MantenimientoContratEmprSupervisor {
     private HtmlInputHidden inputHidden2;
     private CommandButton commandButtonGrabar;
     private CommandButton commandButtonCancelar;
+    private Date fechaInicio;
+    private Date fechaSuscripcion;
+    private String inputHiddenSelectedTipoInfraestructura;
+    private String inputHiddenSelectedMoneda;
+    private HtmlCommandButton commandButton3;
+    private LayoutUnit layoutUnit2;
+    private CommandButton commandButton4;
+    private CommandButton commandButton5;
+    private HtmlOutputText outputText4;
+    private HtmlOutputText outputText5;
+    private HtmlOutputText outputText6;
+    private HtmlOutputText outputText7;
+    private InputText inputTextIdEliminar;
+    private HtmlInputHidden inputHidden3;
+    private Dialog dialogModificarConEmpSup;
+    private PanelGrid panelGrid3;
+    private ColumnGroup columnGroup3;
+    private PanelGrid panelGridDatosSTDModif;
+    private InputText inputTextNumeroModif;
+    private InputText inputTextAnnioModif;
+    private Calendar calendarFechaRegistroModif;
+    private InputTextarea inputTextareaAsuntoModif;
+    private PanelGrid panelGridContratConcesionModif;
+    private InputText inputTextConcesionModif;
+    private InputText inputTextTipoInfraModif;
+    private InputText inputTextModalidadConcesionModif;
+    private SelectOneMenu selectOneMenuAeropuertoModif;
+    private InputText inputTextInversionModif;
+    private PanelGrid panelGridEtapaConcesionModif;
+    private InputText inputTextTotalModif;
+    private InputText inputTextMonedaModif;
+    private InputText inputTextPlazoModif;
+    private SelectOneMenu selectOneMenuEtapaPeriodoModif;
+    private ColumnGroup columnGroup4;
+    private Fieldset fieldset2;
+    private PanelGrid panelGridDatosContratoModif;
+    private InputText inputTextNroContratoModif;
+    private Calendar calendarFecIniContratoModif;
+    private Calendar calendarFecSuscripcionModif;
+    private InputText inputTextPlazoContratoModif;
+    private InputText inputTextMontoContratadoModif;
+    private InputTextarea inputTextareaRefCausalesCaduModif;
+    private InputTextarea inputTextareaRefPenalidadModif;
+    private Calendar calendarFechaAdelantoModif;
+    private InputText inputTextAdelantoOtorgadoModif;
+    private InputText inputTextAdjutarContratoModif;
+    private InputTextarea inputTextareaGarantiasFavorModif;
+    private DataTable dataTableContratoModif;
+    private String inputHiddenSelectedMonedaModif;
+    private CommandButton commandButtonAgregarAdendaModif;
+    private CommandButton commandButtonCancelarModif;
+    private CommandButton commandButtonDialModificar;
+    private HtmlInputHidden inputHidden4;
+
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -347,12 +411,12 @@ public class MantenimientoContratEmprSupervisor {
         return columnEliminar;
     }
 
-    public void setColumn8(Column column8) {
-        this.column8 = column8;
+    public void setColumnTipoInfraestructura(Column column8) {
+        this.columnTipoInfraestructura = column8;
     }
 
-    public Column getColumn8() {
-        return column8;
+    public Column getColumnTipoInfraestructura() {
+        return columnTipoInfraestructura;
     }
 
     public void setOutputText2(HtmlOutputText outputText2) {
@@ -461,6 +525,11 @@ public class MantenimientoContratEmprSupervisor {
         }
     }
 
+    public void setInputHiddenSelectedTipoInfraestructura(String inputHiddenSelectedTipoInfraestructura) {
+        this.inputHiddenSelectedTipoInfraestructura = inputHiddenSelectedTipoInfraestructura;
+    }
+
+
     public void setInputHiddenItemTipoInfraestructura(HtmlInputHidden inputHiddenItemTipoInfraestructura) {
         this.inputHiddenItemTipoInfraestructura = inputHiddenItemTipoInfraestructura;
     }
@@ -481,6 +550,11 @@ public class MantenimientoContratEmprSupervisor {
     private ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl =
         new ContratoEmpresaSupervisoraServiceImpl();
 
+
+    public ContratoSupervisoraVO getContratoSupervisoraVO() {
+        return contratoSupervisoraVO;
+    }
+
     public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
         this.contratoSupervisoraVO = contratoSupervisoraVO;
     }
@@ -493,7 +567,8 @@ public class MantenimientoContratEmprSupervisor {
         return contratoEmpresaSupervisoraServiceImpl;
     }
 
-    private List<ContratoSupervisoraVO> listaContratoSupervisora;
+    ///private List<ContratoSupervisoraVO> listaContratoSupervisora;
+    private List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
 
     public List<ContratoSupervisoraVO> getListarContratoSupervisora() throws SQLException {
         try {
@@ -1175,7 +1250,6 @@ public class MantenimientoContratEmprSupervisor {
 
     public List<MonedaVO> listarMoneda() throws SQLException {
         try {
-            System.out.println("llego a contrato");
             listaMoneda = getMonedaServiceImpl().query();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1188,15 +1262,10 @@ public class MantenimientoContratEmprSupervisor {
      * @return moneda para que se renderize en el combo
      */
     public List<SelectItem> getMonedaSelectItems() throws SQLException {
-        
-        System.out.println("1");
         monedaSelectItems.add(new SelectItem("-1", "Seleccione"));
-        System.out.println("2");
         List<MonedaVO> lista = listarMoneda();
-        System.out.println("3");
         int i = 0;
         for (MonedaVO mvo : lista) {
-            System.out.println("4");
             monedaSelectItems.add(new SelectItem(i++, String.valueOf(mvo.getMonNombre())));
         }
         return monedaSelectItems;
@@ -1214,6 +1283,9 @@ public class MantenimientoContratEmprSupervisor {
         }
     }
 
+    public void setInputHiddenSelectedMoneda(String inputHiddenSelectedMoneda) {
+        this.inputHiddenSelectedMoneda = inputHiddenSelectedMoneda;
+    }
 
     public void setCommandButtonGrabar(CommandButton commandButton3) {
         this.commandButtonGrabar = commandButton3;
@@ -1223,68 +1295,44 @@ public class MantenimientoContratEmprSupervisor {
         return commandButtonGrabar;
     }
 
-    public void grabar() throws SQLException {
-        System.out.println("=====================================================");
-        System.out.println("INGRESA A ESTE METODO!!!!!!!!!!!!!!!");
-        System.out.println("=====================================================");
-        /*if (nomEmpSup.trim().equals("")) {
-            FacesMessage mensaje =
-                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
-                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (dirEmpSup.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (repLegal.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!correo.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNom.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarNombre(nomEmpSup.trim())>0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!telefono.trim().equals("") && !telefono.matches("[0-9]*")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento>0 && !nroDoc.matches("[0-9]*") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento == 0 && !nroDoc.trim().equals("") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento==1 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 8 ||nroDoc.trim().length() < 8)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 11 ||nroDoc.trim().length() < 11)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarRuc(nroDoc.trim(),tipoDocumento) > 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-        else{*/
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaSuscripcion(Date fechaSuscripcion) {
+        this.fechaSuscripcion = fechaSuscripcion;
+    }
+
+    public Date getFechaSuscripcion() {
+        return fechaSuscripcion;
+    }
+
+
+    public void grabar() throws SQLException {
         try {
-            contratoSupervisoraVO.setCpsNroDeContrato(Integer.valueOf(String.valueOf(inputTextNroContrato)));
-            contratoSupervisoraVO.setCpsFechaInicio(new SimpleDateFormat().parse(String.valueOf(calendarFecIniContratoNew)));
-            contratoSupervisoraVO.setCpsFechaSuscripcion(new SimpleDateFormat().parse(String.valueOf(calendarFecSuscripcionNew)));
-            contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf(String.valueOf(inputTextPlazoContratoNew)));
-            contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew)));
-            contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew)));
-            contratoSupervisoraVO.setCpsFechaAdelanto(new SimpleDateFormat().parse(String.valueOf(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew)))));
-            contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew)));
+            contratoSupervisoraVO.setCpsFechaInicio((Date)calendarFecIniContratoNew.getValue());
+            contratoSupervisoraVO.setCpsFechaSuscripcion((Date)calendarFecSuscripcionNew.getValue());
+            contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
+            contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
+            contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
+            contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
+            contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
             contratoSupervisoraVO.setCpsEstado(1);
-            contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio)));
-            contratoSupervisoraVO.setCpsFechaRegistro(new SimpleDateFormat().parse(String.valueOf(calendarFechaRegistro)));
-            contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto));
-            contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora)));
-            contratoSupervisoraVO.setContrato(Integer.valueOf(String.valueOf(inputTextNroContratoNew)));
+            contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
+            contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
+            contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
+            //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
+            contratoSupervisoraVO.setEmpresaSupervisora(1);
+            System.out.println("empresa: "+contratoSupervisoraVO.getEmpresaSupervisora());
+            contratoSupervisoraVO.setContrato(22);
             contratoSupervisoraVO.setInfraestructura(1);
             contratoSupervisoraVO.setCpsEstado(1);
-            contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputTextTipoInfraestructura)));
+            contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
+            System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
             contratoSupervisoraVO.setConcesion(1);
             contratoSupervisoraVO.setCpsPenalidades("1");
             contratoSupervisoraVO.setCpsCaducidad("1");
@@ -1303,7 +1351,6 @@ public class MantenimientoContratEmprSupervisor {
         }
     }
 
-
     public void setCommandButtonCancelar(CommandButton commandButton3) {
         this.commandButtonCancelar = commandButton3;
     }
@@ -1311,5 +1358,753 @@ public class MantenimientoContratEmprSupervisor {
     public CommandButton getCommandButtonCancelar() {
         return commandButtonCancelar;
     }
-}
 
+
+    
+
+    public void setCommandButton3(HtmlCommandButton commandButton3) {
+        this.commandButton3 = commandButton3;
+    }
+
+    public HtmlCommandButton getCommandButton3() {
+        return commandButton3;
+    }
+
+    public void setLayoutUnit2(LayoutUnit layoutUnit2) {
+        this.layoutUnit2 = layoutUnit2;
+    }
+
+    public LayoutUnit getLayoutUnit2() {
+        return layoutUnit2;
+    }
+
+    public void setCommandButton4(CommandButton commandButton4) {
+        this.commandButton4 = commandButton4;
+    }
+
+    public CommandButton getCommandButton4() {
+        return commandButton4;
+    }
+
+    public void setCommandButton5(CommandButton commandButton5) {
+        this.commandButton5 = commandButton5;
+    }
+
+    public CommandButton getCommandButton5() {
+        return commandButton5;
+    }
+
+    public void setOutputText4(HtmlOutputText outputText4) {
+        this.outputText4 = outputText4;
+    }
+
+    public HtmlOutputText getOutputText4() {
+        return outputText4;
+    }
+
+    public void setOutputText5(HtmlOutputText outputText5) {
+        this.outputText5 = outputText5;
+    }
+
+    public HtmlOutputText getOutputText5() {
+        return outputText5;
+    }
+    
+    int idEliminar;
+    String nombreEliminar;
+
+    public void setIdEliminar(int idEliminar) {
+        this.idEliminar = idEliminar;
+    }
+
+    public int getIdEliminar() {
+        return idEliminar;
+    }
+    
+    public void setNombreEliminar(String nombreEliminar) {
+        this.nombreEliminar = nombreEliminar;
+    }
+
+    public String getNombreEliminar() {
+        return nombreEliminar;
+    }
+        
+    public void confirmarEliminar() throws SQLException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("id3");
+        Integer idContEmpSup = Integer.valueOf(str.toString());
+        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idContEmpSup);
+        //contratoSupervisoraVO.setCpsNroDeContrato(idContEmpSup);
+        idEliminar = contratoSupervisoraVO.getCpsNroDeContrato();
+        nombreEliminar = String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato()); //.toUpperCase();
+    }
+    
+    public String empSupDel() throws SQLException{
+        try{            
+            contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEliminar);
+            ///contratoSupervisoraVO.setCpsNroDeContrato(idEliminar);
+            contratoSupervisoraVO.setCpsEstado(2);
+            //contratoSupervisoraVO.setSupFechaBaja(util.getObtenerFechaHoy());
+            //contratoSupervisoraVO.setSupTerminal(util.obtenerIpCliente());
+            this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);
+            //this.empSupServiceImp.delete(idEmpSup);
+            ///getQuery();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
+                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+                            FacesMessage mensaje =
+                                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+        return "/index?faces-redirect=true";        
+    }
+
+
+    public void setOutputText6(HtmlOutputText outputText6) {
+        this.outputText6 = outputText6;
+    }
+
+    public HtmlOutputText getOutputText6() {
+        return outputText6;
+    }
+
+    public void setOutputText7(HtmlOutputText outputText7) {
+        this.outputText7 = outputText7;
+    }
+
+    public HtmlOutputText getOutputText7() {
+        return outputText7;
+    }
+
+    public void setInputTextIdEliminar(InputText inputText1) {
+        this.inputTextIdEliminar = inputText1;
+    }
+
+    public InputText getInputTextIdEliminar() {
+        return inputTextIdEliminar;
+    }
+
+    public void setInputHidden3(HtmlInputHidden inputHidden3) {
+        this.inputHidden3 = inputHidden3;
+    }
+
+    public HtmlInputHidden getInputHidden3() {
+        return inputHidden3;
+    }
+
+    public void setDialogModificarConEmpSup(Dialog dialog1) {
+        this.dialogModificarConEmpSup = dialog1;
+    }
+
+    public Dialog getDialogModificarConEmpSup() {
+        return dialogModificarConEmpSup;
+    }
+
+    public void setPanelGrid3(PanelGrid panelGrid3) {
+        this.panelGrid3 = panelGrid3;
+    }
+
+    public PanelGrid getPanelGrid3() {
+        return panelGrid3;
+    }
+
+    public void setColumnGroup3(ColumnGroup columnGroup3) {
+        this.columnGroup3 = columnGroup3;
+    }
+
+    public ColumnGroup getColumnGroup3() {
+        return columnGroup3;
+    }
+
+    public void setPanelGridDatosSTDModif(PanelGrid panelGrid4) {
+        this.panelGridDatosSTDModif = panelGrid4;
+    }
+
+    public PanelGrid getPanelGridDatosSTDModif() {
+        return panelGridDatosSTDModif;
+    }
+
+    public void setInputTextNumeroModif(InputText inputText1) {
+        this.inputTextNumeroModif = inputText1;
+    }
+
+    public InputText getInputTextNumeroModif() {
+        return inputTextNumeroModif;
+    }
+
+    public void setInputTextAnnioModif(InputText inputText1) {
+        this.inputTextAnnioModif = inputText1;
+    }
+
+    public InputText getInputTextAnnioModif() {
+        return inputTextAnnioModif;
+    }
+
+    public void setCalendarFechaRegistroModif(Calendar calendar1) {
+        this.calendarFechaRegistroModif = calendar1;
+    }
+
+    public Calendar getCalendarFechaRegistroModif() {
+        return calendarFechaRegistroModif;
+    }
+
+    public void setInputTextareaAsuntoModif(InputTextarea inputTextarea1) {
+        this.inputTextareaAsuntoModif = inputTextarea1;
+    }
+
+    public InputTextarea getInputTextareaAsuntoModif() {
+        return inputTextareaAsuntoModif;
+    }
+
+    public void setPanelGridContratConcesionModif(PanelGrid panelGrid4) {
+        this.panelGridContratConcesionModif = panelGrid4;
+    }
+
+    public PanelGrid getPanelGridContratConcesionModif() {
+        return panelGridContratConcesionModif;
+    }
+
+    public void setInputTextConcesionModif(InputText inputText1) {
+        this.inputTextConcesionModif = inputText1;
+    }
+
+    public InputText getInputTextConcesionModif() {
+        return inputTextConcesionModif;
+    }
+
+    public void setInputTextTipoInfraModif(InputText inputText1) {
+        this.inputTextTipoInfraModif = inputText1;
+    }
+
+    public InputText getInputTextTipoInfraModif() {
+        return inputTextTipoInfraModif;
+    }
+
+    public void setInputTextModalidadConcesionModif(InputText inputText1) {
+        this.inputTextModalidadConcesionModif = inputText1;
+    }
+
+    public InputText getInputTextModalidadConcesionModif() {
+        return inputTextModalidadConcesionModif;
+    }
+
+    public void setSelectOneMenuAeropuertoModif(SelectOneMenu selectOneMenu1) {
+        this.selectOneMenuAeropuertoModif = selectOneMenu1;
+    }
+
+    public SelectOneMenu getSelectOneMenuAeropuertoModif() {
+        return selectOneMenuAeropuertoModif;
+    }
+
+    public void setInputTextInversionModif(InputText inputText1) {
+        this.inputTextInversionModif = inputText1;
+    }
+
+    public InputText getInputTextInversionModif() {
+        return inputTextInversionModif;
+    }
+
+    public void setPanelGridEtapaConcesionModif(PanelGrid panelGrid4) {
+        this.panelGridEtapaConcesionModif = panelGrid4;
+    }
+
+    public PanelGrid getPanelGridEtapaConcesionModif() {
+        return panelGridEtapaConcesionModif;
+    }
+
+    public void setInputTextTotalModif(InputText inputText1) {
+        this.inputTextTotalModif = inputText1;
+    }
+
+    public InputText getInputTextTotalModif() {
+        return inputTextTotalModif;
+    }
+
+    public void setInputTextMonedaModif(InputText inputText1) {
+        this.inputTextMonedaModif = inputText1;
+    }
+
+    public InputText getInputTextMonedaModif() {
+        return inputTextMonedaModif;
+    }
+
+    public void setInputTextPlazoModif(InputText inputText1) {
+        this.inputTextPlazoModif = inputText1;
+    }
+
+    public InputText getInputTextPlazoModif() {
+        return inputTextPlazoModif;
+    }
+
+    public void setSelectOneMenuEtapaPeriodoModif(SelectOneMenu selectOneMenu1) {
+        this.selectOneMenuEtapaPeriodoModif = selectOneMenu1;
+    }
+
+    public SelectOneMenu getSelectOneMenuEtapaPeriodoModif() {
+        return selectOneMenuEtapaPeriodoModif;
+    }
+
+    public void setColumnGroup4(ColumnGroup columnGroup4) {
+        this.columnGroup4 = columnGroup4;
+    }
+
+    public ColumnGroup getColumnGroup4() {
+        return columnGroup4;
+    }
+
+    public void setFieldset2(Fieldset fieldset2) {
+        this.fieldset2 = fieldset2;
+    }
+
+    public Fieldset getFieldset2() {
+        return fieldset2;
+    }
+
+    public void setPanelGridDatosContratoModif(PanelGrid panelGrid4) {
+        this.panelGridDatosContratoModif = panelGrid4;
+    }
+
+    public PanelGrid getPanelGridDatosContratoModif() {
+        return panelGridDatosContratoModif;
+    }
+
+    public void setInputTextNroContratoModif(InputText inputText1) {
+        this.inputTextNroContratoModif = inputText1;
+    }
+
+    public InputText getInputTextNroContratoModif() {
+        return inputTextNroContratoModif;
+    }
+
+    public void setCalendarFecIniContratoModif(Calendar calendar1) {
+        this.calendarFecIniContratoModif = calendar1;
+    }
+
+    public Calendar getCalendarFecIniContratoModif() {
+        return calendarFecIniContratoModif;
+    }
+
+    public void setCalendarFecSuscripcionModif(Calendar calendar1) {
+        this.calendarFecSuscripcionModif = calendar1;
+    }
+
+    public Calendar getCalendarFecSuscripcionModif() {
+        return calendarFecSuscripcionModif;
+    }
+
+    public void setInputTextPlazoContratoModif(InputText inputText1) {
+        this.inputTextPlazoContratoModif = inputText1;
+    }
+
+    public InputText getInputTextPlazoContratoModif() {
+        return inputTextPlazoContratoModif;
+    }
+
+    public void setInputTextMontoContratadoModif(InputText inputText1) {
+        this.inputTextMontoContratadoModif = inputText1;
+    }
+
+    public InputText getInputTextMontoContratadoModif() {
+        return inputTextMontoContratadoModif;
+    }
+
+    public void setInputTextareaRefCausalesCaduModif(InputTextarea inputTextarea1) {
+        this.inputTextareaRefCausalesCaduModif = inputTextarea1;
+    }
+
+    public InputTextarea getInputTextareaRefCausalesCaduModif() {
+        return inputTextareaRefCausalesCaduModif;
+    }
+
+    public void setInputTextareaRefPenalidadModif(InputTextarea inputTextarea1) {
+        this.inputTextareaRefPenalidadModif = inputTextarea1;
+    }
+
+    public InputTextarea getInputTextareaRefPenalidadModif() {
+        return inputTextareaRefPenalidadModif;
+    }
+
+    public void setCalendarFechaAdelantoModif(Calendar calendar1) {
+        this.calendarFechaAdelantoModif = calendar1;
+    }
+
+    public Calendar getCalendarFechaAdelantoModif() {
+        return calendarFechaAdelantoModif;
+    }
+
+    public void setInputTextAdelantoOtorgadoModif(InputText inputText1) {
+        this.inputTextAdelantoOtorgadoModif = inputText1;
+    }
+
+    public InputText getInputTextAdelantoOtorgadoModif() {
+        return inputTextAdelantoOtorgadoModif;
+    }
+
+    public void setInputTextAdjutarContratoModif(InputText inputText1) {
+        this.inputTextAdjutarContratoModif = inputText1;
+    }
+
+    public InputText getInputTextAdjutarContratoModif() {
+        return inputTextAdjutarContratoModif;
+    }
+
+    public void setInputTextareaGarantiasFavorModif(InputTextarea inputTextarea1) {
+        this.inputTextareaGarantiasFavorModif = inputTextarea1;
+    }
+
+    public InputTextarea getInputTextareaGarantiasFavorModif() {
+        return inputTextareaGarantiasFavorModif;
+    }
+
+    public void setDataTableContratoModif(DataTable dataTable1) {
+        this.dataTableContratoModif = dataTable1;
+    }
+
+    public DataTable getDataTableContratoModif() {
+        return dataTableContratoModif;
+    }
+
+
+    public void setCommandButtonAgregarAdendaModif(CommandButton commandButton6) {
+        this.commandButtonAgregarAdendaModif = commandButton6;
+    }
+
+    public CommandButton getCommandButtonAgregarAdendaModif() {
+        return commandButtonAgregarAdendaModif;
+    }
+
+    public void setCommandButtonCancelarModif(CommandButton commandButton6) {
+        this.commandButtonCancelarModif = commandButton6;
+    }
+
+    public CommandButton getCommandButtonCancelarModif() {
+        return commandButtonCancelarModif;
+    }
+
+    public void setCommandButtonDialModificar(CommandButton commandButton6) {
+        this.commandButtonDialModificar = commandButton6;
+    }
+
+    public CommandButton getCommandButtonDialModificar() {
+        return commandButtonDialModificar;
+    }
+
+    public void setSelectOneMenuMonedaModif(SelectOneMenu selectOneMenu1) {
+        this.selectOneMenuMonedaModif = selectOneMenu1;
+    }
+
+    public SelectOneMenu getSelectOneMenuMonedaModif() {
+        return selectOneMenuMonedaModif;
+    }
+
+    private String inputTextNumeroModifStr;
+    private String inputTextAnnioModifStr;
+    private String calendarFecIniContratoModifStr;
+    private String calendarFecSuscripcionModifStr;
+    private String inputTextPlazoContratoModifStr;
+    private String inputTextMontoContratadoModifStr;
+    private String inputTextAdelantoOtorgadoModifStr;
+    private String calendarFechaAdelantoModifStr;
+    private String inputTextNroContratoModifStr;
+    private String calendarFechaRegistroModifStr;
+    private String inputTextareaAsuntoModifStr;
+    private String inputTextTipoInfraModifStr;
+    private String inputTextareaRefPenalidadModifStr;
+    private String inputTextareaRefCausalesCaduModifStr;
+    private String inputTextareaGarantiasFavorModifStr;
+
+
+    public void setInputTextNumeroModifStr(String inputTextNumeroModifStr) {
+        this.inputTextNumeroModifStr = inputTextNumeroModifStr;
+    }
+
+    public String getInputTextNumeroModifStr() {
+        return inputTextNumeroModifStr;
+    }
+
+    public void setInputTextAnnioModifStr(String inputTextAnnioModifStr) {
+        this.inputTextAnnioModifStr = inputTextAnnioModifStr;
+    }
+
+    public String getInputTextAnnioModifStr() {
+        return inputTextAnnioModifStr;
+    }
+
+    public void setCalendarFecIniContratoModifStr(String calendarFecIniContratoModifStr) {
+        this.calendarFecIniContratoModifStr = calendarFecIniContratoModifStr;
+    }
+
+    public String getCalendarFecIniContratoModifStr() {
+        return calendarFecIniContratoModifStr;
+    }
+
+    public void setCalendarFecSuscripcionModifStr(String calendarFecSuscripcionModifStr) {
+        this.calendarFecSuscripcionModifStr = calendarFecSuscripcionModifStr;
+    }
+
+    public String getCalendarFecSuscripcionModifStr() {
+        return calendarFecSuscripcionModifStr;
+    }
+
+    public void setInputTextPlazoContratoModifStr(String inputTextPlazoContratoModifStr) {
+        this.inputTextPlazoContratoModifStr = inputTextPlazoContratoModifStr;
+    }
+
+    public String getInputTextPlazoContratoModifStr() {
+        return inputTextPlazoContratoModifStr;
+    }
+
+    public void setInputTextMontoContratadoModifStr(String inputTextMontoContratadoModifStr) {
+        this.inputTextMontoContratadoModifStr = inputTextMontoContratadoModifStr;
+    }
+
+    public String getInputTextMontoContratadoModifStr() {
+        return inputTextMontoContratadoModifStr;
+    }
+
+    public void setInputTextAdelantoOtorgadoModifStr(String inputTextAdelantoOtorgadoModifStr) {
+        this.inputTextAdelantoOtorgadoModifStr = inputTextAdelantoOtorgadoModifStr;
+    }
+
+    public String getInputTextAdelantoOtorgadoModifStr() {
+        return inputTextAdelantoOtorgadoModifStr;
+    }
+
+    public void setCalendarFechaAdelantoModifStr(String calendarFechaAdelantoModifStr) {
+        this.calendarFechaAdelantoModifStr = calendarFechaAdelantoModifStr;
+    }
+
+    public String getCalendarFechaAdelantoModifStr() {
+        return calendarFechaAdelantoModifStr;
+    }
+
+    public void setInputTextNroContratoModifStr(String inputTextNroContratoModifStr) {
+        this.inputTextNroContratoModifStr = inputTextNroContratoModifStr;
+    }
+
+    public String getInputTextNroContratoModifStr() {
+        return inputTextNroContratoModifStr;
+    }
+
+    public void setCalendarFechaRegistroModifStr(String calendarFechaRegistroModifStr) {
+        this.calendarFechaRegistroModifStr = calendarFechaRegistroModifStr;
+    }
+
+    public String getCalendarFechaRegistroModifStr() {
+        return calendarFechaRegistroModifStr;
+    }
+
+    public void setInputTextareaAsuntoModifStr(String inputTextareaAsuntoModifStr) {
+        this.inputTextareaAsuntoModifStr = inputTextareaAsuntoModifStr;
+    }
+
+    public String getInputTextareaAsuntoModifStr() {
+        return inputTextareaAsuntoModifStr;
+    }
+
+    public void setInputTextTipoInfraModifStr(String inputTextTipoInfraModifStr) {
+        this.inputTextTipoInfraModifStr = inputTextTipoInfraModifStr;
+    }
+
+    public String getInputTextTipoInfraModifStr() {
+        return inputTextTipoInfraModifStr;
+    }
+
+    public void setInputTextareaRefPenalidadModifStr(String inputTextareaRefPenalidadModifStr) {
+        this.inputTextareaRefPenalidadModifStr = inputTextareaRefPenalidadModifStr;
+    }
+
+    public String getInputTextareaRefPenalidadModifStr() {
+        return inputTextareaRefPenalidadModifStr;
+    }
+
+    public void setInputTextareaRefCausalesCaduModifStr(String inputTextareaRefCausalesCaduModifStr) {
+        this.inputTextareaRefCausalesCaduModifStr = inputTextareaRefCausalesCaduModifStr;
+    }
+
+    public String getInputTextareaRefCausalesCaduModifStr() {
+        return inputTextareaRefCausalesCaduModifStr;
+    }
+
+    public void setInputTextareaGarantiasFavorModifStr(String inputTextareaGarantiasFavorModifStr) {
+        this.inputTextareaGarantiasFavorModifStr = inputTextareaGarantiasFavorModifStr;
+    }
+
+    public String getInputTextareaGarantiasFavorModifStr() {
+        return inputTextareaGarantiasFavorModifStr;
+    }
+
+    public void contraEmpSupUpd1() throws SQLException{
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("id2");
+        Integer idEmpSup=Integer.valueOf(str.toString());        
+        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEmpSup);   
+        inputTextNumeroModifStr=String.valueOf(contratoSupervisoraVO.getCpsStd());
+        inputTextAnnioModifStr=String.valueOf(contratoSupervisoraVO.getCpsAnyo());
+        calendarFecIniContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaInicio());
+        calendarFecSuscripcionModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaSuscripcion());
+        inputTextPlazoContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsPlazoContrato());
+        inputTextMontoContratadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsMontoContratado());
+        inputTextAdelantoOtorgadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAdelantoOtorgado());
+        calendarFechaAdelantoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaAdelanto());
+        inputTextNroContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato());
+        calendarFechaRegistroModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaRegistro());
+        inputTextareaAsuntoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAsunto());
+        inputTextTipoInfraModifStr=String.valueOf(contratoSupervisoraVO.getTipoInfraestructura());
+        inputTextareaRefPenalidadModifStr=contratoSupervisoraVO.getCpsPenalidades();
+        inputTextareaRefCausalesCaduModifStr=contratoSupervisoraVO.getCpsCaducidad();
+        inputTextareaGarantiasFavorModifStr=contratoSupervisoraVO.getCpsGarantias();
+
+    }
+    
+    
+    private SelectOneMenu selectOneMenuMonedaModif;
+    private String monedaModif;
+    List<SelectItem> monedaSelectItemsModif = new ArrayList<SelectItem>();
+
+    public void setMonedaModif(String monedaModif) {
+        this.monedaModif = monedaModif;
+    }
+
+    public String getMonedaModif() {
+        return monedaModif;
+    }
+
+    public void setMonedaSelectItemsModif(List<SelectItem> monedaSelectItemsModif) {
+        this.monedaSelectItemsModif = monedaSelectItemsModif;
+    }
+
+
+    /**
+     * @author Paul Rivera
+     * @return Moneda para el dialog de modificar
+     */
+    private List<MonedaVO> listaMonedaModif;
+
+    public List<MonedaVO> listarMonedaModif() throws SQLException {
+        try {
+            listaMonedaModif = getMonedaServiceImpl().query();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaMonedaModif;
+    }
+
+    /**
+     * @author Paul Rivera
+     * @return moneda para que se renderize en el combo para modificar
+     */
+    public List<SelectItem> getMonedaSelectItemsModif() throws SQLException {
+        monedaSelectItemsModif.add(new SelectItem("-1", "Seleccione"));
+        List<MonedaVO> lista = listarMonedaModif();
+        int i = 0;
+        for (MonedaVO mvo : lista) {
+            monedaSelectItemsModif.add(new SelectItem(i++, String.valueOf(mvo.getMonNombre())));
+        }
+        return monedaSelectItemsModif;
+    }
+
+    
+    /**
+     * @author Paul Rivera
+     * @return moneda seleccionado del combo
+     */
+    public String getInputHiddenSelectedMonedaModif() {
+        if ("".equals(getMoneda()) || getMoneda() == null) {
+            return "";
+        } else {
+            return getMoneda();
+        }
+    }
+
+    public void setInputHiddenSelectedMonedaModif(String inputHiddenSelectedMoneda) {
+        this.inputHiddenSelectedMonedaModif = inputHiddenSelectedMoneda;
+    }
+
+
+    public void setInputHidden4(HtmlInputHidden inputHidden4) {
+        this.inputHidden4 = inputHidden4;
+    }
+
+    public HtmlInputHidden getInputHidden4() {
+        return inputHidden4;
+    }
+    
+    public void modificar() throws SQLException{
+        /*if (nomEmpSupMod.trim().equals("")) {
+            FacesMessage mensaje =
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
+                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (dirEmpSupMod.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (repLegalMod.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (siglasNomMod.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarNombreMod(nomEmpSupMod.trim(),nommod.trim())>0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod == 0 && !nroDocMod.trim().equals("") ) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod==1 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 8 ||nroDocMod.trim().length() < 8)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (tipoDocumentoMod==2 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 11 ||nroDocMod.trim().length() < 11)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (validarRucMod(nroDocMod.trim(),nroRuc,tipoDocumentoMod) > 0) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+        else{*/
+            try{
+                contratoSupervisoraVO.setCpsStd(Integer.valueOf(inputTextNumeroModifStr));
+                contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(inputTextAnnioModifStr));
+                contratoSupervisoraVO.setCpsAsunto(inputTextareaAsuntoModifStr);
+                contratoSupervisoraVO.setCpsNroDeContrato(Integer.valueOf(inputTextNroContratoModifStr));
+                contratoSupervisoraVO.setCpsFechaInicio(new SimpleDateFormat("dd-MM-yy").parse(calendarFecIniContratoModifStr));
+                contratoSupervisoraVO.setCpsFechaSuscripcion(new SimpleDateFormat("dd-MM-yy").parse(calendarFecSuscripcionModifStr));
+                contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf(inputTextPlazoContratoModifStr));
+                contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(inputTextMontoContratadoModifStr));
+                contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(inputTextAdelantoOtorgadoModifStr));
+                contratoSupervisoraVO.setCpsPenalidades(inputTextareaRefPenalidadModifStr);
+                contratoSupervisoraVO.setCpsCaducidad(inputTextareaRefCausalesCaduModifStr);
+                contratoSupervisoraVO.setCpsGarantias(inputTextareaGarantiasFavorModifStr);
+                contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(inputTextTipoInfraModifStr));
+                contratoSupervisoraVO.setCpsFechaAdelanto(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaAdelantoModifStr));
+                contratoSupervisoraVO.setCpsFechaRegistro(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaRegistroModifStr));
+                    
+                    
+                this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);        
+                ///getQuery();
+                ///limpiarCampos();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
+                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                RequestContext.getCurrentInstance().execute("ModEmpSup.hide()");
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                                FacesMessage mensaje =
+                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+        //}
+        
+    } 
+    
+}
