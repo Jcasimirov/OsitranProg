@@ -17,34 +17,35 @@
 .ui-datatable tr.ui-datatable-odd:hover {
     background:#C9DCF1;
     }
-#titulo{
- font-family:Georgia,"Times New Roman",Times,serif;
-    font-weight:normal;
-    text-shadow:0 0 1px #000;
-    color:#444444;
-    font-size:2em;
-    padding:2px 0 0;
-    text-transform:capitalize;
-    line-height:1.2em;
-    margin:0 0 10px;
-    color: #0A81F7;
-
-}    
-
-#titulo2{
- font-family:Georgia,"Times New Roman",Times,serif;
-    font-weight:normal;
-    text-shadow:0 0 1px #000;
-    font-size:2em;
-    padding:2px 0 0;
-    color: Blue;    
-    text-transform:capitalize;
-    line-height:1.2em;
-    margin:0 0 10px;
     
+.titulo5{
+color: Black;
+font-weight: bold;
+font-family: sans-serif;
+}   
 
 
-}  
+.letra11{
+font-size: 11px;
+}
+
+.letraT{
+font-size:10px;
+}
+
+.controles{
+width: 21px;
+height: 21px;
+text-align: center;
+}
+
+.piePagina{
+text-align: center;
+font-size: 10px;
+font-weight: bold;
+}
+
+
 
 .ui-datatable-even {
    height: 10px;
