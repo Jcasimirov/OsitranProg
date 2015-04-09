@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoEntrega.findAll", query = "select o from ContratoEntrega o") })
 @Table(name = "T_CONTRATO_ENTREGA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_ENTREGA"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_ENTREGA"))
 public class ContratoEntrega implements Serializable {
     private static final long serialVersionUID = -5323475895238864355L;
     @Column(name = "CEN_DESCRIPCION", nullable = false, length = 4000)
@@ -46,8 +46,6 @@ public class ContratoEntrega implements Serializable {
     private Integer cenEstado;
     @Column(name = "CEN_NOMBRE")
     private String cenNombre;
-    @Column(name = "CEN_ENTREGA") 
-    private Integer cenEntrega; 
     public ContratoEntrega() {
     }
 
@@ -136,11 +134,5 @@ public class ContratoEntrega implements Serializable {
         this.cenNombre = cenNombre;
     }
 
-    public void setCenEntrega(Integer cenEntrega) {
-        this.cenEntrega = cenEntrega;
-    }
 
-    public Integer getCenEntrega() {
-        return cenEntrega;
-    }
 }
