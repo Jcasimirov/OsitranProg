@@ -1,10 +1,11 @@
 
-function saludo(){
-alert('HOLA MUNDO');
-}
-
-function pasarMayuscula(obj, id) {
+              
+ function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
+                  document.getElementById(id).value = obj;   
+              }
+function pasarMinuscula(obj, id) {
+                  obj = obj.toLowerCase();
                   document.getElementById(id).value = obj;
               }
               
