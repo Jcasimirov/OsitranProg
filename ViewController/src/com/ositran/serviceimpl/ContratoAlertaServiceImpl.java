@@ -69,7 +69,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         
         contratoAlertaVO.setCaeId(contratoAlerta.getCaeId());
         contratoAlertaVO.setCalAeropuerto(contratoAlerta.getCalAeropuerto());
-        contratoAlertaVO.setCalDiaPresentación(contratoAlerta.getCalDiaPresentación());
+        contratoAlertaVO.setCalDiaPresentacion(contratoAlerta.getCalDiaPresentacion());
         contratoAlertaVO.setCalEstado(contratoAlerta.getCalEstado());
         contratoAlertaVO.setCalFechaFin(contratoAlerta.getCalFechaFin());
         contratoAlertaVO.setCalFechaInicio(contratoAlerta.getCalFechaInicio());
@@ -88,7 +88,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
                 
         contratoAlerta.setCaeId(contratoAlertaVO.getCaeId());
         contratoAlerta.setCalAeropuerto(contratoAlertaVO.getCalAeropuerto());
-        contratoAlerta.setCalDiaPresentación(contratoAlertaVO.getCalDiaPresentación());
+        contratoAlerta.setCalDiaPresentacion(contratoAlertaVO.getCalDiaPresentacion());
         contratoAlerta.setCalEstado(contratoAlertaVO.getCalEstado());
         contratoAlerta.setCalFechaFin(contratoAlertaVO.getCalFechaFin());
         contratoAlerta.setCalFechaInicio(contratoAlertaVO.getCalFechaInicio());
