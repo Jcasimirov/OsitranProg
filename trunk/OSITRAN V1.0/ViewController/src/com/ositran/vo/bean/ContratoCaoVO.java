@@ -2,6 +2,8 @@ package com.ositran.vo.bean;
 
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 
@@ -9,7 +11,7 @@ public class ContratoCaoVO {
 
     private Date caoFecha;
     private Integer caoId;
-    private Long caoMonto;
+    private BigDecimal caoMonto;
     private String caoOficio;
     private String caoPdf;
     private Integer conId;
@@ -38,11 +40,11 @@ public class ContratoCaoVO {
         this.caoId = caoId;
     }
 
-    public Long getCaoMonto() {
+    public BigDecimal getCaoMonto() {
         return caoMonto;
     }
 
-    public void setCaoMonto(Long caoMonto) {
+    public void setCaoMonto(BigDecimal caoMonto) {
         this.caoMonto = caoMonto;
     }
 

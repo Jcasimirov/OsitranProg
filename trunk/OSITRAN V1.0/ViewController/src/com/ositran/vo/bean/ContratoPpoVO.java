@@ -2,6 +2,8 @@ package com.ositran.vo.bean;
 
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 
@@ -12,7 +14,7 @@ public class ContratoPpoVO {
     private String ppoArchivoPdf;
     private Date ppoFecha;
     private Integer ppoId;
-    private Long ppoMonto;
+    private BigDecimal ppoMonto;
     private String ppoOficio;
     private Integer ppoEstado;
     private String ppoNombre;
@@ -63,11 +65,11 @@ public class ContratoPpoVO {
         this.ppoId = ppoId;
     }
 
-    public Long getPpoMonto() {
+    public BigDecimal getPpoMonto() {
         return ppoMonto;
     }
 
-    public void setPpoMonto(Long ppoMonto) {
+    public void setPpoMonto(BigDecimal ppoMonto) {
         this.ppoMonto = ppoMonto;
     }
 

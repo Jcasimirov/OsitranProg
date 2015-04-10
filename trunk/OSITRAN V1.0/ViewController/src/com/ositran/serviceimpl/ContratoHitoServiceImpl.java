@@ -72,8 +72,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHitoVO.setHtoEstado(contratoHito.getHtoEstado());
         contratoHitoVO.setHtoFecha(contratoHito.getHtoFecha());
         contratoHitoVO.setHtoId(contratoHito.getHtoId());
-        contratoHitoVO.setHtoMonto(contratoHito.getHtoMonto());
-        contratoHitoVO.setHtoOficio(contratoHito.getHtoOficio());
+        contratoHitoVO.setHtoMonto(contratoHito.getHtoMonto());        
         contratoHitoVO.setHtoPdf(contratoHito.getHtoPdf());
         contratoHitoVO.setMonId(contratoHito.getMonId());
         contratoHitoVO.setHtoNombre(contratoHito.getHtoNombre());
@@ -89,8 +88,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHito.setHtoEstado(contratoHitoVO.getHtoEstado());
         contratoHito.setHtoFecha(contratoHitoVO.getHtoFecha());
         contratoHito.setHtoId(contratoHitoVO.getHtoId());
-        contratoHito.setHtoMonto(contratoHitoVO.getHtoMonto());
-        contratoHito.setHtoOficio(contratoHitoVO.getHtoOficio());
+        contratoHito.setHtoMonto(contratoHitoVO.getHtoMonto());        
         contratoHito.setHtoPdf(contratoHitoVO.getHtoPdf());
         contratoHito.setMonId(contratoHitoVO.getMonId());
         contratoHito.setHtoNombre(contratoHitoVO.getHtoNombre());
