@@ -12,4 +12,5 @@ public interface ContratoEmpresaSupervisoraDAO {
         public String update(ContratoSupervisora contrato) throws SQLException;
         public ContratoSupervisora get(Integer id) throws SQLException;
         public int ValidarContratoSupervisora(int concesion, int tipoinfra) throws SQLException;
+        public List<ContratoSupervisora> filtrarContraEmpSup(String empresaSupervisora, String tipoInfraestructura, String nroContrato) throws SQLException;
 }
