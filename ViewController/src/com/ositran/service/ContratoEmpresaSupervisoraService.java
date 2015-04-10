@@ -1,5 +1,6 @@
 package com.ositran.service;
 
+import com.ositran.model.ContratoSupervisora;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ContratoEmpresaSupervisoraService {
         public String update(ContratoSupervisoraVO contrato) throws SQLException;
         public ContratoSupervisoraVO get(Integer id) throws SQLException;
         public int ValidarContratoSupervisora(int concesion, int tipoinfra) throws SQLException;
+        public List<ContratoSupervisoraVO> filtrarContraEmpSup(String empresaSupervisora, String tipoInfraestructura, String nroContrato) throws SQLException;
 }
