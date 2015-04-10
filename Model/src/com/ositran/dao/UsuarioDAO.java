@@ -1,5 +1,6 @@
 package com.ositran.dao;
 
+import com.ositran.model.Concesionario;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.Usuario;
 
@@ -18,6 +19,8 @@ public interface UsuarioDAO {
 
     public Usuario get(Integer id) throws SQLException;
 
-    public List<Usuario> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException;
+    public List<Usuario> UserSearch(String nomUserSearch) throws SQLException;
+    
+    public List<Usuario> queryTD(int filtro) throws SQLException;
 
 }
