@@ -9,6 +9,7 @@ import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
+import com.ositran.serviceimpl.ContratoAlertaEstadoServiceImpl;
 import com.ositran.serviceimpl.ContratoAlertaServiceImpl;
 import com.ositran.serviceimpl.ContratoCaoServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
@@ -25,6 +26,7 @@ import com.ositran.vo.bean.AdendaTipoVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.ContratoAdendaVO;
+import com.ositran.vo.bean.ContratoAlertaEstadoVO;
 import com.ositran.vo.bean.ContratoAlertaVO;
 import com.ositran.vo.bean.ContratoCaoVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -44,7 +46,12 @@ import com.ositran.vo.bean.TipoInversionVO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.math.BigDecimal;
+
 import java.sql.SQLException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,6 +148,12 @@ public class ActualizarContrato {
     private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
     List<ContratoAlertaVO> listContratoAlerta;
 
+    @ManagedProperty(value = "#{contratoAlertaEstadoVO}")
+    private ContratoAlertaEstadoVO contratoAlertaEstadoVO;    
+    @ManagedProperty(value = "#{contratoAlertaEstadoServiceImpl}")
+    private ContratoAlertaEstadoServiceImpl contratoAlertaEstadoServiceImpl;
+    private List<ContratoAlertaEstadoVO> listContratoAlertaEstado;
+    
     @ManagedProperty(value = "#{contratoCaoVO}")
     private ContratoCaoVO contratoCaoVO;
     @ManagedProperty(value = "#{contratoCaoServiceImpl}")
@@ -210,8 +223,7 @@ public class ActualizarContrato {
     private String nombreCAO;
     private Integer codigoCAO;
     private Date fechaCAO;
-    private String oficioCAO;
-    private Long montoCAO;
+    private BigDecimal montoCAO;
     private String documentoCAO;
     private Integer monedaCAOId;
     private Integer codigoCao;
@@ -221,8 +233,7 @@ public class ActualizarContrato {
     private String nombreHito;
     private Integer codigoHito;
     private Date fechaHito;
-    private String oficioHito;
-    private Long montoHito;
+    private BigDecimal montoHito;
     private String documentoHito;
     private Integer monedaHitoId;
     private Integer codigoHito2;
@@ -232,8 +243,7 @@ public class ActualizarContrato {
     private String nombrePpo;
     private Integer codigoPpo;
     private Date fechaPpo;
-    private String oficioPpo;
-    private Long montoPpo;
+    private BigDecimal montoPpo;
     private String documentoPpo;
     private Integer monedaPpoId;
     private Integer codigoPpo2;
@@ -250,7 +260,7 @@ public class ActualizarContrato {
     private Date fechaIniAlerta;
     private Date fechaFinAlerta;
     private String plazoAlerta;
-    private Date diaPresAlerta;
+    private Integer diaPresAlerta;
     private String nombreAlerta;
     private Integer codigoAlerta;
     private int incIgv;
@@ -281,6 +291,15 @@ public class ActualizarContrato {
     public void listarTiposMoneda() {
         try {
             listarTipoMonedas = monedaServiceImpl.query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
+
+    public void listarEstadosAlerta() {
+        try {
+            listContratoAlertaEstado = contratoAlertaEstadoServiceImpl.query();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -618,6 +637,16 @@ public class ActualizarContrato {
         objeto = "";
         fecha = null;
         adendaTipo = 0;
+    }
+
+    
+    public void limpiarCamposHito(){
+        nombreHito = null;
+        fechaHito = null;        
+        montoHito = null;
+        monedaHitoId = null;
+        documentoHito  = null;
+        
     }
 
     //*********************************************************************//
@@ -1193,14 +1222,13 @@ public class ActualizarContrato {
 
     public void guardarContratoInversion() {
         if (infraestructuraId == 0) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Infreaestructura");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha seleccionado la Infraestructura")); 
         } else if (descInversion.equals("")) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                 "no ha ingresado La descripcion de la Inversion");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Inversión"));
         } else {
             try {
 
@@ -1213,20 +1241,25 @@ public class ActualizarContrato {
                 contratoInversionServiceImpl.insert(contratoInversionVO);
 
                 cargarListaInversiones(contratoVO.getConId());
-                limpiarCampos();
+                limpiarCamposInversion();
+                RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
 
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar la Inversion "));
 
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar la Inversion "));
             }
 
         }
+    }
+    public void limpiarCamposInversion(){
+        infraestructuraId = 0;
+        descInversion = null;
     }
 
     public ContratoInversionVO getContratoInversionVO() {
@@ -1309,11 +1342,11 @@ public class ActualizarContrato {
         this.fechaFinAlerta = fechaFinAlerta;
     }
 
-    public Date getDiaPresAlerta() {
+    public Integer getDiaPresAlerta() {
         return diaPresAlerta;
     }
 
-    public void setDiaPresAlerta(Date diaPresAlerta) {
+    public void setDiaPresAlerta(Integer diaPresAlerta) {
         this.diaPresAlerta = diaPresAlerta;
     }
 
@@ -1321,34 +1354,34 @@ public class ActualizarContrato {
 
         if (nombAeropuerto.equals("")) {
             System.out.print("nombAeropuerto" + nombAeropuerto);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado el Nombre del Aeropuerto");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Aeropuerto")); 
         } else if (descAlerta.equals("")) {
             System.out.print("descAlerta" + descAlerta);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La descripcion de la Alerta");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Descripción")); 
         } else if (fechaIniAlerta == null) {
             System.out.print("fechaIniAlerta: " + fechaIniAlerta);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha Inicio");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha de Inicio"));
         } else if (fechaFinAlerta == null) {
             System.out.print("fechaFinAlerta" + fechaFinAlerta);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado La Fecha de Fin");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha Final"));            
         } else if (plazoAlerta.equals("")) {
             System.out.print("plazoAlerta: " + plazoAlerta);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El Plazo para la Alerta");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (diaPresAlerta == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Plazo"));  
+        } else if (diaPresAlerta == null || diaPresAlerta < 1) {
             System.out.print("diaPresAlerta: " + diaPresAlerta);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado El dia de Presentacion");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Dia de Presentación")); 
         } else {
             try {
                 System.out.print("diaPresAlerta: " + diaPresAlerta);
@@ -1356,16 +1389,17 @@ public class ActualizarContrato {
                 contratoAlertaVO.setCaeId(1); // valor inicial de la Alerta relacionado a la tabla EstadoAlerta
                 contratoAlertaVO.setPerId(1); // para el cas ode aerupuerto se setea 1 por default y no se muestra para otros casos revisar tabla Periodo
                 contratoAlertaVO.setCalAeropuerto(nombAeropuerto);
-                contratoAlertaVO.setCalDiaPresentación(diaPresAlerta);
+                contratoAlertaVO.setCalDiaPresentacion(diaPresAlerta);
                 contratoAlertaVO.setCalEstado(1);
                 contratoAlertaVO.setCalPlazo(plazoAlerta);
-                contratoAlertaVO.setCalFechaFin(fechaIniAlerta);
+                contratoAlertaVO.setCalFechaInicio(fechaIniAlerta);
                 contratoAlertaVO.setCalFechaFin(fechaFinAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
                 contratoAlertaServiceImpl.insert(contratoAlertaVO);
 
                 cargarListaAlertas(contratoVO.getConId());
-                limpiarCampos();
+                limpiarCamposAlerta();
+                RequestContext.getCurrentInstance().execute("popupAgregarAlerta.hide()");
 
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -1379,6 +1413,15 @@ public class ActualizarContrato {
             }
 
         }
+    }
+    public void limpiarCamposAlerta(){
+        nombAeropuerto = null;
+        diaPresAlerta = null;
+        plazoAlerta = null;
+        fechaIniAlerta = null;
+        fechaFinAlerta = null;
+        descAlerta = null;
+        
     }
 
     public String getPlazoAlerta() {
@@ -1466,14 +1509,12 @@ public class ActualizarContrato {
         try {
             System.out.println("idcontrato: " + idcontrato);
             listContratoAlerta = contratoAlertaServiceImpl.getAlertasContrato(idcontrato);
+            listarEstadosAlerta();
             for (ContratoAlertaVO contratoAlertaVO : listContratoAlerta) {
-                /*for(VO aux : listaInfraestructura){
-                    if(aux.getInfId() == contratoInversionVO.getInfId()){
-                        contratoInversionVO.setInfNombre(aux.getInfNombre());
+                for(ContratoAlertaEstadoVO aux : listContratoAlertaEstado){
+                    if(aux.getCaeId() == contratoAlertaVO.getCaeId()){
+                        contratoAlertaVO.setCaeNombre(aux.getCaeNombre());
                     }
-                } */
-                if (contratoAlertaVO.getCaeId() == 1) {
-                    contratoAlertaVO.setCaeNombre("ACTIVO");
                 }
             }
         } catch (SQLException s) {
@@ -1775,19 +1816,12 @@ public class ActualizarContrato {
         this.fechaCAO = fechaCAO;
     }
 
-    public String getOficioCAO() {
-        return oficioCAO;
-    }
 
-    public void setOficioCAO(String oficioCAO) {
-        this.oficioCAO = oficioCAO;
-    }
-
-    public Long getMontoCAO() {
+    public BigDecimal getMontoCAO() {
         return montoCAO;
     }
 
-    public void setMontoCAO(Long montoCAO) {
+    public void setMontoCAO(BigDecimal montoCAO) {
         this.montoCAO = montoCAO;
     }
 
@@ -1809,29 +1843,33 @@ public class ActualizarContrato {
 
     public void guardarCAO() {
         System.out.println("############# INI GUARDAR CAO");
-        if (monedaCAOId == 0) {
-            System.out.println("monedaCAOId: " + monedaCAOId);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        
+        if(nombreCAO.equals("")){
+                System.out.println("nombreCAO: " + nombreCAO);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "No ha ingresado la Inversión"));  
         } else if (fechaCAO == null) {
             System.out.println("fechaCAO: " + fechaCAO);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (oficioCAO.equals("")) {
-            System.out.println("oficioCAO: " + oficioCAO);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha")); 
         } else if (montoCAO == null) {
             System.out.println("montoCAO: " + montoCAO);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Monto")); 
+        } else if(monedaCAOId == 0) {
+            System.out.println("monedaCAOId: " + monedaCAOId);
+            
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No se ha seleccionado la Moneda")); 
         } else if (documentoCAO.equals("")) {
             System.out.println("documentoCAO: " + documentoCAO);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                 "no ha ingresado La descripcion de la Inversion");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Documento")); 
         } else {
             try {
                 //Date date = new Date();
@@ -1851,8 +1889,6 @@ public class ActualizarContrato {
                 System.out.println("monedaCAOId: " + monedaCAOId);
                 contratoCaoVO.setCaoFecha(fechaCAO);
                 System.out.println("fechaCAO: " + fechaCAO);
-                contratoCaoVO.setCaoOficio(oficioCAO);
-                System.out.println("oficioCAO:" + oficioCAO);
                 contratoCaoVO.setCaoNombre(nombreCAO);
                 System.out.println("nombreCAO:" + nombreCAO);
                 contratoCaoVO.setCaoPdf(documentoCAO);
@@ -1861,18 +1897,19 @@ public class ActualizarContrato {
                 System.out.println("guardo ok");
 
                 cargarListaCaos(contratoVO.getConId());
-                limpiarCampos();
+                limpiarCamposCao();
+                RequestContext.getCurrentInstance().execute("popupAgregarCAO.hide()");
 
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar el CAO "));
                 s.printStackTrace();
                 System.out.println("ERROR SQLE: " + s.getMessage());
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar el CAO "));
                 e.printStackTrace();
                 System.out.println("ERROR E: " + e.getMessage());
             }
@@ -1881,31 +1918,41 @@ public class ActualizarContrato {
         }
     }
     
+    public void limpiarCamposCao(){
+        monedaCAOId = 0;
+        fechaCAO = null;        
+        montoCAO = null;
+        documentoCAO = null;
+        nombreCAO = null;
+    }
+    
     public void guardarPpo() {
             System.out.println("############# INI GUARDAR Ppo");
-            if (monedaPpoId == 0) {
-                System.out.println("monedaPpoId: " + monedaPpoId);
-                FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            if(nombrePpo.equals("")){
+                System.out.println("nombrePpo: " + nombrePpo);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                                  "No ha ingresado el Aeropuerto"));
             } else if (fechaPpo == null) {
                 System.out.println("fechaPpo: " + fechaPpo);
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            } else if (oficioPpo.equals("")) {
-                System.out.println("oficioPpo: " + oficioPpo);
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                                  "No ha ingresado la Fecha"));
             } else if (montoPpo == null) {
                 System.out.println("montoPpo: " + montoPpo);
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                                  "No ha ingresado el Monto"));
+            }else if(monedaPpoId == 0) {
+                System.out.println("monedaPpoId: " + monedaPpoId);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                                  "No ha seleccionado la Moneda"));
             } else if (documentoPpo.equals("")) {
                 System.out.println("documentoPpo: " + documentoPpo);
-                FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                     "no ha ingresado El Documento");
-                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                                  "No ha ingresado el Docuemento"));
             } else {
                 try {
                     //Date date = new Date();
@@ -1925,8 +1972,6 @@ public class ActualizarContrato {
                     System.out.println("monedaPpoId: " + monedaPpoId);
                 getContratoPpoVO().setPpoFecha(fechaPpo);
                     System.out.println("fechaPpo: " + fechaPpo);
-                getContratoPpoVO().setPpoOficio(oficioPpo);
-                    System.out.println("oficioPpo:" + oficioPpo);
                 getContratoPpoVO().setPpoNombre(nombrePpo);
                     System.out.println("nombrePpo:" + nombrePpo);
                 getContratoPpoVO().setPpoArchivoPdf(documentoPpo);
@@ -1935,18 +1980,19 @@ public class ActualizarContrato {
                     System.out.println("guardo ok");
 
                     cargarListaPpos(contratoVO.getConId());
-                    limpiarCampos();
+                    limpiarCamposPpo();
+                    RequestContext.getCurrentInstance().execute("popupAgregarPPO.hide()");
 
                 } catch (SQLException s) {
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                                  " No se pudo registrar la Adenda "));
+                                                                                  " No se pudo registrar el PPO "));
                     s.printStackTrace();
                     System.out.println("ERROR SQLE: " + s.getMessage());
                 } catch (Exception e) {
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                                  " No se pudo registrar la Adenda "));
+                                                                                  " No se pudo registrar el PPO "));
                     e.printStackTrace();
                     System.out.println("ERROR E: " + e.getMessage());
                 }
@@ -1955,31 +2001,40 @@ public class ActualizarContrato {
             }
         }
     
+    public void limpiarCamposPpo(){
+        montoPpo = null;
+        monedaPpoId = 0;
+        fechaPpo = null;       
+        nombrePpo = null;
+        documentoPpo = null;
+    }
     public void guardarHito() {
         System.out.println("############# INI GUARDAR HITO");
-        if (monedaHitoId == 0) {
-            System.out.println("monedaHitoId: " + monedaHitoId);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado la Moneda");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        if(nombreHito.equals("")){
+            System.out.println("nombreHito: " + nombreHito);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Aeropuerto"));   
         } else if (fechaHito == null) {
             System.out.println("fechaHito: " + fechaHito);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado la Fecha");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (oficioHito.equals("")) {
-            System.out.println("oficioHito: " + oficioHito);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el Oficio");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha"));                    
         } else if (montoHito == null) {
             System.out.println("montoHito: " + montoHito);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado el monto");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Monto"));                      
+        }else if (monedaHitoId == 0) {
+            System.out.println("monedaHitoId: " + monedaHitoId);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha selecionado la Moneda"));        
         } else if (documentoHito.equals("")) {
             System.out.println("documentoHito: " + documentoHito);
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                 "no ha ingresado El Documento");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Documento"));             
         } else {
             try {
                 //Date date = new Date();
@@ -1999,8 +2054,7 @@ public class ActualizarContrato {
                 System.out.println("monedaHitoId: " + monedaHitoId);
                 contratoHitoVO.setHtoFecha(fechaHito);
                 System.out.println("fechaHito: " + fechaHito);
-                contratoHitoVO.setHtoOficio(oficioHito);
-                System.out.println("oficioHito:" + oficioHito);
+             
                 contratoHitoVO.setHtoNombre(nombreHito);
                 System.out.println("nombreHito:" + nombreHito);
                 contratoHitoVO.setHtoPdf(documentoHito);
@@ -2009,18 +2063,19 @@ public class ActualizarContrato {
                 System.out.println("guardo ok");
 
                 cargarListaHitos(contratoVO.getConId());
-                limpiarCampos();
+                limpiarCamposHito();
+                RequestContext.getCurrentInstance().execute("popupAgregarHito.hide()");
 
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar el Hito "));
                 s.printStackTrace();
                 System.out.println("ERROR SQLE: " + s.getMessage());
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Adenda "));
+                                                                              " No se pudo registrar el Hito "));
                 e.printStackTrace();
                 System.out.println("ERROR E: " + e.getMessage());
             }
@@ -2102,19 +2157,13 @@ public class ActualizarContrato {
         this.fechaHito = fechaHito;
     }
 
-    public String getOficioHito() {
-        return oficioHito;
-    }
 
-    public void setOficioHito(String oficioHito) {
-        this.oficioHito = oficioHito;
-    }
 
-    public Long getMontoHito() {
+    public BigDecimal getMontoHito() {
         return montoHito;
     }
 
-    public void setMontoHito(Long montoHito) {
+    public void setMontoHito(BigDecimal montoHito) {
         this.montoHito = montoHito;
     }
 
@@ -2174,19 +2223,12 @@ public class ActualizarContrato {
         this.fechaPpo = fechaPpo;
     }
 
-    public String getOficioPpo() {
-        return oficioPpo;
-    }
 
-    public void setOficioPpo(String oficioPpo) {
-        this.oficioPpo = oficioPpo;
-    }
-
-    public Long getMontoPpo() {
+    public BigDecimal getMontoPpo() {
         return montoPpo;
     }
 
-    public void setMontoPpo(Long montoPpo) {
+    public void setMontoPpo(BigDecimal montoPpo) {
         this.montoPpo = montoPpo;
     }
 
@@ -2533,6 +2575,31 @@ public class ActualizarContrato {
         return tabDeshabilitado;
     }
 
+    public ContratoAlertaEstadoVO getContratoAlertaEstadoVO() {
+        return contratoAlertaEstadoVO;
+    }
+
+    public void setContratoAlertaEstadoVO(ContratoAlertaEstadoVO contratoAlertaEstadoVO) {
+        this.contratoAlertaEstadoVO = contratoAlertaEstadoVO;
+    }
+
+    public ContratoAlertaEstadoServiceImpl getContratoAlertaEstadoServiceImpl() {
+        return contratoAlertaEstadoServiceImpl;
+    }
+
+    public void setContratoAlertaEstadoServiceImpl(ContratoAlertaEstadoServiceImpl contratoAlertaEstadoServiceImpl) {
+        this.contratoAlertaEstadoServiceImpl = contratoAlertaEstadoServiceImpl;
+    }
+
+    public List<ContratoAlertaEstadoVO> getListContratoAlertaEstado() {
+        return listContratoAlertaEstado;
+    }
+
+    public void setListContratoAlertaEstado(List<ContratoAlertaEstadoVO> listContratoAlertaEstado) {
+        this.listContratoAlertaEstado = listContratoAlertaEstado;
+    }
+
+
     public void setListarContratoCompromisoSupervisado(List<ContratoCompromisoVO> listarContratoCompromisoSupervisado) {
         this.listarContratoCompromisoSupervisado = listarContratoCompromisoSupervisado;
     }
@@ -2573,4 +2640,5 @@ public class ActualizarContrato {
     public double getTipocambiosup() {
         return tipocambiosup;
     }
+
 }

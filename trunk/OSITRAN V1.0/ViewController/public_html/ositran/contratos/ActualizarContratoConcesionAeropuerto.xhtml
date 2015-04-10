@@ -1128,7 +1128,9 @@
                                         <td align="left" style="font-weight: bold;">CAO</td>
                                         <td align="right">
                                             <p:commandButton value="Agregar CAO" id="nuevoCAO"
-                                                             onclick="popupAgregarCAO.show()" type="reset"
+                                                             oncomplete="popupAgregarCAO.show()"
+                                                             update=":tab:frmAgregarCAO"                                                                                                                                                                                             
+                                                             actionListener="#{actualizarContratoMB.limpiarCamposCao()}"
                                                              image="ui-icon-document"/>
                                         </td>
                                     </tr>
@@ -1153,9 +1155,6 @@
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:10%">
                                                         <h:outputText value="#{tCao.caoFecha}"/>
-                                                    </p:column>
-                                                    <p:column headerText="Oficio" style="width:10%">
-                                                        <h:outputText value="#{tCao.caoOficio}"/>
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:4%">
                                                         <h:outputText value="#{tCao.caoMonto}"/>
@@ -1201,7 +1200,9 @@
                                         <td align="left" style="font-weight: bold;">Hito</td>
                                         <td align="right">
                                             <p:commandButton value="Agregar Hito" id="nuevoHito"
-                                                             onclick="popupAgregarHito.show()" type="reset"
+                                                             oncomplete="popupAgregarHito.show()"
+                                                             update=":tab:frmAgregarHito"                                                                                                                                                                                             
+                                                             actionListener="#{actualizarContratoMB.limpiarCamposHito()}"
                                                              image="ui-icon-document"/>
                                         </td>
                                     </tr>
@@ -1227,14 +1228,11 @@
                                                     <p:column headerText="Fecha" style="width:10%">
                                                         <h:outputText value="#{tHito.htoFecha}"/>
                                                     </p:column>
-                                                    <p:column headerText="Oficio" style="width:10%">
-                                                        <h:outputText value="#{tHito.htoOficio}"/>
-                                                    </p:column>
                                                     <p:column headerText="Monto" style="width:4%">
                                                         <h:outputText value="#{tHito.htoMonto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:8%">
-                                                        <h:outputText value="#{tHito.htoNombre}"/>
+                                                    <p:column headerText="Moneda" style="width:8%; text-align:">
+                                                        <h:outputText value="#{tHito.monNombre}"/>
                                                     </p:column>
                                                     <p:column headerText="Ver" style="width:4%">
                                                         <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
@@ -1274,7 +1272,9 @@
                                         <td align="left" style="font-weight: bold;">PPO</td>
                                         <td align="right">
                                             <p:commandButton value="Agregar PPO" id="nuevoPPO"
-                                                             onclick="popupAgregarPPO.show()" type="reset"
+                                                             oncomplete="popupAgregarPPO.show()"
+                                                             update=":tab:frmAgregarPpo"
+                                                             actionListener="#{actualizarContratoMB.limpiarCamposPpo()}"
                                                              image="ui-icon-document"/>
                                         </td>
                                     </tr>
@@ -1299,9 +1299,6 @@
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:10%">
                                                         <h:outputText value="#{tPpo.ppoFecha}"/>
-                                                    </p:column>
-                                                    <p:column headerText="Oficio" style="width:10%">
-                                                        <h:outputText value="#{tPpo.ppoOficio}"/>
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:4%">
                                                         <h:outputText value="#{tPpo.ppoMonto}"/>
@@ -1334,15 +1331,15 @@
                             </h:form>
                             <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO">
                                 <h:form id="frmAgregarCAO">
+                                    <p:growl id="msjCao" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
                                             <td align="left">Inversi&#243;n</td>
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombreCAO}"
                                                              style="width:300px;"
-                                                             id="nombreCAO" required="true"
+                                                             id="nombreCAO"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/> 
-                                                <p:message for="nombreCAO" display="icon" />
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
@@ -1355,35 +1352,17 @@
                                                 <p:calendar locale="es" 
                                                             pattern="dd-MM-yyyy" 
                                                             value="#{actualizarContratoMB.fechaCAO}"
-                                                            required="true"
                                                             id="fechaCAO"/>
-                                                 <p:message for="fechaCAO" display="icon" />
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Oficio</td>
-                                            <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.oficioCAO}"
-                                                             style="width:300px;"
-                                                             id="oficioCAO"
-                                                             required="true"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 <p:message for="oficioCAO" display="icon" />
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
                                         <tr>
                                             <td align="left">Monto</td>
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.montoCAO}"
                                                              style="width:200px;"
                                                              id="montoCAO"
-                                                             required="true"
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                <p:message for="montoCAO" display="icon" /> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -1410,10 +1389,8 @@
                                                 <p:inputText id="docCao"
                                                              value="#{actualizarContratoMB.documentoCAO}"
                                                              style="width:200px;"
-                                                             required="true"
                                                              readonly="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"
                                                              />
-                                                <p:message for="docCao" display="icon" />            
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}"
                                                       update="docCao" label="Archivo" auto="true"/> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -1430,8 +1407,7 @@
                                          
                                         <tr>
                                             <td align="center" colspan="2">
-                                                <p:commandButton update=":tab:frmCHP:tablaCAO"
-                                                                 oncomplete="popupAgregarCAO.hide()"
+                                                <p:commandButton update=":tab:frmCHP:tablaCAO :tab:frmAgregarCAO"                                                                                                                                                                                             
                                                                  actionListener="#{actualizarContratoMB.guardarCAO()}"
                                                                  style="width:70px" value="#{btn.btn_guardar}"/>
                                                  
@@ -1470,6 +1446,7 @@
                         
                             <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito">
                                 <h:form id="frmAgregarHito">
+                                <p:growl id="msjHito" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
                                             <td align="left">Aeropuerto</td>
@@ -1490,18 +1467,6 @@
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Oficio</td>
-                                            <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.oficioHito}"
-                                                             style="width:300px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
                                         <tr>
                                             <td align="left">Monto</td>
                                             <td align="left">
@@ -1553,10 +1518,10 @@
                                          
                                         <tr>
                                             <td align="center" colspan="2">
-                                                <p:commandButton update=":tab:frmCHP:tablaHito"
-                                                                 action="#{actualizarContratoMB.guardarHito}"
+                                                <p:commandButton update=":tab:frmCHP:tablaHito :tab:frmAgregarHito"
+                                                                 actionListener="#{actualizarContratoMB.guardarHito()}"
                                                                  style="width:70px" value="#{btn.btn_guardar}"
-                                                                 oncomplete="popupAgregarHito.hide()"/>
+                                                                 />
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarHito.hide()"
@@ -1592,6 +1557,7 @@
                             </p:dialog>
                             <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO">
                                 <h:form id="frmAgregarPpo">
+                                    <p:growl id="msjPpo" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
                                             <td align="left">Aeropuerto</td>
@@ -1612,18 +1578,6 @@
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
-                                         
-                                        <tr>
-                                            <td align="left">Oficio</td>
-                                            <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.oficioPpo}"
-                                                             style="width:300px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
-                                            </td>
-                                        </tr>
-                                         
                                         <tr>
                                             <td align="left">Monto</td>
                                             <td align="left">
@@ -1675,10 +1629,9 @@
                                          
                                         <tr>
                                             <td align="center" colspan="2">
-                                                <p:commandButton update=":tab:frmCHP:tablaPPO"
+                                                <p:commandButton update=":tab:frmCHP:tablaPPO :tab:frmAgregarPpo"
                                                                  action="#{actualizarContratoMB.guardarPpo}"
-                                                                 style="width:70px" value="#{btn.btn_guardar}"
-                                                                 oncomplete="popupAgregarPPO.hide()"/>
+                                                                 style="width:70px" value="#{btn.btn_guardar}"/>
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarPPO.hide()"
@@ -1720,7 +1673,9 @@
                                         <td align="left" style="font-weight: bold;">Alertas</td>
                                         <td align="right">
                                             <p:commandButton value="Agregar Alerta" id="nuevaAlerta"
-                                                             onclick="popupAgregarAlerta.show()" type="reset"
+                                                             oncomplete="popupAgregarAlerta.show()"
+                                                             action="#{actualizarContratoMB.limpiarCamposAlerta()}"                                                                 
+                                                             update=":tab:frmAgregarAlerta"
                                                              image="ui-icon-document"/>
                                         </td>
                                     </tr>
@@ -1746,14 +1701,14 @@
                                                     <p:column headerText="Fecha Inicio" style="width:6%">
                                                         <h:outputText value="#{tAlerta.calFechaInicio}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha Fin" style="width:5%">
+                                                    <p:column headerText="Fecha Fin" style="width:6%">
                                                         <h:outputText value="#{tAlerta.calFechaFin}"/>
                                                     </p:column>
                                                     <p:column headerText="Plazo" style="width:4%">
                                                         <h:outputText value="#{tAlerta.calPlazo}"/>
                                                     </p:column>
                                                     <p:column headerText="Dia de Presentación" style="width:11%">
-                                                        <h:outputText value="#{tAlerta.calDiaPresentación}"/>
+                                                        <h:outputText value="#{tAlerta.calDiaPresentacion}"/>
                                                     </p:column>
                                                     <p:column headerText="Estado" style="width:4%">
                                                         <h:outputText value="#{tAlerta.caeNombre}"/>
@@ -1798,6 +1753,7 @@
                             </h:form>
                             <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta">
                                 <h:form id="frmAgregarAlerta">
+                                    <p:growl id="msjAlerta" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
                                             <td align="left">Aeropuerto</td>
@@ -1856,9 +1812,9 @@
                                         <tr>
                                             <td align="left">Dia de Presentaci&#243;n</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
-                                                            value="#{actualizarContratoMB.diaPresAlerta}"
-                                                            style="width:200px;"/>
+                                                 <p:inputText value="#{actualizarContratoMB.diaPresAlerta}"
+                                                             style="width:200px;"
+                                                             onkeypress="return validarNum(event);"/>                                                
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1874,10 +1830,9 @@
                                          
                                         <tr>
                                             <td align="center" colspan="2">
-                                                <p:commandButton action="#{actualizarContratoMB.guardarAlerta()}"
+                                                <p:commandButton actionListener="#{actualizarContratoMB.guardarAlerta()}"
                                                                  style="width:70px" value="#{btn.btn_guardar}"
-                                                                 oncomplete="popupAgregarAlerta.hide()"
-                                                                 update=":tab:frmAlerta:tablaAlerta"/>
+                                                                 update=":tab:frmAlerta:tablaAlerta :tab:frmAgregarAlerta"/>
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarAlerta.hide()"
@@ -1964,9 +1919,11 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Inversiones</td>
                                         <td align="right">
-                                            <p:commandButton image="ui-icon-document" type="reset"
+                                            <p:commandButton image="ui-icon-document"
                                                              value="Agregar Inversión"
-                                                             onclick="popupAgregarInversion.show()"/>
+                                                             actionListener="#{actualizarContratoMB.limpiarCamposInversion()}"
+                                                             update=":tab:frmAgregarInversion"
+                                                             oncomplete="popupAgregarInversion.show()"/>
                                         </td>
                                     </tr>
                                      
@@ -2010,8 +1967,9 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversion">
+                            <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversión">
                                 <h:form id="frmAgregarInversion">
+                                    <p:growl id="msjInversion" showDetail="true" life="10000"/>
                                     <table style="width:100% ;font-size:11px;">
                                         <tr>
                                             <td>Aeropuerto</td>
@@ -2031,7 +1989,8 @@
                                             <td>Inversi&#243;n</td>
                                             <td>
                                                 <p:inputTextarea id="descInversion" style="width:400px; height:50px;"
-                                                                 value="#{actualizarContratoMB.descInversion}"/>
+                                                                 value="#{actualizarContratoMB.descInversion}"
+                                                                 onkeyup="pasarMayuscula(this.value,this.id)"/>
                                             </td>
                                         </tr>
                                          
@@ -2039,10 +1998,10 @@
                                             <td colspan="2" align="center">
                                                 <p:commandButton value="Guardar" id="nuevaInversion"
                                                                  actionListener="#{actualizarContratoMB.guardarContratoInversion()}"
-                                                                 update=":tab:frmInversion:tablaContratoInversion"
-                                                                 oncomplete="popupAgregarInversion.hide()"/>
+                                                                 update=":tab:frmInversion:tablaContratoInversion :tab:frmAgregarInversion"/>
                                                  
-                                                <p:commandButton value="Salir" onclick="popupAgregarInversion.hide()"
+                                                <p:commandButton value="Salir" 
+                                                                 onclick="popupAgregarInversion.hide()"                                                                 
                                                                  type="reset"/>
                                             </td>
                                         </tr>
