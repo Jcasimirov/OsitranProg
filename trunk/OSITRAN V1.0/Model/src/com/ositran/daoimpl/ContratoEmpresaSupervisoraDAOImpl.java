@@ -8,8 +8,10 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervisoraDAO{
@@ -31,7 +33,7 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoSupervisora);
+            session.merge(contratoSupervisora);
             session.getTransaction().commit();
             
         } catch (Exception e) {
@@ -79,5 +81,35 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
     public int ValidarContratoSupervisora(int i, int i2) throws SQLException {
         // TODO Implement this method
         return 0;
+    }
+
+    @Override
+    public List<ContratoSupervisora> filtrarContraEmpSup(String empresaSupervisora, String tipoInfraestructura,
+                                                         String nroContrato) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
+        session.beginTransaction();    
+        Query query;
+        /*query=session.createQuery("select o from ContratoSupervisora o where o.empresaSupervisora like :busqueda1 " +
+            "and o.tipoInfraestructura like :busqueda2 " +
+            "and o.cpsNroDeContrato like :busqueda3 " +
+            "and o.cpsEstado <> 2");*/
+        query=session.createQuery("select o from ContratoSupervisora o where o.cpsNroDeContrato like :busqueda3 " +
+            "and o.cpsEstado <> 2");
+        System.out.println("query:");
+        System.out.println(query);
+        String empresaSupervisoraStr="";
+        String tipoInfraestructuraStr="";
+        
+        Integer nroContratoStr=Integer.valueOf(nroContrato);
+        //query.setParameter("busqueda1","%"+empresaSupervisoraStr+"%");
+        //query.setParameter("busqueda2","%"+tipoInfraestructuraStr+"%");
+        query.setParameter("busqueda3",nroContratoStr);
+        System.out.println("query:");
+        System.out.println(query);
+        
+        list= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
     }
 }
