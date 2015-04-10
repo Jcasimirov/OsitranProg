@@ -31,6 +31,10 @@ public class UsuarioVO{
     private String usuUsuarioAlta;
     private String usuUsuarioBaja;
     private String usuUsuarioCambio;
+    private int contador;
+    
+    //Atributo Rol
+    private String nombreRol;
     
     public UsuarioVO(){
         }
@@ -187,5 +191,20 @@ public class UsuarioVO{
         return usuUsuarioCambio;
     }
 
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
 
+    public int getContador() {
+        return contador;
+    }
+
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
 }
