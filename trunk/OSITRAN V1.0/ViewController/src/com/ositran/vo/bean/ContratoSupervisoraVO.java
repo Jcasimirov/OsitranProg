@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 public class ContratoSupervisoraVO {
@@ -32,6 +34,11 @@ public class ContratoSupervisoraVO {
     private Integer empresaSupervisora;
     //private String ContratoSupervisoraAdendaList;
     private Integer contrato;
+    //PDF
+    private String cenDocumentoFisico;
+    private String cenFechaDescripcion;
+    private Integer cenEntrega;
+    private InputStream inputStreamNuevaEntrega;    
     
     public ContratoSupervisoraVO(){
     }
@@ -298,5 +305,37 @@ public class ContratoSupervisoraVO {
     public Integer getContrato() {
         return contrato;
     }
-}
 
+    public void setCenDocumentoFisico(String cenDocumentoFisico) {
+        this.cenDocumentoFisico = cenDocumentoFisico;
+    }
+
+    public String getCenDocumentoFisico() {
+        return cenDocumentoFisico;
+    }
+
+    public void setCenFechaDescripcion(String cenFechaDescripcion) {
+        this.cenFechaDescripcion = cenFechaDescripcion;
+    }
+
+    public String getCenFechaDescripcion() {
+        return cenFechaDescripcion;
+    }
+
+    public void setCenEntrega(Integer cenEntrega) {
+        this.cenEntrega = cenEntrega;
+    }
+
+    public Integer getCenEntrega() {
+        return cenEntrega;
+    }
+
+    public void setInputStreamNuevaEntrega(InputStream inputStreamNuevaEntrega) {
+        this.inputStreamNuevaEntrega = inputStreamNuevaEntrega;
+    }
+
+    public InputStream getInputStreamNuevaEntrega() {
+        return inputStreamNuevaEntrega;
+    }
+
+}
