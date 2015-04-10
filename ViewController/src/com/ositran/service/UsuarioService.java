@@ -1,6 +1,7 @@
 package com.ositran.service;
 
 import com.ositran.model.Usuario;
+import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.UsuarioVO;
 
@@ -19,6 +20,8 @@ public interface UsuarioService {
 
     public UsuarioVO get(Integer id) throws SQLException;
 
-    public List<UsuarioVO> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException;
+    public List<UsuarioVO> UserSearch(String nomUserSearch) throws SQLException;
+    
+    public List<UsuarioVO> queryTD(int filtro)  throws SQLException;
 
 }
