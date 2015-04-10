@@ -42,6 +42,7 @@ public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
             System.out.print(" error al insertar contratoAlerta \n ");
+            e.printStackTrace();
         }
         System.out.print("#######   FIN INSERT contratoAlerta \n ");
         return result;

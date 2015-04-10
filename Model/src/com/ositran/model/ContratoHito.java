@@ -1,6 +1,9 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,9 +37,7 @@ public class ContratoHito implements Serializable {
     @Column(name = "HTO_ID", nullable = false)
     private Integer htoId;
     @Column(name = "HTO_MONTO", nullable = false)
-    private Long htoMonto;
-    @Column(name = "HTO_OFICIO", length = 20)
-    private String htoOficio;
+    private BigDecimal htoMonto;
     @Column(name = "HTO_PDF")
     private String htoPdf;
     @Column(name = "MON_ID")
@@ -51,13 +52,12 @@ public class ContratoHito implements Serializable {
     public ContratoHito() {
     }
 
-    public ContratoHito(Integer conId, Date htoFecha, Integer htoId, Long htoMonto, String htoOficio,
+    public ContratoHito(Integer conId, Date htoFecha, Integer htoId, BigDecimal htoMonto,
                         String htoPdf, Integer monId, Integer htoEstado, String htoNombre) {
         this.conId = conId;
         this.htoFecha = htoFecha;
         this.htoId = htoId;
-        this.htoMonto = htoMonto;
-        this.htoOficio = htoOficio;
+        this.htoMonto = htoMonto;        
         this.htoPdf = htoPdf;
         this.monId = monId;
         this.htoEstado = htoEstado;
@@ -88,20 +88,12 @@ public class ContratoHito implements Serializable {
         this.htoId = htoId;
     }
 
-    public Long getHtoMonto() {
+    public BigDecimal getHtoMonto() {
         return htoMonto;
     }
 
-    public void setHtoMonto(Long htoMonto) {
+    public void setHtoMonto(BigDecimal htoMonto) {
         this.htoMonto = htoMonto;
-    }
-
-    public String getHtoOficio() {
-        return htoOficio;
-    }
-
-    public void setHtoOficio(String htoOficio) {
-        this.htoOficio = htoOficio;
     }
 
     public String getHtoPdf() {

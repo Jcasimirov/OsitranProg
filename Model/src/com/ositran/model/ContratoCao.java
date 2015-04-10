@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,9 +34,7 @@ public class ContratoCao implements Serializable {
     @Column(name = "CAO_ID", nullable = false)
     private Integer caoId;
     @Column(name = "CAO_MONTO", nullable = false)
-    private Long caoMonto;
-    @Column(name = "CAO_OFICIO", length = 20)
-    private String caoOficio;
+    private BigDecimal caoMonto;
     @Column(name = "CAO_PDF")
     private String caoPdf;
     //@Id
@@ -52,12 +52,11 @@ public class ContratoCao implements Serializable {
     public ContratoCao() {
     }
 
-    public ContratoCao(Date caoFecha, Integer caoId, Long caoMonto, String caoOficio, String caoPdf,
+    public ContratoCao(Date caoFecha, Integer caoId, BigDecimal caoMonto, String caoPdf,
                        Integer conId, Integer monId, Integer caoEstado, String caoNombre) {
         this.caoFecha = caoFecha;
         this.caoId = caoId;
-        this.caoMonto = caoMonto;
-        this.caoOficio = caoOficio;
+        this.caoMonto = caoMonto;        
         this.caoPdf = caoPdf;
         this.conId = conId;
         this.monId = monId;
@@ -81,20 +80,12 @@ public class ContratoCao implements Serializable {
         this.caoId = caoId;
     }
 
-    public Long getCaoMonto() {
+    public BigDecimal getCaoMonto() {
         return caoMonto;
     }
 
-    public void setCaoMonto(Long caoMonto) {
+    public void setCaoMonto(BigDecimal caoMonto) {
         this.caoMonto = caoMonto;
-    }
-
-    public String getCaoOficio() {
-        return caoOficio;
-    }
-
-    public void setCaoOficio(String caoOficio) {
-        this.caoOficio = caoOficio;
     }
 
     public String getCaoPdf() {
