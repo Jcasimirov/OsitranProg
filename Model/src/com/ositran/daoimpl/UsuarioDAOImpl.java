@@ -1,5 +1,6 @@
 package com.ositran.daoimpl;
 
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -77,32 +78,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Usuario o order by USU_ID asc").list();
-        System.out.println("**************+");
         System.out.println(list.size());
         return list;
     }
 
     @Override
-    public List<Usuario> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException {
-        
-            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-            session.beginTransaction();
+    public List<Usuario> UserSearch(String nomUserSearch) throws SQLException {
             Query query;
-            if( nomTipoSearch<1  ){
-                query=session.createQuery("FROM Usuario u WHERE lower(u.usuAlias) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2) order by USU_ID asc");
-                    query.setParameter("busqueda1", "%" + searchUsuario + "%");
-                    query.setParameter("busqueda2", "%" + searchNombre + "%");
-                }
-            else if( nomTipoSearch>0 ){
-                query=session.createQuery("FROM Usuario u WHERE lower(u.usuEsexterno) like lower(:busqueda3)order by USU_ID asc");
-                query.setParameter("busqueda3",nomTipoSearch);
-                }
-            else{
-            query = session.createQuery("FROM Usuario u WHERE lower(u.usuAlias) like lower(:busqueda1) and lower(u.usuNombre) like lower(:busqueda2)and lower(u.usuEsexterno) like lower(:busqueda3) order by USU_ID asc" );
-            query.setParameter("busqueda1", "%" + searchUsuario + "%");
-            query.setParameter("busqueda2", "%" + searchNombre + "%");
-            query.setParameter("busqueda3",nomTipoSearch);
-            }
+            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            query =session.createQuery("FROM Usuario u WHERE lower(u.usuAlias) like lower(:busqueda) or lower(u.usuNombre) like lower(:busqueda) order by USU_ID asc");
+            query.setParameter("busqueda", "%" + nomUserSearch + "%");
             return query.list();
         }
 
@@ -116,4 +101,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
 
+    @Override
+    public List<Usuario> queryTD(int filtro) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Query query;
+        session.beginTransaction();
+        query = session.createQuery("FROM Usuario  E WHERE upper(E.usuEsexterno)= :filtro1 and upper(E.usuEstado) <> 0");
+        query.setParameter("filtro1",  filtro);
+        List list = query.list();
+        session.getTransaction().commit();
+        return list;
+    }
 }
