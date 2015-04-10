@@ -4,9 +4,12 @@ import com.ositran.serviceimpl.ContratoEmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
+import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
 import com.ositran.vo.bean.MonedaVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -49,6 +52,7 @@ import org.primefaces.component.outputlabel.OutputLabel;
 import org.primefaces.component.panelgrid.PanelGrid;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean(name = "backing_ositran_parametros_mantenimientoContratEmprSupervisor")
 @ViewScoped
@@ -66,7 +70,7 @@ public class MantenimientoContratEmprSupervisor {
     private CommandButton commandButton1;
     private OutputLabel outputLabelNroContrato;
     private InputText inputTextNroContrato;
-    private CommandButton commandButton2;
+    private CommandButton commandButtonLimpiar;
     private DataTable dataTableConEmprSupr;
     private Column columnN;
     private Column columnNumContrato;
@@ -217,7 +221,7 @@ public class MantenimientoContratEmprSupervisor {
     private CommandButton commandButtonCancelarModif;
     private CommandButton commandButtonDialModificar;
     private HtmlInputHidden inputHidden4;
-
+    private PanelGrid panelGrid4;
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -315,12 +319,12 @@ public class MantenimientoContratEmprSupervisor {
         return inputTextNroContrato;
     }
 
-    public void setCommandButton2(CommandButton commandButton2) {
-        this.commandButton2 = commandButton2;
+    public void setCommandButtonLimpiar(CommandButton commandButton2) {
+        this.commandButtonLimpiar = commandButton2;
     }
 
-    public CommandButton getCommandButton2() {
-        return commandButton2;
+    public CommandButton getCommandButtonLimpiar() {
+        return commandButtonLimpiar;
     }
 
     public void setDataTableConEmprSupr(DataTable dataTable1) {
@@ -570,6 +574,15 @@ public class MantenimientoContratEmprSupervisor {
     ///private List<ContratoSupervisoraVO> listaContratoSupervisora;
     private List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
 
+    public List<ContratoSupervisoraVO> getListaContratoSupervisora(){
+        return listaContratoSupervisora;
+    }
+
+    public void setListaContratoSupervisora(List<ContratoSupervisoraVO> listaContratoSupervisora) {
+        this.listaContratoSupervisora = listaContratoSupervisora;
+    }
+
+
     public List<ContratoSupervisoraVO> getListarContratoSupervisora() throws SQLException {
         try {
             listaContratoSupervisora = getContratoEmpresaSupervisoraServiceImpl().query();
@@ -605,20 +618,59 @@ public class MantenimientoContratEmprSupervisor {
         }
     }*/
 
-    public List<ContratoSupervisoraVO> buscarConEmpSup() throws SQLException {
-        /*listaEmpSup=this.contratoEmpresaSupervisoraServiceImpl.FiltrarEmpSup(nomEmpSupBus,rucbus);
-        listaTipoDocumento = this.tipoDocumentoServiceImp.query();
-        for (int i = 0 ; i< listaEmpSup.size();i++){
-            for(int j=0; j<listaTipoDocumento.size();j++){
-                if(listaEmpSup.get(i).getTdoId() == listaTipoDocumento.get(j).getTdoId()){
-                    listaEmpSup.get(i).setDescripcionDoc(listaTipoDocumento.get(j).getTdoNombre());
-                }
-            }
-        }
-        //limpiarCampos ();
-        return listaEmpSup; */
-        return new ArrayList();
+
+    // Busqueda
+    
+    String nomEmpSupBuscar;//=String.valueOf(inputTextEmpresaSupervisora.getValue());    
+    String tipoInfraBuscar;//=String.valueOf(inputHiddenSelectedTipoInfraestructura);
+    String numContratoBuscar;//=String.valueOf(inputTextNroContrato.getValue());
+
+    public void setNomEmpSupBuscar(String nomEmpSupBuscar) {
+        this.nomEmpSupBuscar = nomEmpSupBuscar;
     }
+
+    public String getNomEmpSupBuscar() {
+        return nomEmpSupBuscar;
+    }
+
+    public void setNumContratoBuscar(String numContratoBuscar) {
+        this.numContratoBuscar = numContratoBuscar;
+    }
+
+    public String getNumContratoBuscar() {
+        return numContratoBuscar;
+    }
+
+    public void setTipoInfraBuscar(String tipoInfraBuscar) {
+        this.tipoInfraBuscar = tipoInfraBuscar;
+    }
+
+    public String getTipoInfraBuscar() {
+        return tipoInfraBuscar;
+    }
+
+    //List<ContratoSupervisoraVO> listaContraEmpSup;
+    public List<ContratoSupervisoraVO> buscarConEmpSup() throws SQLException {
+        nomEmpSupBuscar=String.valueOf(inputTextEmpresaSupervisora.getValue());    
+        tipoInfraBuscar=String.valueOf(inputHiddenSelectedTipoInfraestructura);
+        numContratoBuscar=String.valueOf(inputTextNroContrato.getValue());
+        listaContratoSupervisora=this.contratoEmpresaSupervisoraServiceImpl.filtrarContraEmpSup(nomEmpSupBuscar, tipoInfraBuscar, numContratoBuscar);
+        System.out.println("nomEmpSupBuscar, tipoInfraBuscar, numContratoBuscar = "+nomEmpSupBuscar+" "+tipoInfraBuscar+" "+numContratoBuscar);
+        //limpiarCampos ();
+        return listaContratoSupervisora;
+    }
+    
+    
+    /*private List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
+    public List<ContratoSupervisoraVO> getListarContratoSupervisora() throws SQLException {
+        try {
+            listaContratoSupervisora = getContratoEmpresaSupervisoraServiceImpl().query();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaContratoSupervisora;
+    }*/
+    
 
 
     public void setDialogRegConEmpSup(Dialog dialog1) {
@@ -1262,7 +1314,7 @@ public class MantenimientoContratEmprSupervisor {
      * @return moneda para que se renderize en el combo
      */
     public List<SelectItem> getMonedaSelectItems() throws SQLException {
-        monedaSelectItems.add(new SelectItem("-1", "Seleccione"));
+        monedaSelectItems.add(new SelectItem("", "Seleccione"));
         List<MonedaVO> lista = listarMoneda();
         int i = 0;
         for (MonedaVO mvo : lista) {
@@ -1310,44 +1362,117 @@ public class MantenimientoContratEmprSupervisor {
     public Date getFechaSuscripcion() {
         return fechaSuscripcion;
     }
-
-
+    
+    // Registrar Contrato Empresa Supervisora
+    /*private String cpsFechaInicioStr;
+    private String cpsFechaSuscripcion;
+    contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
+    contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
+    contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
+    contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
+    contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
+    contratoSupervisoraVO.setCpsEstado(1);
+    contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
+    contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
+    contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
+    //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
+    contratoSupervisoraVO.setEmpresaSupervisora(1);
+    contratoSupervisoraVO.setContrato(22);
+    contratoSupervisoraVO.setInfraestructura(1);
+    contratoSupervisoraVO.setCpsEstado(1);
+    contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
+    System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
+    contratoSupervisoraVO.setConcesion(1);
+    contratoSupervisoraVO.setCpsPenalidades("1");
+    contratoSupervisoraVO.setCpsCaducidad("1");
+    contratoSupervisoraVO.setCpsGarantias("1");*/
+        
     public void grabar() throws SQLException {
-        try {
-            contratoSupervisoraVO.setCpsFechaInicio((Date)calendarFecIniContratoNew.getValue());
-            contratoSupervisoraVO.setCpsFechaSuscripcion((Date)calendarFecSuscripcionNew.getValue());
-            contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
-            contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
-            contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
-            contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
-            contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
-            contratoSupervisoraVO.setCpsEstado(1);
-            contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
-            contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
-            contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
-            //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
-            contratoSupervisoraVO.setEmpresaSupervisora(1);
-            System.out.println("empresa: "+contratoSupervisoraVO.getEmpresaSupervisora());
-            contratoSupervisoraVO.setContrato(22);
-            contratoSupervisoraVO.setInfraestructura(1);
-            contratoSupervisoraVO.setCpsEstado(1);
-            contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
-            System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
-            contratoSupervisoraVO.setConcesion(1);
-            contratoSupervisoraVO.setCpsPenalidades("1");
-            contratoSupervisoraVO.setCpsCaducidad("1");
-            contratoSupervisoraVO.setCpsGarantias("1");
-            this.contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
-            //getQuery();
-            //limpiarCampos();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito");
+        System.out.println("inputHiddenSelectedMoneda = "+inputHiddenSelectedMoneda);
+        System.out.println("getInputHiddenSelectedMoneda = "+getInputHiddenSelectedMoneda());
+        System.out.println("inputHidden2 = "+inputHidden2);
+        System.out.println("getInputHidden2() = "+getInputHidden2());
+        System.out.println("inputHidden2.getValue() = "+inputHidden2.getValue());
+        System.out.println("moneda = "+moneda);
+        System.out.println("getMoneda = "+this.getMoneda());
+        if (this.inputTextPlazoContratoNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado el plazo.");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            RequestContext.getCurrentInstance().execute("dialogRegConEmpSup.hide()");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+        }else if (this.inputTextMontoContratadoNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado el monto.");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextAdelantoOtorgadoNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado al adelanto otorgado.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextNumero.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el número de STD");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextAnnio.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el año.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextareaRefPenalidadNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la penalidad.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextareaRefCausalesCaduNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las causales de caducidad.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextareaGarantiasFavorNew.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la garantía.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (this.inputTextareaAsunto.getValue().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el asunto.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        /*}else if (this.inputHiddenSelectedMoneda.equals(null)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la fecha de registro.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+          */  
+        }else if (this.calendarFechaRegistro.getValue().equals(null)) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la fecha de registro.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        /*}else if (contratoSupervisoraVO.getCpsAsunto().toString().trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (contratoSupervisoraVO.getTipoInfraestructura().toString().trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }*/
+        }        
+        else{
+               try {
+                    contratoSupervisoraVO.setCpsFechaInicio((Date)calendarFecIniContratoNew.getValue());
+                    contratoSupervisoraVO.setCpsFechaSuscripcion((Date)calendarFecSuscripcionNew.getValue());
+                    contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
+                    contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
+                    contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
+                    contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
+                    contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
+                    contratoSupervisoraVO.setCpsEstado(1);
+                    contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
+                    contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
+                    contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
+                    //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
+                    contratoSupervisoraVO.setEmpresaSupervisora(1);
+                    contratoSupervisoraVO.setContrato(22);
+                    contratoSupervisoraVO.setInfraestructura(1);
+                    contratoSupervisoraVO.setCpsEstado(1);
+                    contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
+                    System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
+                    contratoSupervisoraVO.setConcesion(1);
+                    contratoSupervisoraVO.setCpsPenalidades("1");
+                    contratoSupervisoraVO.setCpsCaducidad("1");
+                    contratoSupervisoraVO.setCpsGarantias("1");
+                    this.contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+                    getListarContratoSupervisora();
+                    limpiarCampos();
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                    RequestContext.getCurrentInstance().execute("dialogRegConEmpSup.hide()");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
         }
     }
 
@@ -1449,7 +1574,7 @@ public class MantenimientoContratEmprSupervisor {
             //contratoSupervisoraVO.setSupTerminal(util.obtenerIpCliente());
             this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);
             //this.empSupServiceImp.delete(idEmpSup);
-            ///getQuery();
+            getListarContratoSupervisora();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
                                                         FacesContext.getCurrentInstance().addMessage(null, mensaje);        
         }catch(Exception e){
@@ -1806,9 +1931,9 @@ public class MantenimientoContratEmprSupervisor {
     private String inputTextPlazoContratoModifStr;
     private String inputTextMontoContratadoModifStr;
     private String inputTextAdelantoOtorgadoModifStr;
-    private String calendarFechaAdelantoModifStr;
+    private Date calendarFechaAdelantoModifStr;
     private String inputTextNroContratoModifStr;
-    private String calendarFechaRegistroModifStr;
+    private Date calendarFechaRegistroModifStr;
     private String inputTextareaAsuntoModifStr;
     private String inputTextTipoInfraModifStr;
     private String inputTextareaRefPenalidadModifStr;
@@ -1872,11 +1997,12 @@ public class MantenimientoContratEmprSupervisor {
         return inputTextAdelantoOtorgadoModifStr;
     }
 
-    public void setCalendarFechaAdelantoModifStr(String calendarFechaAdelantoModifStr) {
+
+    public void setCalendarFechaAdelantoModifStr(Date calendarFechaAdelantoModifStr) {
         this.calendarFechaAdelantoModifStr = calendarFechaAdelantoModifStr;
     }
 
-    public String getCalendarFechaAdelantoModifStr() {
+    public Date getCalendarFechaAdelantoModifStr() {
         return calendarFechaAdelantoModifStr;
     }
 
@@ -1888,11 +2014,11 @@ public class MantenimientoContratEmprSupervisor {
         return inputTextNroContratoModifStr;
     }
 
-    public void setCalendarFechaRegistroModifStr(String calendarFechaRegistroModifStr) {
+    public void setCalendarFechaRegistroModifStr(Date calendarFechaRegistroModifStr) {
         this.calendarFechaRegistroModifStr = calendarFechaRegistroModifStr;
     }
 
-    public String getCalendarFechaRegistroModifStr() {
+    public Date getCalendarFechaRegistroModifStr() {
         return calendarFechaRegistroModifStr;
     }
 
@@ -1949,16 +2075,41 @@ public class MantenimientoContratEmprSupervisor {
         inputTextPlazoContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsPlazoContrato());
         inputTextMontoContratadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsMontoContratado());
         inputTextAdelantoOtorgadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAdelantoOtorgado());
-        calendarFechaAdelantoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaAdelanto());
+        calendarFechaAdelantoModifStr=contratoSupervisoraVO.getCpsFechaAdelanto();
+        System.out.println("(contratoSupervisoraVO.getCpsFechaAdelanto(): "+contratoSupervisoraVO.getCpsFechaAdelanto());
         inputTextNroContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato());
-        calendarFechaRegistroModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaRegistro());
+        calendarFechaRegistroModifStr=contratoSupervisoraVO.getCpsFechaRegistro();
         inputTextareaAsuntoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAsunto());
         inputTextTipoInfraModifStr=String.valueOf(contratoSupervisoraVO.getTipoInfraestructura());
         inputTextareaRefPenalidadModifStr=contratoSupervisoraVO.getCpsPenalidades();
         inputTextareaRefCausalesCaduModifStr=contratoSupervisoraVO.getCpsCaducidad();
         inputTextareaGarantiasFavorModifStr=contratoSupervisoraVO.getCpsGarantias();
-
     }
+    
+    
+    public void contEmpSupVer() throws SQLException{
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("id1");
+        Integer idEmpSup=Integer.valueOf(str.toString());
+        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEmpSup);   
+        inputTextNumeroModifStr=String.valueOf(contratoSupervisoraVO.getCpsStd());
+        inputTextAnnioModifStr=String.valueOf(contratoSupervisoraVO.getCpsAnyo());
+        calendarFecIniContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaInicio());
+        calendarFecSuscripcionModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaSuscripcion());
+        inputTextPlazoContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsPlazoContrato());
+        inputTextMontoContratadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsMontoContratado());
+        inputTextAdelantoOtorgadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAdelantoOtorgado());
+        calendarFechaAdelantoModifStr=contratoSupervisoraVO.getCpsFechaAdelanto();
+        System.out.println("(contratoSupervisoraVO.getCpsFechaAdelanto(): "+contratoSupervisoraVO.getCpsFechaAdelanto());
+        inputTextNroContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato());
+        calendarFechaRegistroModifStr=contratoSupervisoraVO.getCpsFechaRegistro();
+        inputTextareaAsuntoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAsunto());
+        inputTextTipoInfraModifStr=String.valueOf(contratoSupervisoraVO.getTipoInfraestructura());
+        inputTextareaRefPenalidadModifStr=contratoSupervisoraVO.getCpsPenalidades();
+        inputTextareaRefCausalesCaduModifStr=contratoSupervisoraVO.getCpsCaducidad();
+        inputTextareaGarantiasFavorModifStr=contratoSupervisoraVO.getCpsGarantias();
+    }    
     
     
     private SelectOneMenu selectOneMenuMonedaModif;
@@ -2087,13 +2238,13 @@ public class MantenimientoContratEmprSupervisor {
                 contratoSupervisoraVO.setCpsCaducidad(inputTextareaRefCausalesCaduModifStr);
                 contratoSupervisoraVO.setCpsGarantias(inputTextareaGarantiasFavorModifStr);
                 contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(inputTextTipoInfraModifStr));
-                contratoSupervisoraVO.setCpsFechaAdelanto(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaAdelantoModifStr));
-                contratoSupervisoraVO.setCpsFechaRegistro(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaRegistroModifStr));
+               // contratoSupervisoraVO.setCpsFechaAdelanto(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaAdelantoModifStr));
+               // contratoSupervisoraVO.setCpsFechaRegistro(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaRegistroModifStr));
                     
                     
                 this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);        
                 ///getQuery();
-                ///limpiarCampos();
+                limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
                                                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 RequestContext.getCurrentInstance().execute("ModEmpSup.hide()");
@@ -2107,4 +2258,51 @@ public class MantenimientoContratEmprSupervisor {
         
     } 
     
+    public void limpiarFiltro(){
+        inputTextEmpresaSupervisora.setValue("");    
+        inputHiddenSelectedTipoInfraestructura="";
+        inputTextNroContrato.setValue("");
+    }
+    
+    public void limpiarCampos(){
+        calendarFecIniContratoNew.setValue("");
+        calendarFecSuscripcionNew.setValue("");
+        inputTextPlazoContratoNew.setValue("");
+        inputTextMontoContratadoNew.setValue("");
+        inputTextAdelantoOtorgadoNew.setValue("");
+        calendarFechaAdelantoNew.setValue("");
+        inputTextNroContratoNew.setValue("");
+        //contratoSupervisoraVO.setCpsEstado(0);
+        inputTextAnnio.setValue("");
+        calendarFechaRegistro.setValue("");
+        inputTextareaAsunto.setValue("");
+        //contratoSupervisoraVO.setEmpresaSupervisora(1);
+        
+        contratoSupervisoraVO.setContrato(22);
+        contratoSupervisoraVO.setInfraestructura(1);
+        contratoSupervisoraVO.setCpsEstado(1);
+        
+        inputHiddenItemTipoInfraestructura.setValue(0);
+        
+        contratoSupervisoraVO.setConcesion(1);
+        contratoSupervisoraVO.setCpsPenalidades("1");
+        contratoSupervisoraVO.setCpsCaducidad("1");
+        contratoSupervisoraVO.setCpsGarantias("1");
+        
+
+    }
+    
+    //PDF    
+    public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
+        contratoSupervisoraVO.setCenDocumentoFisico(event.getFile().getFileName());
+        contratoSupervisoraVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
+    }
+
+    public void setPanelGrid4(PanelGrid panelGrid4) {
+        this.panelGrid4 = panelGrid4;
+    }
+
+    public PanelGrid getPanelGrid4() {
+        return panelGrid4;
+    }
 }
