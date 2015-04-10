@@ -15,6 +15,6 @@ public interface ContratoCompromisoService {
         public String update(ContratoCompromisoVO contratoCompromisoVO) throws SQLException;
         public ContratoCompromisoVO get(Integer id) throws SQLException;
         public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId) throws SQLException;
-    
+        
 
 }

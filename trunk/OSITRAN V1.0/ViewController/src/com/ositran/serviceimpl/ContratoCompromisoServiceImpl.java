@@ -115,11 +115,13 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromiso1.setCcoTipoCambio(contratoCompromisoVO1.getCcoTipoCambio());
         contratoCompromiso1.setCcoTotal(contratoCompromisoVO1.getCcoTotal());
         contratoCompromiso1.setConId(contratoCompromisoVO1.getConId());
+        System.out.println("SERVICE*****contratoCompromisoVO1.getConId():"+contratoCompromisoVO1.getConId()); 
         contratoCompromiso1.setMonId(contratoCompromisoVO1.getMonId());
         contratoCompromiso1.setPorIgv(contratoCompromisoVO1.getPorIgv());
         contratoCompromiso1.setTccTipo(contratoCompromisoVO1.getTccTipo());
         System.out.println("SERVICE*****contratoCompromisoVO1.getTccTipo():"+contratoCompromisoVO1.getTccTipo());
         contratoCompromiso1.setTivId(contratoCompromisoVO1.getTivId());
+        System.out.println("SERVICE*****contratoCompromisoVO1.getTivId():"+contratoCompromisoVO1.getTivId()); 
         contratoCompromiso1.setCcoEstado(contratoCompromisoVO1.getCcoEstado());
         return contratoCompromiso1;
         
