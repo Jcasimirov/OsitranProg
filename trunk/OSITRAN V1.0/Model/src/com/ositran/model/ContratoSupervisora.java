@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -13,9 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoSupervisora.findAll", query = "select o from ContratoSupervisora o") })
 @Table(name = "T_CONTRATO_SUPERVISORA")
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_SUPERVISORA"))
 public class ContratoSupervisora implements Serializable {
     private static final long serialVersionUID = -2053453098288078717L;
     @Column(name = "CPS_ADELANTO_OTORGADO", nullable = false)
@@ -57,6 +62,7 @@ public class ContratoSupervisora implements Serializable {
     private Integer cpsMontoContratado;
     @Id
     @Column(name = "CPS_NRO_DE_CONTRATO", nullable = false)
+    @GeneratedValue(generator = "generator")
     private Integer cpsNroDeContrato;
     @Column(name = "CPS_PENALIDADES", nullable = false, length = 4000)
     private String cpsPenalidades;
@@ -407,4 +413,6 @@ public class ContratoSupervisora implements Serializable {
     public Integer getContrato() {
         return contrato;
     }
+    
+    
 }
