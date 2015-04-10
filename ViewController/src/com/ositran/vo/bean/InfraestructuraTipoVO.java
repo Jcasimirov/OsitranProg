@@ -14,6 +14,7 @@ public class InfraestructuraTipoVO {
     private String tinUsuarioAlta;   
     private String tinUsuarioBaja;   
     private String tinUsuarioCambio;
+    private int contador;
     public InfraestructuraTipoVO() {
     }
 
@@ -119,5 +120,13 @@ public class InfraestructuraTipoVO {
 
     public void setTinId(int tinId) {
         this.tinId = tinId;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }
