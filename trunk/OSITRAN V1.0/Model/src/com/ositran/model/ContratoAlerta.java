@@ -26,10 +26,9 @@ public class ContratoAlerta implements Serializable {
     @Column(name = "CAE_ID")
     private Integer caeId;
     @Column(name = "CAL_AEROPUERTO", nullable = false, length = 4000)
-    private String calAeropuerto;
-    @Temporal(TemporalType.DATE)
+    private String calAeropuerto;    
     @Column(name = "CAL_DIA_PRESENTACION")
-    private Date calDiaPresentacion;
+    private Integer calDiaPresentacion;
     @Temporal(TemporalType.DATE)
     @Column(name = "CAL_FECHA_FIN")
     private Date calFechaFin;
@@ -56,7 +55,7 @@ public class ContratoAlerta implements Serializable {
     public ContratoAlerta() {
     }
 
-    public ContratoAlerta(Integer caeId, String calAeropuerto, Date calDiaPresentacion, Date calFechaFin,
+    public ContratoAlerta(Integer caeId, String calAeropuerto, Integer calDiaPresentacion, Date calFechaFin,
                           Date calFechaInicio, Integer calId, String calNombreconcesion, String calPlazo,
                           Integer conId, Integer perId, Integer calEstado) {
         this.caeId = caeId;
@@ -88,11 +87,11 @@ public class ContratoAlerta implements Serializable {
         this.calAeropuerto = calAeropuerto;
     }
 
-    public Date getCalDiaPresentacion() {
+    public Integer getCalDiaPresentacion() {
         return calDiaPresentacion;
     }
 
-    public void setCalDiaPresentacion(Date calDiaPresentación) {
+    public void setCalDiaPresentacion(Integer calDiaPresentación) {
         this.calDiaPresentacion = calDiaPresentación;
     }
 

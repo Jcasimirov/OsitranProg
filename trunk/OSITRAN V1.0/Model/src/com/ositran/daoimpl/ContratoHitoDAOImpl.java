@@ -43,7 +43,7 @@ public class ContratoHitoDAOImpl implements ContratoHitoDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
             e.printStackTrace();
-            System.out.println("eliminar DAOHito");
+            System.out.println("rollback DAOHito");
         }
         
         System.out.println("FIN DAOHito");

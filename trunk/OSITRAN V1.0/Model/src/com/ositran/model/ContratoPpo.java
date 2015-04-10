@@ -3,6 +3,8 @@ package com.ositran.model;
 import java.io.Serializable;
 
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -40,9 +42,7 @@ public class ContratoPpo implements Serializable {
     @Column(name = "PPO_ID", nullable = false)
     private Integer ppoId;
     @Column(name = "PPO_MONTO", nullable = false)
-    private Long ppoMonto;
-    @Column(name = "PPO_OFICIO", length = 20)
-    private String ppoOficio;
+    private BigDecimal ppoMonto;
     @Column(name = "PPO_ESTADO")
     private Integer ppoEstado;
     @Column(name = "PPO_NOMBRE")
@@ -54,14 +54,13 @@ public class ContratoPpo implements Serializable {
     }
 
     public ContratoPpo(Integer conId, Integer monId, String ppoArchivoPdf, Date ppoFecha, Integer ppoId,
-                       Long ppoMonto, String ppoOficio, Integer ppoEstado, String ppoNombre) {
+                       BigDecimal ppoMonto, Integer ppoEstado, String ppoNombre) {
         this.conId = conId;
         this.monId = monId;
         this.ppoArchivoPdf = ppoArchivoPdf;
         this.ppoFecha = ppoFecha;
         this.ppoId = ppoId;
-        this.ppoMonto = ppoMonto;
-        this.ppoOficio = ppoOficio;
+        this.ppoMonto = ppoMonto;        
         this.ppoEstado = ppoEstado;
         this.ppoNombre = ppoNombre;
     }
@@ -106,20 +105,12 @@ public class ContratoPpo implements Serializable {
         this.ppoId = ppoId;
     }
 
-    public Long getPpoMonto() {
+    public BigDecimal getPpoMonto() {
         return ppoMonto;
     }
 
-    public void setPpoMonto(Long ppoMonto) {
+    public void setPpoMonto(BigDecimal ppoMonto) {
         this.ppoMonto = ppoMonto;
-    }
-
-    public String getPpoOficio() {
-        return ppoOficio;
-    }
-
-    public void setPpoOficio(String ppoOficio) {
-        this.ppoOficio = ppoOficio;
     }
 
     public Integer getPpoEstado() {

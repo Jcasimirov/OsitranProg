@@ -33,6 +33,7 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
     @Override
     public String insert(ContratoInversion contratoInversion) throws SQLException {
         String result=null;
+        
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
@@ -41,6 +42,7 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            e.printStackTrace();
         }
         return result;
     }
