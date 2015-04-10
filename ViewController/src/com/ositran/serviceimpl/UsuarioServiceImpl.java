@@ -1,11 +1,14 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.UsuarioDAO;
+import com.ositran.model.Concesionario;
 import com.ositran.model.Usuario;
 import com.ositran.service.UsuarioService;
+import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.UsuarioVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UsuarioServiceImpl implements UsuarioService{
@@ -53,8 +56,8 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public List<UsuarioVO> UserSearch(String searchUsuario, String searchNombre, int nomTipoSearch) throws SQLException{
-        List<Usuario> list = usuarioDAOImpl.UserSearch(searchUsuario, searchNombre, nomTipoSearch);
+    public List<UsuarioVO> UserSearch(String nomUserSearch) throws SQLException{
+        List<Usuario> list = usuarioDAOImpl.UserSearch(nomUserSearch);
         List<UsuarioVO> listVO = toListUsuariosVO(list);
         return listVO;
     }
@@ -123,6 +126,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
 
-
-
+    @Override
+    public List<UsuarioVO> queryTD(int filtro) throws SQLException {
+        List<Usuario> list=usuarioDAOImpl.queryTD(filtro);
+        List<UsuarioVO> listVO=toListUsuariosVO(list);
+        return listVO;
+    }
 }
