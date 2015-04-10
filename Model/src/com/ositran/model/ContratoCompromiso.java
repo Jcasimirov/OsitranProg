@@ -21,13 +21,13 @@ public class ContratoCompromiso implements Serializable {
     private static final long serialVersionUID = -4038858335843227367L;
     @Column(name = "CCO_ALCANCE", nullable = false, length = 4000)
     private String ccoAlcance;
-    @Column(name = "CCO_NETO", nullable = false)
+    @Column(name = "CCO_NETO")
     private Long ccoNeto;
     @Id
     @GeneratedValue(generator = "generator") 
     @Column(name = "CCO_ID", nullable = false)
     private Integer ccoId;
-    @Column(name = "CCO_IGV", nullable = false)
+    @Column(name = "CCO_IGV")
     private Long ccoIgv;
     @Column(name = "CCO_PERIODO", nullable = false, length = 4000)
     private String ccoPeriodo;
@@ -42,7 +42,7 @@ public class ContratoCompromiso implements Serializable {
     private Integer conId;
     @Column(name = "MON_ID")
     private Integer monId;
-    @Column(name = "POR_IGV", nullable = false)
+    @Column(name = "POR_IGV")
     private Double porIgv;
     //@Id
     @Column(name = "TCC_TIPO", nullable = false)

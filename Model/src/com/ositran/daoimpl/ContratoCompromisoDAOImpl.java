@@ -60,6 +60,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
             session.save(contratoCompromiso);
             session.getTransaction().commit();
         } catch (Exception e) {
+            e.printStackTrace();
             session.getTransaction().rollback();
             result=e.getMessage();
         }
@@ -105,7 +106,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado <> 0 " +
+        query = session.createQuery("FROM ContratoCompromiso cc where cc.ccoEstado=1 " +
                                     "and cc.conId = :busqueda1 AND cc.tccTipo = 0 order by ccoId DESC");
         query.setParameter("busqueda1",conId);            
              

@@ -1,19 +1,22 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import javax.persistence.GeneratedValue;
 
 @Entity
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO"))
 @Table(name = "T_CONTRATO")
 public class Contrato implements Serializable {
     private static final long serialVersionUID = 1607891868505474553L;

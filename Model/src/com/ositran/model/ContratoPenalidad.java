@@ -2,14 +2,12 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoPenalidad.findAll", query = "select o from ContratoPenalidad o") })
 @Table(name = "T_CONTRATO_PENALIDAD")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_CONTRATO_PENALIDAD"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_PENALIDAD"))
 public class ContratoPenalidad implements Serializable {
     private static final long serialVersionUID = 7901626166022068969L;
     //@Id
@@ -46,7 +44,8 @@ public class ContratoPenalidad implements Serializable {
     @Column(name = "TCP_ESTADO")
     private String tcpEstado;
     
-
+    @Column(name = "TCP_DOCUMENTO_FISICO")
+    private String tcpDocumentoFisico;
     public ContratoPenalidad() {
     }
 
@@ -124,5 +123,13 @@ public class ContratoPenalidad implements Serializable {
 
     public void setTcpEstado(String tcpEstado) {
         this.tcpEstado = tcpEstado;
+    }
+
+    public void setTcpDocumentoFisico(String tcpDocumentoFisico) {
+        this.tcpDocumentoFisico = tcpDocumentoFisico;
+    }
+
+    public String getTcpDocumentoFisico() {
+        return tcpDocumentoFisico;
     }
 }
