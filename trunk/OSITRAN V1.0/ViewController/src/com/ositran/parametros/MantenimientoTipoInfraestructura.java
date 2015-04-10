@@ -184,6 +184,26 @@ public class MantenimientoTipoInfraestructura {
         }
 
     }
+    
+    
+    public void cargarTodo() {
+        try {
+            int contador = 1;
+            listaInfraestructura = infraestructuraTipoServiceImpl.query();
+            for (int i = 0; i < listaInfraestructura.size(); i++) {
+                listaInfraestructura.get(i).setContador(contador);
+                contador++;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo listar"));
+        }
+
+    }
 
     public void setTinNombre(String tinNombre) {
         this.tinNombre = tinNombre;
@@ -252,7 +272,6 @@ public class MantenimientoTipoInfraestructura {
 
     /* buscar  */
     String nomInfraSearch;
-    String desInfraSearch;
     private String buscar;
     private List<InfraestructuraTipoVO> filtrar;
 
@@ -281,18 +300,10 @@ public class MantenimientoTipoInfraestructura {
     }
 
 
-    public void setDesInfraSearch(String desInfraSearch) {
-        this.desInfraSearch = desInfraSearch;
-    }
-
-    public String getDesInfraSearch() {
-        return desInfraSearch;
-    }
-
 
     public List<InfraestructuraTipoVO> SearchListaInfra() throws SQLException {
         try {
-            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch, desInfraSearch);
+            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
