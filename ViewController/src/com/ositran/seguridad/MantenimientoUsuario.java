@@ -4,6 +4,7 @@ import com.ositran.service.RolService;
 import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Util;
+import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 import com.ositran.vo.bean.UsuarioVO;
@@ -49,14 +50,15 @@ public class MantenimientoUsuario {
     private int rolE;
     private int codigoEE;
     private int usuEstadoE;
+    private int codigoDocumentoFiltro;
     private String usuAliasE;
     private String usuContrasenyaE;
     private String usuNombreE;
     private String usuCorreoE;
     private String buscar;
-    String nomUserSearch;
-    String nomNomSearch;
-    int nomTipoSearch;
+    private String nomUserSearch;
+    private int nomTipoSearch;
+    private List<UsuarioVO> listaCon;
     int nomRolSearch;
     int nomEstSearch;
     private List<UsuarioVO> filtrar;
@@ -65,7 +67,7 @@ public class MantenimientoUsuario {
 
     private static final String EMAIL_PATTERN =
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    
+
     @ManagedProperty(value = "#{usuarioVO}")
     private UsuarioVO usuarioVO;
 
@@ -77,12 +79,20 @@ public class MantenimientoUsuario {
 
     private List<UsuarioVO> listaUsuario;
     Util util = new Util();
-
+    
+    public void listanombrerol(){
+            for (UsuarioVO usu : listaUsuario) {
+                RolVO rol = getRolServiceImpl().get(usu.getRolId());
+                usu.setNombreRol(rol.getRolNombre());
+            }
+        }
+    
+    
     public List<UsuarioVO> ListarUsuario() throws SQLException {
         try {
             listaUsuario = getUsuarioServiceImpl().query();
+            listanombrerol();            
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
         return listaUsuario;
@@ -101,6 +111,7 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuUsuarioAlta("jim Alta");
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
+            listanombrerol();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -119,6 +130,7 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuUsuarioBaja("jim Baja");
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
+            listanombrerol();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -173,6 +185,7 @@ public class MantenimientoUsuario {
 
                 RequestContext.getCurrentInstance().execute("agregarUsuario.hide()");
                 ListarUsuario();
+                listanombrerol();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                               "Se Registro con Exito"));
@@ -228,6 +241,7 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuTerminal(util.obtenerIpCliente());
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
+            listanombrerol();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           "Se Modifico con Exito"));
@@ -243,13 +257,64 @@ public class MantenimientoUsuario {
 
     /*  -----Buscar--------- */
     public List<UsuarioVO> SearchListaUsuario() throws SQLException {
-        try {
-            listaUsuario = this.usuarioServiceImpl.UserSearch(nomUserSearch, nomNomSearch, nomTipoSearch);
+        try {  
+            listanombrerol();
+            listaUsuario = this.usuarioServiceImpl.UserSearch(nomUserSearch);
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
         return listaUsuario;
+    }
+
+    public void buscarTipo() {
+        try {
+            if (nomTipoSearch == 0) {
+            } else {
+                int contador = 1;
+                listaUsuario = usuarioServiceImpl.queryTD(nomTipoSearch);
+                for (int i = 0; i < listaUsuario.size(); i++) {
+                    listaUsuario.get(i).setContador(contador);
+                    contador++;
+                }
+                listanombrerol();            
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buscarRol() {
+        try {
+            if (codigoROl2 == 0) {
+            } else {
+                int contador = 1;
+                listaUsuario = usuarioServiceImpl.queryTD(codigoROl2);
+                for (int i = 0; i < listaUsuario.size(); i++) {
+                    listaUsuario.get(i).setContador(contador);
+                    contador++;
+                }
+                listanombrerol();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarTodo() {
+        try {
+            int contador = 1;
+            listaUsuario = usuarioServiceImpl.query();
+            for (int i = 0; i < listaUsuario.size(); i++) {
+                listaUsuario.get(i).setContador(contador);
+                contador++;
+            }
+            listanombrerol();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo listar"));
+        }
     }
     /*  -----Fin Buscar --------- */
 
@@ -259,23 +324,6 @@ public class MantenimientoUsuario {
 
     public String getNomUserSearch() {
         return nomUserSearch;
-    }
-
-    public void setNomNomSearch(String nomNomSearch) {
-        this.nomNomSearch = nomNomSearch;
-    }
-
-    public String getNomNomSearch() {
-        return nomNomSearch;
-    }
-
-
-    public void setNomTipoSearch(int nomTipoSearch) {
-        this.nomTipoSearch = nomTipoSearch;
-    }
-
-    public int getNomTipoSearch() {
-        return nomTipoSearch;
     }
 
     public void setNomRolSearch(int nomRolSearch) {
@@ -293,7 +341,7 @@ public class MantenimientoUsuario {
     public int getNomEstSearch() {
         return nomEstSearch;
     }
-    
+
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
@@ -309,6 +357,7 @@ public class MantenimientoUsuario {
     public List<UsuarioVO> getFiltrar() {
         return filtrar;
     }
+
     public void setUsuEstadoE(int usuEstadoE) {
         this.usuEstadoE = usuEstadoE;
     }
@@ -467,7 +516,7 @@ public class MantenimientoUsuario {
     public RolOpcionesVO getRolOpcion() {
         return rolOpcion;
     }
-    
+
     public void setUsuEsexterno(int usuEsexterno) {
         this.usuEsexterno = usuEsexterno;
     }
@@ -500,7 +549,7 @@ public class MantenimientoUsuario {
     public Matcher getMatcher() {
         return matcher;
     }
-    
+
     public void validarSesion() throws IOException {
 
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
@@ -522,7 +571,7 @@ public class MantenimientoUsuario {
     public UsuarioServiceImpl getUsuarioServiceImpl() {
         return usuarioServiceImpl;
     }
-    
+
     public void setListaUsuario(List<UsuarioVO> listaUsuario) {
         this.listaUsuario = listaUsuario;
     }
@@ -546,7 +595,7 @@ public class MantenimientoUsuario {
     public UsuarioVO getUsuarioVO() {
         return usuarioVO;
     }
-    
+
     public void setCodigoE(int codigoE) {
         this.codigoE = codigoE;
     }
@@ -554,4 +603,31 @@ public class MantenimientoUsuario {
     public int getCodigoE() {
         return codigoE;
     }
+
+
+    public void setNomTipoSearch(int nomTipoSearch) {
+        this.nomTipoSearch = nomTipoSearch;
+    }
+
+    public int getNomTipoSearch() {
+        return nomTipoSearch;
+    }
+
+    public void setCodigoDocumentoFiltro(int codigoDocumentoFiltro) {
+        this.codigoDocumentoFiltro = codigoDocumentoFiltro;
+    }
+
+    public int getCodigoDocumentoFiltro() {
+        return codigoDocumentoFiltro;
+    }
+
+
+    public void setListaCon(List<UsuarioVO> listaCon) {
+        this.listaCon = listaCon;
+    }
+
+    public List<UsuarioVO> getListaCon() {
+        return listaCon;
+    }
+
 }
