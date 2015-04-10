@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import java.util.List;
 
-public interface ContratoPenalidadEstadoDAO {
+public interface ContratoPenalidadEstadoDAO{
     public List<ContratoPenalidadEstado> query() throws SQLException;
     public List<ContratoPenalidadEstado> getXContrato() throws SQLException;
     public String insert(ContratoPenalidadEstado contratoPenalidadEstado) throws SQLException;
