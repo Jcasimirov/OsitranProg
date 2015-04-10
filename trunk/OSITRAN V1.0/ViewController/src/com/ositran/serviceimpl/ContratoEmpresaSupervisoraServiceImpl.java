@@ -59,6 +59,13 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         return 0;
     }
     
+    @Override
+    public List<ContratoSupervisoraVO> filtrarContraEmpSup(String empresaSupervisora, String tipoInfraestructura, String nroContrato) throws SQLException{
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.filtrarContraEmpSup(empresaSupervisora, tipoInfraestructura, nroContrato);
+        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
+        return listVO;        
+    }   
+    
     
     //conversiones
     private List<ContratoSupervisoraVO> toListContratoSupervisoraVO(List<ContratoSupervisora> list)throws SQLException{
@@ -100,6 +107,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisoraVO.setCpsUsuarioCambio(contratoSupervisora.getCpsUsuarioCambio());
         contratoSupervisoraVO.setEmpresaSupervisora(contratoSupervisora.getEmpresaSupervisora());
         contratoSupervisoraVO.setInfraestructura(contratoSupervisora.getInfraestructura());
+        contratoSupervisoraVO.setTipoInfraestructura(contratoSupervisora.getTipoInfraestructura());
         return contratoSupervisoraVO;
     }
         
@@ -132,6 +140,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisora.setCpsUsuarioCambio(contratoSupervisoraVO.getCpsUsuarioCambio());
         contratoSupervisora.setEmpresaSupervisora(contratoSupervisoraVO.getEmpresaSupervisora());
         contratoSupervisora.setInfraestructura(contratoSupervisoraVO.getInfraestructura());
+        contratoSupervisora.setTipoInfraestructura(contratoSupervisoraVO.getTipoInfraestructura());
         return contratoSupervisora;
     }
 }
