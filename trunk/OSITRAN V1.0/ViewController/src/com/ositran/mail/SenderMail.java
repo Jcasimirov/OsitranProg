@@ -4,7 +4,6 @@ import com.ositran.mail.object.Alert1MailObj;
 import com.ositran.mail.object.Alert2MailObj;
 import com.ositran.mail.object.Alert3MailObj;
 import com.ositran.mail.object.CustomizedMailObj;
-import com.ositran.mail.object.basic.BasicMailObj;
 
 import com.sun.mail.smtp.SMTPMessage;
 
