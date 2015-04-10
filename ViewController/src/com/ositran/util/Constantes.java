@@ -11,6 +11,7 @@ public class Constantes {
     public static String RUTACAO="D:/filesositran/cao/";
     public static String RUTAHITO="D:/filesositran/hito/";
     public static String RUTAPPO="D:/filesositran/ppo/";
+    public static String RUTAPENALIDADES="D:/filesositran/temp/penalidades/";
 
     public static String ARCHIVONOENCONTRADO = "Archivo no encontrado.";
     public static String EXITOCONTRATOACTUALIZADO = "Contrato Actualizado Satisfactoriamente.";

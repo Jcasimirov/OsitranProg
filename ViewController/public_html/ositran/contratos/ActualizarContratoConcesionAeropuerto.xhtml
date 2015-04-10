@@ -73,19 +73,21 @@
         </script>
     </h:head>
     <h:body>
-        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.ListarModalidad}" type="preRenderComponent"/>
          
-        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="preRenderView"/>
+        <f:event listener="#{actualizarContratoMB.listaPeriodos}" type="preRenderComponent"/>
         
-        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderView" /> 
+        <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderComponent" /> 
+        
+        <f:event listener="#{actualizarContratoMB.listarPenalidadEstado}" type="preRenderComponent" /> 
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
@@ -400,7 +402,7 @@
                                                                  :tab:frmAgregarCAO:monedaCAO 
                                                                  :tab:frmCHP:tablaCAO
                                                                  :tab:frmCompromisoIndicado:tablaCompromisoIndicado
-                                                                 :tab:frmCompromisoSupervisado:tablaComprmisoSupervisado"
+                                                                 :tab:frmCompromisoPenalidad:tablaComprmisoPenalidad"
                                                                  ajax="false"
                                                                  oncomplete="popupBuscarContrato.hide();">
                                                     <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
@@ -630,15 +632,7 @@
                                                     style="float:left;position:relative;"/>
                                         <p:message for="fechaEntrega" display="icon"/>
                                         <h:outputText value=""/>
-                                        <p:outputLabel for="estadoentrega" value="Estado Adenda"/>
-                                        <p:selectOneRadio id="estadoentrega"
-                                                          value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenEstado}"
-                                                          required="true">
-                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
-                                        </p:selectOneRadio>
-                                        <p:message for="estadoentrega" display="icon"/>
-                                        <h:outputText value=""/>
+                                       
                                         <p:outputLabel for="docEntrega" value="Documento"
                                                        style="top:-15px !important;position:relative;"/>
                                         <p:inputText id="docEntrega" required="true" style="width:100% !important;"
@@ -806,13 +800,7 @@
                                                       required="true"/>
                                         <p:message for="plazocom" display="icon"/>
                                         
-                                        <p:outputLabel for="estadocompromisocom" value="Estado"/>
-                                        <p:selectOneRadio id="estadocompromisocom"
-                                                          value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoEstado}" required="true">
-                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
-                                        </p:selectOneRadio>
-                                        <p:message for="estadocompromisocom" display="icon"/>
+                                      
                                         
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevoCompromisoBtnDlg" columns="2" styleClass="pnlEdicion">
@@ -971,7 +959,7 @@
                                         
                                          <p:inputMask id="tipocambiosup" style="width:200px;"
                                                      value="#{actualizarContratoMB.tipocambiosup}"
-                                                     mask="9.99" size="3" onkeypress="return validarNum(event);" >
+                                                     mask="9.99" size="3" onkeypress="return validarNum(event);" required="true" >
                                            
                                          </p:inputMask>
                                          <p:message for="tipocambiosup" display="icon"/>      
@@ -995,6 +983,143 @@
                                 </h:form>
                             </p:dialog>
                            
+                            <h:form id="frmCompromisoPenalidad">
+                                <table>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold;">Penalidades</td>
+                                        <td align="right">
+                                            <p:commandButton value="Agregar Penalidad" id="nuevoCompromisoSupervisado" 
+                                                             actionListener="#{actualizarContratoMB.resetearNuevaPenalidad()}"
+                                                             update=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg
+                                                             :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"
+                                                             onclick="popupAgregarPenalidad.show();"
+                                                             rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
+                                                             image="ui-icon-document"/>
+                                        </td>
+                                    </tr>
+                                     
+                                    <tr></tr>
+                                     
+                                    <tr>
+                                        <td colspan="2">
+                                            <p:dataTable paginatorPosition="bottom"
+                                                         emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="4,6,8" resizableColumns="true"
+                                                         style="font-size:11px;" id="tablaComprmisoPenalidad"
+                                                         value="#{actualizarContratoMB.listarContratoPenalidad}"
+                                                         var="penalidad">
+                                                 <p:column headerText="Motivo" style="width:7%">
+                                                    <h:outputText value="#{penalidad.tcpMotivo}"/>
+                                                </p:column>
+                                                <p:column headerText="Moneda" style="width:10%">
+                                                    <h:outputText value="#{penalidad.monNombre}"/>
+                                                </p:column>
+                                                
+                                                <p:column headerText="Monto" style="width:6%">
+                                                    <h:outputText value="#{penalidad.tcpTotal}"/>
+                                                </p:column>
+                                                <p:column headerText="Fecha" style="width:8%">
+                                                    <h:outputText value="#{penalidad.tcpFechaDescripcion}"/>
+                                                </p:column>
+                                                
+                                                                                               
+                                                 <p:column headerText="Ver" style="width:5%">
+                                                    <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadPenalidades(penalidad.tcpDocumentoFisico)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadPenalidades}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                </p:column>
+                                                
+                                                <p:column headerText="Eliminar" style="width:4%">
+                                                    <p:commandButton icon="ui-icon-trash"
+                                                                     actionListener="#{actualizarContratoMB.borrarPenalidad}"
+                                                                     update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad :tab:form:mensaje">
+                                                        <f:attribute name="penalidad" value="#{penalidad}"></f:attribute>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+                            <p:dialog header="Agregar Compromiso (Penalidad)"
+                                      widgetVar="popupAgregarPenalidad" modal="true" resizable="false"
+                                      appendToBody="true" closable="true">
+                                <h:form id="frmNuevoCompromisoPenalidadDlg">
+                                    <p:panelGrid id="pnlNuevoCompromisoPenalidadDlg" styleClass="pnlEdicion" columns="4"
+                                                 columnClasses="etiquetas,cajas,validadores,nomarchivo">
+                                       <p:outputLabel for="motivo" value="Etapa"/>
+                                       <p:inputTextarea id="motivo" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpMotivo}"
+                                                    style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)" required="true"/>
+                                       <p:message for="motivo" display="icon"/>
+                                        <h:outputText value=""/>
+                                      
+                                       <p:outputLabel for="monedacompromisocompenalidad" value="Moneda"/>                                             
+                                        <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevaPenalidadVO.monId}"
+                                                         id="monedacompromisocompenalidad" style="width:210px" required="true">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
+                                                           itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="monedacompromisocompenalidad" display="icon"/>   
+                                           <h:outputText value=""/>
+                                           
+                                        <p:outputLabel for="montopenalidad" value="Monto"/>
+                                        <p:inputText id="montopenalidad" style="width:200px;" required="true"
+                                                     value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpTotal}"
+                                                     onkeypress="return validarNum(event);"/>
+                                        <p:message for="montopenalidad" display="icon"/>
+                                        <h:outputText value=""/>
+                                       
+                                       <p:outputLabel for="fechaPenalidad" value="Fecha"/>
+                                        <p:calendar id="fechaPenalidad"
+                                                    value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}"
+                                                    locale="es" pattern="dd/MM/yyyy" required="true"
+                                                    style="float:left;position:relative;"/>
+                                        <p:message for="fechaPenalidad" display="icon"/>
+                                        <h:outputText value=""/>        
+                                                                              
+                                        <p:outputLabel for="estado" value="Estado"/>                                             
+                                        <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevaPenalidadVO.pesId}"
+                                                         id="estado" style="width:210px" required="true">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarContratoPenalidadEstado}" var="pes"
+                                                           itemLabel="#{pes.pesNombre}" itemValue="#{pes.pesId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="estado" display="icon"/>   
+                                        <h:outputText value=""/>
+                                        
+                                        
+                                        <p:outputLabel for="docPenalidad" value="Documento"
+                                                       style="top:-15px !important;position:relative;"/>
+                                        <p:inputText id="docPenalidad" required="true" style="width:100% !important;"
+                                                     onblur="if (this.value != '') this.value='';"
+                                                     disabled="#{not empty actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}"
+                                                     value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
+                                        <p:message for="docPenalidad" display="icon"/>
+                                        <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}"
+                                                      update="docPenalidad" label="Archivo" auto="true"/>
+                                                      
+                                        </p:panelGrid>
+                                        
+                                         <p:panelGrid id="pnlNuevoCompromisoPenalidadBtnDlg" columns="2" styleClass="pnlEdicion">
+                                         <p:commandButton id="grabarcompromisopenalidad" value="Guardar" 
+                                                         actionListener="#{actualizarContratoMB.grabarContratoPenalidad()}" 
+                                                         update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad
+                                                         :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
+                                                         :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"/>
+                                         <p:commandButton id="cancelarcompromisopenalidad" value="Salir" process="@this"
+                                                 update=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
+                                                         :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"
+                                                         oncomplete="popupAgregarCompromisoPenalidad.hide();" >
+                                            <p:resetInput target=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
+                                                              :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"/>
+                                         </p:commandButton>
+                                         </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                         </p:tab>
                         <p:tab id="tab3" title="CAO - Hito - POO" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmCHP">

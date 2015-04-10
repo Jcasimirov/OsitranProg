@@ -1,6 +1,8 @@
 
 package com.ositran.vo.bean;
 
+import java.io.InputStream;
+
 import java.util.Date;
 
 
@@ -10,10 +12,14 @@ public class ContratoPenalidadVO {
     private Integer monId;    
     private Integer pesId;
     private Date tcpFecha;
+    private String tcpFechaDescripcion;
     private Integer tcpId;
     private String tcpMotivo;
     private Long tcpTotal;
     private String tcpEstado;
+    private String monNombre;
+    private String tcpDocumentoFisico;
+    private InputStream inputStreamNuevaPenalidad;
 
     public ContratoPenalidadVO() {
         super();
@@ -82,4 +88,38 @@ public class ContratoPenalidadVO {
     public void setTcpEstado(String tcpEstado) {
         this.tcpEstado = tcpEstado;
     }
+
+    public void setTcpFechaDescripcion(String tcpFechaDescripcion) {
+        this.tcpFechaDescripcion = tcpFechaDescripcion;
+    }
+
+    public String getTcpFechaDescripcion() {
+        return tcpFechaDescripcion;
+    }
+
+    public void setMonNombre(String monNombre) {
+        this.monNombre = monNombre;
+    }
+
+    public String getMonNombre() {
+        return monNombre;
+    }
+
+    public void setTcpDocumentoFisico(String tcpDocumentoFisico) {
+        this.tcpDocumentoFisico = tcpDocumentoFisico;
+    }
+
+    public String getTcpDocumentoFisico() {
+        return tcpDocumentoFisico;
+    }
+
+
+    public void setInputStreamNuevaPenalidad(InputStream inputStreamNuevaPenalidad) {
+        this.inputStreamNuevaPenalidad = inputStreamNuevaPenalidad;
+    }
+
+    public InputStream getInputStreamNuevaPenalidad() {
+        return inputStreamNuevaPenalidad;
+    }
+
 }

@@ -3,13 +3,12 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoPenalidadDAOImpl;
 import com.ositran.model.ContratoPenalidad;
 import com.ositran.service.ContratoPenalidadService;
-import com.ositran.vo.bean.ContratoPenalidadVO;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoPenalidadVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
@@ -75,8 +74,8 @@ public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
         contratoPenalidadVO.setTcpId(contratoPenalidad.getTcpId());
         contratoPenalidadVO.setTcpFecha(contratoPenalidad.getTcpFecha());
         contratoPenalidadVO.setTcpMotivo(contratoPenalidad.getTcpMotivo());
-    
-        
+        contratoPenalidadVO.setTcpFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoPenalidad.getTcpFecha()));
+        contratoPenalidadVO.setTcpDocumentoFisico(contratoPenalidad.getTcpDocumentoFisico());
     
         return contratoPenalidadVO;
     }
@@ -87,7 +86,9 @@ public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
         contratoPenalidad.setConId(contratoPenalidadVO.getConId());
         contratoPenalidad.setMonId(contratoPenalidadVO.getMonId());
         contratoPenalidad.setPesId(contratoPenalidadVO.getPesId());
+        System.out.println("contratoPenalidadVO.getPesId()"+contratoPenalidadVO.getPesId());
         contratoPenalidad.setTcpTotal(contratoPenalidadVO.getTcpTotal());
+        contratoPenalidad.setTcpDocumentoFisico(contratoPenalidadVO.getTcpDocumentoFisico());
         contratoPenalidad.setTcpEstado(contratoPenalidadVO.getTcpEstado());
         contratoPenalidad.setTcpId(contratoPenalidadVO.getTcpId());
         contratoPenalidad.setTcpFecha(contratoPenalidadVO.getTcpFecha());

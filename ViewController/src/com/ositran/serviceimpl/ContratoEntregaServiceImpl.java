@@ -68,7 +68,7 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
         contratoEntregaVO.setCenDescripcion(contratoEntrega.getCenDescripcion());
         contratoEntregaVO.setCenDocumentoFisico(contratoEntrega.getCenDocumentoFisico());
         contratoEntregaVO.setCenMonto(contratoEntrega.getCenMonto());
-        contratoEntregaVO.setCenEntrega(contratoEntrega.getCenEntrega());
+        
         contratoEntregaVO.setCenFecha(contratoEntrega.getCenFecha());
         contratoEntregaVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoEntrega.getCenFecha()));
         return contratoEntregaVO;
@@ -84,7 +84,7 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
         contratoEntrega.setCenFecha(contratoEntregaVO.getCenFecha());
         contratoEntrega.setCenDescripcion(contratoEntregaVO.getCenDescripcion());
         contratoEntrega.setCenDocumentoFisico(contratoEntregaVO.getCenDocumentoFisico());
-        contratoEntrega.setCenEntrega(contratoEntregaVO.getCenEntrega());
+        
         contratoEntrega.setCenEstado(contratoEntregaVO.getCenEstado());
         contratoEntrega.setCenNombre(contratoEntregaVO.getCenNombre());
         return contratoEntrega;
