@@ -73,8 +73,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpoVO.setPpoEstado(contratoPpo.getPpoEstado());
         contratoPpoVO.setPpoFecha(contratoPpo.getPpoFecha());
         contratoPpoVO.setPpoId(contratoPpo.getPpoId());
-        contratoPpoVO.setPpoMonto(contratoPpo.getPpoMonto());
-        contratoPpoVO.setPpoOficio(contratoPpo.getPpoOficio());        
+        contratoPpoVO.setPpoMonto(contratoPpo.getPpoMonto());        
         
                     
     
@@ -91,8 +90,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpo.setPpoEstado(contratoPpoVO.getPpoEstado());
         contratoPpo.setPpoFecha(contratoPpoVO.getPpoFecha());
         contratoPpo.setPpoId(contratoPpoVO.getPpoId());
-        contratoPpo.setPpoMonto(contratoPpoVO.getPpoMonto());
-        contratoPpo.setPpoOficio(contratoPpoVO.getPpoOficio());
+        contratoPpo.setPpoMonto(contratoPpoVO.getPpoMonto());        
         
         return contratoPpo;
         
