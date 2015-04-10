@@ -1,4 +1,5 @@
 package com.ositran.valorizaciones;
+
 import com.ositran.model.Infraestructura;
 import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
@@ -9,7 +10,6 @@ import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
-import com.ositran.serviceimpl.DatosStdServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -23,6 +23,7 @@ import com.ositran.vo.bean.ViewTdInternosVO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -49,7 +50,7 @@ public class RegistrarAvanceInversionMB {
     private String asunto;
     //*********************DATOS CONTRATO COMPROMISO********************//
     private int contratoCompromisoSeleccionado;
-    private int plazo;
+    private String plazo;
     private long total;
     private int codigoMoneda;
     
@@ -419,11 +420,11 @@ public class RegistrarAvanceInversionMB {
     }
 
 
-    public void setPlazo(int plazo) {
+    public void setPlazo(String plazo) {
         this.plazo = plazo;
     }
 
-    public int getPlazo() {
+    public String getPlazo() {
         return plazo;
     }
 
