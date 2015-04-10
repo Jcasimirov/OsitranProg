@@ -50,8 +50,8 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     }
     
     @Override
-    public List<InfraestructuraTipoVO> AllSearch(String a, String b) throws SQLException{
-        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.AllSearch(a, b);
+    public List<InfraestructuraTipoVO> AllSearch(String a) throws SQLException{
+        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.AllSearch(a);
         List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
         return listVO;
     }
