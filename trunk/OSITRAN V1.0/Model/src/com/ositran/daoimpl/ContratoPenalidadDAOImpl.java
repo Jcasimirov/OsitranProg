@@ -2,18 +2,17 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoPenalidadDAO;
 import com.ositran.model.ContratoPenalidad;
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
     public ContratoPenalidadDAOImpl() {
@@ -22,10 +21,9 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
 
     @Override
     public List<ContratoPenalidad> query() throws SQLException {
-        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list=session.createQuery("from ContratoPenalidad cp where cp.tcpEstado <> 0").list();
-        session.getTransaction().commit();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
+        List list=session.createQuery("from ContratoPenalidad cp").list();
+        session.close();
         return list;
     }
 
@@ -35,12 +33,14 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoPenalidad);
+            session.save(contratoPenalidad);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 
@@ -89,7 +89,7 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoPenalidad cp where cp.tcpEstado <> 0 and cp.conId = :busqueda1 order by tcpId DESC");
+        query = session.createQuery("FROM ContratoPenalidad cp where cp.conId = :busqueda1 and cp.tcpEstado<>0 order by tcpId DESC");
         query.setParameter("busqueda1",conId);            
         List<ContratoPenalidad> list = query.list();
         session.getTransaction().commit();

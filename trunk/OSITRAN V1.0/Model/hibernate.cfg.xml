@@ -61,6 +61,8 @@
         <mapping class="com.ositran.model.ContratoHito"/>
         <mapping class="com.ositran.model.ContratoPpo"/>                    
         <mapping class="com.ositran.model.ContratoCao"/>
+        <mapping class="com.ositran.model.ContratoPenalidad"/>
+        <mapping class="com.ositran.model.ContratoPenalidadEstado"/>
                 
     </session-factory>
 </hibernate-configuration>
