@@ -6,21 +6,21 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class TipoInversionDAOImpl implements TipoInversionDAO {
-
     InversionTipo inversionTipo;
 
     @Override
     @SuppressWarnings("unchecked")
     public List<InversionTipo> query() throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-         List list=session.createQuery("FROM InversionTipo  E WHERE E.tivId <> 0").list();
-         session.close();
+        List list=session.createQuery("FROM InversionTipo  E WHERE E.tivEstado <> 0").list();
+        session.close();
         return list;
     }
     
@@ -30,7 +30,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         List list;
-        query=session.createQuery("FROM InversionTipo  E WHERE upper(E.tivNombre)  like :nombre");
+        query=session.createQuery("FROM InversionTipo  E WHERE upper(E.tivNombre)  like :nombre and upper(E.tivEstado) <> 0 ");
         query.setParameter("nombre",nombre );
         list= query.list();   
         cantidad=list.size();
@@ -40,24 +40,10 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<InversionTipo> query1(String buscar) throws SQLException, Exception {
-        /*
-        ----------BUSQUEDA SIN LIKE-------
-        System.out.println(buscar);
-        Query query;
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        query=session.createQuery("FROM InversionTipo  E WHERE E.tivNombre = :busqueda ");
-        query.setParameter("busqueda",buscar);
-        List list= query.list();
-        session.getTransaction().commit();
-        return list;*/
-        
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        query =session.createQuery("FROM InversionTipo  E WHERE upper(E.tivNombre) like  :busqueda");
+        query =session.createQuery("FROM InversionTipo  E WHERE (upper(E.tivNombre) like  :busqueda or  upper(E.tivDescripcion) like  :busqueda ) and E.tivEstado <> 0 ");
         query.setParameter("busqueda", "%" + buscar + "%");
-        /*  query =session.createQuery("FROM InversionTipo  E WHERE E.tivNombre like  :busqueda  or E.tivId like :busqueda or E.tivDescripcion like :busqueda");
-        query.setParameter("busqueda", "%" + buscar + "%"); */
         return query.list();
     }
 
@@ -80,13 +66,14 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
 
     @Override
     public String delete(Integer id) throws SQLException, Exception {
-        System.out.println(id);
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             InversionTipo inversionTipo = (InversionTipo) session.get(InversionTipo.class, id);
-            session.delete(inversionTipo);
+            inversionTipo.setTivFechaBaja(new Date());
+            inversionTipo.setTivEstado(0);
+            session.update(inversionTipo);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -97,7 +84,6 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
 
     @Override
     public String update(InversionTipo inversionTipo) throws SQLException, Exception {
-
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
