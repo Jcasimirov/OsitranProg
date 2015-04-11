@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+        <title>conf_reporte_avance_inver</title>
+        <script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Sólo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'Día',
+			    allDayText : 'Todo el día'
+			};		
+	</script>
+    </h:head>
+    <h:body>
+        <f:event listener="#{configReporteAvanceInversionMB.validarSesion}" type="preRenderComponent"></f:event>
+        <f:event listener="#{configReporteAvanceInversionMB.cargaDatosDelModelo}" type="preRenderComponent"/>
+        <p:layout fullPage="true" style="border:none">
+            <p:layoutUnit position="center" style="border:0px; font-size:11px">
+                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <div align="center">
+                    <h3 style="color:Black; font-weight:bold; font-family:sans-serif; font-size:21px">
+                        CONFIGURACIÓN DE REPORTE DE AVANCE DE INVERSIÓN
+                    </h3>
+                    <h:form>
+                        <div style="width:80%">
+                            <p:dataTable id="reporteInversion" var="unidadReporteInversion" value="#{configReporteAvanceInversionMB.reporteInversion}" scrollable="true" scrollHeight="200" emptyMessage="No hay datos.">
+                                <p:column headerText="Concesión">
+                                    <h:outputText value="#{unidadReporteInversion.concesionNombre}" />
+                                </p:column>
+                                <p:column headerText="Tipo de infraestructura">
+                                    <h:outputText value="#{unidadReporteInversion.infraestructuraTipo}" />
+                                </p:column>
+                                <p:column headerText="Montos totales">
+                                    <p:selectOneMenu value="#{unidadReporteInversion.tipoMontoTotal}" style="width:125px">
+                                        <f:selectItem itemLabel="Sin ajuste" itemValue="sinAjuste" />
+                                        <f:selectItem itemLabel="Con reajuste" itemValue="conReajuste" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:dataTable>
+                            <p:message for="reporteInversion" showDetail="true" showSummary="true" display="both"/>
+                        </div>
+                        <p:outputLabel for="motivoCambio" value="Motivo de Cambio: " />
+                        <p:inputTextarea id="motivoCambio" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiMotivoDeCambio}"/>
+                        <p:message for="motivoCambio" showDetail="true" showSummary="true" display="both"/>
+
+                        <p:outputLabel for="numeroDocumento" value="Nro. Documento: " />
+                        <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:message for="numeroDocumento" showDetail="true" showSummary="true" display="both"/>
+                        
+                        <p:outputLabel for="fechaEmision" value="Fecha de Emisión: " />
+                        <p:calendar id="fechaEmision" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiFechaEmision}" pattern="dd-MM-yyyy" navigator="true" locale="es" readonlyInput="false" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" converterMessage="Fecha no valida" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:message for="fechaEmision" showDetail="true" showSummary="true" display="both"/>
+                        
+                        <p:outputLabel for="referencia" value="Referencia: " />
+                        <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:message for="referencia" showDetail="true" showSummary="true" display="both"/>
+                        <p:commandButton value="Guardar" action="#{configReporteAvanceInversionMB.guardar}" ajax="false" />
+                    </h:form>
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true"/>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
