@@ -1,9 +1,20 @@
 package com.ositran.contratos;
 
+import com.ositran.service.ConcesionService;
+import com.ositran.service.ContratoConcesionService;
+import com.ositran.service.EmpresaSupervisoraService;
+import com.ositran.serviceimpl.ConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoEmpresaSupervisoraServiceImpl;
+import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
+import com.ositran.util.Constantes;
+import com.ositran.util.Reutilizar;
+import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.ContratoEntregaVO;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
+import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
@@ -222,6 +233,22 @@ public class MantenimientoContratEmprSupervisor {
     private CommandButton commandButtonDialModificar;
     private HtmlInputHidden inputHidden4;
     private PanelGrid panelGrid4;
+    
+    //Atributos de contratos
+    List<ContratoVO> listaContratos=new ArrayList<>();
+    List<EmpresaSupervisoraVO> listaEmpresaSup;
+    
+    @ManagedProperty(value = "#{contratoConcesionServiceImp}")
+    ContratoConcesionService contratoConcesionServiceImp;
+    
+    @ManagedProperty(value = "#{concesionServiceImpl}")
+    ConcesionService concesionServiceImpl;
+    
+    @ManagedProperty(value = "#{empresaSupervisoraServiceImpl}")
+    EmpresaSupervisoraService empresaSupervisoraServiceImpl;
+    private OutputLabel outputLabel6;
+    private InputText inputTextNombreEmpresaSupervisora;
+
 
     public void setForm1(HtmlForm form1) {
         this.form1 = form1;
@@ -461,6 +488,23 @@ public class MantenimientoContratEmprSupervisor {
 
     public SelectOneMenu getSelectOneMenuTipoInfraestructura() {
         return selectOneMenuTipoInfraestructura;
+    }
+
+
+    public void setListaEmpresaSup(List<EmpresaSupervisoraVO> listaEmpresaSup) {
+        this.listaEmpresaSup = listaEmpresaSup;
+    }
+
+    public List<EmpresaSupervisoraVO> getListaEmpresaSup() {
+        return listaEmpresaSup;
+    }
+
+    public void setEmpresaSupervisoraServiceImpl(EmpresaSupervisoraService empresaSupervisoraServiceImpl) {
+        this.empresaSupervisoraServiceImpl = empresaSupervisoraServiceImpl;
+    }
+
+    public EmpresaSupervisoraService getEmpresaSupervisoraServiceImpl() {
+        return empresaSupervisoraServiceImpl;
     }
 
 
@@ -2304,5 +2348,111 @@ public class MantenimientoContratEmprSupervisor {
 
     public PanelGrid getPanelGrid4() {
         return panelGrid4;
+    }
+    
+    List<ContratoSupervisoraVO> listarEntregas = new ArrayList<ContratoSupervisoraVO>();
+    public void agregarEntrega() {
+        try {
+            System.out.println("agregarEntrega: " + contratoSupervisoraVO.getCpsNroDeContrato());
+            contratoSupervisoraVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoSupervisoraVO.getCpsFechaRegistro()));
+            contratoSupervisoraVO.setCpsMontoContratado(1);
+            contratoSupervisoraVO.setCpsNroDeContrato(1);
+            contratoSupervisoraVO.setCenEntrega(1);            
+            contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+            listarEntregas.add(contratoSupervisoraVO);
+            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoSupervisoraVO.getCenDocumentoFisico(), contratoSupervisoraVO.getInputStreamNuevaEntrega());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORGUARDAR));
+        } finally {
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }
+    }
+    
+    public void cargarListaContratos() {
+        try {
+            listaContratos = contratoConcesionServiceImp.query();
+            System.out.println(listaContratos.size());
+            
+            for (ContratoVO contra : listaContratos) {
+                ConcesionVO concesion = new ConcesionVO();
+                concesion = concesionServiceImpl.get(contra.getCsiId());
+                contra.setNombreConcesion(concesion.getCsiNombre());
+                contra.setCodigoConcesion(concesion.getCsiId());
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public void elegirContrato(ContratoVO con){
+            inputTextConcesion.setValue(con.getConId());
+            inputTextTipoInfra.setValue(con.getTinId());
+            inputTextModalidadConcesion.setValue(con.getMcoId());
+            inputTextInversion.setValue(con.getTinId());
+    }
+    
+    public void elegirEmpresa(EmpresaSupervisoraVO empresaSupervisoraVO){
+        inputTextNombreEmpresaSupervisora.setValue(empresaSupervisoraVO.getSupNombre());
+        /*inputTextPlazo.setValue(empresaSupervisoraVO.getSup);
+        inputTextMoneda.setValue(empresaSupervisoraVO.getSup);
+        inputTextTotal.setValue(empresaSupervisoraVO.get);*/
+    }
+
+    public void setListaContratos(List<ContratoVO> listaContratos) {
+        this.listaContratos = listaContratos;
+    }
+
+    public List<ContratoVO> getListaContratos() {
+        return listaContratos;
+    }
+
+
+    public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
+        this.contratoConcesionServiceImp = contratoConcesionServiceImp;
+    }
+
+    public ContratoConcesionService getContratoConcesionServiceImp() {
+        return contratoConcesionServiceImp;
+    }
+
+
+    public void setConcesionServiceImpl(ConcesionService concesionServiceImpl) {
+        this.concesionServiceImpl = concesionServiceImpl;
+    }
+
+    public ConcesionService getConcesionServiceImpl() {
+        return concesionServiceImpl;
+    }
+    
+    public void buscarEmpresaSup() throws Exception {
+        try{
+            listaEmpresaSup=empresaSupervisoraServiceImpl.query();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void setOutputLabel6(OutputLabel outputLabel6) {
+        this.outputLabel6 = outputLabel6;
+    }
+
+    public OutputLabel getOutputLabel6() {
+        return outputLabel6;
+    }
+
+    public void setInputTextNombreEmpresaSupervisora(InputText inputText1) {
+        this.inputTextNombreEmpresaSupervisora = inputText1;
+    }
+
+    public InputText getInputTextNombreEmpresaSupervisora() {
+        return inputTextNombreEmpresaSupervisora;
     }
 }
