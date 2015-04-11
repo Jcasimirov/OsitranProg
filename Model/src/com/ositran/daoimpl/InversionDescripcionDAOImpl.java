@@ -3,6 +3,8 @@ import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
+
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,21 +18,21 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
-        List list=session.createQuery("select o from InversionTipoDescripcion o").list();
+        List list=session.createQuery("from InversionTipoDescripcion E WHERE E.itdEstado <> 0").list();
         session.getTransaction().commit();
         return list;
     }
     
     @Override
-    public int getCanNombres(String nombre) throws SQLException, Exception {
+    public int getCanNombres(String filtro) throws SQLException, Exception {
         int cantidad=0;
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         Query query;
         List list;
         session.getTransaction();
         session.beginTransaction();
-        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE  E.itdNombre like :nombre");
-        query.setParameter("nombre",nombre );
+        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE  E.itdNombre like :filtro and   E.itdEstado <> 0 ");
+        query.setParameter("filtro",filtro );
         list= query.list();   
         cantidad=list.size();
         session.getTransaction().commit();
@@ -48,9 +50,6 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
                session.save(inversionTipoDes);
                session.getTransaction().commit();
           } catch (Exception e) {
-               
-               e.printStackTrace();
-                   
                session.getTransaction().rollback();
                result=e.getMessage();
            }
@@ -64,7 +63,9 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
         try {
             session.beginTransaction();
             inversionTipoDescripcion=(InversionTipoDescripcion)session.get(InversionTipoDescripcion.class, id);
-            session.delete(inversionTipoDescripcion);
+            inversionTipoDescripcion.setItdEstado(0);
+            inversionTipoDescripcion.setItdFechaBaja(new Date());
+            session.update(inversionTipoDescripcion);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -91,8 +92,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
 
     @Override
     public InversionTipoDescripcion get(Integer id) throws SQLException ,Exception {
-       
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
        inversionTipoDescripcion = (InversionTipoDescripcion) session.get(InversionTipoDescripcion.class, id);
          session.getTransaction().commit();
@@ -101,15 +101,11 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
 
     @Override
     public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception {
-        
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();     
-        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE upper(E.itdNombre) like  :busqueda");  
+        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE (upper(E.itdNombre) like  :busqueda or upper(E.itdDescripcion) like  :busqueda) and E.itdEstado <> 0");  
         query.setParameter("busqueda","%"+buscar+"%");
-        /* query =
-            session.createQuery("FROM InversionTipoDescripcion  E WHERE E.itdNombre like  :busqueda  or E.itdId like :busqueda or E.itdDescripcion like :busqueda");
-        query.setParameter("busqueda", "%" + buscar + "%"); */
         List list= query.list();
         session.getTransaction().commit();
         return list;
