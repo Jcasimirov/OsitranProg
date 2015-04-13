@@ -5,17 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <script type="text/javascript">
-              function pasarMayuscula(obj, id) {
-                  obj = obj.toUpperCase();
-                  document.getElementById(id).value = obj;
-              }
-
-              function pasarMinuscula(obj, id) {
-                  obj = obj.toLowerCase();
-                  document.getElementById(id).value = obj;
-              }
-            </script>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
         <h:body>
             <f:event listener="#{rolMB.cargarListaRoles}" type="postAddToView"></f:event>
@@ -26,7 +16,7 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">MANTENIMIENTO ROLES</h5>
+                            <h5 class="titulo5" >MANTENIMIENTO ROLES</h5>
                             <div style="width:80%">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
@@ -45,15 +35,13 @@
                                                 <p:tooltip styleClass="tool" id="tool2" for="buscarTodos"
                                                            value="Ver la lista completa de Roles"/>
                                                  
-                                                <p:commandButton image="ui-icon-minus" type="reset" id="limpiar"></p:commandButton>
-                                                 
-                                                <p:tooltip styleClass="tool" id="toolTipFade11" for="limpiar"
-                                                           value="Limpiar el valor de la busqueda "/>
+                                            
                                             </td>
                                             <td align="right">
                                                 <p:commandButton actionListener="#{rolMB.cargarListaMenu}"
                                                                  update=":form:registrar" image="ui-icon-circle-plus"
-                                                                 oncomplete="insertarPanel.show()" value="Nuevo Rol"
+                                                                 oncomplete="insertarPanel.show()" value="Nuevo"
+                                                                 styleClass="botones"
                                                                  id="nuevo"/>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool3" for="nuevo"
@@ -78,11 +66,11 @@
                                         <p:column headerText="Descripción">
                                             <h:outputText value="#{rol1.rolDescripcion}"/>
                                         </p:column>
-                                        <p:column headerText="Editar" style="width:4%">
+                                        <p:column headerText="Modificar" style="width:4%">
                                             <div align="center">
                                                 <p:commandButton actionListener="#{rolMB.cargarEditar()}"
-                                                                 image="ui-icon-document"
-                                                                 style="width:22px;height:22px;aling:center"
+                                                                  image="ui-icon-pencil"
+                                                                 styleClass="controles"
                                                                  update=":form:menuOpcionesE :form:codEliminar :form:menuOpcionesESe :form:nombreE :form:descripcionE"
                                                                  oncomplete="panelEditar.show()">
                                                     <f:param id="idActualizar" name="idActualizar"
@@ -95,8 +83,8 @@
                                                 <p:commandButton actionListener="#{rolMB.cargarEliminarRol}"
                                                                  update=":form:codEliminar"
                                                                  onclick="confirEliminar.show()"
-                                                                 image="ui-icon-closethick"
-                                                                 style="width:22px;height:22px;align:center">
+                                                                 image="ui-icon-trash"
+                                                                 styleClass="controles">
                                                     <f:param id="idEliminar" name="idEliminar" value="#{rol1.rolId}"/>
                                                 </p:commandButton>
                                             </div>
@@ -113,17 +101,19 @@
                                                                                        AsisTP-2015</div>
                     </p:layoutUnit>
                 </p:layout>
-                <p:dialog   id="registrar" header="Registrar"   height="450" widgetVar="insertarPanel" modal="true"
+                <p:dialog   id="registrar" header="Registrar"   widgetVar="insertarPanel" modal="true"
                           style="text-align:center">
-                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                      <h5 class="titulo5" >REGISTRAR ROL</h5>    
+                    <table style="margin-bottom:1px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="center" colspan="5">
+                            <td align="left" colspan="5">
                                 <table>
+                                
                                     <tr>
                                         <td align="left" class="negrita">Nombre del Rol:</td>
                                         <td align="left">
                                             <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
-                                                         label="Nombre" id="nombre" style="width:300px"
+                                                         label="Nombre" id="nombre" style="width:400px"
                                                          value="#{rolMB.nombre}"/>
                                              
                                             <h:outputText value=" "/>
@@ -137,12 +127,14 @@
                                         <td align="left">
                                             <p:inputTextarea id="descripcion"
                                                              onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
-                                                             style="width:300px" value="#{rolMB.descripcion}"/>
+                                                             style="width:400px" value="#{rolMB.descripcion}"/>
                                              
                                             <h:outputText value=" "/>
                                              
                                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                         </td>
+                                        
+                                        
                                     </tr>
                                      
                                     <tr>
@@ -222,7 +214,7 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:dataTable  scrollable="true" scrollHeight="250" scrollWidth="400" id="menuOpciones" var="me" value="#{rolMB.listaMen}"
+                                <p:dataTable style="font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="400" id="menuOpciones" var="me" value="#{rolMB.listaMen}"
                                              selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
                                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
@@ -246,7 +238,7 @@
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:dataTable scrollable="true" scrollHeight="250" scrollWidth="700" id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
+                                <p:dataTable style="font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="700" id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
                                              selection="#{rolMB.listaMenSeleccionado2}"  rowIndexVar="indexRegistrar"   rowKey="#{me1.menId}">
                                     <p:column style="width:1px"  selectionMode="multiple" />
                                     <p:column headerText="Opción Menú" style="width:70px" >
@@ -275,19 +267,19 @@
                         </tr>
                          
                         <tr>
-                            <td align="right" colspan="2">
-                                <p:commandButton value="Guardar" update=":form:mensaje :form:tablaRoles"
+                            <td align="center" colspan="4">
+                                <p:commandButton value="Guardar" styleClass="botones" update=":form:mensaje :form:tablaRoles"
                                                  actionListener="#{rolMB.guardar}"/>
-                            </td>
-                            <td></td>
-                            <td colspan="2" align="left">
-                                <p:commandButton value="Limpiar" onclick="confirLimpiar.show()"/>
+                                <h:outputText value="n" style="color:white" />
+
+                                <p:commandButton value="Salir" styleClass="botones" onclick="insertarPanel.hide()"/>
                             </td>
                         </tr>
                     </table>
                 </p:dialog>
                 <p:dialog id="panelEditar" header="Editar" widgetVar="panelEditar" modal="true"
                           style="text-align:center;">
+                          <h5 class="titulo5" >MODIFICAR ROL</h5>
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td align="center" colspan="5">
@@ -397,11 +389,13 @@
                          
                         <tr>
                             <td align="right" colspan="2">
-                                <p:dataTable  scrollable="true" scrollHeight="250" scrollWidth="400"  id="menuOpcionesE" var="meE" value="#{rolMB.listaMenE}"
+                                <p:dataTable  style="text-align:center;font-size:10px"  scrollable="true" scrollHeight="250" scrollWidth="400"  id="menuOpcionesE" var="meE" value="#{rolMB.listaMenE}"
                                              selection="#{rolMB.listaMenSeleccionadoE}" rowKey="#{meE.menId}">
-                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column selectionMode="multiple"  style="width:12px;text-align:center;font-size:10px" />
                                     <p:column headerText="Opción Menú">
+                                    <div align="left">
                                         <h:outputText value="#{meE.menNombre}"/>
+                                        </div>
                                     </p:column>
                                 </p:dataTable>
                             </td>
@@ -421,44 +415,55 @@
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:dataTable scrollable="true" scrollHeight="250" scrollWidth="700"  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
+                                <p:dataTable  style="text-align:center;font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="700"  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
                                              selection="#{rolMB.listaMenSeleccionadoE2}" rowKey="#{me1E.menId}">
-                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                                    <p:column headerText="Opción Menú">
+                                    <p:column selectionMode="multiple" />
+                                    <p:column headerText="Opción Menú" style="width:140px">
+                                        <div align="left">
                                         <h:outputText value="#{me1E.menNombre}"/>
+                                        </div>
                                     </p:column>
-                                    <p:column headerText="Registrar">
+                                    <p:column headerText="R" style="width:1px">
+                                    <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.crear}"/>
+                                         </div>
                                     </p:column>
-                                    <p:column headerText="Actualizar">
+                                    <p:column headerText="A" style="width:1px">
+                                    <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.actualizar}"/>
+                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eliminar">
+                                    <p:column headerText="E" style="width:1px">
+                                    <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.eliminar}"/>
+                                         </div>
                                     </p:column>
-                                    <p:column headerText="Lectura">
+                                    <p:column headerText="L" style="width:1px">
+                                    <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.lectura}"/>
+                                         </div>
                                     </p:column>
-                                     <p:column headerText="Todo">
+                                     <p:column headerText="T" style="width:1px">
+                                     <div align="center">
                                         <p:selectBooleanCheckbox  value="#{me1E.todo}" >
+                                        
                                          <p:ajax update=":form:menuOpcionesESe"
                                                         listener="#{rolMB.menuSeleccionadoE(indexRegistrarE)}"/>
                                         </p:selectBooleanCheckbox>
+                                         </div>
                                     </p:column>
                                 </p:dataTable>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="right" colspan="2">
-                                <p:commandButton value="Editar" update=":form:mensaje :form:tablaRoles"
+                            <td align="center" colspan="4">
+                                <p:commandButton value="Editar" styleClass="botones" update=":form:mensaje :form:tablaRoles"
                                                  actionListener="#{rolMB.editar()}"
                                                  
                                         />
-                            </td>
-                            <td></td>
-                            <td colspan="2" align="left">
-                                <p:commandButton value="Limpiar" onclick="confirLimpiar.show()"/>
+                          <h:outputText styleClass="botones"  value="n" style="color:white" />
+                                <p:commandButton value="Limpiar" onclick="panelEditar.hide()"/>
                             </td>
                         </tr>
                     </table>
