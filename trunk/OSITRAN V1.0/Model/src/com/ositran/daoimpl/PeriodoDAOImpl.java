@@ -21,9 +21,9 @@ public class PeriodoDAOImpl implements PeriodoDAO {
     @Override
     public List<Periodo> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list=session.createQuery("select o from Periodo o").list();
-        session.getTransaction().commit();
+        
+        List list=session.createQuery("From Periodo o").list();
+        session.close();
         return list;
     }
 

@@ -1,28 +1,26 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
-import com.ositran.model.Concesion;
 import com.ositran.model.Infraestructura;
 import com.ositran.model.InfraestructuraTipo;
+import com.ositran.util.HibernateUtil;
 
-import java.sql.SQLException;
-
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    
 
 
     @Override
     public List<Infraestructura> query1(int codigoC) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         Query query;
         query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
@@ -35,7 +33,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     
     @Override
     public List<Infraestructura> query2(int codigoC) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         Query query;
         query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
@@ -52,7 +50,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     @Override
     public List<Infraestructura> query() {
         System.out.println("DAO");
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Infraestructura o WHERE o.infEstado=1").list();
         
@@ -64,7 +62,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     public String insert(Infraestructura infraestructura) {
         String result=null;
         System.out.println("DaoInfra");
-           Session session = sessionFactory.openSession();
+           Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
            try {
                session.beginTransaction();
                session.save(infraestructura);
@@ -88,7 +86,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         
             System.out.println(infraestructura.getInfId());
         String result=null;
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         try {
             session.beginTransaction();
             session.update(infraestructura);
@@ -109,7 +107,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     
     @Override
     public Infraestructura get2(Integer id) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         Infraestructura infraestructura = (Infraestructura) session.get(Infraestructura.class, id);
         session.getTransaction().commit();
@@ -118,7 +116,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     
     /*     @Override
     public Infraestructura eliminarInfraestructura(Integer id) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         Infraestructura infraestructura = (Infraestructura) session.get(Infraestructura.class, id);
         session.getTransaction().commit();
@@ -128,7 +126,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         
     @Override
     public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
         Query query;
         query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i\n" + 
