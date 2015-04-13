@@ -23,13 +23,13 @@ public class ValorizacionSupDetalle implements Serializable {
     @GeneratedValue(generator = "generator")    
     private Integer cvaId;
     @Column(nullable = false)
-    private Long igv;
+    private double igv;
     @Column(name = "MON_ID", nullable = false)
     private Integer monId;
     @Column(nullable = false)
-    private Long neto;
+    private double neto;
     @Column(nullable = false)
-    private Long total;
+    private double total;
     @Column(name = "TVS_HR", nullable = false)
     private Integer tvsHr;
 
@@ -46,51 +46,51 @@ public class ValorizacionSupDetalle implements Serializable {
         this.tvsHr = tvsHr;
     }
 
-    public Integer getCvaId() {
-        return cvaId;
-    }
-
     public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
     }
 
-    public Long getIgv() {
-        return igv;
+    public Integer getCvaId() {
+        return cvaId;
     }
 
-    public void setIgv(Long igv) {
+    public void setIgv(double igv) {
         this.igv = igv;
     }
 
-    public Integer getMonId() {
-        return monId;
+    public double getIgv() {
+        return igv;
     }
 
     public void setMonId(Integer monId) {
         this.monId = monId;
     }
 
-    public Long getNeto() {
-        return neto;
+    public Integer getMonId() {
+        return monId;
     }
 
-    public void setNeto(Long neto) {
+    public void setNeto(double neto) {
         this.neto = neto;
     }
 
-    public Long getTotal() {
-        return total;
+    public double getNeto() {
+        return neto;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public Integer getTvsHr() {
-        return tvsHr;
+    public double getTotal() {
+        return total;
     }
 
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
+    }
+
+    public Integer getTvsHr() {
+        return tvsHr;
     }
 }
