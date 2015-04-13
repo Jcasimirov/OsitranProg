@@ -38,8 +38,6 @@
                                                 <p:tooltip styleClass="tool"  id="toolTipFade1" for="buscarTodos" value="Ver la lista completa de concesionarios" />
                                              </td>
                                              <td>
-                                             
-                                             
                                              </td>
                                                     <td style="width:10%">
                                                      Tipo Documento: 
@@ -62,7 +60,7 @@
                                            <td aling="left">
                                             </td>
                                             <td align="right">
-                                                <p:commandButton id="nuevo" style="width:70px"
+                                                <p:commandButton id="nuevo" styleClass="botones"
                                                 rendered="#{concesionarioMB.rolOpcion.troAgregar eq 1}"
                                                 actionListener="#{concesionarioMB.limpiarCampos}"
                                                  image="ui-icon-circle-plus"
@@ -71,20 +69,17 @@
                                                                  update=":form:registrar"
                                                                  />
                                         <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Registrar un nuevo concecionario" />
-                                            </td>
-                                           
+                                            </td>                                          
                                         </tr>
                                     </table>
                                 </div>
-                                <br></br>
-                                 
+                                <br></br>                               
                                 <p:dataTable paginatorPosition="bottom"
                                 emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="3,4,10" 
                                               id="tablaC" var="conc1" style="font-size:10px"
-                                             value="#{concesionarioMB.listaCon}">
-                                             
+                                             value="#{concesionarioMB.listaCon}">                                            
                                      <p:column headerText="N°ro"  style="width:2%">
                                         <h:outputText value="#{conc1.contador}"/>
                                     </p:column>         
@@ -96,16 +91,14 @@
                                     </p:column>
                                      <p:column headerText="Siglas" style="width:8%">
                                         <h:outputText value="#{conc1.cncSiglas}"/>
-                                    </p:column>
-                                    
+                                    </p:column>                                    
                                     <p:column headerText="Representante Legal" >
                                         <h:outputText value="#{conc1.cncRepresentanteLegal}"/>
                                     </p:column>
                                     <p:column headerText="N° de Documento" style="width:10%">
                                         <h:outputText value="#{conc1.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column style="width:4%" headerText="Modificar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" >
-                                    
+                                    <p:column style="width:4%" headerText="Modificar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" >                                   
                                     <div align="center" >
                                                 <p:commandButton 
                                                         oncomplete="editarPanel.show()"
@@ -114,8 +107,7 @@
                                                          image="ui-icon-pencil"   styleClass="controles" >
                                                           <f:param id="idModificar" name="idModificar" value="#{conc1.cncId}"/>
                                                 </p:commandButton>
-                                                                 </div>
-                                       
+                                                                 </div>                   
                                     </p:column>
                                     <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar eq 1}" headerText="Eliminar" style="width:4%" >
                                     
@@ -135,8 +127,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Proyecto Ositran-Developer Por
-                                                                                       AsisTP-2015</div>
+                        <div class="piePagina">Proyecto Ositran-Developer Por AsisTP-2015</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
@@ -162,7 +153,7 @@
                 </p:dialog>
                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
-                          <h5 class="titulo5">REGISTRAR CONCESIONARIO</h5>
+                          <h5 class="titulo5">MODIFICAR CONCESIONARIO</h5>
                      <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
                             <td colspan="1" align="left">Nombre:</td>
@@ -294,10 +285,10 @@
                         <tr>
                             <td colspan="2" align="right">
                                 <p:commandButton update=":form:tablaC :form:mensaje" 
-                                                 actionListener="#{concesionarioMB.editar}" style="width:70px" value="Editar"/>
+                                                 actionListener="#{concesionarioMB.editar}" styleClass="botones" value="Editar"/>
                             </td>
                             <td colspan="2" align="left">
-                                <p:commandButton style="width:70px" value="Salir" onclick="editarPanel.hide ()"/>
+                                <p:commandButton styleClass="botones" value="Salir" onclick="editarPanel.hide ()"/>
                             </td>
                         </tr>
                     </table>
@@ -428,11 +419,11 @@
                         <tr>
                             <td colspan="2" align="right">
                                 <p:commandButton update=":form:tablaC :form:mensaje"
-                                                 actionListener="#{concesionarioMB.guardar}" style="width:70px"
+                                                 actionListener="#{concesionarioMB.guardar}" styleClass="botones"
                                                  value="#{btn.btn_guardar}"/>
                             </td>
                             <td align="left" colspan="2">
-                                <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
+                                <p:commandButton styleClass="botones" value="Salir" onclick="insertarPanel.hide ()"/>
                             </td>
                            
                         </tr>
