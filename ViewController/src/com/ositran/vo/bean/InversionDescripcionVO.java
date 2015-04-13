@@ -1,7 +1,6 @@
 package com.ositran.vo.bean;
 
 import com.ositran.model.InversionTipoDescripcion;
-
 import java.util.Date;
 
 public class InversionDescripcionVO {
@@ -19,6 +18,8 @@ public class InversionDescripcionVO {
     private String itdUsuarioCambio;
     private int tivId;
     private int contador;
+    
+    private String nombreTI;
 
     public InversionDescripcionVO() {
     }
@@ -144,5 +145,14 @@ public class InversionDescripcionVO {
 
     public int getContador() {
         return contador;
+    }
+
+
+    public void setNombreTI(String nombreTI) {
+        this.nombreTI = nombreTI;
+    }
+
+    public String getNombreTI() {
+        return nombreTI;
     }
 }
