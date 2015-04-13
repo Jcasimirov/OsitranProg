@@ -1,5 +1,7 @@
 package com.ositran.util;
 
+import com.ositran.vo.bean.UsuarioVO;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +16,9 @@ import java.util.Date;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.DefaultStreamedContent;
 
@@ -49,6 +54,13 @@ public class Reutilizar {
             return (new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
         
          
+    }
+    public UsuarioVO obtenerDatosUsuarioLogueado(){
+        FacesContext faceContext=FacesContext.getCurrentInstance();
+        HttpServletRequest httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+        HttpSession session = httpServletRequest.getSession();
+        System.out.println("usuario que se logueo:"+((UsuarioVO)session.getAttribute("atributosUsuario")).getUsuNombre());
+        return ((UsuarioVO)session.getAttribute("atributosUsuario"));
     }
     public void borrarArchivos(String ruta){
         File fichero=new File(ruta);
