@@ -227,6 +227,7 @@ public class ActualizarContrato {
 
     public final int formulario = 29;
     private RolOpcionesVO rolOpcion;
+    private boolean renderAeropuertos;
 
     // CAO
     private String nombreCAO;
@@ -285,6 +286,7 @@ public class ActualizarContrato {
         private String campo;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        System.out.println("actualizar contrato user:"+Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getUsuNombre());
     }
 
     public ActualizarContrato() {
@@ -2836,5 +2838,13 @@ public class ActualizarContrato {
 
     public String getCampo() {
         return campo;
+    }
+
+    public void setRenderAeropuertos(boolean renderAeropuertos) {
+        this.renderAeropuertos = renderAeropuertos;
+    }
+
+    public boolean isRenderAeropuertos() {
+        return renderAeropuertos;
     }
 }

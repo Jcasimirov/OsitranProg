@@ -4,14 +4,17 @@ import com.ositran.service.RolOpcionesService;
 import com.ositran.service.UsuarioService;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,6 +40,7 @@ public class Logueo {
     
 
     public void logear() {
+        int codusuario=0;
         try {
            FacesContext context = FacesContext.getCurrentInstance();
            ExternalContext externalContext = context.getExternalContext();
@@ -48,7 +52,7 @@ public class Logueo {
                     password=usua.getUsuContrasenya();
                     codigoRol=usua.getRolId();
                     listaRolOpciones=rolOpcionesServiceImpl.query1(codigoRol);
-                    }
+                    codusuario=usua.getUsuId();}
                 }
            
             if (validar==false){
@@ -66,10 +70,8 @@ public class Logueo {
                     session.setAttribute("PassSesion", contrasenha);
                     session.setAttribute("listaPermisos", listaRolOpciones);
                     session.setAttribute("listaUsuario", listaUsuario);
-                    
-                    
-                    
-                    
+                    session.setAttribute("atributosUsuario", usuarioServiceImpl.get(codusuario));
+                   
                      String redirectPath = "/faces/ositran/principal.xhtml";
                      externalContext.redirect(servletContext.getContextPath() + redirectPath);
   
