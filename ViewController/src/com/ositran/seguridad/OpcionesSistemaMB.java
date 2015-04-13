@@ -5,6 +5,7 @@ import com.ositran.serviceimpl.MenServiceImpl;
 import com.ositran.serviceimpl.RolServiceImpl;
 import com.ositran.vo.bean.MenVO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -74,9 +75,7 @@ public class OpcionesSistemaMB {
         }
     
     public void editar(){
-        System.out.println("**********************");
-        System.out.println(codigoMenu);
-            System.out.println("**********************");
+        menVO=getMenServiceImpl().get(codigoMenu);
             if (nombreE.equals("")) {
                FacesContext.getCurrentInstance().addMessage(null,
                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -88,8 +87,8 @@ public class OpcionesSistemaMB {
             }else {
             menVO.setMenNombre(nombreE);
             menVO.setDescripcion(descripcionE);
-            menVO.setMenId(codigoMenu);
             menVO.setMenFormulario("1");
+            menVO.setMenFechaCambio(new Date());
             menServiceImpl.update(menVO);
             
             RequestContext.getCurrentInstance().execute("editarPanel.hide()");   
