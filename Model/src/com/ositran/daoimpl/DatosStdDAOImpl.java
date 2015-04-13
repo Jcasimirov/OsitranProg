@@ -24,19 +24,25 @@ public class DatosStdDAOImpl implements DatosStdDAO {
         @Override
         public ViewTdInternos BuscaStd(Integer año, String nro) throws SQLException{
             Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-            ViewTdInternos vista = null;
+            ViewTdInternos vista = new ViewTdInternos();
             try {
             session.beginTransaction();
+                System.out.println("go1");
             Query query;  
-            
+                System.out.println("go2");
                 query = session.createQuery("FROM ViewTdInternos v WHERE v.anyo like :busqueda1 and v.nroRegistro like :busqueda2");
                 query.setParameter("busqueda1",año);
+                System.out.println("go3");
                 query.setParameter("busqueda2",nro);
+                System.out.println("go4");
             List sResult = query.list();
             if (sResult.size() > 0) {
             vista  = (ViewTdInternos)sResult.get(0);
             session.getTransaction().commit();
             }       
+                
+                
+                
             } catch (Exception e) {
                 System.out.println(e);
                 return null;
