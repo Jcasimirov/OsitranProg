@@ -51,7 +51,6 @@ public class MenDAOImpl implements MenDAO{
     @Override
     @SuppressWarnings("unchecked")
     public List<Men> query() {
-        System.out.println("DAOO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         return session.createCriteria(Men.class).addOrder(Order.asc("menNombre")).list();
     }
@@ -78,9 +77,7 @@ public class MenDAOImpl implements MenDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            this.men = get(men.getMenId());
-            this.men = (Men)Entity.updateChanges(this.men, men);
-            session.update(this.men);
+            session.update(men);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
