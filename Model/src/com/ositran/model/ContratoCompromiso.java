@@ -22,19 +22,19 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "CCO_ALCANCE", nullable = false, length = 4000)
     private String ccoAlcance;
     @Column(name = "CCO_NETO")
-    private Long ccoNeto;
+    private Double ccoNeto;
     @Id
     @GeneratedValue(generator = "generator") 
     @Column(name = "CCO_ID", nullable = false)
     private Integer ccoId;
     @Column(name = "CCO_IGV")
-    private Long ccoIgv;
+    private Double ccoIgv;
     @Column(name = "CCO_PERIODO", nullable = false, length = 4000)
     private String ccoPeriodo;
     @Column(name = "CCO_PLAZO", nullable = false)
     private String ccoPlazo;
     @Column(name = "CCO_TIPO_CAMBIO", nullable = false)
-    private Long ccoTipoCambio;
+    private Double ccoTipoCambio;
     @Column(name = "CCO_TOTAL", nullable = false)
     private Long ccoTotal;
     //@Id
@@ -55,8 +55,8 @@ public class ContratoCompromiso implements Serializable {
     public ContratoCompromiso() {
     }
 
-    public ContratoCompromiso(String ccoAlcance, Long ccoNeto, Integer ccoId, Long ccoIgv, String ccoPeriodo,
-                              String ccoPlazo, Long ccoTipoCambio, Long ccoTotal, Integer conId,
+    public ContratoCompromiso(String ccoAlcance, Double ccoNeto, Integer ccoId, Double ccoIgv, String ccoPeriodo,
+                              String ccoPlazo, Double ccoTipoCambio, Long ccoTotal, Integer conId,
                               Integer monId, Double porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
         this.ccoAlcance = ccoAlcance;
         this.ccoNeto = ccoNeto;
@@ -82,11 +82,11 @@ public class ContratoCompromiso implements Serializable {
         this.ccoAlcance = ccoAlcance;
     }
 
-    public Long getCcoNeto() {
+    public Double getCcoNeto() {
         return ccoNeto;
     }
 
-    public void setCcoNeto(Long ccoNeto) {
+    public void setCcoNeto(Double ccoNeto) {
         this.ccoNeto = ccoNeto;
     }
 
@@ -98,11 +98,11 @@ public class ContratoCompromiso implements Serializable {
         this.ccoId = ccoId;
     }
 
-    public Long getCcoIgv() {
+    public Double getCcoIgv() {
         return ccoIgv;
     }
 
-    public void setCcoIgv(Long ccoIgv) {
+    public void setCcoIgv(Double ccoIgv) {
         this.ccoIgv = ccoIgv;
     }
 
@@ -122,11 +122,11 @@ public class ContratoCompromiso implements Serializable {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Long getCcoTipoCambio() {
+    public Double getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Long ccoTipoCambio) {
+    public void setCcoTipoCambio(Double ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
