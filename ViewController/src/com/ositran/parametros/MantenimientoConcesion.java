@@ -1,30 +1,19 @@
 package com.ositran.parametros;
-
-
-import com.ositran.model.Concesion;
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
-import com.ositran.serviceimpl.InfraestructuraServiceImpl;
-import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.util.Util;
-
 import com.ositran.vo.bean.RolOpcionesVO;
-
 import java.io.IOException;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -38,11 +27,8 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
-//@ManagedBean(name = "backing_ositran_parametros_mantenimientoconcesion")
 @ManagedBean(name = "mantenimientoconcesionMB")
 @ViewScoped
-
-
 
 public class MantenimientoConcesion {
     //sesiones inicio
@@ -99,12 +85,6 @@ public class MantenimientoConcesion {
     public void validarSesion() throws IOException{
       rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
     }
-
-
-
-
-
-
 
     public void guardar() {
 
