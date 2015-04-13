@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface TipoInversionDAO {
-
      public List<InversionTipo> query()throws SQLException ,Exception;
      public String insert(InversionTipo inversionTipo)throws SQLException ,Exception;
         public String delete(Integer id)throws SQLException ,Exception;
