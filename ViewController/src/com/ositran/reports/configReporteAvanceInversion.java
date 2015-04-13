@@ -2,9 +2,12 @@ package com.ositran.reports;
 
 import com.ositran.service.configReporteAvanceInversionService;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TRepCnfgAvncInvCabVO;
 import com.ositran.vo.bean.TRepCnfgAvncInvDetVO;
+
+import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
 
@@ -18,24 +21,23 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "configReporteAvanceInversionMB")
 @ViewScoped
 public class configReporteAvanceInversion {
-    
-    
     private List<TRepCnfgAvncInvDetVO> reporteInversion;
     private TRepCnfgAvncInvCabVO cabReporteInversionActivo;
     public  final int formulario=30;
     private RolOpcionesVO rolOpcion;
-    public void validarSesion() throws IOException{
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        }
     @ManagedProperty(value = "#{configReporteAvanceInversionServiceImpl}")
     private configReporteAvanceInversionService servicio;
     
@@ -53,44 +55,58 @@ public class configReporteAvanceInversion {
         }
     }
     
-    public void cambia(ValueChangeEvent event) throws AbortProcessingException {
-        FacesContext context = FacesContext.getCurrentInstance();
-        TRepCnfgAvncInvDetVO detalle = context.getApplication().evaluateExpressionGet(context, "#{unidadReporteInversion}", TRepCnfgAvncInvDetVO.class);
-        System.out.println(detalle.isCaiMontoTotalSinAjuste()+"   "+detalle.isCaiMontoTotalConReajuste());
-        if ((Boolean)event.getNewValue()) {
-            System.out.println(event.getNewValue());
-            detalle.setCaiMontoTotalConReajuste(false);
-//            FacesContext.getCurrentInstance().getExternalContext().
-//                    getSessionMap().put("name", event.getNewValue());
+    public void validarSesion() throws IOException{
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
+    
+    public void verificaDiferenteNroDocumento(FacesContext context, UIComponent toValidate, Object value) {
+        String input = (String) value;
+        if (input.equals(cabReporteInversionActivo.getCaiNumeroDeDocumento())) {
+            ((UIInput) toValidate).setValid(false);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "El número del documento no ha sido modificado."));
         }
     }
     
-    public void validaCambio(ValueChangeEvent event) throws AbortProcessingException {
-        if (event.getNewValue().equals(event.getOldValue())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "Debe ingresar un nuevo valor."));
+    public void verificaDiferenteFechaEmision(FacesContext context, UIComponent toValidate, Object value) {
+        Date input = (Date) value;
+        if (input.equals(cabReporteInversionActivo.getCaiFechaEmision())) {
+            ((UIInput) toValidate).setValid(false);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "La fecha de emisión no ha sido modificada."));
+        }
+    }
+    
+    public void verificaDiferenteReferencia(FacesContext context, UIComponent toValidate, Object value) {
+        String input = (String) value;
+        if (input.equals(cabReporteInversionActivo.getCaiReferencia())) {
+            ((UIInput) toValidate).setValid(false);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "La referencia no ha sido modificado."));
         }
     }
     
     public String guardar() {
         mostrar();
+        UsuarioVO usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         cabReporteInversionActivo.setCaiFechaCambio(new GregorianCalendar().getTime());
-        //cabReporteInversionActivo.setCaiUsuarioCambio(algo);
+        cabReporteInversionActivo.setCaiUsuarioCambio(usuario.getUsuNombre());
         if(cabReporteInversionActivo.getCaiId()==null) {
             //llenar cab
             cabReporteInversionActivo.setCaiEstado(new BigDecimal(1));
             cabReporteInversionActivo.setCaiFechaAlta(new GregorianCalendar().getTime());
-            //cabReporteInversionActivo.setCaiUsuarioAlta(algo);
+            cabReporteInversionActivo.setCaiUsuarioAlta(usuario.getUsuNombre());
         }
         try {
             servicio.guardarConfigReporteInversiones(reporteInversion, cabReporteInversionActivo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Exito!", "Se han guardado los datos exitosamente."));
         } catch(Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "Ha ocurrido un error en el sistema."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "Ha ocurrido un error en el sistema.\nNo se pudo guardar los datos"));
             e.printStackTrace();
         }
         return null;
     }
     
-    public void sincroniza(AjaxBehaviorEvent event) throws AbortProcessingException {
+    public void reset() {
+            RequestContext.getCurrentInstance().reset("formulario_principal");
+            //FacesContext.getCurrentInstance().renderResponse();
     }
     
     public void setServicio(configReporteAvanceInversionService servicio) {
