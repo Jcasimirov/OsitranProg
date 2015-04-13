@@ -31,7 +31,7 @@ public class configReporteAvanceInversion {
     
     private List<TRepCnfgAvncInvDetVO> reporteInversion;
     private TRepCnfgAvncInvCabVO cabReporteInversionActivo;
-    public  final int formulario=1;
+    public  final int formulario=30;
     private RolOpcionesVO rolOpcion;
     public void validarSesion() throws IOException{
             rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
