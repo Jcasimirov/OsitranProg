@@ -1,5 +1,4 @@
 package com.ositran.model;
-    
     import java.io.Serializable;
     import java.util.Date;
     import javax.persistence.Column;
@@ -12,11 +11,10 @@ package com.ositran.model;
     import javax.persistence.UniqueConstraint;
     import org.hibernate.annotations.GenericGenerator;
     import org.hibernate.annotations.Parameter;
-    
+
     @Entity(name = "InversionTipoDescripcion")
     @Table(name = "T_INVERSION_TIPO_DESCRIPCION",uniqueConstraints = @UniqueConstraint(columnNames = {"DTI_ID"}))
     @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_INVERSION_TIPO_DESCRIPCIO"))
-    
     public class InversionTipoDescripcion implements Serializable {
         private static final long serialVersionUID = -1816130139407701837L;
         @Column(name = "DTI_DESCRIPCION", nullable = false, length = 100)
