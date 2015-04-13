@@ -13,11 +13,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipoInversionMB")
-@RequestScoped
+@ViewScoped
 public class TipoInversion {
     private String nombreAntiguo;
     private int codigoEliminar;
@@ -91,14 +92,12 @@ public class TipoInversion {
            cantidad=tipoInversionServicesImpl.getCanNombres(nombre);
        } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                        
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",                                                                     
                                                                           " No se pudo validar el nombre "));  
         } 
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                            
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",                                                                           
                                                                               " No se pudo validar el nombre "));
             }
         return cantidad;
@@ -123,7 +122,6 @@ public class TipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo cargar los datos de edicion "));
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -145,11 +143,11 @@ public class TipoInversion {
             else 
             if (nombreE.equals("")) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe ingresar el campo nombre");
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe ingresar el campo nombre");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else if (descripcionE.equals("")) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe Ingresar la Descripcion");
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe Ingresar la Descripcion");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else {
                 tipoInversionVO.setTivId(codigoE);
@@ -157,7 +155,6 @@ public class TipoInversion {
                 tipoInversionVO.setTivDescripcion(descripcionE);
                 tipoInversionVO.setTivFechaCambio(new Date());
                 tipoInversionVO.setTivUsuarioCambio("Editor");
-
                 getTipoInversionServicesImpl().update(tipoInversionVO);
                 ListarInversiones();
                 RequestContext.getCurrentInstance().execute("editarPanel.hide()");
@@ -168,40 +165,44 @@ public class TipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo registrar el tipo de inversion "));
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo registrar el tipo de inversion "));
-
         }
-
     }
 
-    public void cargarEliminar(int codigo, String nombre) {
-        nombreEliminar = nombre;
-        codigoEliminar = codigo;
+    public void cargarEliminar() {
+        try {
+           FacesContext context=FacesContext.getCurrentInstance();
+           Map requestMap=context.getExternalContext().getRequestParameterMap();
+           Object str=requestMap.get("idEliminar");
+           Integer idcodigo=Integer.valueOf(str.toString());
+           tipoInversionVO=tipoInversionServicesImpl.get(idcodigo);
+           nombreEliminar = tipoInversionVO.getTivNombre();
+           codigoEliminar = tipoInversionVO.getTivId();
+       } catch (Exception e) {
+            
+            e.printStackTrace();
+        }
+        
     }
 
     public void busqueda() {
-        if (buscar.equals(null)) {
-            ListarInversiones();
-        } else {
-            
+        if (buscar.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " Debe ingresar criterio de busqueda"));
+        } else {   
             try {
                 listaInversiones.clear();
-                
                 int contador=1;
                 listaInversiones = getTipoInversionServicesImpl().query1(buscar);
-                
-                
                 for(int i=0;i<listaInversiones.size();i++){
                   listaInversiones.get(i).setContador(contador);
                     contador++;
                     }
-                
-                
-                
+
                 buscar = "";
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
