@@ -2,6 +2,7 @@ package com.ositran.parametros;
 
 import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.TipoInversionServices;
+import com.ositran.serviceimpl.TipoInversionServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
@@ -24,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -34,7 +36,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "descripcionInversionMB")
-@RequestScoped
+@ViewScoped
 public class DescripcionTipoInversion {
     private String nombreAntiguo;
     private List<TipoInversionVO> listTipoInversion;
@@ -128,8 +130,22 @@ public class DescripcionTipoInversion {
 
     }
 
-    public void cargarEliminar(Integer codigo) {
-        codigoInversionDescripcion = codigo;
+    public void cargarEliminar() {
+        try {
+           FacesContext context=FacesContext.getCurrentInstance();
+           Map requestMap=context.getExternalContext().getRequestParameterMap();
+           Object str=requestMap.get("idEliminar");
+           Integer idcodigo=Integer.valueOf(str.toString());
+           inversionDescripcionVO=inversionDescripcionServicesImpl.get(idcodigo);
+           codigoInversionDescripcion = inversionDescripcionVO.getItdId();
+       } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                                                          "Error",
+                                                                                " Problemas al intentar Eliminar "));
+        }
+      
     }
 
     public void eliminar() {
@@ -172,6 +188,8 @@ public class DescripcionTipoInversion {
     public void cargarListaInversion() {
         try {
             listTipoInversion = getTipoInversionServicesImpl().query();
+            
+            
 
         } catch (SQLException s) {
             s.printStackTrace();
@@ -311,12 +329,15 @@ public class DescripcionTipoInversion {
         try {
             int contador=1;
             listaInversionDescripcion = getInversionDescripcionServicesImpl().query();
-            for(int i=0;i<listaInversionDescripcion.size();i++){
-              listaInversionDescripcion.get(i).setContador(contador);
+            
+            for (InversionDescripcionVO descripcionTipo: listaInversionDescripcion){
+                TipoInversionServiceImpl tipoInversionServiceImpl= new TipoInversionServiceImpl();
+                TipoInversionVO tipoInversion1=tipoInversionServicesImpl.get(descripcionTipo.getTivId());
+                descripcionTipo.setNombreTI(tipoInversion1.getTivNombre());
+                descripcionTipo.setContador(contador);
                 contador++;
                 }
            
-
         } catch (SQLException s) {
             s.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
