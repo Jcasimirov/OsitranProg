@@ -14,11 +14,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "rolMB")
-@RequestScoped
+@ViewScoped
 public class RolMB {
 
     public RolMB() {
@@ -346,6 +347,7 @@ public void actualizarTodoE(){
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe Seleccionar al menos una opción del menú para este rol"));
         } else {
+         rolVO=rolServiceImpl.get(idE);
          rolVO.setRolNombre(nombreE);
          rolVO.setRolDescripcion(descripcionE);
          rolVO.setRolEstado(1);
