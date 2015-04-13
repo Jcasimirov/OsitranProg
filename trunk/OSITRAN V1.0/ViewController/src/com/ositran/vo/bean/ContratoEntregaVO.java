@@ -15,7 +15,7 @@ public class ContratoEntregaVO {
     private String cenNombre;
     private Integer cenEstado;
     private String cenFechaDescripcion;
-    private Integer cenEntrega;
+    
     private InputStream inputStreamNuevaEntrega;
     public ContratoEntregaVO() {
         super();
@@ -110,11 +110,5 @@ public class ContratoEntregaVO {
         return inputStreamNuevaEntrega;
     }
 
-    public void setCenEntrega(Integer cenEntrega) {
-        this.cenEntrega = cenEntrega;
-    }
 
-    public Integer getCenEntrega() {
-        return cenEntrega;
-    }
 }

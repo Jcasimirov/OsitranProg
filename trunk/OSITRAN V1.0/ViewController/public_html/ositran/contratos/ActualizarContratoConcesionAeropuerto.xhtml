@@ -70,6 +70,9 @@
           function limpiarForm() {
               document.getElementById("frmBuscarContratoDlg").reset();
           }
+          function formReset(){
+              $('#frmBuscarContratoDlg').reset();
+          }
         </script>
     </h:head>
     <h:body>
@@ -88,6 +91,8 @@
         <f:event listener="#{actualizarContratoMB.listarTipoInversion}" type="preRenderComponent" /> 
         
         <f:event listener="#{actualizarContratoMB.listarPenalidadEstado}" type="preRenderComponent" /> 
+        
+         <f:event listener="#{actualizarContratoMB.listarTiposAdendas}" type="preRenderComponent" /> 
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
@@ -107,11 +112,12 @@
                                     <tr>
                                         <td align="left">
                                             <p:fieldset styleClass="fielsetinterno" legend="Criterios de Busqueda">
-                                                <p:inputText id="cb" style="width:200px;"/>
+                                               <p:inputText id="cb" style="width:200px;" value="#{actualizarContratoMB.nombreConcesion}"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
-                                                                 update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
-                                                                 onclick="popupBuscarContrato.show();">
+                                                                 actionListener="#{actualizarContratoMB.abrirBuscarContratos()}"
+                                                                 update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"                                                                 
+                                                                 oncomplete="popupBuscarContrato.show();">
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                 </p:commandButton>
                                             </p:fieldset>
@@ -316,7 +322,7 @@
                                      
                                     <tr>
                                         <td align="center" colspan="2">
-                                            <p:commandButton value="Guardar"
+                                            <p:commandButton value="#{btn.btn_guardar}"
                                                              actionListener="#{actualizarContratoMB.guardarContrato()}"
                                                              update=":tab:form:mensaje"></p:commandButton>
                                              
@@ -325,15 +331,15 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar COntrato" modal="true"
+                           <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
                                       resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                                  columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="tipoinfra" value="#{cam.ti}"/>
                                         <p:selectOneMenu id="tipoinfra" value="#{actualizarContratoMB.tipoinfra}"
-                                                         required="true" style="width:280px;">
-                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="{null}"/>
+                                                          style="width:280px;">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listaTipoInfraestructura}"
                                                            var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
                                                            itemValue="#{lisinfra.tinId}"/>
@@ -341,39 +347,45 @@
                                                     update="concesion"/>
                                         </p:selectOneMenu>
                                         <p:message for="tipoinfra" display="icon"/>
+                                        
                                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
                                         <p:selectOneMenu id="concesion" value="#{actualizarContratoMB.concesion}"
-                                                         required="true" style="width:280px;">
+                                                          style="width:280px;">
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listaConcesiones}"
                                                            var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}"
                                                            itemValue="#{lisConcesion.csiId}"/>
                                         </p:selectOneMenu>
                                         <p:message for="concesion" display="icon"/>
-                                        <p:outputLabel for="modalidad" value="#{cam.mc}"/>
-                                        <p:selectOneMenu id="modalidad" value="#{actualizarContratoMB.modalidad}"
-                                                         required="true" style="width:280px;">
-                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
-                                            <f:selectItems value="#{actualizarContratoMB.listaModalidad}" var="listamod"
-                                                           itemLabel="#{listamod.mcoNombre}"
-                                                           itemValue="#{listamod.mcoId}"/>
-                                        </p:selectOneMenu>
-                                        <p:message for="modalidad" display="icon"/>
+                                       
+                                        <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
+                                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC"
+                                                    value="#{actualizarContratoMB.fechaInicioSuscripcion}"
+                                                    locale="es" pattern="dd/MM/yyyy" 
+                                                    style="float:left;position:relative;"/>
+                                        <p:message for="fechaInicioBC" display="icon"/>
+                                        
+                                        
+                                         <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
+                                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC"
+                                                    value="#{actualizarContratoMB.fechaFinSuscripcion}"
+                                                    locale="es" pattern="dd/MM/yyyy" 
+                                                    style="float:left;position:relative;"/>
+                                        <p:message for="fechaFinBC" display="icon"/>                                     
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1">
                                         <p:commandButton value="Buscar Contrato"
                                                          actionListener="#{actualizarContratoMB.buscarContratos()}"
-                                                         update="contrato :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg"/>
+                                                         update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
+                                        
                                         <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato"
                                                      var="contrato11" style="font-size:11px"
-                                                     emptyMessage="No se Encontraron Registros" rowIndexVar="rowIndex">
-                                            <p:column headerText="N°" style="width:3%">
-                                                <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
-                                            </p:column>
+                                                     emptyMessage="No se Encontraron Registros">
+                                           
                                             <p:column headerText="Fecha Suscripción" style="width:7%">
                                                 <div style="text-align: center;">
-                                                    <h:outputText value="#{contrato11.conFechaSuscripcion}"
-                                                                  style="text-transform:uppercase;"/>
+                                                    <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"
+                                                                  />
                                                 </div>
                                             </p:column>
                                             <p:column headerText="Tipo de Infraestructura" style="width:7%">
@@ -386,13 +398,33 @@
                                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
                                             </p:column>
                                             <p:column headerText="Modalidad" style="width:35%">
-                                                <h:outputText value="#{contrato11.nombreModalidad}"
+                                                <h:outputText value="#{contrato11.nombreModalidad}"/>
+                                            </p:column>
+                                            <p:column headerText="Concesionario" style="width:35%">
+                                                <h:outputText value="#{contrato11.nombreConcesion}"
                                                               style="text-transform:uppercase;"/>
                                             </p:column>
+                                                <p:column headerText="Ver Contrato" style="width:5%">
+                                                <div align="center">
+                                                    <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conPdfcontrato ne null}"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadContratoPDF(contrato11.conPdfcontrato)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadContratoPDF}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                </div>
+                                                </p:column>
+                                                <p:column headerText="Ver Ficha" style="width:5%">
+                                                <div align="center">
+                                                    <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conFicharesumen ne null}"
+                                                                     actionListener="#{actualizarContratoMB.preDownloadFichaResumen(contrato11.conFicharesumen)}">
+                                                        <p:fileDownload value="#{actualizarContratoMB.downloadFichaResumen}"></p:fileDownload>
+                                                    </p:commandButton>
+                                                    </div>
+                                                </p:column>
                                             <p:column headerText="Seleccionar" style="width:4%">
+                                            <div align="center">
                                                 <p:commandButton icon="ui-icon-check"
                                                                  actionListener="#{actualizarContratoMB.seleccionarContrato}"
-                                                                 update=":op :tab:tab1 :tab:tab2 :tab:tab3 :tab:tab4 :tab:tab5 :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg 
+                                                                 update=":tab:tab1 :tab:tab2 :tab:tab3 :tab:tab4 :tab:tab5 :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg 
                                                                  :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg
                                                                  :tab:form :tab:frmAdenda:tablaAdenda 
                                                                  :tab:frmAdenda:tablaEngrega 
@@ -408,11 +440,13 @@
                                                     <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                 </p:commandButton>
+                                                </div>
                                             </p:column>
                                         </p:dataTable>
                                         <p:commandButton update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg  :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
-                                                         process="@this" value="salir"
-                                                         onclick="popupBuscarContrato.hide();">
+                                                         process="@this" value="#{btn.btn_salir}"
+                                                         
+                                                         oncomplete="popupBuscarContrato.hide();">
                                             <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
@@ -444,7 +478,7 @@
                                         <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre y
                                                                                     Otros</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Adenda" id="nuevaadenda"
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaadenda"
                                                              actionListener="#{actualizarContratoMB.resetearNuevaAdenda()}"
                                                              image="ui-icon-document"
                                                              rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"></p:commandButton>
@@ -469,18 +503,20 @@
                                                 <p:column headerText="Fecha">
                                                     <h:outputText value="#{tAdenda.cadFechaDescripcion}"/>
                                                 </p:column>
-                                                <p:column headerText="Quitar" style="width:5%">
+                                                <p:column headerText="Ver" style="width:5%">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
                                                                      actionListener="#{actualizarContratoMB.preDownloadAdendas(tAdenda.cadDocumentoFisico)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadAdendas}"></p:fileDownload>
                                                     </p:commandButton>
+                                                    </div>
                                                 </p:column>
                                                 <p:column style="width:10%;" headerText="Eliminar">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarAdenda}"
-                                                                     update=":tab:frmAdenda:tablaAdenda                                                                              :tab:form:mensaje">
-                                                        <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
+                                                                     onclick="dlgEliminarAdenda.hide();">
                                                     </p:commandButton>
+                                                </div>
                                                 </p:column>
                                             </p:dataTable>
                                         </td>
@@ -490,7 +526,7 @@
                                         <td align="left" style="font-weight: bold;">Registro de entrega del area de
                                                                                     Bienes de Concesion</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Entrega" id="nuevaEntrega"
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaEntrega"
                                                              image="ui-icon-document"
                                                              actionListener="#{actualizarContratoMB.resetearNuevaEntrega()}"
                                                              rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"/>
@@ -521,18 +557,32 @@
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadEntregas}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </p:column>
-                                                <p:column style="width:10%;" headerText="Quitar">
+                                                <p:column style="width:10%;" headerText="Eliminar">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{actualizarContratoMB.borrarEntrega}"
                                                                      update=":tab:frmAdenda:tablaEngrega                                                                               :tab:form:mensaje">
                                                         <f:attribute name="entrega" value="#{entrega}"></f:attribute>
+                                                     
                                                     </p:commandButton>
+                                                    </div>
                                                 </p:column>
                                             </p:dataTable>
                                         </td>
                                     </tr>
                                 </table>
                             </h:form>
+                            <p:dialog widgetVar="dlgEliminarAdenda" appendToBody="true" modal="true"
+                                      header="Eliminar" position="center">
+                                <h:form>
+                                     <p:commandButton icon="ui-icon-trash"
+                                                                     actionListener="#{actualizarContratoMB.borrarAdenda}"
+                                                                     update=":tab:frmAdenda:tablaAdenda :tab:form:mensaje">
+                                                        <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
+                                                        
+                                    </p:commandButton>
+                                </h:form>
+                            </p:dialog>
                             <p:dialog id="dlgadenda" header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda"
                                       modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevaAdendaDlg">
@@ -571,15 +621,7 @@
                                                     required="true"/>
                                         <p:message for="cadfecha" display="icon"/>
                                         <h:outputText value=""/>
-                                        <p:outputLabel for="estadoadenda" value="Estado Adenda"/>
-                                        <p:selectOneRadio id="estadoadenda"
-                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadEstado}"
-                                                          required="true">
-                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
-                                        </p:selectOneRadio>
-                                        <p:message for="estadoadenda" display="icon"/>
-                                        <h:outputText value=""/>
+                                        
                                         <p:outputLabel for="docAdenda" value="Documento"
                                                        style="top:-15px !important;position:relative;"/>
                                         <p:inputText id="docAdenda" style="width:100% !important;"
@@ -596,7 +638,7 @@
                                     <p:panelGrid id="pnlNuevaAdendaBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton actionListener="#{actualizarContratoMB.agregarAdenda}"
                                                          update=":tab:frmAdenda:tablaAdenda                                                           :tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg                                                           :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg"
-                                                         value="Agregar"/>
+                                                         value="#{btn.btn_guardar}"/>
                                         <p:commandButton value="#{btn.btn_salir}"
                                                          update=":tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg                                                  :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg"
                                                          process="@this" onclick="popupAgregarAdenda.hide();">
@@ -647,7 +689,7 @@
                                         <p:commandButton id="btnguradarentrega"
                                                          actionListener="#{actualizarContratoMB.agregarEntrega()}"
                                                          update=":tab:frmAdenda:tablaEngrega                                                                   :tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg                                                                   :tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg"
-                                                         value="Agregar Entrega"/>
+                                                         value="#{btn.btn_guardar}"/>
                                         <p:commandButton value="#{btn.btn_salir}"
                                                          update=":tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg                                                                   :tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg"
                                                          process="@this" onclick="popupAgregarEntrega.hide();"
@@ -666,7 +708,7 @@
                                                                                     Periodo/Etapa - Indicado en el
                                                                                     Contrato:</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoIndicado"
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoIndicado"
                                                              actionListener="#{actualizarContratoMB.resetearNuevoCompromisoInversion()}"
                                                               update=":tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg
                                                              :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg"
@@ -805,15 +847,14 @@
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevoCompromisoBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="grabarcompromiso" 
-                                                         value="guardar"
+                                                         value="#{btn.btn_guardar}"
                                                          actionListener="#{actualizarContratoMB.grabarContratoCompromisoIndicado()}"
                                                          update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado
                                                          :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg 
                                                          :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" />
-                                        <p:commandButton id="cancelarcompromiso" value="salir"
+                                        <p:commandButton id="cancelarcompromiso" value="#{btn.btn_salir}"
                                                          onclick="popupAgregarCompromiso.hide();" 
-                                                         process="@this"
-                                                         >
+                                                         process="@this">
                                         <p:resetInput target=":tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg 
                                                               :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" />
                                         </p:commandButton>
@@ -827,7 +868,7 @@
                                                                                     Periodo/Etapa - Supervisado por
                                                                                     Ositran:</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Compromiso" id="nuevoCompromisoSupervisado" 
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoSupervisado" 
                                                              actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}"
                                                              update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
                                                              :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"
@@ -878,12 +919,15 @@
                                                     <h:outputText value="#{comsup.ccoTipoCambio}"/>
                                                 </p:column>
                                                 <p:column headerText="Eliminar" style="width:4%">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{actualizarContratoMB.borrarCompromisoSupervisado}"
                                                                      update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado :tab:form:mensaje">
                                                         <f:attribute name="comsup" value="#{comsup}"></f:attribute>
                                                     </p:commandButton>
+                                                </div>
                                                 </p:column>
+                                                
                                             </p:dataTable>
                                         </td>
                                     </tr>
@@ -967,12 +1011,12 @@
                                         </p:panelGrid>
                                         
                                          <p:panelGrid id="pnlNuevoCompromisoSupervisadoBtnDlg" columns="2" styleClass="pnlEdicion">
-                                         <p:commandButton id="grabarcompromisosup" value="Guardar" 
+                                         <p:commandButton id="grabarcompromisosup" value="#{btn.btn_guardar}" 
                                                          actionListener="#{actualizarContratoMB.grabarContratoCompromisoSupervisado()}" 
                                                          update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado
                                                          :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
                                                          :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"/>
-                                         <p:commandButton id="cancelarcompromisosup" value="Salir" process="@this"
+                                         <p:commandButton id="cancelarcompromisosup" value="#{btn.btn_salir}" process="@this"
                                                  update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
                                                          :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"
                                                          oncomplete="popupAgregarCompromisoSupervisado.hide();" >
@@ -988,7 +1032,7 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Penalidades</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Penalidad" id="nuevoCompromisoSupervisado" 
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoPenalidad" 
                                                              actionListener="#{actualizarContratoMB.resetearNuevaPenalidad()}"
                                                              update=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg
                                                              :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"
@@ -1026,18 +1070,22 @@
                                                 
                                                                                                
                                                  <p:column headerText="Ver" style="width:5%">
+                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
                                                                      actionListener="#{actualizarContratoMB.preDownloadPenalidades(penalidad.tcpDocumentoFisico)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadPenalidades}"></p:fileDownload>
                                                     </p:commandButton>
+                                                    </div>
                                                 </p:column>
                                                 
                                                 <p:column headerText="Eliminar" style="width:4%">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{actualizarContratoMB.borrarPenalidad}"
                                                                      update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad :tab:form:mensaje">
                                                         <f:attribute name="penalidad" value="#{penalidad}"></f:attribute>
                                                     </p:commandButton>
+                                                    </div>
                                                 </p:column>
                                             </p:dataTable>
                                         </td>
@@ -1105,15 +1153,15 @@
                                         </p:panelGrid>
                                         
                                          <p:panelGrid id="pnlNuevoCompromisoPenalidadBtnDlg" columns="2" styleClass="pnlEdicion">
-                                         <p:commandButton id="grabarcompromisopenalidad" value="Guardar" 
+                                         <p:commandButton id="grabarcompromisopenalidad" value="#{btn.btn_guardar}" 
                                                          actionListener="#{actualizarContratoMB.grabarContratoPenalidad()}" 
                                                          update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad
                                                          :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
                                                          :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"/>
-                                         <p:commandButton id="cancelarcompromisopenalidad" value="Salir" process="@this"
+                                         <p:commandButton id="cancelarcompromisopenalidad" value="#{btn.btn_salir}" process="@this"
                                                  update=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
                                                          :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"
-                                                         oncomplete="popupAgregarCompromisoPenalidad.hide();" >
+                                                         oncomplete="popupAgregarPenalidad.hide();" >
                                             <p:resetInput target=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
                                                               :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"/>
                                          </p:commandButton>

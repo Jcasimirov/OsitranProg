@@ -3,12 +3,12 @@ package com.ositran.vo.bean;
 
 public class ContratoCompromisoVO {
     private String ccoAlcance;
-    private Long ccoNeto;
+    private Double ccoNeto;
     private Integer ccoId;
-    private Long ccoIgv;
+    private Double ccoIgv;
     private String ccoPeriodo;
     private String ccoPlazo;
-    private Long ccoTipoCambio;
+    private Double ccoTipoCambio;
     private Long ccoTotal;
     private Integer conId;
     private Integer monId;
@@ -32,11 +32,11 @@ public class ContratoCompromisoVO {
         this.ccoAlcance = ccoAlcance;
     }
 
-    public Long getCcoNeto() {
+    public Double getCcoNeto() {
         return ccoNeto;
     }
 
-    public void setCcoNeto(Long ccoNeto) {
+    public void setCcoNeto(Double ccoNeto) {
         this.ccoNeto = ccoNeto;
     }
 
@@ -48,11 +48,11 @@ public class ContratoCompromisoVO {
         this.ccoId = ccoId;
     }
 
-    public Long getCcoIgv() {
+    public Double getCcoIgv() {
         return ccoIgv;
     }
 
-    public void setCcoIgv(Long ccoIgv) {
+    public void setCcoIgv(Double ccoIgv) {
         this.ccoIgv = ccoIgv;
     }
 
@@ -72,11 +72,11 @@ public class ContratoCompromisoVO {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Long getCcoTipoCambio() {
+    public Double getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Long ccoTipoCambio) {
+    public void setCcoTipoCambio(Double ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
