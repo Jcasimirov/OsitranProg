@@ -1,4 +1,4 @@
-package com.ositran.parametros;
+package com.ositran.reports;
 
 import com.ositran.service.configReporteAvanceInversionService;
 import com.ositran.util.ControlAcceso;
