@@ -126,3 +126,37 @@ font-weight: bold;
 
 #habilitado {
 }
+/*ESTILOS CONTRATO-ADENDA*/
+ .pnlEdicion tr {
+                font-size: 11px;
+                border: none !important;
+                font-weight: bold;
+                margin: 3px !important;
+            }
+
+            .pnlEdicion td {
+                border: none !important;
+                margin: 5px !important;
+            }
+
+            .etiquetas {
+                text-align: left !important;
+                width: 50px !important;
+            }
+
+            .cajas {
+                float: left !important;
+                width: 250px !important;
+                margin: 10px !important;
+            }
+
+            .validadores {
+                float: left !important;
+                width: 10px !important;
+                margin: 10px !important;
+            }
+
+            .nomarchivo {
+                float: left !important;
+            }
+/*FIN ESTILOS CONTRATO-ADENDA*/
