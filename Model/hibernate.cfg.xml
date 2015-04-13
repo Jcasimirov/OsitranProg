@@ -11,8 +11,8 @@
         <property name="connection.password">SINV</property>-->
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
-        <property name="connection.username">ositran</property>
-        <property name="connection.password">ositran</property>
+        <property name="connection.username">OSITRAN</property>
+        <property name="connection.password">OSITRAN</property>
         <property name="connection.pool_size">5</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
@@ -61,8 +61,15 @@
         <mapping class="com.ositran.model.ContratoHito"/>
         <mapping class="com.ositran.model.ContratoPpo"/>                    
         <mapping class="com.ositran.model.ContratoCao"/>
+
+        <mapping class="com.ositran.model.ValorizacionInversionAvanceDetalle"/>
+        <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
+         <mapping class="com.ositran.model.TipoRevision"/>
+        
+        
+
         <mapping class="com.ositran.model.ContratoPenalidad"/>
         <mapping class="com.ositran.model.ContratoPenalidadEstado"/>
-                
+
     </session-factory>
 </hibernate-configuration>
