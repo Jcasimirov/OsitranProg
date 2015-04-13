@@ -1,289 +1,392 @@
 <?xml version='1.0' encoding='windows-1252'?>
-<html 	xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:p="http://primefaces.org/ui">
-      
-<h:head>
-        
-	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
-	<meta content="1500" http-equiv="REFRESH"></meta>
-<script type="text/javascript">
-		PrimeFaces.locales['es'] = {
-			    closeText: 'Cerrar',
-			    prevText: 'Anterior',
-			    nextText: 'Siguiente',
-			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-			    dayNamesMin: ['D','L','M','X','J','V','S'],
-			    weekHeader: 'Semana',
-			    firstDay: 1,
-			    isRTL: false,
-			    showMonthAfterYear: false,
-			    yearSuffix: '',
-			    timeOnlyTitle: 'Sólo hora',
-			    timeText: 'Tiempo',
-			    hourText: 'Hora',
-			    minuteText: 'Minuto',
-			    secondText: 'Segundo',
-			    currentText: 'Fecha actual',
-			    ampm: false,
-			    month: 'Mes',
-			    week: 'Semana',
-			    day: 'Día',
-			    allDayText : 'Todo el día'
-			};		
-	</script>
-</h:head>
-<h:body>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+           <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+         <script src="../../js/validaciones.js" type="text/javascript"></script>
 
-<p:layout fullPage="true" style="border:none">
-                    <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
-                        <div align="center">
-                            <h4 class="titulo">#{msg.tituloDRS}</h4>
-                           </div>
-                <h:form>
-                    <div align="center">
-                        <table style="font-size: 11px">
-                            <tr>
-                                <td style="vertical-align: top;">
-                                    <p:fieldset legend="#{leg.ds}">
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.ts}">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        #{cam.sts}
-                                                    </td>
-                                                    <td>
-                                                        <p:selectOneMenu value="">
-                                                            <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
-                                                            <f:selectItem itemLabel="Empresa Supervisora" itemValue="1"/>
-                                                            <f:selectItem itemLabel="Coordinador InSitu" itemValue="2"/>                                                            
-                                                        </p:selectOneMenu>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.cbes}">
-                                            <p:inputText style="width:200px" id="bes"/>
-                                            <p:watermark for="bes" value="#{cam.bems}"/>
-                                            <p:commandButton image="ui-icon-search"/>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.ds}">
-                                            <div style="font-weight: bold;" align="left">
-                                                #{cam.vrp}
-                                            </div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        #{cam.nom}
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <p:inputText></p:inputText>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}">
-                                            <p:inputText style="width:200px" id="bc"/>
-                                            <p:watermark for="bc" value="#{cam.bcc}"/>
-                                            <p:commandButton image="ui-icon-search"></p:commandButton>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.dcc}">
-                                            <table>
-                                                <tr>
-                                                    <td align="left">
-                                                        #{cam.cc}
-                                                    </td>
-                                                    <td>
-                                                        <p:inputText></p:inputText>
-                                                    </td>
-                                                </tr>
+            </h:head>
+    <h:body>    
+    <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}" type="postAddToView"></f:event>  
+     <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}" type="postAddToView"></f:event>  
+    
+	<h:form id="form">
+            <p:growl id="mensaje" showDetail="true" life="10000"/>
+            <p:layout fullPage="true" style="border:none">
+            <p:layoutUnit position="center" style="border:0px">
+            <ui:include src="/ositran/util/menu.xhtml"/>
+            <div align="center" >
+            
+                    <div align="center" ><h5 class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR (AEROPUERTO)</h5></div>
+		<table style="font-size: 11px">
+			<tr>
+				<td valign="top">
+				<p:fieldset legend="Datos Contrato Concesión">
+				
+                                <p:fieldset styleClass="fielsetinterno" id="datosConcesion" legend="Tipo Supervisión:">
+					<table>
+                                                                        <tr>
+										<td align="left" class="negrita">Tipo Supervisión: </td>
+										<td>
+                                                                                     <p:selectOneMenu id="lista"  value="#{derivarReconocimientoSupervisorMB.codigoTipoRevision}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaTipoRevision}" var="tip1"
+                                                                                                               itemLabel="#{tip1.itrDescripcion}" itemValue="#{tip1.itrId}"/>
+					    						</p:selectOneMenu>
+                                                                                </td>
+									</tr>	
+								</table>
+				</p:fieldset>
+                                <br></br>
+                                 <p:fieldset styleClass="fielsetinterno" id="datosConcesion2" legend="busqueda coordinador insitu">
+					<table>
+                                                                        <tr>
+										<td align="left" class="negrita">Tipo Infraestructura: </td>
+										<td>
+                                                                                     <p:selectOneMenu id="lista2"  value="#{derivarReconocimientoSupervisorMB.codigoInfraValSelecionado}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInfraestructuras}" var="tip2"
+                                                                                                                itemLabel="#{tip2.infNombre}" itemValue="#{tip2.infId}"/>
+                                                                                            <p:ajax listener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}" update=":form:listaSupervisoresInversion" event="valueChange"/>
+					    						</p:selectOneMenu>
+                                                                                </td>
+									</tr>	
+								</table>
+				</p:fieldset>
+                                <br></br>                                
+                                <p:fieldset id="listaSupervisoresInversion" styleClass="fielsetinterno" legend="Datos de coordinador insitu">
+                               
+                                        <h:outputText value="Buscar Coordinador Insitu:"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:commandButton image="ui-icon-search"
+                                                                oncomplete="panelListaSupervisorInversines.show()" 
+                                                                id="cargarContrato" 
+                                                                update=":form:panelListaSupervisorInversines :form:mensaje"
+                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}"
+                                                                
+                                                                />
+                                        <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
+                                                          value="Cargar lista de contrato concesión"/>
+                                                               
+				</p:fieldset>
+				   <br></br>   
+                                    <p:fieldset styleClass="fielsetinterno" legend="coordinador insitu">
+                               
+                                        <h:outputText value="Nombre:"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:inputText id="nombreSupervisor" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
+                                                               
+				</p:fieldset>
+                                <br></br>
+				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
+                               
+                                        <h:outputText value="Buscar Contratos Concesión"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:commandButton image="ui-icon-search"
+                                                                oncomplete="panelListaContratos.show()"
+                                                                id="cargarContrato12" 
+                                                                update=":form:panelListaContratos"
+                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaContratos}"
+                                                                
+                                                                />
+                                        <p:tooltip styleClass="tool" id="tool21" for="cargarContrato"
+                                                          value="Cargar lista de contrato concesión"/>
+                                                               
+				</p:fieldset>
+					<br></br>
+				<p:fieldset styleClass="fielsetinterno" id="datosConcesion1" legend="Datos Concesión">
+					<table>
+									<tr>
+										<td align="left">Concesión</td>
+										<td><p:inputText value="#{derivarReconocimientoSupervisorMB.nombreConcecion}" readonly="true" ></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo Infraestructura</td>
+										<td><p:inputText value="#{derivarReconocimientoSupervisorMB.nombreTipoInfraestructura}"  readonly="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Modalidad Concesión</td>
+										<td><p:inputText value="#{derivarReconocimientoSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
+									</tr>
+                                                                        <tr>
+										<td align="left">Aeropuerto</td>
+										<td>
+                                                                                     <p:selectOneMenu value="#{derivarReconocimientoSupervisorMB.codigoInfraestructura}" >
+										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
+                                                                                                <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInfraestructuras}" var="tip"
+                                                                                                        itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
+                                                                                                        <p:ajax event="valueChange" update=":form:lista" listener="#{derivarReconocimientoSupervisorMB.cargarInversion()}"  />                
+
+                                                                                        <f:selectItem  itemLabel="-Otros-" itemValue="111" />
+        
+					    						</p:selectOneMenu>
+                                                                                </td>
+									</tr>	
+                                                                        <tr>
+										<td align="left">Inversión</td>
+										<td>
+                                                                                     <p:selectOneMenu id="lista1"  value="#{derivarReconocimientoSupervisorMB.codigoInversion}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInversiones}" var="tip1"
+                                                                                                               itemLabel="#{tip1.invDescripcion}" itemValue="#{tip1.invId}"/>
+					    						</p:selectOneMenu>
+                                                                                </td>
+									</tr>	
+								</table>
+				</p:fieldset>
+                               <br></br>
+				<p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
+                                                <table>
+									<tr>
+										<td colspan="1" align="left">#{cam.setapa}</td>
+										<td colspan="3" align="left">
+                                                                                    <p:selectOneMenu id="listaCompromiso"  value="#{derivarReconocimientoSupervisorMB.contratoCompromisoSeleccionado}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems  
+                                                                                                value="#{derivarReconocimientoSupervisorMB.listaContratoCompromiso}"  
+                                                                                                var="tip2"
+                                                                                                itemLabel="#{tip2.ccoPeriodo}" 
+                                                                                                itemValue="#{tip2.ccoId}"/>
+                                                                                        <p:ajax event="valueChange" 
+                                                                                                update=":form:datosCompromiso " 
+                                                                                                listener="#{derivarReconocimientoSupervisorMB.cargarDatosCompromiso()}"  /> 
+                                                                                    </p:selectOneMenu>
+										</td>
+									</tr>
+									
+									<tr>
+										<td align="left">Plazo:</td>
+										<td align="left" colspan="3"><p:inputText value="#{derivarReconocimientoSupervisorMB.plazo}" size="10"  /></td>
+										
+									</tr>
+									<tr>
+										<td align="left">Total:</td>
+										<td align="left" ><p:inputText value="#{derivarReconocimientoSupervisorMB.plazo}" size="10"></p:inputText></td>
+										<td align="left">#{cam.mon}</td>
+										<td align="left"><p:inputText value="#{derivarReconocimientoSupervisorMB.plazo}"  size="10"></p:inputText></td>
+									</tr>
+								</table>
+							</p:fieldset>
+					</p:fieldset>	
+				</td>
+				<td valign="top">
+				<p:fieldset legend="Datos de Contrato Concesión">
+				
+                                <p:fieldset styleClass="fielsetinterno" legend="Valorización">
+                                
+                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLC" var="supervisorI" >
+                                           
+                                 <p:column headerText="ID" style="width:5px">
+                                       
+                                    </p:column>
+                                    <p:column headerText="Nur Val" style="width:50px">
+                                       
+                                    </p:column>
+                                  <p:column headerText="Fecha Registro" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                    <p:column headerText="Moneda" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                    <p:column headerText="Total" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                    <p:column headerText="Estado Revision" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                    <p:column   headerText="Selección" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaSupervisorInversines.hide()" 
+                                                
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarValorizacion"
+                                                style="width:22px;height:22px"
+                                                >
+                                                
+                              
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                                        
+                                                               
+				</p:fieldset>
+                                
+                                
+                                <br></br>
+                                 <p:fieldset styleClass="fielsetinterno" legend="Datos Valorización">
+                                
+                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaDV"  >
+                                           
+                                 <p:column headerText="Descripción de Concepto">
+                                       
+                                    </p:column>
+                                    <p:column headerText="Moneda" style="width:50px">
+                                       
+                                    </p:column>
+                                  <p:column headerText="Monto Prestado" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                </p:dataTable>                                             
+				</p:fieldset>
+                                
+                                <div class="negrita" align="right">
+                                    Total : <p:inputText value="#{derivarReconocimientoSupervisorMB.totalTotal}" />
+                                
+                                </div>
+                                <br></br>
+                                 <table>
+                                <tr class="negrita">
+                                    <td>Nro de Oficio:</td>
+                                    <td><p:inputText value="#{derivarReconocimientoSupervisorMB.numeroOficio}" style="width:50px" /></td>
+                                    <td>Reg. Salida</td>
+                                    <td><p:inputText value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  /></td>
+                                    <td>Fecha de Emisión:</td>
+                                    <td><p:calendar value="#{derivarReconocimientoSupervisorMB.fechaEmision}" styleClass="calendario"   /></td>
+                                </tr>
+                                 <tr >
+                                    <td class="negrita">Plazo otorgado:</td>
+                                     <td><p:inputText value="#{derivarReconocimientoSupervisorMB.plazoOtorgado}" style="width:50px"  /></td>
+                                    <td colspan="2">
+                                    
+                                    <table style="font-size:9px">
+                                        <tr>
+                                            <td>
+                                              <p:selectBooleanCheckbox  value="#{derivarReconocimientoSupervisorMB.diasCalendario}" id="diasCalendario">
+                                              
+                                                                </p:selectBooleanCheckbox  >Dias Calendario
+                                            </td>
+                                          
+                                        </tr>
+                                         <tr>
+                                            <td>
+                                                <p:selectBooleanCheckbox  value="#{derivarReconocimientoSupervisorMB.diasCalendario}" id="diasHabiles">
                                                  
-                                                <tr>
-                                                    <td align="left">
-                                                        #{cam.ti}
-                                                    </td>
-                                                    <td>
-                                                        <p:inputText></p:inputText>
-                                                    </td>
-                                                </tr>
-                                                 
-                                                <tr>
-                                                    <td align="left">
-                                                        #{cam.mc}
-                                                    </td>
-                                                    <td>
-                                                        <p:inputText></p:inputText>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.etaCo}">
-                                            <table>
-                                                <tr>
-                                                    <td colspan="2" align="left">
-                                                        #{cam.setapa}
-                                                    </td>
-                                                    <td colspan="2" align="left">
-                                                        <p:selectOneMenu value="">
-                                                            <f:selectItem itemLabel="#{cam.S}" itemValue="4"/>
-                                                            <f:selectItem itemLabel="Etapa1" itemValue="1"/>
-                                                            <f:selectItem itemLabel="Etapa2" itemValue="2"/>
-                                                            <f:selectItem itemLabel="Etapa3" itemValue="3"/>
-                                                        </p:selectOneMenu>
-                                                    </td>
-                                                </tr>
-                                                 
-                                                <tr>
-                                                    <td align="left">
-                                                        #{cam.pl}
-                                                    </td>
-                                                    <td align="left">
-                                                        <p:inputText size="10"></p:inputText>
-                                                    </td>
-                                                </tr>
-                                                 
-                                                <tr>
-                                                    <td align="left">
-                                                        #{cam.tot}
-                                                    </td>
-                                                    <td align="left">
-                                                        <p:inputText size="10"></p:inputText>
-                                                    </td>
-                                                    <td align="left">
-                                                        #{cam.mon}
-                                                    </td>
-                                                    <td align="left">
-                                                        <p:inputText size="10"></p:inputText>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </p:fieldset>
-                                    </p:fieldset>
-                                </td>
-                                <td style="vertical-align: top;">
-                                    <p:fieldset legend="#{leg.dcc}" style="width:100%;padding-bottom: 230px;">
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.valo}">
-                                            <br></br>
-                                            <p:dataTable editable="true" emptyMessage="NO SE ENCONTRARON DATOS">
-                                                <p:column headerText="#{tab.numval}">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.FR}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.mon}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.tot}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.std}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                            </p:dataTable>
-                                            <div align="right">
-                                                <p:commandButton value="#{cam.S}"/>
-                                            </div>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.dv}">
-                                            <br></br>
-                                            <p:dataTable editable="true" emptyMessage="NO SE ENCONTRARON DATOS">
-                                                <p:column headerText="#{tab.dc}">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.mon}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{tab.mp}" style="width:25px">
-                                                    <h:outputText></h:outputText>
-                                                </p:column>
-                                            </p:dataTable>
-                                            <div align="right" style="font-weight: bold;">
-                                                #{cam.tot}
-                                                 
-                                                <p:inputText size="12" readonly="true"/>
-                                            </div>
-                                        </p:fieldset>
-                                        <br></br>
-                                        <table>
-                                            <tr>
-                                                <td align="left">
-                                                    #{cam.nrof}
-                                                </td>
-                                                <td align="left">
-                                                    <p:inputText size="10"></p:inputText>
-                                                </td>
-                                                <td align="left">
-                                                    #{cam.nrsal}
-                                                </td>
-                                                <td align="left">
-                                                    <p:inputText size="10"></p:inputText>
-                                                </td>
-                                                <td align="right">
-                                                    #{cam.fem}
-                                                </td>
-                                                <td align="left">
-                                                    <p:calendar size="10" locale="es" pattern="dd/MM/yyyy"/>
-                                                </td>
-                                            </tr>
-                                             
-                                            <tr>
-                                                <td align="left">
-                                                    #{cam.plot}
-                                                </td>
-                                                <td align="left">
-                                                    <p:inputText size="10"></p:inputText>
-                                                </td>
-                                                <td>
-                                                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                        <p:selectOneRadio value="hola" layout="pageDirection"
-                                                                          unselectable="true">
-                                                            <f:selectItem itemLabel="Días Calendario" itemValue="1"/>
-                                                            <f:selectItem itemLabel="Días Hábiles" itemValue="2"/>
-                                                        </p:selectOneRadio>
-                                                    </h:panelGrid>
-                                                </td>
-                                                <td align="right">
-                                                    #{cam.flimres}
-                                                </td>
-                                                <td align="left">
-                                                    <p:calendar size="10" locale="es" pattern="dd/MM/yyyy"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </p:fieldset>
-                                    <br></br>
+                                                        </p:selectBooleanCheckbox  >Dias Habiles
+                                            </td>
+                                          
+                                        </tr>
+                                    
+                                    
+                                       
+                                                             
+                                                                
+                                    </table>
+                                    
                                   
-                                                <tr>
-							<td align="center" colspan="2">
-							<p:commandButton value="Guardar"></p:commandButton>
-							<p:commandButton value="Salir"></p:commandButton>
-							</td>
-						</tr>
-                                               
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </h:form>
-            </p:layoutUnit>
-            <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
-                                  collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
-                                                                                       AsisTP-2015</div>
-                    </p:layoutUnit>
-        </p:layout>
+                                                                
+                                    
+                                    </td>
+                                    <td class="negrita">Fecha limite de respuesta:</td>
+                                    <td><p:calendar value="#{derivarReconocimientoSupervisorMB.fechaLimite}" styleClass="calendario"  /></td>
+                                   
+                                </tr>
+                                
+                                
+                                </table>
+                                
+                                
+				</p:fieldset>	
+                                
+                                
+                                
+                                
+				</td>
+			</tr>
+		</table>	
+		</div>               
+                  <div style="text-align:center;font-size: 11px">
+                                 <p:commandButton  style="width:80px"  update=":form:mensaje" actionListener="#{derivarReconocimientoSupervisorMB.guardar()}"  value="Guardar"/>
+                                    <p:commandButton style="width:80px" value="Limpiar"/>
+                                    </div>
+                </p:layoutUnit>
+            </p:layout>
+            
+             <p:dialog width="40%"  header="Lista Supervision de Inversiones" widgetVar="panelListaSupervisorInversines" id="panelListaSupervisorInversines" 
+                          style="text-align:center;">
+                    
+                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaV" var="supervisorI"
+                                             value="#{derivarReconocimientoSupervisorMB.listaSupervisor}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{supervisorI.tsiId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNombre}" />
+                                    </p:column>
+                                  <p:column headerText="Numero" style="width:50px">
+                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                    </p:column>
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaSupervisorInversines.hide()" 
+                                                actionListener="#{derivarReconocimientoSupervisorMB.elegirSupervisor(supervisorI)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
+                                                style="width:22px;height:22px"
+                                                update=":form:datosConcesion :form:nombreSupervisor :form:datosConcesion1 :form:datosCompromiso "
+                                                >
+                                                
+                              
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                </p:dialog>
+                
+                 <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
+                          style="text-align:center;">
+                    
+                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLCC" var="lisContratos1"
+                                             value="#{derivarReconocimientoSupervisorMB.listaContratos}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{lisContratos1.conId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{lisContratos1.nombreConcesion}" />
+                                    </p:column>
+                                  
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaContratos.hide()" 
+                                                actionListener="#{derivarReconocimientoSupervisorMB.elegirContrato(lisContratos1)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
+                                                style="width:22px;height:22px"
+                                                update=":form:datosConcesion1  :form:datosCompromiso "
+                                                >
+                                                
+                              
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool5" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                </p:dialog>
+            
+	</h:form>
+      
     </h:body>
-</html>
+    </html>
+</f:view>
