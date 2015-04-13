@@ -10,14 +10,12 @@
                     font-family: sans-serif;
                 }
             </style>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
         </h:head>
         <h:body>
          <f:event listener="#{mantenimientoconcesionMB.validarSesion}" type="postAddToView"></f:event>
-            <f:event listener="#{mantenimientoconcesionMB.listarTipInfraestructura}" type="postAddToView"></f:event>
-             
-            <f:event listener="#{mantenimientoconcesionMB.ListarConcesiones}" type="postAddToView"></f:event>
-             
+         <f:event listener="#{mantenimientoconcesionMB.listarTipInfraestructura}" type="postAddToView"></f:event>
+         <f:event listener="#{mantenimientoconcesionMB.ListarConcesiones}" type="postAddToView"></f:event>
             <h:form id="form">
                 <p:growl id="mensaje" life="5000" showDetail="true"/>
                 <p:layout fullPage="true" style="border:none">
@@ -25,75 +23,58 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                            MANTENIMIENTO CONCESION
+                            MANTENIMIENTO CONCESIÓN
                             </h5>
                         </div>
                         <center>
-                            <div style="width:80%">
+                            <div style="width:80%;font-size:11px">
                                 <!---->
-                                <table style="margin-bottom:5px;font-size: 11px">
-                                    <tr>
-                                        <td>
-                                            <h:outputLabel value="TIPO DE INFRAESTRUCTURA:"
+                                <table width="100%" >
+                                    <tr  >
+                                        <td style="width:25%"  align="left">Buscar:
+                                        
+                                            <p:inputText id="nombrebuscar"
+                                                         value="#{mantenimientoconcesionMB.concesionbuscar}"
+                                                       ></p:inputText>
+                                                         <h:outputText value="n" style="color:white" />
+                                              <p:commandButton actionListener="#{mantenimientoconcesionMB.buscarconcesion()}"
+                                                                 update=":form:tablaES"
+                                                                 image="ui-icon-search" id="buscar"/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool1" for="buscar"
+                                                           value="Busqueda por nombre"/>                                        
+                                        </td>
+                                        
+                                       <td align="left" style="width:12%">
+                                            <h:outputLabel value="Tipo Infraestructura:"
                                                            style="align:left; text-align:left"></h:outputLabel>
                                         </td>
-                                        <td colspan="1">
-                                            <p:selectOneMenu id="tipobuscar"
+                                        <td style="width:4%" >                                      
+                                            <p:selectOneMenu  id="tipobuscar"
                                                              value="#{mantenimientoconcesionMB.codigoTipoInfraestructurafiltro}"
-                                                             style="width:300px;text-transform:uppercase;width:70%">
+                                                             >
                                                 <f:selectItem itemValue="0" itemLabel="-Todas las Concesiones-"/>
                                                 <f:selectItems value="#{mantenimientoconcesionMB.listaInfraestructuraTipos}"
                                                                var="tip" itemLabel="#{tip.tinNombre}"
                                                                itemValue="#{tip.tinId}"/>
                                             </p:selectOneMenu>
-                                        </td>
-                                    </tr>
-                                     
-                                    <tr style=" text-align: left;">
-                                        <td>NOMBRE DE LA CONCESI&#211;N:</td>
-                                        <td>
-                                            <p:inputText id="nombrebuscar"
-                                                         value="#{mantenimientoconcesionMB.concesionbuscar}"
-                                                         style="width:300px;text-transform:uppercase;"></p:inputText>
-                                                         
-                                                         <p:commandButton value="#{btn.btn_buscar}"
-                                                             actionListener="#{mantenimientoconcesionMB.buscarconcesion()}"
-                                                             update=":form:tablaES"/>
-                                             
-                                            <p:commandButton value="Clear" type="reset" image="ui-icon-close"/>
-                                            
-                                         
-                                        </td>
-                                       
-                                        <td style=" width:40%" align="right">
+                                        </td>                                        
+                                        <td  align="right">
                                            <p:commandButton actionListener="#{mantenimientoconcesionMB.resetear()}"
                                                              oncomplete="insertarPanel.show()"
-                                                             update=":form:insertarPanel" value="Nueva Concesión"
+                                                             image="ui-icon-circle-plus"
+                                                             update=":form:insertarPanel" value="Nuevo"
                                                              rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"/>
-                                      
                                           </td>  
-                                       
-                                    </tr>
-                                     
-                                    <tr style=" text-align: right;">
-                                        <td></td>
-                                    </tr>
-                                     
-                                    <tr>
-                                        <td align="left"></td>
-                                        <td colspan="3"></td>
-                                    </tr>
-                                     
-                                    <tr>
-                                        <td></td>
                                     </tr>
                                 </table>
+                                <br></br>
                                 <p:dataTable style="font-size:11px; text-align: center" id="tablaES" var="var1"
                                              rowKey="#{var1.csiId}" value="#{mantenimientoconcesionMB.listaConcesiones}"
                                              rows="10" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15">
-                                    <p:column headerText="N°">
+                                    <p:column headerText="N°ro" style="width:2%">
                                         <h:outputText value="#{var1.correla}"
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
@@ -105,17 +86,18 @@
                                         <h:outputText value="#{var1.nombreTipoInfra}"
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
-                                    <p:column headerText="Editar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
+                                    <p:column style="width:4%" headerText="Modificar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
                                                          oncomplete="editarPanel.show()" image="ui-icon-document"
-                                                         style="width:25px;height:25px" update=":form:editarPanel">
+                                                         styleClass="controles  " update=":form:editarPanel">
                                             <f:param id="idModificar" name="idModificar" value="#{var1.csiId}"/>
                                         </p:commandButton>
                                     </p:column>
-                                    <p:column headerText="ELIMINAR"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
+                                    
+                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
                                                          oncomplete="eliminarConcesionPanel.show()"
-                                                         image="ui-icon-document" style="width:25px;height:25px"
+                                                         image="ui-icon-document" styleClass="controles"
                                                          update=":form:tablaES :form:eliminarConcesionPanel">
                                             <f:param id="idEliminarConcesion" name="idEliminarConcesion"
                                                      value="#{var1.csiId}"/>
@@ -202,7 +184,7 @@
                           modal="true" style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="left"><img src="../../images/obligatorio.gif"/>Desea Eliminar la Concesión ?????  :  </td>
+                            <td align="left">Desea Eliminar la Concesión:  </td>
                             <td align="left">
                                 <h:outputText value="#{mantenimientoconcesionMB.nombreConcesion}"
                                               style="align:left; text-align:left"></h:outputText>
@@ -215,7 +197,7 @@
                     </table>
                     <p:commandButton update=":form:tablaES :form:mensaje" oncomplete="eliminarConcesionPanel.hide()"
                                      actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaConcesion()}"
-                                     style="width:70px" value="#{btn.btn_eliminar}"/>
+                                     style="width:70px;font-size:11px" value="#{btn.btn_eliminar}"/>
                 </p:dialog>
                 <!--Mantenimiento de Infraestructuras-->
                 <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
@@ -236,23 +218,7 @@
                             </td>
                         </tr>
                          
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
-                         
-                        <tr></tr>
+                      
                          
                         <tr>
                             <td align="left">EDITAR NOMBRE</td>
@@ -308,18 +274,17 @@
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
-                    <table>
-                        <tr>
-                            <td align="left">
+                    <table style="font-size:11px;;width:100%" >
+                        <tr >
+                            <td align="center" >
                                 <p:commandButton update=":form:tablaES :form:tablaES2 :form:mensaje"
                                                  oncomplete="editarPanel.hide()"
                                                  actionListener="#{mantenimientoconcesionMB.editar()}"
                                                  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"
-                                                 style="width:auto " value="Grabar"/>
-                            </td>
-                            <td align="left">
-                                <p:commandButton style="width:auto " value="Salir" onclick="editarPanel.hide ()"/>
-                            </td>
+                                                 style="botones"    value="Grabar"/>
+                           <h:outputText value="n" style="color:white" />
+                                <p:commandButton style="botones" value="Salir" onclick="editarPanel.hide ()"/>
+                           </td>
                         </tr>
                     </table>
                 </p:dialog>
