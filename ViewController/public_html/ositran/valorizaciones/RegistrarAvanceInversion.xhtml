@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-           <script type="text/javascript">
-		
-			
-		</script>
-        </h:head>
-    <h:body>              
+            </h:head>
+    <h:body>    
+    <f:event listener="#{registrarAvanceInversionMB.cargarMoneda()}" type="postAddToView"></f:event>  
 	<h:form id="form">
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
@@ -18,34 +15,26 @@
             <ui:include src="/ositran/util/menu.xhtml"/>
             <div align="center" >
             
-                    <div align="center" ><h4 style="color: #003194;">REGISTRAR AVANCE INVERSIÓN</h4></div>
+                    <div align="center" ><h5 class="titulo5">REGISTRAR AVANCE INVERSIÓN (AEROPUERTOS)</h5></div>
 		<table style="font-size: 11px">
 			<tr>
 				<td valign="top">
 				<p:fieldset legend="Datos Contrato Concesión">
-				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
-					<table>
-							<tr>
-								<td>Núm. Ficha registro web concesionario </td>
-								<td >
-								 <p:inputText value="#{registrarAvanceInversionMB.fichaRegistro}"  style="width:100px"/>
-                                                                  <h:outputText style="color:White" value="n"/>
-                                                                 <p:commandButton 
-                                                                    update=":form:mensaje :form:datosConcesion" 
-                                                                    actionListener="#{registrarAvanceInversionMB.buscarFichaRegistroWeb()}" 
-                                                                    image="ui-icon-search" >
-                                                                 </p:commandButton>
-								</td>
-								</tr>
-							
-						</table>
-				</p:fieldset>
-					<br></br>
+				
+					
 				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
                                
                                         <h:outputText value="Buscar Contratos Concesión"></h:outputText>
                                         <h:outputText style="color:White" value="n"></h:outputText>
-					<p:commandButton image="ui-icon-search" />	
+					<p:commandButton image="ui-icon-search"
+                                                                oncomplete="panelListaContratos.show()"
+                                                                id="cargarContrato" 
+                                                                update=":form:panelListaContratos"
+                                                                actionListener="#{registrarAvanceInversionMB.cargarListaContratos}"
+                                                                
+                                                                />
+                                        <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
+                                                          value="Cargar lista de contrato concesión"/>
                                                                
 				</p:fieldset>
 					<br></br>
@@ -70,9 +59,9 @@
 										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
                                                                                                 <f:selectItems value="#{registrarAvanceInversionMB.listaInfraestructuras}" var="tip"
                                                                                                         itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
-                                                                                                        <p:ajax event="valueChange" update=":form:lista :form:datosCompromiso" listener="#{registrarAvanceInversionMB.cargarInversion()}"  />                
+                                                                                                        <p:ajax event="valueChange" update=":form:lista :form:aeropuerto1" listener="#{registrarAvanceInversionMB.cargarInversion()}"  />                
 
-                                                                                        <f:selectItem  itemLabel="-Otros-" itemValue="01" />
+                                                                                        <f:selectItem  itemLabel="-Otros-" itemValue="111" />
         
 					    						</p:selectOneMenu>
                                                                                 </td>
@@ -154,12 +143,16 @@
                                                 <td class="negrita">Plazo:</td>
                                                 <td><p:inputText value="#{registrarAvanceInversionMB.plazo}"  style="width:70px" /></td>
                                                  <td>
-                                                    <table style="font-size:9px">
+                                                    <table style="font-size:9px;width:100%">
                                                             <tr>
-                                                                <td><p:selectBooleanCheckbox  />Días Calendarios</td>
+                                                                <td><p:selectBooleanCheckbox  value="#{registrarAvanceInversionMB.diasCalendario}" id="diasCalendario1">
+                                                                     <p:ajax update=":form:diasHabiles" listener="#{registrarAvanceInversionMB.desDiasHabiles}"/>
+                                                                </p:selectBooleanCheckbox  > Calendarios</td>
                                                             </tr>
                                                              <tr>
-                                                                <td><p:selectBooleanCheckbox  />Días Habiles</td>
+                                                                <td><p:selectBooleanCheckbox value="#{registrarAvanceInversionMB.diasHabiles}" id="diasHabiles" >
+                                                                 <p:ajax update=":form:diasCalendario1" listener="#{registrarAvanceInversionMB.desDiasCalendario}"/>
+                                                                </p:selectBooleanCheckbox> Habiles</td>
                                                             </tr>
                                                     </table>
                                                  </td>
@@ -169,31 +162,40 @@
 					</p:fieldset>				 	
 					<br></br>
 					<p:fieldset styleClass="fielsetinterno" legend="Datos Valorización">
-					<br></br>
+					
                                         <table>
                                             <tr>
                                                 <td>Periodo Ejecución(Inicio)</td> 
-                                                <td><p:calendar locale="es" styleClass="calendario" /></td> 
+                                                <td><p:calendar locale="es"  value="#{registrarAvanceInversionMB.inicioPeriodo}" styleClass="calendario" /></td> 
                                                 <td>Periodo Ejecución(Fin)</td> 
-                                                <td><p:calendar locale="es"  styleClass="calendario"  /></td> 
-                                                <td colspan="2">Moneda 
-                                                
-                                                    <p:selectOneMenu id="aeropuerto">
-                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
-                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                <td><p:calendar locale="es" value="#{registrarAvanceInversionMB.finPeriodo}"  styleClass="calendario"  /></td> 
+                                                <td colspan="2">
+                                                <table>
+                                                    <tr>
+                                                        <td>Moneda </td>
+                                                        <td>
+                                                        <p:selectOneMenu id="ListaMoneda" value="#{registrarAvanceInversionMB.codMoneda}">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="0" />
+                                                                <f:selectItems var="varMoneda" value="#{registrarAvanceInversionMB.listaMoneda}" itemLabel="#{varMoneda.monNombre}" itemValue="#{varMoneda.monId}" />
                                                             </p:selectOneMenu>
+                                                        
+                                                        </td>
+                                                    </tr>
+                                                
+                                                </table>
                                                 </td>
                                             </tr>
+                                            </table>
+                                            <table style="width:100%">
                                             <tr>
                                                  <td>Aeropuerto</td> 
                                                 <td colspan="5">
-                                                    <p:selectOneMenu id="aeropuerto1">
-                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
-                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                    <p:selectOneMenu  value="#{registrarAvanceInversionMB.codigoInfraValSelecionado}"  id="aeropuerto1">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="0" />
+                                                                <f:selectItems value="#{registrarAvanceInversionMB.listaInfraestructurasC}" 
+                                                                var="infras" itemLabel="#{infras.infNombre}" itemValue="#{infras.infId}" 
+                                                                
+                                                                />
                                                             </p:selectOneMenu>
                                                 </td> 
                                                
@@ -201,51 +203,61 @@
                                             <tr>
                                                  <td>Concepto:</td> 
                                                 <td>
-                                                          <p:selectOneMenu id="aeropuerto2" >
-                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="4" />
-                                                                <f:selectItem  itemLabel="Etapa1" itemValue="1" />
-                                                                <f:selectItem  itemLabel="Etapa2" itemValue="2" />
-                                                                <f:selectItem  itemLabel="Etapa3" itemValue="3" />
+                                                          <p:selectOneMenu id="inversionDescripcion"  value="#{registrarAvanceInversionMB.codigoInversionDescripcion}">
+                                                                <f:selectItem  itemLabel="-Seleccione-" itemValue="0" />
+                                                                <f:selectItems value="#{registrarAvanceInversionMB.listaDescripcionTipoInversion}"  var="varInversion"
+                                                                                itemLabel="#{varInversion.itdNombre}" 
+                                                                                itemValue="#{varInversion.itdId}"
+                                                                                 />
+                                                              
                                                             </p:selectOneMenu>
                                                 </td> 
                                                 <td>Monto Presentado</td> 
-                                                <td>  <p:inputText style="width:60px" /></td> 
-                                                <td> <p:selectBooleanCheckbox  />
-                                                        <h:outputText style="font-size:9px" value="Con IGV" />
+                                                <td>  <p:inputText value="#{registrarAvanceInversionMB.montoPrestado}" style="width:60px" /></td> 
+                                                <td> <p:selectBooleanCheckbox value="#{registrarAvanceInversionMB.igv}" />
+                                                        <h:outputText style="font-size:9px"   value="Con IGV" />
                                                 </td> 
-                                                <td>
-                                                <p:commandButton value="Agregar" image="ui-icon-circle-plus" />
+                                                <td align="right">
+                                                <p:commandButton value="Agregar"  update=":form:tablaVS :form:mensaje :form:montosTotales1 :form:montosTotales2 :form:montosTotales3" actionListener="#{registrarAvanceInversionMB.agregar}"  image="ui-icon-circle-plus" />
                                                 </td>  
                                             </tr>
                                         </table>
 
-                                                        <p:dataTable editable="true">
+                                    <p:dataTable rowIndexVar="rowId"     paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             style="font-size:9px;" id="tablaVS" var="valSup"
+                                             value="#{registrarAvanceInversionMB.listValorizacionInversionAvanceDetalleVO}">
 						       			 <p:column headerText="Aeropuertos" >
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText value="#{valSup.aeropuertos}"></h:outputText>
 						       			</p:column>	 
 						       			 <p:column headerText="Descripción del Concepto" style="width:25px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText  value="#{valSup.descripcionInversion}"></h:outputText>
 						       			</p:column>	
 						       			 <p:column headerText="Moneda" style="width:15px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText value="#{valSup.nombreMoneda}"></h:outputText>
 						       			</p:column>	
 						       			<p:column headerText="Neto" style="width:15px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText  value="#{valSup.montoPresentado}"></h:outputText>
 						       			</p:column>	
 						       			<p:column headerText="Igv" style="width:15px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText  value="#{valSup.igv}"></h:outputText>
 						       			</p:column>
                                                                         <p:column headerText="Total" style="width:15px">
-						          			 <h:outputText></h:outputText>
+						          			 <h:outputText  value="#{valSup.tiaTotal}"></h:outputText>
 						       			</p:column>
                                                                         <p:column headerText="Eliminar" style="width:15px">
-						          			 <h:outputText></h:outputText>
+                                                                        <div align="center">
+						          			 <p:commandButton styleClass="controles"  update=":form:tablaVS :form:montosTotales1 :form:montosTotales2 :form:montosTotales3" actionListener="#{registrarAvanceInversionMB.quitarLista}" image="ui-icon-trash" >
+                                                                                                    <f:param id="indexLista" name="indexLista" value="#{rowId}"/>
+                                                                                 </p:commandButton>
+                                                                        </div>
 						       			</p:column>
 							</p:dataTable>
-							<div align="right" class="negrita">Total: 
-                                                            <p:inputText style="width:50px" />
-                                                             <p:inputText style="width:50px"/>
-                                                              <p:inputText style="width:50px"/>
+							<div align="right" class="negrita">Total Neto: 
+                                                            <p:inputText id="montosTotales1"  value="#{registrarAvanceInversionMB.totalMonto}"  style="width:75px" />
+                                                            Total Igv: 
+                                                             <p:inputText id="montosTotales2"  value="#{registrarAvanceInversionMB.totalIgv}"    style="width:75px"/>
+                                                             Total : 
+                                                              <p:inputText  id="montosTotales3"  value="#{registrarAvanceInversionMB.totalTotal}"  style="width:75px"/>
                                                         </div>
 							</p:fieldset>
 							<br></br>
@@ -255,11 +267,47 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                                 <p:commandButton  style="width:80px" value="Guardar"/>
+                                 <p:commandButton  style="width:80px"  update=":form:mensaje" actionListener="#{registrarAvanceInversionMB.guardar()}"  value="Guardar"/>
                                     <p:commandButton style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
             </p:layout>
+            
+             <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
+                          style="text-align:center;">
+                    
+                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLC" var="lisContratos1"
+                                             value="#{registrarAvanceInversionMB.listaContratos}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{lisContratos1.conId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{lisContratos1.nombreConcesion}" />
+                                    </p:column>
+                                  
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaContratos.hide()" 
+                                                actionListener="#{registrarAvanceInversionMB.elegirContrato(lisContratos1)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
+                                                style="width:22px;height:22px"
+                                                update=":form:datosConcesion :form:inversionDescripcion  :form:datosCompromiso "
+                                                >
+                                                
+                              
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                </p:dialog>
+            
 	</h:form>
       
     </h:body>
