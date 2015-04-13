@@ -41,7 +41,8 @@ public class ContratoVO {
     private int codigoConcesion;
     private InputStream inputStreamFichaResumen;
     private InputStream inputStreamContratoPDF;
-    
+    private String conFechaSuscripcionDescripcion;
+    private String conPlazoconcesionDescripcion;
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
     }
@@ -314,4 +315,19 @@ public class ContratoVO {
         return inputStreamContratoPDF;
     }
 
+    public void setConFechaSuscripcionDescripcion(String conFechaSuscripcionDescripcion) {
+        this.conFechaSuscripcionDescripcion = conFechaSuscripcionDescripcion;
+    }
+
+    public String getConFechaSuscripcionDescripcion() {
+        return conFechaSuscripcionDescripcion;
+    }
+
+    public void setConPlazoconcesionDescripcion(String conPlazoconcesionDescripcion) {
+        this.conPlazoconcesionDescripcion = conPlazoconcesionDescripcion;
+    }
+
+    public String getConPlazoconcesionDescripcion() {
+        return conPlazoconcesionDescripcion;
+    }
 }

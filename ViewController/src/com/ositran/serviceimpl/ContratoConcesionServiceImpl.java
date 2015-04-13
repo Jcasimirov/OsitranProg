@@ -3,11 +3,14 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoConcesionDAOImpl;
 import com.ositran.model.Contrato;
 import com.ositran.service.ContratoConcesionService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoVO;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 public class ContratoConcesionServiceImpl implements ContratoConcesionService{
     private ContratoConcesionDAOImpl contratoConcesionDAOImpl;
@@ -147,5 +150,41 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         
     }
 
-    
+    public List<ContratoVO> buscarxNombreConcesion(String nombreConcesion,int codTipoInfraestructura,int codConcesion,Date fechaIncioSuscripcion,Date fechafinSuscripcion) throws SQLException{
+        List<Object[]> list=contratoConcesionDAOImpl.buscarxNombreConcesion( nombreConcesion, codTipoInfraestructura, codConcesion, fechaIncioSuscripcion, fechafinSuscripcion);
+        List<ContratoVO> lstBusquedaxNombreConcesion=new ArrayList<ContratoVO>();
+        for (Object[] columna : list) {
+            ContratoVO con=new ContratoVO();
+            con.setConFechaSuscripcion((Date)columna[0]);
+            con.setConFechaSuscripcionDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(con.getConFechaSuscripcion()));
+            con.setNombreTipoInfraestructura(columna[1]!=null?columna[1].toString():null);
+            con.setNombreConcesion(columna[2]!=null?columna[2].toString():null);
+            con.setNombreModalidad(columna[3]!=null?columna[3].toString():null);
+            con.setNombreConcesionario(columna[4]!=null?columna[4].toString():null);
+            con.setConPdfcontrato(columna[5]!=null?columna[5].toString():null);
+            con.setConFicharesumen(columna[6]!=null?columna[6].toString():null);
+            con.setTinId(new Integer(columna[7].toString()));
+            con.setCsiId(new Integer(columna[8].toString()));
+            con.setConId(new Integer(columna[9].toString()));
+            con.setCncId(new Integer(columna[10].toString()));
+            con.setMcoId(new Integer(columna[11].toString()));
+            con.setConDomicilioLegal(columna[12]!=null?columna[12].toString():null);
+            con.setConAvanceobra(new Integer(columna[13].toString()));
+            con.setPerId(new Integer(columna[14].toString()));
+            con.setConDiames(new Integer(columna[15].toString()));
+            con.setConPlazorevision(new Integer(columna[16].toString()));
+            con.setConTipodias(new Integer(columna[17].toString()));
+            con.setConPlazoconcesion((Date)columna[18]);
+            con.setConPlazoconcesionDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(con.getConPlazoconcesion()));
+            con.setConAnyo(new Integer(columna[19].toString()));
+            con.setConNumero(new Integer(columna[20].toString()));
+            con.setConEstado(new Integer(columna[21].toString()));
+            con.setConFechaAlta((Date)columna[22]);
+            con.setConAsunto(columna[23].toString());
+            lstBusquedaxNombreConcesion.add(con);
+           // System.out.println("*********SERVICE*******buscarContratoxNombreConcesion():"+((Date)columna[0])+"-"+columna[1].toString()+"-"+columna[2].toString()+"-"+columna[3].toString()+"-"+columna[4].toString()+"-"+columna[5].toString()+"-"+columna[6].toString());
+       }
+
+        return lstBusquedaxNombreConcesion;
+    }
 }

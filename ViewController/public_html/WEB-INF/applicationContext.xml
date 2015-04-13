@@ -56,7 +56,7 @@
     <bean id="contratoNuevaEntregaVO" class="com.ositran.vo.bean.ContratoEntregaVO"/>
 	<bean id="contratoNuevoCompromisoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
         <bean id="contratoNuevoCompromisoSupervisadoVO" class="com.ositran.vo.bean.ContratoCompromisoVO"/>
-        <!--bean id="contratoNuevaPenalidadVO" class="com.ositran.vo.bean.ContratoPenalidadVO"/-->
+        <bean id="contratoNuevaPenalidadVO" class="com.ositran.vo.bean.ContratoPenalidadVO"/>
     <bean id="contratoPenalidadEstado" class="com.ositran.model.ContratoPenalidadEstado"/>
     <bean id="contratoAlertaEstadoVO" class="com.ositran.vo.bean.ContratoAlertaEstadoVO"/>
     <!--Concesionario-->
@@ -449,9 +449,9 @@
         <property name="contratoNuevaEntregaVO" ref="contratoNuevaEntregaVO"/>
         <property name="contratoNuevoCompromisoSupervisadoVO" ref="contratoNuevoCompromisoSupervisadoVO"/>
         <property name="contratoNuevoCompromisoVO" ref="contratoNuevoCompromisoVO"/>
-        <!--property name="contratoNuevaPenalidadVO" ref="contratoNuevaPenalidadVO"/-->        		
-	<!--property name="contratoPenalidadServiceImpl" ref="contratoPenalidadServiceImpl"/-->
-        <!--property name="contratoPenalidadEstadoServiceImpl" ref="contratoPenalidadEstadoServiceImpl"/-->
+        <property name="contratoNuevaPenalidadVO" ref="contratoNuevaPenalidadVO"/>       		
+	<property name="contratoPenalidadServiceImpl" ref="contratoPenalidadServiceImpl"/>
+        <property name="contratoPenalidadEstadoServiceImpl" ref="contratoPenalidadEstadoServiceImpl"/>
         
         <property name="contratoAlertaEstadoServiceImpl" ref="contratoAlertaEstadoServiceImpl"/>
         <property name="contratoAlertaEstadoVO" ref="contratoAlertaEstadoVO"/>
@@ -501,13 +501,13 @@
         <property name="concesionDAOImpl" ref="concesionDAOImpl"/>
     </bean>
     <!--Penalidad-->
-    <!--bean id="contratoPenalidadDaoImpl" class="com.ositran.daoimpl.ContratoPenalidadDAOImpl"/>
+    <bean id="contratoPenalidadDaoImpl" class="com.ositran.daoimpl.ContratoPenalidadDAOImpl"/>
     <bean id="contratoPenalidadServiceImpl" class="com.ositran.serviceimpl.ContratoPenalidadServiceImpl">
         <property name="contratoPenalidadDAOImpl" ref="contratoPenalidadDaoImpl"/>
-    </bean-->
+    </bean>
     <!--Penalidad Estado-->
-    <!--bean id="contratoPenalidadEstadoDaoImpl" class="com.ositran.daoimpl.ContratoPenalidadEstadoDAOImpl"/>
+    <bean id="contratoPenalidadEstadoDaoImpl" class="com.ositran.daoimpl.ContratoPenalidadEstadoDAOImpl"/>
     <bean id="contratoPenalidadEstadoServiceImpl" class="com.ositran.serviceimpl.ContratoPenalidadEstadoServiceImpl">
         <property name="contratoPenalidadEstadoDaoImpl" ref="contratoPenalidadEstadoDaoImpl"/>
-    </bean-->
+    </bean>
 </beans>

@@ -3,6 +3,8 @@ package com.ositran.contratos;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoEntregaService;
+import com.ositran.service.ContratoPenalidadEstadoService;
+import com.ositran.service.ContratoPenalidadService;
 import com.ositran.service.MonedaService;
 import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
@@ -33,6 +35,8 @@ import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoEntregaVO;
 import com.ositran.vo.bean.ContratoHitoVO;
 import com.ositran.vo.bean.ContratoInversionVO;
+import com.ositran.vo.bean.ContratoPenalidadEstadoVO;
+import com.ositran.vo.bean.ContratoPenalidadVO;
 import com.ositran.vo.bean.ContratoPpoVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
@@ -49,9 +53,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 import java.sql.SQLException;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,6 +109,10 @@ public class ActualizarContrato {
     TipoInversionServices tipoInversionServicesImpl;
     @ManagedProperty(value = "#{contratoEntregaServiceImpl}")
     ContratoEntregaService contratoEntregaServiceImpl;
+    @ManagedProperty(value = "#{contratoPenalidadEstadoServiceImpl}")
+    ContratoPenalidadEstadoService contratoPenalidadEstadoServiceImpl;
+    @ManagedProperty(value = "#{contratoPenalidadServiceImpl}")
+    ContratoPenalidadService contratoPenalidadServiceImpl;
     @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
     ContratoCompromisoService contratoCompromisoServiceImpl;
     @ManagedProperty(value = "#{monedaServiceImpl}")
@@ -130,6 +135,8 @@ public class ActualizarContrato {
     private ContratoCompromisoVO contratoCompromisoVO;
     @ManagedProperty(value = "#{contratoNuevoCompromisoVO}")
     private ContratoCompromisoVO contratoNuevoCompromisoVO;
+    @ManagedProperty(value = "#{contratoNuevaPenalidadVO}")
+    private ContratoPenalidadVO contratoNuevaPenalidadVO;
     @ManagedProperty(value = "#{contratoNuevoCompromisoSupervisadoVO}")
     private ContratoCompromisoVO contratoNuevoCompromisoSupervisadoVO;
     @ManagedProperty(value = "#{tipoInversionVO}")
@@ -188,7 +195,8 @@ public class ActualizarContrato {
     List<ContratoEntregaVO> listarEntregas = new ArrayList<ContratoEntregaVO>();
 
     List<MonedaVO> listarTipoMonedas = new ArrayList<MonedaVO>();
-
+    List<ContratoPenalidadVO> listarContratoPenalidad = new ArrayList<ContratoPenalidadVO>();
+    List<ContratoPenalidadEstadoVO> listarContratoPenalidadEstado = new ArrayList<ContratoPenalidadEstadoVO>();
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
     List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
@@ -208,6 +216,7 @@ public class ActualizarContrato {
     private int periodoseleccionado;
     private UploadedFile fileContrato;
     private UploadedFile fileFicharesumen;
+    private DefaultStreamedContent downloadPenalidades;
     private DefaultStreamedContent downloadContratoPDF;
     private DefaultStreamedContent downloadFichaResumen;
     private DefaultStreamedContent downloadAdendas;
@@ -270,6 +279,10 @@ public class ActualizarContrato {
     private int incIgvSup;
     private boolean activaIGVSup=true;
     private double tipocambiosup;
+    private String nombreConcesion;
+        private Date fechaInicioSuscripcion;
+        private Date fechaFinSuscripcion;
+        private String campo;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
@@ -343,48 +356,55 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
-
-    // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
-
-    public void buscarContratos() {
-        System.out.println("actualizarContratoMB.buscarContratos");
-        try {
-            listaContrato =
-                this.contratoConcesionServiceImp.buscarContratos(tipoinfra, concesion, modalidad, fechaInicio,
-                                                                 fechaFin);
-            System.out.println("listaContrato.size():" + listaContrato.size());
-            for (ContratoVO aux : listaContrato) {
-                for (ConcesionVO concesion : listaConcesiones) {
-                    if (concesion.getCsiId() == aux.getCsiId())
-                        aux.setNombreConcesion(concesion.getCsiNombre());
-                }
-                for (InfraestructuraTipoVO infraestructuratipo : listaTipoInfraestructura) {
-                    if (infraestructuratipo.getTinId() == aux.getTinId())
-                        aux.setNombreTipoInfraestructura(infraestructuratipo.getTinNombre());
-                }
-                for (ModalidadConcesionVO modalidad : listaModalidad) {
-                    if (modalidad.getMcoId() == aux.getMcoId())
-                        aux.setNombreModalidad(modalidad.getMcoNombre());
-                }
-
-
-            }
-
-            /*  for (int i = 0; i < listaContrato.size(); i++) {
-                listaContrato.get(i).setNombreConcesion(concesionServiceImpl.get(listaContrato.get(i).getCsiId()).getCsiNombre());
-                //listaContrato.get(i).setNombreConcesionario(concesionarioServiceImpl.get(listaContrato.get(i).getCncId()).getCncNombre());
-                listaContrato.get(i).setNombreModalidad(modalidadServiceImp.get(listaContrato.get(i).getMcoId()).getMcoNombre());
-                listaContrato.get(i).setNombreTipoInfraestructura(infraestructuraTipoServiceImpl.get(listaContrato.get(i).getTinId()).getTinNombre());
-
-            } */
-
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-
-
+    public void resetearCamposBuscarContratos(){
+        tipoinfra=0;
+        concesion=0;
+        fechaInicioSuscripcion=null;
+        fechaFinSuscripcion=null;      
     }
+    // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
+    public void abrirBuscarContratos(){
+        resetearCamposBuscarContratos();
+        buscarContratos();
+        System.out.println("abrirBuscarContratos()");
+    }
+    public void buscarContratos() {
+           System.out.println("actualizarContratoMB.buscarContratos");
+           try {
+               listaContrato =
+               contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),tipoinfra,concesion,fechaInicioSuscripcion,fechaFinSuscripcion);
+               System.out.println("***"+nombreConcesion+"****"+"tipoinfra "+tipoinfra+" concesion "+concesion+" modalidad "+modalidad);
+               for (ContratoVO aux : listaContrato) {
+                   for (ConcesionVO concesion : listaConcesiones) {
+                       if (concesion.getCsiId() == aux.getCsiId())
+                           aux.setNombreConcesion(concesion.getCsiNombre());
+                   }
+                   for (InfraestructuraTipoVO infraestructuratipo : listaTipoInfraestructura) {
+                       if (infraestructuratipo.getTinId() == aux.getTinId())
+                           aux.setNombreTipoInfraestructura(infraestructuratipo.getTinNombre());
+                   }
+                   for (ModalidadConcesionVO modalidad : listaModalidad) {
+                       if (modalidad.getMcoId() == aux.getMcoId())
+                           aux.setNombreModalidad(modalidad.getMcoNombre());
+                   }
+
+
+               }
+                /*  for (int i = 0; i < listaContrato.size(); i++) {
+                   listaContrato.get(i).setNombreConcesion(concesionServiceImpl.get(listaContrato.get(i).getCsiId()).getCsiNombre());
+                   //listaContrato.get(i).setNombreConcesionario(concesionarioServiceImpl.get(listaContrato.get(i).getCncId()).getCncNombre());
+                   listaContrato.get(i).setNombreModalidad(modalidadServiceImp.get(listaContrato.get(i).getMcoId()).getMcoNombre());
+                   listaContrato.get(i).setNombreTipoInfraestructura(infraestructuraTipoServiceImpl.get(listaContrato.get(i).getTinId()).getTinNombre());
+
+               } */
+
+           } catch (Exception e) {
+               // TODO: Add catch code
+               e.printStackTrace();
+           }
+
+
+       }
 
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
@@ -402,6 +422,7 @@ public class ActualizarContrato {
         resetDialogoBuscarContrato();
         listaContratoCompromiso(contratoVO.getConId());
         listaContratoCompromisoSupervisado(contratoVO.getConId());
+        listaContratoPenalidad(contratoVO.getConId());
         tabDeshabilitado=false;
     }
     /*--Reporte de Avance de Obra
@@ -420,12 +441,14 @@ public class ActualizarContrato {
         try {
             contratoVO.setPerId(periodoseleccionado);
             contratoVO.setConAvanceobra(aplicaAvancedeObra ? 1 : 0);
-            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN +
-                                                                contratoVO.getConFicharesumen(),
-                                                                contratoVO.getInputStreamFichaResumen());
-            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF +
-                                                                contratoVO.getConPdfcontrato(),
-                                                                contratoVO.getInputStreamContratoPDF());
+            if(contratoVO.getInputStreamFichaResumen()!=null)
+                            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN +
+                                                                            contratoVO.getConFicharesumen(),
+                                                                            contratoVO.getInputStreamFichaResumen());
+            if(contratoVO.getInputStreamContratoPDF()!=null)
+                            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF +
+                                                                            contratoVO.getConPdfcontrato(),
+                                                                            contratoVO.getInputStreamContratoPDF());
             contratoConcesionServiceImp.update(contratoVO);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
@@ -522,6 +545,7 @@ public class ActualizarContrato {
             contratoNuevaAdendaVO.setCadMonto(1L);
             contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
+            contratoNuevaAdendaVO.setCadEstado(1);
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
             listContratoAdenda.add(contratoNuevaAdendaVO);
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDA+contratoNuevaAdendaVO.getCadDocumentoFisico(), contratoNuevaAdendaVO.getInputStreamNuevaAdenda());
@@ -678,7 +702,7 @@ public class ActualizarContrato {
             contratoNuevaEntregaVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaEntregaVO.getCenFecha()));
             contratoNuevaEntregaVO.setCenMonto(1L);
             contratoNuevaEntregaVO.setMonId(1);
-            contratoNuevaEntregaVO.setCenEntrega(1);            
+            contratoNuevaEntregaVO.setCenEstado(1);
             contratoEntregaServiceImpl.insert(contratoNuevaEntregaVO);
             listarEntregas.add(contratoNuevaEntregaVO);
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoNuevaEntregaVO.getCenDocumentoFisico(), contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
@@ -2390,15 +2414,15 @@ public class ActualizarContrato {
         if(incIgv==1){
             activaIGV=false;
         }else{
-            contratoNuevoCompromisoVO.setCcoNeto(0L);
-            contratoNuevoCompromisoVO.setCcoIgv(0L);
+            contratoNuevoCompromisoVO.setCcoNeto(0.0);
+            contratoNuevoCompromisoVO.setCcoIgv(0.0);
             contratoNuevoCompromisoVO.setPorIgv(0.0);
             activaIGV=true;    
         }
     }
     public void calculaNeto(AjaxBehaviorEvent event){
         double calculadoIGV=((double)contratoNuevoCompromisoVO.getCcoTotal())*(contratoNuevoCompromisoVO.getPorIgv()); 
-        contratoNuevoCompromisoVO.setCcoIgv((long)calculadoIGV);  
+        contratoNuevoCompromisoVO.setCcoIgv(calculadoIGV);  
         contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal()-contratoNuevoCompromisoVO.getCcoIgv());
 
     }
@@ -2406,7 +2430,7 @@ public class ActualizarContrato {
     public void grabarContratoCompromisoIndicado(){
         System.out.println("grabarContratoCompromisoIndicado");
         try {
-            contratoNuevoCompromisoVO.setCcoTipoCambio(0L);
+            contratoNuevoCompromisoVO.setCcoTipoCambio(0.0);
             contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             contratoNuevoCompromisoVO.setCcoEstado(1);
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoVO);
@@ -2430,7 +2454,7 @@ public class ActualizarContrato {
         try {
             ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("compromiso");
             compromiso.setCcoEstado(0);
-            compromiso.setCcoTipoCambio(0L);
+            compromiso.setCcoTipoCambio(0.0);
             compromiso.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             contratoCompromisoServiceImpl.update(compromiso);
             listarContratoCompromiso.remove(compromiso);
@@ -2471,15 +2495,15 @@ public class ActualizarContrato {
         if(incIgvSup==1){
             activaIGVSup=false;
         }else{
-            contratoNuevoCompromisoSupervisadoVO.setCcoNeto(0L);
-            contratoNuevoCompromisoSupervisadoVO.setCcoIgv(0L);
+            contratoNuevoCompromisoSupervisadoVO.setCcoNeto(0.0);
+            contratoNuevoCompromisoSupervisadoVO.setCcoIgv(0.0);
             contratoNuevoCompromisoSupervisadoVO.setPorIgv(0.0);
             activaIGVSup=true;    
         }
     }
     public void calculaNetoSupervisado(AjaxBehaviorEvent event){
         double calculadoIGV=((double)contratoNuevoCompromisoSupervisadoVO.getCcoTotal())*(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
-        contratoNuevoCompromisoSupervisadoVO.setCcoIgv((long)calculadoIGV);  
+        contratoNuevoCompromisoSupervisadoVO.setCcoIgv(calculadoIGV);  
         contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()-contratoNuevoCompromisoSupervisadoVO.getCcoIgv());
 
     }
@@ -2488,7 +2512,7 @@ public class ActualizarContrato {
         try {
             contratoNuevoCompromisoSupervisadoVO.setTccTipo(Constantes.SUPERVISADOXOSITRAN);          
             contratoNuevoCompromisoSupervisadoVO.setCcoEstado(1);
-            contratoNuevoCompromisoSupervisadoVO.setCcoTipoCambio((long)tipocambiosup);
+            contratoNuevoCompromisoSupervisadoVO.setCcoTipoCambio(tipocambiosup);
             contratoNuevoCompromisoSupervisadoVO.setTivId(0);
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoSupervisadoVO);
             listarContratoCompromisoSupervisado.add(contratoNuevoCompromisoSupervisadoVO);
@@ -2640,5 +2664,177 @@ public class ActualizarContrato {
     public double getTipocambiosup() {
         return tipocambiosup;
     }
+    //*********************************************************************//
+     //**************************Empieza Contrato Penalidad********************//
+     //*********************************************************************//
+     public void listaContratoPenalidad(int codigocontrato){
+         try {
+             listarContratoPenalidad =
+                 contratoPenalidadServiceImpl.getPenalidadesContrato(codigocontrato);
+             System.out.println("listarContratoCompromisoSupervisado.size():"+listarContratoPenalidad.size());
+             listarContratoPenalidad=descripcionesPenalidad(listarContratoPenalidad);
+         } catch (SQLException sqle) {
+             // TODO: Add catch code
+             sqle.printStackTrace();
+         }
+     }
+     public List<ContratoPenalidadVO> descripcionesPenalidad(List<ContratoPenalidadVO> lista){
+         for (ContratoPenalidadVO contratoPenalidad : lista) {
+            for (MonedaVO moneda : listarTipoMonedas) {
+                if(moneda.getMonId()==contratoPenalidad.getMonId()){
+                    contratoPenalidad.setMonNombre(moneda.getMonNombre());
+                }
+            }
+        }
+         return lista;
+     }
+     public void resetearNuevaPenalidad(){
+             contratoNuevaPenalidadVO=new ContratoPenalidadVO();
+             contratoNuevaPenalidadVO.setConId(contratoVO.getConId());
+     }
+    
+     public void grabarContratoPenalidad(){
+         System.out.println("tipocambiosup:"+tipocambiosup);
+         try {               
+             contratoNuevaPenalidadVO.setTcpEstado("1");
+             contratoPenalidadServiceImpl.insert(contratoNuevaPenalidadVO);            
+             listarContratoPenalidad.add(contratoNuevaPenalidadVO);    
+             listaContratoPenalidad(contratoVO.getConId());
+             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAPENALIDADES+contratoNuevaPenalidadVO.getTcpDocumentoFisico(), contratoNuevaPenalidadVO.getInputStreamNuevaPenalidad());
+             FacesContext.getCurrentInstance().addMessage(null,
+                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                   Constantes.GRABARMENSAJESATISFACTORIO));
+             RequestContext.getCurrentInstance().execute("popupAgregarPenalidad.hide();"); 
+         } catch (Exception sqle) {
+             sqle.printStackTrace();
+             FacesContext.getCurrentInstance().addMessage(null,
+                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                           Constantes.ERRORGUARDAR));
+         }finally{
+             RequestContext.getCurrentInstance().update("tab:form:mensaje");
+         }
+     }
 
+     public void borrarPenalidad(ActionEvent e) {
+         try {
+             ContratoPenalidadVO penalidad = (ContratoPenalidadVO) e.getComponent().getAttributes().get("penalidad");
+             penalidad.setTcpEstado("0");
+             contratoPenalidadServiceImpl.update(penalidad);
+             listarContratoPenalidad.remove(penalidad);
+             FacesContext.getCurrentInstance().addMessage(null,
+                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
+             RequestContext.getCurrentInstance().execute("popupAgregarPenalidad.hide();");
+         } catch (Exception sqle) {
+             sqle.printStackTrace();
+             FacesContext.getCurrentInstance().addMessage(null,
+                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                           Constantes.ERRORBORRAR));
+         }finally{           
+             RequestContext.getCurrentInstance().update("tab:form:mensaje");
+         }
+     }
+     public void listarPenalidadEstado(){
+         try {
+             listarContratoPenalidadEstado = contratoPenalidadEstadoServiceImpl.query();
+         } catch (SQLException sqle) {
+             // TODO: Add catch code
+             sqle.printStackTrace();
+         }
+     }
+     public void preDownloadPenalidades(String nombreArchivo) {
+         try {
+             System.out.println("nombreArchivo:"+nombreArchivo);
+             downloadPenalidades= Reutilizar.getNewInstance().preDownload(Constantes.RUTAPENALIDADES + nombreArchivo);
+         } catch (FileNotFoundException fnfe) {
+             FacesContext.getCurrentInstance().addMessage(null,
+                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                                           Constantes.ARCHIVONOENCONTRADO));
+         }
+     }
+     public void subirArchivoPenalidad(FileUploadEvent event) throws IOException {
+         contratoNuevaPenalidadVO.setTcpDocumentoFisico(event.getFile().getFileName());
+         contratoNuevaPenalidadVO.setInputStreamNuevaPenalidad(event.getFile().getInputstream());
+
+     }
+     public void setContratoNuevaPenalidadVO(ContratoPenalidadVO contratoNuevaPenalidadVO) {
+         this.contratoNuevaPenalidadVO = contratoNuevaPenalidadVO;
+     }
+
+     public ContratoPenalidadVO getContratoNuevaPenalidadVO() {
+         return contratoNuevaPenalidadVO;
+     }
+
+
+     public void setListarContratoPenalidad(List<ContratoPenalidadVO> listarContratoPenalidad) {
+         this.listarContratoPenalidad = listarContratoPenalidad;
+     }
+
+     public List<ContratoPenalidadVO> getListarContratoPenalidad() {
+         return listarContratoPenalidad;
+     }
+
+     public void setContratoPenalidadServiceImpl(ContratoPenalidadService contratoPenalidadServiceImpl) {
+         this.contratoPenalidadServiceImpl = contratoPenalidadServiceImpl;
+     }
+
+     public ContratoPenalidadService getContratoPenalidadServiceImpl() {
+         return contratoPenalidadServiceImpl;
+     }
+
+     public void setContratoPenalidadEstadoServiceImpl(ContratoPenalidadEstadoService contratoPenalidadEstadoServiceImpl) {
+         this.contratoPenalidadEstadoServiceImpl = contratoPenalidadEstadoServiceImpl;
+     }
+
+     public ContratoPenalidadEstadoService getContratoPenalidadEstadoServiceImpl() {
+         return contratoPenalidadEstadoServiceImpl;
+     }
+
+     public void setListarContratoPenalidadEstado(List<ContratoPenalidadEstadoVO> listarContratoPenalidadEstado) {
+         this.listarContratoPenalidadEstado = listarContratoPenalidadEstado;
+     }
+
+     public List<ContratoPenalidadEstadoVO> getListarContratoPenalidadEstado() {
+         return listarContratoPenalidadEstado;
+     }
+
+     public void setDownloadPenalidades(DefaultStreamedContent downloadPenalidades) {
+         this.downloadPenalidades = downloadPenalidades;
+     }
+
+     public DefaultStreamedContent getDownloadPenalidades() {
+         return downloadPenalidades;
+     }
+
+     public void setNombreConcesion(String nombreConcesion) {
+         this.nombreConcesion = nombreConcesion;
+     }
+
+     public String getNombreConcesion() {
+         return nombreConcesion;
+     }
+
+     public void setFechaInicioSuscripcion(Date fechaInicioSuscripcion) {
+         this.fechaInicioSuscripcion = fechaInicioSuscripcion;
+     }
+
+     public Date getFechaInicioSuscripcion() {
+         return fechaInicioSuscripcion;
+     }
+
+     public void setFechaFinSuscripcion(Date fechaFinSuscripcion) {
+         this.fechaFinSuscripcion = fechaFinSuscripcion;
+     }
+
+     public Date getFechaFinSuscripcion() {
+         return fechaFinSuscripcion;
+     }
+
+    public void setCampo(String campo) {
+        this.campo = campo;
+    }
+
+    public String getCampo() {
+        return campo;
+    }
 }
