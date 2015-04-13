@@ -38,7 +38,7 @@
 	</script>
     </h:head>
     <h:body>
-        <f:event listener="#{configReporteAvanceInversionMB.validarSesion}" type="preRenderComponent"></f:event>
+        <f:event listener="#{configReporteAvanceInversionMB.validarSesion}" type="preRenderComponent"/>
         <f:event listener="#{configReporteAvanceInversionMB.cargaDatosDelModelo}" type="preRenderComponent"/>
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px; font-size:11px">
@@ -47,7 +47,7 @@
                     <h3 style="color:Black; font-weight:bold; font-family:sans-serif; font-size:21px">
                         CONFIGURACIÓN DE REPORTE DE AVANCE DE INVERSIÓN
                     </h3>
-                    <h:form>
+                    <h:form id="formulario_principal">
                         <div style="width:80%">
                             <p:dataTable id="reporteInversion" var="unidadReporteInversion" value="#{configReporteAvanceInversionMB.reporteInversion}" scrollable="true" scrollHeight="200" emptyMessage="No hay datos.">
                                 <p:column headerText="Concesión">
@@ -70,19 +70,33 @@
                         <p:message for="motivoCambio" showDetail="true" showSummary="true" display="both"/>
 
                         <p:outputLabel for="numeroDocumento" value="Nro. Documento: " />
-                        <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" validator="#{configReporteAvanceInversionMB.verificaDiferenteNroDocumento}"/>
                         <p:message for="numeroDocumento" showDetail="true" showSummary="true" display="both"/>
                         
                         <p:outputLabel for="fechaEmision" value="Fecha de Emisión: " />
-                        <p:calendar id="fechaEmision" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiFechaEmision}" pattern="dd-MM-yyyy" navigator="true" locale="es" readonlyInput="false" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" converterMessage="Fecha no valida" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:calendar id="fechaEmision" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiFechaEmision}" pattern="dd-MM-yyyy" navigator="true" locale="es" readonlyInput="false" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" converterMessage="Fecha no valida" validator="#{configReporteAvanceInversionMB.verificaDiferenteFechaEmision}"/>
                         <p:message for="fechaEmision" showDetail="true" showSummary="true" display="both"/>
                         
                         <p:outputLabel for="referencia" value="Referencia: " />
-                        <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" valueChangeListener="#{configReporteAvanceInversionMB.validaCambio}"/>
+                        <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" validator="#{configReporteAvanceInversionMB.verificaDiferenteReferencia}"/>
                         <p:message for="referencia" showDetail="true" showSummary="true" display="both"/>
-                        <p:commandButton value="Guardar" action="#{configReporteAvanceInversionMB.guardar}" ajax="false" />
+                        
+                        <p:commandButton value="Guardar" action="#{configReporteAvanceInversionMB.guardar}" ajax="false" update="growl"/>
+                        <!--<p:commandButton value="Limpiar" ajax="false" type="reset"/>
+                        <p:commandButton value="Limpiar 2" actionListener="#{configReporteAvanceInversionMB.reset}" immediate="true" ajax="false">
+                            <p:resetInput target="formulario_principal" />
+                        </p:commandButton>
+                        <h:commandButton value="Limpiar 3">
+                            <p:ajax update="formulario_principal" resetValues="true"/>
+                        </h:commandButton>-->
+                        
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        
+                        <!--<p:dialog header="Exito" widgetVar="exito_guardar" modal="true" height="100" visible="true">
+                            <h:outputText value="Se han guardado los datos exitosamente."/>
+                        </p:dialog>-->
                     </h:form>
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true"/>
+                    <!--<p:messages id="messages" showDetail="true" autoUpdate="true" globalOnly="true"/>-->
                 </div>
             </p:layoutUnit>
         </p:layout>
