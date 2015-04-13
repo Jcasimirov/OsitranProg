@@ -7,11 +7,19 @@ import javax.persistence.Id;
 public class ValorizacionSupDetalleVO {
     
     private Integer cvaId;
-    private Long igv;
+    private double igv;
     private Integer monId;
-    private Long neto;
-    private Long total;
+    private double neto;
+    private double total;
     private Integer tvsHr;
+    
+    private String aeropuertos;
+    private String descripcionInversion;
+    private String nombreMoneda;
+    
+    private int contador;
+    
+    
     
     public ValorizacionSupDetalleVO() {
     }
@@ -36,11 +44,11 @@ public class ValorizacionSupDetalleVO {
         return cvaId;
     }
 
-    public void setIgv(Long igv) {
+    public void setIgv(double igv) {
         this.igv = igv;
     }
 
-    public Long getIgv() {
+    public double getIgv() {
         return igv;
     }
 
@@ -52,19 +60,19 @@ public class ValorizacionSupDetalleVO {
         return monId;
     }
 
-    public void setNeto(Long neto) {
+    public void setNeto(double neto) {
         this.neto = neto;
     }
 
-    public Long getNeto() {
+    public double getNeto() {
         return neto;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public Long getTotal() {
+    public double getTotal() {
         return total;
     }
 
@@ -76,4 +84,36 @@ public class ValorizacionSupDetalleVO {
         return tvsHr;
     }
 
+    public void setAeropuertos(String aeropuertos) {
+        this.aeropuertos = aeropuertos;
+    }
+
+    public String getAeropuertos() {
+        return aeropuertos;
+    }
+
+    public void setDescripcionInversion(String descripcionInversion) {
+        this.descripcionInversion = descripcionInversion;
+    }
+
+    public String getDescripcionInversion() {
+        return descripcionInversion;
+    }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public int getContador() {
+        return contador;
+    }
 }
