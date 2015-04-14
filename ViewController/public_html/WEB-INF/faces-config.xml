@@ -28,7 +28,11 @@
 	<resource-bundle>
 		<base-name>menu</base-name>
 		<var>menu</var>			
-	</resource-bundle>        
+	</resource-bundle> 
+        	<resource-bundle>
+		<base-name>parametrosInicio</base-name>
+		<var>paramInicio</var>			
+	</resource-bundle> 
     </application>
     <application>
         <variable-resolver>
