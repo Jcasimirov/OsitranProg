@@ -614,7 +614,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarAdenda.hide();");
+            RequestContext.getCurrentInstance().execute("dlgEliminarAdenda.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -770,6 +770,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("dlgEliminarEntrega.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -2489,19 +2490,21 @@ public class ActualizarContrato {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
-
-    public void borrarCompromiso(ActionEvent e) {
+    public void cargarEliminarCompromiso(ActionEvent e){
+        idCompromisoEliminarI=(ContratoCompromisoVO) e.getComponent().getAttributes().get("compromiso");
+    }
+    public void borrarCompromiso() {
         try {
-            ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("compromiso");
-            compromiso.setCcoEstado(0);
-            compromiso.setCcoTipoCambio(0.0);
-            compromiso.setTccTipo(Constantes.SUPERVISADOXINDICACION);
-            contratoCompromisoServiceImpl.update(compromiso);
-            listarContratoCompromiso.remove(compromiso);
+
+            idCompromisoEliminarI.setCcoEstado(0);
+            idCompromisoEliminarI.setCcoTipoCambio(0.0);
+            idCompromisoEliminarI.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            contratoCompromisoServiceImpl.update(idCompromisoEliminarI);
+            listarContratoCompromiso.remove(idCompromisoEliminarI);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.hide();");
+            RequestContext.getCurrentInstance().execute("dlgEliminarCompromisoI.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -2570,18 +2573,19 @@ public class ActualizarContrato {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
-
-    public void borrarCompromisoSupervisado(ActionEvent e) {
-        try {
-            ContratoCompromisoVO compromiso = (ContratoCompromisoVO) e.getComponent().getAttributes().get("comsup");
-            compromiso.setCcoEstado(0);
-            compromiso.setTccTipo(Constantes.SUPERVISADOXINDICACION);
-            contratoCompromisoServiceImpl.update(compromiso);
-            listarContratoCompromisoSupervisado.remove(compromiso);
+    public void cargarEliminarCompromisoSupervisado(ActionEvent e){
+        idCompromisoEliminarS = (ContratoCompromisoVO) e.getComponent().getAttributes().get("comsup");
+    }
+    public void borrarCompromisoSupervisado() {
+        try {           
+            idCompromisoEliminarS.setCcoEstado(0);
+            idCompromisoEliminarS.setTccTipo(Constantes.SUPERVISADOXINDICACION);
+            contratoCompromisoServiceImpl.update(idCompromisoEliminarS);
+            listarContratoCompromisoSupervisado.remove(idCompromisoEliminarS);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarCompromisoSupervisado.hide();");
+            RequestContext.getCurrentInstance().execute("dlgEliminarCompromisoS.hide();");
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -2754,17 +2758,19 @@ public class ActualizarContrato {
              RequestContext.getCurrentInstance().update("tab:form:mensaje");
          }
      }
-
-     public void borrarPenalidad(ActionEvent e) {
+     public void cargarElimimarPenalidad(ActionEvent e){
+      idPenalidadEliminar =  (ContratoPenalidadVO) e.getComponent().getAttributes().get("penalidad");
+     }
+     public void borrarPenalidad() {
          try {
-             ContratoPenalidadVO penalidad = (ContratoPenalidadVO) e.getComponent().getAttributes().get("penalidad");
-             penalidad.setTcpEstado("0");
-             contratoPenalidadServiceImpl.update(penalidad);
-             listarContratoPenalidad.remove(penalidad);
+            
+             idPenalidadEliminar.setTcpEstado("0");
+             contratoPenalidadServiceImpl.update(idPenalidadEliminar);
+             listarContratoPenalidad.remove(idPenalidadEliminar);
              FacesContext.getCurrentInstance().addMessage(null,
                                                           new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                            Constantes.ELIMINARMENSAJESATISFACTORIO));
-             RequestContext.getCurrentInstance().execute("popupAgregarPenalidad.hide();");
+             RequestContext.getCurrentInstance().execute("dlgEliminarPenalidad.hide();");
          } catch (Exception sqle) {
              sqle.printStackTrace();
              FacesContext.getCurrentInstance().addMessage(null,
