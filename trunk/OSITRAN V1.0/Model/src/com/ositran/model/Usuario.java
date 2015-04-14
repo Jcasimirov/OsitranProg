@@ -1,12 +1,13 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,6 +61,8 @@ public class Usuario implements Serializable {
     private String usuUsuarioBaja;
     @Column(name = "USU_USUARIO_CAMBIO", length = 20)
     private String usuUsuarioCambio;
+    @Column(name = "TSI_ID")
+    private Integer supInvID;
 
     public Usuario() {
     }
@@ -214,6 +217,13 @@ public class Usuario implements Serializable {
     public void setUsuUsuarioCambio(String usuUsuarioCambio) {
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
-    
-    
+
+
+    public void setSupInvID(Integer supInvID) {
+        this.supInvID = supInvID;
+    }
+
+    public Integer getSupInvID() {
+        return supInvID;
+    }
 }

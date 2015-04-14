@@ -1,10 +1,14 @@
 
 package com.ositran.daoimpl;
+
 import com.ositran.dao.SupervisorInversionesDAO;
 import com.ositran.model.SupervisorInversiones;
 import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
+
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -31,5 +35,12 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
                
         }
         return list;   
+    }
+
+    @Override
+    public SupervisorInversiones getSupervisorInversiones(int codtipoInfraestructura) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        SupervisorInversiones contratoAdenda=(SupervisorInversiones)session.get(SupervisorInversiones.class, codtipoInfraestructura);
+        return contratoAdenda;
     }
 }
