@@ -46,6 +46,7 @@ import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.PeriodoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
+import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -281,12 +282,21 @@ public class ActualizarContrato {
     private boolean activaIGVSup=true;
     private double tipocambiosup;
     private String nombreConcesion;
-        private Date fechaInicioSuscripcion;
-        private Date fechaFinSuscripcion;
-        private String campo;
+    private Date fechaInicioSuscripcion;
+    private Date fechaFinSuscripcion;
+    private String campo;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    
+    private ContratoAdendaVO idAdendaEliminar;
+    private ContratoEntregaVO idEntregaEliminar;
+    private ContratoCompromisoVO idCompromisoEliminarI;
+    private ContratoCompromisoVO idCompromisoEliminarS;
+    private ContratoPenalidadVO idPenalidadEliminar;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        System.out.println("actualizar contrato user:"+Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getUsuNombre());
+        usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura= Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
     }
 
     public ActualizarContrato() {
@@ -305,7 +315,13 @@ public class ActualizarContrato {
 
     public void listarTiposMoneda() {
         try {
+            List<MonedaVO> lista=new ArrayList<MonedaVO>();
             listarTipoMonedas = monedaServiceImpl.query();
+            for (MonedaVO moneda : listarTipoMonedas) {
+                if(moneda.getMonId()!=0)
+                    lista.add(moneda);
+           }
+            listarTipoMonedas=lista;
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -426,6 +442,10 @@ public class ActualizarContrato {
         listaContratoCompromisoSupervisado(contratoVO.getConId());
         listaContratoPenalidad(contratoVO.getConId());
         tabDeshabilitado=false;
+        if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
+            RequestContext.getCurrentInstance().update("tab:frmInversion:tablaContratoInversion");
+            RequestContext.getCurrentInstance().update("tab:frmAgregarInversion:AeropuertoInversion");
+        }
     }
     /*--Reporte de Avance de Obra
      * periodoseleccionado=contratoVO.getPerId();
@@ -535,7 +555,15 @@ public class ActualizarContrato {
                         contratoAdendaVO.setTadNombre(aux.getTadNombre());
                     }
                 }
+                if(tipoInfraestructura!=Constantes.TIPINFAEROPUERTOS){
+                    for (MonedaVO aux : listarTipoMonedas) {
+                        if (aux.getMonId() == contratoAdendaVO.getMonId()) {
+                            contratoAdendaVO.setMonNombre(aux.getMonNombre());
+                        }
+                    } 
+                }
             }
+          
         } catch (SQLException s) {
             s.printStackTrace();
         }
@@ -543,13 +571,22 @@ public class ActualizarContrato {
 
     public void agregarAdenda() {
         try {
-            System.out.println("contratoNuevaAdendaVO.getTadId():" + contratoNuevaAdendaVO.getTadId());
-            contratoNuevaAdendaVO.setCadMonto(1L);
+            contratoNuevaAdendaVO.setCadCompromisoInversion(contratoNuevaAdendaVO.isBoocadCompromisoInversion()?1:0);
+            if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
+                contratoNuevaAdendaVO.setCadMonto(0L);
+                contratoNuevaAdendaVO.setMonId(0);
+                contratoNuevaAdendaVO.setMonNombre("");
+                contratoNuevaAdendaVO.setCadCompromisoInversion(0);
+                contratoNuevaAdendaVO.setBoocadCompromisoInversion(false);
+                contratoNuevaAdendaVO.setCadCompromisoInversion(0);
+            }
+                
             contratoNuevaAdendaVO.setTadNombre(obtenerNombreTipoAdenda(contratoNuevaAdendaVO.getTadId()));
             contratoNuevaAdendaVO.setCadFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoNuevaAdendaVO.getCadFecha()));
             contratoNuevaAdendaVO.setCadEstado(1);
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
             listContratoAdenda.add(contratoNuevaAdendaVO);
+            cargarListaAdendas(contratoVO.getConId());
             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDA+contratoNuevaAdendaVO.getCadDocumentoFisico(), contratoNuevaAdendaVO.getInputStreamNuevaAdenda());
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
@@ -566,13 +603,14 @@ public class ActualizarContrato {
         }
 
     }
-
-    public void borrarAdenda(ActionEvent e) {
-        try {
-            ContratoAdendaVO adenda = (ContratoAdendaVO) e.getComponent().getAttributes().get("adenda");
-            adenda.setCadEstado(0);
-            contratoAdendaServiceImpl.update(adenda);
-            listContratoAdenda.remove(adenda);
+    public void cargarEliminarAdenda(ActionEvent e){
+      idAdendaEliminar=(ContratoAdendaVO) e.getComponent().getAttributes().get("adenda");
+    }
+    public void borrarAdenda() {
+        try {           
+            idAdendaEliminar.setCadEstado(0);
+            contratoAdendaServiceImpl.update(idAdendaEliminar);
+            listContratoAdenda.remove(idAdendaEliminar);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
@@ -654,7 +692,7 @@ public class ActualizarContrato {
         }
         return nombreadenda;
     }
-
+   
     //************************Termina Contrato Adenda**********************//
     public void limpiarCampos() {
         nombre = "";
@@ -721,17 +759,17 @@ public class ActualizarContrato {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
     }
-
-    public void borrarEntrega(ActionEvent e) {
+    public void cargarEliminarEntrega(ActionEvent e){
+      idEntregaEliminar=(ContratoEntregaVO) e.getComponent().getAttributes().get("entrega");
+    }
+    public void borrarEntrega() {
         try {
-            ContratoEntregaVO entrega = (ContratoEntregaVO) e.getComponent().getAttributes().get("entrega");           
-            entrega.setCenEstado(0);
-            contratoEntregaServiceImpl.update(entrega);
-            listarEntregas.remove(entrega);
+            idEntregaEliminar.setCenEstado(0);
+            contratoEntregaServiceImpl.update(idEntregaEliminar);
+            listarEntregas.remove(idEntregaEliminar);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -2846,5 +2884,13 @@ public class ActualizarContrato {
 
     public boolean isRenderAeropuertos() {
         return renderAeropuertos;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
     }
 }

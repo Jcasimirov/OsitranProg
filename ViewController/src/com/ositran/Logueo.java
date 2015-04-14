@@ -1,6 +1,7 @@
 package com.ositran;
 
 import com.ositran.service.RolOpcionesService;
+import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.UsuarioService;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
@@ -37,7 +38,8 @@ public class Logueo {
     UsuarioService usuarioServiceImpl;
     @ManagedProperty(value = "#{rolOpcionesServiceImpl}")
     RolOpcionesService rolOpcionesServiceImpl;
-    
+    @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
+    SupervisorInversionesService supervisorInversionesServiceImpl;
 
     public void logear() {
         int codusuario=0;
@@ -62,7 +64,7 @@ public class Logueo {
                 }
             else if (validar==true && contrasenha.equals(password)){
                    
-                    
+                    UsuarioVO usuario=usuarioServiceImpl.get(codusuario);
                     faceContext=FacesContext.getCurrentInstance();
                     httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
                     HttpSession session = httpServletRequest.getSession();
@@ -70,7 +72,8 @@ public class Logueo {
                     session.setAttribute("PassSesion", contrasenha);
                     session.setAttribute("listaPermisos", listaRolOpciones);
                     session.setAttribute("listaUsuario", listaUsuario);
-                    session.setAttribute("atributosUsuario", usuarioServiceImpl.get(codusuario));
+                    session.setAttribute("atributosUsuario", usuario);
+                    session.setAttribute("atributosEmpleado", supervisorInversionesServiceImpl.getSupervisorInversiones(usuario.getSupInvId()));
                    
                      String redirectPath = "/faces/ositran/principal.xhtml";
                      externalContext.redirect(servletContext.getContextPath() + redirectPath);
@@ -187,5 +190,13 @@ public class Logueo {
 
     public UsuarioService getUsuarioServiceImpl() {
         return usuarioServiceImpl;
+    }
+
+    public void setSupervisorInversionesServiceImpl(SupervisorInversionesService supervisorInversionesServiceImpl) {
+        this.supervisorInversionesServiceImpl = supervisorInversionesServiceImpl;
+    }
+
+    public SupervisorInversionesService getSupervisorInversionesServiceImpl() {
+        return supervisorInversionesServiceImpl;
     }
 }
