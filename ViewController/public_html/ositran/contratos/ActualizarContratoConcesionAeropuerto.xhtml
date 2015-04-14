@@ -563,7 +563,7 @@
                                      <p:commandButton value="Eliminar"
                                                                      actionListener="#{actualizarContratoMB.borrarAdenda()}"
                                                                      update=":tab:frmAdenda:tablaAdenda"
-                                                                     onclick="dlgEliminarAdenda.hide();">
+                                                                     >
                                     </p:commandButton> 
                                     <p:commandButton value="Salir" onclick="dlgEliminarAdenda.hide();" />
                                     </p:panelGrid>
@@ -579,7 +579,7 @@
                                      <p:commandButton value="Eliminar"
                                                                      actionListener="#{actualizarContratoMB.borrarEntrega()}"
                                                                      update=":tab:frmAdenda:tablaEngrega"
-                                                                     onclick="dlgEliminarEntrega.hide();">
+                                                                     >
                                     </p:commandButton> 
                                     <p:commandButton value="Salir" onclick="dlgEliminarEntrega.hide();" />
                                     </p:panelGrid>
@@ -789,17 +789,35 @@
                                                     <h:outputText value="#{compromiso.ccoPlazo}"/>
                                                 </p:column>
                                                 <p:column headerText="Eliminar" style="width:4%">
+                                                <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarCompromiso}"
-                                                                     update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado :tab:form:mensaje">
+                                                                     actionListener="#{actualizarContratoMB.cargarEliminarCompromiso}" 
+                                                                     oncomplete="dlgEliminarCompromisoI.show();">
                                                         <f:attribute name="compromiso" value="#{compromiso}"></f:attribute>
                                                     </p:commandButton>
+                                                </div>
                                                 </p:column>
                                             </p:dataTable>
                                         </td>
                                     </tr>
                                 </table>
                             </h:form>
+                            <p:dialog widgetVar="dlgEliminarCompromisoI" appendToBody="true" modal="true"
+                                      header="Eliminar Compromiso Indicado" position="center" closable="true">
+                                <h:form>
+                                    
+                                    <p:panelGrid styleClass="pnlEdicion" columns="2">
+                                    <h:outputText value="Esta seguro de eliminar el registro?"/>
+                                    <h:outputText value=""> </h:outputText>
+                                     <p:commandButton value="Eliminar"
+                                                                     actionListener="#{actualizarContratoMB.borrarCompromiso()}"
+                                                                     update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado"
+                                                                     >
+                                    </p:commandButton> 
+                                    <p:commandButton value="Salir" onclick="dlgEliminarCompromisoI.hide();" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                             <p:dialog header="Agregar Compromiso de Inversion (Indicado)"
                                       widgetVar="popupAgregarCompromiso"  modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevoCompromisoDlg">
@@ -957,8 +975,8 @@
                                                 <p:column headerText="Eliminar" style="width:4%">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarCompromisoSupervisado}"
-                                                                     update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado :tab:form:mensaje">
+                                                                     actionListener="#{actualizarContratoMB.cargarEliminarCompromisoSupervisado}"
+                                                                     onclick="dlgEliminarCompromisoS.show();">
                                                         <f:attribute name="comsup" value="#{comsup}"></f:attribute>
                                                     </p:commandButton>
                                                 </div>
@@ -969,6 +987,21 @@
                                     </tr>
                                 </table>
                             </h:form>
+                            <p:dialog widgetVar="dlgEliminarCompromisoS" appendToBody="true" modal="true"
+                                      header="Eliminar Compromiso Supervisado por Ositran" position="center" closable="true">
+                                <h:form>
+                                    
+                                    <p:panelGrid styleClass="pnlEdicion" columns="2">
+                                    <h:outputText value="Esta seguro de eliminar el registro?"/>
+                                    <h:outputText value=""> </h:outputText>
+                                     <p:commandButton value="Eliminar"
+                                                                     actionListener="#{actualizarContratoMB.borrarCompromisoSupervisado()}"
+                                                                     update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado">
+                                    </p:commandButton> 
+                                    <p:commandButton value="Salir" onclick="dlgEliminarCompromisoS.hide();" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                             <p:dialog header="Agregar Compromiso (Supervisado)"
                                       widgetVar="popupAgregarCompromisoSupervisado" modal="true" resizable="false"
                                       appendToBody="true" closable="true">
@@ -1117,8 +1150,8 @@
                                                 <p:column headerText="Eliminar" style="width:4%">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarPenalidad}"
-                                                                     update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad :tab:form:mensaje">
+                                                                     actionListener="#{actualizarContratoMB.cargarElimimarPenalidad}"
+                                                                     onclick="dlgEliminarPenalidad.show();">
                                                         <f:attribute name="penalidad" value="#{penalidad}"></f:attribute>
                                                     </p:commandButton>
                                                     </div>
@@ -1128,6 +1161,22 @@
                                     </tr>
                                 </table>
                             </h:form>
+                             <p:dialog widgetVar="dlgEliminarPenalidad" appendToBody="true" modal="true"
+                                      header="Eliminar Penalidad" position="center" closable="true">
+                                <h:form>
+                                 
+                                    <p:panelGrid styleClass="pnlEdicion" columns="2">
+                                    <h:outputText value="Esta seguro de eliminar el registro?"/>
+                                    <h:outputText value=""> </h:outputText>
+                                     <p:commandButton value="Eliminar"
+                                                                     actionListener="#{actualizarContratoMB.borrarPenalidad()}"
+                                                                     update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad"
+                                                                     >
+                                    </p:commandButton> 
+                                    <p:commandButton value="Salir" onclick="dlgEliminarPenalidad.hide();" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                             <p:dialog header="Agregar Compromiso (Penalidad)"
                                       widgetVar="popupAgregarPenalidad" modal="true" resizable="false"
                                       appendToBody="true" closable="true">
