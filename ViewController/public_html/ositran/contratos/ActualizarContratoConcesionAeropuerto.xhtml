@@ -1376,6 +1376,16 @@
                                                     </p:commandButton>
                                                         
                                                     </p:column>
+                                                    <p:column headerText="Modificar" style="width:4%">
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarModificarHito()}"
+                                                                         oncomplete="popupModificarHito.show()"
+                                                                         image="ui-icon-pencil"
+                                                                         style="width:25px;height:25px"
+                                                                         update=":tab:frmCHP:tablaHito :tab:frmModificarHito">
+                                                            <f:param id="idContratoHitoM" name="idContratoHitoM"
+                                                                     value="#{tHito.htoId}"/>
+                                                        </p:commandButton>
+                                                    </p:column>
                                                     <p:column headerText="Eliminar" style="width:4%">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarHito()}"
                                                                          oncomplete="popupEliminarHito.show()"
@@ -1662,6 +1672,93 @@
                                                  
                                                 <p:commandButton value="#{btn.btn_salir}"
                                                                  oncomplete="popupAgregarHito.hide()"
+                                                                 style="width:70px"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h:form>
+                            </p:dialog>
+                            <p:dialog header="Modificar Hito" widgetVar="popupModificarHito">
+                                <h:form id="frmModificarHito">
+                                <p:growl id="msjHito" showDetail="true" life="10000"/>
+                                    <table style="margin-bottom:5px;font-size: 11px;text-align:center">
+                                        <tr>
+                                            <td align="left">Aeropuerto</td>
+                                            <td align="left">
+                                                <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoNombre}"
+                                                             style="width:300px;"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                 
+                                                <img src="../../images/obligatorio.gif"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left">Fecha</td>
+                                            <td align="left">
+                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
+                                                            value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
+                                                 
+                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left">Monto</td>
+                                            <td align="left">
+                                                <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoMonto}"
+                                                             style="width:200px;"
+                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                 
+                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                            </td>
+                                        </tr>
+                                         
+                                        <tr>
+                                            <td align="left">Moneda</td>
+                                            <td align="left">
+                                                <p:selectOneMenu widgetVar="monedaH" id="monedaHitoM"
+                                                                 value="#{actualizarContratoMB.contratoHitoVO.monId}"
+                                                                 style="width:210px">
+                                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}"
+                                                                   var="mon" itemLabel="#{mon.monNombre}"
+                                                                   itemValue="#{mon.monId}"/>
+                                                </p:selectOneMenu>
+                                                 
+                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                            </td>
+                                        </tr>
+                                         
+                                        <tr>
+                                            <td align="left">Documento</td>
+                                            <td align="left">
+                                                <p:inputText id="docHitoM"
+                                                             value="#{actualizarContratoMB.contratoHitoVO.htoPdf}"
+                                                             style="width:200px;"
+                                                             readonly="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}"
+                                                      update="docHitoM" label="Archivo" auto="true"/> 
+                                                 
+                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                            </td>
+                                        </tr>
+                                         
+                                        <tr>
+                                            <td align="right" colspan="2"
+                                                style="font-size: 10px;font-style: oblique; color: Red;">
+                                                Campos obligatorios ( 
+                                                <img src="../../images/obligatorio.gif"/>)
+                                            </td>
+                                        </tr>
+                                         
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                <p:commandButton update=":tab:frmCHP:tablaHito :tab:frmModificarHito"
+                                                                 actionListener="#{actualizarContratoMB.actualizarHito()}"
+                                                                 style="width:70px" value="#{btn.btn_guardar}"
+                                                                 />
+                                                 
+                                                <p:commandButton value="#{btn.btn_salir}"
+                                                                 oncomplete="popupModificarHito.hide()"
                                                                  style="width:70px"/>
                                             </td>
                                         </tr>

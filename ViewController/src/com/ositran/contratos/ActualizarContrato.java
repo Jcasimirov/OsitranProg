@@ -712,6 +712,12 @@ public class ActualizarContrato {
         documentoHito  = null;
         
     }
+    
+    public void limpiarCamposHito2(){
+        contratoHitoVO = null;
+        contratoHitoVO.setMonId(0);
+        
+    }
 
     //*********************************************************************//
     //**************************Empieza Contrato Entrega********************//
@@ -799,6 +805,7 @@ public class ActualizarContrato {
     public void subirArchivoHito(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
         documentoHito = event.getFile().getFileName();
+        getContratoHitoVO().setHtoPdf(documentoHito);
         getContratoHitoVO().setFileHito(event.getFile().getInputstream());
         System.out.println("documentoHito: " + documentoHito);
 
@@ -1785,6 +1792,16 @@ public class ActualizarContrato {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
     
+    public void cargarModificarHito() throws SQLException {
+
+        //inicio de captura de codigo a modificar
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idContratoHitoM");
+        Integer idcodigo = Integer.valueOf(str.toString());
+        setContratoHitoVO(getContratoHitoServiceImpl().get(idcodigo));            
+    }
+    
     public void cargarEliminarPpo() throws SQLException {
 
         //inicio de captura de codigo a modificar
@@ -2145,6 +2162,70 @@ public class ActualizarContrato {
                 System.out.println("ERROR E: " + e.getMessage());
             }
             System.out.println("############# FIN GUARDAR CAO");
+
+        }
+    }
+    
+    
+    
+    public void actualizarHito() {
+        System.out.println("############# INI ACTUALIZAR HITO");
+        if(contratoHitoVO.getHtoNombre().equals("")){
+            System.out.println("nombreHito: " + contratoHitoVO.getHtoNombre());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Aeropuerto"));   
+        } else if (contratoHitoVO.getHtoFecha() == null) {
+            System.out.println("fechaHito: " + contratoHitoVO.getHtoFecha());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha"));                    
+        } else if (contratoHitoVO.getHtoMonto() == null) {
+            System.out.println("montoHito: " + contratoHitoVO.getHtoMonto());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Monto"));                      
+        }else if (contratoHitoVO.getMonId() == 0) {
+            System.out.println("monedaHitoId: " + contratoHitoVO.getMonId());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha selecionado la Moneda"));        
+        } else if (contratoHitoVO.getHtoPdf().equals("")) {
+            System.out.println("documentoHito: " + contratoHitoVO.getHtoPdf());
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Documento"));             
+        } else {
+            try {
+                //Date date = new Date();
+                //DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                //String convertido = fechaHora.format(date);
+                //documentoCAO = "DOCUMENT_CAO_" + convertido;
+                if (getContratoHitoVO().getFileHito() != null){
+                    Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAHITO + contratoHitoVO.getHtoPdf(),
+                                                                    getContratoHitoVO().getFileHito());
+                }
+                
+                System.out.println("guardo ok");
+                getContratoHitoServiceImpl().update(getContratoHitoVO());
+                cargarListaHitos(contratoVO.getConId());
+                //limpiarCamposHito2();
+                RequestContext.getCurrentInstance().execute("popupModificarHito.hide()");
+
+            } catch (SQLException s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar el Hito "));
+                s.printStackTrace();
+                System.out.println("ERROR SQLE: " + s.getMessage());
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar el Hito "));
+                e.printStackTrace();
+                System.out.println("ERROR E: " + e.getMessage());
+            }
+            System.out.println("############# FIN ACTUALIZAT HITO");
 
         }
     }
