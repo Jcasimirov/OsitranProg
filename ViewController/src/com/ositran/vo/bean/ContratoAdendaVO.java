@@ -23,6 +23,9 @@ public class ContratoAdendaVO {
     private String cadNombre;
     private String cadFechaDescripcion;
     private String tadNombre;
+    private Integer cadCompromisoInversion; 
+    private String monNombre;
+    private boolean boocadCompromisoInversion; 
     public String getCadDescripcion() {
         return cadDescripcion;
     }
@@ -126,5 +129,29 @@ public class ContratoAdendaVO {
 
     public String getTadNombre() {
         return tadNombre;
+    }
+
+    public void setCadCompromisoInversion(Integer cadCompromisoInversion) {
+        this.cadCompromisoInversion = cadCompromisoInversion;
+    }
+
+    public Integer getCadCompromisoInversion() {
+        return cadCompromisoInversion;
+    }
+
+    public void setMonNombre(String monNombre) {
+        this.monNombre = monNombre;
+    }
+
+    public String getMonNombre() {
+        return monNombre;
+    }
+
+    public void setBoocadCompromisoInversion(boolean boocadCompromisoInversion) {
+        this.boocadCompromisoInversion = boocadCompromisoInversion;
+    }
+
+    public boolean isBoocadCompromisoInversion() {
+        return boocadCompromisoInversion;
     }
 }

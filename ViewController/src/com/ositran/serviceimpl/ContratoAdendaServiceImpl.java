@@ -75,7 +75,8 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdendaVO.setCadEstado(contratoAdenda.getCadEstado());
         contratoAdendaVO.setCadNombre(contratoAdenda.getCadNombre());
         contratoAdendaVO.setTadId(contratoAdenda.getTadId());
-    
+        contratoAdendaVO.setCadCompromisoInversion(contratoAdenda.getCadCompromisoInversion());
+        contratoAdendaVO.setBoocadCompromisoInversion(contratoAdenda.getCadCompromisoInversion()==1?true:false);
         return contratoAdendaVO;
     }
     
@@ -92,7 +93,7 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadEstado(contratoAdendaVO.getCadEstado());
         contratoAdenda.setCadNombre(contratoAdendaVO.getCadNombre());
         contratoAdenda.setTadId(contratoAdendaVO.getTadId());
-        
+        contratoAdenda.setCadCompromisoInversion(contratoAdendaVO.getCadCompromisoInversion());
         return contratoAdenda;
         
     }

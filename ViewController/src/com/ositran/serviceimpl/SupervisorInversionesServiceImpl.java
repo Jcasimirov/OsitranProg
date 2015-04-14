@@ -1,10 +1,13 @@
 
 package com.ositran.serviceimpl;
+
 import com.ositran.daoimpl.SupervisorInversionesDAOImpl;
 import com.ositran.model.SupervisorInversiones;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.vo.bean.SupervisorInversionesVO;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -130,6 +133,13 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     public List<SupervisorInversionesVO> buscarCoordinadorInSitu(int codTipoInfraestructura) throws SQLException {
         // TODO Implement this method
         return Collections.emptyList();
+    }
+
+    @Override
+    public SupervisorInversionesVO getSupervisorInversiones(int idsupinv)throws SQLException {
+        SupervisorInversiones supinv= supervisorInversionesDAOImpl.getSupervisorInversiones(idsupinv);
+        SupervisorInversionesVO supinvVO=toV_VO(supinv);
+        return supinvVO;
     }
 }
 
