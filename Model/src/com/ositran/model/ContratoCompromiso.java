@@ -16,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoCompromiso.findAll", query = "select o from ContratoCompromiso o") })
 @Table(name = "T_CONTRATO_COMPROMISO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_COMPROMISO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_COMPROMISO"))
 public class ContratoCompromiso implements Serializable {
     private static final long serialVersionUID = -4038858335843227367L;
     @Column(name = "CCO_ALCANCE", nullable = false, length = 4000)

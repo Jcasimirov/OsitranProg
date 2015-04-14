@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoAdenda.findAll", query = "select o from ContratoAdenda o") })
 @Table(name = "T_CONTRATO_ADENDA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_CONTRATO_ADENDA"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_ADENDA"))
 public class ContratoAdenda implements Serializable {
     private static final long serialVersionUID = 3393451982851266458L;
     @Column(name = "CAD_DESCRIPCION", nullable = false, length = 4000)
@@ -48,7 +48,9 @@ public class ContratoAdenda implements Serializable {
     private String cadNombre;
     @Column(name = "TAD_ID")
     private Integer tadId;
-
+    
+    @Column(name = "CAD_COMPROMISO_INVERSION")
+    private Integer cadCompromisoInversion;        
     public ContratoAdenda() {
     }
 
@@ -143,5 +145,13 @@ public class ContratoAdenda implements Serializable {
 
     public Integer getTadId() {
         return tadId;
+    }
+
+    public void setCadCompromisoInversion(Integer cadCompromisoInversion) {
+        this.cadCompromisoInversion = cadCompromisoInversion;
+    }
+
+    public Integer getCadCompromisoInversion() {
+        return cadCompromisoInversion;
     }
 }

@@ -127,7 +127,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     @Override
     public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) {
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-        session.beginTransaction();
+        
         Query query;
         query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i\n" + 
                                         "INNER JOIN t_contrato ct \n" + 
@@ -137,7 +137,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
                                         "AND ct.CON_ID = :busqueda1").addEntity(Infraestructura.class);
         query.setParameter("busqueda1",codigoContrato);
         List<Infraestructura> list = query.list();
-        session.getTransaction().commit();
+        
         session.close();
         return list; 
     }
