@@ -24,4 +24,5 @@ public class Constantes {
     public static String SELECCIONECONTRATO = "Seleccione un Contrato";
     public static Integer SUPERVISADOXOSITRAN=1;
     public static Integer SUPERVISADOXINDICACION=0;
+    public static Integer TIPINFAEROPUERTOS=2;
 }

@@ -293,7 +293,7 @@
                                                              actionListener="#{actualizarContratoMB.guardarContrato()}"
                                                              update=":tab:form:mensaje"></p:commandButton>
                                              
-                                            <p:commandButton value="Salir"></p:commandButton>
+                                            <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
                                         </td>
                                     </tr>
                                 </table>
@@ -396,8 +396,6 @@
                                                                  :tab:form :tab:frmAdenda:tablaAdenda 
                                                                  :tab:frmAdenda:tablaEngrega 
                                                                  :tab:frmAlerta:tablaAlerta 
-                                                                 :tab:frmInversion:tablaContratoInversion: 
-                                                                 :tab:frmAgregarInversion:AeropuertoInversion 
                                                                  :tab:frmAgregarCAO:monedaCAO 
                                                                  :tab:frmCHP:tablaCAO
                                                                  :tab:frmCompromisoIndicado:tablaCompromisoIndicado
@@ -467,9 +465,22 @@
                                                 <p:column headerText="Objeto">
                                                     <h:outputText value="#{tAdenda.cadDescripcion}"/>
                                                 </p:column>
-                                                <p:column headerText="Fecha">
+                                                 <p:column rendered="#{actualizarContratoMB.tipoInfraestructura eq 1}">
+                                                    <h:outputText value="#{tAdenda.cadMonto}"/>
+                                                </p:column>                                              
+                                               
+                                                 <p:column headerText="Monto" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
+                                                    <h:outputText value="#{tAdenda.cadMonto}"/>
+                                                </p:column>
+                                                 <p:column headerText="Moneda" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
+                                                    <h:outputText value="#{tAdenda.monNombre}"/>
+                                                </p:column>
+                                                 <p:column headerText="Fecha">
                                                     <h:outputText value="#{tAdenda.cadFechaDescripcion}"/>
                                                 </p:column>
+                                                 <p:column headerText="Comp. Inv. Concesionario" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
+                                                    <p:selectBooleanCheckbox value="#{tAdenda.boocadCompromisoInversion}" disabled="true"/>
+                                                </p:column>                                                
                                                 <p:column headerText="Ver" style="width:5%">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
@@ -481,7 +492,9 @@
                                                 <p:column style="width:10%;" headerText="Eliminar">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     onclick="dlgEliminarAdenda.hide();">
+                                                                     actionListener="#{actualizarContratoMB.cargarEliminarAdenda}" 
+                                                                     oncomplete="dlgEliminarAdenda.show();">
+                                                        <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
                                                     </p:commandButton>
                                                 </div>
                                                 </p:column>
@@ -527,8 +540,8 @@
                                                 <p:column style="width:10%;" headerText="Eliminar">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarEntrega}"
-                                                                     update=":tab:frmAdenda:tablaEngrega                                                                               :tab:form:mensaje">
+                                                                     actionListener="#{actualizarContratoMB.cargarEliminarEntrega}" 
+                                                                     oncomplete="dlgEliminarEntrega.show();">
                                                         <f:attribute name="entrega" value="#{entrega}"></f:attribute>
                                                      
                                                     </p:commandButton>
@@ -539,15 +552,37 @@
                                     </tr>
                                 </table>
                             </h:form>
+                           
                             <p:dialog widgetVar="dlgEliminarAdenda" appendToBody="true" modal="true"
-                                      header="Eliminar" position="center">
+                                      header="Eliminar Adenda" position="center" closable="true">
                                 <h:form>
-                                     <p:commandButton icon="ui-icon-trash"
-                                                                     actionListener="#{actualizarContratoMB.borrarAdenda}"
-                                                                     update=":tab:frmAdenda:tablaAdenda :tab:form:mensaje">
-                                                        <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
-                                                        
-                                    </p:commandButton>
+                                    
+                                    <p:panelGrid styleClass="pnlEdicion" columns="2">
+                                    <h:outputText value="Esta seguro de eliminar el registro?"/>
+                                    <h:outputText value=""> </h:outputText>
+                                     <p:commandButton value="Eliminar"
+                                                                     actionListener="#{actualizarContratoMB.borrarAdenda()}"
+                                                                     update=":tab:frmAdenda:tablaAdenda"
+                                                                     onclick="dlgEliminarAdenda.hide();">
+                                    </p:commandButton> 
+                                    <p:commandButton value="Salir" onclick="dlgEliminarAdenda.hide();" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
+                             <p:dialog widgetVar="dlgEliminarEntrega" appendToBody="true" modal="true"
+                                      header="Eliminar Entrega" position="center" closable="true">
+                                <h:form>
+                                 
+                                    <p:panelGrid styleClass="pnlEdicion" columns="2">
+                                    <h:outputText value="Esta seguro de eliminar el registro?"/>
+                                    <h:outputText value=""> </h:outputText>
+                                     <p:commandButton value="Eliminar"
+                                                                     actionListener="#{actualizarContratoMB.borrarEntrega()}"
+                                                                     update=":tab:frmAdenda:tablaEngrega"
+                                                                     onclick="dlgEliminarEntrega.hide();">
+                                    </p:commandButton> 
+                                    <p:commandButton value="Salir" onclick="dlgEliminarEntrega.hide();" />
+                                    </p:panelGrid>
                                 </h:form>
                             </p:dialog>
                             <p:dialog id="dlgadenda" header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda"
@@ -581,6 +616,40 @@
                                                          required="true"/>
                                         <p:message for="objeto" display="icon"/>
                                         <h:outputText value=""/>
+                                        
+                                        <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:inputText id="montoadenda" style="width:100% !important;"                                                       
+                                                         onkeypress="return validarNum(event);"
+                                                         value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}"
+                                                         required="true"
+                                                         rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:message for="montoadenda" display="icon"  rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        
+                                         <p:outputLabel for="supinvadenda" value="Comp. Inv. Concesionario:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:selectBooleanCheckbox id="supinvadenda" style="width:100% !important;" 
+                                                        value="#{actualizarContratoMB.contratoNuevaAdendaVO.boocadCompromisoInversion}"
+                                                         required="true"
+                                                         rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:message for="supinvadenda" display="icon"  rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        
+                                       
+                                        
+                                         <p:outputLabel for="monedaAdenda" value="Tipo de Moneda" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                         <p:selectOneMenu id="monedaAdenda"
+                                                         value="#{actualizarContratoMB.contratoNuevaAdendaVO.monId}"
+                                                         required="true" style="width:100% !important;"
+                                                         rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}"
+                                                           var="tipMoneda" itemLabel="#{tipMoneda.monNombre}"
+                                                           itemValue="#{tipMoneda.monId}"/>
+                                        </p:selectOneMenu>
+                                        <p:message for="monedaAdenda" display="icon" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+
+                                        
                                         <p:outputLabel for="cadfecha" value="Fecha"/>
                                         <p:calendar id="cadfecha" locale="es" pattern="dd/MM/yyyy"
                                                     style="width:100% !important;"
@@ -1146,7 +1215,8 @@
                                                              oncomplete="popupAgregarCAO.show()"
                                                              update=":tab:frmAgregarCAO"                                                                                                                                                                                             
                                                              actionListener="#{actualizarContratoMB.limpiarCamposCao()}"
-                                                             image="ui-icon-document"/>
+                                                             image="ui-icon-document"
+                                                             rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                     </tr>
                                      
@@ -1161,7 +1231,8 @@
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                              style="font-size:11px;" id="tablaCAO" var="tCao"
-                                                             value="#{actualizarContratoMB.listContratoCaoVO}">
+                                                             value="#{actualizarContratoMB.listContratoCaoVO}"
+                                                             rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Inversión">
                                                         <h:outputText value="#{tCao.caoNombre}"/>
                                                     </p:column>
@@ -1290,6 +1361,7 @@
                                                              oncomplete="popupAgregarPPO.show()"
                                                              update=":tab:frmAgregarPpo"
                                                              actionListener="#{actualizarContratoMB.limpiarCamposPpo()}"
+                                                             rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"
                                                              image="ui-icon-document"/>
                                         </td>
                                     </tr>
@@ -1305,7 +1377,8 @@
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                              style="font-size:11px;" id="tablaPPO" var="tPpo"
-                                                             value="#{actualizarContratoMB.listContratoPpoVO}">
+                                                             value="#{actualizarContratoMB.listContratoPpoVO}"
+                                                             rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Aeropuerto">
                                                         <h:outputText value="#{tHito.htoNombre}"/>
                                                     </p:column>
@@ -1344,8 +1417,8 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO">
-                                <h:form id="frmAgregarCAO">
+                            <p:dialog header="Agregar CAO" widgetVar="popupAgregarCAO" modal="true">
+                                <h:form id="frmAgregarCAO" >
                                     <p:growl id="msjCao" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
@@ -1459,7 +1532,7 @@
                                 </h:form>
                             </p:dialog>
                         
-                            <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito">
+                            <p:dialog header="Agregar Hito" widgetVar="popupAgregarHito" modal="true" appendToBody="true">
                                 <h:form id="frmAgregarHito">
                                 <p:growl id="msjHito" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
@@ -1570,7 +1643,7 @@
                                     </p:commandButton>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO">
+                            <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO" modal="true">
                                 <h:form id="frmAgregarPpo">
                                     <p:growl id="msjPpo" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
@@ -1766,7 +1839,7 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta">
+                            <p:dialog header="Agregar Alerta" widgetVar="popupAgregarAlerta" modal="true" appendToBody="true">
                                 <h:form id="frmAgregarAlerta">
                                     <p:growl id="msjAlerta" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
@@ -1928,7 +2001,7 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab id="tab5" title="Inversiones" disabled="#{actualizarContratoMB.tabDeshabilitado}">
+                        <p:tab id="tab5" title="Inversiones" disabled="#{actualizarContratoMB.tabDeshabilitado}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                             <h:form id="frmInversion">
                                 <table>
                                     <tr>
