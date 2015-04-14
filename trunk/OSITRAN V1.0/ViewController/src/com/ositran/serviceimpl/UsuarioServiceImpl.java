@@ -1,14 +1,13 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.UsuarioDAO;
-import com.ositran.model.Concesionario;
 import com.ositran.model.Usuario;
 import com.ositran.service.UsuarioService;
-import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.UsuarioVO;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UsuarioServiceImpl implements UsuarioService{
@@ -92,6 +91,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioVO.setUsuUsuarioAlta(usuario.getUsuUsuarioAlta());
         usuarioVO.setUsuUsuarioBaja(usuario.getUsuUsuarioBaja());
         usuarioVO.setUsuUsuarioCambio(usuario.getUsuUsuarioCambio());
+        usuarioVO.setSupInvId(usuario.getSupInvID());
         return usuarioVO;
     }
 

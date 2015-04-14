@@ -1,17 +1,6 @@
 package com.ositran.vo.bean;
 
-import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 public class UsuarioVO{
@@ -32,6 +21,7 @@ public class UsuarioVO{
     private String usuUsuarioBaja;
     private String usuUsuarioCambio;
     private int contador;
+    private Integer supInvId;
     
     //Atributo Rol
     private String nombreRol;
@@ -206,5 +196,13 @@ public class UsuarioVO{
 
     public String getNombreRol() {
         return nombreRol;
+    }
+
+    public void setSupInvId(Integer supInvId) {
+        this.supInvId = supInvId;
+    }
+
+    public Integer getSupInvId() {
+        return supInvId;
     }
 }
