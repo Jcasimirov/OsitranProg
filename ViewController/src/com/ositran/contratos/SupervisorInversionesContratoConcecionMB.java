@@ -1,4 +1,4 @@
-package com.ositran.contratos;
+    package com.ositran.contratos;
 
 import com.ositran.model.ContratoSupInversiones;
 import com.ositran.model.Infraestructura;
@@ -47,6 +47,7 @@ public class SupervisorInversionesContratoConcecionMB {
     private int supervisorSelecionado;
     private int codigoContrato;
     private int codigoConcesion;
+    private int codigoContratoP;
     private ContratoSubInversionesVO contratoSupInversionesVO= new ContratoSubInversionesVO();
     private ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<>();
@@ -155,14 +156,32 @@ public class SupervisorInversionesContratoConcecionMB {
         }
         }
 
+    public void desabilitar(int codigo){
+        try {
+           contratoSupInversionesVO=contratoSubInversionesServiceImpl.get(codigo);
+           contratoSupInversionesVO.setSivEstado(0);
+           contratoSubInversionesServiceImpl.update(contratoSupInversionesVO); 
+           listarSupervisionDeInversiones();
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
+       
+        }
+
     public void cargarListaContratos(){
         try {
-           listaContratos=contratoConcesionServiceImp.query();
+            if (tipoInfraestructura==0){
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar tipo de infraestructura");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            else {
+           listaContratos=contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
             for (ContratoVO contra: listaContratos){ 
                 ConcesionVO concesion=new ConcesionVO();
                 concesion=concesionServiceImpl.get(contra.getCsiId());         
                 contra.setNombreConcesion(concesion.getCsiNombre()); 
                 codigoContrato = contra.getConId();
+                codigoContratoP=codigoContrato;
                 infraestructuraVO=infraestructuraServiceImpl.get2(concesion.getTinId());
                 tipoInfraestructuraF=infraestructuraVO.getTinId();
                 codigoConcesion=infraestructuraVO.getCsiId();
@@ -170,6 +189,7 @@ public class SupervisorInversionesContratoConcecionMB {
 
                 
                 }
+            }
        } catch (Exception e) {
             
             e.printStackTrace();
@@ -193,7 +213,7 @@ public class SupervisorInversionesContratoConcecionMB {
                 
                 tipoInfraestructuraS="RUC";
                     }
-           listarSupervisionDeInversiones();
+            listarSupervisionDeInversiones();
        } catch (Exception e) {
             System.out.println("ERROR EN EL METODO ELEGIR CONTRATO");
             e.printStackTrace();
@@ -204,7 +224,21 @@ public class SupervisorInversionesContratoConcecionMB {
     
     public void registrarContrato() {
         try {
-            if (supervisorSelecionado==0){
+            
+            boolean decicion=false;
+            
+            for (ContratoSubInversionesVO contratoSubInversionesVO1: listaContratoSupervisor){
+                if (contratoSubInversionesVO1.getSivEstado()==1){
+                    decicion=true;
+                    }
+                }
+            if (decicion){
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe deshabilitar el supervisor de inversiones actual");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            
+            else if (supervisorSelecionado==0){
                     FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar un supervisor de inversiones");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
@@ -213,6 +247,7 @@ public class SupervisorInversionesContratoConcecionMB {
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             else {
+                contratoSupInversionesVO.setSivUmero(numeroDocumento);
             contratoSupInversionesVO.setTinId(tipoInfraestructuraF);  
             contratoSupInversionesVO.setTsiId(codigoSupervisor);
             contratoSupInversionesVO.setConId(codigoContrato);
@@ -223,7 +258,9 @@ public class SupervisorInversionesContratoConcecionMB {
             contratoSupInversionesVO.setSivFechaInicial(new Date());
             contratoSupInversionesVO.setSivNombre(nombreSupervisor);
             contratoSubInversionesServiceImpl.insert(contratoSupInversionesVO);
+            
             limpiar();
+            listarSupervisionDeInversiones();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 
@@ -240,15 +277,15 @@ public class SupervisorInversionesContratoConcecionMB {
        
         try {
            int contador=1;
-           listaContratoSupervisor=contratoSubInversionesServiceImpl.query1(codigoContrato);
+           listaContratoSupervisor=contratoSubInversionesServiceImpl.query1(codigoContratoP);
             System.out.println(listaContratoSupervisor.size());
             for (ContratoSubInversionesVO contratoSubInversionesVO1:listaContratoSupervisor){
                 concesionVO=concesionServiceImpl.get(contratoSubInversionesVO1.getCsiId());
                 contratoSubInversionesVO1.setConcesionNombre(concesionVO.getCsiNombre());
                 contratoSubInversionesVO1.setNombreSupervicion("Supervisor");
                 contratoSubInversionesVO1.setContador(contador);
-                contador++;     
-                }
+                contratoSubInversionesVO1.setEstadoNombre(contratoSubInversionesVO1.getSivEstado()==1 ? "ACTIVO" : "INACTIVO");
+            }
        } catch (Exception e) {
             System.out.println("PROBLEMAS AL LISTAR SUPERVISOR DE INVERSIONES");
             e.printStackTrace();
@@ -271,6 +308,25 @@ public class SupervisorInversionesContratoConcecionMB {
           supervisorSelecionado=0;
           codigoContrato=0;
           codigoConcesion=0;
+        }
+    
+    public void limpiar1(){
+        codigoSupervisor=0;
+        codigoInfraestructura=0;
+        tipoInfraestructura=0;
+        numeroDocumento="";
+        tipoInfraestructuraS="";
+        tipoDocumento="";
+        tipoDocumentoI=0;
+        nombreSupervisor="";
+        contratoConcesion="";
+        tipoInfraestructuraC=0;
+          tipoInfraestructuraF=0;
+          modalidadConcecion="";
+          supervisorSelecionado=0;
+          codigoContrato=0;
+          codigoConcesion=0;
+          listaContratoSupervisor.clear();
         }
     public void setTipoInfraestructura(int tipoInfraestructura) {
         this.tipoInfraestructura = tipoInfraestructura;
@@ -567,4 +623,15 @@ public class SupervisorInversionesContratoConcecionMB {
     public ConcesionVO getConcesionVO() {
         return concesionVO;
     }
+
+
+    public void setCodigoContratoP(int codigoContratoP) {
+        this.codigoContratoP = codigoContratoP;
+    }
+
+    public int getCodigoContratoP() {
+        return codigoContratoP;
+    }
+    
+    
 }
