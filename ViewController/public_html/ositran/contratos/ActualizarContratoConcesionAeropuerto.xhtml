@@ -593,7 +593,7 @@
                             <p:dialog id="dlgadenda" header="Registro de Adenda, Acta u Otros de Acuerdos Relevantes" widgetVar="popupAgregarAdenda"
                                       modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevaAdendaDlg">
-                                    <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="4"
+                                    <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="5"
                                                  columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="nombre" value="Nombre Documento"/>
                                         <p:inputText id="nombre"
@@ -601,8 +601,8 @@
                                                      
                                                      onkeyup="pasarMayuscula(this.value,this.id)"/>
                                         <p:message for="nombre" display="text"/>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
-                                        
                                         <p:outputLabel for="tipoAdenda1" value="Tipo de Documento (Adenda, Acta u Otros)"/>
                                         <p:selectOneMenu id="tipoAdenda1"
                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.tadId}"
@@ -613,8 +613,8 @@
                                                            itemValue="#{tipAdenda.tadId}"/>
                                         </p:selectOneMenu>
                                         <p:message for="tipoAdenda1" display="icon"/>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
-                                        
                                         <p:outputLabel for="objeto" value="Objeto"/>
                                         <p:inputTextarea id="objeto" style="width:100% !important;height:40px"
                                                          queryDelay="750" minQueryLength="4"
@@ -622,6 +622,7 @@
                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"
                                                          />
                                         <p:message for="objeto" display="icon"/>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
                                         
                                         <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
@@ -630,7 +631,8 @@
                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}"
                                                          
                                                          rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
-                                        <p:message for="montoadenda" display="icon"  rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:message for="montoadenda" display="icon"  rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>                                        
+                                         <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         
                                          <p:outputLabel for="supinvadenda" value="Comp. Inv. Concesionario:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
@@ -641,6 +643,7 @@
                                                         <f:selectItem itemLabel="No" itemValue="0"/>
                                         </p:selectOneRadio>
                                         <p:message for="supinvadenda" display="icon"  rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         
                                        
@@ -656,6 +659,7 @@
                                                            itemValue="#{tipMoneda.monId}"/>
                                         </p:selectOneMenu>
                                         <p:message for="monedaAdenda" display="icon" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
 
                                         
@@ -665,8 +669,9 @@
                                                     value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"
                                                     />
                                         <p:message for="cadfecha" display="icon"/>
-                                        <h:outputText value=""/>
-                                        
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
+                                         <h:outputText value=""/>
+                                         
                                         <p:outputLabel for="docAdenda" value="Documento"
                                                        style="top:-15px !important;position:relative;"/>
                                         <p:inputText id="docAdenda" style="width:100% !important;"
@@ -675,6 +680,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDocumentoFisico}"
                                                      />
                                         <p:message id="filemess" for="docAdenda" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <p:fileUpload id="adenda" style="width:100% !important;"
                                                       fileUploadListener="#{actualizarContratoMB.subirAdenda}"
                                                       auto="true" update="docAdenda" showButtons="false" label="Adjuntar"
@@ -699,7 +705,7 @@
                                       widgetVar="popupAgregarEntrega" modal="true" resizable="false" closable="true"
                                       style="text-align:center;">
                                 <h:form id="frmNuevaEntregaDlg">
-                                    <p:panelGrid id="pnlNuevaEntregaDlg" styleClass="pnlEdicion" columns="4"
+                                    <p:panelGrid id="pnlNuevaEntregaDlg" styleClass="pnlEdicion" columns="5"
                                                  columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="centrega" value="Entrega"/>
                                         <p:inputText id="centrega" 
@@ -707,21 +713,24 @@
                                                      value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenNombre}"
                                                      style="width:100% !important;"/>
                                         <p:message for="centrega" display="icon"/>
-                                        <h:outputText value=""/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
+                                         <h:outputText value=""/>
                                         <p:outputLabel for="entregadescripcion" value="Descripción"/>
                                         <p:inputTextarea id="entregadescripcion" 
                                                          value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDescripcion}"
                                                          style="width:100% !important;"
                                                          onkeyup="pasarMayuscula(this.value,this.id)"/>
                                         <p:message for="entregadescripcion" display="icon"/>
-                                        <h:outputText value=""/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
+                                         <h:outputText value=""/>
                                         <p:outputLabel for="fechaEntrega" value="Fecha"/>
                                         <p:calendar id="fechaEntrega"
                                                     value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenFecha}"
                                                     locale="es" pattern="dd/MM/yyyy" 
                                                     style="float:left;position:relative;"/>
                                         <p:message for="fechaEntrega" display="icon"/>
-                                        <h:outputText value=""/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
+                                         <h:outputText value=""/>
                                        
                                         <p:outputLabel for="docEntrega" value="Documento"
                                                        style="top:-15px !important;position:relative;"/>
@@ -730,6 +739,7 @@
                                                      disabled="#{not empty actualizarContratoMB.contratoNuevaEntregaVO.inputStreamNuevaEntrega}"
                                                      value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
                                         <p:message for="docEntrega" display="icon"/>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoEntrega}"
                                                       update="docEntrega" label="Adjuntar" auto="true"/>
                                     </p:panelGrid>
@@ -842,15 +852,16 @@
                                         <p:inputText id="periodoetapacom" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPeriodo}"
                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
-                                        <p:message for="periodoetapacom" display="icon"/>
-                                        
+                                       
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
+                                                                                 
                                         
                                         <p:outputLabel for="alcancecom" value="Alcance"/>
                                         <p:inputTextarea id="alcancecom" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoAlcance}"
                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
-                                        <p:message for="alcancecom" display="icon"/>
                                         
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
                                         <p:outputLabel for="tipoinversioncom" value="Tipo de Inversion"/>
                                         <p:selectOneMenu id="tipoinversioncom"
@@ -860,8 +871,8 @@
                                             <f:selectItems value="#{actualizarContratoMB.listaTipoInversion}" var="tiv"
                                                            itemLabel="#{tiv.tivNombre}" itemValue="#{tiv.tivId}"/>
                                         </p:selectOneMenu>
-                                        <p:message for="tipoinversioncom" display="icon"/>
-                                        
+                                       
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
                                         <p:outputLabel for="monedaInversioncom" value="Moneda"/>
                                         <p:selectOneMenu 
@@ -871,15 +882,15 @@
                                             <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
                                                            itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
                                         </p:selectOneMenu>
-                                        <p:message for="monedaInversioncom" display="icon"/>
                                         
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
                                         <p:outputLabel for="valortotalcom" value="Valor Total"/>
                                         <p:inputText id="valortotalcom" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTotal}"
                                                    onkeypress="return validarNum(event);" />
-                                        <p:message for="valortotalcom" display="icon"/>
                                         
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
                                         <p:outputLabel for="incigvcom" value="Incluye IGV?"/>
                                         <p:selectOneRadio id="incigvcom" value="#{actualizarContratoMB.incIgv}">
@@ -887,8 +898,8 @@
                                             <f:selectItem itemLabel="Si" itemValue="1"/>
                                             <f:selectItem itemLabel="No" itemValue="0"/>
                                         </p:selectOneRadio>
-                                         <p:message for="incigvcom" display="icon"/>
-
+                                         
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <p:outputLabel for="igvcom" value="%IGV"/>
                                         <p:inputMask id="igvcom" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
@@ -897,20 +908,21 @@
                                             <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this valortotalcom"
                                                     update="netocom"/>
                                         </p:inputMask>
-                                         <p:message for="igvcom" display="icon"/>
+                                        
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="netocom" value="Neto"/>
                                         <p:inputText id="netocom" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoNeto}"
                                                      disabled="true" onkeypress="return validarNum(event);"/>
-                                         <p:message for="netocom" display="icon"/>
                                         
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         <p:outputLabel for="plazocom" value="Plazo"/>
                                         <p:inputText id="plazocom" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPlazo}"
                                                       />
-                                        <p:message for="plazocom" display="icon"/>
-                                        
+                                       
+                                        <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                       
                                         
                                     </p:panelGrid>
@@ -1027,13 +1039,13 @@
                                        <p:outputLabel for="etapasup" value="Etapa/Periodo"/>
                                        <p:inputText id="etapasup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPeriodo}"
                                                     style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)" />
-                                       <p:message for="etapasup" display="icon"/>
+                                       <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                        <p:outputLabel for="alcancesup"  value="Alcance"/>
                                        <p:inputText id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}"
                                                              style="width:200px;" 
                                                              onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                        <p:message for="alcancesup" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                        <p:outputLabel for="monedacompromisocomsup" value="Moneda"/>                                             
                                         <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId}"
@@ -1042,13 +1054,13 @@
                                             <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
                                                            itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
                                         </p:selectOneMenu>
-                                        <p:message for="monedacompromisocomsup" display="icon"/>   
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
                                         <p:inputText id="valortotalcomsup" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTotal}"
                                                      onkeypress="return validarNum(event);"/>
-                                        <p:message for="valortotalcomsup" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="incigvcomsup" value="Incluye IGV?"/>
                                         <p:selectOneRadio id="incigvcomsup" value="#{actualizarContratoMB.incIgvSup}">
@@ -1057,7 +1069,7 @@
                                             <f:selectItem itemLabel="Si" itemValue="1"/>
                                             <f:selectItem itemLabel="No" itemValue="0"/>
                                         </p:selectOneRadio>
-                                        <p:message for="incigvcomsup" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         
                                         <p:outputLabel for="igvcomsup" value="%IGV"/>
@@ -1068,20 +1080,20 @@
                                             <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNetoSupervisado}"
                                                     process="@this valortotalcomsup" update="netocomsup"/>
                                         </p:inputMask>
-                                        <p:message for="igvcomsup" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="netocomsup" value="Neto"/>
                                         <p:inputText id="netocomsup" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}"
                                                      disabled="true" />
-                                        <p:message for="netocomsup" display="icon"/> 
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                                 
                                                                               
                                         <p:outputLabel for="plazocomsup" value="Plazo"/>
                                         <p:inputText id="plazocomsup" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPlazo}"
                                                      />
-                                        <p:message for="plazocomsup" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                          
                                      
                                          <p:outputLabel for="tipocambiosup"  value="Tipo de Cambio"/>                                          
@@ -1091,7 +1103,7 @@
                                                      mask="9.99" size="3" onkeypress="return validarNum(event);"  >
                                            
                                          </p:inputMask>
-                                         <p:message for="tipocambiosup" display="icon"/>      
+                                         <p:graphicImage url="../../images/obligatorio.gif" />      
                                          
                                         </p:panelGrid>
                                         
@@ -1203,7 +1215,7 @@
                                        <p:outputLabel for="motivo" value="Etapa"/>
                                        <p:inputTextarea id="motivo" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpMotivo}"
                                                     style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)" />
-                                       <p:message for="motivo" display="icon"/>
+                                       <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
                                       
                                        <p:outputLabel for="monedacompromisocompenalidad" value="Moneda"/>                                             
@@ -1213,14 +1225,14 @@
                                             <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
                                                            itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
                                         </p:selectOneMenu>
-                                        <p:message for="monedacompromisocompenalidad" display="icon"/>   
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                            <h:outputText value=""/>
                                            
                                         <p:outputLabel for="montopenalidad" value="Monto"/>
                                         <p:inputText id="montopenalidad" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpTotal}"
                                                      onkeypress="return validarNum(event);"/>
-                                        <p:message for="montopenalidad" display="icon"/>
+                                       <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
                                        
                                        <p:outputLabel for="fechaPenalidad" value="Fecha"/>
@@ -1228,7 +1240,7 @@
                                                     value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}"
                                                     locale="es" pattern="dd/MM/yyyy" 
                                                     style="float:left;position:relative;"/>
-                                        <p:message for="fechaPenalidad" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>        
                                                                               
                                         <p:outputLabel for="estado" value="Estado"/>                                             
@@ -1238,7 +1250,7 @@
                                             <f:selectItems value="#{actualizarContratoMB.listarContratoPenalidadEstado}" var="pes"
                                                            itemLabel="#{pes.pesNombre}" itemValue="#{pes.pesId}"/>
                                         </p:selectOneMenu>
-                                        <p:message for="estado" display="icon"/>   
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
                                         
                                         
@@ -1248,7 +1260,7 @@
                                                      onblur="if (this.value != '') this.value='';"
                                                      disabled="#{not empty actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}"
                                                      value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
-                                        <p:message for="docPenalidad" display="icon"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}"
                                                       update="docPenalidad" label="Adjuntar" auto="true"/>
                                                       
