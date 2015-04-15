@@ -12,6 +12,7 @@ public interface InversionDescripcionDAO {
 
  
         public List<InversionTipoDescripcion> query() throws SQLException ,Exception;
+        public List<InversionTipoDescripcion> query1(int codigoCompromiso) throws SQLException ,Exception;
         public String insert(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception;
         public String delete(Integer id) throws SQLException ,Exception;
         public String update(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception;
