@@ -12,8 +12,10 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.MonedaService;
+import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.DatosStdServiceImpl;
+import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
@@ -100,7 +102,8 @@ public class RegistrarAvanceInversionMB {
     List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
     List<ContratoVO> listaContratos=new ArrayList<>();
   
-    ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO= new  ValorizacionInversionAvanceDetalleVO();                                            
+    ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO= new  ValorizacionInversionAvanceDetalleVO();   
+    ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService= new  ValorizacionInversionAvanceDetalleServiceImpl(); 
     @ManagedProperty(value = "#{inversionVO}")
     InversionVO inversionVO;
     ValorizacionInversionAvanceVO valorizacionInversionAvanceVO=new ValorizacionInversionAvanceVO();
@@ -222,7 +225,11 @@ public class RegistrarAvanceInversionMB {
            nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();           
            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
            listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
-            listarInversionDescripcion(); 
+            
+            
+            
+            
+            
        } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
@@ -258,16 +265,7 @@ public class RegistrarAvanceInversionMB {
         
         }
     
-    public void listarInversionDescripcion(){
-        try {
-           listaDescripcionTipoInversion=inversionDescripcionServicesImpl.query();
-
-       } catch (Exception e) {
-            System.out.println("   PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
-                        e.printStackTrace();
-        }
-        
-        }
+  
     
     public void cargarInversion(){
         try {   
@@ -289,14 +287,32 @@ public class RegistrarAvanceInversionMB {
     
     public void cargarDatosCompromiso(){
         try {
+            
            contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
            plazo=contratoCompromisoVO.getCcoPlazo();
            total=contratoCompromisoVO.getCcoTotal();
            codigoMoneda=contratoCompromisoVO.getMonId();  
+           codigoInversionDescripcion=contratoCompromisoVO.getTivId();
+           listarInversionDescripcion(contratoCompromisoVO.getTivId());
+            
        } catch (Exception e) {
            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
         }        
     }
+    
+    
+    public void listarInversionDescripcion(int tipoInversion){
+        try {
+           listaDescripcionTipoInversion=inversionDescripcionServicesImpl.query1(tipoInversion);
+            System.out.println("TAMAÑO");
+            System.out.println(listaDescripcionTipoInversion.size());
+       } catch (Exception e) {
+            System.out.println("   PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
+                        e.printStackTrace();
+        }
+        
+        }
+    
     public void cargarDatosSDT(){
         try {
         viewTdInternosVO=datosStdServiceImpl.BuscaStd(anio,numero);
@@ -337,6 +353,9 @@ public class RegistrarAvanceInversionMB {
            valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
            infraestructuraVO=infraestructuraServiceImpl.get2(codigoInfraValSelecionado);    
            valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());
+            valorizacionInversionAvanceDetalleVO1.setCnvId(1);
+            valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
+            valorizacionInversionAvanceDetalleVO1.setTivId(codigoInversionDescripcion);
             inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
             valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
             for (MonedaVO mon:listaMoneda){
@@ -382,16 +401,24 @@ public class RegistrarAvanceInversionMB {
            valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
            valorizacionInversionAvanceVO.setMcoId(idModalidadConcesion);
             valorizacionInversionAvanceVO.setTinId(idTipoInfraestructura);
-            
+           valorizacionInversionAvanceVO.setMonId(codigoMoneda);
+            valorizacionInversionAvanceVO.setIaeId(1);
            valorizacionInversionAvanceVO.setTiaAnyo(anio);
            valorizacionInversionAvanceVO.setTiaAsunto(asunto);
            valorizacionInversionAvanceVO.setTiaDiasHabiles(5);
            valorizacionInversionAvanceVO.setTiaFechaFin(finPeriodo);
            valorizacionInversionAvanceVO.setTiaFechaInicio(inicioPeriodo);
-           valorizacionInversionAvanceVO.setTiaPlazoEnDías(Integer.parseInt(plazo));
+           valorizacionInversionAvanceVO.setTiaPlazoEnDias(Integer.parseInt(plazo));
            valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
            
-           valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
+           int idCabecera=valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
+            
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3:  listValorizacionInversionAvanceDetalleVO){
+                    valorizacionInversionAvanceDetalleVO3.setTiaNumero(idCabecera);
+                    valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);
+                
+                
+                }
             
            FacesContext.getCurrentInstance().addMessage(null,
            new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO","SE REGISTRO EL AVANCE CON EXITO")); 
