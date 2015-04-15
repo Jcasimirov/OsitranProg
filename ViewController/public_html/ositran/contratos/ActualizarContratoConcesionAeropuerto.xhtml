@@ -117,14 +117,14 @@
                                                     </tr>
                                                      
                                                     <tr>
-                                                        <td align="left">Nombre Consecionario:</td>
+                                                        <td align="left">Nombre Concesionario:</td>
                                                         <td>
                                                             <p:inputText value="#{actualizarContratoMB.concesionarioVO.cncNombre}"
                                                                          readonly="true"></p:inputText>
                                                         </td>
                                                         <td align="left">Siglas del Nombre:</td>
                                                         <td>
-                                                            <p:inputText value="#{actualizarContratoMB.concesionarioVO.cncDescripcion}"
+                                                            <p:inputText value="#{actualizarContratoMB.concesionarioVO.cncSiglas}"
                                                                          readonly="true"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -148,14 +148,26 @@
                                                 <tr>
                                                     <td valign="top">
                                                         <p:fieldset styleClass="fielsetinterno"
-                                                                    legend="Reporte Avance de Obra">
+                                                                    legend="Plazo de Avance de Obra del Concesionario">
                                                             <table style="width:350px">
+                                                            <tr>
+                                                            <td>Aplica Reporte Avance de Obra</td>
+                                                             <td align="left" colspan="2">
+                                                                        
+                                                                        <p:selectBooleanCheckbox id="reporte"
+                                                                                                 value="#{actualizarContratoMB.aplicaAvancedeObra}">
+                                                                        <p:ajax update="periodo1"/>                                                                                                 
+                                                                        </p:selectBooleanCheckbox>
+                                                                        
+                                                             </td>
+                                                            </tr>
                                                                 <tr>
                                                                     <td>Periodo</td>
                                                                     <td>
                                                                         <p:selectOneMenu id="periodo1"
                                                                                          value="#{actualizarContratoMB.periodoseleccionado}"
-                                                                                         style="width:210px">
+                                                                                         style="width:210px"
+                                                                                         disabled="#{!actualizarContratoMB.aplicaAvancedeObra}">
                                                                             <f:selectItem itemLabel="-Seleccionar-"
                                                                                           itemValue="0"/>
                                                                             <f:selectItems value="#{actualizarContratoMB.listarPeriodos}"
@@ -164,18 +176,14 @@
                                                                                            itemValue="#{per.perId}"/>
                                                                         </p:selectOneMenu>
                                                                     </td>
-                                                                    <td align="left" colspan="2">
-                                                                        <p:selectBooleanCheckbox id="reporte"
-                                                                                                 value="#{actualizarContratoMB.aplicaAvancedeObra}"/>
-                                                                         Aplica Reporte Avance de Obra
-                                                                    </td>
+                                                                   
                                                                 </tr>
                                                                  
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
                                                                     <td>
                                                                         <p:inputText value="#{actualizarContratoMB.contratoVO.conDiames}"
-                                                                                     style="width:97.5%"></p:inputText>
+                                                                                     style="width:97.5%" disabled="#{!actualizarContratoMB.aplicaAvancedeObra}"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -184,7 +192,7 @@
                                                     <td></td>
                                                     <td valign="top">
                                                         <p:fieldset styleClass="fielsetinterno"
-                                                                    legend="Plazos de Revisión">
+                                                                    legend="Plazos de Revisión de Ositran">
                                                             <table style="width:400px">
                                                                 <tr>
                                                                     <td align="left">Plazo de revisi&#243;n de
@@ -581,7 +589,7 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog id="dlgadenda" header="Agregar Adenda, Acta u Otro" widgetVar="popupAgregarAdenda"
+                            <p:dialog id="dlgadenda" header="Registro de Adenda, Acta u Otros de Acuerdos Relevantes" widgetVar="popupAgregarAdenda"
                                       modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevaAdendaDlg">
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="4"
@@ -594,7 +602,7 @@
                                         <p:message for="nombre" display="text"/>
                                         <h:outputText value=""/>
                                         
-                                        <p:outputLabel for="tipoAdenda1" value="Tipo de Adenda"/>
+                                        <p:outputLabel for="tipoAdenda1" value="Tipo de Documento (Adenda, Acta u Otros)"/>
                                         <p:selectOneMenu id="tipoAdenda1"
                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.tadId}"
                                                           style="width:100% !important;">
@@ -668,7 +676,7 @@
                                         <p:message id="filemess" for="docAdenda" display="icon"/>
                                         <p:fileUpload id="adenda" style="width:100% !important;"
                                                       fileUploadListener="#{actualizarContratoMB.subirAdenda}"
-                                                      auto="true" update="docAdenda" showButtons="false" label="Elegir"
+                                                      auto="true" update="docAdenda" showButtons="false" label="Adjuntar"
                                                       dragDropSupport="false"></p:fileUpload>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevaAdendaBtnDlg" columns="2" styleClass="pnlEdicion">
@@ -686,7 +694,7 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Entrega de Area o Bien de Conseción" appendToBody="true"
+                            <p:dialog header="Agregar Entrega de Bienes de la Concesión y Otros" appendToBody="true"
                                       widgetVar="popupAgregarEntrega" modal="true" resizable="false" closable="true"
                                       style="text-align:center;">
                                 <h:form id="frmNuevaEntregaDlg">
@@ -722,7 +730,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
                                         <p:message for="docEntrega" display="icon"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoEntrega}"
-                                                      update="docEntrega" label="Archivo" auto="true"/>
+                                                      update="docEntrega" label="Adjuntar" auto="true"/>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevaEntregaBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="btnguradarentrega"
@@ -1241,7 +1249,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
                                         <p:message for="docPenalidad" display="icon"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}"
-                                                      update="docPenalidad" label="Archivo" auto="true"/>
+                                                      update="docPenalidad" label="Adjuntar" auto="true"/>
                                                       
                                         </p:panelGrid>
                                         
@@ -1548,7 +1556,7 @@
                                                              readonly="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"
                                                              />
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}"
-                                                      update="docCao" label="Archivo" auto="true"/> 
+                                                      update="docCao" label="Adjuntar" auto="true"/> 
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -1658,7 +1666,7 @@
                                                              style="width:200px;"
                                                              readonly="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}"
-                                                      update="docHito" label="Archivo" auto="true"/> 
+                                                      update="docHito" label="Adjuntar" auto="true"/> 
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1745,7 +1753,7 @@
                                                              style="width:200px;"
                                                              readonly="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}"
-                                                      update="docHitoM" label="Archivo" auto="true"/> 
+                                                      update="docHitoM" label="Adjuntar" auto="true"/> 
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1856,7 +1864,7 @@
                                                              style="width:200px;"
                                                              readonly="#{not empty actualizarContratoMB.contratoPpoVO.filePpo}"/>
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPpo}"
-                                                      update="docPpo" label="Archivo" auto="true"/> 
+                                                      update="docPpo" label="Adjuntar" auto="true"/> 
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
