@@ -55,21 +55,23 @@
         <mapping class="com.ositran.model.ContratoEntrega"/>        
         <mapping class="com.ositran.model.Moneda"/>
         <mapping class="com.ositran.model.Periodo"/>        
-         <mapping class="com.ositran.model.ContratoAlerta"/>
-         <mapping class="com.ositran.model.ContratoAlertaEstado"/>
-         <mapping class="com.ositran.model.ContratoInversion"/>
+        <mapping class="com.ositran.model.ContratoAlerta"/>
+        <mapping class="com.ositran.model.ContratoAlertaEstado"/>
+        <mapping class="com.ositran.model.ContratoInversion"/>
         <mapping class="com.ositran.model.ContratoHito"/>
         <mapping class="com.ositran.model.ContratoPpo"/>                    
         <mapping class="com.ositran.model.ContratoCao"/>
 
         <mapping class="com.ositran.model.ValorizacionInversionAvanceDetalle"/>
         <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
-         <mapping class="com.ositran.model.TipoRevision"/>
-           <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
+        <mapping class="com.ositran.model.TipoRevision"/>
+        <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
         
-
         <mapping class="com.ositran.model.ContratoPenalidad"/>
         <mapping class="com.ositran.model.ContratoPenalidadEstado"/>
+        
+        <mapping class="com.ositran.model.TRepCnfgAvncInvCab"/>
+        <mapping class="com.ositran.model.TRepCnfgAvncInvDet"/>
 
     </session-factory>
 </hibernate-configuration>
