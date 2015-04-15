@@ -5,6 +5,7 @@ import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.DatosStdService;
+import com.ositran.service.DerivarReconocimientoSupervisorService;
 import com.ositran.service.IgvService;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
@@ -15,12 +16,14 @@ import com.ositran.service.MonedaService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoRevisionService;
 import com.ositran.service.ValorizacionInversionAvanceService;
+import com.ositran.serviceimpl.DerivarReconocimientoSupervisorServiceImpl;
 import com.ositran.serviceimpl.TipoRevisionServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoVO;
+import com.ositran.vo.bean.DerivarReconocimientoSupervisorVO;
 import com.ositran.vo.bean.IgvVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
@@ -102,14 +105,17 @@ public class DerivarReconocimientoSupervisorMB {
     private Date fechaLimite;
     
     
-    ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl=new ValorizacionInversionAvanceServiceImpl();
+    ValorizacionInversionAvanceServiceImpl valorizacionInversionAvanceServiceImpl=new ValorizacionInversionAvanceServiceImpl();
     List<TipoRevisionVO> listaTipoRevision=new ArrayList<>();
     TipoRevisionService tipoRevisionService= new TipoRevisionServiceImpl(); 
-    
+    DerivarReconocimientoSupervisorVO derivarReconocimientoSupervisorVO=new DerivarReconocimientoSupervisorVO();
+    DerivarReconocimientoSupervisorService derivarReconocimientoServiceImpl=new DerivarReconocimientoSupervisorServiceImpl();
     List<InfraestructuraVO> listaInfraestructuras=new ArrayList<>();
     List<InfraestructuraVO> listaInfraestructurasC=new ArrayList<>();
     List<ValorizacionSupDetalleVO> listaValorizacionSup=new ArrayList<>();
     List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO=new ArrayList<>();
+    
     
     
     
@@ -218,8 +224,6 @@ public class DerivarReconocimientoSupervisorMB {
                 }
             else {
            listaSupervisor=supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoInfraValSelecionado);
-            System.out.println("SUPERVISORES");
-            System.out.println(listaSupervisor.size());
             }
        } catch (Exception e) {
             e.printStackTrace();
@@ -288,12 +292,29 @@ public class DerivarReconocimientoSupervisorMB {
            nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();           
            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
            listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
+           cargarListaValorizacion();
             listarInversionDescripcion(); 
+            
        } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
                 e.printStackTrace();
             }
+        }
+    
+    public void cargarListaValorizacion(){
+        try {
+           
+           listValorizacionInversionAvanceVO=valorizacionInversionAvanceServiceImpl.query1(codigoContrato);
+            System.out.println("tamaño de la lista");
+            System.out.println(listValorizacionInversionAvanceVO.size());
+       } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+           
+        
+        
         }
     
     public void cargarMoneda(){
@@ -443,21 +464,6 @@ public class DerivarReconocimientoSupervisorMB {
     public void guardar(){
         try {
             
-           valorizacionInversionAvanceVO.setConId(codigoContrato);
-           valorizacionInversionAvanceVO.setInvId(codigoInversion);
-           valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
-           valorizacionInversionAvanceVO.setMcoId(idModalidadConcesion);
-            valorizacionInversionAvanceVO.setTinId(idTipoInfraestructura);
-            
-           valorizacionInversionAvanceVO.setTiaAnyo(anio);
-           valorizacionInversionAvanceVO.setTiaAsunto(asunto);
-           valorizacionInversionAvanceVO.setTiaDiasHabiles(5);
-           valorizacionInversionAvanceVO.setTiaFechaFin(finPeriodo);
-           valorizacionInversionAvanceVO.setTiaFechaInicio(inicioPeriodo);
-           valorizacionInversionAvanceVO.setTiaPlazoEnDías(Integer.parseInt(plazo));
-           valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
-           
-           valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
             
            FacesContext.getCurrentInstance().addMessage(null,
            new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO","SE REGISTRO EL AVANCE CON EXITO")); 
@@ -1033,11 +1039,12 @@ public class DerivarReconocimientoSupervisorMB {
         return codigoTipoRevision;
     }
 
-    public void setValorizacionInversionAvanceServiceImpl(ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl) {
+
+    public void setValorizacionInversionAvanceServiceImpl(ValorizacionInversionAvanceServiceImpl valorizacionInversionAvanceServiceImpl) {
         this.valorizacionInversionAvanceServiceImpl = valorizacionInversionAvanceServiceImpl;
     }
 
-    public ValorizacionInversionAvanceService getValorizacionInversionAvanceServiceImpl() {
+    public ValorizacionInversionAvanceServiceImpl getValorizacionInversionAvanceServiceImpl() {
         return valorizacionInversionAvanceServiceImpl;
     }
 
@@ -1138,6 +1145,31 @@ public class DerivarReconocimientoSupervisorMB {
 
     public String getNumeroOficio() {
         return numeroOficio;
+    }
+
+
+    public void setDerivarReconocimientoSupervisorVO(DerivarReconocimientoSupervisorVO derivarReconocimientoSupervisorVO) {
+        this.derivarReconocimientoSupervisorVO = derivarReconocimientoSupervisorVO;
+    }
+
+    public DerivarReconocimientoSupervisorVO getDerivarReconocimientoSupervisorVO() {
+        return derivarReconocimientoSupervisorVO;
+    }
+
+    public void setDerivarReconocimientoServiceImpl(DerivarReconocimientoSupervisorService derivarReconocimientoServiceImpl) {
+        this.derivarReconocimientoServiceImpl = derivarReconocimientoServiceImpl;
+    }
+
+    public DerivarReconocimientoSupervisorService getDerivarReconocimientoServiceImpl() {
+        return derivarReconocimientoServiceImpl;
+    }
+
+    public void setListValorizacionInversionAvanceVO(List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO) {
+        this.listValorizacionInversionAvanceVO = listValorizacionInversionAvanceVO;
+    }
+
+    public List<ValorizacionInversionAvanceVO> getListValorizacionInversionAvanceVO() {
+        return listValorizacionInversionAvanceVO;
     }
 }
 
