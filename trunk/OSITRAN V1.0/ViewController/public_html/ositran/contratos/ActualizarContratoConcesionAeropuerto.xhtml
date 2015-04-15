@@ -300,9 +300,12 @@
                                         <td align="center" colspan="2">
                                             <p:commandButton value="#{btn.btn_guardar}"
                                                              actionListener="#{actualizarContratoMB.guardarContrato()}"
-                                                             update=":tab:form:mensaje"></p:commandButton>
+                                                             update=":tab:form:mensaje"
+                                                             disabled="#{actualizarContratoMB.tabDeshabilitado}"></p:commandButton>
                                              
-                                            <p:commandButton value="#{btn.btn_salir}"></p:commandButton>
+                                            <p:commandButton value="#{btn.btn_salir}"
+                                            disabled="#{actualizarContratoMB.tabDeshabilitado}"
+                                            action="#{viewcontroller.redirect('ositran/principal.xhtml')}"></p:commandButton>
                                         </td>
                                     </tr>
                                 </table>
