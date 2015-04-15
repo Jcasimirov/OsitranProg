@@ -11,6 +11,7 @@ import java.util.List;
 public interface ValorizacionInversionAvanceDAO {
     
     public List<ValorizacionInversionAvance> query()throws SQLException ,Exception;
+    public List<ValorizacionInversionAvance> query1(int codigoContrato)throws SQLException ,Exception;
     public int insert(ValorizacionInversionAvance valorizacionInversionAvance)throws SQLException ,Exception;
     public String delete(Integer id)throws SQLException ,Exception;
     public String update(ValorizacionInversionAvance valorizacionInversionAvance)throws SQLException ,Exception;
