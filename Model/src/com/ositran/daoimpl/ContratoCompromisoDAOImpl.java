@@ -87,6 +87,8 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 
