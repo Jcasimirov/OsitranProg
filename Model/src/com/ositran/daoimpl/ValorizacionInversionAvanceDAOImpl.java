@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ValorizacionInversionAvanceDAOImpl implements ValorizacionInversionAvanceDAO{
@@ -20,6 +21,16 @@ public class ValorizacionInversionAvanceDAOImpl implements ValorizacionInversion
         // TODO Implement this method
         return Collections.emptyList();
     }
+    
+    @Override
+    public List<ValorizacionInversionAvance> query1(int codigoContrato) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        query=session.createQuery("FROM ValorizacionInversionAvance  E WHERE E.conId like :busqueda ");
+        query.setParameter("busqueda",codigoContrato);
+        return query.list();
+    }
+ 
 
     @Override
     public int insert(ValorizacionInversionAvance valorizacionInversionAvance) throws SQLException, Exception {
@@ -57,4 +68,6 @@ public class ValorizacionInversionAvanceDAOImpl implements ValorizacionInversion
         // TODO Implement this method
         return null;
     }
+
+  
 }
