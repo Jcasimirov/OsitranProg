@@ -76,7 +76,13 @@ public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
         contratoPenalidadVO.setTcpMotivo(contratoPenalidad.getTcpMotivo());
         contratoPenalidadVO.setTcpFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoPenalidad.getTcpFecha()));
         contratoPenalidadVO.setTcpDocumentoFisico(contratoPenalidad.getTcpDocumentoFisico());
-    
+        
+        contratoPenalidadVO.setTcpFechaAlta(contratoPenalidad.getTcpFechaAlta());
+        contratoPenalidadVO.setTcpUsuarioAlta(contratoPenalidad.getTcpUsuarioAlta());
+        contratoPenalidadVO.setTcpFechaCambio(contratoPenalidad.getTcpFechaCambio());
+        contratoPenalidadVO.setTcpUsuarioCambio(contratoPenalidad.getTcpUsuarioCambio());
+        contratoPenalidadVO.setTcpFechaBaja(contratoPenalidad.getTcpFechaBaja());
+        contratoPenalidadVO.setTcpUsuarioBaja(contratoPenalidad.getTcpUsuarioBaja());
         return contratoPenalidadVO;
     }
     
@@ -93,6 +99,13 @@ public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
         contratoPenalidad.setTcpId(contratoPenalidadVO.getTcpId());
         contratoPenalidad.setTcpFecha(contratoPenalidadVO.getTcpFecha());
         contratoPenalidad.setTcpMotivo(contratoPenalidadVO.getTcpMotivo());
+        
+        contratoPenalidad.setTcpFechaAlta(contratoPenalidadVO.getTcpFechaAlta());
+        contratoPenalidad.setTcpUsuarioAlta(contratoPenalidadVO.getTcpUsuarioAlta());
+        contratoPenalidad.setTcpFechaCambio(contratoPenalidadVO.getTcpFechaCambio());
+        contratoPenalidad.setTcpUsuarioCambio(contratoPenalidadVO.getTcpUsuarioCambio());
+        contratoPenalidad.setTcpFechaBaja(contratoPenalidadVO.getTcpFechaBaja());
+        contratoPenalidad.setTcpUsuarioBaja(contratoPenalidadVO.getTcpUsuarioBaja());
         return contratoPenalidad;
         
     }

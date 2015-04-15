@@ -21,6 +21,12 @@ public class ContratoPpoVO {
     private InputStream filePpo;
     private String monNombre;
 
+    private Date ppoFechaAlta;
+    private Date ppoFechaBaja;
+    private Date ppoFechaCambio;
+    private String ppoUsuarioAlta;
+    private String ppoUsuarioBaja;
+    private String ppoUsuarioCambio;
     public ContratoPpoVO() {
         super();
     }
@@ -111,5 +117,53 @@ public class ContratoPpoVO {
 
     public void setMonNombre(String monNombre) {
         this.monNombre = monNombre;
+    }
+
+    public void setPpoFechaAlta(Date ppoFechaAlta) {
+        this.ppoFechaAlta = ppoFechaAlta;
+    }
+
+    public Date getPpoFechaAlta() {
+        return ppoFechaAlta;
+    }
+
+    public void setPpoFechaBaja(Date ppoFechaBaja) {
+        this.ppoFechaBaja = ppoFechaBaja;
+    }
+
+    public Date getPpoFechaBaja() {
+        return ppoFechaBaja;
+    }
+
+    public void setPpoFechaCambio(Date ppoFechaCambio) {
+        this.ppoFechaCambio = ppoFechaCambio;
+    }
+
+    public Date getPpoFechaCambio() {
+        return ppoFechaCambio;
+    }
+
+    public void setPpoUsuarioAlta(String ppoUsuarioAlta) {
+        this.ppoUsuarioAlta = ppoUsuarioAlta;
+    }
+
+    public String getPpoUsuarioAlta() {
+        return ppoUsuarioAlta;
+    }
+
+    public void setPpoUsuarioBaja(String ppoUsuarioBaja) {
+        this.ppoUsuarioBaja = ppoUsuarioBaja;
+    }
+
+    public String getPpoUsuarioBaja() {
+        return ppoUsuarioBaja;
+    }
+
+    public void setPpoUsuarioCambio(String ppoUsuarioCambio) {
+        this.ppoUsuarioCambio = ppoUsuarioCambio;
+    }
+
+    public String getPpoUsuarioCambio() {
+        return ppoUsuarioCambio;
     }
 }

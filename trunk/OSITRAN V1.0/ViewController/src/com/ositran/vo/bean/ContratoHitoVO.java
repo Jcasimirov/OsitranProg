@@ -20,6 +20,13 @@ public class ContratoHitoVO {
     private InputStream fileHito;
     private String monNombre;
 
+    private Date htoFechaAlta;
+    private Date htoFechaBaja;
+    private Date htoFechaCambio;
+    private String htoUsuarioAlta;
+    private String htoUsuarioBaja;
+    private String htoUsuarioCambio;
+    
     public ContratoHitoVO() {
         super();
     }
@@ -111,5 +118,53 @@ public class ContratoHitoVO {
 
     public void setHtoNombre(String htoNombre) {
         this.htoNombre = htoNombre;
+    }
+
+    public void setHtoFechaAlta(Date htoFechaAlta) {
+        this.htoFechaAlta = htoFechaAlta;
+    }
+
+    public Date getHtoFechaAlta() {
+        return htoFechaAlta;
+    }
+
+    public void setHtoFechaBaja(Date htoFechaBaja) {
+        this.htoFechaBaja = htoFechaBaja;
+    }
+
+    public Date getHtoFechaBaja() {
+        return htoFechaBaja;
+    }
+
+    public void setHtoFechaCambio(Date htoFechaCambio) {
+        this.htoFechaCambio = htoFechaCambio;
+    }
+
+    public Date getHtoFechaCambio() {
+        return htoFechaCambio;
+    }
+
+    public void setHtoUsuarioAlta(String htoUsuarioAlta) {
+        this.htoUsuarioAlta = htoUsuarioAlta;
+    }
+
+    public String getHtoUsuarioAlta() {
+        return htoUsuarioAlta;
+    }
+
+    public void setHtoUsuarioBaja(String htoUsuarioBaja) {
+        this.htoUsuarioBaja = htoUsuarioBaja;
+    }
+
+    public String getHtoUsuarioBaja() {
+        return htoUsuarioBaja;
+    }
+
+    public void setHtoUsuarioCambio(String htoUsuarioCambio) {
+        this.htoUsuarioCambio = htoUsuarioCambio;
+    }
+
+    public String getHtoUsuarioCambio() {
+        return htoUsuarioCambio;
     }
 }

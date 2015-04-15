@@ -8,7 +8,6 @@ import com.ositran.vo.bean.ContratoInversionVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoInversionServiceImpl implements ContratoInversionService {
@@ -73,7 +72,13 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
         contratoInversionVO.setInvEstado(contratoInversion.getInvEstado());
         contratoInversionVO.setInvId(contratoInversion.getInvId());
         contratoInversionVO.setTinId(contratoInversion.getTinId());                        
-    
+        
+        contratoInversionVO.setInvFechaAlta(contratoInversion.getInvFechaAlta());
+        contratoInversionVO.setInvUsuarioAlta(contratoInversion.getInvUsuarioAlta());
+        contratoInversionVO.setInvFechaCambio(contratoInversion.getInvFechaCambio());
+        contratoInversionVO.setInvUsuarioCambio(contratoInversion.getInvUsuarioCambio());
+        contratoInversionVO.setInvFechaBaja(contratoInversion.getInvFechaBaja());
+        contratoInversionVO.setInvUsuarioBaja(contratoInversion.getInvUsuarioBaja());
         return contratoInversionVO;
     }
     
@@ -88,6 +93,12 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
         contratoInversion.setInvId(contratoInversionVO.getInvId());
         contratoInversion.setTinId(contratoInversionVO.getTinId());  
         
+        contratoInversion.setInvFechaAlta(contratoInversionVO.getInvFechaAlta());
+        contratoInversion.setInvUsuarioAlta(contratoInversionVO.getInvUsuarioAlta());
+        contratoInversion.setInvFechaCambio(contratoInversionVO.getInvFechaCambio());
+        contratoInversion.setInvUsuarioCambio(contratoInversionVO.getInvUsuarioCambio());
+        contratoInversion.setInvFechaBaja(contratoInversionVO.getInvFechaBaja());
+        contratoInversion.setInvUsuarioBaja(contratoInversionVO.getInvUsuarioBaja());
         return contratoInversion;
         
     }

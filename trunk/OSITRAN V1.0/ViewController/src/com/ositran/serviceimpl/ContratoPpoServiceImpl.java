@@ -8,7 +8,6 @@ import com.ositran.vo.bean.ContratoPpoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoPpoServiceImpl implements ContratoPpoService {
@@ -76,7 +75,12 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpoVO.setPpoMonto(contratoPpo.getPpoMonto());        
         
                     
-    
+        contratoPpoVO.setPpoFechaAlta(contratoPpo.getPpoFechaAlta());
+        contratoPpoVO.setPpoUsuarioAlta(contratoPpo.getPpoUsuarioAlta());
+        contratoPpoVO.setPpoFechaCambio(contratoPpo.getPpoFechaCambio());
+        contratoPpoVO.setPpoUsuarioCambio(contratoPpo.getPpoUsuarioCambio());
+        contratoPpoVO.setPpoFechaBaja(contratoPpo.getPpoFechaBaja());
+        contratoPpoVO.setPpoUsuarioBaja(contratoPpo.getPpoUsuarioBaja());
         return contratoPpoVO;
     }
     
@@ -92,6 +96,12 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpo.setPpoId(contratoPpoVO.getPpoId());
         contratoPpo.setPpoMonto(contratoPpoVO.getPpoMonto());        
         
+        contratoPpo.setPpoFechaAlta(contratoPpoVO.getPpoFechaAlta());
+        contratoPpo.setPpoUsuarioAlta(contratoPpoVO.getPpoUsuarioAlta());
+        contratoPpo.setPpoFechaCambio(contratoPpoVO.getPpoFechaCambio());
+        contratoPpo.setPpoUsuarioCambio(contratoPpoVO.getPpoUsuarioCambio());
+        contratoPpo.setPpoFechaBaja(contratoPpoVO.getPpoFechaBaja());
+        contratoPpo.setPpoUsuarioBaja(contratoPpoVO.getPpoUsuarioBaja());
         return contratoPpo;
         
     }

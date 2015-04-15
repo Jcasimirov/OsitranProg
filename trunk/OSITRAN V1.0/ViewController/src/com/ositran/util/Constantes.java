@@ -8,9 +8,9 @@ public class Constantes {
     public static String RUTAFICHASRESUMEN="D:/filesositran/temp/resumen/";
     public static String RUTAADENDA="D:/filesositran/temp/adendas/";
     public static String RUTAADENDAENTREGA="D:/filesositran/temp/entrega/";
-    public static String RUTACAO="D:/filesositran/cao/";
-    public static String RUTAHITO="D:/filesositran/hito/";
-    public static String RUTAPPO="D:/filesositran/ppo/";
+    public static String RUTACAO="D:/filesositran/temp/cao/";
+    public static String RUTAHITO="D:/filesositran/temp/hito/";
+    public static String RUTAPPO="D:/filesositran/temp/ppo/";
     public static String RUTAPENALIDADES="D:/filesositran/temp/penalidades/";
 
     public static String ARCHIVONOENCONTRADO = "Archivo no encontrado.";

@@ -5,11 +5,9 @@ import com.ositran.model.ContratoAlerta;
 import com.ositran.service.ContratoAlertaService;
 import com.ositran.vo.bean.ContratoAlertaVO;
 
-
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoAlertaServiceImpl implements ContratoAlertaService {
@@ -79,7 +77,12 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlertaVO.setConId(contratoAlerta.getConId());
         contratoAlertaVO.setPerId(contratoAlerta.getPerId());
                     
-    
+        contratoAlertaVO.setCalFechaAlta(contratoAlerta.getCalFechaAlta());
+        contratoAlertaVO.setCalUsuarioAlta(contratoAlerta.getCalUsuarioAlta());
+        contratoAlertaVO.setCalFechaCambio(contratoAlerta.getCalFechaCambio());
+        contratoAlertaVO.setCalUsuarioCambio(contratoAlerta.getCalUsuarioCambio());
+        contratoAlertaVO.setCalFechaBaja(contratoAlerta.getCalFechaBaja());
+        contratoAlertaVO.setCalUsuarioBaja(contratoAlerta.getCalUsuarioBaja());
         return contratoAlertaVO;
     }
     
@@ -98,6 +101,12 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setConId(contratoAlertaVO.getConId());
         contratoAlerta.setPerId(contratoAlertaVO.getPerId());
         
+        contratoAlerta.setCalFechaAlta(contratoAlertaVO.getCalFechaAlta());
+        contratoAlerta.setCalUsuarioAlta(contratoAlertaVO.getCalUsuarioAlta());
+        contratoAlerta.setCalFechaCambio(contratoAlertaVO.getCalFechaCambio());
+        contratoAlerta.setCalUsuarioCambio(contratoAlertaVO.getCalUsuarioCambio());
+        contratoAlerta.setCalFechaBaja(contratoAlertaVO.getCalFechaBaja());
+        contratoAlerta.setCalUsuarioBaja(contratoAlertaVO.getCalUsuarioBaja());
         return contratoAlerta;
         
     }

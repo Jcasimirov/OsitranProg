@@ -26,6 +26,14 @@ public class ContratoAdendaVO {
     private Integer cadCompromisoInversion; 
     private String monNombre;
     private boolean boocadCompromisoInversion; 
+    
+    private Date cadFechaAlta;
+    private Date cadFechaBaja;
+    private String cadUsuarioAlta;
+    private String cadUsuarioBaja;
+    private Date cadFechaCambio;
+    private String cadUsuarioCambio;
+    
     public String getCadDescripcion() {
         return cadDescripcion;
     }
@@ -153,5 +161,53 @@ public class ContratoAdendaVO {
 
     public boolean isBoocadCompromisoInversion() {
         return boocadCompromisoInversion;
+    }
+
+    public void setCadFechaAlta(Date cadFechaAlta) {
+        this.cadFechaAlta = cadFechaAlta;
+    }
+
+    public Date getCadFechaAlta() {
+        return cadFechaAlta;
+    }
+
+    public void setCadFechaBaja(Date cadFechaBaja) {
+        this.cadFechaBaja = cadFechaBaja;
+    }
+
+    public Date getCadFechaBaja() {
+        return cadFechaBaja;
+    }
+
+    public void setCadUsuarioAlta(String cadUsuarioAlta) {
+        this.cadUsuarioAlta = cadUsuarioAlta;
+    }
+
+    public String getCadUsuarioAlta() {
+        return cadUsuarioAlta;
+    }
+
+    public void setCadUsuarioBaja(String cadUsuarioBaja) {
+        this.cadUsuarioBaja = cadUsuarioBaja;
+    }
+
+    public String getCadUsuarioBaja() {
+        return cadUsuarioBaja;
+    }
+
+    public void setCadFechaCambio(Date cadFechaCambio) {
+        this.cadFechaCambio = cadFechaCambio;
+    }
+
+    public Date getCadFechaCambio() {
+        return cadFechaCambio;
+    }
+
+    public void setCadUsuarioCambio(String cadUsuarioCambio) {
+        this.cadUsuarioCambio = cadUsuarioCambio;
+    }
+
+    public String getCadUsuarioCambio() {
+        return cadUsuarioCambio;
     }
 }

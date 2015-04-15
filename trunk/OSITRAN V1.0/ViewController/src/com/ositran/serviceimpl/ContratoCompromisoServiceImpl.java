@@ -101,7 +101,14 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromisoVO1.setMonId(contratoCompromiso1.getMonId());
         contratoCompromisoVO1.setPorIgv(contratoCompromiso1.getPorIgv());
         contratoCompromisoVO1.setTccTipo(contratoCompromiso1.getTccTipo());
-        contratoCompromisoVO1.setTivId(contratoCompromiso1.getTivId());        
+        contratoCompromisoVO1.setTivId(contratoCompromiso1.getTivId()); 
+        
+        contratoCompromisoVO1.setCcoFechaAlta(contratoCompromiso1.getCcoFechaAlta());
+        contratoCompromisoVO1.setCcoUsuarioAlta(contratoCompromiso1.getCcoUsuarioAlta());
+        contratoCompromisoVO1.setCcoFechaCambio(contratoCompromiso1.getCcoFechaCambio());
+        contratoCompromisoVO1.setCcoUsuarioCambio(contratoCompromiso1.getCcoUsuarioCambio());
+        contratoCompromisoVO1.setCcoFechaBaja(contratoCompromiso1.getCcoFechaBaja());
+        contratoCompromisoVO1.setCcoUsuarioBaja(contratoCompromiso1.getCcoUsuarioBaja());
         return contratoCompromisoVO1;
     }
     private ContratoCompromiso toContratoCompromiso(ContratoCompromisoVO contratoCompromisoVO1){
@@ -115,14 +122,18 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromiso1.setCcoTipoCambio(contratoCompromisoVO1.getCcoTipoCambio());
         contratoCompromiso1.setCcoTotal(contratoCompromisoVO1.getCcoTotal());
         contratoCompromiso1.setConId(contratoCompromisoVO1.getConId());
-        System.out.println("SERVICE*****contratoCompromisoVO1.getConId():"+contratoCompromisoVO1.getConId()); 
         contratoCompromiso1.setMonId(contratoCompromisoVO1.getMonId());
         contratoCompromiso1.setPorIgv(contratoCompromisoVO1.getPorIgv());
         contratoCompromiso1.setTccTipo(contratoCompromisoVO1.getTccTipo());
-        System.out.println("SERVICE*****contratoCompromisoVO1.getTccTipo():"+contratoCompromisoVO1.getTccTipo());
         contratoCompromiso1.setTivId(contratoCompromisoVO1.getTivId());
-        System.out.println("SERVICE*****contratoCompromisoVO1.getTivId():"+contratoCompromisoVO1.getTivId()); 
         contratoCompromiso1.setCcoEstado(contratoCompromisoVO1.getCcoEstado());
+        
+        contratoCompromiso1.setCcoFechaAlta(contratoCompromisoVO1.getCcoFechaAlta());
+        contratoCompromiso1.setCcoUsuarioAlta(contratoCompromisoVO1.getCcoUsuarioAlta());
+        contratoCompromiso1.setCcoFechaCambio(contratoCompromisoVO1.getCcoFechaCambio());
+        contratoCompromiso1.setCcoUsuarioCambio(contratoCompromisoVO1.getCcoUsuarioCambio());
+        contratoCompromiso1.setCcoFechaBaja(contratoCompromisoVO1.getCcoFechaBaja());
+        contratoCompromiso1.setCcoUsuarioBaja(contratoCompromisoVO1.getCcoUsuarioBaja());
         return contratoCompromiso1;
         
     }

@@ -8,7 +8,6 @@ import com.ositran.vo.bean.ContratoHitoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoHitoServiceImpl implements ContratoHitoService {
@@ -77,7 +76,13 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHitoVO.setMonId(contratoHito.getMonId());
         contratoHitoVO.setHtoNombre(contratoHito.getHtoNombre());
                     
-    
+        contratoHitoVO.setHtoFechaAlta(contratoHito.getHtoFechaAlta());
+        contratoHitoVO.setHtoUsuarioAlta(contratoHito.getHtoUsuarioAlta());
+        contratoHitoVO.setHtoFechaCambio(contratoHito.getHtoFechaCambio());
+        contratoHitoVO.setHtoUsuarioCambio(contratoHito.getHtoUsuarioCambio());
+        contratoHitoVO.setHtoFechaBaja(contratoHito.getHtoFechaBaja());
+        contratoHitoVO.setHtoUsuarioBaja(contratoHito.getHtoUsuarioBaja());
+        
         return contratoHitoVO;
     }
     
@@ -93,6 +98,12 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHito.setMonId(contratoHitoVO.getMonId());
         contratoHito.setHtoNombre(contratoHitoVO.getHtoNombre());
         
+        contratoHito.setHtoFechaAlta(contratoHitoVO.getHtoFechaAlta());
+        contratoHito.setHtoUsuarioAlta(contratoHitoVO.getHtoUsuarioAlta());
+        contratoHito.setHtoFechaCambio(contratoHitoVO.getHtoFechaCambio());
+        contratoHito.setHtoUsuarioCambio(contratoHitoVO.getHtoUsuarioCambio());
+        contratoHito.setHtoFechaBaja(contratoHitoVO.getHtoFechaBaja());
+        contratoHito.setHtoUsuarioBaja(contratoHitoVO.getHtoUsuarioBaja());
         return contratoHito;
         
     }

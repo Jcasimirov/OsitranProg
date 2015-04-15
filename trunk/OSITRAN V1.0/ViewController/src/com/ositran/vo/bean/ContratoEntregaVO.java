@@ -17,6 +17,13 @@ public class ContratoEntregaVO {
     private String cenFechaDescripcion;
     
     private InputStream inputStreamNuevaEntrega;
+    
+    private Date cenFechaAlta;
+    private Date cenFechaBaja;
+    private String cenUsuarioAlta;
+    private String cenUsuarioBaja;
+    private Date cenFechaCambio;
+    private String cenUsuarioCambio;
     public ContratoEntregaVO() {
         super();
    }
@@ -111,4 +118,51 @@ public class ContratoEntregaVO {
     }
 
 
+    public void setCenFechaAlta(Date cenFechaAlta) {
+        this.cenFechaAlta = cenFechaAlta;
+    }
+
+    public Date getCenFechaAlta() {
+        return cenFechaAlta;
+    }
+
+    public void setCenFechaBaja(Date cenFechaBaja) {
+        this.cenFechaBaja = cenFechaBaja;
+    }
+
+    public Date getCenFechaBaja() {
+        return cenFechaBaja;
+    }
+
+    public void setCenUsuarioAlta(String cenUsuarioAlta) {
+        this.cenUsuarioAlta = cenUsuarioAlta;
+    }
+
+    public String getCenUsuarioAlta() {
+        return cenUsuarioAlta;
+    }
+
+    public void setCenUsuarioBaja(String cenUsuarioBaja) {
+        this.cenUsuarioBaja = cenUsuarioBaja;
+    }
+
+    public String getCenUsuarioBaja() {
+        return cenUsuarioBaja;
+    }
+
+    public void setCenFechaCambio(Date cenFechaCambio) {
+        this.cenFechaCambio = cenFechaCambio;
+    }
+
+    public Date getCenFechaCambio() {
+        return cenFechaCambio;
+    }
+
+    public void setCenUsuarioCambio(String cenUsuarioCambio) {
+        this.cenUsuarioCambio = cenUsuarioCambio;
+    }
+
+    public String getCenUsuarioCambio() {
+        return cenUsuarioCambio;
+    }
 }
