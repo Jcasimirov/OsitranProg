@@ -48,7 +48,7 @@ public class configReporteAvanceInversion {
             if(cabReporteInversionActivo==null) {
                 cabReporteInversionActivo=new TRepCnfgAvncInvCabVO();
             }
-            mostrar();
+            //mostrar();
         } catch(Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Error!", "Ha ocurrido un error en el sistema."));
             e.printStackTrace();
@@ -84,16 +84,7 @@ public class configReporteAvanceInversion {
     }
     
     public String guardar() {
-        mostrar();
-        UsuarioVO usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        cabReporteInversionActivo.setCaiFechaCambio(new GregorianCalendar().getTime());
-        cabReporteInversionActivo.setCaiUsuarioCambio(usuario.getUsuNombre());
-        if(cabReporteInversionActivo.getCaiId()==null) {
-            //llenar cab
-            cabReporteInversionActivo.setCaiEstado(new BigDecimal(1));
-            cabReporteInversionActivo.setCaiFechaAlta(new GregorianCalendar().getTime());
-            cabReporteInversionActivo.setCaiUsuarioAlta(usuario.getUsuNombre());
-        }
+        //mostrar();
         try {
             servicio.guardarConfigReporteInversiones(reporteInversion, cabReporteInversionActivo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Exito!", "Se han guardado los datos exitosamente."));
