@@ -48,14 +48,24 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
 
     @Override
     public String update(ContratoJefeArea contratoJefeArea) {
-        // TODO Implement this method
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(contratoJefeArea);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
-    public InversionTipo get(Integer id) {
-        // TODO Implement this method
-        return null;
+    public ContratoJefeArea get(Integer id) {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+       ContratoJefeArea contratoJefeArea = (ContratoJefeArea) session.get(ContratoJefeArea.class, id);
+        return contratoJefeArea;
     }
 
     @Override
