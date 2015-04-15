@@ -288,6 +288,7 @@ public class ActualizarContrato {
     private UsuarioVO usuario;
     private int tipoInfraestructura;
     
+    
     private ContratoAdendaVO idAdendaEliminar;
     private ContratoEntregaVO idEntregaEliminar;
     private ContratoCompromisoVO idCompromisoEliminarI;
