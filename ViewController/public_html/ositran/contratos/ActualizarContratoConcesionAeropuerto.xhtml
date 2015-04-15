@@ -156,7 +156,7 @@
                                                                         
                                                                         <p:selectBooleanCheckbox id="reporte"
                                                                                                  value="#{actualizarContratoMB.aplicaAvancedeObra}">
-                                                                        <p:ajax update="periodo1"/>                                                                                                 
+                                                                        <p:ajax listener="#{actualizarContratoMB.resetAvanceObra()}" update="periodo1 diames"/>                                                                                                 
                                                                         </p:selectBooleanCheckbox>
                                                                         
                                                              </td>
@@ -168,6 +168,7 @@
                                                                                          value="#{actualizarContratoMB.periodoseleccionado}"
                                                                                          style="width:210px"
                                                                                          disabled="#{!actualizarContratoMB.aplicaAvancedeObra}">
+                                                                        <p:ajax  update="diames"/>                                                                                                                  
                                                                             <f:selectItem itemLabel="-Seleccionar-"
                                                                                           itemValue="0"/>
                                                                             <f:selectItems value="#{actualizarContratoMB.listarPeriodos}"
@@ -182,8 +183,8 @@
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
                                                                     <td>
-                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conDiames}"
-                                                                                     style="width:97.5%" disabled="#{!actualizarContratoMB.aplicaAvancedeObra}"></p:inputText>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conDiames}" id="diames"
+                                                                                     style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 6}"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
