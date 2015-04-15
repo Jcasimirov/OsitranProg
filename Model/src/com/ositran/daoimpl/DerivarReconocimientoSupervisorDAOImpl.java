@@ -26,15 +26,24 @@ public class DerivarReconocimientoSupervisorDAOImpl implements DerivarReconocimi
     }
 
     @Override
-    public String insert(DerivarReconocimientoSupervisor derivarReconocimientoSupervisor) throws SQLException,
-                                                                                                 Exception {
-        // TODO Implement this method
-        return null;
+    public String insert(DerivarReconocimientoSupervisor derivarReconocimientoSupervisor) throws SQLException,Exception {
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(derivarReconocimientoSupervisor);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
+     
     }
 
     @Override
     public String delete(Integer id) throws SQLException, Exception {
-        // TODO Implement this method
         return null;
     }
 
