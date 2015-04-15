@@ -14,7 +14,7 @@ public interface ContratoJefeAreaDAO {
     public String insert(ContratoJefeArea contratoJefeArea);
        public String delete(Integer id);
        public String update(ContratoJefeArea contratoJefeArea);
-       public InversionTipo get(Integer id);
+       public ContratoJefeArea get(Integer id);
        public List<ContratoJefeArea> query1(String buscar);
        public int getCanNombres(String nombre);
 }
