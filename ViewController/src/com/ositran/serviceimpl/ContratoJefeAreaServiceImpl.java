@@ -52,15 +52,18 @@ public class ContratoJefeAreaServiceImpl implements ContratoJefeAreaService {
 
     @Override
     public String update(ContratoJefeAreaVO contratoJefeAreaVO) {
-        // TODO Implement this method
-        return null;
+        contratoJefeArea=toContratoJefeArea(contratoJefeAreaVO);
+        String result=this.contratoJefeAreaDAOImpl.update(contratoJefeArea);
+        return result;
     }
 
     @Override
     public ContratoJefeAreaVO get(Integer id) {
-        // TODO Implement this method
-        return null;
+        contratoJefeArea =contratoJefeAreaDAOImpl.get(id);
+        contratoJefeAreaVO=toContratoJefeAreaVO(contratoJefeArea);
+        return contratoJefeAreaVO;
     }
+
 
     @Override
     public int getCodigo(ContratoJefeAreaVO contratoJefeAreaVO) {
