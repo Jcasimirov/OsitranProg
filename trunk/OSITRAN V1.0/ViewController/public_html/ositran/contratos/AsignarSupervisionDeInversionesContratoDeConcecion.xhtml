@@ -32,7 +32,7 @@
                     </div>
                     <div align="center" style="font-size:11px">
                         <div align="center" style="width:700px">
-                            <p:fieldset styleClass="fielsetinterno" legend="Seleccionar inversiones" >
+                            <p:fieldset styleClass="fielsetinterno" legend="Seleccionar inversiones" id="datosGenerales" >
                                 <table style="margin-bottom:5px;font-size: 11px">
                                     <tr>
                                         <td align="left">
@@ -101,7 +101,7 @@
                                             <p:inputText  value="#{supervisorContratoConcesionMB.contratoConcesion}"   readonly="true" id="cb2" style="width:300px"/>
                                             <p:watermark value="Presione la lupa para elegir Contrato" for="cb2" />
                 
-                                            <p:commandButton   id="buscarContratos" oncomplete="panelListaContratos.show()"  update=":form:panelListaContratos"  actionListener="#{supervisorContratoConcesionMB.cargarListaContratos}"  image="ui-icon-search"/>
+                                            <p:commandButton   id="buscarContratos" oncomplete="panelListaContratos.show()"  update=":form:panelListaContratos :form:mensaje"  actionListener="#{supervisorContratoConcesionMB.cargarListaContratos}"  image="ui-icon-search"/>
                                              <p:tooltip id="toolTipFade" styleClass="tool" for="buscarContratos" value="Mostrar lista de contratos" />
                                         </td>
                                     </tr>
@@ -136,9 +136,6 @@
                                             <p:inputText value="#{supervisorContratoConcesionMB.modalidadConcecion}"  readonly="true"  />
                                         </td>
                                     </tr>
-                                 
-                                     
-                                   
                                 </table>
                             </p:fieldset>
                         </div>
@@ -146,22 +143,28 @@
                     <table align="center" style="font-size: 11px">
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form:mensaje :form:tablaSI" actionListener="#{supervisorContratoConcesionMB.registrarContrato()}" value="#{btn.btn_guardar}"/>
+                                <p:commandButton styleClass="botones" 
+                                update=":form:mensaje :form:tablaSI :form:datosContratoConcesion :form:busqueda :form:supervicionDeInversiones :form:datosGenerales" 
+                                actionListener="#{supervisorContratoConcesionMB.registrarContrato()}" 
+                                value="#{btn.btn_guardar}"/>
                             </td>
                             <td align="left">
-                                <p:commandButton value="#{btn.btn_salir}"/>
+                                <p:commandButton styleClass="botones" update=":form:tablaSI :form:datosContratoConcesion :form:busqueda :form:supervicionDeInversiones :form:datosGenerales" 
+                                actionListener="#{supervisorContratoConcesionMB.limpiar1()}"
+                                value="Limpiar"/>
                             </td>
                         </tr>
                     </table> 
                     
                         <div align="center">
-                        <div style="width:70%">
+                        <div style="width:60%">
                                 <br></br>
                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
+                                             rowStyleClass="#{(supervicion1.sivEstado eq 1) ? 'activo':null}"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="6,8,10" resizableColumns="true"
-                                             style="font-size:11px;" id="tablaSI" var="supervicion1"
+                                             style="font-size:10px;" id="tablaSI" var="supervicion1"
                                              value="#{supervisorContratoConcesionMB.listaContratoSupervisor}">
                                  <p:column headerText="Nro" style="width:3%" >
                                         <h:outputText value="#{supervicion1.contador}"  />
@@ -175,8 +178,16 @@
                                      <p:column headerText="Documento" >
                                         <h:outputText value="#{supervicion1.sivUmero}"/>
                                     </p:column>
-                                     <p:column headerText="Activar" style="width:5%">
-                                        <p:commandButton value="Des" />
+                                        <p:column headerText="Estado" >
+                                        <h:outputText value="#{supervicion1.estadoNombre}"/>
+                                    </p:column>                                      
+                                     <p:column headerText="Activar"    style="width:5%">
+                                     <div align="center">
+                                        <p:commandButton update=":form:tablaSI"
+                                        rendered="#{supervicion1.sivEstado eq 1}"
+                                        actionListener="#{supervisorContratoConcesionMB.desabilitar(supervicion1.sivId)}"
+                                        image="ui-icon-arrowstop-1-s"  styleClass="controles"  />
+                                        </div>
                                     </p:column>
                                 </p:dataTable>
                     </div>
