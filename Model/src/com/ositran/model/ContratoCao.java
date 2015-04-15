@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,7 +46,21 @@ public class ContratoCao implements Serializable {
     @Column(name = "CAO_NOMBRE")
     private String caoNombre;
     
-    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAO_FECHA_ALTA", nullable = false)
+    private Date caoFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAO_FECHA_BAJA")
+    private Date caoFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAO_FECHA_CAMBIO")
+    private Date caoFechaCambio;
+    @Column(name = "CAO_USUARIO_ALTA", length = 20)
+    private String caoUsuarioAlta;
+    @Column(name = "CAO_USUARIO_BAJA", length = 20)
+    private String caoUsuarioBaja;
+    @Column(name = "CAO_USUARIO_CAMBIO", length = 20)
+    private String caoUsuarioCambio;
 
     public ContratoCao() {
     }
@@ -126,5 +139,53 @@ public class ContratoCao implements Serializable {
 
     public void setCaoNombre(String caoNombre) {
         this.caoNombre = caoNombre;
+    }
+
+    public void setCaoFechaAlta(Date caoFechaAlta) {
+        this.caoFechaAlta = caoFechaAlta;
+    }
+
+    public Date getCaoFechaAlta() {
+        return caoFechaAlta;
+    }
+
+    public void setCaoFechaBaja(Date caoFechaBaja) {
+        this.caoFechaBaja = caoFechaBaja;
+    }
+
+    public Date getCaoFechaBaja() {
+        return caoFechaBaja;
+    }
+
+    public void setCaoFechaCambio(Date caoFechaCambio) {
+        this.caoFechaCambio = caoFechaCambio;
+    }
+
+    public Date getCaoFechaCambio() {
+        return caoFechaCambio;
+    }
+
+    public void setCaoUsuarioAlta(String caoUsuarioAlta) {
+        this.caoUsuarioAlta = caoUsuarioAlta;
+    }
+
+    public String getCaoUsuarioAlta() {
+        return caoUsuarioAlta;
+    }
+
+    public void setCaoUsuarioBaja(String caoUsuarioBaja) {
+        this.caoUsuarioBaja = caoUsuarioBaja;
+    }
+
+    public String getCaoUsuarioBaja() {
+        return caoUsuarioBaja;
+    }
+
+    public void setCaoUsuarioCambio(String caoUsuarioCambio) {
+        this.caoUsuarioCambio = caoUsuarioCambio;
+    }
+
+    public String getCaoUsuarioCambio() {
+        return caoUsuarioCambio;
     }
 }

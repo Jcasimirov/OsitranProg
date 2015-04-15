@@ -46,6 +46,22 @@ public class ContratoPenalidad implements Serializable {
     
     @Column(name = "TCP_DOCUMENTO_FISICO")
     private String tcpDocumentoFisico;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TCP_FECHA_ALTA", nullable = false)
+    private Date tcpFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TCP_FECHA_BAJA")
+    private Date tcpFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TCP_FECHA_CAMBIO")
+    private Date tcpFechaCambio;
+    @Column(name = "TCP_USUARIO_ALTA", length = 20)
+    private String tcpUsuarioAlta;
+    @Column(name = "TCP_USUARIO_BAJA", length = 20)
+    private String tcpUsuarioBaja;
+    @Column(name = "TCP_USUARIO_CAMBIO", length = 20)
+    private String tcpUsuarioCambio;
     public ContratoPenalidad() {
     }
 
@@ -131,5 +147,53 @@ public class ContratoPenalidad implements Serializable {
 
     public String getTcpDocumentoFisico() {
         return tcpDocumentoFisico;
+    }
+
+    public void setTcpFechaAlta(Date tcpFechaAlta) {
+        this.tcpFechaAlta = tcpFechaAlta;
+    }
+
+    public Date getTcpFechaAlta() {
+        return tcpFechaAlta;
+    }
+
+    public void setTcpFechaBaja(Date tcpFechaBaja) {
+        this.tcpFechaBaja = tcpFechaBaja;
+    }
+
+    public Date getTcpFechaBaja() {
+        return tcpFechaBaja;
+    }
+
+    public void setTcpFechaCambio(Date tcpFechaCambio) {
+        this.tcpFechaCambio = tcpFechaCambio;
+    }
+
+    public Date getTcpFechaCambio() {
+        return tcpFechaCambio;
+    }
+
+    public void setTcpUsuarioAlta(String tcpUsuarioAlta) {
+        this.tcpUsuarioAlta = tcpUsuarioAlta;
+    }
+
+    public String getTcpUsuarioAlta() {
+        return tcpUsuarioAlta;
+    }
+
+    public void setTcpUsuarioBaja(String tcpUsuarioBaja) {
+        this.tcpUsuarioBaja = tcpUsuarioBaja;
+    }
+
+    public String getTcpUsuarioBaja() {
+        return tcpUsuarioBaja;
+    }
+
+    public void setTcpUsuarioCambio(String tcpUsuarioCambio) {
+        this.tcpUsuarioCambio = tcpUsuarioCambio;
+    }
+
+    public String getTcpUsuarioCambio() {
+        return tcpUsuarioCambio;
     }
 }

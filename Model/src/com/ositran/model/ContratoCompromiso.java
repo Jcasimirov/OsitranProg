@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -51,7 +55,23 @@ public class ContratoCompromiso implements Serializable {
     private Integer tivId;
     @Column(name = "CCO_ESTADO")
     private Integer ccoEstado;
-
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CCO_FECHA_ALTA", nullable = false)
+    private Date ccoFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CCO_FECHA_BAJA")
+    private Date ccoFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CCO_FECHA_CAMBIO")
+    private Date ccoFechaCambio;
+    @Column(name = "CCO_USUARIO_ALTA", length = 20)
+    private String ccoUsuarioAlta;
+    @Column(name = "CCO_USUARIO_BAJA", length = 20)
+    private String ccoUsuarioBaja;
+    @Column(name = "CCO_USUARIO_CAMBIO", length = 20)
+    private String ccoUsuarioCambio;
+    
     public ContratoCompromiso() {
     }
 
@@ -184,5 +204,53 @@ public class ContratoCompromiso implements Serializable {
 
     public void setCcoEstado(Integer ccoEstado) {
         this.ccoEstado = ccoEstado;
+    }
+
+    public void setCcoFechaAlta(Date ccoFechaAlta) {
+        this.ccoFechaAlta = ccoFechaAlta;
+    }
+
+    public Date getCcoFechaAlta() {
+        return ccoFechaAlta;
+    }
+
+    public void setCcoFechaBaja(Date ccoFechaBaja) {
+        this.ccoFechaBaja = ccoFechaBaja;
+    }
+
+    public Date getCcoFechaBaja() {
+        return ccoFechaBaja;
+    }
+
+    public void setCcoFechaCambio(Date ccoFechaCambio) {
+        this.ccoFechaCambio = ccoFechaCambio;
+    }
+
+    public Date getCcoFechaCambio() {
+        return ccoFechaCambio;
+    }
+
+    public void setCcoUsuarioAlta(String ccoUsuarioAlta) {
+        this.ccoUsuarioAlta = ccoUsuarioAlta;
+    }
+
+    public String getCcoUsuarioAlta() {
+        return ccoUsuarioAlta;
+    }
+
+    public void setCcoUsuarioBaja(String ccoUsuarioBaja) {
+        this.ccoUsuarioBaja = ccoUsuarioBaja;
+    }
+
+    public String getCcoUsuarioBaja() {
+        return ccoUsuarioBaja;
+    }
+
+    public void setCcoUsuarioCambio(String ccoUsuarioCambio) {
+        this.ccoUsuarioCambio = ccoUsuarioCambio;
+    }
+
+    public String getCcoUsuarioCambio() {
+        return ccoUsuarioCambio;
     }
 }

@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -35,6 +39,22 @@ public class ContratoInversion implements Serializable {
     private Integer tinId;
     @Column(name = "INV_ESTADO")
     private Integer invEstado;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "INV_FECHA_ALTA", nullable = false)
+    private Date invFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "INV_FECHA_BAJA")
+    private Date invFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "INV_FECHA_CAMBIO")
+    private Date invFechaCambio;
+    @Column(name = "INV_USUARIO_ALTA", length = 20)
+    private String invUsuarioAlta;
+    @Column(name = "INV_USUARIO_BAJA", length = 20)
+    private String invUsuarioBaja;
+    @Column(name = "INV_USUARIO_CAMBIO", length = 20)
+    private String invUsuarioCambio;
     
     public ContratoInversion() {
     }
@@ -104,5 +124,53 @@ public class ContratoInversion implements Serializable {
 
     public void setInvEstado(Integer invEstado) {
         this.invEstado = invEstado;
+    }
+
+    public void setInvFechaAlta(Date invFechaAlta) {
+        this.invFechaAlta = invFechaAlta;
+    }
+
+    public Date getInvFechaAlta() {
+        return invFechaAlta;
+    }
+
+    public void setInvFechaBaja(Date invFechaBaja) {
+        this.invFechaBaja = invFechaBaja;
+    }
+
+    public Date getInvFechaBaja() {
+        return invFechaBaja;
+    }
+
+    public void setInvFechaCambio(Date invFechaCambio) {
+        this.invFechaCambio = invFechaCambio;
+    }
+
+    public Date getInvFechaCambio() {
+        return invFechaCambio;
+    }
+
+    public void setInvUsuarioAlta(String invUsuarioAlta) {
+        this.invUsuarioAlta = invUsuarioAlta;
+    }
+
+    public String getInvUsuarioAlta() {
+        return invUsuarioAlta;
+    }
+
+    public void setInvUsuarioBaja(String invUsuarioBaja) {
+        this.invUsuarioBaja = invUsuarioBaja;
+    }
+
+    public String getInvUsuarioBaja() {
+        return invUsuarioBaja;
+    }
+
+    public void setInvUsuarioCambio(String invUsuarioCambio) {
+        this.invUsuarioCambio = invUsuarioCambio;
+    }
+
+    public String getInvUsuarioCambio() {
+        return invUsuarioCambio;
     }
 }

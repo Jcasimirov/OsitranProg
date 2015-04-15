@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,7 +46,21 @@ public class ContratoHito implements Serializable {
     @Column(name = "HTO_NOMBRE")
     private String htoNombre;
     
-    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "HTO_FECHA_ALTA", nullable = false)
+    private Date htoFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "HTO_FECHA_BAJA")
+    private Date htoFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "HTO_FECHA_CAMBIO")
+    private Date htoFechaCambio;
+    @Column(name = "HTO_USUARIO_ALTA", length = 20)
+    private String htoUsuarioAlta;
+    @Column(name = "HTO_USUARIO_BAJA", length = 20)
+    private String htoUsuarioBaja;
+    @Column(name = "HTO_USUARIO_CAMBIO", length = 20)
+    private String htoUsuarioCambio;
 
     public ContratoHito() {
     }
@@ -126,5 +139,53 @@ public class ContratoHito implements Serializable {
 
     public void setHtoNombre(String htoNombre) {
         this.htoNombre = htoNombre;
+    }
+
+    public void setHtoFechaAlta(Date htoFechaAlta) {
+        this.htoFechaAlta = htoFechaAlta;
+    }
+
+    public Date getHtoFechaAlta() {
+        return htoFechaAlta;
+    }
+
+    public void setHtoFechaBaja(Date htoFechaBaja) {
+        this.htoFechaBaja = htoFechaBaja;
+    }
+
+    public Date getHtoFechaBaja() {
+        return htoFechaBaja;
+    }
+
+    public void setHtoFechaCambio(Date htoFechaCambio) {
+        this.htoFechaCambio = htoFechaCambio;
+    }
+
+    public Date getHtoFechaCambio() {
+        return htoFechaCambio;
+    }
+
+    public void setHtoUsuarioAlta(String htoUsuarioAlta) {
+        this.htoUsuarioAlta = htoUsuarioAlta;
+    }
+
+    public String getHtoUsuarioAlta() {
+        return htoUsuarioAlta;
+    }
+
+    public void setHtoUsuarioBaja(String htoUsuarioBaja) {
+        this.htoUsuarioBaja = htoUsuarioBaja;
+    }
+
+    public String getHtoUsuarioBaja() {
+        return htoUsuarioBaja;
+    }
+
+    public void setHtoUsuarioCambio(String htoUsuarioCambio) {
+        this.htoUsuarioCambio = htoUsuarioCambio;
+    }
+
+    public String getHtoUsuarioCambio() {
+        return htoUsuarioCambio;
     }
 }

@@ -49,6 +49,24 @@ public class ContratoEntrega implements Serializable {
     public ContratoEntrega() {
     }
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CEN_FECHA_ALTA", nullable = false)
+    private Date cenFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CEN_FECHA_BAJA")
+    private Date cenFechaBaja;
+   
+    @Column(name = "CEN_USUARIO_ALTA", length = 20)
+    private String cenUsuarioAlta;
+    @Column(name = "CEN_USUARIO_BAJA", length = 20)
+    private String cenUsuarioBaja;
+   
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CEN_FECHA_CAMBIO")
+    private Date cenFechaCambio;
+    @Column(name = "CEN_USUARIO_CAMBIO", length = 20)
+    private String cenUsuarioCambio;
+    
     public ContratoEntrega(String cenDescripcion, String cenDocumentoFisico, Date cenFecha, Integer cenId,
                            Long cenMonto, Integer conId, Integer monId, Integer cenEstado, String cenNombre) {
         this.cenDescripcion = cenDescripcion;
@@ -134,5 +152,51 @@ public class ContratoEntrega implements Serializable {
         this.cenNombre = cenNombre;
     }
 
+    public void setCenFechaAlta(Date cenFechaAlta) {
+        this.cenFechaAlta = cenFechaAlta;
+    }
 
+    public Date getCenFechaAlta() {
+        return cenFechaAlta;
+    }
+
+    public void setCenFechaBaja(Date cenFechaBaja) {
+        this.cenFechaBaja = cenFechaBaja;
+    }
+
+    public Date getCenFechaBaja() {
+        return cenFechaBaja;
+    }
+
+    public void setCenUsuarioAlta(String cenUsuarioAlta) {
+        this.cenUsuarioAlta = cenUsuarioAlta;
+    }
+
+    public String getCenUsuarioAlta() {
+        return cenUsuarioAlta;
+    }
+
+    public void setCenUsuarioBaja(String cenUsuarioBaja) {
+        this.cenUsuarioBaja = cenUsuarioBaja;
+    }
+
+    public String getCenUsuarioBaja() {
+        return cenUsuarioBaja;
+    }
+
+    public void setCenFechaCambio(Date cenFechaCambio) {
+        this.cenFechaCambio = cenFechaCambio;
+    }
+
+    public Date getCenFechaCambio() {
+        return cenFechaCambio;
+    }
+
+    public void setCenUsuarioCambio(String cenUsuarioCambio) {
+        this.cenUsuarioCambio = cenUsuarioCambio;
+    }
+
+    public String getCenUsuarioCambio() {
+        return cenUsuarioCambio;
+    }
 }
