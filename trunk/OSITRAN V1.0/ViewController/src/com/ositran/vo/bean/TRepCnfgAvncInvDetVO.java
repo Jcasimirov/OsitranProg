@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import com.ositran.model.TRepCnfgAvncInvDet;
+
 import java.io.Serializable;
 
 import java.math.BigDecimal;
@@ -7,8 +9,8 @@ import java.math.BigDecimal;
 public class TRepCnfgAvncInvDetVO {
     private BigDecimal aidId;
     private BigDecimal caiId;
-    private boolean caiMontoTotalConReajuste;
-    private boolean caiMontoTotalSinAjuste;
+    private Integer caiMontoTotalConReajuste;
+    private Integer caiMontoTotalSinAjuste;
     private BigDecimal csiId;
     private BigDecimal tinId;
     /**añadido*/
@@ -21,23 +23,46 @@ public class TRepCnfgAvncInvDetVO {
     public TRepCnfgAvncInvDetVO() {
         aidId=null;
         caiId=null;
-        caiMontoTotalConReajuste=false;
-        caiMontoTotalSinAjuste=false;
+        caiMontoTotalConReajuste=null;
+        caiMontoTotalSinAjuste=null;
         csiId=null;
         tinId=null;
         concesionNombre=null;
         infraestructuraTipo=null;
         tipoMontoTotal="sinAjuste";
     }
+    
+    public TRepCnfgAvncInvDetVO(TRepCnfgAvncInvDet entidadBD) {
+        aidId=entidadBD.getAidId();
+        caiId=entidadBD.getCaiId();
+        caiMontoTotalConReajuste=entidadBD.getCaiMontoTotalConReajuste();
+        caiMontoTotalSinAjuste=entidadBD.getCaiMontoTotalSinAjuste();
+        csiId=entidadBD.getCsiId();
+        tinId=entidadBD.getTinId();
+        concesionNombre=null;
+        infraestructuraTipo=null;
+        tipoMontoTotal=null;
+    }
 
-    public TRepCnfgAvncInvDetVO(BigDecimal aidId, BigDecimal caiId, boolean caiMontoTotalConReajuste,
-                              boolean caiMontoTotalSinAjuste, BigDecimal csiId, BigDecimal tinId) {
+    public TRepCnfgAvncInvDetVO(BigDecimal aidId, BigDecimal caiId, Integer caiMontoTotalConReajuste,
+                              Integer caiMontoTotalSinAjuste, BigDecimal csiId, BigDecimal tinId) {
         this.aidId = aidId;
         this.caiId = caiId;
         this.caiMontoTotalConReajuste = caiMontoTotalConReajuste;
         this.caiMontoTotalSinAjuste = caiMontoTotalSinAjuste;
         this.csiId = csiId;
         this.tinId = tinId;
+    }
+    
+    public TRepCnfgAvncInvDet devuelveEntidadBD() {
+        TRepCnfgAvncInvDet entidadBD=new TRepCnfgAvncInvDet();
+        entidadBD.setAidId(aidId);
+        entidadBD.setCaiId(caiId);
+        entidadBD.setCaiMontoTotalConReajuste(caiMontoTotalConReajuste);
+        entidadBD.setCaiMontoTotalSinAjuste(caiMontoTotalSinAjuste);
+        entidadBD.setCsiId(csiId);
+        entidadBD.setTinId(tinId);
+        return entidadBD;
     }
 
     public BigDecimal getAidId() {
@@ -88,22 +113,6 @@ public class TRepCnfgAvncInvDetVO {
         return infraestructuraTipo;
     }
 
-    public void setCaiMontoTotalConReajuste(boolean caiMontoTotalConReajuste) {
-        this.caiMontoTotalConReajuste = caiMontoTotalConReajuste;
-    }
-
-    public boolean isCaiMontoTotalConReajuste() {
-        return caiMontoTotalConReajuste;
-    }
-
-    public void setCaiMontoTotalSinAjuste(boolean caiMontoTotalSinAjuste) {
-        this.caiMontoTotalSinAjuste = caiMontoTotalSinAjuste;
-    }
-
-    public boolean isCaiMontoTotalSinAjuste() {
-        return caiMontoTotalSinAjuste;
-    }
-
     public void setTipoMontoTotal(String tipoMontoTotal) {
         this.tipoMontoTotal = tipoMontoTotal;
     }
@@ -111,5 +120,21 @@ public class TRepCnfgAvncInvDetVO {
     public String getTipoMontoTotal() {
         return tipoMontoTotal;
     }
-    
+
+    public void setCaiMontoTotalConReajuste(Integer caiMontoTotalConReajuste) {
+        this.caiMontoTotalConReajuste = caiMontoTotalConReajuste;
+    }
+
+    public Integer getCaiMontoTotalConReajuste() {
+        return caiMontoTotalConReajuste;
+    }
+
+    public void setCaiMontoTotalSinAjuste(Integer caiMontoTotalSinAjuste) {
+        this.caiMontoTotalSinAjuste = caiMontoTotalSinAjuste;
+    }
+
+    public Integer getCaiMontoTotalSinAjuste() {
+        return caiMontoTotalSinAjuste;
+    }
+
 }
