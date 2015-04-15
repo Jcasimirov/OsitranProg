@@ -75,6 +75,8 @@ public class ContratoEntregaDAOImpl implements ContratoEntregaDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 

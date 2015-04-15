@@ -72,6 +72,8 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 
