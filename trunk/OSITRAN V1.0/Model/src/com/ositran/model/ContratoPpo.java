@@ -2,7 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-
 import java.math.BigDecimal;
 
 import java.util.Date;
@@ -11,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -48,7 +46,21 @@ public class ContratoPpo implements Serializable {
     @Column(name = "PPO_NOMBRE")
     private String ppoNombre;
     
-    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "PPO_FECHA_ALTA", nullable = false)
+    private Date ppoFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "PPO_FECHA_BAJA")
+    private Date ppoFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "PPO_FECHA_CAMBIO")
+    private Date ppoFechaCambio;
+    @Column(name = "PPO_USUARIO_ALTA", length = 20)
+    private String ppoUsuarioAlta;
+    @Column(name = "PPO_USUARIO_BAJA", length = 20)
+    private String ppoUsuarioBaja;
+    @Column(name = "PPO_USUARIO_CAMBIO", length = 20)
+    private String ppoUsuarioCambio;
 
     public ContratoPpo() {
     }
@@ -127,5 +139,53 @@ public class ContratoPpo implements Serializable {
 
     public void setPpoNombre(String ppoNombre) {
         this.ppoNombre = ppoNombre;
+    }
+
+    public void setPpoFechaAlta(Date ppoFechaAlta) {
+        this.ppoFechaAlta = ppoFechaAlta;
+    }
+
+    public Date getPpoFechaAlta() {
+        return ppoFechaAlta;
+    }
+
+    public void setPpoFechaBaja(Date ppoFechaBaja) {
+        this.ppoFechaBaja = ppoFechaBaja;
+    }
+
+    public Date getPpoFechaBaja() {
+        return ppoFechaBaja;
+    }
+
+    public void setPpoFechaCambio(Date ppoFechaCambio) {
+        this.ppoFechaCambio = ppoFechaCambio;
+    }
+
+    public Date getPpoFechaCambio() {
+        return ppoFechaCambio;
+    }
+
+    public void setPpoUsuarioAlta(String ppoUsuarioAlta) {
+        this.ppoUsuarioAlta = ppoUsuarioAlta;
+    }
+
+    public String getPpoUsuarioAlta() {
+        return ppoUsuarioAlta;
+    }
+
+    public void setPpoUsuarioBaja(String ppoUsuarioBaja) {
+        this.ppoUsuarioBaja = ppoUsuarioBaja;
+    }
+
+    public String getPpoUsuarioBaja() {
+        return ppoUsuarioBaja;
+    }
+
+    public void setPpoUsuarioCambio(String ppoUsuarioCambio) {
+        this.ppoUsuarioCambio = ppoUsuarioCambio;
+    }
+
+    public String getPpoUsuarioCambio() {
+        return ppoUsuarioCambio;
     }
 }

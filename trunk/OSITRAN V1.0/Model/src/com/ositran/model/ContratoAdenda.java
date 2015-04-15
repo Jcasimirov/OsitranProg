@@ -53,7 +53,23 @@ public class ContratoAdenda implements Serializable {
     private Integer cadCompromisoInversion;        
     public ContratoAdenda() {
     }
-
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAD_FECHA_ALTA", nullable = false)
+    private Date cadFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAD_FECHA_BAJA")
+    private Date cadFechaBaja;
+    @Column(name = "CAD_USUARIO_ALTA", length = 20)
+    private String cadUsuarioAlta;
+    @Column(name = "CAD_USUARIO_BAJA", length = 20)
+    private String cadUsuarioBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAD_FECHA_CAMBIO")
+    private Date cadFechaCambio;
+    @Column(name = "CAD_USUARIO_CAMBIO", length = 20)
+    private String cadUsuarioCambio;
+    
     public ContratoAdenda(String cadDescripcion, String cadDocumentoFisico, Date cadFecha, Integer cadId,
                           Long cadMonto, Integer conId, Integer monId, Integer tadId, Integer cadEstado) {
         this.cadDescripcion = cadDescripcion;
@@ -153,5 +169,53 @@ public class ContratoAdenda implements Serializable {
 
     public Integer getCadCompromisoInversion() {
         return cadCompromisoInversion;
+    }
+
+    public void setCadFechaAlta(Date cadFechaAlta) {
+        this.cadFechaAlta = cadFechaAlta;
+    }
+
+    public Date getCadFechaAlta() {
+        return cadFechaAlta;
+    }
+
+    public void setCadFechaBaja(Date cadFechaBaja) {
+        this.cadFechaBaja = cadFechaBaja;
+    }
+
+    public Date getCadFechaBaja() {
+        return cadFechaBaja;
+    }
+
+    public void setCadUsuarioAlta(String cadUsuarioAlta) {
+        this.cadUsuarioAlta = cadUsuarioAlta;
+    }
+
+    public String getCadUsuarioAlta() {
+        return cadUsuarioAlta;
+    }
+
+    public void setCadUsuarioBaja(String cadUsuarioBaja) {
+        this.cadUsuarioBaja = cadUsuarioBaja;
+    }
+
+    public String getCadUsuarioBaja() {
+        return cadUsuarioBaja;
+    }
+
+    public void setCadFechaCambio(Date cadFechaCambio) {
+        this.cadFechaCambio = cadFechaCambio;
+    }
+
+    public Date getCadFechaCambio() {
+        return cadFechaCambio;
+    }
+
+    public void setCadUsuarioCambio(String cadUsuarioCambio) {
+        this.cadUsuarioCambio = cadUsuarioCambio;
+    }
+
+    public String getCadUsuarioCambio() {
+        return cadUsuarioCambio;
     }
 }

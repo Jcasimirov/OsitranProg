@@ -1,13 +1,13 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -51,7 +51,21 @@ public class ContratoAlerta implements Serializable {
     @Column(name = "CAL_ESTADO")
     private Integer calEstado;
     
-
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAL_FECHA_ALTA", nullable = false)
+    private Date calFechaAlta;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAL_FECHA_BAJA")
+    private Date calFechaBaja;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CAL_FECHA_CAMBIO")
+    private Date calFechaCambio;
+    @Column(name = "CAL_USUARIO_ALTA", length = 20)
+    private String calUsuarioAlta;
+    @Column(name = "CAL_USUARIO_BAJA", length = 20)
+    private String calUsuarioBaja;
+    @Column(name = "CAL_USUARIO_CAMBIO", length = 20)
+    private String calUsuarioCambio;
     public ContratoAlerta() {
     }
 
@@ -157,5 +171,53 @@ public class ContratoAlerta implements Serializable {
 
     public void setCalEstado(Integer calEstado) {
         this.calEstado = calEstado;
+    }
+
+    public void setCalFechaAlta(Date calFechaAlta) {
+        this.calFechaAlta = calFechaAlta;
+    }
+
+    public Date getCalFechaAlta() {
+        return calFechaAlta;
+    }
+
+    public void setCalFechaBaja(Date calFechaBaja) {
+        this.calFechaBaja = calFechaBaja;
+    }
+
+    public Date getCalFechaBaja() {
+        return calFechaBaja;
+    }
+
+    public void setCalFechaCambio(Date calFechaCambio) {
+        this.calFechaCambio = calFechaCambio;
+    }
+
+    public Date getCalFechaCambio() {
+        return calFechaCambio;
+    }
+
+    public void setCalUsuarioAlta(String calUsuarioAlta) {
+        this.calUsuarioAlta = calUsuarioAlta;
+    }
+
+    public String getCalUsuarioAlta() {
+        return calUsuarioAlta;
+    }
+
+    public void setCalUsuarioBaja(String calUsuarioBaja) {
+        this.calUsuarioBaja = calUsuarioBaja;
+    }
+
+    public String getCalUsuarioBaja() {
+        return calUsuarioBaja;
+    }
+
+    public void setCalUsuarioCambio(String calUsuarioCambio) {
+        this.calUsuarioCambio = calUsuarioCambio;
+    }
+
+    public String getCalUsuarioCambio() {
+        return calUsuarioCambio;
     }
 }
