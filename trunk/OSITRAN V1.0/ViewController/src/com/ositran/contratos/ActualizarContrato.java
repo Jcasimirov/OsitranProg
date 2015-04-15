@@ -425,7 +425,15 @@ public class ActualizarContrato {
 
 
        }
-
+    public void resetAvanceObra(){
+        periodoseleccionado=0;
+        contratoVO.setConDiames(null);
+    }
+    public void elegirDiames(){
+        if(periodoseleccionado==-1){
+            
+        }
+    }
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
         listarTiposMoneda();
