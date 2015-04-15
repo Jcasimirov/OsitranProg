@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import com.ositran.model.TRepCnfgAvncInvCab;
+
 import java.math.BigDecimal;
 
 import java.util.Date;
@@ -39,6 +41,40 @@ public class TRepCnfgAvncInvCabVO {
         this.caiUsuarioAlta = caiUsuarioAlta;
         this.caiUsuarioBaja = caiUsuarioBaja;
         this.caiUsuarioCambio = caiUsuarioCambio;
+    }
+    
+    public TRepCnfgAvncInvCabVO(TRepCnfgAvncInvCab entidadBD) {
+        this.caiEstado = entidadBD.getCaiEstado();
+        this.caiFechaAlta = entidadBD.getCaiFechaAlta();
+        this.caiFechaBaja = entidadBD.getCaiFechaBaja();
+        this.caiFechaCambio = entidadBD.getCaiFechaCambio();
+        this.caiFechaEmision = entidadBD.getCaiFechaEmision();
+        this.caiId = entidadBD.getCaiId();
+        this.caiMotivoDeCambio = entidadBD.getCaiMotivoDeCambio();
+        this.caiNumeroDeDocumento = entidadBD.getCaiNumeroDeDocumento();
+        this.caiReferencia = entidadBD.getCaiReferencia();
+        this.caiTerminal = entidadBD.getCaiTerminal();
+        this.caiUsuarioAlta = entidadBD.getCaiUsuarioAlta();
+        this.caiUsuarioBaja = entidadBD.getCaiUsuarioBaja();
+        this.caiUsuarioCambio = entidadBD.getCaiUsuarioCambio();
+    }
+    
+    public TRepCnfgAvncInvCab devuelveEntidadBD() {
+        TRepCnfgAvncInvCab entidadBD=new TRepCnfgAvncInvCab();
+        entidadBD.setCaiEstado(caiEstado);
+        entidadBD.setCaiFechaAlta(caiFechaAlta);
+        entidadBD.setCaiFechaBaja(caiFechaBaja);
+        entidadBD.setCaiFechaCambio(caiFechaCambio);
+        entidadBD.setCaiFechaEmision(caiFechaEmision);
+        entidadBD.setCaiId(caiId);
+        entidadBD.setCaiMotivoDeCambio(caiMotivoDeCambio);
+        entidadBD.setCaiNumeroDeDocumento(caiNumeroDeDocumento);
+        entidadBD.setCaiReferencia(caiReferencia);
+        entidadBD.setCaiTerminal(caiTerminal);
+        entidadBD.setCaiUsuarioAlta(caiUsuarioAlta);
+        entidadBD.setCaiUsuarioBaja(caiUsuarioBaja);
+        entidadBD.setCaiUsuarioCambio(caiUsuarioCambio);
+        return entidadBD;
     }
 
     public BigDecimal getCaiEstado() {
