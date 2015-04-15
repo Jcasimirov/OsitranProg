@@ -92,7 +92,7 @@
                                                                                                 itemLabel="#{tip2.ccoPeriodo}" 
                                                                                                 itemValue="#{tip2.ccoId}"/>
                                                                                         <p:ajax event="valueChange" 
-                                                                                                update=":form:datosCompromiso " 
+                                                                                                update=":form:datosCompromiso  :form:inversionDescripcion " 
                                                                                                 listener="#{registrarAvanceInversionMB.cargarDatosCompromiso()}"  /> 
                                                                                     </p:selectOneMenu>
 										</td>
@@ -296,7 +296,7 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarContratos"
                                                 style="width:22px;height:22px"
-                                                update=":form:datosConcesion :form:inversionDescripcion  :form:datosCompromiso "
+                                                update=":form:datosConcesion :form:datosCompromiso "
                                                 >
                                                 
                               
