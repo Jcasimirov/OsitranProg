@@ -17,19 +17,30 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     private static final double serialVersionUID = -8422886764978732689L;
     @Column(name = "CNV_ID")
     private int cnvId;
-    @Column(nullable = false)
+    @Column(name = "IAD_IGV",nullable = false)
     private double igv;
-    @Column(name = "MON_ID")
-    private int monId;
-    @Column(name = "MONTO_PRESENTADO", nullable = false)
-    private double montoPresentado;
     @Id
     @GeneratedValue(generator = "generator")
+    @Column(name = "IAD_ID")
+    private int iad_Id;
+    @Column(name = "MON_ID")
+    private int monId;
+    @Column(name = "TIA_MONTO_PRESENTADO", nullable = false)
+    private double montoPresentado;
+   
     @Column(name = "TIA_NUMERO", nullable = false)
     private int tiaNumero;
     @Column(name = "TIA_TOTAL", nullable = false)
     private double tiaTotal;
-
+    @Column(name = "TIV_ID", nullable = false)
+    private int tivId;
+    @Column(name = "DTI_ID", nullable = false)
+    private int dtiId;
+    @Column(name = "IAD_PDF")
+    private int iadPDF;    
+        
+        
+    
     public ValorizacionInversionAvanceDetalle() {
     }
 
@@ -89,5 +100,39 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
 
     public void setTiaTotal(double tiaTotal) {
         this.tiaTotal = tiaTotal;
+    }
+
+
+    public void setIad_Id(int iad_Id) {
+        this.iad_Id = iad_Id;
+    }
+
+    public int getIad_Id() {
+        return iad_Id;
+    }
+
+
+    public void setTivId(int tivId) {
+        this.tivId = tivId;
+    }
+
+    public int getTivId() {
+        return tivId;
+    }
+
+    public void setDtiId(int dtiId) {
+        this.dtiId = dtiId;
+    }
+
+    public int getDtiId() {
+        return dtiId;
+    }
+
+    public void setIadPDF(int iadPDF) {
+        this.iadPDF = iadPDF;
+    }
+
+    public int getIadPDF() {
+        return iadPDF;
     }
 }
