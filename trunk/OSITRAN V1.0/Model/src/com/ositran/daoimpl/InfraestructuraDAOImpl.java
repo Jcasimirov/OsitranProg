@@ -126,7 +126,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         
     @Override
     public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         
         Query query;
         query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i\n" + 
