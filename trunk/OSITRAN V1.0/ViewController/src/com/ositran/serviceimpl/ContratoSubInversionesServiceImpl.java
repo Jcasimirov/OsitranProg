@@ -45,13 +45,18 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
 
     @Override
     public String update(ContratoSubInversionesVO contratoSubInversionesVO) throws ParseException, SQLException,                                                                                   Exception {
-        return null;
+       contratoSupInversiones=toContratoSupInversiones(contratoSubInversionesVO);
+        String result=contratoSubInversionesDAOImpl.update(contratoSupInversiones);
+        return result;
     }
 
     @Override
     public ContratoSubInversionesVO get(Integer id) throws SQLException, Exception {
-        return null;
+        contratoSupInversiones =contratoSubInversionesDAOImpl.get(id);
+        contratoSupInversionesVO=toContratoSubInversionesVO(contratoSupInversiones);
+        return contratoSupInversionesVO;
     }
+
 
     @Override
     public List<ContratoSubInversionesVO> query1(int filtro ) throws SQLException, Exception {
