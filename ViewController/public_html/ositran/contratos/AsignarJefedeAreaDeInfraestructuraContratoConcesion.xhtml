@@ -79,7 +79,7 @@
 	 				<td align="left" colspan="3"><p:inputText   value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  readonly="true" id="inputContrato" style="width:390px" /> 
                                         <p:commandButton image="ui-icon-search"  
                                         id="cargarLista"
-                                        update=":form:panelListaContratos "
+                                        update=":form:panelListaContratos :form:mensaje "
                                         oncomplete="panelListaContratos.show()"
                                         actionListener="#{jefeAreaContratoConcecionMB.cargarListaContratos()}" 
                                         
@@ -119,15 +119,16 @@
                                 </tr>
 	 		</table>
                          <div align="center">
-                        <div style="width:70%">
+                        <div style="width:60%">
                                 <br></br>
                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
+                                             rowStyleClass="#{(jefearea1.cjaEstado eq 1) ? 'activo' : null}"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="6,8,10" resizableColumns="true"
-                                             style="font-size:11px;" id="tablaAJ" var="jefearea1"
+                                             style="font-size:10px;" id="tablaAJ" var="jefearea1"
                                              value="#{jefeAreaContratoConcecionMB.listaJefeArea}">
-                                 <p:column headerText="Nro" style="width:3%" >
+                                 <p:column headerText="Nro" style="width:2%" >
                                         <h:outputText value="#{jefearea1.contador}"  />
                                     </p:column>
                                     <p:column headerText="Cod Concesion" >
@@ -139,8 +140,15 @@
                                      <p:column headerText="Documento" >
                                         <h:outputText value="#{jefearea1.cjaNroDocumento}"/>
                                     </p:column>
-                                     <p:column headerText="Activar" style="width:5%">
-                                        <p:commandButton value="Des" />
+                                    <p:column headerText="Estado" style="width:60px">
+                                    <div align="center">
+                                         <h:outputText value="#{jefearea1.estadoDes}"/>
+                                         </div >
+                                    </p:column>
+                                     <p:column headerText="Baja"   style="width:4%">
+                                     <div align="center">
+                                        <p:commandButton rendered="#{jefearea1.cjaEstado eq 1}" update=":form:tablaAJ"  actionListener="#{jefeAreaContratoConcecionMB.desabilitar(jefearea1.cjaId)}" image="ui-icon-arrowstop-1-s"  styleClass="controles" />
+                                         </div >
                                     </p:column>
                                 </p:dataTable>
                     </div>
@@ -195,7 +203,7 @@
                          
                         <tr>
                             <td align="right">
-                                <p:commandButton  update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion" value="Limpiar"
+                                <p:commandButton  update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:confirmarGuardar" value="Limpiar"
                                                  actionListener="#{jefeAreaContratoConcecionMB.limpiar()}"
                                                  oncomplete="confirmarLimpiar.hide()"></p:commandButton>
                             </td>
