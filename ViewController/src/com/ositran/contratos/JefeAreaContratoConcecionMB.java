@@ -42,11 +42,13 @@ public class JefeAreaContratoConcecionMB {
     private String buscar;
     private String numeroDocumento = "";
     private String tipoDocumento = "";
+    private int tipoDocumentoI;
     private String nombreJefeArea = "";
     private String contratoConcesion;
     private int tipoInfraestructuraC;
     private String modalidadConcecion;
     private int codigoConcesion;
+    private int codigoContratoP;
     private int codigoContrato;
     private List<ContratoVO> listaContratos = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
@@ -58,7 +60,6 @@ public class JefeAreaContratoConcecionMB {
 
     @ManagedProperty(value = "#{contratoJefeAreaServiceImpl}")
     ContratoJefeAreaServiceImpl contratoJefeAreaServiceImpl;
-
 
     @ManagedProperty(value = "#{contratoConcesionServiceImp}")
     ContratoConcesionService contratoConcesionServiceImp;
@@ -103,6 +104,7 @@ public class JefeAreaContratoConcecionMB {
         codigoConcesion = 0;
         codigoContrato = 0;
         tipoInfraestructuraS="";
+        
     }
 
     public void cargarListaInfraestructura() {
@@ -125,8 +127,10 @@ public class JefeAreaContratoConcecionMB {
 
                 if (jefeAreaContratoConcecionVO.getSjaTipoDocumento().equals(1)) {
                     tipoDocumento = "DNI";
+                    tipoDocumentoI=1;
                 } else {
                     tipoDocumento = "RUC";
+                    tipoDocumentoI=2;
                 }
             }
 
@@ -140,18 +144,34 @@ public class JefeAreaContratoConcecionMB {
         }
 
     }
+    
 
-
+    public void desabilitar(int codigo){
+        contratoJefeAreaVO=contratoJefeAreaServiceImpl.get(codigo);
+        contratoJefeAreaVO.setCjaEstado(0);
+        contratoJefeAreaServiceImpl.update(contratoJefeAreaVO); 
+        listarJefeAreaContrato();
+        }
+    
+    
     public void cargarListaContratos() {
         try {
-            listaContratos = contratoConcesionServiceImp.query();
-            System.out.println(listaContratos.size());
-            for (ContratoVO contra : listaContratos) {
-                ConcesionVO concesion = new ConcesionVO();
+            if (tipoInfraestructura == 0){
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error","Debe seleccionar tipo infraestructura");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            else {
+            
+                    listaContratos = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
+                    System.out.println(listaContratos.size());
+                    for (ContratoVO contra : listaContratos) {
+                        ConcesionVO concesion = new ConcesionVO();
 
-                concesion = concesionServiceImpl.get(contra.getCsiId());
-                contra.setNombreConcesion(concesion.getCsiNombre());
-                contra.setCodigoConcesion(concesion.getCsiId());
+                        concesion = concesionServiceImpl.get(contra.getCsiId());
+                        contra.setNombreConcesion(concesion.getCsiNombre());
+                        contra.setCodigoConcesion(concesion.getCsiId());
+                }
             }
         } catch (Exception e) {
 
@@ -163,6 +183,7 @@ public class JefeAreaContratoConcecionMB {
         try {
             contratoConcesion = contrato1.getNombreConcesion();
             codigoContrato = contrato1.getConId();
+            codigoContratoP= codigoContrato;
             codigoConcesion = contrato1.getCsiId();
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contrato1.getTinId());
             modalidadConcesionVO = modalidadServiceImp.get(contrato1.getMcoId());
@@ -180,7 +201,20 @@ public class JefeAreaContratoConcecionMB {
 
     public void registrarContrato() {
         try {
-            if (tipoInfraestructura == 0) {
+            boolean decicion=false;
+            
+            for (ContratoJefeAreaVO contratoJefeAreaVO:listaJefeArea){
+                if (contratoJefeAreaVO.getCjaEstado()==1){
+                    decicion=true;
+                    }
+                }
+            if (decicion){
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe deshabilitar el jefe de area actual");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            
+           else  if (tipoInfraestructura == 0) {
                 FacesMessage mensaje =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar el tipo de infraestructura");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -193,34 +227,35 @@ public class JefeAreaContratoConcecionMB {
             else {
                 contratoJefeAreaVO.setCjaEstado(1);
                 contratoJefeAreaVO.setCjaFechaInicial(new Date());
-                contratoJefeAreaVO.setTdoId(1);
+                contratoJefeAreaVO.setTdoId(tipoDocumentoI);
                 contratoJefeAreaVO.setCsiId(codigoConcesion);
                 contratoJefeAreaVO.setConId(codigoContrato);
                 contratoJefeAreaVO.setCjaNroDocumento(numeroDocumento);
-                contratoJefeAreaVO.setCjaNroDocumento("45860672");
                 contratoJefeAreaVO.setTinId(tipoInfraestructuraC);
                 contratoJefeAreaServiceImpl.insert(contratoJefeAreaVO);
+                listarJefeAreaContrato();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 limpiar();
+               
             }
         } catch (Exception e) {
             System.out.println("SE CALLO EN EL METODO REGISTRAR CONTRATO");
             e.printStackTrace();
         }
-        listarJefeAreaContrato();
+        
     }
     
-    public void listarJefeAreaContrato(){
-        
+    public void listarJefeAreaContrato(){ 
         try {
            int contador=1;
-           listaJefeArea=contratoJefeAreaServiceImpl.query1(codigoContrato);
+           listaJefeArea=contratoJefeAreaServiceImpl.query1(codigoContratoP);
             for (ContratoJefeAreaVO contratoJefeAreaVO1:listaJefeArea){
                 concesionVO=concesionServiceImpl.get(contratoJefeAreaVO1.getCsiId());
                 contratoJefeAreaVO1.setConcesionNombre(concesionVO.getCsiNombre());
-                contratoJefeAreaVO1.setNombreJefeArea("Jefe Area");
+                contratoJefeAreaVO1.setNombreJefeArea(jefeAreaContratoConcecionVO.getSjaNombre());
                 contratoJefeAreaVO1.setContador(contador);
+                contratoJefeAreaVO1.setEstadoDes(contratoJefeAreaVO1.getCjaEstado()==1 ? "ACTIVO":"INACTIVO" );
                 contador++;    
                 }
        } catch (Exception e) {
@@ -453,6 +488,24 @@ public class JefeAreaContratoConcecionMB {
 
     public ConcesionVO getConcesionVO() {
         return concesionVO;
+    }
+
+
+    public void setTipoDocumentoI(int tipoDocumentoI) {
+        this.tipoDocumentoI = tipoDocumentoI;
+    }
+
+    public int getTipoDocumentoI() {
+        return tipoDocumentoI;
+    }
+
+
+    public void setCodigoContratoP(int codigoContratoP) {
+        this.codigoContratoP = codigoContratoP;
+    }
+
+    public int getCodigoContratoP() {
+        return codigoContratoP;
     }
 }
 
