@@ -65,14 +65,24 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
 
     @Override
     public String update(ContratoSupInversiones contratoSupInversiones) throws SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(contratoSupInversiones);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
     public ContratoSupInversiones get(Integer id) throws SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        ContratoSupInversiones contratoSupInversiones = (ContratoSupInversiones) session.get(ContratoSupInversiones.class, id);
+        return contratoSupInversiones;
     }
 
   
