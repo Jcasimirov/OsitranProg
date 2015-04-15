@@ -22,7 +22,8 @@ public class ContratoJefeAreaVO {
     private int csiId;
     private int tdoId;
     private int tinId;
-    
+
+    private String estadoDes;
     private String nombreJefeArea;
     private String concesionNombre;
     private int contador;
@@ -141,6 +142,15 @@ public class ContratoJefeAreaVO {
 
     public int getContador() {
         return contador;
+    }
+
+
+    public void setEstadoDes(String estadoDes) {
+        this.estadoDes = estadoDes;
+    }
+
+    public String getEstadoDes() {
+        return estadoDes;
     }
 
 }
