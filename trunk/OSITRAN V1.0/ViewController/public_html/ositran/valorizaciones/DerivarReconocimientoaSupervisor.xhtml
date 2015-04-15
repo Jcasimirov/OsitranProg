@@ -6,11 +6,10 @@
         <h:head>
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
          <script src="../../js/validaciones.js" type="text/javascript"></script>
-
             </h:head>
     <h:body>    
-    <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}" type="postAddToView"></f:event>  
-     <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}" type="postAddToView"></f:event>  
+    <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}"  type="postAddToView"></f:event>  
+     <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}"  type="postAddToView"></f:event>  
     
 	<h:form id="form">
             <p:growl id="mensaje" showDetail="true" life="10000"/>
@@ -67,8 +66,7 @@
                                                                 actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}"
                                                                 
                                                                 />
-                                        <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
-                                                          value="Cargar lista de contrato concesión"/>
+                                     
                                                                
 				</p:fieldset>
 				   <br></br>   
@@ -87,12 +85,11 @@
 					<p:commandButton image="ui-icon-search"
                                                                 oncomplete="panelListaContratos.show()"
                                                                 id="cargarContrato12" 
-                                                                update=":form:panelListaContratos"
+                                                                update=":form:panelListaContratos :form:tablaLC"
                                                                 actionListener="#{derivarReconocimientoSupervisorMB.cargarListaContratos}"
                                                                 
                                                                 />
-                                        <p:tooltip styleClass="tool" id="tool21" for="cargarContrato"
-                                                          value="Cargar lista de contrato concesión"/>
+                                        
                                                                
 				</p:fieldset>
 					<br></br>
@@ -178,32 +175,29 @@
                                 
                                  <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
+                                             value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceVO}"
                                              rowsPerPageTemplate="6,8,10" 
-                                             style="font-size:11px" id="tablaLC" var="supervisorI" >
-                                           
-                                 <p:column headerText="ID" style="width:5px">
-                                       
-                                    </p:column>
+                                             style="font-size:11px" id="tablaLC" var="inversionAvance" >
                                     <p:column headerText="Nur Val" style="width:50px">
-                                       
+                                       <h:outputText value="#{inversionAvance.tiaNumero}" />
                                     </p:column>
                                   <p:column headerText="Fecha Registro" style="width:50px">
-                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.tiaFechaRegistro}" />
                                     </p:column>
                                     <p:column headerText="Moneda" style="width:50px">
-                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
                                     </p:column>
                                     <p:column headerText="Total" style="width:50px">
-                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
                                     </p:column>
                                     <p:column headerText="Estado Revision" style="width:50px">
-                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
                                     </p:column>
                                     <p:column   headerText="Selección" style="width:5px" >
                                         <div align="center">
                                             <p:commandButton
                                                 oncomplete="panelListaSupervisorInversines.hide()" 
-                                                
+                            
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarValorizacion"
                                                 style="width:22px;height:22px"
