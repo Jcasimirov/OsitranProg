@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import javax.persistence.Column;
+
 public class ValorizacionInversionAvanceDetalleVO {
     public ValorizacionInversionAvanceDetalleVO() {
         super();
@@ -12,6 +14,11 @@ public class ValorizacionInversionAvanceDetalleVO {
     private double montoPresentado;
     private int tiaNumero;
     private double tiaTotal;
+    private int iad_Id;
+    private int tivId;
+    private int dtiId;
+    private int iadPDF;   
+    
     
     private String aeropuertos;
     private String descripcionInversion;
@@ -89,5 +96,38 @@ public class ValorizacionInversionAvanceDetalleVO {
 
     public String getNombreMoneda() {
         return nombreMoneda;
+    }
+
+    public void setIad_Id(int iad_Id) {
+        this.iad_Id = iad_Id;
+    }
+
+    public int getIad_Id() {
+        return iad_Id;
+    }
+
+
+    public void setTivId(int tivId) {
+        this.tivId = tivId;
+    }
+
+    public int getTivId() {
+        return tivId;
+    }
+
+    public void setDtiId(int dtiId) {
+        this.dtiId = dtiId;
+    }
+
+    public int getDtiId() {
+        return dtiId;
+    }
+
+    public void setIadPDF(int iadPDF) {
+        this.iadPDF = iadPDF;
+    }
+
+    public int getIadPDF() {
+        return iadPDF;
     }
 }
