@@ -82,12 +82,6 @@ public class JefeAreaContratoConcecionServiceImpl implements JefeAreaContratoCon
         return jefeAreaContratoConcecion1;
     }
 
-
-
-
-
-
-
     public void setJefeAreaContratoConcecion(JefeAreaContratoConcecion jefeAreaContratoConcecion) {
         this.jefeAreaContratoConcecion = jefeAreaContratoConcecion;
     }
