@@ -477,10 +477,13 @@ public class ActualizarContrato {
                             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN +
                                                                             contratoVO.getConFicharesumen(),
                                                                             contratoVO.getInputStreamFichaResumen());
-            if(contratoVO.getInputStreamContratoPDF()!=null)
+            System.out.println("ANTES ARCHIVO CREADO");
+            if(contratoVO.getInputStreamContratoPDF()!=null){
                             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF +
                                                                             contratoVO.getConPdfcontrato(),
                                                                             contratoVO.getInputStreamContratoPDF());
+                            System.out.println("ARCHIVO CREADO");
+            }
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
             contratoConcesionServiceImp.update(contratoVO);
@@ -505,11 +508,13 @@ public class ActualizarContrato {
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException {
         contratoVO.setConPdfcontrato(event.getFile().getFileName());
+        contratoVO.setInputStreamContratoPDF(event.getFile().getInputstream());
 
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
         contratoVO.setConFicharesumen(event.getFile().getFileName());
+        contratoVO.setInputStreamFichaResumen(event.getFile().getInputstream());
     }
 
     public void preDownloadContratoPDF(String nombreArchivo) {
