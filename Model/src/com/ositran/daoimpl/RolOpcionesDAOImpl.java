@@ -45,7 +45,6 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         query =session.createQuery("FROM RolOpciones  E WHERE upper(E.rolId) like  :busqueda");
         query.setParameter("busqueda",codigoRol);
-       
         return query.list();
     }
     @Override
