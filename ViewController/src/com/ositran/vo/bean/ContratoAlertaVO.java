@@ -17,6 +17,12 @@ public class ContratoAlertaVO {
     private Integer calEstado;
     private String caeNombre;
 
+    private Date calFechaAlta;
+    private Date calFechaBaja;
+    private Date calFechaCambio;
+    private String calUsuarioAlta;
+    private String calUsuarioBaja;
+    private String calUsuarioCambio;
     public ContratoAlertaVO() {
         super();
     }
@@ -116,5 +122,53 @@ public class ContratoAlertaVO {
 
     public void setCaeNombre(String caeNombre) {
         this.caeNombre = caeNombre;
+    }
+
+    public void setCalFechaAlta(Date calFechaAlta) {
+        this.calFechaAlta = calFechaAlta;
+    }
+
+    public Date getCalFechaAlta() {
+        return calFechaAlta;
+    }
+
+    public void setCalFechaBaja(Date calFechaBaja) {
+        this.calFechaBaja = calFechaBaja;
+    }
+
+    public Date getCalFechaBaja() {
+        return calFechaBaja;
+    }
+
+    public void setCalFechaCambio(Date calFechaCambio) {
+        this.calFechaCambio = calFechaCambio;
+    }
+
+    public Date getCalFechaCambio() {
+        return calFechaCambio;
+    }
+
+    public void setCalUsuarioAlta(String calUsuarioAlta) {
+        this.calUsuarioAlta = calUsuarioAlta;
+    }
+
+    public String getCalUsuarioAlta() {
+        return calUsuarioAlta;
+    }
+
+    public void setCalUsuarioBaja(String calUsuarioBaja) {
+        this.calUsuarioBaja = calUsuarioBaja;
+    }
+
+    public String getCalUsuarioBaja() {
+        return calUsuarioBaja;
+    }
+
+    public void setCalUsuarioCambio(String calUsuarioCambio) {
+        this.calUsuarioCambio = calUsuarioCambio;
+    }
+
+    public String getCalUsuarioCambio() {
+        return calUsuarioCambio;
     }
 }

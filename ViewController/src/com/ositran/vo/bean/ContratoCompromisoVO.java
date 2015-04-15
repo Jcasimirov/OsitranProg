@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.util.Date;
+
 
 public class ContratoCompromisoVO {
     private String ccoAlcance;
@@ -19,6 +21,12 @@ public class ContratoCompromisoVO {
     private String monNombre;
     private Integer ccoEstado;
 
+    private Date ccoFechaAlta;
+    private Date ccoFechaBaja;
+    private Date ccoFechaCambio;
+    private String ccoUsuarioAlta;
+    private String ccoUsuarioBaja;
+    private String ccoUsuarioCambio;
     public ContratoCompromisoVO() {
         super();
     }
@@ -150,5 +158,53 @@ public class ContratoCompromisoVO {
 
     public String getMonNombre() {
         return monNombre;
+    }
+
+    public void setCcoFechaAlta(Date ccoFechaAlta) {
+        this.ccoFechaAlta = ccoFechaAlta;
+    }
+
+    public Date getCcoFechaAlta() {
+        return ccoFechaAlta;
+    }
+
+    public void setCcoFechaBaja(Date ccoFechaBaja) {
+        this.ccoFechaBaja = ccoFechaBaja;
+    }
+
+    public Date getCcoFechaBaja() {
+        return ccoFechaBaja;
+    }
+
+    public void setCcoFechaCambio(Date ccoFechaCambio) {
+        this.ccoFechaCambio = ccoFechaCambio;
+    }
+
+    public Date getCcoFechaCambio() {
+        return ccoFechaCambio;
+    }
+
+    public void setCcoUsuarioAlta(String ccoUsuarioAlta) {
+        this.ccoUsuarioAlta = ccoUsuarioAlta;
+    }
+
+    public String getCcoUsuarioAlta() {
+        return ccoUsuarioAlta;
+    }
+
+    public void setCcoUsuarioBaja(String ccoUsuarioBaja) {
+        this.ccoUsuarioBaja = ccoUsuarioBaja;
+    }
+
+    public String getCcoUsuarioBaja() {
+        return ccoUsuarioBaja;
+    }
+
+    public void setCcoUsuarioCambio(String ccoUsuarioCambio) {
+        this.ccoUsuarioCambio = ccoUsuarioCambio;
+    }
+
+    public String getCcoUsuarioCambio() {
+        return ccoUsuarioCambio;
     }
 }

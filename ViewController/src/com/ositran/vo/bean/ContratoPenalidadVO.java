@@ -20,7 +20,12 @@ public class ContratoPenalidadVO {
     private String monNombre;
     private String tcpDocumentoFisico;
     private InputStream inputStreamNuevaPenalidad;
-
+    private Date tcpFechaAlta;
+    private Date tcpFechaBaja;
+    private Date tcpFechaCambio;
+    private String tcpUsuarioAlta;
+    private String tcpUsuarioBaja;
+    private String tcpUsuarioCambio;
     public ContratoPenalidadVO() {
         super();
     }
@@ -122,4 +127,51 @@ public class ContratoPenalidadVO {
         return inputStreamNuevaPenalidad;
     }
 
+    public void setTcpFechaAlta(Date tcpFechaAlta) {
+        this.tcpFechaAlta = tcpFechaAlta;
+    }
+
+    public Date getTcpFechaAlta() {
+        return tcpFechaAlta;
+    }
+
+    public void setTcpFechaBaja(Date tcpFechaBaja) {
+        this.tcpFechaBaja = tcpFechaBaja;
+    }
+
+    public Date getTcpFechaBaja() {
+        return tcpFechaBaja;
+    }
+
+    public void setTcpFechaCambio(Date tcpFechaCambio) {
+        this.tcpFechaCambio = tcpFechaCambio;
+    }
+
+    public Date getTcpFechaCambio() {
+        return tcpFechaCambio;
+    }
+
+    public void setTcpUsuarioAlta(String tcpUsuarioAlta) {
+        this.tcpUsuarioAlta = tcpUsuarioAlta;
+    }
+
+    public String getTcpUsuarioAlta() {
+        return tcpUsuarioAlta;
+    }
+
+    public void setTcpUsuarioBaja(String tcpUsuarioBaja) {
+        this.tcpUsuarioBaja = tcpUsuarioBaja;
+    }
+
+    public String getTcpUsuarioBaja() {
+        return tcpUsuarioBaja;
+    }
+
+    public void setTcpUsuarioCambio(String tcpUsuarioCambio) {
+        this.tcpUsuarioCambio = tcpUsuarioCambio;
+    }
+
+    public String getTcpUsuarioCambio() {
+        return tcpUsuarioCambio;
+    }
 }

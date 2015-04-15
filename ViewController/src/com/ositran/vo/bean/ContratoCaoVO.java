@@ -21,6 +21,12 @@ public class ContratoCaoVO {
     private String monNombre;
     private InputStream fileCao;
 
+    private Date caoFechaAlta;
+    private Date caoFechaBaja;
+    private Date caoFechaCambio;
+    private String caoUsuarioAlta;
+    private String caoUsuarioBaja;
+    private String caoUsuarioCambio;
     public ContratoCaoVO() {
     }
 
@@ -110,6 +116,54 @@ public class ContratoCaoVO {
 
     public void setFileCao(InputStream fileCao) {
         this.fileCao = fileCao;
+    }
+
+    public void setCaoFechaAlta(Date caoFechaAlta) {
+        this.caoFechaAlta = caoFechaAlta;
+    }
+
+    public Date getCaoFechaAlta() {
+        return caoFechaAlta;
+    }
+
+    public void setCaoFechaBaja(Date caoFechaBaja) {
+        this.caoFechaBaja = caoFechaBaja;
+    }
+
+    public Date getCaoFechaBaja() {
+        return caoFechaBaja;
+    }
+
+    public void setCaoFechaCambio(Date caoFechaCambio) {
+        this.caoFechaCambio = caoFechaCambio;
+    }
+
+    public Date getCaoFechaCambio() {
+        return caoFechaCambio;
+    }
+
+    public void setCaoUsuarioAlta(String caoUsuarioAlta) {
+        this.caoUsuarioAlta = caoUsuarioAlta;
+    }
+
+    public String getCaoUsuarioAlta() {
+        return caoUsuarioAlta;
+    }
+
+    public void setCaoUsuarioBaja(String caoUsuarioBaja) {
+        this.caoUsuarioBaja = caoUsuarioBaja;
+    }
+
+    public String getCaoUsuarioBaja() {
+        return caoUsuarioBaja;
+    }
+
+    public void setCaoUsuarioCambio(String caoUsuarioCambio) {
+        this.caoUsuarioCambio = caoUsuarioCambio;
+    }
+
+    public String getCaoUsuarioCambio() {
+        return caoUsuarioCambio;
     }
 }
 

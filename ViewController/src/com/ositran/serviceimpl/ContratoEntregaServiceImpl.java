@@ -71,6 +71,13 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
         
         contratoEntregaVO.setCenFecha(contratoEntrega.getCenFecha());
         contratoEntregaVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoEntrega.getCenFecha()));
+        
+        contratoEntregaVO.setCenFechaAlta(contratoEntrega.getCenFechaAlta());
+        contratoEntregaVO.setCenUsuarioAlta(contratoEntrega.getCenUsuarioAlta());
+        contratoEntregaVO.setCenFechaCambio(contratoEntrega.getCenFechaCambio());
+        contratoEntregaVO.setCenUsuarioCambio(contratoEntrega.getCenUsuarioCambio());
+        contratoEntregaVO.setCenFechaBaja(contratoEntrega.getCenFechaBaja());
+        contratoEntregaVO.setCenUsuarioBaja(contratoEntrega.getCenUsuarioBaja());
         return contratoEntregaVO;
     }
     
@@ -87,6 +94,13 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
         
         contratoEntrega.setCenEstado(contratoEntregaVO.getCenEstado());
         contratoEntrega.setCenNombre(contratoEntregaVO.getCenNombre());
+        
+        contratoEntrega.setCenFechaAlta(contratoEntregaVO.getCenFechaAlta());
+        contratoEntrega.setCenUsuarioAlta(contratoEntregaVO.getCenUsuarioAlta());
+        contratoEntrega.setCenFechaCambio(contratoEntregaVO.getCenFechaCambio());
+        contratoEntrega.setCenUsuarioCambio(contratoEntregaVO.getCenUsuarioCambio());
+        contratoEntrega.setCenFechaBaja(contratoEntregaVO.getCenFechaBaja());
+        contratoEntrega.setCenUsuarioBaja(contratoEntregaVO.getCenUsuarioBaja());
         return contratoEntrega;
         
     }

@@ -4,12 +4,10 @@ import com.ositran.daoimpl.ContratoCaoDAOImpl;
 import com.ositran.model.ContratoCao;
 import com.ositran.service.ContratoCaoService;
 import com.ositran.vo.bean.ContratoCaoVO;
-import com.ositran.vo.bean.ContratoCaoVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoCaoServiceImpl implements ContratoCaoService {
@@ -76,6 +74,12 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         contratoCaoVO.setMonId(contratoCao.getMonId());                
         contratoCaoVO.setCaoNombre(contratoCao.getCaoNombre());
     
+        contratoCaoVO.setCaoFechaAlta(contratoCao.getCaoFechaAlta());
+        contratoCaoVO.setCaoUsuarioAlta(contratoCao.getCaoUsuarioAlta());
+        contratoCaoVO.setCaoFechaCambio(contratoCao.getCaoFechaCambio());
+        contratoCaoVO.setCaoUsuarioCambio(contratoCao.getCaoUsuarioCambio());
+        contratoCaoVO.setCaoFechaBaja(contratoCao.getCaoFechaBaja());
+        contratoCaoVO.setCaoUsuarioBaja(contratoCao.getCaoUsuarioBaja());
         return contratoCaoVO;
     }
     
@@ -90,6 +94,13 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         contratoCao.setConId(contratoCaoVO.getConId());
         contratoCao.setMonId(contratoCaoVO.getMonId());
         contratoCao.setCaoNombre(contratoCaoVO.getCaoNombre());
+        
+        contratoCao.setCaoFechaAlta(contratoCaoVO.getCaoFechaAlta());
+        contratoCao.setCaoUsuarioAlta(contratoCaoVO.getCaoUsuarioAlta());
+        contratoCao.setCaoFechaCambio(contratoCaoVO.getCaoFechaCambio());
+        contratoCao.setCaoUsuarioCambio(contratoCaoVO.getCaoUsuarioCambio());
+        contratoCao.setCaoFechaBaja(contratoCaoVO.getCaoFechaBaja());
+        contratoCao.setCaoUsuarioBaja(contratoCaoVO.getCaoUsuarioBaja());
         return contratoCao;
         
     }

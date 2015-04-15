@@ -77,6 +77,13 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdendaVO.setTadId(contratoAdenda.getTadId());
         contratoAdendaVO.setCadCompromisoInversion(contratoAdenda.getCadCompromisoInversion());
         contratoAdendaVO.setBoocadCompromisoInversion(contratoAdenda.getCadCompromisoInversion()==1?true:false);
+        
+        contratoAdendaVO.setCadFechaAlta(contratoAdenda.getCadFechaAlta());
+        contratoAdendaVO.setCadUsuarioAlta(contratoAdenda.getCadUsuarioAlta());
+        contratoAdendaVO.setCadFechaCambio(contratoAdenda.getCadFechaCambio());
+        contratoAdendaVO.setCadUsuarioCambio(contratoAdenda.getCadUsuarioCambio());
+        contratoAdendaVO.setCadFechaBaja(contratoAdenda.getCadFechaBaja());
+        contratoAdendaVO.setCadUsuarioBaja(contratoAdenda.getCadUsuarioBaja());
         return contratoAdendaVO;
     }
     
@@ -94,6 +101,13 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadNombre(contratoAdendaVO.getCadNombre());
         contratoAdenda.setTadId(contratoAdendaVO.getTadId());
         contratoAdenda.setCadCompromisoInversion(contratoAdendaVO.getCadCompromisoInversion());
+        
+        contratoAdenda.setCadFechaAlta(contratoAdendaVO.getCadFechaAlta());
+        contratoAdenda.setCadUsuarioAlta(contratoAdendaVO.getCadUsuarioAlta());
+        contratoAdenda.setCadFechaCambio(contratoAdendaVO.getCadFechaCambio());
+        contratoAdenda.setCadUsuarioCambio(contratoAdendaVO.getCadUsuarioCambio());
+        contratoAdenda.setCadFechaBaja(contratoAdendaVO.getCadFechaBaja());
+        contratoAdenda.setCadUsuarioBaja(contratoAdendaVO.getCadUsuarioBaja());
         return contratoAdenda;
         
     }
