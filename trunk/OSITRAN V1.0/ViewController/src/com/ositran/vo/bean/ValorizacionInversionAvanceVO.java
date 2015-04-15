@@ -2,15 +2,23 @@ package com.ositran.vo.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class ValorizacionInversionAvanceVO {
     public ValorizacionInversionAvanceVO() {
         super();
-    }
-
+    }  
+    
     private int conId;
     private int csiId;
+    private int iaeId;
     private int invId;
     private int mcoId;
+    private int monId;
     private Integer tiaAnyo;
     private String tiaAsunto;
     private Integer tiaDiasHabiles;
@@ -19,11 +27,19 @@ public class ValorizacionInversionAvanceVO {
     private Date tiaFechaRegistro;
     private Date tiaFechaVencimientoPlazo;
     private int tiaHr;
-    private int tiaNumero;
-    private int tiaPlazoEnDías;
+    
+    
+    private String tiaMontoTotalAprobado;
+    private double tiaMontoTotalPresentado;
+    private double tiaMontoTotalReajustado;
+    private int tiaPlazoEnDias;
     private int tinId;
-
-
+    
+    
+    private int tiaNumero;
+    
+    
+    
     public void setConId(int conId) {
         this.conId = conId;
     }
@@ -128,19 +144,60 @@ public class ValorizacionInversionAvanceVO {
         return tiaNumero;
     }
 
-    public void setTiaPlazoEnDías(int tiaPlazoEnDías) {
-        this.tiaPlazoEnDías = tiaPlazoEnDías;
-    }
-
-    public int getTiaPlazoEnDías() {
-        return tiaPlazoEnDías;
-    }
-
     public void setTinId(int tinId) {
         this.tinId = tinId;
     }
 
     public int getTinId() {
         return tinId;
+    }
+
+
+    public void setIaeId(int iaeId) {
+        this.iaeId = iaeId;
+    }
+
+    public int getIaeId() {
+        return iaeId;
+    }
+
+    public void setMonId(int monId) {
+        this.monId = monId;
+    }
+
+    public int getMonId() {
+        return monId;
+    }
+
+    public void setTiaMontoTotalAprobado(String tiaMontoTotalAprobado) {
+        this.tiaMontoTotalAprobado = tiaMontoTotalAprobado;
+    }
+
+    public String getTiaMontoTotalAprobado() {
+        return tiaMontoTotalAprobado;
+    }
+
+    public void setTiaMontoTotalPresentado(double tiaMontoTotalPresentado) {
+        this.tiaMontoTotalPresentado = tiaMontoTotalPresentado;
+    }
+
+    public double getTiaMontoTotalPresentado() {
+        return tiaMontoTotalPresentado;
+    }
+
+    public void setTiaMontoTotalReajustado(double tiaMontoTotalReajustado) {
+        this.tiaMontoTotalReajustado = tiaMontoTotalReajustado;
+    }
+
+    public double getTiaMontoTotalReajustado() {
+        return tiaMontoTotalReajustado;
+    }
+
+    public void setTiaPlazoEnDias(int tiaPlazoEnDias) {
+        this.tiaPlazoEnDias = tiaPlazoEnDias;
+    }
+
+    public int getTiaPlazoEnDias() {
+        return tiaPlazoEnDias;
     }
 }
