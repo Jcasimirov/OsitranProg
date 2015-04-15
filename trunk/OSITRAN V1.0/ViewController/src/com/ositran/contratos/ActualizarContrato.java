@@ -382,9 +382,10 @@ public class ActualizarContrato {
     }
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos(){
-        resetearCamposBuscarContratos();
-        buscarContratos();
-        System.out.println("abrirBuscarContratos()");
+        if(nombreConcesion.length()!=0){
+            resetearCamposBuscarContratos();
+            buscarContratos();        
+        }
     }
     public void buscarContratos() {
            System.out.println("actualizarContratoMB.buscarContratos");
