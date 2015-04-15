@@ -12,8 +12,10 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.MonedaService;
+import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.DatosStdServiceImpl;
+import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
@@ -93,7 +95,8 @@ public class RegistrarAvanceInversionPMB {
     List<InfraestructuraVO> listaInfraestructurasC=new ArrayList<>();
     List<ValorizacionSupDetalleVO> listaValorizacionSup=new ArrayList<>();
     List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<>();
-    
+    ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService= new  ValorizacionInversionAvanceDetalleServiceImpl(); 
+
     
     
     List<InversionVO> listaInversiones=new ArrayList<>();
@@ -369,6 +372,7 @@ public class RegistrarAvanceInversionPMB {
             totalIgv=totalIgv-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv();
             listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
         }
+    
     public void guardar(){
         try {
             
@@ -383,10 +387,19 @@ public class RegistrarAvanceInversionPMB {
            valorizacionInversionAvanceVO.setTiaDiasHabiles(5);
            valorizacionInversionAvanceVO.setTiaFechaFin(finPeriodo);
            valorizacionInversionAvanceVO.setTiaFechaInicio(inicioPeriodo);
-           valorizacionInversionAvanceVO.setTiaPlazoEnDías(Integer.parseInt(plazo));
+           valorizacionInversionAvanceVO.setTiaPlazoEnDias(Integer.parseInt(plazo));
            valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
            
            valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
+           int idCabecera=valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
+            
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3:  listValorizacionInversionAvanceDetalleVO){
+                    valorizacionInversionAvanceDetalleVO3.setTiaNumero(idCabecera);
+                    valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);
+                
+                
+                }
+            
             
            FacesContext.getCurrentInstance().addMessage(null,
            new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO","SE REGISTRO EL AVANCE CON EXITO")); 
@@ -953,5 +966,29 @@ public class RegistrarAvanceInversionPMB {
         return valorizacionInversionAvanceDetalleVO;
     }
 
+
+    public void setValorizacionInversionAvanceServiceImpl(ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl) {
+        this.valorizacionInversionAvanceServiceImpl = valorizacionInversionAvanceServiceImpl;
+    }
+
+    public ValorizacionInversionAvanceService getValorizacionInversionAvanceServiceImpl() {
+        return valorizacionInversionAvanceServiceImpl;
+    }
+
+    public void setValorizacionInversionAvanceDetalleService(ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService) {
+        this.valorizacionInversionAvanceDetalleService = valorizacionInversionAvanceDetalleService;
+    }
+
+    public ValorizacionInversionAvanceDetalleService getValorizacionInversionAvanceDetalleService() {
+        return valorizacionInversionAvanceDetalleService;
+    }
+
+    public void setValorizacionInversionAvanceVO(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO) {
+        this.valorizacionInversionAvanceVO = valorizacionInversionAvanceVO;
+    }
+
+    public ValorizacionInversionAvanceVO getValorizacionInversionAvanceVO() {
+        return valorizacionInversionAvanceVO;
+    }
 }
 
