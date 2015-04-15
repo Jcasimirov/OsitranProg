@@ -24,6 +24,7 @@ public class ContratoSubInversionesVO {
     private String nombreSupervicion;
     private String concesionNombre;
     private int contador;
+    private String estadoNombre;
 
     public ContratoSubInversionesVO(){
         
@@ -165,5 +166,14 @@ public class ContratoSubInversionesVO {
 
     public int getContador() {
         return contador;
+    }
+
+
+    public void setEstadoNombre(String estadoNombre) {
+        this.estadoNombre = estadoNombre;
+    }
+
+    public String getEstadoNombre() {
+        return estadoNombre;
     }
 }
