@@ -169,9 +169,9 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
             con.setCncId(new Integer(columna[10].toString()));
             con.setMcoId(new Integer(columna[11].toString()));
             con.setConDomicilioLegal(columna[12]!=null?columna[12].toString():null);
-            con.setConAvanceobra(new Integer(columna[13].toString()));
-            con.setPerId(new Integer(columna[14].toString()));
-            con.setConDiames(new Integer(columna[15].toString()));
+            con.setConAvanceobra(columna[13]!=null?new Integer(columna[13].toString()):null);
+            con.setPerId(columna[14]!=null?new Integer(columna[14].toString()):null);
+            con.setConDiames(columna[15]!=null?new Integer(columna[15].toString()):null);
             con.setConPlazorevision(new Integer(columna[16].toString()));
             con.setConTipodias(new Integer(columna[17].toString()));
             con.setConPlazoconcesion((Date)columna[18]);
