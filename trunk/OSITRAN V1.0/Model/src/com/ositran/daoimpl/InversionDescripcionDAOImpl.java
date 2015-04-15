@@ -4,6 +4,7 @@ import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
@@ -14,6 +15,9 @@ import org.hibernate.cfg.Configuration;
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     InversionTipoDescripcion inversionTipoDescripcion;
 
+
+   
+    
     @Override
     public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
@@ -109,7 +113,18 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
         List list= query.list();
         session.getTransaction().commit();
         return list;
-        
+    }
+    
+    @Override
+    public List<InversionTipoDescripcion> query1(int codigoCompromiso) throws SQLException, Exception {
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        session.beginTransaction();     
+        query=session.createQuery("FROM InversionTipoDescripcion  E WHERE E.tivId=:codigoCompromiso");  
+        query.setParameter("codigoCompromiso",codigoCompromiso);
+        List list= query.list();
+        session.getTransaction().commit();
+        return list;
     }
 
 
@@ -120,4 +135,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public InversionTipoDescripcion getInversionTipoDescripcion() {
         return inversionTipoDescripcion;
     }
+
+
+    
 }
