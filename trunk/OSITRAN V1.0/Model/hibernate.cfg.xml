@@ -65,7 +65,7 @@
         <mapping class="com.ositran.model.ValorizacionInversionAvanceDetalle"/>
         <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
          <mapping class="com.ositran.model.TipoRevision"/>
-        
+           <mapping class="com.ositran.model.ValorizacionInversionAvance"/>
         
 
         <mapping class="com.ositran.model.ContratoPenalidad"/>
