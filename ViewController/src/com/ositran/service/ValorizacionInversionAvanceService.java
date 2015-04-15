@@ -9,6 +9,8 @@ import java.util.List;
 public interface ValorizacionInversionAvanceService {
     
     public List<ValorizacionInversionAvanceVO> query()throws SQLException ,Exception;
+    public List<ValorizacionInversionAvanceVO> query1(int codigoContrato)throws SQLException ,Exception;
+    
     public int insert(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO) throws SQLException ,Exception;
     public String delete(Integer id) throws SQLException ,Exception;
     public String update(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO) throws ParseException,SQLException ,Exception;
