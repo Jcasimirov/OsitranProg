@@ -29,6 +29,19 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
         List<ValorizacionInversionAvanceVO> listVO=toListValorizacionInversionAvanceVO(list);
         return listVO;
     }
+    
+    
+    @Override
+    public List<ValorizacionInversionAvanceVO> query1(int codigoContrato) throws SQLException, Exception {
+        List<ValorizacionInversionAvance> list=valorizacionInversionAvanceDAOImpl.query1(codigoContrato);
+    System.out.println("tamaño de lista!!!!!");
+    System.out.println(list.size());
+        List<ValorizacionInversionAvanceVO> listVO=toListValorizacionInversionAvanceVO(list);
+        System.out.println("tamaño de la lista pasada");
+        System.out.println(listVO.size());
+        return listVO;
+    }
+    
 
     @Override
     public int insert(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO1) throws SQLException, Exception {
@@ -67,6 +80,11 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
        }
        return listVO;
     }
+    
+    
+  
+    
+    
     private ValorizacionInversionAvanceVO toValorizacionInversionAvanceVO(ValorizacionInversionAvance valorizacionInversionAvance1)  {
        ValorizacionInversionAvanceVO valorizacionInversionAvanceVO1=new ValorizacionInversionAvanceVO();
        valorizacionInversionAvanceVO1.setConId(valorizacionInversionAvance1.getConId());
@@ -82,8 +100,16 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
        valorizacionInversionAvanceVO1.setTiaFechaVencimientoPlazo(valorizacionInversionAvance1.getTiaFechaVencimientoPlazo());
        valorizacionInversionAvanceVO1.setTiaHr(valorizacionInversionAvance1.getTiaHr());
        valorizacionInversionAvanceVO1.setTiaNumero(valorizacionInversionAvance1.getTiaNumero());
-       valorizacionInversionAvanceVO1.setTiaPlazoEnDías(valorizacionInversionAvance1.getTiaPlazoEnDías());
+       valorizacionInversionAvanceVO1.setTiaPlazoEnDias(valorizacionInversionAvance1.getTiaPlazoEnDias());
        valorizacionInversionAvanceVO1.setTinId(valorizacionInversionAvance1.getTinId());
+       valorizacionInversionAvanceVO1.setTiaMontoTotalAprobado(valorizacionInversionAvance1.getTiaMontoTotalAprobado());
+       valorizacionInversionAvanceVO1.setTiaMontoTotalPresentado(valorizacionInversionAvance1.getTiaMontoTotalPresentado());
+       valorizacionInversionAvanceVO1.setTiaMontoTotalReajustado(valorizacionInversionAvance1.getTiaMontoTotalReajustado());
+       valorizacionInversionAvanceVO1.setMonId(valorizacionInversionAvance1.getMonId());
+       valorizacionInversionAvanceVO1.setIaeId(valorizacionInversionAvance1.getIaeId());
+       
+       
+       
        
        return valorizacionInversionAvanceVO1;
     }
@@ -103,8 +129,13 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
         valorizacionInversionAvance1.setTiaFechaVencimientoPlazo(valorizacionInversionAvanceVO1.getTiaFechaVencimientoPlazo());
         valorizacionInversionAvance1.setTiaHr(valorizacionInversionAvanceVO1.getTiaHr());
         valorizacionInversionAvance1.setTiaNumero(valorizacionInversionAvanceVO1.getTiaNumero());
-        valorizacionInversionAvance1.setTiaPlazoEnDías(valorizacionInversionAvanceVO1.getTiaPlazoEnDías());
+        valorizacionInversionAvance1.setTiaPlazoEnDias(valorizacionInversionAvanceVO1.getTiaPlazoEnDias());
         valorizacionInversionAvance1.setTinId(valorizacionInversionAvanceVO1.getTinId());
+        valorizacionInversionAvance1.setTiaMontoTotalAprobado(valorizacionInversionAvanceVO1.getTiaMontoTotalAprobado());
+        valorizacionInversionAvance1.setTiaMontoTotalPresentado(valorizacionInversionAvanceVO1.getTiaMontoTotalPresentado());
+        valorizacionInversionAvance1.setTiaMontoTotalReajustado(valorizacionInversionAvanceVO1.getTiaMontoTotalReajustado());
+        valorizacionInversionAvance1.setMonId(valorizacionInversionAvanceVO1.getMonId());
+        valorizacionInversionAvance1.setIaeId(valorizacionInversionAvanceVO1.getIaeId());
        
        return valorizacionInversionAvance1;
     }
