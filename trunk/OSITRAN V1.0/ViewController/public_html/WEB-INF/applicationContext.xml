@@ -107,7 +107,8 @@
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
         <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
     </bean>
-    <!--Tipo de inversiÃƒÂ³n-->
+    
+    <!--Tipo de inversiÃƒÆ’Ã‚Â³n-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl">
         <property name="inversionTipo" ref="inversionTipo"/>
     </bean>
@@ -324,6 +325,12 @@
         <property name="contratoSupInversiones" ref="contratoSupInversiones"/>
         <property name="contratoSupInversionesVO" ref="contratoSupInversionesVO"/>
     </bean>
+    <!--Configuracion de reporte de avance inversion-->
+    <bean id="configReporteAvanceInversionDAOImpl" class="com.ositran.daoimpl.configReporteAvanceInversionDAOImpl"/>
+    <bean id="configReporteAvanceInversionServiceImpl" class="com.ositran.serviceimpl.configReporteAvanceInversionServiceImpl">
+        <property name="dao" ref="configReporteAvanceInversionDAOImpl"/>
+    </bean>
+    <!--FIN - Configuracion de reporte de avance inversion-->
     <!--Registrar Avance Inversion-->
     <bean id="avanceInversionWebVO" class="com.ositran.vo.bean.AvanceInversionWebVO"/>
     <bean id="avanceInversionWeb" class="com.ositran.model.AvanceInversionWeb"/>
