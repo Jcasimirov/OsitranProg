@@ -18,7 +18,7 @@
     </h:head>
     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
     <h:body>
-        <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.validarSesion()}" type="postAddToView"></f:event>
+        <f:event listener="#{asignarResponsableMB.validarSesion()}" type="postAddToView"></f:event>
         <f:event listener="#{asignarResponsableMB.cargarListaTiposInfraestructura()}" type="postAddToView"></f:event>
          
         <h:form id="form">
