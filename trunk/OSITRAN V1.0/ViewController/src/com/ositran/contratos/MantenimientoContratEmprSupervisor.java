@@ -1,495 +1,907 @@
 package com.ositran.contratos;
 
+
+import com.ositran.model.Infraestructura;
 import com.ositran.service.ConcesionService;
+import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
+import com.ositran.service.DatosStdService;
 import com.ositran.service.EmpresaSupervisoraService;
-import com.ositran.serviceimpl.ConcesionServiceImpl;
-import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.service.InversionService;
+import com.ositran.serviceimpl.AdendaTipoServiceImpl;
+import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoEmpresaSupervisoraServiceImpl;
-import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
+import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
+import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.util.Constantes;
+import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
+import com.ositran.util.Util;
+import com.ositran.vo.bean.AdendaTipoVO;
 import com.ositran.vo.bean.ConcesionVO;
-import com.ositran.vo.bean.ContratoEntregaVO;
+import com.ositran.vo.bean.ContratoAdendaVO;
+import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
-
+import com.ositran.vo.bean.InfraestructuraVO;
+import com.ositran.vo.bean.InversionVO;
+import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
-
+import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.ViewTdInternosVO;
 import java.io.IOException;
-
 import java.sql.SQLException;
-
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Map;
-
-import javax.annotation.Generated;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlForm;
-
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.component.html.HtmlOutputText;
-
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.primefaces.component.calendar.Calendar;
-import org.primefaces.component.column.Column;
-import org.primefaces.component.columngroup.ColumnGroup;
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.datagrid.DataGrid;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.component.dialog.Dialog;
-import org.primefaces.component.fieldset.Fieldset;
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.inputtextarea.InputTextarea;
-import org.primefaces.component.layout.Layout;
-import org.primefaces.component.layout.LayoutUnit;
-import org.primefaces.component.outputlabel.OutputLabel;
-import org.primefaces.component.panelgrid.PanelGrid;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
-@ManagedBean(name = "backing_ositran_parametros_mantenimientoContratEmprSupervisor")
+
+@ManagedBean(name = "manteContEmprSupervisora")
 @ViewScoped
-@Generated(value = "1ositran/parametros/mantenimientoContratEmprSupervisor.jsf",
-           comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class MantenimientoContratEmprSupervisor {
-    private HtmlForm form1;
-    private Layout layout1;
-    private LayoutUnit layoutUnit1;
-    private PanelGrid panelGrid1;
-    private OutputLabel outputLabelEmpresaSupervisora;
-    private InputText inputTextEmpresaSupervisora;
-    private OutputLabel outputLabelTipoInfraestructura;
-    private InputText inputTextTipoInfraestructura;
-    private CommandButton commandButton1;
-    private OutputLabel outputLabelNroContrato;
-    private InputText inputTextNroContrato;
-    private CommandButton commandButtonLimpiar;
-    private DataTable dataTableConEmprSupr;
-    private Column columnN;
-    private Column columnNumContrato;
-    private Column column3;
-    private Column columnEmpresaSupervisora;
-    private Column columnVer;
-    private Column columnModificar;
-    private CommandButton commandButtonVer;
-    private CommandButton commandButtonModificar;
-    private CommandButton commandButtonEliminar;
-    private Column columnEliminar;
-    private Column columnTipoInfraestructura;
-    private HtmlOutputText outputText2;
-    private HtmlOutputText outputText3;
-    private OutputLabel outputLabel1;
-    private OutputLabel outputLabel2;
-    private SelectOneMenu selectOneMenuTipoInfraestructura;
-    private String tipoInfraestructura;
-    List<SelectItem> tipoInfraestructuraSelectItems = new ArrayList<SelectItem>();
-    private HtmlInputHidden inputHiddenItemTipoInfraestructura;
-    private Dialog dialogRegConEmpSup;
-    private PanelGrid panelGrid2;
-    private ColumnGroup columnGroup1;
-    private Dialog dialogConfirmarEliminar;
-    private HtmlInputHidden inputHidden1;
-    private Dialog dialogVerContEmpSup;
-    private PanelGrid panelGridDatosContraConcesion;
-    private OutputLabel outputLabelConcesion;
-    private InputText inputTextConcesion;
-    private OutputLabel outputLabelTipoInfra;
-    private InputText inputTextTipoInfra;
-    private OutputLabel outputLabelModaConcesion;
-    private InputText inputTextModalidadConcesion;
-    private OutputLabel outputLabelAeropuerto;
-    private SelectOneMenu selectOneMenuAeropuerto;
-    private OutputLabel outputLabelInversion;
-    private InputText inputTextInversion;
-    private OutputLabel outputLabelEtapaPeriodo;
-    private InputText inputTextEtapaPeriodo;
-    private OutputLabel outputLabelPlazo;
-    private InputText inputTextPlazo;
-    private Layout layoutMoneda;
-    private InputText inputTextMoneda;
-    private OutputLabel outputLabelTotal;
-    private InputText inputTextTotal;
-    private ColumnGroup columnGroup2;
-    private Fieldset fieldset1;
-    private OutputLabel outputLabelNroContratoNew;
-    private InputText inputTextNroContratoNew;
-    private OutputLabel outputLabelPlazoContratoNew;
-    private InputText inputTextPlazoContratoNew;
-    private OutputLabel outputLabelFechaInicioNew;
-    private OutputLabel outputLabelFechaSuscripcionNew;
-    private OutputLabel outputLabelMontoNew;
-    private InputText inputTextMontoContratadoNew;
-    private OutputLabel outputLabelMonedaNew;
-    private SelectOneMenu selectOneMenuMoneda;
-    private String moneda;
-    List<SelectItem> monedaSelectItems = new ArrayList<SelectItem>();
-    private OutputLabel outputLabelAdelantoOtorgadoNew;
-    private InputText inputTextAdelantoOtorgadoNew;
-    private OutputLabel outputLabelFechaAdelantoNew;
-    private Calendar calendarFechaAdelantoNew;
-    private OutputLabel outputLabelRefPenalidadNew;
-    private InputTextarea inputTextareaRefPenalidadNew;
-    private OutputLabel outputLabelRefCausalesCaduNew;
-    private InputTextarea inputTextareaRefCausalesCaduNew;
-    private OutputLabel outputLabelGarantiasNew;
-    private InputTextarea inputTextareaGarantiasFavorNew;
-    private OutputLabel outputLabelMoneda;
-    private DataGrid dataGridDatosContrato;
-    private PanelGrid panelGridDatosContrato;
-    private PanelGrid panelGridEtapaConcesion;
-    private OutputLabel outputLabel3;
-    private OutputLabel outputLabel4;
-    private DataGrid dataGridDatosSTD;
-    private OutputLabel outputLabel5;
-    private OutputLabel outputLabelNroSTDNew;
-    private InputText inputTextNumero;
-    private OutputLabel outputLabelAnnioNew;
-    private InputText inputTextAnnio;
-    private OutputLabel outputLabelIconBuscarFecReg;
-    private OutputLabel outputLabelFechaRegistro;
-    private Calendar calendarFechaRegistro;
-    private OutputLabel outputLabelAsunto;
-    private InputTextarea inputTextareaAsunto;
-    private PanelGrid panelGridDatosSTD;
-    private Calendar calendarFecIniContratoNew;
-    private Calendar calendarFecSuscripcionNew;
-    private DataTable dataTableContratoNew;
-    private OutputLabel outputLabelAdjuntarContratoNew;
-    private InputText inputTextAdjutarContratoNew;
-    private CommandButton commandButtonAgregarAdenda;
-    private SelectOneMenu selectOneMenuEtapaPeriodo;
-    private HtmlInputHidden inputHidden2;
-    private CommandButton commandButtonGrabar;
-    private CommandButton commandButtonCancelar;
-    private Date fechaInicio;
-    private Date fechaSuscripcion;
-    private String inputHiddenSelectedTipoInfraestructura;
-    private String inputHiddenSelectedMoneda;
-    private HtmlCommandButton commandButton3;
-    private LayoutUnit layoutUnit2;
-    private CommandButton commandButton4;
-    private CommandButton commandButton5;
-    private HtmlOutputText outputText4;
-    private HtmlOutputText outputText5;
-    private HtmlOutputText outputText6;
-    private HtmlOutputText outputText7;
-    private InputText inputTextIdEliminar;
-    private HtmlInputHidden inputHidden3;
-    private Dialog dialogModificarConEmpSup;
-    private PanelGrid panelGrid3;
-    private ColumnGroup columnGroup3;
-    private PanelGrid panelGridDatosSTDModif;
-    private InputText inputTextNumeroModif;
-    private InputText inputTextAnnioModif;
-    private Calendar calendarFechaRegistroModif;
-    private InputTextarea inputTextareaAsuntoModif;
-    private PanelGrid panelGridContratConcesionModif;
-    private InputText inputTextConcesionModif;
-    private InputText inputTextTipoInfraModif;
-    private InputText inputTextModalidadConcesionModif;
-    private SelectOneMenu selectOneMenuAeropuertoModif;
-    private InputText inputTextInversionModif;
-    private PanelGrid panelGridEtapaConcesionModif;
-    private InputText inputTextTotalModif;
-    private InputText inputTextMonedaModif;
-    private InputText inputTextPlazoModif;
-    private SelectOneMenu selectOneMenuEtapaPeriodoModif;
-    private ColumnGroup columnGroup4;
-    private Fieldset fieldset2;
-    private PanelGrid panelGridDatosContratoModif;
-    private InputText inputTextNroContratoModif;
-    private Calendar calendarFecIniContratoModif;
-    private Calendar calendarFecSuscripcionModif;
-    private InputText inputTextPlazoContratoModif;
-    private InputText inputTextMontoContratadoModif;
-    private InputTextarea inputTextareaRefCausalesCaduModif;
-    private InputTextarea inputTextareaRefPenalidadModif;
-    private Calendar calendarFechaAdelantoModif;
-    private InputText inputTextAdelantoOtorgadoModif;
-    private InputText inputTextAdjutarContratoModif;
-    private InputTextarea inputTextareaGarantiasFavorModif;
-    private DataTable dataTableContratoModif;
-    private String inputHiddenSelectedMonedaModif;
-    private CommandButton commandButtonAgregarAdendaModif;
-    private CommandButton commandButtonCancelarModif;
-    private CommandButton commandButtonDialModificar;
-    private HtmlInputHidden inputHidden4;
-    private PanelGrid panelGrid4;
+    public final int formulario = 27;
+    private RolOpcionesVO rolOpcion;
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
     
-    //Atributos de contratos
-    List<ContratoVO> listaContratos=new ArrayList<>();
-    List<EmpresaSupervisoraVO> listaEmpresaSup;
+    
+    private int codigoEliminar;  
+    //editar//
+    private int contratoE;
+    private int supIdE;
+    private int infIdE;
+    private int tinIdE;
+    private int csiIdE;
+    private int adelantoE;
+    private int plazocontrE;
+    private int montocontrE;
+    private int cpsanyoE;
+    private int cpsStdE;
+    private String nrohrE;
+    private String añohrE;
+    private String fregE;
+    private String asuntohrE;
+    private String cpsPenalidadesE;
+    private String cpsCaducidadE;
+    private String cpsGarantiasE;
+    private int t_concesionE;
+    private int t_tinfraE;
+    //finEditar//
+    private String seleccionaTipoInfraestructura;
+    private String btnbuscar;
+    private String nrohr;
+    private String añohr;
+    private String freg;
+    private String asuntohr;
+    private String contratoConcesion;
+    private String t_concesion;
+    private int t_tinfra;
+    private String t_modconc;
+    private String plazo;
+    private long total;
+    private String nombreEmpresaSupervisora;
+    private int codigoMoneda;
+    private int contratoCompromisoSeleccionado;
+    private int codigoContrato;
+    private int añohrbus;
+    private int nrohrbus; 
+    private int tipoInfraestructuraSeleccionada;
+    private int infraestructuraSeleccionada;
+    private int inversionSeleccionada;
+    private int monedaSeleccionada;
+    private int adendasTipoSeleccionada;
+    private int cpsNroDeContrato;
+    private int cpsPlazoContrato;
+    private int cpsMontoContratado;
+    private int cpsAdelantoOtorgado;
+    private String cpsPenalidades;
+    private String cpsCaducidad;
+    private String cpsGarantias;
+    private String empresaSupervisora;
+    private List<ContratoSupervisoraVO> listarEntregas = new ArrayList<ContratoSupervisoraVO>();
+    private List<ContratoAdendaVO> listContratoAdenda = new ArrayList<ContratoAdendaVO>();
+    private List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
+    private List<MonedaVO> listaMoneda  = new ArrayList<>();
+    private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();    
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
+    private List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<>();
+    private List<ContratoVO> listaContratos = new ArrayList<>();    
+    private List<InversionVO> listaInversiones = new ArrayList<>();
+    private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
+    private List<EmpresaSupervisoraVO> listaEmpresaSup;
+    
+    Util util = new Util();
+    
+    @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
+    InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraTipoVO}")
+    InfraestructuraTipoVO infraestructuraTipoVO;
+    
+    @ManagedProperty(value = "#{viewTdInternosVO}")
+    ViewTdInternosVO viewTdInternosVO;
+    
+    @ManagedProperty(value = "#{datosStdServiceImpl}")
+    DatosStdService datosStdServiceImpl;
     
     @ManagedProperty(value = "#{contratoConcesionServiceImp}")
     ContratoConcesionService contratoConcesionServiceImp;
     
+    @ManagedProperty(value = "#{concesionVO}")
+    ConcesionVO concesionVO; 
+    
     @ManagedProperty(value = "#{concesionServiceImpl}")
     ConcesionService concesionServiceImpl;
     
+    @ManagedProperty(value = "#{contratoVO}")
+    ContratoVO contratoVO;  
+    
+    @ManagedProperty(value = "#{modalidadConcesionVO}")
+    ModalidadConcesionVO modalidadConcesionVO;
+    
+    @ManagedProperty(value = "#{modalidadConcesionServiceImpl}")
+    ModalidadConcesionServiceImpl modalidadConcesionServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraServiceImpl}")
+    InfraestructuraServiceImpl infraestructuraServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraVO}")
+    InfraestructuraVO infraestructuraVO;    
+    
+    @ManagedProperty(value = "#{infraestructura}")
+    Infraestructura infraestructura;
+    
+    @ManagedProperty(value = "#{inversionServiceImpl}")
+    InversionService inversionServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
+    ContratoCompromisoService contratoCompromisoServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoCompromisoVO}")
+    ContratoCompromisoVO contratoCompromisoVO;
+    
+    @ManagedProperty(value = "#{contratoSupervisoraVO}")
+    ContratoSupervisoraVO contratoSupervisoraVO;
+    
+    @ManagedProperty(value = "#{monedaServiceImpl}")
+    private MonedaServiceImpl monedaServiceImpl;
+    
     @ManagedProperty(value = "#{empresaSupervisoraServiceImpl}")
     EmpresaSupervisoraService empresaSupervisoraServiceImpl;
-    private OutputLabel outputLabel6;
-    private InputText inputTextNombreEmpresaSupervisora;
+    
+    @ManagedProperty(value = "#{contratoNuevaAdendaVO}")
+    ContratoAdendaVO contratoNuevaAdendaVO;
+    
+    @ManagedProperty(value = "#{adendaTipoServiceImpl}")
+    AdendaTipoServiceImpl adendaTipoServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoAdendaServiceImpl}")
+    ContratoAdendaServiceImpl contratoAdendaServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoEmpresaSupervisoraServiceImpl}")
+    ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl;
+    
+    
+    
+    
+    public List<ContratoSupervisoraVO> cargarListaContratosEmpresaSupervisora() throws SQLException {
+        try {
+            listaContratoSupervisora = contratoEmpresaSupervisoraServiceImpl.query();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaContratoSupervisora;
+    }
+    //fin listar datatable--//
+    
+    //cargar lista de tipo de infraestructura--//    
+    public void cargarListaInfraestructuraTipo() {
+        try {
+            
+            listaInfraestructuraTipo =  infraestructuraTipoServiceImpl.query();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    // fin de carga de lista de tipo infraestructura--//
+    
+    //--buscar std--//
+    public void BuscarStd() throws SQLException {
+       
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+            try {
+                viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
+                if (viewTdInternosVO != null) {
+                    freg = dt1.format(viewTdInternosVO.getFechaRegistro());
+                    asuntohr = viewTdInternosVO.getAsunto();
+                    añohrbus = viewTdInternosVO.getAnyo();
+                    nrohrbus = Integer.parseInt(viewTdInternosVO.getNroRegistro());
+                } else {
+                    freg = "";
+                    asuntohr = "";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+     }
+    //--fin buscar std--//
+    
+    //----buscar contrato concesion--//
+    public void cargarListaContratos() {
+        try {
+            listaContratos = contratoConcesionServiceImp.query();
+            for (ContratoVO contra : listaContratos) {
+                concesionVO = concesionServiceImpl.get(contra.getCsiId());
+                contratoVO=contratoConcesionServiceImp.get(contra.getConId());
+                codigoContrato=contratoVO.getConId();
+                modalidadConcesionVO = modalidadConcesionServiceImpl.get(contra.getMcoId());
+                contra.setNombreConcesion(concesionVO.getCsiNombre());
+                contra.setNombreModalidad(modalidadConcesionVO.getMcoNombre()); 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void elegirContrato(ContratoVO contrato1) {
+        try {
+            concesionVO=concesionServiceImpl.get(contrato1.getCncId());
+            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
+            t_concesion = contrato1.getNombreConcesion();
+            t_tinfra = contrato1.getTinId();           
+            t_modconc = contrato1.getNombreModalidad();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
+    public void cargarInversion() {
+       try {
+           infraestructuraVO=infraestructuraServiceImpl.get2(infraestructuraSeleccionada);
+           infraestructura.setCsiId(infraestructuraVO.getCsiId());
+           infraestructura.setInfId(infraestructuraVO.getInfId());
+           infraestructura.setTinId(infraestructuraVO.getTinId()); 
+           listaInversiones=inversionServiceImpl.query1(infraestructura,codigoContrato);           
+           listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    }
+    public void cargarDatosCompromiso(){
+        try {
+           contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+           plazo=contratoCompromisoVO.getCcoPlazo();
+           total=contratoCompromisoVO.getCcoTotal();
+           codigoMoneda=contratoCompromisoVO.getMonId();  
+       } catch (Exception e) {
+           System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
+           e.printStackTrace();
+        }        
+    }
+    //---fin buscar contrato concesion---//
+    
+    //PDF  --//  
+    public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
+            contratoSupervisoraVO.setCenDocumentoFisico(event.getFile().getFileName());
+            contratoSupervisoraVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
+        }
+    public void agregarEntrega() {
+            try {
+                System.out.println("agregarEntrega: " + contratoSupervisoraVO.getCpsNroDeContrato());
+                contratoSupervisoraVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoSupervisoraVO.getCpsFechaRegistro()));
+                contratoSupervisoraVO.setCpsMontoContratado(1);
+                contratoSupervisoraVO.setCpsNroDeContrato(1);
+                contratoSupervisoraVO.setCenEntrega(1);            
+                contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+                listarEntregas.add(contratoSupervisoraVO);
+                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoSupervisoraVO.getCenDocumentoFisico(), contratoSupervisoraVO.getInputStreamNuevaEntrega());
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
+                RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                              Constantes.ERRORGUARDAR));
+            } finally {
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            }
+        }
+    // fin PDF --//
+    
+    //---  cargar moneda lista --//
+    public void cargarListaMoneda() {
+        try {
+            
+            listaMoneda =  monedaServiceImpl.query();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }    
+    //--- fin cargar moneda lista --//   
+    
+    //--buscar empresa supervisora --//
+    public void buscarEmpresaSup() throws Exception {
+            try{
+                listaEmpresaSup=empresaSupervisoraServiceImpl.query();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+    public void elegirEmpresa(EmpresaSupervisoraVO empresaSupervisoraVO){
+        
+            nombreEmpresaSupervisora = empresaSupervisoraVO.getSupNombre();
+           
+        }
+    //--fin busqueda empresa supervisora --//
+
+    //----Guardar contrato empresa supervisora --//
+    public void grabar() throws SQLException {
+        
+        if(cpsNroDeContrato == 0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "Ingresar Nro de contrato"));
+            }
+        else if(freg.equals(0) || asuntohr.equals(0)){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "Ingresar Datos STD"));
+        }else{
+            
+                try {
+                    System.out.println("empezo a grabar");
+                   contratoSupervisoraVO.setCpsNroDeContrato(cpsNroDeContrato);
+                   //fecha inicio
+                    //fecha suscripcion
+                   contratoSupervisoraVO.setCpsPlazoContrato(cpsPlazoContrato); 
+                   contratoSupervisoraVO.setCpsMontoContratado(cpsMontoContratado); 
+                   contratoSupervisoraVO.setCpsAdelantoOtorgado(cpsAdelantoOtorgado);
+                   //fecha adelanto
+                   contratoSupervisoraVO.setCpsPenalidades(cpsPenalidades);
+                   contratoSupervisoraVO.setCpsCaducidad(cpsCaducidad); 
+                   contratoSupervisoraVO.setCpsGarantias(cpsGarantias);
+                   //contratoSupervisoraVO.setCpsArchivoPdf(cenDocumentoFisico);
+                   contratoSupervisoraVO.setCpsStd(Integer.parseInt(nrohr)); 
+                   contratoSupervisoraVO.setCpsAnyo(Integer.parseInt(añohr)); 
+                   contratoSupervisoraVO.setCpsFechaRegistro(new Date(freg)); 
+                   contratoSupervisoraVO.setCpsAsunto(asuntohr); 
+                   contratoSupervisoraVO.setSupId(1);
+                   contratoSupervisoraVO.setConId(1);
+                   contratoSupervisoraVO.setInfId(1); 
+                   contratoSupervisoraVO.setCpsEstado(1); 
+                   contratoSupervisoraVO.setCpsFechaAlta(new Date());
+                   contratoSupervisoraVO.setCpsUsuarioAlta("Jcasimiro"); 
+                   contratoSupervisoraVO.setCpsTerminal(util.obtenerIpCliente()); 
+                   contratoSupervisoraVO.setTinId(1); 
+                   contratoSupervisoraVO.setCsiId(1);
+                   contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+                   RequestContext.getCurrentInstance().execute("dialogRegConEmpSup.hide()");
+                   cargarListaContratosEmpresaSupervisora();
+                   FacesContext.getCurrentInstance().addMessage(null,
+                                                                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                                 "Se Registro con Exito"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            
+            }
+        
+            }
+    //--Fin guardar contrato empresa superisora --//
+
+    //----Editar contrato empresa supervisora --//
+    public void cargarEditar(ContratoSupervisoraVO contratoSupervisoraV) {
+        contratoSupervisoraVO = contratoSupervisoraV;
+        
+        contratoE =  contratoSupervisoraVO.getCpsNroDeContrato();
+        //fecha inicio servicio
+        //fecha suscripcion
+        plazocontrE = contratoSupervisoraVO.getCpsPlazoContrato();
+        montocontrE = contratoSupervisoraVO.getCpsMontoContratado();
+        adelantoE = contratoSupervisoraVO.getCpsAdelantoOtorgado();
+        //fecha adelanto
+        //penalidades
+        cpsPenalidadesE = contratoSupervisoraVO.getCpsPenalidades();       
+        
+        //caducidad
+        cpsCaducidadE = contratoSupervisoraVO.getCpsCaducidad();
+        
+        //garantias
+        cpsGarantiasE = contratoSupervisoraVO.getCpsGarantias();
+        //pdf
+        supIdE = contratoSupervisoraVO.getSupId();
+        t_concesionE= contratoSupervisoraVO.getCsiId();
+        t_tinfraE = contratoSupervisoraVO.getTinId();
+        //modalidad concesion
+        infIdE = contratoSupervisoraVO.getInfId();
+        
+        //inversion
+        //etapa
+        //plazo
+        //total
+        //moneda
+
+        //std numero
+        //std año
+        //std asunto
+        //std fecha
+        cpsanyoE = contratoSupervisoraVO.getCpsAnyo();
+        cpsStdE = contratoSupervisoraVO.getCpsStd();
+    }
+    public void editar() throws SQLException {
+
+        try {
+            contratoSupervisoraVO.setCpsNroDeContrato(contratoE);
+            contratoSupervisoraVO.setSupId(1);
+            contratoSupervisoraVO.setInfId(1);
+            contratoSupervisoraVO.setTinId(1);
+            contratoSupervisoraVO.setCsiId(1);
+            contratoSupervisoraVO.setCpsAdelantoOtorgado(adelantoE);
+            contratoSupervisoraVO.setCpsPlazoContrato(plazocontrE);
+            contratoSupervisoraVO.setCpsMontoContratado(montocontrE);
+            contratoSupervisoraVO.setCpsAnyo(cpsanyoE);
+            contratoSupervisoraVO.setCpsStd(cpsStdE);
+            contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);
+            
+            RequestContext.getCurrentInstance().execute("popupeditar.hide()");
+            cargarListaContratosEmpresaSupervisora();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se Modifico con Exito"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //--Fin editar contrato empresa superisora --//
+    
+    //----Buscar --//
+    public List<ContratoSupervisoraVO> buscarConEmpSup() throws SQLException {
+        try {  
+            listaContratoSupervisora = this.contratoEmpresaSupervisoraServiceImpl.filtrarContraEmpSup(empresaSupervisora);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaContratoSupervisora;
+    }
+    public void cargarTodo() {
+        try {
+            int contador = 1;
+            listaContratoSupervisora = contratoEmpresaSupervisoraServiceImpl.query();
+            for (int i = 0; i < listaContratoSupervisora.size(); i++) {
+                listaContratoSupervisora.get(i).setContador(contador);
+                contador++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo listar"));
+        }
+    }
+    //-- fin Buscar --//
+    
+    //--eliminar--//
+    public void cargarEliminar() {
+        FacesContext context=FacesContext.getCurrentInstance();
+        Map requestMap=context.getExternalContext().getRequestParameterMap();
+        Object str=requestMap.get("nroContrato");
+        codigoEliminar =Integer.valueOf(str.toString());
+        System.out.println("EL CODIGO ES :     "+codigoEliminar);
+    }
+    public void eliminar() throws SQLException {
+        try {
+            contratoEmpresaSupervisoraServiceImpl.delete(codigoEliminar);
+            cargarListaContratosEmpresaSupervisora();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Se Elimino con Exito"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    //--fin eliminar--//
+    
+    
 
 
-    public void setForm1(HtmlForm form1) {
-        this.form1 = form1;
+    // -- -- GETTER AND SETTER  -- //
+    public void setSeleccionaTipoInfraestructura(String seleccionaTipoInfraestructura) {
+        this.seleccionaTipoInfraestructura = seleccionaTipoInfraestructura;
     }
 
-    public void setTipoInfraestructura(String tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
+    public String getSeleccionaTipoInfraestructura() {
+        return seleccionaTipoInfraestructura;
     }
 
-    public String getTipoInfraestructura() {
-        return tipoInfraestructura;
+    public void setBtnbuscar(String btnbuscar) {
+        this.btnbuscar = btnbuscar;
     }
 
-    public HtmlForm getForm1() {
-        return form1;
+    public String getBtnbuscar() {
+        return btnbuscar;
     }
 
-    public void setLayout1(Layout layout1) {
-        this.layout1 = layout1;
+    public void setTipoInfraestructuraSeleccionada(int tipoInfraestructuraSeleccionada) {
+        this.tipoInfraestructuraSeleccionada = tipoInfraestructuraSeleccionada;
     }
 
-    public Layout getLayout1() {
-        return layout1;
+    public int getTipoInfraestructuraSeleccionada() {
+        return tipoInfraestructuraSeleccionada;
     }
 
-    public void setLayoutUnit1(LayoutUnit layoutUnit1) {
-        this.layoutUnit1 = layoutUnit1;
+    public void setListaInfraestructuraTipo(List<InfraestructuraTipoVO> listaInfraestructuraTipo) {
+        this.listaInfraestructuraTipo = listaInfraestructuraTipo;
     }
 
-    public LayoutUnit getLayoutUnit1() {
-        return layoutUnit1;
+    public List<InfraestructuraTipoVO> getListaInfraestructuraTipo() {
+        return listaInfraestructuraTipo;
     }
 
-    public void setPanelGrid1(PanelGrid panelGrid1) {
-        this.panelGrid1 = panelGrid1;
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
     }
 
-    public PanelGrid getPanelGrid1() {
-        return panelGrid1;
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
     }
 
-    public void setOutputLabelEmpresaSupervisora(OutputLabel outputLabel1) {
-        this.outputLabelEmpresaSupervisora = outputLabel1;
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
     }
 
-    public OutputLabel getOutputLabelEmpresaSupervisora() {
-        return outputLabelEmpresaSupervisora;
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
     }
 
-    public void setInputTextEmpresaSupervisora(InputText inputText1) {
-        this.inputTextEmpresaSupervisora = inputText1;
+    public void setListaContratoSupervisora(List<ContratoSupervisoraVO> listaContratoSupervisora) {
+        this.listaContratoSupervisora = listaContratoSupervisora;
     }
 
-    public InputText getInputTextEmpresaSupervisora() {
-        return inputTextEmpresaSupervisora;
+    public List<ContratoSupervisoraVO> getListaContratoSupervisora() {
+        return listaContratoSupervisora;
     }
 
-    public void setOutputLabelTipoInfraestructura(OutputLabel outputLabel2) {
-        this.outputLabelTipoInfraestructura = outputLabel2;
+    public void setNrohr(String nrohr) {
+        this.nrohr = nrohr;
     }
 
-    public OutputLabel getOutputLabelTipoInfraestructura() {
-        return outputLabelTipoInfraestructura;
+    public String getNrohr() {
+        return nrohr;
     }
 
-    public void setInputTextTipoInfraestructura(InputText inputText2) {
-        this.inputTextTipoInfraestructura = inputText2;
+    public void setAñohr(String añohr) {
+        this.añohr = añohr;
     }
 
-    public InputText getInputTextTipoInfraestructura() {
-        return inputTextTipoInfraestructura;
+    public String getAñohr() {
+        return añohr;
     }
 
-    public void setCommandButton1(CommandButton commandButton1) {
-        this.commandButton1 = commandButton1;
+    public void setFreg(String freg) {
+        this.freg = freg;
     }
 
-    public CommandButton getCommandButton1() {
-        return commandButton1;
+    public String getFreg() {
+        return freg;
     }
 
-    public void setOutputLabelNroContrato(OutputLabel outputLabel3) {
-        this.outputLabelNroContrato = outputLabel3;
+    public void setAsuntohr(String asuntohr) {
+        this.asuntohr = asuntohr;
     }
 
-    public OutputLabel getOutputLabelNroContrato() {
-        return outputLabelNroContrato;
+    public String getAsuntohr() {
+        return asuntohr;
     }
 
-    public void setInputTextNroContrato(InputText inputText3) {
-        this.inputTextNroContrato = inputText3;
+    public void setAñohrbus(int añohrbus) {
+        this.añohrbus = añohrbus;
     }
 
-    public InputText getInputTextNroContrato() {
-        return inputTextNroContrato;
+    public int getAñohrbus() {
+        return añohrbus;
     }
 
-    public void setCommandButtonLimpiar(CommandButton commandButton2) {
-        this.commandButtonLimpiar = commandButton2;
+    public void setNrohrbus(int nrohrbus) {
+        this.nrohrbus = nrohrbus;
     }
 
-    public CommandButton getCommandButtonLimpiar() {
-        return commandButtonLimpiar;
+    public int getNrohrbus() {
+        return nrohrbus;
     }
 
-    public void setDataTableConEmprSupr(DataTable dataTable1) {
-        this.dataTableConEmprSupr = dataTable1;
+    public void setViewTdInternosVO(ViewTdInternosVO viewTdInternosVO) {
+        this.viewTdInternosVO = viewTdInternosVO;
     }
 
-    public DataTable getDataTableConEmprSupr() {
-        return dataTableConEmprSupr;
+    public ViewTdInternosVO getViewTdInternosVO() {
+        return viewTdInternosVO;
     }
 
-    public void setColumnN(Column column1) {
-        this.columnN = column1;
+    public void setDatosStdServiceImpl(DatosStdService datosStdServiceImpl) {
+        this.datosStdServiceImpl = datosStdServiceImpl;
     }
 
-    public Column getColumnN() {
-        return columnN;
+    public DatosStdService getDatosStdServiceImpl() {
+        return datosStdServiceImpl;
     }
 
-    public void setColumnNumContrato(Column column2) {
-        this.columnNumContrato = column2;
+    public void setContratoConcesion(String contratoConcesion) {
+        this.contratoConcesion = contratoConcesion;
     }
 
-    public Column getColumnNumContrato() {
-        return columnNumContrato;
+    public String getContratoConcesion() {
+        return contratoConcesion;
     }
 
-    public void setColumn3(Column column3) {
-        this.column3 = column3;
+    public void setT_concesion(String t_concesion) {
+        this.t_concesion = t_concesion;
     }
 
-    public Column getColumn3() {
-        return column3;
+    public String getT_concesion() {
+        return t_concesion;
     }
 
-    public void setColumnEmpresaSupervisora(Column column4) {
-        this.columnEmpresaSupervisora = column4;
+    public void setT_tinfra(int t_tinfra) {
+        this.t_tinfra = t_tinfra;
     }
 
-    public Column getColumnEmpresaSupervisora() {
-        return columnEmpresaSupervisora;
+    public int getT_tinfra() {
+        return t_tinfra;
     }
 
-    public void setColumnVer(Column column5) {
-        this.columnVer = column5;
+    public void setT_modconc(String t_modconc) {
+        this.t_modconc = t_modconc;
     }
 
-    public Column getColumnVer() {
-        return columnVer;
+    public String getT_modconc() {
+        return t_modconc;
     }
 
-    public void setColumnModificar(Column column6) {
-        this.columnModificar = column6;
+    public void setCodigoContrato(int codigoContrato) {
+        this.codigoContrato = codigoContrato;
     }
 
-    public Column getColumnModificar() {
-        return columnModificar;
+    public int getCodigoContrato() {
+        return codigoContrato;
     }
 
-    public void setCommandButtonVer(CommandButton commandButton3) {
-        this.commandButtonVer = commandButton3;
+    public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
+        this.listaInfraestructuras = listaInfraestructuras;
     }
 
-    public CommandButton getCommandButtonVer() {
-        return commandButtonVer;
+    public List<InfraestructuraVO> getListaInfraestructuras() {
+        return listaInfraestructuras;
     }
 
-    public void setCommandButtonModificar(CommandButton commandButton4) {
-        this.commandButtonModificar = commandButton4;
+    public void setListaContratos(List<ContratoVO> listaContratos) {
+        this.listaContratos = listaContratos;
     }
 
-    public CommandButton getCommandButtonModificar() {
-        return commandButtonModificar;
+    public List<ContratoVO> getListaContratos() {
+        return listaContratos;
     }
 
-    public void setCommandButtonEliminar(CommandButton commandButton5) {
-        this.commandButtonEliminar = commandButton5;
+    public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
+        this.contratoConcesionServiceImp = contratoConcesionServiceImp;
     }
 
-    public CommandButton getCommandButtonEliminar() {
-        return commandButtonEliminar;
+    public ContratoConcesionService getContratoConcesionServiceImp() {
+        return contratoConcesionServiceImp;
     }
 
-    public void setColumnEliminar(Column column7) {
-        this.columnEliminar = column7;
+    public void setConcesionVO(ConcesionVO concesionVO) {
+        this.concesionVO = concesionVO;
     }
 
-    public Column getColumnEliminar() {
-        return columnEliminar;
+    public ConcesionVO getConcesionVO() {
+        return concesionVO;
     }
 
-    public void setColumnTipoInfraestructura(Column column8) {
-        this.columnTipoInfraestructura = column8;
+    public void setConcesionServiceImpl(ConcesionService concesionServiceImpl) {
+        this.concesionServiceImpl = concesionServiceImpl;
     }
 
-    public Column getColumnTipoInfraestructura() {
-        return columnTipoInfraestructura;
+    public ConcesionService getConcesionServiceImpl() {
+        return concesionServiceImpl;
     }
 
-    public void setOutputText2(HtmlOutputText outputText2) {
-        this.outputText2 = outputText2;
+    public void setContratoVO(ContratoVO contratoVO) {
+        this.contratoVO = contratoVO;
     }
 
-    public HtmlOutputText getOutputText2() {
-        return outputText2;
+    public ContratoVO getContratoVO() {
+        return contratoVO;
     }
 
-    public void setOutputText3(HtmlOutputText outputText3) {
-        this.outputText3 = outputText3;
+    public void setModalidadConcesionVO(ModalidadConcesionVO modalidadConcesionVO) {
+        this.modalidadConcesionVO = modalidadConcesionVO;
     }
 
-    public HtmlOutputText getOutputText3() {
-        return outputText3;
+    public ModalidadConcesionVO getModalidadConcesionVO() {
+        return modalidadConcesionVO;
     }
 
-    public void setOutputLabel1(OutputLabel outputLabel1) {
-        this.outputLabel1 = outputLabel1;
+    public void setModalidadConcesionServiceImpl(ModalidadConcesionServiceImpl modalidadConcesionServiceImpl) {
+        this.modalidadConcesionServiceImpl = modalidadConcesionServiceImpl;
     }
 
-    public OutputLabel getOutputLabel1() {
-        return outputLabel1;
+    public ModalidadConcesionServiceImpl getModalidadConcesionServiceImpl() {
+        return modalidadConcesionServiceImpl;
     }
 
-    public void setOutputLabel2(OutputLabel outputLabel2) {
-        this.outputLabel2 = outputLabel2;
+    public void setInfraestructuraServiceImpl(InfraestructuraServiceImpl infraestructuraServiceImpl) {
+        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
     }
 
-    public OutputLabel getOutputLabel2() {
-        return outputLabel2;
+    public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
+        return infraestructuraServiceImpl;
     }
 
-    public void setSelectOneMenuTipoInfraestructura(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuTipoInfraestructura = selectOneMenu1;
+    public void setInfraestructuraSeleccionada(int infraestructuraSeleccionada) {
+        this.infraestructuraSeleccionada = infraestructuraSeleccionada;
     }
 
-    public SelectOneMenu getSelectOneMenuTipoInfraestructura() {
-        return selectOneMenuTipoInfraestructura;
+    public int getInfraestructuraSeleccionada() {
+        return infraestructuraSeleccionada;
     }
 
+
+    public void setListaInversiones(List<InversionVO> listaInversiones) {
+        this.listaInversiones = listaInversiones;
+    }
+
+    public List<InversionVO> getListaInversiones() {
+        return listaInversiones;
+    }
+
+    public void setListaContratoCompromiso(List<ContratoCompromisoVO> listaContratoCompromiso) {
+        this.listaContratoCompromiso = listaContratoCompromiso;
+    }
+
+    public List<ContratoCompromisoVO> getListaContratoCompromiso() {
+        return listaContratoCompromiso;
+    }
+
+    public void setInfraestructuraVO(InfraestructuraVO infraestructuraVO) {
+        this.infraestructuraVO = infraestructuraVO;
+    }
+
+    public InfraestructuraVO getInfraestructuraVO() {
+        return infraestructuraVO;
+    }
+
+    public void setInfraestructura(Infraestructura infraestructura) {
+        this.infraestructura = infraestructura;
+    }
+
+    public Infraestructura getInfraestructura() {
+        return infraestructura;
+    }
+
+    public void setInversionServiceImpl(InversionService inversionServiceImpl) {
+        this.inversionServiceImpl = inversionServiceImpl;
+    }
+
+    public InversionService getInversionServiceImpl() {
+        return inversionServiceImpl;
+    }
+
+    public void setContratoCompromisoServiceImpl(ContratoCompromisoService contratoCompromisoServiceImpl) {
+        this.contratoCompromisoServiceImpl = contratoCompromisoServiceImpl;
+    }
+
+    public ContratoCompromisoService getContratoCompromisoServiceImpl() {
+        return contratoCompromisoServiceImpl;
+    }
+
+    public void setInversionSeleccionada(int inversionSeleccionada) {
+        this.inversionSeleccionada = inversionSeleccionada;
+    }
+
+    public int getInversionSeleccionada() {
+        return inversionSeleccionada;
+    }
+
+    public void setContratoCompromisoSeleccionado(int contratoCompromisoSeleccionado) {
+        this.contratoCompromisoSeleccionado = contratoCompromisoSeleccionado;
+    }
+
+    public int getContratoCompromisoSeleccionado() {
+        return contratoCompromisoSeleccionado;
+    }
+
+    public void setPlazo(String plazo) {
+        this.plazo = plazo;
+    }
+
+    public String getPlazo() {
+        return plazo;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setCodigoMoneda(int codigoMoneda) {
+        this.codigoMoneda = codigoMoneda;
+    }
+
+    public int getCodigoMoneda() {
+        return codigoMoneda;
+    }
+
+    public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
+        this.contratoCompromisoVO = contratoCompromisoVO;
+    }
+
+    public ContratoCompromisoVO getContratoCompromisoVO() {
+        return contratoCompromisoVO;
+    }
+
+
+    public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
+        this.contratoSupervisoraVO = contratoSupervisoraVO;
+    }
+
+    public ContratoSupervisoraVO getContratoSupervisoraVO() {
+        return contratoSupervisoraVO;
+    }
+
+    
+
+
+    public void setContratoEmpresaSupervisoraServiceImpl(ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl) {
+        this.contratoEmpresaSupervisoraServiceImpl = contratoEmpresaSupervisoraServiceImpl;
+    }
+
+    public ContratoEmpresaSupervisoraServiceImpl getContratoEmpresaSupervisoraServiceImpl() {
+        return contratoEmpresaSupervisoraServiceImpl;
+    }
+
+    public void setMonedaSeleccionada(int monedaSeleccionada) {
+        this.monedaSeleccionada = monedaSeleccionada;
+    }
+
+    public int getMonedaSeleccionada() {
+        return monedaSeleccionada;
+    }
+
+    public void setListaMoneda(List<MonedaVO> listaMoneda) {
+        this.listaMoneda = listaMoneda;
+    }
+
+    public List<MonedaVO> getListaMoneda() {
+        return listaMoneda;
+    }
+
+    public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
+        this.monedaServiceImpl = monedaServiceImpl;
+    }
+
+    public MonedaServiceImpl getMonedaServiceImpl() {
+        return monedaServiceImpl;
+    }
 
     public void setListaEmpresaSup(List<EmpresaSupervisoraVO> listaEmpresaSup) {
         this.listaEmpresaSup = listaEmpresaSup;
@@ -508,1951 +920,312 @@ public class MantenimientoContratEmprSupervisor {
     }
 
 
-    /**
-     * @author Paul Rivera
-     * @return Tipo de Infraestructura
-     */
-
-    @ManagedProperty(value = "#{infraestructuraTipoVO}")
-    private InfraestructuraTipoVO infraestructuraTipoVO;
-
-    @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
-    private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
-
-
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    public void setNombreEmpresaSupervisora(String nombreEmpresaSupervisora) {
+        this.nombreEmpresaSupervisora = nombreEmpresaSupervisora;
     }
 
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
-
-    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
-        this.infraestructuraTipoVO = infraestructuraTipoVO;
-    }
-
-    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
-        return infraestructuraTipoVO;
-    }
-
-    private List<InfraestructuraTipoVO> listaInfraestructura;
-
-    public List<InfraestructuraTipoVO> listarInfraestructura() throws SQLException {
-        try {
-            listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaInfraestructura;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return tipo de infraestructura para que se renderize en el combo
-     */
-    public List<SelectItem> getTipoInfraestructuraSelectItems() throws SQLException {
-        tipoInfraestructuraSelectItems.add(new SelectItem("-1", "Seleccione"));
-        List<InfraestructuraTipoVO> lista = listarInfraestructura();
-        int i = 0;
-        for (InfraestructuraTipoVO ivo : lista) {
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
-        }
-        return tipoInfraestructuraSelectItems;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return tipo de infraestructura seleccionado del combo
-     */
-    public String getInputHiddenSelectedTipoInfraestructura() {
-        if ("".equals(getTipoInfraestructura()) || getTipoInfraestructura() == null) {
-            return "";
-        } else {
-            return getTipoInfraestructura();
-        }
-    }
-
-    public void setInputHiddenSelectedTipoInfraestructura(String inputHiddenSelectedTipoInfraestructura) {
-        this.inputHiddenSelectedTipoInfraestructura = inputHiddenSelectedTipoInfraestructura;
+    public String getNombreEmpresaSupervisora() {
+        return nombreEmpresaSupervisora;
     }
 
 
-    public void setInputHiddenItemTipoInfraestructura(HtmlInputHidden inputHiddenItemTipoInfraestructura) {
-        this.inputHiddenItemTipoInfraestructura = inputHiddenItemTipoInfraestructura;
+    public void setContratoNuevaAdendaVO(ContratoAdendaVO contratoNuevaAdendaVO) {
+        this.contratoNuevaAdendaVO = contratoNuevaAdendaVO;
     }
 
-    public HtmlInputHidden getInputHiddenItemTipoInfraestructura() {
-        return inputHiddenItemTipoInfraestructura;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return Contrato Empresa Supervisora
-     */
-
-    //@ManagedProperty(value = "#{contratoSupervisoraVO}")
-    private ContratoSupervisoraVO contratoSupervisoraVO = new ContratoSupervisoraVO();
-
-    //@ManagedProperty(value = "#{contratoSupervisoraVOServiceImpl}")
-    private ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl =
-        new ContratoEmpresaSupervisoraServiceImpl();
-
-
-    public ContratoSupervisoraVO getContratoSupervisoraVO() {
-        return contratoSupervisoraVO;
-    }
-
-    public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
-        this.contratoSupervisoraVO = contratoSupervisoraVO;
-    }
-
-    public void setContratoEmpresaSupervisoraServiceImpl(ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl) {
-        this.contratoEmpresaSupervisoraServiceImpl = contratoEmpresaSupervisoraServiceImpl;
-    }
-
-    public ContratoEmpresaSupervisoraServiceImpl getContratoEmpresaSupervisoraServiceImpl() {
-        return contratoEmpresaSupervisoraServiceImpl;
-    }
-
-    ///private List<ContratoSupervisoraVO> listaContratoSupervisora;
-    private List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
-
-    public List<ContratoSupervisoraVO> getListaContratoSupervisora(){
-        return listaContratoSupervisora;
-    }
-
-    public void setListaContratoSupervisora(List<ContratoSupervisoraVO> listaContratoSupervisora) {
-        this.listaContratoSupervisora = listaContratoSupervisora;
+    public ContratoAdendaVO getContratoNuevaAdendaVO() {
+        return contratoNuevaAdendaVO;
     }
 
 
-    public List<ContratoSupervisoraVO> getListarContratoSupervisora() throws SQLException {
-        try {
-            listaContratoSupervisora = getContratoEmpresaSupervisoraServiceImpl().query();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaContratoSupervisora;
+    public void setListContratoAdenda(List<ContratoAdendaVO> listContratoAdenda) {
+        this.listContratoAdenda = listContratoAdenda;
     }
 
-    /**
-     * @author Paul Rivera
-     * @return Contrato Empresa Supervisora para que se renderize en el combo
-     */
-    /*public List<SelectItem> getTipoInfraestructuraSelectItems() throws SQLException {
-        tipoInfraestructuraSelectItems.add(new SelectItem("-1","Seleccione"));
-        List<InfraestructuraTipoVO> lista=listarInfraestructura();
-        int i=0;
-        for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
-        }
-        return tipoInfraestructuraSelectItems;
-    }*/
-
-    /**
-     * @author Paul Rivera
-     * @return Contrato Empresa Supervisora seleccionado del combo
-     */
-    /*public String getInputHiddenSelectedTipoInfraestructura(){
-        if("".equals(getTipoInfraestructura()) || getTipoInfraestructura() ==null){
-            return "";
-        }else{
-            return getTipoInfraestructura();
-        }
-    }*/
-
-
-    // Busqueda
-    
-    String nomEmpSupBuscar;//=String.valueOf(inputTextEmpresaSupervisora.getValue());    
-    String tipoInfraBuscar;//=String.valueOf(inputHiddenSelectedTipoInfraestructura);
-    String numContratoBuscar;//=String.valueOf(inputTextNroContrato.getValue());
-
-    public void setNomEmpSupBuscar(String nomEmpSupBuscar) {
-        this.nomEmpSupBuscar = nomEmpSupBuscar;
+    public List<ContratoAdendaVO> getListContratoAdenda() {
+        return listContratoAdenda;
     }
 
-    public String getNomEmpSupBuscar() {
-        return nomEmpSupBuscar;
+    public void setListarAdendasTipo(List<AdendaTipoVO> listarAdendasTipo) {
+        this.listarAdendasTipo = listarAdendasTipo;
     }
 
-    public void setNumContratoBuscar(String numContratoBuscar) {
-        this.numContratoBuscar = numContratoBuscar;
+    public List<AdendaTipoVO> getListarAdendasTipo() {
+        return listarAdendasTipo;
     }
 
-    public String getNumContratoBuscar() {
-        return numContratoBuscar;
+    public void setAdendaTipoServiceImpl(AdendaTipoServiceImpl adendaTipoServiceImpl) {
+        this.adendaTipoServiceImpl = adendaTipoServiceImpl;
     }
 
-    public void setTipoInfraBuscar(String tipoInfraBuscar) {
-        this.tipoInfraBuscar = tipoInfraBuscar;
+    public AdendaTipoServiceImpl getAdendaTipoServiceImpl() {
+        return adendaTipoServiceImpl;
     }
 
-    public String getTipoInfraBuscar() {
-        return tipoInfraBuscar;
+    public void setContratoAdendaServiceImpl(ContratoAdendaServiceImpl contratoAdendaServiceImpl) {
+        this.contratoAdendaServiceImpl = contratoAdendaServiceImpl;
     }
 
-    //List<ContratoSupervisoraVO> listaContraEmpSup;
-    public List<ContratoSupervisoraVO> buscarConEmpSup() throws SQLException {
-        nomEmpSupBuscar=String.valueOf(inputTextEmpresaSupervisora.getValue());    
-        tipoInfraBuscar=String.valueOf(inputHiddenSelectedTipoInfraestructura);
-        numContratoBuscar=String.valueOf(inputTextNroContrato.getValue());
-        listaContratoSupervisora=this.contratoEmpresaSupervisoraServiceImpl.filtrarContraEmpSup(nomEmpSupBuscar, tipoInfraBuscar, numContratoBuscar);
-        System.out.println("nomEmpSupBuscar, tipoInfraBuscar, numContratoBuscar = "+nomEmpSupBuscar+" "+tipoInfraBuscar+" "+numContratoBuscar);
-        //limpiarCampos ();
-        return listaContratoSupervisora;
+    public ContratoAdendaServiceImpl getContratoAdendaServiceImpl() {
+        return contratoAdendaServiceImpl;
+    }
+
+    public void setAdendasTipoSeleccionada(int adendasTipoSeleccionada) {
+        this.adendasTipoSeleccionada = adendasTipoSeleccionada;
+    }
+
+    public int getAdendasTipoSeleccionada() {
+        return adendasTipoSeleccionada;
+    }
+
+    public void setCpsNroDeContrato(int cpsNroDeContrato) {
+        this.cpsNroDeContrato = cpsNroDeContrato;
+    }
+
+    public int getCpsNroDeContrato() {
+        return cpsNroDeContrato;
+    }
+
+    public void setCpsPlazoContrato(int cpsPlazoContrato) {
+        this.cpsPlazoContrato = cpsPlazoContrato;
+    }
+
+    public int getCpsPlazoContrato() {
+        return cpsPlazoContrato;
+    }
+
+    public void setCpsMontoContratado(int cpsMontoContratado) {
+        this.cpsMontoContratado = cpsMontoContratado;
+    }
+
+    public int getCpsMontoContratado() {
+        return cpsMontoContratado;
+    }
+
+    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
+        this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
+    }
+
+    public int getCpsAdelantoOtorgado() {
+        return cpsAdelantoOtorgado;
+    }
+
+    public void setCpsPenalidades(String cpsPenalidades) {
+        this.cpsPenalidades = cpsPenalidades;
+    }
+
+    public String getCpsPenalidades() {
+        return cpsPenalidades;
+    }
+
+    public void setCpsCaducidad(String cpsCaducidad) {
+        this.cpsCaducidad = cpsCaducidad;
+    }
+
+    public String getCpsCaducidad() {
+        return cpsCaducidad;
+    }
+
+    public void setCpsGarantias(String cpsGarantias) {
+        this.cpsGarantias = cpsGarantias;
+    }
+
+    public String getCpsGarantias() {
+        return cpsGarantias;
+    }
+
+    public void setEmpresaSupervisora(String empresaSupervisora) {
+        this.empresaSupervisora = empresaSupervisora;
+    }
+
+    public String getEmpresaSupervisora() {
+        return empresaSupervisora;
+    }
+
+    public void setCodigoEliminar(int codigoEliminar) {
+        this.codigoEliminar = codigoEliminar;
+    }
+
+    public int getCodigoEliminar() {
+        return codigoEliminar;
     }
     
-    
-    /*private List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
-    public List<ContratoSupervisoraVO> getListarContratoSupervisora() throws SQLException {
-        try {
-            listaContratoSupervisora = getContratoEmpresaSupervisoraServiceImpl().query();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaContratoSupervisora;
-    }*/
-    
+    //---//
 
 
-    public void setDialogRegConEmpSup(Dialog dialog1) {
-        this.dialogRegConEmpSup = dialog1;
+    public void setListarEntregas(List<ContratoSupervisoraVO> listarEntregas) {
+        this.listarEntregas = listarEntregas;
     }
 
-    public Dialog getDialogRegConEmpSup() {
-        return dialogRegConEmpSup;
+    public List<ContratoSupervisoraVO> getListarEntregas() {
+        return listarEntregas;
     }
 
-    public void setPanelGrid2(PanelGrid panelGrid2) {
-        this.panelGrid2 = panelGrid2;
+    public void setContratoE(int contratoE) {
+        this.contratoE = contratoE;
     }
 
-    public PanelGrid getPanelGrid2() {
-        return panelGrid2;
+    public int getContratoE() {
+        return contratoE;
     }
 
-    public void setColumnGroup1(ColumnGroup columnGroup1) {
-        this.columnGroup1 = columnGroup1;
+    public void setSupIdE(int supIdE) {
+        this.supIdE = supIdE;
     }
 
-    public ColumnGroup getColumnGroup1() {
-        return columnGroup1;
+    public int getSupIdE() {
+        return supIdE;
     }
 
-    public void setDialogConfirmarEliminar(Dialog dialog1) {
-        this.dialogConfirmarEliminar = dialog1;
+    public void setInfIdE(int infIdE) {
+        this.infIdE = infIdE;
     }
 
-    public Dialog getDialogConfirmarEliminar() {
-        return dialogConfirmarEliminar;
+    public int getInfIdE() {
+        return infIdE;
     }
 
-    public void setInputHidden1(HtmlInputHidden inputHidden1) {
-        this.inputHidden1 = inputHidden1;
+    public void setTinIdE(int tinIdE) {
+        this.tinIdE = tinIdE;
     }
 
-    public HtmlInputHidden getInputHidden1() {
-        return inputHidden1;
+    public int getTinIdE() {
+        return tinIdE;
     }
 
-    public void setDialogVerContEmpSup(Dialog dialog1) {
-        this.dialogVerContEmpSup = dialog1;
+    public void setCsiIdE(int csiIdE) {
+        this.csiIdE = csiIdE;
     }
 
-    public Dialog getDialogVerContEmpSup() {
-        return dialogVerContEmpSup;
+    public int getCsiIdE() {
+        return csiIdE;
     }
 
-    public void setPanelGridDatosContraConcesion(PanelGrid panelGrid3) {
-        this.panelGridDatosContraConcesion = panelGrid3;
+    public void setAdelantoE(int adelantoE) {
+        this.adelantoE = adelantoE;
     }
 
-    public PanelGrid getPanelGridDatosContraConcesion() {
-        return panelGridDatosContraConcesion;
+    public int getAdelantoE() {
+        return adelantoE;
     }
 
-    public void setOutputLabelConcesion(OutputLabel outputLabel3) {
-        this.outputLabelConcesion = outputLabel3;
+    public void setPlazocontrE(int plazocontrE) {
+        this.plazocontrE = plazocontrE;
     }
 
-    public OutputLabel getOutputLabelConcesion() {
-        return outputLabelConcesion;
+    public int getPlazocontrE() {
+        return plazocontrE;
     }
 
-    public void setInputTextConcesion(InputText inputText1) {
-        this.inputTextConcesion = inputText1;
+    public void setMontocontrE(int montocontrE) {
+        this.montocontrE = montocontrE;
     }
 
-    public InputText getInputTextConcesion() {
-        return inputTextConcesion;
+    public int getMontocontrE() {
+        return montocontrE;
     }
 
-    public void setOutputLabelTipoInfra(OutputLabel outputLabel3) {
-        this.outputLabelTipoInfra = outputLabel3;
+    public void setCpsanyoE(int cpsanyoE) {
+        this.cpsanyoE = cpsanyoE;
     }
 
-    public OutputLabel getOutputLabelTipoInfra() {
-        return outputLabelTipoInfra;
+    public int getCpsanyoE() {
+        return cpsanyoE;
     }
 
-    public void setInputTextTipoInfra(InputText inputText1) {
-        this.inputTextTipoInfra = inputText1;
+    public void setCpsStdE(int cpsStdE) {
+        this.cpsStdE = cpsStdE;
     }
 
-    public InputText getInputTextTipoInfra() {
-        return inputTextTipoInfra;
+    public int getCpsStdE() {
+        return cpsStdE;
     }
 
-    public void setOutputLabelModaConcesion(OutputLabel outputLabel3) {
-        this.outputLabelModaConcesion = outputLabel3;
+    public void setUtil(Util util) {
+        this.util = util;
     }
 
-    public OutputLabel getOutputLabelModaConcesion() {
-        return outputLabelModaConcesion;
+    public Util getUtil() {
+        return util;
     }
 
-    public void setInputTextModalidadConcesion(InputText inputText1) {
-        this.inputTextModalidadConcesion = inputText1;
+    public void setNrohrE(String nrohrE) {
+        this.nrohrE = nrohrE;
     }
 
-    public InputText getInputTextModalidadConcesion() {
-        return inputTextModalidadConcesion;
+    public String getNrohrE() {
+        return nrohrE;
     }
 
-    public void setOutputLabelAeropuerto(OutputLabel outputLabel3) {
-        this.outputLabelAeropuerto = outputLabel3;
+    public void setAñohrE(String añohrE) {
+        this.añohrE = añohrE;
     }
 
-    public OutputLabel getOutputLabelAeropuerto() {
-        return outputLabelAeropuerto;
+    public String getAñohrE() {
+        return añohrE;
     }
 
-    public void setSelectOneMenuAeropuerto(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuAeropuerto = selectOneMenu1;
+    public void setFregE(String fregE) {
+        this.fregE = fregE;
     }
 
-    public SelectOneMenu getSelectOneMenuAeropuerto() {
-        return selectOneMenuAeropuerto;
+    public String getFregE() {
+        return fregE;
     }
 
-    public void setOutputLabelInversion(OutputLabel outputLabel3) {
-        this.outputLabelInversion = outputLabel3;
+    public void setAsuntohrE(String asuntohrE) {
+        this.asuntohrE = asuntohrE;
     }
 
-    public OutputLabel getOutputLabelInversion() {
-        return outputLabelInversion;
+    public String getAsuntohrE() {
+        return asuntohrE;
     }
 
-    public void setInputTextInversion(InputText inputText1) {
-        this.inputTextInversion = inputText1;
+    public void setCpsPenalidadesE(String cpsPenalidadesE) {
+        this.cpsPenalidadesE = cpsPenalidadesE;
     }
 
-    public InputText getInputTextInversion() {
-        return inputTextInversion;
+    public String getCpsPenalidadesE() {
+        return cpsPenalidadesE;
     }
 
-    public void setOutputLabelEtapaPeriodo(OutputLabel outputLabel3) {
-        this.outputLabelEtapaPeriodo = outputLabel3;
+    public void setCpsCaducidadE(String cpsCaducidadE) {
+        this.cpsCaducidadE = cpsCaducidadE;
     }
 
-    public OutputLabel getOutputLabelEtapaPeriodo() {
-        return outputLabelEtapaPeriodo;
+    public String getCpsCaducidadE() {
+        return cpsCaducidadE;
     }
 
-    public void setInputTextEtapaPeriodo(InputText inputText1) {
-        this.inputTextEtapaPeriodo = inputText1;
+    public void setCpsGarantiasE(String cpsGarantiasE) {
+        this.cpsGarantiasE = cpsGarantiasE;
     }
 
-    public InputText getInputTextEtapaPeriodo() {
-        return inputTextEtapaPeriodo;
+    public String getCpsGarantiasE() {
+        return cpsGarantiasE;
     }
 
-    public void setOutputLabelPlazo(OutputLabel outputLabel3) {
-        this.outputLabelPlazo = outputLabel3;
+    public void setT_concesionE(int t_concesionE) {
+        this.t_concesionE = t_concesionE;
     }
 
-    public OutputLabel getOutputLabelPlazo() {
-        return outputLabelPlazo;
+    public int getT_concesionE() {
+        return t_concesionE;
     }
 
-    public void setInputTextPlazo(InputText inputText1) {
-        this.inputTextPlazo = inputText1;
+    public void setT_tinfraE(int t_tinfraE) {
+        this.t_tinfraE = t_tinfraE;
     }
 
-    public InputText getInputTextPlazo() {
-        return inputTextPlazo;
+    public int getT_tinfraE() {
+        return t_tinfraE;
     }
 
-    public void setLayoutMoneda(Layout layout2) {
-        this.layoutMoneda = layout2;
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
     }
 
-    public Layout getLayoutMoneda() {
-        return layoutMoneda;
-    }
-
-    public void setInputTextMoneda(InputText inputText1) {
-        this.inputTextMoneda = inputText1;
-    }
-
-    public InputText getInputTextMoneda() {
-        return inputTextMoneda;
-    }
-
-    public void setOutputLabelTotal(OutputLabel outputLabel3) {
-        this.outputLabelTotal = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelTotal() {
-        return outputLabelTotal;
-    }
-
-    public void setInputTextTotal(InputText inputText1) {
-        this.inputTextTotal = inputText1;
-    }
-
-    public InputText getInputTextTotal() {
-        return inputTextTotal;
-    }
-
-    public void setColumnGroup2(ColumnGroup columnGroup2) {
-        this.columnGroup2 = columnGroup2;
-    }
-
-    public ColumnGroup getColumnGroup2() {
-        return columnGroup2;
-    }
-
-    public void setFieldset1(Fieldset fieldset1) {
-        this.fieldset1 = fieldset1;
-    }
-
-    public Fieldset getFieldset1() {
-        return fieldset1;
-    }
-
-    public void setOutputLabelNroContratoNew(OutputLabel outputLabel3) {
-        this.outputLabelNroContratoNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelNroContratoNew() {
-        return outputLabelNroContratoNew;
-    }
-
-    public void setInputTextNroContratoNew(InputText inputText1) {
-        this.inputTextNroContratoNew = inputText1;
-    }
-
-    public InputText getInputTextNroContratoNew() {
-        return inputTextNroContratoNew;
-    }
-
-    public void setOutputLabelPlazoContratoNew(OutputLabel outputLabel3) {
-        this.outputLabelPlazoContratoNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelPlazoContratoNew() {
-        return outputLabelPlazoContratoNew;
-    }
-
-    public void setInputTextPlazoContratoNew(InputText inputText1) {
-        this.inputTextPlazoContratoNew = inputText1;
-    }
-
-    public InputText getInputTextPlazoContratoNew() {
-        return inputTextPlazoContratoNew;
-    }
-
-    public void setOutputLabelFechaInicioNew(OutputLabel outputLabel3) {
-        this.outputLabelFechaInicioNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelFechaInicioNew() {
-        return outputLabelFechaInicioNew;
-    }
-
-    public void setOutputLabelFechaSuscripcionNew(OutputLabel outputLabel3) {
-        this.outputLabelFechaSuscripcionNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelFechaSuscripcionNew() {
-        return outputLabelFechaSuscripcionNew;
-    }
-
-    public void setOutputLabelMontoNew(OutputLabel outputLabel3) {
-        this.outputLabelMontoNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelMontoNew() {
-        return outputLabelMontoNew;
-    }
-
-    public void setInputTextMontoContratadoNew(InputText inputText1) {
-        this.inputTextMontoContratadoNew = inputText1;
-    }
-
-    public InputText getInputTextMontoContratadoNew() {
-        return inputTextMontoContratadoNew;
-    }
-
-    public void setOutputLabelMonedaNew(OutputLabel outputLabel3) {
-        this.outputLabelMonedaNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelMonedaNew() {
-        return outputLabelMonedaNew;
-    }
-
-    public void setSelectOneMenuMoneda(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuMoneda = selectOneMenu1;
-    }
-
-    public SelectOneMenu getSelectOneMenuMoneda() {
-        return selectOneMenuMoneda;
-    }
-
-    public void setOutputLabelAdelantoOtorgadoNew(OutputLabel outputLabel3) {
-        this.outputLabelAdelantoOtorgadoNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelAdelantoOtorgadoNew() {
-        return outputLabelAdelantoOtorgadoNew;
-    }
-
-    public void setInputTextAdelantoOtorgadoNew(InputText inputText1) {
-        this.inputTextAdelantoOtorgadoNew = inputText1;
-    }
-
-    public InputText getInputTextAdelantoOtorgadoNew() {
-        return inputTextAdelantoOtorgadoNew;
-    }
-
-    public void setOutputLabelFechaAdelantoNew(OutputLabel outputLabel3) {
-        this.outputLabelFechaAdelantoNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelFechaAdelantoNew() {
-        return outputLabelFechaAdelantoNew;
-    }
-
-    public void setCalendarFechaAdelantoNew(Calendar calendar1) {
-        this.calendarFechaAdelantoNew = calendar1;
-    }
-
-    public Calendar getCalendarFechaAdelantoNew() {
-        return calendarFechaAdelantoNew;
-    }
-
-    public void setOutputLabelRefPenalidadNew(OutputLabel outputLabel3) {
-        this.outputLabelRefPenalidadNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelRefPenalidadNew() {
-        return outputLabelRefPenalidadNew;
-    }
-
-    public void setInputTextareaRefPenalidadNew(InputTextarea inputTextarea1) {
-        this.inputTextareaRefPenalidadNew = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaRefPenalidadNew() {
-        return inputTextareaRefPenalidadNew;
-    }
-
-    public void setOutputLabelRefCausalesCaduNew(OutputLabel outputLabel3) {
-        this.outputLabelRefCausalesCaduNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelRefCausalesCaduNew() {
-        return outputLabelRefCausalesCaduNew;
-    }
-
-    public void setInputTextareaRefCausalesCaduNew(InputTextarea inputTextarea1) {
-        this.inputTextareaRefCausalesCaduNew = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaRefCausalesCaduNew() {
-        return inputTextareaRefCausalesCaduNew;
-    }
-
-    public void setOutputLabelGarantiasNew(OutputLabel outputLabel3) {
-        this.outputLabelGarantiasNew = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelGarantiasNew() {
-        return outputLabelGarantiasNew;
-    }
-
-    public void setInputTextareaGarantiasFavorNew(InputTextarea inputTextarea1) {
-        this.inputTextareaGarantiasFavorNew = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaGarantiasFavorNew() {
-        return inputTextareaGarantiasFavorNew;
-    }
-
-    public void setOutputLabelMoneda(OutputLabel outputLabel3) {
-        this.outputLabelMoneda = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabelMoneda() {
-        return outputLabelMoneda;
-    }
-
-    public void setDataGridDatosContrato(DataGrid dataGrid1) {
-        this.dataGridDatosContrato = dataGrid1;
-    }
-
-    public DataGrid getDataGridDatosContrato() {
-        return dataGridDatosContrato;
-    }
-
-    public void setPanelGridDatosContrato(PanelGrid panelGrid3) {
-        this.panelGridDatosContrato = panelGrid3;
-    }
-
-    public PanelGrid getPanelGridDatosContrato() {
-        return panelGridDatosContrato;
-    }
-
-    public void setPanelGridEtapaConcesion(PanelGrid panelGrid3) {
-        this.panelGridEtapaConcesion = panelGrid3;
-    }
-
-    public PanelGrid getPanelGridEtapaConcesion() {
-        return panelGridEtapaConcesion;
-    }
-
-    public void setOutputLabel3(OutputLabel outputLabel3) {
-        this.outputLabel3 = outputLabel3;
-    }
-
-    public OutputLabel getOutputLabel3() {
-        return outputLabel3;
-    }
-
-    public void setOutputLabel4(OutputLabel outputLabel4) {
-        this.outputLabel4 = outputLabel4;
-    }
-
-    public OutputLabel getOutputLabel4() {
-        return outputLabel4;
-    }
-
-    public void setDataGridDatosSTD(DataGrid dataGrid1) {
-        this.dataGridDatosSTD = dataGrid1;
-    }
-
-    public DataGrid getDataGridDatosSTD() {
-        return dataGridDatosSTD;
-    }
-
-    public void setOutputLabel5(OutputLabel outputLabel5) {
-        this.outputLabel5 = outputLabel5;
-    }
-
-    public OutputLabel getOutputLabel5() {
-        return outputLabel5;
-    }
-
-    public void setOutputLabelNroSTDNew(OutputLabel outputLabel6) {
-        this.outputLabelNroSTDNew = outputLabel6;
-    }
-
-    public OutputLabel getOutputLabelNroSTDNew() {
-        return outputLabelNroSTDNew;
-    }
-
-    public void setInputTextNumero(InputText inputText1) {
-        this.inputTextNumero = inputText1;
-    }
-
-    public InputText getInputTextNumero() {
-        return inputTextNumero;
-    }
-
-    public void setOutputLabelAnnioNew(OutputLabel outputLabel7) {
-        this.outputLabelAnnioNew = outputLabel7;
-    }
-
-    public OutputLabel getOutputLabelAnnioNew() {
-        return outputLabelAnnioNew;
-    }
-
-    public void setInputTextAnnio(InputText inputText2) {
-        this.inputTextAnnio = inputText2;
-    }
-
-    public InputText getInputTextAnnio() {
-        return inputTextAnnio;
-    }
-
-    public void setOutputLabelIconBuscarFecReg(OutputLabel outputLabel8) {
-        this.outputLabelIconBuscarFecReg = outputLabel8;
-    }
-
-    public OutputLabel getOutputLabelIconBuscarFecReg() {
-        return outputLabelIconBuscarFecReg;
-    }
-
-    public void setOutputLabelFechaRegistro(OutputLabel outputLabel9) {
-        this.outputLabelFechaRegistro = outputLabel9;
-    }
-
-    public OutputLabel getOutputLabelFechaRegistro() {
-        return outputLabelFechaRegistro;
-    }
-
-    public void setCalendarFechaRegistro(Calendar calendar1) {
-        this.calendarFechaRegistro = calendar1;
-    }
-
-    public Calendar getCalendarFechaRegistro() {
-        return calendarFechaRegistro;
-    }
-
-    public void setOutputLabelAsunto(OutputLabel outputLabel8) {
-        this.outputLabelAsunto = outputLabel8;
-    }
-
-    public OutputLabel getOutputLabelAsunto() {
-        return outputLabelAsunto;
-    }
-
-    public void setInputTextareaAsunto(InputTextarea inputTextarea1) {
-        this.inputTextareaAsunto = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaAsunto() {
-        return inputTextareaAsunto;
-    }
-
-    public void setPanelGridDatosSTD(PanelGrid panelGrid3) {
-        this.panelGridDatosSTD = panelGrid3;
-    }
-
-    public PanelGrid getPanelGridDatosSTD() {
-        return panelGridDatosSTD;
-    }
-
-    public void setCalendarFecIniContratoNew(Calendar calendar1) {
-        this.calendarFecIniContratoNew = calendar1;
-    }
-
-    public Calendar getCalendarFecIniContratoNew() {
-        return calendarFecIniContratoNew;
-    }
-
-    public void setCalendarFecSuscripcionNew(Calendar calendar1) {
-        this.calendarFecSuscripcionNew = calendar1;
-    }
-
-    public Calendar getCalendarFecSuscripcionNew() {
-        return calendarFecSuscripcionNew;
-    }
-
-    public void setDataTableContratoNew(DataTable dataTable1) {
-        this.dataTableContratoNew = dataTable1;
-    }
-
-    public DataTable getDataTableContratoNew() {
-        return dataTableContratoNew;
-    }
-
-    public void setOutputLabelAdjuntarContratoNew(OutputLabel outputLabel8) {
-        this.outputLabelAdjuntarContratoNew = outputLabel8;
-    }
-
-    public OutputLabel getOutputLabelAdjuntarContratoNew() {
-        return outputLabelAdjuntarContratoNew;
-    }
-
-    public void setInputTextAdjutarContratoNew(InputText inputText1) {
-        this.inputTextAdjutarContratoNew = inputText1;
-    }
-
-    public InputText getInputTextAdjutarContratoNew() {
-        return inputTextAdjutarContratoNew;
-    }
-
-    public void setCommandButtonAgregarAdenda(CommandButton commandButton3) {
-        this.commandButtonAgregarAdenda = commandButton3;
-    }
-
-    public CommandButton getCommandButtonAgregarAdenda() {
-        return commandButtonAgregarAdenda;
-    }
-
-    public void setSelectOneMenuEtapaPeriodo(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuEtapaPeriodo = selectOneMenu1;
-    }
-
-    public SelectOneMenu getSelectOneMenuEtapaPeriodo() {
-        return selectOneMenuEtapaPeriodo;
-    }
-
-    public void setInputHidden2(HtmlInputHidden inputHidden2) {
-        this.inputHidden2 = inputHidden2;
-    }
-
-    public HtmlInputHidden getInputHidden2() {
-        return inputHidden2;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return Moneda
-     */
-
-    //@ManagedProperty(value = "#{monedaVO}")
-    private MonedaVO monedaVO = new MonedaVO();
-
-    //@ManagedProperty(value = "#{monedaServiceImpl}")
-    private MonedaServiceImpl monedaServiceImpl = new MonedaServiceImpl();
-
-
-    public void setMonedaVO(MonedaVO monedaVO) {
-        this.monedaVO = monedaVO;
-    }
-
-    public MonedaVO getMonedaVO() {
-        return monedaVO;
-    }
-
-    public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
-        this.monedaServiceImpl = monedaServiceImpl;
-    }
-
-    public MonedaServiceImpl getMonedaServiceImpl() {
-        return monedaServiceImpl;
-    }
-
-
-    public void setMoneda(String moneda) {
-        this.moneda = moneda;
-    }
-
-    public String getMoneda() {
-        return moneda;
-    }
-
-    public void setMonedaSelectItems(List<SelectItem> monedaSelectItems) {
-        this.monedaSelectItems = monedaSelectItems;
-    }
-
-    private List<MonedaVO> listaMoneda;
-
-    public List<MonedaVO> listarMoneda() throws SQLException {
-        try {
-            listaMoneda = getMonedaServiceImpl().query();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaMoneda;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return moneda para que se renderize en el combo
-     */
-    public List<SelectItem> getMonedaSelectItems() throws SQLException {
-        monedaSelectItems.add(new SelectItem("", "Seleccione"));
-        List<MonedaVO> lista = listarMoneda();
-        int i = 0;
-        for (MonedaVO mvo : lista) {
-            monedaSelectItems.add(new SelectItem(i++, String.valueOf(mvo.getMonNombre())));
-        }
-        return monedaSelectItems;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return moneda seleccionado del combo
-     */
-    public String getInputHiddenSelectedMoneda() {
-        if ("".equals(getMoneda()) || getMoneda() == null) {
-            return "";
-        } else {
-            return getMoneda();
-        }
-    }
-
-    public void setInputHiddenSelectedMoneda(String inputHiddenSelectedMoneda) {
-        this.inputHiddenSelectedMoneda = inputHiddenSelectedMoneda;
-    }
-
-    public void setCommandButtonGrabar(CommandButton commandButton3) {
-        this.commandButtonGrabar = commandButton3;
-    }
-
-    public CommandButton getCommandButtonGrabar() {
-        return commandButtonGrabar;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaSuscripcion(Date fechaSuscripcion) {
-        this.fechaSuscripcion = fechaSuscripcion;
-    }
-
-    public Date getFechaSuscripcion() {
-        return fechaSuscripcion;
-    }
-    
-    // Registrar Contrato Empresa Supervisora
-    /*private String cpsFechaInicioStr;
-    private String cpsFechaSuscripcion;
-    contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
-    contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
-    contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
-    contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
-    contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
-    contratoSupervisoraVO.setCpsEstado(1);
-    contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
-    contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
-    contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
-    //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
-    contratoSupervisoraVO.setEmpresaSupervisora(1);
-    contratoSupervisoraVO.setContrato(22);
-    contratoSupervisoraVO.setInfraestructura(1);
-    contratoSupervisoraVO.setCpsEstado(1);
-    contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
-    System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
-    contratoSupervisoraVO.setConcesion(1);
-    contratoSupervisoraVO.setCpsPenalidades("1");
-    contratoSupervisoraVO.setCpsCaducidad("1");
-    contratoSupervisoraVO.setCpsGarantias("1");*/
-        
-    public void grabar() throws SQLException {
-        System.out.println("inputHiddenSelectedMoneda = "+inputHiddenSelectedMoneda);
-        System.out.println("getInputHiddenSelectedMoneda = "+getInputHiddenSelectedMoneda());
-        System.out.println("inputHidden2 = "+inputHidden2);
-        System.out.println("getInputHidden2() = "+getInputHidden2());
-        System.out.println("inputHidden2.getValue() = "+inputHidden2.getValue());
-        System.out.println("moneda = "+moneda);
-        System.out.println("getMoneda = "+this.getMoneda());
-        if (this.inputTextPlazoContratoNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado el plazo.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextMontoContratadoNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado el monto.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextAdelantoOtorgadoNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha ingresado al adelanto otorgado.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextNumero.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el número de STD");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextAnnio.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el año.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextareaRefPenalidadNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la penalidad.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextareaRefCausalesCaduNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las causales de caducidad.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextareaGarantiasFavorNew.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la garantía.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (this.inputTextareaAsunto.getValue().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el asunto.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        /*}else if (this.inputHiddenSelectedMoneda.equals(null)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la fecha de registro.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-          */  
-        }else if (this.calendarFechaRegistro.getValue().equals(null)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la fecha de registro.");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        /*}else if (contratoSupervisoraVO.getCpsAsunto().toString().trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (contratoSupervisoraVO.getTipoInfraestructura().toString().trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }*/
-        }        
-        else{
-               try {
-                    contratoSupervisoraVO.setCpsFechaInicio((Date)calendarFecIniContratoNew.getValue());
-                    contratoSupervisoraVO.setCpsFechaSuscripcion((Date)calendarFecSuscripcionNew.getValue());
-                    contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf((String)inputTextPlazoContratoNew.getValue()));
-                    contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(String.valueOf(inputTextMontoContratadoNew.getValue())));
-                    contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(String.valueOf(inputTextAdelantoOtorgadoNew.getValue())));
-                    contratoSupervisoraVO.setCpsFechaAdelanto((Date)calendarFechaAdelantoNew.getValue());
-                    contratoSupervisoraVO.setCpsStd(Integer.valueOf(String.valueOf(inputTextNroContratoNew.getValue())));
-                    contratoSupervisoraVO.setCpsEstado(1);
-                    contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(String.valueOf(inputTextAnnio.getValue())));
-                    contratoSupervisoraVO.setCpsFechaRegistro((Date)calendarFechaRegistro.getValue());
-                    contratoSupervisoraVO.setCpsAsunto(String.valueOf(inputTextareaAsunto.getValue()));
-                    //contratoSupervisoraVO.setEmpresaSupervisora(Integer.valueOf(String.valueOf(inputTextEmpresaSupervisora.getValue())));
-                    contratoSupervisoraVO.setEmpresaSupervisora(1);
-                    contratoSupervisoraVO.setContrato(22);
-                    contratoSupervisoraVO.setInfraestructura(1);
-                    contratoSupervisoraVO.setCpsEstado(1);
-                    contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(String.valueOf(inputHiddenItemTipoInfraestructura.getValue())));
-                    System.out.println("tipo infra: "+contratoSupervisoraVO.getTipoInfraestructura());
-                    contratoSupervisoraVO.setConcesion(1);
-                    contratoSupervisoraVO.setCpsPenalidades("1");
-                    contratoSupervisoraVO.setCpsCaducidad("1");
-                    contratoSupervisoraVO.setCpsGarantias("1");
-                    this.contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
-                    getListarContratoSupervisora();
-                    limpiarCampos();
-                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito");
-                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                    RequestContext.getCurrentInstance().execute("dialogRegConEmpSup.hide()");
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
-                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                }
-        }
-    }
-
-    public void setCommandButtonCancelar(CommandButton commandButton3) {
-        this.commandButtonCancelar = commandButton3;
-    }
-
-    public CommandButton getCommandButtonCancelar() {
-        return commandButtonCancelar;
-    }
-
-
-    
-
-    public void setCommandButton3(HtmlCommandButton commandButton3) {
-        this.commandButton3 = commandButton3;
-    }
-
-    public HtmlCommandButton getCommandButton3() {
-        return commandButton3;
-    }
-
-    public void setLayoutUnit2(LayoutUnit layoutUnit2) {
-        this.layoutUnit2 = layoutUnit2;
-    }
-
-    public LayoutUnit getLayoutUnit2() {
-        return layoutUnit2;
-    }
-
-    public void setCommandButton4(CommandButton commandButton4) {
-        this.commandButton4 = commandButton4;
-    }
-
-    public CommandButton getCommandButton4() {
-        return commandButton4;
-    }
-
-    public void setCommandButton5(CommandButton commandButton5) {
-        this.commandButton5 = commandButton5;
-    }
-
-    public CommandButton getCommandButton5() {
-        return commandButton5;
-    }
-
-    public void setOutputText4(HtmlOutputText outputText4) {
-        this.outputText4 = outputText4;
-    }
-
-    public HtmlOutputText getOutputText4() {
-        return outputText4;
-    }
-
-    public void setOutputText5(HtmlOutputText outputText5) {
-        this.outputText5 = outputText5;
-    }
-
-    public HtmlOutputText getOutputText5() {
-        return outputText5;
-    }
-    
-    int idEliminar;
-    String nombreEliminar;
-
-    public void setIdEliminar(int idEliminar) {
-        this.idEliminar = idEliminar;
-    }
-
-    public int getIdEliminar() {
-        return idEliminar;
-    }
-    
-    public void setNombreEliminar(String nombreEliminar) {
-        this.nombreEliminar = nombreEliminar;
-    }
-
-    public String getNombreEliminar() {
-        return nombreEliminar;
-    }
-        
-    public void confirmarEliminar() throws SQLException{
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("id3");
-        Integer idContEmpSup = Integer.valueOf(str.toString());
-        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idContEmpSup);
-        //contratoSupervisoraVO.setCpsNroDeContrato(idContEmpSup);
-        idEliminar = contratoSupervisoraVO.getCpsNroDeContrato();
-        nombreEliminar = String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato()); //.toUpperCase();
-    }
-    
-    public String empSupDel() throws SQLException{
-        try{            
-            contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEliminar);
-            ///contratoSupervisoraVO.setCpsNroDeContrato(idEliminar);
-            contratoSupervisoraVO.setCpsEstado(2);
-            //contratoSupervisoraVO.setSupFechaBaja(util.getObtenerFechaHoy());
-            //contratoSupervisoraVO.setSupTerminal(util.obtenerIpCliente());
-            this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);
-            //this.empSupServiceImp.delete(idEmpSup);
-            getListarContratoSupervisora();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
-                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);        
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-                            FacesMessage mensaje =
-                                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
-                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }
-        return "/index?faces-redirect=true";        
-    }
-
-
-    public void setOutputText6(HtmlOutputText outputText6) {
-        this.outputText6 = outputText6;
-    }
-
-    public HtmlOutputText getOutputText6() {
-        return outputText6;
-    }
-
-    public void setOutputText7(HtmlOutputText outputText7) {
-        this.outputText7 = outputText7;
-    }
-
-    public HtmlOutputText getOutputText7() {
-        return outputText7;
-    }
-
-    public void setInputTextIdEliminar(InputText inputText1) {
-        this.inputTextIdEliminar = inputText1;
-    }
-
-    public InputText getInputTextIdEliminar() {
-        return inputTextIdEliminar;
-    }
-
-    public void setInputHidden3(HtmlInputHidden inputHidden3) {
-        this.inputHidden3 = inputHidden3;
-    }
-
-    public HtmlInputHidden getInputHidden3() {
-        return inputHidden3;
-    }
-
-    public void setDialogModificarConEmpSup(Dialog dialog1) {
-        this.dialogModificarConEmpSup = dialog1;
-    }
-
-    public Dialog getDialogModificarConEmpSup() {
-        return dialogModificarConEmpSup;
-    }
-
-    public void setPanelGrid3(PanelGrid panelGrid3) {
-        this.panelGrid3 = panelGrid3;
-    }
-
-    public PanelGrid getPanelGrid3() {
-        return panelGrid3;
-    }
-
-    public void setColumnGroup3(ColumnGroup columnGroup3) {
-        this.columnGroup3 = columnGroup3;
-    }
-
-    public ColumnGroup getColumnGroup3() {
-        return columnGroup3;
-    }
-
-    public void setPanelGridDatosSTDModif(PanelGrid panelGrid4) {
-        this.panelGridDatosSTDModif = panelGrid4;
-    }
-
-    public PanelGrid getPanelGridDatosSTDModif() {
-        return panelGridDatosSTDModif;
-    }
-
-    public void setInputTextNumeroModif(InputText inputText1) {
-        this.inputTextNumeroModif = inputText1;
-    }
-
-    public InputText getInputTextNumeroModif() {
-        return inputTextNumeroModif;
-    }
-
-    public void setInputTextAnnioModif(InputText inputText1) {
-        this.inputTextAnnioModif = inputText1;
-    }
-
-    public InputText getInputTextAnnioModif() {
-        return inputTextAnnioModif;
-    }
-
-    public void setCalendarFechaRegistroModif(Calendar calendar1) {
-        this.calendarFechaRegistroModif = calendar1;
-    }
-
-    public Calendar getCalendarFechaRegistroModif() {
-        return calendarFechaRegistroModif;
-    }
-
-    public void setInputTextareaAsuntoModif(InputTextarea inputTextarea1) {
-        this.inputTextareaAsuntoModif = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaAsuntoModif() {
-        return inputTextareaAsuntoModif;
-    }
-
-    public void setPanelGridContratConcesionModif(PanelGrid panelGrid4) {
-        this.panelGridContratConcesionModif = panelGrid4;
-    }
-
-    public PanelGrid getPanelGridContratConcesionModif() {
-        return panelGridContratConcesionModif;
-    }
-
-    public void setInputTextConcesionModif(InputText inputText1) {
-        this.inputTextConcesionModif = inputText1;
-    }
-
-    public InputText getInputTextConcesionModif() {
-        return inputTextConcesionModif;
-    }
-
-    public void setInputTextTipoInfraModif(InputText inputText1) {
-        this.inputTextTipoInfraModif = inputText1;
-    }
-
-    public InputText getInputTextTipoInfraModif() {
-        return inputTextTipoInfraModif;
-    }
-
-    public void setInputTextModalidadConcesionModif(InputText inputText1) {
-        this.inputTextModalidadConcesionModif = inputText1;
-    }
-
-    public InputText getInputTextModalidadConcesionModif() {
-        return inputTextModalidadConcesionModif;
-    }
-
-    public void setSelectOneMenuAeropuertoModif(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuAeropuertoModif = selectOneMenu1;
-    }
-
-    public SelectOneMenu getSelectOneMenuAeropuertoModif() {
-        return selectOneMenuAeropuertoModif;
-    }
-
-    public void setInputTextInversionModif(InputText inputText1) {
-        this.inputTextInversionModif = inputText1;
-    }
-
-    public InputText getInputTextInversionModif() {
-        return inputTextInversionModif;
-    }
-
-    public void setPanelGridEtapaConcesionModif(PanelGrid panelGrid4) {
-        this.panelGridEtapaConcesionModif = panelGrid4;
-    }
-
-    public PanelGrid getPanelGridEtapaConcesionModif() {
-        return panelGridEtapaConcesionModif;
-    }
-
-    public void setInputTextTotalModif(InputText inputText1) {
-        this.inputTextTotalModif = inputText1;
-    }
-
-    public InputText getInputTextTotalModif() {
-        return inputTextTotalModif;
-    }
-
-    public void setInputTextMonedaModif(InputText inputText1) {
-        this.inputTextMonedaModif = inputText1;
-    }
-
-    public InputText getInputTextMonedaModif() {
-        return inputTextMonedaModif;
-    }
-
-    public void setInputTextPlazoModif(InputText inputText1) {
-        this.inputTextPlazoModif = inputText1;
-    }
-
-    public InputText getInputTextPlazoModif() {
-        return inputTextPlazoModif;
-    }
-
-    public void setSelectOneMenuEtapaPeriodoModif(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuEtapaPeriodoModif = selectOneMenu1;
-    }
-
-    public SelectOneMenu getSelectOneMenuEtapaPeriodoModif() {
-        return selectOneMenuEtapaPeriodoModif;
-    }
-
-    public void setColumnGroup4(ColumnGroup columnGroup4) {
-        this.columnGroup4 = columnGroup4;
-    }
-
-    public ColumnGroup getColumnGroup4() {
-        return columnGroup4;
-    }
-
-    public void setFieldset2(Fieldset fieldset2) {
-        this.fieldset2 = fieldset2;
-    }
-
-    public Fieldset getFieldset2() {
-        return fieldset2;
-    }
-
-    public void setPanelGridDatosContratoModif(PanelGrid panelGrid4) {
-        this.panelGridDatosContratoModif = panelGrid4;
-    }
-
-    public PanelGrid getPanelGridDatosContratoModif() {
-        return panelGridDatosContratoModif;
-    }
-
-    public void setInputTextNroContratoModif(InputText inputText1) {
-        this.inputTextNroContratoModif = inputText1;
-    }
-
-    public InputText getInputTextNroContratoModif() {
-        return inputTextNroContratoModif;
-    }
-
-    public void setCalendarFecIniContratoModif(Calendar calendar1) {
-        this.calendarFecIniContratoModif = calendar1;
-    }
-
-    public Calendar getCalendarFecIniContratoModif() {
-        return calendarFecIniContratoModif;
-    }
-
-    public void setCalendarFecSuscripcionModif(Calendar calendar1) {
-        this.calendarFecSuscripcionModif = calendar1;
-    }
-
-    public Calendar getCalendarFecSuscripcionModif() {
-        return calendarFecSuscripcionModif;
-    }
-
-    public void setInputTextPlazoContratoModif(InputText inputText1) {
-        this.inputTextPlazoContratoModif = inputText1;
-    }
-
-    public InputText getInputTextPlazoContratoModif() {
-        return inputTextPlazoContratoModif;
-    }
-
-    public void setInputTextMontoContratadoModif(InputText inputText1) {
-        this.inputTextMontoContratadoModif = inputText1;
-    }
-
-    public InputText getInputTextMontoContratadoModif() {
-        return inputTextMontoContratadoModif;
-    }
-
-    public void setInputTextareaRefCausalesCaduModif(InputTextarea inputTextarea1) {
-        this.inputTextareaRefCausalesCaduModif = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaRefCausalesCaduModif() {
-        return inputTextareaRefCausalesCaduModif;
-    }
-
-    public void setInputTextareaRefPenalidadModif(InputTextarea inputTextarea1) {
-        this.inputTextareaRefPenalidadModif = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaRefPenalidadModif() {
-        return inputTextareaRefPenalidadModif;
-    }
-
-    public void setCalendarFechaAdelantoModif(Calendar calendar1) {
-        this.calendarFechaAdelantoModif = calendar1;
-    }
-
-    public Calendar getCalendarFechaAdelantoModif() {
-        return calendarFechaAdelantoModif;
-    }
-
-    public void setInputTextAdelantoOtorgadoModif(InputText inputText1) {
-        this.inputTextAdelantoOtorgadoModif = inputText1;
-    }
-
-    public InputText getInputTextAdelantoOtorgadoModif() {
-        return inputTextAdelantoOtorgadoModif;
-    }
-
-    public void setInputTextAdjutarContratoModif(InputText inputText1) {
-        this.inputTextAdjutarContratoModif = inputText1;
-    }
-
-    public InputText getInputTextAdjutarContratoModif() {
-        return inputTextAdjutarContratoModif;
-    }
-
-    public void setInputTextareaGarantiasFavorModif(InputTextarea inputTextarea1) {
-        this.inputTextareaGarantiasFavorModif = inputTextarea1;
-    }
-
-    public InputTextarea getInputTextareaGarantiasFavorModif() {
-        return inputTextareaGarantiasFavorModif;
-    }
-
-    public void setDataTableContratoModif(DataTable dataTable1) {
-        this.dataTableContratoModif = dataTable1;
-    }
-
-    public DataTable getDataTableContratoModif() {
-        return dataTableContratoModif;
-    }
-
-
-    public void setCommandButtonAgregarAdendaModif(CommandButton commandButton6) {
-        this.commandButtonAgregarAdendaModif = commandButton6;
-    }
-
-    public CommandButton getCommandButtonAgregarAdendaModif() {
-        return commandButtonAgregarAdendaModif;
-    }
-
-    public void setCommandButtonCancelarModif(CommandButton commandButton6) {
-        this.commandButtonCancelarModif = commandButton6;
-    }
-
-    public CommandButton getCommandButtonCancelarModif() {
-        return commandButtonCancelarModif;
-    }
-
-    public void setCommandButtonDialModificar(CommandButton commandButton6) {
-        this.commandButtonDialModificar = commandButton6;
-    }
-
-    public CommandButton getCommandButtonDialModificar() {
-        return commandButtonDialModificar;
-    }
-
-    public void setSelectOneMenuMonedaModif(SelectOneMenu selectOneMenu1) {
-        this.selectOneMenuMonedaModif = selectOneMenu1;
-    }
-
-    public SelectOneMenu getSelectOneMenuMonedaModif() {
-        return selectOneMenuMonedaModif;
-    }
-
-    private String inputTextNumeroModifStr;
-    private String inputTextAnnioModifStr;
-    private String calendarFecIniContratoModifStr;
-    private String calendarFecSuscripcionModifStr;
-    private String inputTextPlazoContratoModifStr;
-    private String inputTextMontoContratadoModifStr;
-    private String inputTextAdelantoOtorgadoModifStr;
-    private Date calendarFechaAdelantoModifStr;
-    private String inputTextNroContratoModifStr;
-    private Date calendarFechaRegistroModifStr;
-    private String inputTextareaAsuntoModifStr;
-    private String inputTextTipoInfraModifStr;
-    private String inputTextareaRefPenalidadModifStr;
-    private String inputTextareaRefCausalesCaduModifStr;
-    private String inputTextareaGarantiasFavorModifStr;
-
-
-    public void setInputTextNumeroModifStr(String inputTextNumeroModifStr) {
-        this.inputTextNumeroModifStr = inputTextNumeroModifStr;
-    }
-
-    public String getInputTextNumeroModifStr() {
-        return inputTextNumeroModifStr;
-    }
-
-    public void setInputTextAnnioModifStr(String inputTextAnnioModifStr) {
-        this.inputTextAnnioModifStr = inputTextAnnioModifStr;
-    }
-
-    public String getInputTextAnnioModifStr() {
-        return inputTextAnnioModifStr;
-    }
-
-    public void setCalendarFecIniContratoModifStr(String calendarFecIniContratoModifStr) {
-        this.calendarFecIniContratoModifStr = calendarFecIniContratoModifStr;
-    }
-
-    public String getCalendarFecIniContratoModifStr() {
-        return calendarFecIniContratoModifStr;
-    }
-
-    public void setCalendarFecSuscripcionModifStr(String calendarFecSuscripcionModifStr) {
-        this.calendarFecSuscripcionModifStr = calendarFecSuscripcionModifStr;
-    }
-
-    public String getCalendarFecSuscripcionModifStr() {
-        return calendarFecSuscripcionModifStr;
-    }
-
-    public void setInputTextPlazoContratoModifStr(String inputTextPlazoContratoModifStr) {
-        this.inputTextPlazoContratoModifStr = inputTextPlazoContratoModifStr;
-    }
-
-    public String getInputTextPlazoContratoModifStr() {
-        return inputTextPlazoContratoModifStr;
-    }
-
-    public void setInputTextMontoContratadoModifStr(String inputTextMontoContratadoModifStr) {
-        this.inputTextMontoContratadoModifStr = inputTextMontoContratadoModifStr;
-    }
-
-    public String getInputTextMontoContratadoModifStr() {
-        return inputTextMontoContratadoModifStr;
-    }
-
-    public void setInputTextAdelantoOtorgadoModifStr(String inputTextAdelantoOtorgadoModifStr) {
-        this.inputTextAdelantoOtorgadoModifStr = inputTextAdelantoOtorgadoModifStr;
-    }
-
-    public String getInputTextAdelantoOtorgadoModifStr() {
-        return inputTextAdelantoOtorgadoModifStr;
-    }
-
-
-    public void setCalendarFechaAdelantoModifStr(Date calendarFechaAdelantoModifStr) {
-        this.calendarFechaAdelantoModifStr = calendarFechaAdelantoModifStr;
-    }
-
-    public Date getCalendarFechaAdelantoModifStr() {
-        return calendarFechaAdelantoModifStr;
-    }
-
-    public void setInputTextNroContratoModifStr(String inputTextNroContratoModifStr) {
-        this.inputTextNroContratoModifStr = inputTextNroContratoModifStr;
-    }
-
-    public String getInputTextNroContratoModifStr() {
-        return inputTextNroContratoModifStr;
-    }
-
-    public void setCalendarFechaRegistroModifStr(Date calendarFechaRegistroModifStr) {
-        this.calendarFechaRegistroModifStr = calendarFechaRegistroModifStr;
-    }
-
-    public Date getCalendarFechaRegistroModifStr() {
-        return calendarFechaRegistroModifStr;
-    }
-
-    public void setInputTextareaAsuntoModifStr(String inputTextareaAsuntoModifStr) {
-        this.inputTextareaAsuntoModifStr = inputTextareaAsuntoModifStr;
-    }
-
-    public String getInputTextareaAsuntoModifStr() {
-        return inputTextareaAsuntoModifStr;
-    }
-
-    public void setInputTextTipoInfraModifStr(String inputTextTipoInfraModifStr) {
-        this.inputTextTipoInfraModifStr = inputTextTipoInfraModifStr;
-    }
-
-    public String getInputTextTipoInfraModifStr() {
-        return inputTextTipoInfraModifStr;
-    }
-
-    public void setInputTextareaRefPenalidadModifStr(String inputTextareaRefPenalidadModifStr) {
-        this.inputTextareaRefPenalidadModifStr = inputTextareaRefPenalidadModifStr;
-    }
-
-    public String getInputTextareaRefPenalidadModifStr() {
-        return inputTextareaRefPenalidadModifStr;
-    }
-
-    public void setInputTextareaRefCausalesCaduModifStr(String inputTextareaRefCausalesCaduModifStr) {
-        this.inputTextareaRefCausalesCaduModifStr = inputTextareaRefCausalesCaduModifStr;
-    }
-
-    public String getInputTextareaRefCausalesCaduModifStr() {
-        return inputTextareaRefCausalesCaduModifStr;
-    }
-
-    public void setInputTextareaGarantiasFavorModifStr(String inputTextareaGarantiasFavorModifStr) {
-        this.inputTextareaGarantiasFavorModifStr = inputTextareaGarantiasFavorModifStr;
-    }
-
-    public String getInputTextareaGarantiasFavorModifStr() {
-        return inputTextareaGarantiasFavorModifStr;
-    }
-
-    public void contraEmpSupUpd1() throws SQLException{
-        FacesContext context=FacesContext.getCurrentInstance();
-        Map requestMap=context.getExternalContext().getRequestParameterMap();
-        Object str=requestMap.get("id2");
-        Integer idEmpSup=Integer.valueOf(str.toString());        
-        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEmpSup);   
-        inputTextNumeroModifStr=String.valueOf(contratoSupervisoraVO.getCpsStd());
-        inputTextAnnioModifStr=String.valueOf(contratoSupervisoraVO.getCpsAnyo());
-        calendarFecIniContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaInicio());
-        calendarFecSuscripcionModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaSuscripcion());
-        inputTextPlazoContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsPlazoContrato());
-        inputTextMontoContratadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsMontoContratado());
-        inputTextAdelantoOtorgadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAdelantoOtorgado());
-        calendarFechaAdelantoModifStr=contratoSupervisoraVO.getCpsFechaAdelanto();
-        System.out.println("(contratoSupervisoraVO.getCpsFechaAdelanto(): "+contratoSupervisoraVO.getCpsFechaAdelanto());
-        inputTextNroContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato());
-        calendarFechaRegistroModifStr=contratoSupervisoraVO.getCpsFechaRegistro();
-        inputTextareaAsuntoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAsunto());
-        inputTextTipoInfraModifStr=String.valueOf(contratoSupervisoraVO.getTipoInfraestructura());
-        inputTextareaRefPenalidadModifStr=contratoSupervisoraVO.getCpsPenalidades();
-        inputTextareaRefCausalesCaduModifStr=contratoSupervisoraVO.getCpsCaducidad();
-        inputTextareaGarantiasFavorModifStr=contratoSupervisoraVO.getCpsGarantias();
-    }
-    
-    
-    public void contEmpSupVer() throws SQLException{
-        FacesContext context=FacesContext.getCurrentInstance();
-        Map requestMap=context.getExternalContext().getRequestParameterMap();
-        Object str=requestMap.get("id1");
-        Integer idEmpSup=Integer.valueOf(str.toString());
-        contratoSupervisoraVO=this.contratoEmpresaSupervisoraServiceImpl.get(idEmpSup);   
-        inputTextNumeroModifStr=String.valueOf(contratoSupervisoraVO.getCpsStd());
-        inputTextAnnioModifStr=String.valueOf(contratoSupervisoraVO.getCpsAnyo());
-        calendarFecIniContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaInicio());
-        calendarFecSuscripcionModifStr=String.valueOf(contratoSupervisoraVO.getCpsFechaSuscripcion());
-        inputTextPlazoContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsPlazoContrato());
-        inputTextMontoContratadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsMontoContratado());
-        inputTextAdelantoOtorgadoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAdelantoOtorgado());
-        calendarFechaAdelantoModifStr=contratoSupervisoraVO.getCpsFechaAdelanto();
-        System.out.println("(contratoSupervisoraVO.getCpsFechaAdelanto(): "+contratoSupervisoraVO.getCpsFechaAdelanto());
-        inputTextNroContratoModifStr=String.valueOf(contratoSupervisoraVO.getCpsNroDeContrato());
-        calendarFechaRegistroModifStr=contratoSupervisoraVO.getCpsFechaRegistro();
-        inputTextareaAsuntoModifStr=String.valueOf(contratoSupervisoraVO.getCpsAsunto());
-        inputTextTipoInfraModifStr=String.valueOf(contratoSupervisoraVO.getTipoInfraestructura());
-        inputTextareaRefPenalidadModifStr=contratoSupervisoraVO.getCpsPenalidades();
-        inputTextareaRefCausalesCaduModifStr=contratoSupervisoraVO.getCpsCaducidad();
-        inputTextareaGarantiasFavorModifStr=contratoSupervisoraVO.getCpsGarantias();
-    }    
-    
-    
-    private SelectOneMenu selectOneMenuMonedaModif;
-    private String monedaModif;
-    List<SelectItem> monedaSelectItemsModif = new ArrayList<SelectItem>();
-
-    public void setMonedaModif(String monedaModif) {
-        this.monedaModif = monedaModif;
-    }
-
-    public String getMonedaModif() {
-        return monedaModif;
-    }
-
-    public void setMonedaSelectItemsModif(List<SelectItem> monedaSelectItemsModif) {
-        this.monedaSelectItemsModif = monedaSelectItemsModif;
-    }
-
-
-    /**
-     * @author Paul Rivera
-     * @return Moneda para el dialog de modificar
-     */
-    private List<MonedaVO> listaMonedaModif;
-
-    public List<MonedaVO> listarMonedaModif() throws SQLException {
-        try {
-            listaMonedaModif = getMonedaServiceImpl().query();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaMonedaModif;
-    }
-
-    /**
-     * @author Paul Rivera
-     * @return moneda para que se renderize en el combo para modificar
-     */
-    public List<SelectItem> getMonedaSelectItemsModif() throws SQLException {
-        monedaSelectItemsModif.add(new SelectItem("-1", "Seleccione"));
-        List<MonedaVO> lista = listarMonedaModif();
-        int i = 0;
-        for (MonedaVO mvo : lista) {
-            monedaSelectItemsModif.add(new SelectItem(i++, String.valueOf(mvo.getMonNombre())));
-        }
-        return monedaSelectItemsModif;
-    }
-
-    
-    /**
-     * @author Paul Rivera
-     * @return moneda seleccionado del combo
-     */
-    public String getInputHiddenSelectedMonedaModif() {
-        if ("".equals(getMoneda()) || getMoneda() == null) {
-            return "";
-        } else {
-            return getMoneda();
-        }
-    }
-
-    public void setInputHiddenSelectedMonedaModif(String inputHiddenSelectedMoneda) {
-        this.inputHiddenSelectedMonedaModif = inputHiddenSelectedMoneda;
-    }
-
-
-    public void setInputHidden4(HtmlInputHidden inputHidden4) {
-        this.inputHidden4 = inputHidden4;
-    }
-
-    public HtmlInputHidden getInputHidden4() {
-        return inputHidden4;
-    }
-    
-    public void modificar() throws SQLException{
-        /*if (nomEmpSupMod.trim().equals("")) {
-            FacesMessage mensaje =
-                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
-                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (dirEmpSupMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (repLegalMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (siglasNomMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarNombreMod(nomEmpSupMod.trim(),nommod.trim())>0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumentoMod == 0 && !nroDocMod.trim().equals("") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumentoMod==1 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 8 ||nroDocMod.trim().length() < 8)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (tipoDocumentoMod==2 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 11 ||nroDocMod.trim().length() < 11)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarRucMod(nroDocMod.trim(),nroRuc,tipoDocumentoMod) > 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }
-        else{*/
-            try{
-                contratoSupervisoraVO.setCpsStd(Integer.valueOf(inputTextNumeroModifStr));
-                contratoSupervisoraVO.setCpsAnyo(Integer.valueOf(inputTextAnnioModifStr));
-                contratoSupervisoraVO.setCpsAsunto(inputTextareaAsuntoModifStr);
-                contratoSupervisoraVO.setCpsNroDeContrato(Integer.valueOf(inputTextNroContratoModifStr));
-                contratoSupervisoraVO.setCpsFechaInicio(new SimpleDateFormat("dd-MM-yy").parse(calendarFecIniContratoModifStr));
-                contratoSupervisoraVO.setCpsFechaSuscripcion(new SimpleDateFormat("dd-MM-yy").parse(calendarFecSuscripcionModifStr));
-                contratoSupervisoraVO.setCpsPlazoContrato(Integer.valueOf(inputTextPlazoContratoModifStr));
-                contratoSupervisoraVO.setCpsMontoContratado(Integer.valueOf(inputTextMontoContratadoModifStr));
-                contratoSupervisoraVO.setCpsAdelantoOtorgado(Integer.valueOf(inputTextAdelantoOtorgadoModifStr));
-                contratoSupervisoraVO.setCpsPenalidades(inputTextareaRefPenalidadModifStr);
-                contratoSupervisoraVO.setCpsCaducidad(inputTextareaRefCausalesCaduModifStr);
-                contratoSupervisoraVO.setCpsGarantias(inputTextareaGarantiasFavorModifStr);
-                contratoSupervisoraVO.setTipoInfraestructura(Integer.valueOf(inputTextTipoInfraModifStr));
-               // contratoSupervisoraVO.setCpsFechaAdelanto(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaAdelantoModifStr));
-               // contratoSupervisoraVO.setCpsFechaRegistro(new SimpleDateFormat("dd-MM-yy").parse(calendarFechaRegistroModifStr));
-                    
-                    
-                this.contratoEmpresaSupervisoraServiceImpl.update(contratoSupervisoraVO);        
-                ///getQuery();
-                limpiarCampos();
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
-                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                RequestContext.getCurrentInstance().execute("ModEmpSup.hide()");
-            }catch(Exception e){
-                System.out.println(e.getMessage());
-                                FacesMessage mensaje =
-                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
-                                FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            }
-        //}
-        
-    } 
-    
-    public void limpiarFiltro(){
-        inputTextEmpresaSupervisora.setValue("");    
-        inputHiddenSelectedTipoInfraestructura="";
-        inputTextNroContrato.setValue("");
-    }
-    
-    public void limpiarCampos(){
-        calendarFecIniContratoNew.setValue("");
-        calendarFecSuscripcionNew.setValue("");
-        inputTextPlazoContratoNew.setValue("");
-        inputTextMontoContratadoNew.setValue("");
-        inputTextAdelantoOtorgadoNew.setValue("");
-        calendarFechaAdelantoNew.setValue("");
-        inputTextNroContratoNew.setValue("");
-        //contratoSupervisoraVO.setCpsEstado(0);
-        inputTextAnnio.setValue("");
-        calendarFechaRegistro.setValue("");
-        inputTextareaAsunto.setValue("");
-        //contratoSupervisoraVO.setEmpresaSupervisora(1);
-        
-        contratoSupervisoraVO.setContrato(22);
-        contratoSupervisoraVO.setInfraestructura(1);
-        contratoSupervisoraVO.setCpsEstado(1);
-        
-        inputHiddenItemTipoInfraestructura.setValue(0);
-        
-        contratoSupervisoraVO.setConcesion(1);
-        contratoSupervisoraVO.setCpsPenalidades("1");
-        contratoSupervisoraVO.setCpsCaducidad("1");
-        contratoSupervisoraVO.setCpsGarantias("1");
-        
-
-    }
-    
-    //PDF    
-    public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
-        contratoSupervisoraVO.setCenDocumentoFisico(event.getFile().getFileName());
-        contratoSupervisoraVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
-    }
-
-    public void setPanelGrid4(PanelGrid panelGrid4) {
-        this.panelGrid4 = panelGrid4;
-    }
-
-    public PanelGrid getPanelGrid4() {
-        return panelGrid4;
-    }
-    
-    List<ContratoSupervisoraVO> listarEntregas = new ArrayList<ContratoSupervisoraVO>();
-    public void agregarEntrega() {
-        try {
-            System.out.println("agregarEntrega: " + contratoSupervisoraVO.getCpsNroDeContrato());
-            contratoSupervisoraVO.setCenFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoSupervisoraVO.getCpsFechaRegistro()));
-            contratoSupervisoraVO.setCpsMontoContratado(1);
-            contratoSupervisoraVO.setCpsNroDeContrato(1);
-            contratoSupervisoraVO.setCenEntrega(1);            
-            contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
-            listarEntregas.add(contratoSupervisoraVO);
-            Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA+contratoSupervisoraVO.getCenDocumentoFisico(), contratoSupervisoraVO.getInputStreamNuevaEntrega());
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
-        } finally {
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }
-    }
-    
-    public void cargarListaContratos() {
-        try {
-            listaContratos = contratoConcesionServiceImp.query();
-            System.out.println(listaContratos.size());
-            
-            for (ContratoVO contra : listaContratos) {
-                ConcesionVO concesion = new ConcesionVO();
-                concesion = concesionServiceImpl.get(contra.getCsiId());
-                contra.setNombreConcesion(concesion.getCsiNombre());
-                contra.setCodigoConcesion(concesion.getCsiId());
-            }
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    public void elegirContrato(ContratoVO con){
-            inputTextConcesion.setValue(con.getConId());
-            inputTextTipoInfra.setValue(con.getTinId());
-            inputTextModalidadConcesion.setValue(con.getMcoId());
-            inputTextInversion.setValue(con.getTinId());
-    }
-    
-    public void elegirEmpresa(EmpresaSupervisoraVO empresaSupervisoraVO){
-        inputTextNombreEmpresaSupervisora.setValue(empresaSupervisoraVO.getSupNombre());
-        /*inputTextPlazo.setValue(empresaSupervisoraVO.getSup);
-        inputTextMoneda.setValue(empresaSupervisoraVO.getSup);
-        inputTextTotal.setValue(empresaSupervisoraVO.get);*/
-    }
-
-    public void setListaContratos(List<ContratoVO> listaContratos) {
-        this.listaContratos = listaContratos;
-    }
-
-    public List<ContratoVO> getListaContratos() {
-        return listaContratos;
-    }
-
-
-    public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
-        this.contratoConcesionServiceImp = contratoConcesionServiceImp;
-    }
-
-    public ContratoConcesionService getContratoConcesionServiceImp() {
-        return contratoConcesionServiceImp;
-    }
-
-
-    public void setConcesionServiceImpl(ConcesionService concesionServiceImpl) {
-        this.concesionServiceImpl = concesionServiceImpl;
-    }
-
-    public ConcesionService getConcesionServiceImpl() {
-        return concesionServiceImpl;
-    }
-    
-    public void buscarEmpresaSup() throws Exception {
-        try{
-            listaEmpresaSup=empresaSupervisoraServiceImpl.query();
-        }catch (Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public void setOutputLabel6(OutputLabel outputLabel6) {
-        this.outputLabel6 = outputLabel6;
-    }
-
-    public OutputLabel getOutputLabel6() {
-        return outputLabel6;
-    }
-
-    public void setInputTextNombreEmpresaSupervisora(InputText inputText1) {
-        this.inputTextNombreEmpresaSupervisora = inputText1;
-    }
-
-    public InputText getInputTextNombreEmpresaSupervisora() {
-        return inputTextNombreEmpresaSupervisora;
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
     }
 }
