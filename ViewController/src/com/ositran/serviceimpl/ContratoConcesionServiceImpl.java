@@ -83,6 +83,13 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         }
         return listVO;
     }
+    
+    @Override
+    public List<ContratoVO> buscarContratos1(int tinfraestructura) throws SQLException {
+        List<Contrato> list=contratoConcesionDAOImpl.buscarContratos1(tinfraestructura);
+        List<ContratoVO> listVO=toListContratoVO(list);
+        return listVO;
+    }
     private ContratoVO toContratoVO(Contrato contrato){
         ContratoVO contratoVO=new ContratoVO();
         contratoVO.setCncId(contrato.getCncId());
