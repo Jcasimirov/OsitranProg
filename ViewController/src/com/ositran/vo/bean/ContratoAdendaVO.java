@@ -3,6 +3,8 @@ package com.ositran.vo.bean;
 
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 public class ContratoAdendaVO {
@@ -15,7 +17,7 @@ public class ContratoAdendaVO {
     private InputStream inputStreamNuevaAdenda;
     private Date cadFecha;
     private Integer cadId;
-    private Long cadMonto;
+    private BigDecimal cadMonto;
     private Integer conId;
     private Integer monId;
     private Integer tadId;
@@ -66,11 +68,11 @@ public class ContratoAdendaVO {
         this.cadId = cadId;
     }
 
-    public Long getCadMonto() {
+    public BigDecimal getCadMonto() {
         return cadMonto;
     }
 
-    public void setCadMonto(Long cadMonto) {
+    public void setCadMonto(BigDecimal cadMonto) {
         this.cadMonto = cadMonto;
     }
 
