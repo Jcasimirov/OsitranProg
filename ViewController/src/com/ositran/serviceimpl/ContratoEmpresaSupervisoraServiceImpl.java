@@ -4,21 +4,39 @@ import com.ositran.daoimpl.ContratoEmpresaSupervisoraDAOImpl;
 import com.ositran.model.ContratoSupervisora;
 import com.ositran.model.EmpresaSupervisora;
 
+import com.ositran.model.Usuario;
+
 import java.sql.SQLException;
 import com.ositran.service.ContratoEmpresaSupervisoraService;
 import com.ositran.util.HibernateUtil;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
+import com.ositran.vo.bean.UsuarioVO;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+
 import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSupervisoraService{
-    private ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl=new ContratoEmpresaSupervisoraDAOImpl();
 
+
+private ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl;
+
+
+    public void setContratoEmpresaSupervisoraDAOImpl(ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl) {
+        this.contratoEmpresaSupervisoraDAOImpl = contratoEmpresaSupervisoraDAOImpl;
+    }
+
+    public ContratoEmpresaSupervisoraDAOImpl getContratoEmpresaSupervisoraDAOImpl() {
+        return contratoEmpresaSupervisoraDAOImpl;
+    }
+
+    
     @Override
     public List<ContratoSupervisoraVO> query() throws SQLException {
         List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.query();
@@ -28,15 +46,15 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
 
     @Override
     public String insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException {
-        ContratoSupervisora empresaSupervisora=toContratoSupervisora(contratoSupervisoraVO);
-        String result=contratoEmpresaSupervisoraDAOImpl.insert(empresaSupervisora);
+        ContratoSupervisora contratoSupervisora=toContratoSupervisora(contratoSupervisoraVO);
+        String result=contratoEmpresaSupervisoraDAOImpl.insert(contratoSupervisora);
         return result;
     }
 
     @Override
     public String delete(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+        String result=this.contratoEmpresaSupervisoraDAOImpl.delete(id);
+        return result;
     }
 
     @Override
@@ -52,7 +70,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         ContratoSupervisoraVO contratoSupervisoraVO=toContratoSupervisoraVO(contratoSupervisora);
         return contratoSupervisoraVO;
     }
-
+        
     @Override
     public int ValidarContratoSupervisora(int concesion, int tipoinfra) throws SQLException {
         // TODO Implement this method
@@ -60,8 +78,8 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
     }
     
     @Override
-    public List<ContratoSupervisoraVO> filtrarContraEmpSup(String empresaSupervisora, String tipoInfraestructura, String nroContrato) throws SQLException{
-        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.filtrarContraEmpSup(empresaSupervisora, tipoInfraestructura, nroContrato);
+    public List<ContratoSupervisoraVO> filtrarContraEmpSup(String empresaSupervisora) throws SQLException{
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.filtrarContraEmpSup(empresaSupervisora);
         List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
         return listVO;        
     }   
@@ -80,8 +98,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
     
     private ContratoSupervisoraVO toContratoSupervisoraVO(ContratoSupervisora contratoSupervisora)throws SQLException{
         ContratoSupervisoraVO contratoSupervisoraVO=new ContratoSupervisoraVO();
-        contratoSupervisoraVO.setContrato(contratoSupervisora.getContrato());
-        //contratoSupervisoraVO.setContratoSupervisoraAdendaList(contratoSupervisora.getContratoSupervisoraAdendaList());
+        contratoSupervisoraVO.setConId(contratoSupervisora.getConId());
         contratoSupervisoraVO.setCpsAdelantoOtorgado(contratoSupervisora.getCpsAdelantoOtorgado());
         contratoSupervisoraVO.setCpsAnyo(contratoSupervisora.getCpsAnyo());
         contratoSupervisoraVO.setCpsArchivoPdf(contratoSupervisora.getCpsArchivoPdf());
@@ -89,7 +106,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisoraVO.setCpsCaducidad(contratoSupervisora.getCpsCaducidad());
         contratoSupervisoraVO.setCpsEstado(contratoSupervisora.getCpsEstado());
         contratoSupervisoraVO.setCpsFechaAdelanto(contratoSupervisora.getCpsFechaAdelanto());
-        contratoSupervisoraVO.setCpsFechaAlta(contratoSupervisora.getCpsFechaAlta());
+        contratoSupervisoraVO.setCpsFechaAlta(contratoSupervisora.getCpsFechaAlta());        
         contratoSupervisoraVO.setCpsFechaBaja(contratoSupervisora.getCpsFechaBaja());
         contratoSupervisoraVO.setCpsFechaCambio(contratoSupervisora.getCpsFechaCambio());
         contratoSupervisoraVO.setCpsFechaInicio(contratoSupervisora.getCpsFechaInicio());
@@ -105,16 +122,16 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisoraVO.setCpsUsuarioAlta(contratoSupervisora.getCpsUsuarioAlta());
         contratoSupervisoraVO.setCpsUsuarioBaja(contratoSupervisora.getCpsUsuarioBaja());
         contratoSupervisoraVO.setCpsUsuarioCambio(contratoSupervisora.getCpsUsuarioCambio());
-        contratoSupervisoraVO.setEmpresaSupervisora(contratoSupervisora.getEmpresaSupervisora());
-        contratoSupervisoraVO.setInfraestructura(contratoSupervisora.getInfraestructura());
-        contratoSupervisoraVO.setTipoInfraestructura(contratoSupervisora.getTipoInfraestructura());
+        contratoSupervisoraVO.setCsiId(contratoSupervisora.getCsiId());
+        contratoSupervisoraVO.setInfId(contratoSupervisora.getInfId());
+        contratoSupervisoraVO.setSupId(contratoSupervisora.getSupId());
+        contratoSupervisoraVO.setTinId(contratoSupervisora.getTinId());
         return contratoSupervisoraVO;
     }
         
     private ContratoSupervisora toContratoSupervisora(ContratoSupervisoraVO contratoSupervisoraVO){
         ContratoSupervisora contratoSupervisora=new ContratoSupervisora();
-        contratoSupervisora.setContrato(contratoSupervisoraVO.getContrato());
-        //contratoSupervisoraVO.setContratoSupervisoraAdendaList(contratoSupervisora.getContratoSupervisoraAdendaList());
+        contratoSupervisora.setConId(contratoSupervisoraVO.getConId());
         contratoSupervisora.setCpsAdelantoOtorgado(contratoSupervisoraVO.getCpsAdelantoOtorgado());
         contratoSupervisora.setCpsAnyo(contratoSupervisoraVO.getCpsAnyo());
         contratoSupervisora.setCpsArchivoPdf(contratoSupervisoraVO.getCpsArchivoPdf());
@@ -122,7 +139,7 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisora.setCpsCaducidad(contratoSupervisoraVO.getCpsCaducidad());
         contratoSupervisora.setCpsEstado(contratoSupervisoraVO.getCpsEstado());
         contratoSupervisora.setCpsFechaAdelanto(contratoSupervisoraVO.getCpsFechaAdelanto());
-        contratoSupervisora.setCpsFechaAlta(contratoSupervisoraVO.getCpsFechaAlta());
+        contratoSupervisora.setCpsFechaAlta(contratoSupervisoraVO.getCpsFechaAlta());        
         contratoSupervisora.setCpsFechaBaja(contratoSupervisoraVO.getCpsFechaBaja());
         contratoSupervisora.setCpsFechaCambio(contratoSupervisoraVO.getCpsFechaCambio());
         contratoSupervisora.setCpsFechaInicio(contratoSupervisoraVO.getCpsFechaInicio());
@@ -138,9 +155,20 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisora.setCpsUsuarioAlta(contratoSupervisoraVO.getCpsUsuarioAlta());
         contratoSupervisora.setCpsUsuarioBaja(contratoSupervisoraVO.getCpsUsuarioBaja());
         contratoSupervisora.setCpsUsuarioCambio(contratoSupervisoraVO.getCpsUsuarioCambio());
-        contratoSupervisora.setEmpresaSupervisora(contratoSupervisoraVO.getEmpresaSupervisora());
-        contratoSupervisora.setInfraestructura(contratoSupervisoraVO.getInfraestructura());
-        contratoSupervisora.setTipoInfraestructura(contratoSupervisoraVO.getTipoInfraestructura());
+        contratoSupervisora.setCsiId(contratoSupervisoraVO.getCsiId());
+        contratoSupervisora.setInfId(contratoSupervisoraVO.getInfId());
+        contratoSupervisora.setSupId(contratoSupervisoraVO.getSupId());
+        contratoSupervisora.setTinId(contratoSupervisoraVO.getTinId());
         return contratoSupervisora;
     }
+
+    @Override
+    public List<ContratoSupervisoraVO> queryTD(int filtro) throws SQLException {
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.queryTD(filtro);
+        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
+        return listVO;
+    }
+
+
+
 }
