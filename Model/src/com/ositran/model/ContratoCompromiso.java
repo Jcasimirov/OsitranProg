@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,28 +28,28 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "CCO_ALCANCE", nullable = false, length = 4000)
     private String ccoAlcance;
     @Column(name = "CCO_NETO")
-    private Double ccoNeto;
+    private BigDecimal ccoNeto;
     @Id
     @GeneratedValue(generator = "generator") 
     @Column(name = "CCO_ID", nullable = false)
     private Integer ccoId;
     @Column(name = "CCO_IGV")
-    private Double ccoIgv;
+    private BigDecimal ccoIgv;
     @Column(name = "CCO_PERIODO", nullable = false, length = 4000)
     private String ccoPeriodo;
     @Column(name = "CCO_PLAZO", nullable = false)
     private String ccoPlazo;
     @Column(name = "CCO_TIPO_CAMBIO", nullable = false)
-    private Double ccoTipoCambio;
+    private BigDecimal ccoTipoCambio;
     @Column(name = "CCO_TOTAL", nullable = false)
-    private Long ccoTotal;
+    private BigDecimal ccoTotal;
     //@Id
     @Column(name = "CON_ID", nullable = false)
     private Integer conId;
     @Column(name = "MON_ID")
     private Integer monId;
     @Column(name = "POR_IGV")
-    private Double porIgv;
+    private BigDecimal porIgv;
     //@Id
     @Column(name = "TCC_TIPO", nullable = false)
     private Integer tccTipo;
@@ -75,9 +77,9 @@ public class ContratoCompromiso implements Serializable {
     public ContratoCompromiso() {
     }
 
-    public ContratoCompromiso(String ccoAlcance, Double ccoNeto, Integer ccoId, Double ccoIgv, String ccoPeriodo,
-                              String ccoPlazo, Double ccoTipoCambio, Long ccoTotal, Integer conId,
-                              Integer monId, Double porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
+    public ContratoCompromiso(String ccoAlcance, BigDecimal ccoNeto, Integer ccoId, BigDecimal ccoIgv, String ccoPeriodo,
+                              String ccoPlazo, BigDecimal ccoTipoCambio, BigDecimal ccoTotal, Integer conId,
+                              Integer monId, BigDecimal porIgv, Integer tccTipo, Integer tivId, Integer ccoEstado) {
         this.ccoAlcance = ccoAlcance;
         this.ccoNeto = ccoNeto;
         this.ccoId = ccoId;
@@ -102,11 +104,11 @@ public class ContratoCompromiso implements Serializable {
         this.ccoAlcance = ccoAlcance;
     }
 
-    public Double getCcoNeto() {
+    public BigDecimal getCcoNeto() {
         return ccoNeto;
     }
 
-    public void setCcoNeto(Double ccoNeto) {
+    public void setCcoNeto(BigDecimal ccoNeto) {
         this.ccoNeto = ccoNeto;
     }
 
@@ -118,11 +120,11 @@ public class ContratoCompromiso implements Serializable {
         this.ccoId = ccoId;
     }
 
-    public Double getCcoIgv() {
+    public BigDecimal getCcoIgv() {
         return ccoIgv;
     }
 
-    public void setCcoIgv(Double ccoIgv) {
+    public void setCcoIgv(BigDecimal ccoIgv) {
         this.ccoIgv = ccoIgv;
     }
 
@@ -142,19 +144,19 @@ public class ContratoCompromiso implements Serializable {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Double getCcoTipoCambio() {
+    public BigDecimal getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Double ccoTipoCambio) {
+    public void setCcoTipoCambio(BigDecimal ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
-    public Long getCcoTotal() {
+    public BigDecimal getCcoTotal() {
         return ccoTotal;
     }
 
-    public void setCcoTotal(Long ccoTotal) {
+    public void setCcoTotal(BigDecimal ccoTotal) {
         this.ccoTotal = ccoTotal;
     }
 
@@ -174,11 +176,11 @@ public class ContratoCompromiso implements Serializable {
         this.monId = monId;
     }
 
-    public Double getPorIgv() {
+    public BigDecimal getPorIgv() {
         return porIgv;
     }
 
-    public void setPorIgv(Double porIgv) {
+    public void setPorIgv(BigDecimal porIgv) {
         this.porIgv = porIgv;
     }
 
