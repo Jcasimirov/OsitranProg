@@ -3,8 +3,11 @@ package com.ositran;
 import com.ositran.service.RolOpcionesService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.UsuarioService;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
+
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class Logueo {
     RolOpcionesService rolOpcionesServiceImpl;
     @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
     SupervisorInversionesService supervisorInversionesServiceImpl;
+    
 
     public void logear() {
         int codusuario=0;
@@ -64,7 +68,7 @@ public class Logueo {
                 }
             else if (validar==true && contrasenha.equals(password)){
                    
-                    UsuarioVO usuario=usuarioServiceImpl.get(codusuario);
+                   UsuarioVO  usuario=usuarioServiceImpl.get(codusuario);
                     faceContext=FacesContext.getCurrentInstance();
                     httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
                     HttpSession session = httpServletRequest.getSession();
@@ -73,11 +77,9 @@ public class Logueo {
                     session.setAttribute("listaPermisos", listaRolOpciones);
                     session.setAttribute("listaUsuario", listaUsuario);
                     session.setAttribute("atributosUsuario", usuario);
-                    session.setAttribute("atributosEmpleado", supervisorInversionesServiceImpl.getSupervisorInversiones(usuario.getSupInvId()));
-                   
+                    session.setAttribute("atributosEmpleado", supervisorInversionesServiceImpl.getSupervisorInversiones(usuario.getSupInvId()));                   
                      String redirectPath = "/faces/ositran/principal.xhtml";
                      externalContext.redirect(servletContext.getContextPath() + redirectPath);
-  
                 }
             else {
                     FacesContext.getCurrentInstance().addMessage(null,
@@ -94,9 +96,16 @@ public class Logueo {
 
     }
 
-   
+    public void logout(){
+        try {
+            ControlAcceso.getNewInstance().logoutSesionInvalidate();
+        } catch (IOException ioe) {
+            // TODO: Add catch code
+            ioe.printStackTrace();
+        }
+    }
     
-
+    
 
 
     public void setListaUsuario(List<UsuarioVO> listaUsuario) {
