@@ -1,162 +1,159 @@
-.ui-dialog-titlebar{
+.ui-widget {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px !important;
+}
+
+.ui-dialog-titlebar {
     font-size: 13px;
     font-family: sans-serif;
-    
-	}
-.tool{
-        font-size: 13px;
-        background-image: none;
-        background-color:#fffb81;
-        font-style: italic;
-}
-.negrita{
- font-weight: bold;
 }
 
-.ui-datatable tr.ui-datatable-even:hover, 
-.ui-datatable tr.ui-datatable-odd:hover {
-    background:#C9DCF1;
-    }
-    
-.titulo5{
-color: Black;
-font-weight: bold;
-font-family: sans-serif;
-}   
-
-.botones{
-width: 70px;
+.tool {
+    font-size: 13px;
+    background-image: none;
+    background-color: #fffb81;
+    font-style: italic;
 }
 
-.letra11{
-font-size: 11px;
+.negrita {
+    font-weight: bold;
 }
 
-.letraT{
-font-size:10px;
+.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+    background: #C9DCF1;
 }
 
-.controles{
-width: 21px;
-height: 21px;
-text-align: center;
+.titulo5 {
+    color: Black;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
-.piePagina{
-text-align: center;
-font-size: 10px;
-font-weight: bold;
+.botones {
+    width: 70px;
 }
 
+.letra11 {
+    font-size: 11px;
+}
 
+.letraT {
+    font-size: 10px;
+}
+
+.controles {
+    width: 21px;
+    height: 21px;
+    text-align: center;
+}
+
+.piePagina {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
 
 .ui-datatable-even {
-   height: 10px;
+    height: 10px;
 }
+
 .ui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
     height: 5px;
 }
 
 .ui-datatable .ui-paginator {
-   background-image: none;
-   background: White;
-   border: none;
-   color: Black;
-   font-weight: bold;
-  
-    
-}
-.ui-datatable .ui-datatable-data tr{
-    height :20px;
-   
+    background-image: none;
+    background: White;
+    border: none;
+    color: Black;
+    font-weight: bold;
 }
 
- .fielsetinterno .ui-fieldset-legend {
-                                text-transform: uppercase;
-				border-top:none;
-				border-left:none;
-				border-right:none;
-				border-bottom:none;
-				background:transparent;
-				color: black;
-				color: #333333; 
-				font-size: 11px;
-	}
-        
-
-.ui.menubar .ui-widget-header  {
-
-
+.ui-datatable .ui-datatable-data tr {
+    height: 20px;
 }
-.ui-menubar .ui-menuitem {  
 
+.fielsetinterno .ui-fieldset-legend {
+    text-transform: uppercase;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    background: transparent;
+    color: black;
+    color: #333333;
+    font-size: 11px;
+}
+
+.ui.menubar .ui-widget-header {
+}
+
+.ui-menubar .ui-menuitem {
 }
 
 .ui-menubar .ui-menuitem-text {
-   font-size: 11px;
+    font-size: 11px;
     color: Black;
     font-weight: bold;
-    
 }
 
 .ui-menubar .ui-menu-child .ui-menuitem {
     background-image: none;
-    border-bottom-color: blue; 
-    background: #d6ffff   !important; 
+    border-bottom-color: blue;
+    background: #d6ffff !important;
     font-size: 11px;
     color: #2121ff;
     font-weight: bold;
 }
 
-.ui-menubar .ui-menu-child .ui-menuitem .ui-menuitem-text  { 
+.ui-menubar .ui-menu-child .ui-menuitem .ui-menuitem-text {
     font-size: 10px;
 }
 
 .calendario input {
-   vertical-align: middle;
-   margin-right: 1px;
-   width: 60px;
-       
+    vertical-align: middle;
+    margin-right: 1px;
+    width: 60px;
 }
 
-#desabilitado{
-  background-color: #848484;
+#desabilitado {
+    background-color: #848484;
 }
 
 #habilitado {
 }
 /*ESTILOS CONTRATO-ADENDA*/
- .pnlEdicion tr {
-                font-size: 11px;
-                border: none !important;
-                font-weight: bold;
-                margin: 3px !important;
-            }
+.pnlEdicion tr {
+    font-size: 11px;
+    border: none !important;
+    font-weight: bold;
+    margin: 3px !important;
+}
 
-            .pnlEdicion td {
-                border: none !important;
-                margin: 5px !important;
-            }
+.pnlEdicion td {
+    border: none !important;
+    margin: 5px !important;
+}
 
-            .etiquetas {
-                text-align: left !important;
-                width: 50px !important;
-            }
+.etiquetas {
+    text-align: left !important;
+    width: 50px !important;
+}
 
-            .cajas {
-                float: left !important;
-                width: 250px !important;
-                margin: 10px !important;
-            }
+.cajas {
+    float: left !important;
+    width: 250px !important;
+    margin: 10px !important;
+}
 
-            .validadores {
-                float: left !important;
-                width: 10px !important;
-                margin: 10px !important;
-            }
+.validadores {
+    float: left !important;
+    width: 10px !important;
+    margin: 10px !important;
+}
 
-            .nomarchivo {
-                float: left !important;
-            }
+.nomarchivo {
+    float: left !important;
+}
 /*FIN ESTILOS CONTRATO-ADENDA*/
