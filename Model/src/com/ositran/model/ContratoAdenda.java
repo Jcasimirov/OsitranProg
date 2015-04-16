@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ public class ContratoAdenda implements Serializable {
     @Column(name = "CAD_ID", nullable = false)
     private Integer cadId;
     @Column(name = "CAD_MONTO", nullable = false)
-    private Long cadMonto;
+    private BigDecimal cadMonto;
     //@Id
     @Column(name = "CON_ID", nullable = false)
     private Integer conId;
@@ -71,7 +73,7 @@ public class ContratoAdenda implements Serializable {
     private String cadUsuarioCambio;
     
     public ContratoAdenda(String cadDescripcion, String cadDocumentoFisico, Date cadFecha, Integer cadId,
-                          Long cadMonto, Integer conId, Integer monId, Integer tadId, Integer cadEstado) {
+                          BigDecimal cadMonto, Integer conId, Integer monId, Integer tadId, Integer cadEstado) {
         this.cadDescripcion = cadDescripcion;
         this.cadDocumentoFisico = cadDocumentoFisico;
         this.cadFecha = cadFecha;
@@ -115,11 +117,11 @@ public class ContratoAdenda implements Serializable {
         this.cadId = cadId;
     }
 
-    public Long getCadMonto() {
+    public BigDecimal getCadMonto() {
         return cadMonto;
     }
 
-    public void setCadMonto(Long cadMonto) {
+    public void setCadMonto(BigDecimal cadMonto) {
         this.cadMonto = cadMonto;
     }
 
