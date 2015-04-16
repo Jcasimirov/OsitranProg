@@ -100,4 +100,19 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         
         
     }   
+    
+    @Override
+        public List<ContratoInversion> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException {
+            Query query;
+            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.beginTransaction();
+            query =session.createQuery("FROM ContratoInversion ci where ci.conId = :contrato and ci.tinId = :tipoInfraestructura and ci.csiId = :concesion and ci.infId = :infraestructura");
+            query.setParameter("contrato",contrato);
+            query.setParameter("tipoInfraestructura",tipoInfraestructura);
+            query.setParameter("concesion",concesion);
+            query.setParameter("infraestructura",infraestructura);
+            List<ContratoInversion> list = query.list();
+            session.getTransaction().commit();
+            return list;        
+        }
 }
