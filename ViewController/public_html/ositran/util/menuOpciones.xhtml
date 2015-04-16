@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
@@ -8,20 +9,50 @@
         </h:head>
         <h:body>
             <f:event listener="#{menuMB.init}" type="preRenderView"></f:event>
-            <table width="90%" align="center">
+           
+            <table  align="center" style="width:100%;">
                 <tr>
-                    <td rowspan="2" align="left" style="width:20%">
-                        <img src="../../images/logoOsitran.jpg" height="100" width="220"/>
+                    <td  align="right" style="width:22%;">
+                        <img src="../../images/logoOsitran.jpg" height="100" width="200"/>
                     </td>
-                    <td style="height: 60px"></td>
-                    <td align="right"></td>
+                    <td align="left" style="padding:0px;width:50%;color: #0084c6;"> 
+                  
+                    <h:outputText value="Bienvenido: #{menuMB.usuarioLogueado.usuNombre}" style="top:40px !important;position: relative;" />
+                  
+                    </td>
+                    <td align="right" style="width:10%;">
+                   
+                    </td>
                 </tr>
                  
                 <tr>
-                    <td style="width:55%">
-                        <p:menubar model="#{menuMB.model}"/>
+                <td style="width:22%">
+                </td>
+                    <td  style="width:50%;">
+                    <table >
+                        <tr>
+                        <td>
+                        <p:menubar model="#{menuMB.model}" style="margin:0px;padding:0px;" />
+                        </td>
+                        <td>                        
+                         <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                        </td>
+                        <td>
+                        <h:form>
+                       
+                        <p:commandButton icon="ui-icon-power" title="Cerrar Session"
+                        action="#{loginMB.logout()}" style="width:30px;height:30px;"/>
+                        </h:form>
+                        </td>
+                    </tr>
+                       </table>
                     </td>
-                    <td></td>
+                    <td style="width:10%;">
+                   
+                  
+                    </td>
                 </tr>
             </table>
         </h:body>
