@@ -1,20 +1,22 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 
 public class ContratoCompromisoVO {
     private String ccoAlcance;
-    private Double ccoNeto;
+    private BigDecimal ccoNeto;
     private Integer ccoId;
-    private Double ccoIgv;
+    private BigDecimal ccoIgv;
     private String ccoPeriodo;
     private String ccoPlazo;
-    private Double ccoTipoCambio;
-    private Long ccoTotal;
+    private BigDecimal ccoTipoCambio;
+    private BigDecimal ccoTotal;
     private Integer conId;
     private Integer monId;
-    private Double porIgv;
+    private BigDecimal porIgv;
     private Integer tccTipo;
     private Integer tivId;
     private String tivNombre;
@@ -40,11 +42,11 @@ public class ContratoCompromisoVO {
         this.ccoAlcance = ccoAlcance;
     }
 
-    public Double getCcoNeto() {
+    public BigDecimal getCcoNeto() {
         return ccoNeto;
     }
 
-    public void setCcoNeto(Double ccoNeto) {
+    public void setCcoNeto(BigDecimal ccoNeto) {
         this.ccoNeto = ccoNeto;
     }
 
@@ -56,11 +58,11 @@ public class ContratoCompromisoVO {
         this.ccoId = ccoId;
     }
 
-    public Double getCcoIgv() {
+    public BigDecimal getCcoIgv() {
         return ccoIgv;
     }
 
-    public void setCcoIgv(Double ccoIgv) {
+    public void setCcoIgv(BigDecimal ccoIgv) {
         this.ccoIgv = ccoIgv;
     }
 
@@ -80,19 +82,19 @@ public class ContratoCompromisoVO {
         this.ccoPlazo = ccoPlazo;
     }
 
-    public Double getCcoTipoCambio() {
+    public BigDecimal getCcoTipoCambio() {
         return ccoTipoCambio;
     }
 
-    public void setCcoTipoCambio(Double ccoTipoCambio) {
+    public void setCcoTipoCambio(BigDecimal ccoTipoCambio) {
         this.ccoTipoCambio = ccoTipoCambio;
     }
 
-    public Long getCcoTotal() {
+    public BigDecimal getCcoTotal() {
         return ccoTotal;
     }
 
-    public void setCcoTotal(Long ccoTotal) {
+    public void setCcoTotal(BigDecimal ccoTotal) {
         this.ccoTotal = ccoTotal;
     }
 
@@ -112,11 +114,11 @@ public class ContratoCompromisoVO {
         this.monId = monId;
     }
 
-    public Double getPorIgv() {
+    public BigDecimal getPorIgv() {
         return porIgv;
     }
 
-    public void setPorIgv(Double porIgv) {
+    public void setPorIgv(BigDecimal porIgv) {
         this.porIgv = porIgv;
     }
 
