@@ -614,7 +614,7 @@ public class ActualizarContrato {
        
         else {
             if(tipoInfraestructura!=Constantes.TIPINFAEROPUERTOS){
-                        if(contratoNuevaAdendaVO.getCadMonto()==null || contratoNuevaAdendaVO.getCadMonto()==0){
+                        if(contratoNuevaAdendaVO.getCadMonto()==null || contratoNuevaAdendaVO.getCadMonto().equals("0")){
                             FacesContext.getCurrentInstance().addMessage(null,
                                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                           "No ha ingresado el Monto"));   
@@ -642,7 +642,7 @@ public class ActualizarContrato {
             if(contratoNuevaAdendaVO.getCadCompromisoInversion()!=null)
                 contratoNuevaAdendaVO.setBoocadCompromisoInversion(contratoNuevaAdendaVO.getCadCompromisoInversion()==1?true:false);
             if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
-                contratoNuevaAdendaVO.setCadMonto(0L);
+                contratoNuevaAdendaVO.setCadMonto(new BigDecimal("0"));
                 contratoNuevaAdendaVO.setMonId(0);
                 contratoNuevaAdendaVO.setMonNombre("");
                 contratoNuevaAdendaVO.setCadCompromisoInversion(0);
@@ -2707,9 +2707,9 @@ public class ActualizarContrato {
     }
     public void calculaNeto(AjaxBehaviorEvent event){
         if(contratoNuevoCompromisoVO.getPorIgv()!=null && contratoNuevoCompromisoVO.getCcoTotal()!=null){
-        double calculadoIGV=((double)contratoNuevoCompromisoVO.getCcoTotal())*(contratoNuevoCompromisoVO.getPorIgv()); 
+        BigDecimal calculadoIGV=(contratoNuevoCompromisoVO.getCcoTotal()).multiply(contratoNuevoCompromisoVO.getPorIgv()); 
         contratoNuevoCompromisoVO.setCcoIgv(calculadoIGV);  
-        contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal()-contratoNuevoCompromisoVO.getCcoIgv());
+        contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal().subtract(contratoNuevoCompromisoVO.getCcoIgv()));
         }else{
             contratoNuevoCompromisoVO.setCcoNeto(null);
         }
@@ -2733,7 +2733,7 @@ public class ActualizarContrato {
                         FacesContext.getCurrentInstance().addMessage(null,
                                                                      new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                       "No ha seleccionado el Tipo de Moneda"));             
-        } else if (contratoNuevoCompromisoVO.getCcoTotal()==null || contratoNuevoCompromisoVO.getCcoTotal()==0) {
+        } else if (contratoNuevoCompromisoVO.getCcoTotal()==null || contratoNuevoCompromisoVO.getCcoTotal().equals("0")) {
                         FacesContext.getCurrentInstance().addMessage(null,
                                                                      new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                       "No ha ingresado el Valor Total"));             
@@ -2759,7 +2759,7 @@ public class ActualizarContrato {
     public void ejecutarCompromisoIndicado(){
         try {
             System.out.println("try grabarContratoCompromisoIndicado");
-            contratoNuevoCompromisoVO.setCcoTipoCambio(0.0);
+            contratoNuevoCompromisoVO.setCcoTipoCambio(new BigDecimal("0.0"));
             contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             contratoNuevoCompromisoVO.setCcoEstado(1);
             if(incIgv==0){
@@ -2795,7 +2795,7 @@ public class ActualizarContrato {
         try {
 
             idCompromisoEliminarI.setCcoEstado(0);
-            idCompromisoEliminarI.setCcoTipoCambio(0.0);
+            idCompromisoEliminarI.setCcoTipoCambio(new BigDecimal("0.0"));
             idCompromisoEliminarI.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             /*AUDITORIA*/
             Date fechaActual=new Date();
@@ -2850,9 +2850,9 @@ public class ActualizarContrato {
     }
     public void calculaNetoSupervisado(AjaxBehaviorEvent event){
         if(contratoNuevoCompromisoSupervisadoVO.getPorIgv()!=null && contratoNuevoCompromisoSupervisadoVO.getCcoTotal()!=null){
-        double calculadoIGV=((double)contratoNuevoCompromisoSupervisadoVO.getCcoTotal())*(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
+        BigDecimal calculadoIGV=(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()).multiply(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
         contratoNuevoCompromisoSupervisadoVO.setCcoIgv(calculadoIGV);  
-        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()-contratoNuevoCompromisoSupervisadoVO.getCcoIgv());
+        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal().subtract(contratoNuevoCompromisoSupervisadoVO.getCcoIgv()));
         }else{
             contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
         }

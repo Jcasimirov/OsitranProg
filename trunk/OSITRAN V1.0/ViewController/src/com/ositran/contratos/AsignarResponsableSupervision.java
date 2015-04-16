@@ -21,6 +21,8 @@ import com.ositran.vo.bean.TipoDocumentoVO;
 
 import java.io.IOException;
 
+import java.math.BigDecimal;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -58,7 +60,7 @@ private int codigoEtapa;
 private String plazo;
 private Double moneda;
 private int codigoMoneda;
-private long total;
+private BigDecimal total;
 HtmlForm form1;
 HtmlForm form2;
 private String nombreEmpresaSupervisora;
@@ -187,11 +189,11 @@ private int codigoContrato;
         return moneda;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
