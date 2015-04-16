@@ -6,7 +6,7 @@
         <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript">
           PrimeFaces.locales['es'] = {
-              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
+              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'SÃ³lo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'DÃ­a', allDayText : 'Todo el dÃ­a'
           };
         </script>
         <style type="text/css">
@@ -16,11 +16,14 @@
             }
         </style>
     </h:head>
+    <ui:include src="/ositran/util/menuOpciones.xhtml"/>
     <h:body>
+        <f:event listener="#{backing_ositran_parametros_MantenimientoEmpSup.validarSesion()}" type="postAddToView"></f:event>
         <f:event listener="#{asignarResponsableMB.cargarListaTiposInfraestructura()}" type="postAddToView"></f:event>
          
         <h:form id="form">
-            <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+        <p:growl id="mensaje" showDetail="true"  life="3000" /> 
+            
             <div align="center">
                 <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
                     #{msg.tituloAS}
@@ -35,7 +38,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <p:fieldset legend="Concecion" >
+                                                <p:fieldset legend="Conceción">
                                                     <p:inputText id="idNombreConcesion"
                                                                  value="#{asignarResponsableMB.nombreContratoConcesion}"
                                                                  style="width:300px;text-transform:uppercase;"></p:inputText>
@@ -53,7 +56,7 @@
                                                             legend="Datos Contrato de Concesion">
                                                     <table>
                                                         <tr>
-                                                            <td align="left">Nombre de concesion </td>
+                                                            <td align="left">Nombre de concesión</td>
                                                             <td>
                                                                 <p:inputText id="idNameConcesion"
                                                                              value="#{asignarResponsableMB.nameContrato}"
@@ -71,7 +74,7 @@
                                                         </tr>
                                                          
                                                         <tr>
-                                                            <td align="left">Modalidad de Concesion </td>
+                                                            <td align="left">Modalidad de Concesión</td>
                                                             <td>
                                                                 <p:inputText id="idNameModalidadConcecion"
                                                                              value="#{asignarResponsableMB.nameModalidadConcesion}"
@@ -95,25 +98,25 @@
                                                
                                                     <table>
                                                         <tr>
-                                                            <td colspan="2" align="left">Seleccione Etapa</td>
-                                                            <td colspan="2" align="left">
-                                                                <p:selectOneMenu id="listaCompromiso"  value="#{asignarResponsableMB.contratoCompromisoSeleccionado}">
+                                                            <td  align="left">Etapa</td>
+                                                            <td colspan="3" align="left">
+                                                                <p:selectOneMenu id="listaCompromiso"  value="#{asignarResponsableMB.contratoCompromisoSeleccionado}" style="width:370px;text-transform:uppercase;">
                                                                     <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
                                                                     <f:selectItems  value="#{asignarResponsableMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}" itemValue="#{tip2.ccoId}"/>
-                                                                    <p:ajax event="valueChange" update="form:datosCompromiso" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
+                                                                    <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
                                                         <tr>
           <td align="left">Plazo:</td>
-          <td align="left" colspan="3"><p:inputText value="#{asignarResponsableMB.plazo}" size="10"  /></td>
+          <td align="left" colspan="3"><p:inputText value="#{asignarResponsableMB.plazo}"  readonly="true"/></td>
          </tr>
  
          <tr>
           <td align="left">Total:</td>
-          <td align="left" ><p:inputText value="#{asignarResponsableMB.total}" size="10"></p:inputText></td>
+          <td align="left" ><p:inputText value="#{asignarResponsableMB.total}" readonly="true"></p:inputText></td>
           <td align="left">#{cam.mon}</td>
-          <td align="left"><p:inputText value="#{asignarResponsableMB.codigoMoneda}"  size="10"></p:inputText></td>
+          <td align="left"><p:inputText value="#{asignarResponsableMB.nombreMoneda}" readonly="true"></p:inputText></td>
          </tr>
          </table>
                                                          
@@ -144,7 +147,7 @@
                                                     <td>
                                                     <p:commandButton value="Asignar"
                                                                  actionListener="#{asignarResponsableMB.seleccionarSupervisor()}"
-                                                                 update=":form:listaResponsables"/>
+                                                                 update=":form:listaResponsables :form:mensaje"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -166,8 +169,8 @@
                                                  
                                                 <p:commandButton value="#{btn.btn_buscar}"
                                                                  actionListener="#{asignarResponsableMB.filtrarListaEmpSup()}"
-                                                                 update=":form:DataTable_ResultadoBusquedaEmpresa"
-                                                                 oncomplete="Dialog_ResultadoBusquedaEmpresa.show();"/>
+                                                                 update=":form:DataTable_ResultadoBusquedaEmpresa :form:mensaje"
+                                                                 />
                                                  
                                                 <p:dialog header="EMPRESAS SUPERVISORAS"
                                                           widgetVar="Dialog_ResultadoBusquedaEmpresa"
@@ -184,7 +187,7 @@
                                                         <p:column headerText="Elegir">
                                                             <p:commandButton actionListener="#{asignarResponsableMB.seleccionarEmpresa}"
                                                                              icon="ui-search"
-                                                                             update=":form:listaResponsables"
+                                                                             update=":form:listaResponsables :form:mensaje"
                                                                              oncomplete="Dialog_ResultadoBusquedaEmpresa.hide();">
                                                                 <f:attribute name="empresa" value="#{var1}"></f:attribute>
                                                             </p:commandButton>
@@ -200,36 +203,52 @@
                                      <p:fieldset id="idResultadoAsig" legend="Lista Responsables Asignados">
                                     <p:dataTable value="#{asignarResponsableMB.listaResponsables}" rowIndexVar="rowId"
                                                  var="list" id="listaResponsables">
-                                        <p:column headerText="numeroDocumento">
+                                        <p:column headerText="N° Documento">
                                             <h:outputText value="#{list.numeroDocumento}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="tipoDocumento">
+                                        <p:column headerText="Tipo Documento">
                                             <h:outputText value="#{list.tipoDocumento}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="nombre">
+                                        <p:column headerText="Nombre">
                                             <h:outputText value="#{list.nombre}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="fechaAsignacion">
+                                        <p:column headerText="Fecha Asignación">
                                             <h:outputText value="#{list.fechaAsignacion}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="estado">
+                                        <p:column headerText="Estado">
                                             <h:outputText value="#{list.estado}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="ELIMINAR">
+                                        <p:column headerText="Eliminar" rendered="#{asignarResponsableMB.rolOpcion.troEliminar eq 1}">
                                             <p:commandButton actionListener="#{asignarResponsableMB.eliminacionConfirmadaResponsable()}"
                                                              image="ui-icon-document" style="width:25px;height:25px"
                                                              update=":form:listaResponsables">
                                                 <f:param name="rowId" id="rowId" value="#{rowId}"/>
+                                                <f:param name="rowIdCod" id="rowIdCod" value="#{list.id}"/>
+                                                
+                                                
+                                            </p:commandButton>
+                                        </p:column>
+                                        <p:column headerText="Desactivar" rendered="#{asignarResponsableMB.rolOpcion.troModificar eq 1}">
+                                            <p:commandButton rendered="#{list.codEstado eq 1}" actionListener="#{asignarResponsableMB.desactivarConfirmadaResponsable()}"
+                                                             image="ui-icon-document" style="width:25px;height:25px"
+                                                             update=":form:listaResponsables">
+                                                <f:param name="rowIdE" id="rowIdE" value="#{rowId}"/>
+                                                <f:param name="rowIdCodDes" id="rowIdCodDes" value="#{list.id}"/>
+                                                 
                                             </p:commandButton>
                                         </p:column>
                                     </p:dataTable>
-                                </p:fieldset>                              
+                                </p:fieldset>
+                               
                                 <br></br>
+                                 
+                            
+                                 
                                 <br></br>
                             </td>
                         </tr>
@@ -239,13 +258,8 @@
                 <table style="width:80% ;font-size:11px;">
                     <tr>
                         <td align="center">
-                            <p:commandButton value="Guardar"/>
-                             
-                            <p:commandButton value="Activar"/>
-                             
-                            <p:commandButton value="Desactivar" onclick="alerta.show();"/>
-                             
-                            <p:commandButton value="Salir"/>
+                            <p:commandButton rendered="#{asignarResponsableMB.rolOpcion.troAgregar eq 1}" value="Guardar" actionListener="#{asignarResponsableMB.Guardar()}"  update=":form:datosCompromiso :form:listaResponsables :form:mensaje "/>                                               
+                            
                         </td>
                     </tr>
                 </table>
@@ -254,7 +268,7 @@
                     <p:dataTable style="font-size:11px;text-align:center"
                                  id="DataTable_ResultadoBusquedaContratosConcesion" var="var2"
                                  value="#{asignarResponsableMB.listaContratosConcesion}">
-                        <p:column headerText="Nombre de la Concesion" > 
+                        <p:column headerText="Nombre de la Concesión">
                             <h:outputText value="#{var2.nombreConcesion}"
                                           style="width:300px;text-transform:uppercase;"/>
                         </p:column>
