@@ -16,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "AdendaTipo.findAll", query = "select o from AdendaTipo o") })
 @Table(name = "T_ADENDA_TIPO")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_ADENDA_TIPO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_ADENDA_TIPO"))
 public class AdendaTipo implements Serializable {
     private static final long serialVersionUID = 3787160805495589073L;
     @Id
