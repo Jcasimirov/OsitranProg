@@ -2,9 +2,11 @@ package com.ositran.seguridad;
 
 import com.ositran.service.RolOpcionesService;
 import com.ositran.serviceimpl.MenServiceImpl;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.MenVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
-import org.primefaces.component.menuitem.MenuItem;
+
 @ManagedBean(name = "menuMB")
 @SessionScoped
 public class MenuMB {
@@ -44,7 +49,7 @@ public class MenuMB {
     
     @ManagedProperty(value = "#{menVO}")
     MenVO menVO;
-    
+    private UsuarioVO usuarioLogueado;
     public MenuMB(){
         
         }
@@ -123,6 +128,7 @@ public class MenuMB {
             model.addSubmenu(tercerSubmenu);
             model.addSubmenu(cuartoSubmenu);
             model.addSubmenu(quintoSubmenu);  
+            usuarioLogueado=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         }
         
     public void llego(){
@@ -223,4 +229,11 @@ public class MenuMB {
         return menVO;
     }
 
+    public void setUsuarioLogueado(UsuarioVO usuarioLogueado) {
+        this.usuarioLogueado = usuarioLogueado;
+    }
+
+    public UsuarioVO getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
 }
