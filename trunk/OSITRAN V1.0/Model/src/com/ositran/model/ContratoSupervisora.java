@@ -1,9 +1,7 @@
 package com.ositran.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,28 +11,31 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+/**
+ * To create ID generator sequence "T_CONTRATO_SUPERVISORA_ID_SEQ_GEN":
+ * CREATE SEQUENCE "T_CONTRATO_SUPERVISORA_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
+ */
 @Entity
-@NamedQueries({ @NamedQuery(name = "ContratoSupervisora.findAll", query = "select o from ContratoSupervisora o") })
 @Table(name = "T_CONTRATO_SUPERVISORA")
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_SUPERVISORA"))
 public class ContratoSupervisora implements Serializable {
-    private static final long serialVersionUID = -2053453098288078717L;
-    @Column(name = "CPS_ADELANTO_OTORGADO", nullable = false)
-    private Integer cpsAdelantoOtorgado;
-    @Column(name = "CPS_ANYO", nullable = false)
-    private Integer cpsAnyo;
+    private static final long serialVersionUID = 3657750162709879454L;
+    @Column(name = "CON_ID")
+    private int conId;
+    @Column(name = "CPS_ADELANTO_OTORGADO")
+    private int cpsAdelantoOtorgado;
+    @Column(name = "CPS_ANYO")
+    private int cpsAnyo;
     @Column(name = "CPS_ARCHIVO_PDF")
     private String cpsArchivoPdf;
-    @Column(name = "CPS_ASUNTO", nullable = false, length = 4000)
+    @Column(name = "CPS_ASUNTO",  length = 4000)
     private String cpsAsunto;
-    @Column(name = "CPS_CADUCIDAD", nullable = false, length = 4000)
+    @Column(name = "CPS_CADUCIDAD",  length = 4000)
     private String cpsCaducidad;
-    @Column(name = "CPS_ESTADO", nullable = false)
-    private Integer cpsEstado;
+    @Column(name = "CPS_ESTADO")
+    private int cpsEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CPS_FECHA_ADELANTO")
     private Date cpsFechaAdelanto;
@@ -56,75 +57,48 @@ public class ContratoSupervisora implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "CPS_FECHA_SUSCRIPCION")
     private Date cpsFechaSuscripcion;
-    @Column(name = "CPS_GARANTIAS", nullable = false, length = 4000)
+    @Column(name = "CPS_GARANTIAS", length = 4000)
     private String cpsGarantias;
-    @Column(name = "CPS_MONTO_CONTRATADO", nullable = false)
-    private Integer cpsMontoContratado;
+    @Column(name = "CPS_MONTO_CONTRATADO" )
+    private int cpsMontoContratado;
     @Id
-    @Column(name = "CPS_NRO_DE_CONTRATO", nullable = false)
-    @GeneratedValue(generator = "generator")
-    private Integer cpsNroDeContrato;
-    @Column(name = "CPS_PENALIDADES", nullable = false, length = 4000)
+    @Column(name = "CPS_NRO_DE_CONTRATO" )
+    private int cpsNroDeContrato;
+    @Column(name = "CPS_PENALIDADES" , length = 4000)
     private String cpsPenalidades;
-    @Column(name = "CPS_PLAZO_CONTRATO", nullable = false)
-    private Integer cpsPlazoContrato;
-    @Column(name = "CPS_STD", nullable = false)
-    private Integer cpsStd;
+    @Column(name = "CPS_PLAZO_CONTRATO" )
+    private int cpsPlazoContrato;
+    @Column(name = "CPS_STD" )
+    private int cpsStd;
     @Column(name = "CPS_TERMINAL", length = 20)
     private String cpsTerminal;
     @Column(name = "CPS_USUARIO_ALTA", length = 20)
     private String cpsUsuarioAlta;
     @Column(name = "CPS_USUARIO_BAJA", length = 20)
     private String cpsUsuarioBaja;
-    
-    @Column(name = "CPS_USUARIO_CAMBIO", length = 20)    
+    @Column(name = "CPS_USUARIO_CAMBIO", length = 20)
     private String cpsUsuarioCambio;
-    
-    @Column(name = "INF_ID")    
-    private Integer infraestructura;
-    
-    @Column(name = "TIN_ID")    
-    private Integer tipoInfraestructura;
-    
-    @Column(name = "CSI_ID")    
-    private Integer concesion;
-    
+    @Column(name = "CSI_ID")
+    private int csiId;
+    @Column(name = "INF_ID")
+    private int infId;
     @Column(name = "SUP_ID")
-    private Integer empresaSupervisora;
-        
-    @Column(name = "CON_ID")
-    private Integer contrato;
-    
-    /*
-    @ManyToOne
-    @JoinColumns({
-                 @JoinColumn(name = "INF_ID", referencedColumnName = "INF_ID"),
-                 @JoinColumn(name = "TIN_ID", referencedColumnName = "TIN_ID"),
-                 @JoinColumn(name = "CSI_ID", referencedColumnName = "CSI_ID")
-        })
-    private Infraestructura infraestructura2;
-    @ManyToOne
-    @JoinColumn(name = "SUP_ID")
-    private EmpresaSupervisora empresaSupervisora;
-    @OneToOne(mappedBy = "contratoSupervisora")
-    private ContratoSupervisoraAdenda TContratoSupervisoraAdendaList;
-    @ManyToOne
-    @JoinColumn(name = "CON_ID")
-    private Contrato contrato;
-    */
-    
+    private int supId;
+    @Column(name = "TIN_ID")
+    private int tinId;
+
     public ContratoSupervisora() {
     }
 
-    public ContratoSupervisora(Integer cpsAdelantoOtorgado, Integer cpsAnyo, String cpsArchivoPdf, String cpsAsunto,
-                               String cpsCaducidad, Integer cpsEstado, Date cpsFechaAdelanto, Date cpsFechaAlta,
-                               Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio, Date cpsFechaRegistro,
-                               Date cpsFechaSuscripcion, String cpsGarantias, Integer cpsMontoContratado,
-                               Integer cpsNroDeContrato, String cpsPenalidades, Integer cpsPlazoContrato,
-                               Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta, String cpsUsuarioBaja,
-                               String cpsUsuarioCambio, Integer infraestructura, Integer tipoInfraestructura,
-                               Integer concesion, Integer empresaSupervisora, Integer contrato) {
-        super();
+    public ContratoSupervisora(int conId, int cpsAdelantoOtorgado, int cpsAnyo, String cpsArchivoPdf,
+                               String cpsAsunto, String cpsCaducidad, int cpsEstado, Date cpsFechaAdelanto,
+                               Date cpsFechaAlta, Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio,
+                               Date cpsFechaRegistro, Date cpsFechaSuscripcion, String cpsGarantias,
+                               int cpsMontoContratado, int cpsNroDeContrato, String cpsPenalidades,
+                               int cpsPlazoContrato, int cpsStd, String cpsTerminal,
+                               String cpsUsuarioAlta, String cpsUsuarioBaja, String cpsUsuarioCambio, int csiId,
+                               int infId, int supId, int tinId) {
+        this.conId = conId;
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
         this.cpsAnyo = cpsAnyo;
         this.cpsArchivoPdf = cpsArchivoPdf;
@@ -148,26 +122,33 @@ public class ContratoSupervisora implements Serializable {
         this.cpsUsuarioAlta = cpsUsuarioAlta;
         this.cpsUsuarioBaja = cpsUsuarioBaja;
         this.cpsUsuarioCambio = cpsUsuarioCambio;
-        this.infraestructura = infraestructura;
-        this.tipoInfraestructura = tipoInfraestructura;
-        this.concesion = concesion;
-        this.empresaSupervisora = empresaSupervisora;
-        this.contrato = contrato;
+        this.csiId = csiId;
+        this.infId = infId;
+        this.supId = supId;
+        this.tinId = tinId;
     }
 
-    public Integer getCpsAdelantoOtorgado() {
+    public int getConId() {
+        return conId;
+    }
+
+    public void setConId(int conId) {
+        this.conId = conId;
+    }
+
+    public int getCpsAdelantoOtorgado() {
         return cpsAdelantoOtorgado;
     }
 
-    public void setCpsAdelantoOtorgado(Integer cpsAdelantoOtorgado) {
+    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
     }
 
-    public Integer getCpsAnyo() {
+    public int getCpsAnyo() {
         return cpsAnyo;
     }
 
-    public void setCpsAnyo(Integer cpsAnyo) {
+    public void setCpsAnyo(int cpsAnyo) {
         this.cpsAnyo = cpsAnyo;
     }
 
@@ -195,11 +176,11 @@ public class ContratoSupervisora implements Serializable {
         this.cpsCaducidad = cpsCaducidad;
     }
 
-    public Integer getCpsEstado() {
+    public int getCpsEstado() {
         return cpsEstado;
     }
 
-    public void setCpsEstado(Integer cpsEstado) {
+    public void setCpsEstado(int cpsEstado) {
         this.cpsEstado = cpsEstado;
     }
 
@@ -267,20 +248,16 @@ public class ContratoSupervisora implements Serializable {
         this.cpsGarantias = cpsGarantias;
     }
 
-    public Integer getCpsMontoContratado() {
+    public int getCpsMontoContratado() {
         return cpsMontoContratado;
     }
 
-    public void setCpsMontoContratado(Integer cpsMontoContratado) {
+    public void setCpsMontoContratado(int cpsMontoContratado) {
         this.cpsMontoContratado = cpsMontoContratado;
     }
 
-    public Integer getCpsNroDeContrato() {
+    public int getCpsNroDeContrato() {
         return cpsNroDeContrato;
-    }
-
-    public void setCpsNroDeContrato(Integer cpsNroDeContrato) {
-        this.cpsNroDeContrato = cpsNroDeContrato;
     }
 
     public String getCpsPenalidades() {
@@ -291,19 +268,19 @@ public class ContratoSupervisora implements Serializable {
         this.cpsPenalidades = cpsPenalidades;
     }
 
-    public Integer getCpsPlazoContrato() {
+    public int getCpsPlazoContrato() {
         return cpsPlazoContrato;
     }
 
-    public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
+    public void setCpsPlazoContrato(int cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
 
-    public Integer getCpsStd() {
+    public int getCpsStd() {
         return cpsStd;
     }
 
-    public void setCpsStd(Integer cpsStd) {
+    public void setCpsStd(int cpsStd) {
         this.cpsStd = cpsStd;
     }
 
@@ -339,80 +316,42 @@ public class ContratoSupervisora implements Serializable {
         this.cpsUsuarioCambio = cpsUsuarioCambio;
     }
 
-    /*
-    public Infraestructura getInfraestructura2() {
-        return infraestructura2;
-    }
-
-    public void setInfraestructura2(Infraestructura infraestructura2) {
-        this.infraestructura2 = infraestructura2;
-    }
-
-    public EmpresaSupervisora getEmpresaSupervisora() {
-        return empresaSupervisora;
-    }
-
-    public void setEmpresaSupervisora(EmpresaSupervisora empresaSupervisora) {
-        this.empresaSupervisora = empresaSupervisora;
-    }
-
-    public ContratoSupervisoraAdenda getTContratoSupervisoraAdendaList() {
-        return TContratoSupervisoraAdendaList;
-    }
-
-    public void setTContratoSupervisoraAdendaList(ContratoSupervisoraAdenda TContratoSupervisoraAdendaList) {
-        this.TContratoSupervisoraAdendaList = TContratoSupervisoraAdendaList;
-    }
-
-    public Contrato getContrato7() {
-        return contrato;
-    }
-
-    public void setContrato7(Contrato contrato7) {
-        this.contrato = contrato7;
-    }*/
 
 
-    public void setInfraestructura(Integer infraestructura) {
-        this.infraestructura = infraestructura;
-    }
-
-    public Integer getInfraestructura() {
-        return infraestructura;
+    public void setCpsNroDeContrato(int cpsNroDeContrato) {
+        this.cpsNroDeContrato = cpsNroDeContrato;
     }
 
 
-    public void setTipoInfraestructura(Integer tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
+    public void setCsiId(int csiId) {
+        this.csiId = csiId;
     }
 
-    public Integer getTipoInfraestructura() {
-        return tipoInfraestructura;
+    public int getCsiId() {
+        return csiId;
     }
 
-    public void setConcesion(Integer concesion) {
-        this.concesion = concesion;
+    public void setInfId(int infId) {
+        this.infId = infId;
     }
 
-    public Integer getConcesion() {
-        return concesion;
+    public int getInfId() {
+        return infId;
     }
 
-    public void setEmpresaSupervisora(Integer empresaSupervisora) {
-        this.empresaSupervisora = empresaSupervisora;
+    public void setSupId(int supId) {
+        this.supId = supId;
     }
 
-    public Integer getEmpresaSupervisora() {
-        return empresaSupervisora;
+    public int getSupId() {
+        return supId;
     }
 
-    public void setContrato(Integer contrato) {
-        this.contrato = contrato;
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
     }
 
-    public Integer getContrato() {
-        return contrato;
+    public int getTinId() {
+        return tinId;
     }
-    
-    
 }
