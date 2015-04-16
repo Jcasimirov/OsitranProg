@@ -1,4 +1,5 @@
 package com.ositran.valorizaciones;
+
 import com.ositran.model.Infraestructura;
 import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
@@ -14,7 +15,6 @@ import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.MonedaService;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
-import com.ositran.serviceimpl.DatosStdServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.vo.bean.AvanceInversionWebVO;
@@ -33,6 +33,8 @@ import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ValorizacionSupVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
+
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,7 +68,7 @@ public class RegistrarAvanceInversionPMB {
     //*********************DATOS CONTRATO COMPROMISO********************//
     private int contratoCompromisoSeleccionado;
     private String plazo;
-    private long total;
+    private BigDecimal total;
     private int codigoMoneda;
     private int codigoInversionDescripcion;
     //*********************DATOS VALORIZACION********************//
@@ -663,11 +665,11 @@ public class RegistrarAvanceInversionPMB {
     }
 
 
-    public void setTotal(long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
