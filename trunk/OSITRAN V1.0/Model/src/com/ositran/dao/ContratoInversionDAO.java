@@ -15,4 +15,6 @@ public interface ContratoInversionDAO {
     public String update(ContratoInversion contratoInversion) throws SQLException;
     public ContratoInversion get(Integer id) throws SQLException;
     public List<ContratoInversion> getInversionesContrato(Integer conId) throws SQLException;
+    
+    public List<ContratoInversion> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException;
 }
