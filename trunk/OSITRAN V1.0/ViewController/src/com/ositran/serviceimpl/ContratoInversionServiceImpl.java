@@ -117,4 +117,11 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
         List<ContratoInversionVO> listVO=toListContratoInversionVO(list);
         return listVO;
     }
+    
+    @Override
+        public List<ContratoInversionVO> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException{
+            List<ContratoInversion> list=contratoInversionDAOImpl.ListaPorAeropuerto(contrato,tipoInfraestructura,concesion,infraestructura);
+            List<ContratoInversionVO> listVO=toListContratoInversionVO(list);
+            return listVO;
+        }
 }
