@@ -1,154 +1,116 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
-    <html xmlns="http://www.w3.org/1999/xhtml">
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <style type="text/css">
-                .ui-dialog-titlebar {
-                    font-size: 13px;
-                    font-family: sans-serif;
-                }
-            </style>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
         </h:head>
-        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
-            <f:event listener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.getListarContratoSupervisora()}"
-                     type="postAddToView"/>
+            <f:event listener="#{manteContEmprSupervisora.cargarListaInfraestructuraTipo()}" type="postAddToView"></f:event>
              
-            <h:form binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.form1}" id="form1">
+            <f:event listener="#{manteContEmprSupervisora.cargarListaContratosEmpresaSupervisora()}"
+                     type="postAddToView"></f:event>
+             
+            <f:event listener="#{manteContEmprSupervisora.cargarListaMoneda()}" type="postAddToView"></f:event>
+             
+            <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="1000"/>
-                <p:layout binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.layout1}"
-                                     id="layout1" style="min-width:400px;min-height:460px;">
-                    <p:layoutUnit position="center"
-                                             binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.layoutUnit1}"
-                                             id="layoutUnit1" style="min-height:310px;">
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h3 class="titulo" style="color:Black;font-weight:bold;font-family: sans-serif;">MANTENIMIENTO
-                                                                                                             DE CONTRATO
-                                                                                                             DE EMPRESA
-                                                                                                             SUPERVISORA</h3>
-                        </div>
-                        <div align="center">
-                            <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGrid1}"
-                                                    id="panelGrid1" columns="5" style="font-size: 11px; width:60%">
-                                <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelEmpresaSupervisora}"
-                                                          id="outputLabelEmpresaSupervisora"
-                                                          value="Empresa supervisora"/>
-                                <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextEmpresaSupervisora}"
-                                                        id="inputTextEmpresaSupervisora"/>
-                                <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelTipoInfraestructura}"
-                                                          id="outputLabelTipoInfraestructura"
-                                                          value="Tipo de Infraestructura"/>
-                                <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuTipoInfraestructura}"
-                                                            id="selectOneMenuTipoInfraestructura"
-                                                            value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.tipoInfraestructura}">
-                                    <f:selectItems value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.tipoInfraestructuraSelectItems}"/>
-                                    <f:ajax render="inputHiddenSelectedTipoInfraestructura" event="change"
-                                            execute="selectOneMenuTipoInfraestructura"/>
-                                </p:selectOneMenu>
-                                <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButton1}"
-                                                            id="commandButton1" value="Buscar" image="ui-icon-search"
-                                                            action="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.buscarConEmpSup()}"
-                                                            update=":form1:dataTableConEmprSupr"/>
-                                <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelNroContrato}"
-                                                          id="outputLabelNroContrato" value="Nro de Contrato"/>
-                                <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNroContrato}"
-                                                        id="inputTextNroContrato"/>
-                                <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel1}"
-                                                          id="outputLabel1"/>
-                                <h:inputHidden binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHiddenItemTipoInfraestructura}"
-                                               id="inputHiddenSelectedTipoInfraestructura"
-                                               value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHiddenSelectedTipoInfraestructura}"/>
-                                <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonLimpiar}"
-                                                            action="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.limpiarFiltro()}"
-                                                            update=":form1:inputTextEmpresaSupervisora :form1:inputTextNroContrato"
-                                                            id="commandButtonLimpiar" value="Limpiar"/>
-                            </p:panelGrid>
-                        </div>
-                        <div align="center">
-                            <div style="width:60%">
-                                <p:dataTable binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dataTableConEmprSupr}"
-                                                        id="dataTableConEmprSupr" var="cEmpreSup" selectionMode="single"
-                                                        value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.listaContratoSupervisora}"
-                                                        style="font-size:11px" rows="6" paginator="true"
-                                                        rowKey="#{cEmpreSup.contrato}"
-                                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                        paginatorPosition="bottom" rowsPerPageTemplate="5,10,15"
-                                                        emptyMessage="No se Encontraron Registros"
-                                                        rowIndexVar="rowIndex" lazy="true">
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnN}"
-                                                         id="columnN" headerText="N°" style="width:3%">
-                                        <h:outputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputText2}"
-                                                      id="outputTextNum" value="#{rowIndex+1}"
-                                                      style="text-transform:uppercase;"/>
+                            <div align="center">
+                                <h4 style="color: #003194;">MANTENIMIENTO DE CONTRATO DE EMPRESA SUPERVISORA</h4>
+                            </div>
+                            <div align="center">
+                                <table style="width:80% ;font-size:11px;">
+                                    <tr>
+                                        <td style="width: 5%;">Buscar :</td>
+                                        <td style="width: 30px;">
+                                            <p:inputText size="30" id="empresaSupervisora"
+                                                         value="#{manteContEmprSupervisora.empresaSupervisora}"/>
+                                        </td>
+                                        <td style="width: 8%;">
+                                            <p:commandButton id="btnbuscar" image="ui-icon-search"
+                                                             update=":form:dataTableEmprSupr"
+                                                             actionListener="#{manteContEmprSupervisora.buscarConEmpSup()}"/>
+                                             
+                                            <p:tooltip id="toolTipFade" for="btnbuscar" styleClass="tool"
+                                                       value="Buscar por Numero de contrato y empresa supervisora"/>
+                                             
+                                            <p:commandButton id="btnTodos"
+                                                             actionListener="#{manteContEmprSupervisora.cargarTodo}"
+                                                             image="ui-icon-arrowreturnthick-1-s"/>
+                                             
+                                            <p:tooltip styleClass="tool" id="toolTipFade1" for="btnTodos"
+                                                       value="Ver lista completa de contrato de empresa de supervisor"/>
+                                        </td>
+                                        <td style="width: 15%;">Tipo de Infraestructura</td>
+                                        <td>
+                                            <p:selectOneMenu value="#{manteContEmprSupervisora.tipoInfraestructuraSeleccionada}">
+                                                <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                <f:selectItems value="#{manteContEmprSupervisora.listaInfraestructuraTipo}"
+                                                               var="tin" itemLabel="#{tin.tinNombre}"
+                                                               itemValue="#{tin.tinId}"/>
+                                            </p:selectOneMenu>
+                                        </td>
+                                        <td align="right">
+                                            <p:commandButton id="btnnuevo" value="Nuevo" type="reset"
+                                                             image="ui-icon-circle-plus" styleClass="botones"
+                                                             onclick="dialogRegConEmpSup.show()"/>
+                                             
+                                            <p:tooltip styleClass="tool" id="toolTipFade2" for="btnnuevo"
+                                                       value="Registrar contrato de empresa supervisora"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br></br>
+                            <div id="dataTable" align="center" style="width: 80%;">
+                                <p:dataTable style="font-size:11px" id="dataTableEmprSupr" var="cEmpreSup"
+                                             value="#{manteContEmprSupervisora.listaContratoSupervisora}" rows="10"
+                                             paginator="true" paginatorPosition="bottom"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="6,8,10" selectionMode="single"
+                                             rowKey="#{cEmpreSup.cpsNroDeContrato}" rowIndexVar="rowIndex">
+                                    <p:column headerText="N°" style="width:3%">
+                                        <h:outputText value="#{rowIndex+1}" style="text-transform:uppercase;"/>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnNumContrato}"
-                                                         id="columnNumContrato" headerText="N° Contrato"
-                                                         style="width:25%;text-align:center;">
-                                        <h:outputText value="#{cEmpreSup.cpsNroDeContrato}"
-                                                      style="text-transform:uppercase;"
-                                                      binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputText5}"
-                                                      id="outputTextNumContrato"/>
+                                    <p:column headerText="N° Contrato" style="width:25%;text-align:center;">
+                                        <h:outputText value="#{cEmpreSup.cpsNroDeContrato}"/>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnEmpresaSupervisora}"
-                                                         id="columnEmpresaSupervisora" headerText="Empresa supervisora"
-                                                         style="width:25%;text-align:center;">
-                                        <h:outputText value="#{cEmpreSup.empresaSupervisora}"
-                                                      binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputText3}"
-                                                      id="outputTextEmpresaSupervisora"
-                                                      style="text-transform:uppercase;"/>
+                                    <p:column headerText="Empresa supervisora">
+                                        <h:outputText value="#{cEmpreSup.supId}"/>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnTipoInfraestructura}"
-                                                         id="columnTipoInfraestructura"
-                                                         headerText="Tipo de infraestructura"
-                                                         style="width:20%;text-align:center;">
-                                        <h:outputText value="#{cEmpreSup.tipoInfraestructura}"
-                                                      style="text-transform:uppercase;"
-                                                      binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputText4}"
-                                                      id="outputTextTipoInfraestructura"/>
+                                    <p:column headerText="Tipo de infraestructura">
+                                        <h:outputText value="#{cEmpreSup.tinId}"/>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnVer}"
-                                                         id="columnVer" headerText="Ver"
-                                                         style="width:9%;text-align:center;">
+                                    <p:column headerText="Ver">
                                         <div align="center">
-                                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonVer}"
-                                                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.contEmpSupVer}"
-                                                                        id="commandButtonVer" image="ui-icon-search"
-                                                                        style="width:25px;text-align:center;"
-                                                                        update=":form1:dialogVerContEmpSup"
-                                                                        oncomplete="dialogVerContEmpSup.show()">
-                                                <f:param id="id1" name="id1" value="#{cEmpreSup.cpsNroDeContrato}"/>
-                                            </p:commandButton>
+                                            <p:commandButton image="ui-icon-search" onclick="dialogVerContEmpSup.show()"
+                                                             styleClass="controles" id="vercontrato"
+                                                             actionListener="#{manteContEmprSupervisora.cargarEditar(cEmpreSup)}"/>
+                                             
+                                            <p:tooltip styleClass="tool" id="toolTipFade3" for="vercontrato"
+                                                       value="Visualizar contrato de empresa supervisora"/>
                                         </div>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnModificar}"
-                                                         id="columnModificar" headerText="Modificar"
-                                                         style="width:9%;text-align:center;">
+                                    <p:column headerText="Modificar">
                                         <div align="center">
-                                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonModificar}"
-                                                                        id="commandButtonModificar"
-                                                                        image="ui-icon-pencil"
-                                                                        style="width:25px;text-align:center;"
-                                                                        oncomplete="dialogModificarConEmpSup.show()"
-                                                                        update=":form1:panelGrid3"
-                                                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.contraEmpSupUpd1}">
-                                                <f:param id="id2" name="id2" value="#{cEmpreSup.cpsNroDeContrato}"/>
-                                            </p:commandButton>
+                                            <p:commandButton update=":form:popupeditar" styleClass="controles"
+                                                             action="#{manteContEmprSupervisora.cargarEditar(cEmpreSup)}"
+                                                             oncomplete="popupeditar.show()" image="ui-icon-pencil"/>
                                         </div>
                                     </p:column>
-                                    <p:column binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnEliminar}"
-                                                         id="columnEliminar" headerText="Eliminar"
-                                                         style="width:9%;text-align:center;">
+                                    <p:column headerText="Eliminar" id="columnEliminar">
                                         <div align="center">
-                                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonEliminar}"
-                                                                        id="commandButtonEliminar" image="ui-icon-trash"
-                                                                        style="width:25px;text-align:center;"
-                                                                        oncomplete="confirEliminar.show()"
-                                                                        update=":form1:confirEliminar"
-                                                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.confirmarEliminar}">
-                                                <f:param id="id3" name="id3" value="#{cEmpreSup.cpsNroDeContrato}"/>
+                                            <p:commandButton update=":form:popupeliminar :form:codEliminar"
+                                                             styleClass="controles"
+                                                             actionListener="#{manteContEmprSupervisora.cargarEliminar()}"
+                                                             oncomplete="popupeliminar.show()" image="ui-icon-trash">
+                                                <f:param id="nroContrato" name="nroContrato"
+                                                         value="#{cEmpreSup.cpsNroDeContrato}"/>
                                             </p:commandButton>
                                         </div>
                                     </p:column>
@@ -156,671 +118,789 @@
                             </div>
                         </div>
                     </p:layoutUnit>
-                    <p:layoutUnit position="south"
-                                             binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.layoutUnit2}"
-                                             id="layoutUnit2">
-                        <div align="center" style="width:100%; font-size: 11px;">
-                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButton4}"
-                                                        id="commandButton4" value="Nuevo" style="width:130px"
-                                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.limpiarCampos()}"
-                                                        update=":form1:dialogRegConEmpSup"
-                                                        oncomplete="dialogRegConEmpSup.show()"/>
-                             
-                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButton5}"
-                                                        id="commandButton5" value="Salir" style="width:130px"/>
-                        </div>
-                    </p:layoutUnit>
+                    <h:inputHidden value="#{manteContEmprSupervisora.codigoEliminar}" id="codEliminar"/>
                 </p:layout>
-                <p:dialog binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dialogRegConEmpSup}"
-                                     id="dialogRegConEmpSup" header="REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA"
-                                     widgetVar="dialogRegConEmpSup" modal="true" resizable="false" height="480px"
-                                     width="1090px">
-                    <div style="width: 1050px; display: block; overflow: hidden;">
-                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGrid2}"
-                                                id="panelGrid2" columns="2" style="font-size: 11px; width:990px;">
-                            <p:columnGroup binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnGroup1}"
-                                                      id="columnGroup1">
-                                <div style="float: left; width: 540px">
-                                    <p:fieldset legend="Datos STD" style="width:10%;margin-bottom:5px;">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridDatosSTD}"
-                                                                id="panelGridDatosSTD" columns="4"
-                                                                style="font-size: 11px;">
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelNroSTDNew}"
-                                                                      id="outputLabelNroSTDNew" value="Nro de STD:"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNumero}"
-                                                                    id="inputTextNumero"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelAnnioNew}"
-                                                                      id="outputLabelAnnioNew" value="Año"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAnnio}"
-                                                                    id="inputTextAnnio"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelFechaRegistro}"
-                                                                      id="outputLabelFechaRegistro"
-                                                                      value="Fecha de registro"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaRegistro}"
-                                                                   id="calendarFechaRegistro"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelAsunto}"
-                                                                      id="outputLabelAsunto" value="Asunto:"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaAsunto}"
-                                                                        id="inputTextareaAsunto"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                     
-
-                                    
-                                    
-                                     
-                                  <p:fieldset legend="Criterio de búsqueda">
-                                        <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel3}"
-                                                                  id="outputLabel4"
-                                                                  value="Buscar Empresa Supervisora:"/>
-                                                                  
-                                                                   <p:commandButton image="ui-icon-search"  
-                                      update=":form1:panelListaEmpresas"
-                                        oncomplete="panelListaEmpresas.show()"
-                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.buscarEmpresaSup()}"
-                                        />
-                                    </p:fieldset>
-                                    
-                                    <p:fieldset legend="Datos de empresa supervisora" id="datosNombreEmpresaSupervisora">
-                                        <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel6}"
-                                                       id="outputLabel6" value="nombre"/>
-                                        <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNombreEmpresaSupervisora}"
-                                                     id="inputTextNombreEmpresaSupervisora"/>
-                                    </p:fieldset>
-                                    
-                                    <p:fieldset legend="Criterio de búsqueda">
-                                        <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel4}"
-                                                                  id="outputLabel3"
-                                                                  value="Buscar contrato de concesión:"/>                                  
-                                        <p:commandButton image="ui-icon-search"  
-                                       update=":form1:panelListaContratos"
-                                        oncomplete="panelListaContratos.show()"
-                                        actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.cargarListaContratos()}" 
-                                        
-                                        />
-                                    </p:fieldset>                                    
-                                     
-                                    <p:fieldset legend="Datos contrato de concesión" id="datosContrato">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridDatosContraConcesion}"
-                                                                id="panelGridDatosContraConcesion" columns="2">
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelConcesion}"
-                                                                      id="outputLabelConcesion" value="Concesión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextConcesion}"
-                                                                    id="inputTextConcesion"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelTipoInfra}"
-                                                                      id="outputLabelTipoInfra"
-                                                                      value="Tipo de infraestructura"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextTipoInfra}"
-                                                                    id="inputTextTipoInfra"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelModaConcesion}"
-                                                                      id="outputLabelModaConcesion"
-                                                                      value="Modalidad de concesión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextModalidadConcesion}"
-                                                                    id="inputTextModalidadConcesion"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelAeropuerto}"
-                                                                      id="outputLabelAeropuerto" value="Aeropuerto"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuAeropuerto}"
-                                                                        id="selectOneMenuAeropuerto"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelInversion}"
-                                                                      id="outputLabelInversion" value="Inversión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextInversion}"
-                                                                    id="inputTextInversion"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                     
-                                    <p:fieldset legend="Etapa concesión">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridEtapaConcesion}"
-                                                                id="panelGridEtapaConcesion" columns="2">
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelEtapaPeriodo}"
-                                                                      id="outputLabelEtapaPeriodo"
-                                                                      value="Etapa periodo"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuEtapaPeriodo}"
-                                                                        id="selectOneMenuEtapaPeriodo"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelPlazo}"
-                                                                      id="outputLabelPlazo" value="plazo"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazo}"
-                                                                    id="inputTextPlazo"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelMoneda}"
-                                                                      id="outputLabelMoneda" value="Moneda"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMoneda}"
-                                                                    id="inputTextMoneda"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelTotal}"
-                                                                      id="outputLabelTotal" value="total"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextTotal}"
-                                                                    id="inputTextTotal"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                </div>
-                            </p:columnGroup>
-                            <p:columnGroup binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnGroup2}"
-                                                      id="columnGroup2">
-                                <div style="float: left; width: 450px;">
-                                    <p:fieldset binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.fieldset1}"
-                                                           id="fieldset1" legend="Datos del contrato">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridDatosContrato}"
-                                                                id="panelGridDatosContrato" columns="2"
-                                                                style="ui-border:none;">
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelNroContratoNew}"
-                                                                      id="outputLabelNroContratoNew"
-                                                                      value="Nro de contrato"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNroContratoNew}"
-                                                                    id="inputTextNroContratoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelFechaInicioNew}"
-                                                                      id="outputLabelFechaInicioNew"
-                                                                      value="Fecha de inicio del contrato"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecIniContratoNew}"
-                                                                   id="calendarFecIniContratoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelFechaSuscripcionNew}"
-                                                                      id="outputLabelFechaSuscripcionNew"
-                                                                      value="Fecha de suscripción"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecSuscripcionNew}"
-                                                                   id="calendarFecSuscripcionNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelPlazoContratoNew}"
-                                                                      id="outputLabelPlazoContratoNew"
-                                                                      value="Plazo de contrato"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazoContratoNew}"
-                                                                    id="inputTextPlazoContratoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelMontoNew}"
-                                                                      id="outputLabelMontoNew"
-                                                                      value="Monto contratado"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMontoContratadoNew}"
-                                                                    id="inputTextMontoContratadoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelMonedaNew}"
-                                                                      id="outputLabelMonedaNew" value="Moneda"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuMoneda}"
-                                                                        id="selectOneMenuMoneda"
-                                                                        value="backing_ositran_parametros_mantenimientoContratEmprSupervisor.moneda">
-                                                <f:selectItems value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.monedaSelectItems}"/>
-                                                <f:ajax render="inputHiddenSelectedMoneda" event="change"
-                                                        execute="selectOneMenuMoneda"/>
-                                            </p:selectOneMenu>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelAdelantoOtorgadoNew}"
-                                                                      id="outputLabelAdelantoOtorgadoNew"
-                                                                      value="Adelanto otorgado"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdelantoOtorgadoNew}"
-                                                                    id="inputTextAdelantoOtorgadoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelFechaAdelantoNew}"
-                                                                      id="outputLabelFechaAdelantoNew"
-                                                                      value="Fecha adelanto"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaAdelantoNew}"
-                                                                   id="calendarFechaAdelantoNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelRefPenalidadNew}"
-                                                                      id="outputLabelRefPenalidadNew"
-                                                                      value="Referencia a penalidades"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefPenalidadNew}"
-                                                                        id="inputTextareaRefPenalidadNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelRefCausalesCaduNew}"
-                                                                      id="outputLabelRefCausalesCaduNew"
-                                                                      value="Referencia a causales de caducidad"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefCausalesCaduNew}"
-                                                                        id="inputTextareaRefCausalesCaduNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelGarantiasNew}"
-                                                                      id="outputLabelGarantiasNew"
-                                                                      value="Garantias a favor de OSITRAN"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaGarantiasFavorNew}"
-                                                                        id="inputTextareaGarantiasFavorNew"/>
-                                            <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabelAdjuntarContratoNew}"
-                                                                      id="outputLabelAdjuntarContratoNew"
-                                                                      value="Adjuntar contrato"/>
-                                            <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGrid4}"
-                                                                    id="panelGrid4" columns="2">
-                                            <p:inputText id="docEntrega"  style="width:100% !important;"
-                                                     onblur="if (this.value != '') this.value='';"
-                                                     disabled="#{not empty backing_ositran_parametros_mantenimientoContratEmprSupervisor.contratoSupervisoraVO.inputStreamNuevaEntrega}"
-                                                     value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.contratoSupervisoraVO.cenDocumentoFisico}"/>
-                                            <p:fileUpload fileUploadListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.subirArchivoEntrega}"
-                                                      update="docEntrega" label="PDF" auto="true"/>
-                                            </p:panelGrid>
-                                                      
-                                                      
-                                            <!--p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdjutarContratoNew}"
-                                                                    id="inputTextAdjutarContratoNew"/>
-                                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonAgregarAdenda}"
-                                                                        id="commandButtonAgregarAdenda"
-                                                                        value="Agregar adenda"/-->
-                                            <h:inputHidden binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHidden2}"
-                                                           id="inputHiddenSelectedMoneda"
-                                                           value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHiddenSelectedMoneda}"/>
-                                        </p:panelGrid>
-                                        <p:dataTable binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dataTableContratoNew}"
-                                                                id="dataTableContratoNew"/>
-                                    </p:fieldset>
-                                </div>
-                            </p:columnGroup>
-                        </p:panelGrid>
+                <!-- REGISTRAR CONTRATO EMPRESA SUPERVISORA-->
+                <p:dialog header="REGISTRAR" widgetVar="dialogRegConEmpSup" height="500px" width="1320px">
+                    <div align="center">
+                        <h5 class="titulo5">REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA</h5>
                     </div>
-                    <div align="center" style="font-size: 11px;">
-                        <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonGrabar}"
-                                                    id="commandButtonGrabar" value="Grabar"
-                                                    update=":form1:dataTableConEmprSupr :form1:mensaje"
-                                                    actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.grabar}"/>
-                         
-                        <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonCancelar}"
-                                                    id="commandButtonCancelar" onclick="dialogRegConEmpSup.hide()"
-                                                    value="Salir" />
-                    </div>
-                </p:dialog>
-                <p:dialog binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dialogConfirmarEliminar}"
-                                     id="dialogConfirmarEliminar" widgetVar="dialogConfirmarEliminar" header="Confirmar"
-                                     modal="true">
-                    <div style="float: left; width: 500px">
-                        <table style="font-size: 11px">
-                            <tr>
-                                <td>
-                                    <h:inputHidden binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHidden1}"
-                                                   id="inputHiddenIdEliminar"/>
-                                </td>
-                            </tr>
-                             
-                            <tr>
-                                <td colspan="2">Eliminar Empresa Supervisora: " "</td>
-                            </tr>
-                             
-                            <tr>
-                                <td align="right"></td>
-                                <td align="left">
-                                    <p:commandButton value="Cancelar"
-                                                                onclick="dialogConfirmarEliminar.hide()"></p:commandButton>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </p:dialog>
-                <p:dialog binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dialogVerContEmpSup}"
-                                     id="dialogVerContEmpSup" header="Contrato de Empresa Supervisora"
-                                     widgetVar="dialogVerContEmpSup" modal="true" resizable="false" height="310px"
-                                     width="630px">
-                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 300px;width: 600px;">
+                    <table style="font-size:11px;">
                         <tr>
-                            <td align="left">N&#250;mero:</td>
-                            <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="numeroVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNumeroModifStr}"/>
+                            <td>
+                                <div style=" width: 620px">
+                                    <p:fieldset styleClass="fielsetinterno" legend="#{leg.dsdt}">
+                                        <table style="width:100% ;font-size:11px;">
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.numhr}
+                                                    <p:inputText style="width:100px" id="bnum" value="#{manteContEmprSupervisora.nrohr}"/>
+                                                    <p:watermark for="bnum" value="Ingrese Número"/>
+                                                    <p:inputText style="width:100px" id="bfecha" value="#{manteContEmprSupervisora.añohr}"/>
+                                                    <p:watermark for="bfecha" value="Ingrese Año"/>
+                                                    <p:commandButton image="ui-icon-search" actionListener="#{manteContEmprSupervisora.BuscarStd()}"
+                                                                     update=":form:freg :form:asuntohr"/>
+                                                </td>
+                                                <td align="left">
+                                                    #{cam.FR}
+                                                    <p:inputText id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" align="left">
+                                                    #{cam.asu}
+                                                    <p:inputTextarea style="width:80%" id="asuntohr" readonly="true"
+                                                                     value="#{manteContEmprSupervisora.asuntohr}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p:fieldset styleClass="fielsetinterno" legend="Criterio de búsqueda">
+                                                    <p:outputLabel value="Buscar Empresa Supervisora:"/>
+                                                    <p:commandButton image="ui-icon-search"
+                                                                     onclick="panelListaEmpresas.show()"
+                                                                     actionListener="#{manteContEmprSupervisora.buscarEmpresaSup()}"/>
+                                                </p:fieldset>
+                                            </td>
+                                            <td>
+                                                <p:fieldset styleClass="fielsetinterno"
+                                                            legend="Datos de empresa supervisora"
+                                                            id="datosNombreEmpresaSupervisora">
+                                                    <p:outputLabel value="nombre"/>
+                                                    <p:inputText value="#{manteContEmprSupervisora.nombreEmpresaSupervisora}"/>
+                                                </p:fieldset>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <p:fieldset styleClass="fielsetinterno" id="busquedacontrato"
+                                                legend="Criterio de Busqueda">
+                                        <table style="margin-bottom:5px;font-size: 11px">
+                                            <tr>
+                                                <td align="left" colspan="4">
+                                                    Buscar Contrato Concesion: 
+                                                    <h:inputHidden value="#{manteContEmprSupervisora.contratoConcesion}"
+                                                                   readonly="false" id="inputContrato"
+                                                                   style="width:300px"/>
+                                                    <p:commandButton id="searchContratos" image="ui-icon-search"
+                                                                     update=":form:pListaContratos"
+                                                                     oncomplete="pListaContratos.show()"
+                                                                     actionListener="#{manteContEmprSupervisora.cargarListaContratos()}"/>
+                                                    <p:tooltip id="tool" styleClass="tool" for="searchContratos"
+                                                               value="Mostrar lista de contratos"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                     
+                                    <br></br>
+                                     
+                                    <p:fieldset styleClass="fielsetinterno" legend="Datos Contrato Concesion"
+                                                id="dContratoConcesion">
+                                        <table>
+                                            <tr>
+                                                <td align="left">Concesion</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_concesion}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Tipo Infraestructura</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_tinfra}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Modalidad Concesion</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_modconc}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Aeropuerto</td>
+                                                <td>
+                                                    <p:selectOneMenu id="listaInfraestructura"
+                                                                     value="#{manteContEmprSupervisora.infraestructuraSeleccionada}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaInfraestructuras}"
+                                                                       var="tip" itemLabel="#{tip.infNombre}"
+                                                                       itemValue="#{tip.infId}"/>
+                                                        <p:ajax event="valueChange"
+                                                                update=":form:listaInversiones :form:datosCompromiso"
+                                                                listener="#{manteContEmprSupervisora.cargarInversion()}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Inversion</td>
+                                                <td>
+                                                    <p:selectOneMenu id="listaInversiones"
+                                                                     value="#{manteContEmprSupervisora.inversionSeleccionada}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaInversiones}"
+                                                                       var="tip1" itemLabel="#{tip1.invDescripcion}"
+                                                                       itemValue="#{tip1.invId}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                     
+                                    <br></br>
+                                     
+                                    <p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
+                                        <table>
+                                            <tr>
+                                                <td colspan="1" align="left">
+                                                    #{cam.setapa}
+                                                </td>
+                                                <td colspan="3" align="left">
+                                                    <p:selectOneMenu id="listaCompromiso"
+                                                                     value="#{manteContEmprSupervisora.contratoCompromisoSeleccionado}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaContratoCompromiso}"
+                                                                       var="tip2" itemLabel="#{tip2.ccoPeriodo}"
+                                                                       itemValue="#{tip2.ccoId}"/>
+                                                        <p:ajax event="valueChange"
+                                                                update=":form:datosCompromiso"
+                                                                listener="#{manteContEmprSupervisora.cargarDatosCompromiso()}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Plazo:</td>
+                                                <td align="left" colspan="3">
+                                                    <p:inputText value="#{manteContEmprSupervisora.plazo}"
+                                                                 readonly="true" size="10" />
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Total:</td>
+                                                <td align="left">
+                                                    <p:inputText value="#{manteContEmprSupervisora.total}"
+                                                                 readonly="true" size="10" />
+                                                </td>
+                                                <td align="left">Moneda:</td>
+                                                <td align="left">
+                                                    <p:inputText value="#{manteContEmprSupervisora.codigoMoneda}"
+                                                                 readonly="true" size="10" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                </div>
                             </td>
-                            <td align="left">A&#241;o:</td>
+                            <td>
+                                <div style="float: left; width: 620px;">
+                                    <p:fieldset legend="Datos del contrato">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Nro. de contrato"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputText value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Fecha de inicio del servicio"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:calendar id="calendarFecIniContratoNew" />
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Fecha de suscripción"/>
+                                                </td>
+                                                <td>
+                                                    <p:calendar id="calendarFecSuscripcionNew"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Plazo de contrato"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.cpsPlazoContrato}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Monto contratado"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.cpsMontoContratado}"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Moneda"/>
+                                                </td>
+                                                <td>
+                                                    <p:selectOneMenu value="#{manteContEmprSupervisora.monedaSeleccionada}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaMoneda}"
+                                                                       var="mon" itemLabel="#{mon.monNombre}"
+                                                                       itemValue="#{mon.monId}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Adelanto otorgado"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.cpsAdelantoOtorgado}"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Fecha adelanto"/>
+                                                </td>
+                                                <td>
+                                                    <p:calendar id="calendarFechaAdelantoNew"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Referencia a penalidades"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea value="#{manteContEmprSupervisora.cpsPenalidades}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Referencia a causales de caducidad"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea  value="#{manteContEmprSupervisora.cpsCaducidad}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Garantias a favor de OSITRAN"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea  value="#{manteContEmprSupervisora.cpsGarantias}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Adjuntar contrato"/>
+                                                </td>
+                                                <td colspan="2">
+                                                    <p:inputText id="docEntrega" style="width:100% !important;"
+                                                                 onblur="if (this.value != '') this.value='';"
+                                                                 disabled="#{not empty manteContEmprSupervisora.contratoSupervisoraVO.inputStreamNuevaEntrega}"
+                                                                 value="#{manteContEmprSupervisora.contratoSupervisoraVO.cenDocumentoFisico}"/>
+                                                </td>
+                                                <td>
+                                                    <p:fileUpload fileUploadListener="#{manteContEmprSupervisora.subirArchivoEntrega}"
+                                                                  update="docEntrega" label="PDF" auto="true"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="botones" align="center">
+                        <p:commandButton value="Guardar" styleClass="botones"
+                                         update=":form:dataTableEmprSupr :form:mensaje"
+                                         action="#{manteContEmprSupervisora.grabar()}"
+                                         style="width:70px; font-size: 10px"/>
+                    </div>
+                </p:dialog>
+                <!-- pdialog lista y busqueda de contrato concesion-->
+                <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
+                          id="pListaContratos" resizable="false" style="text-align:center;">
+                    <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px"
+                                 id="tListaContrato" var="lContrato" value="#{manteContEmprSupervisora.listaContratos}">
+                        <p:column headerText="ID" style="width:5px">
+                            <h:outputText value="#{lContrato.conId}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width:50px">
+                            <h:outputText value="#{lContrato.nombreConcesion}"/>
+                        </p:column>
+                        <p:column headerText="Elegir" style="width:5px">
+                            <div align="center">
+                                <p:commandButton oncomplete="pListaContratos.hide()"
+                                                 actionListener="#{manteContEmprSupervisora.elegirContrato(lContrato)}"
+                                                 image="ui-icon-circle-check" style="width:22px;height:22px"
+                                                 update=":form:dContratoConcesion :form:inputContrato :form:listaInfraestructuraE :form:listaInversiones"></p:commandButton>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+                <!-- BUSCAR EMPRESA SUPERVISORA-->
+                <p:dialog width="40%" header="Lista Empresa Supervisora" widgetVar="panelListaEmpresas"
+                          id="panelListaEmpresas" style="text-align:center;">
+                    <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px" id="tablaEP"
+                                 var="empSup" value="#{manteContEmprSupervisora.listaEmpresaSup}">
+                        <p:column headerText="ID" style="width:5px">
+                            <h:outputText value="#{empSup.supId}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width:50px">
+                            <h:outputText value="#{empSup.supNombre}"/>
+                        </p:column>
+                        <p:column headerText="Elegir" style="width:5px">
+                            <div align="center">
+                                <p:commandButton oncomplete="panelListaEmpresas.hide()"
+                                                 actionListener="#{manteContEmprSupervisora.elegirEmpresa(empSup)}"
+                                                 update=":form:datosNombreEmpresaSupervisora" value="Elegir"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+                <!-- VER CONTRATO EMPRESA SUPERVISORA-->
+                <p:dialog id="dialogVerContEmpSup" header="Contrato de Empresa Supervisora"
+                          widgetVar="dialogVerContEmpSup" modal="true" resizable="false" height="310px" width="630px">
+                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 300px;width: 600px;"
+                           border="1">
+                        <tr>
+                            <td align="left">Numero:</td>
                             <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="annioVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAnnioModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.nrohr}"/>
+                            </td>
+                            <td align="left">Anho:</td>
+                            <td align="left">
+                                <h:outputText value="#{manteContEmprSupervisora.añohr}"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Fecha de inicio:</td>
                             <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="fechaIniVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecIniContratoModifStr}"/>
+                                <h:outputText/>
                             </td>
                             <td align="left">Fecha de Suscripcion:</td>
                             <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="fechaSusVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecSuscripcionModifStr}"/>
+                                <h:outputText/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Plazo:</td>
                             <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="plazoVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazoContratoModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.plazocontrE}"/>
                             </td>
                             <td align="left">Monto contratado:</td>
                             <td align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="nomEmpSupVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMontoContratadoModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.montocontrE}"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Adelanto otorgado:</td>
                             <td align="left">
-                                <h:outputText style="width: 400px;text-transform:uppercase;" id="dirEmpSupVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdelantoOtorgadoModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.adelantoE}"/>
                             </td>
                             <td align="left">Fecha de adelanto:</td>
                             <td align="left">
-                                <h:outputText style="width: 400px;text-transform:uppercase;" id="repLegalVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaAdelantoModifStr}"/>
+                                <h:outputText/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Nro de Contrato:</td>
                             <td align="left">
-                                <h:outputText id="siglasNomVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNroContratoModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.contratoE}"/>
                             </td>
                             <td align="left">Fecha registro:</td>
                             <td align="left">
-                                <h:outputText id="telefonoVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaRegistroModifStr}"/>
+                                <h:outputText />
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Asunto:</td>
                             <td align="left">
-                                <h:outputText id="tipoDocumentoVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaAsuntoModifStr}"/>
+                                <h:outputText />
                             </td>
                             <td align="left">Tipo de Infraestructura:</td>
                             <td align="left">
-                                <h:outputText id="nroDocVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextTipoInfraModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.t_tinfraE}"/>
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="left">Penalidades:</td>
                             <td align="left">
-                                <h:outputText style="width: 400px;text-transform:uppercase;" id="jefesupVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefPenalidadModifStr}"></h:outputText>
+                                <h:outputText value="#{manteContEmprSupervisora.cpsPenalidadesE}"></h:outputText>
                             </td>
                             <td align="left">Caducidad:</td>
                             <td align="left">
-                                <h:outputText id="correoVer" style="text-transform:uppercase;"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefCausalesCaduModifStr}"/>
+                                <h:outputText value="#{manteContEmprSupervisora.cpsCaducidadE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left">Garant&#237;as:</td>
+                            <td align="left">Garantias:</td>
                             <td align="left">
-                                <h:outputText style="width: 400px;text-transform:uppercase;" id="dirObraVer"
-                                              value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaGarantiasFavorModifStr}"></h:outputText>
+                                <h:outputText value="#{manteContEmprSupervisora.cpsGarantiasE}"></h:outputText>
                             </td>
                         </tr>
                          
                         <tr>
                             <td colspan="4" align="center">
-                                <p:commandButton onclick="dialogVerContEmpSup.hide()" value="Aceptar"></p:commandButton>
+                                <p:commandButton onclick="dialogVerContEmpSup.hide()" value="Aceptar"/>
                             </td>
                         </tr>
                     </table>
                 </p:dialog>
-                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <!-- pdialog para boton eliminar -->
+                <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
-                            <td>
-                                <h:inputHidden binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHidden3}"
-                                               id="inputHidden3"
-                                               value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.idEliminar}"/>
-                            </td>
-                        </tr>
-                         
-                        <tr>
                             <td colspan="2">
-                                <h:outputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputText7}"
-                                              id="outputText7"
-                                              value="Eliminar Contrato de Empresa Supervisora: #{backing_ositran_parametros_mantenimientoContratEmprSupervisor.nombreEliminar}"/>
+                                Eliminar el numero de contrato: "
+                                #{manteContEmprSupervisora.codigoEliminar}"
                             </td>
                         </tr>
                          
                         <tr>
                             <td align="right">
-                                <p:commandButton update=":form1:dataTableConEmprSupr :form1:mensaje"
-                                                            value="Eliminar"
-                                                            actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.empSupDel}"
-                                                            oncomplete="confirEliminar.hide()"></p:commandButton>
+                                <p:commandButton update=":form:dataTableEmprSupr :form:mensaje"
+                                                 actionListener="#{manteContEmprSupervisora.eliminar}" value="Eliminar"
+                                                 oncomplete="popupeliminar.hide()"/>
                             </td>
                             <td align="left">
-                                <p:commandButton value="Cancelar" onclick="confirEliminar.hide()"></p:commandButton>
+                                <p:commandButton value="Cancelar" onclick="popupeliminar.hide()"/>
                             </td>
                         </tr>
                     </table>
                 </p:dialog>
-                <p:dialog binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dialogModificarConEmpSup}"
-                                     id="dialogModificarConEmpSup" widgetVar="dialogModificarConEmpSup"
-                                     header="MODIFICAR CONTRATO PARA EMPRESA SUPERVISORA" modal="true" resizable="false"
-                                     height="480px" width="1090px">
-                    <div style="width: 1050px; display: block; overflow:hidden ;">
-                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGrid3}"
-                                                id="panelGrid3" columns="2" style="font-size:11px;width:990px;">
-                            <p:columnGroup binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnGroup3}"
-                                                      id="columnGroup3">
-                                <div style="float:left; width:540px">
-                                    <p:fieldset legend="Datos STD"
-                                                           style="width:10%; margin-bottom:5px;font-size:11px;">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridDatosSTDModif}"
-                                                                id="panelGridDatosSTDModif" columns="4"
-                                                                style="font-size:11px;">
-                                            <p:outputLabel id="outputLabelNroSTDModif" value="Nro de STD:"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNumeroModif}"
-                                                                    id="inputTextNumeroModifStr"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNumeroModifStr}"/>
-                                            <p:outputLabel id="outputLabelAnnioModif" value="Año"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAnnioModif}"
-                                                                    id="inputTextAnnioModifStr"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAnnioModifStr}"/>
-                                            <p:outputLabel id="outputLabelFechaRegistroModif"
-                                                                      value="Fecha de registro"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaRegistroModif}"
-                                                                   id="calendarFechaRegistroModifStr"
-                                                                   pattern="dd/MM/yyyy"/>
-                                            <p:outputLabel id="outputLabelAsuntoModif" value="Asunto:"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaAsuntoModif}"
-                                                                        id="inputTextareaAsuntoModifStr"
-                                                                        value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaAsuntoModifStr}"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                     
-                                    <!--p:fieldset legend="Criterio de búsqueda">
-                                        <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel4}"
-                                                                  id="outputLabel4"
-                                                                  value="Buscar empresa supervisora:"/>
-                                    </p:fieldset>
-                                     
-                                    <p:fieldset legend="Criterio de búsqueda">
-                                        <p:outputLabel binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.outputLabel3}"
-                                                                  id="outputLabel3"
-                                                                  value="Buscar contrato de concesión:"/>
-                                    </p:fieldset-->
-                                     
-                                    <p:fieldset legend="Datos contrato de concesión" style="font-size:11px;">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridContratConcesionModif}"
-                                                                id="panelGridContratConcesionModif" columns="2"
-                                                                style="font-size:11px;">
-                                            <p:outputLabel id="outputLabelConcesionModif" value="Concesión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextConcesionModif}"
-                                                                    id="inputTextConcesionModif"/>
-                                            <p:outputLabel id="outputLabelTipoInfraModif"
-                                                                      value="Tipo de infraestructura"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextTipoInfraModif}"
-                                                                    id="inputTextTipoInfraModifStr"/>
-                                            <p:outputLabel id="outputLabelModaConcesionModif"
-                                                                      value="Modalidad de concesión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextModalidadConcesionModif}"
-                                                                    id="inputTextModalidadConcesionModif"/>
-                                            <p:outputLabel id="outputLabelAeropuertoModif"
-                                                                      value="Aeropuerto"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuAeropuertoModif}"
-                                                                        id="selectOneMenuAeropuertoModif"/>
-                                            <p:outputLabel id="outputLabelInversionModif" value="Inversión"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextInversionModif}"
-                                                                    id="inputTextInversionModif"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                     
-                                    <p:fieldset legend="Etapa concesión" style="font-size:11px;">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridEtapaConcesionModif}"
-                                                                id="panelGridEtapaConcesionModif" columns="2"
-                                                                style="font-size:11px;">
-                                            <p:outputLabel id="outputLabelEtapaPeriodoModif"
-                                                                      value="Etapa periodo"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuEtapaPeriodoModif}"
-                                                                        id="selectOneMenuEtapaPeriodoModif"/>
-                                            <p:outputLabel id="outputLabelPlazoModif" value="plazo"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazoModif}"
-                                                                    id="inputTextPlazoModif"/>
-                                            <p:outputLabel id="outputLabelMonedaModif" value="Moneda"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMonedaModif}"
-                                                                    id="inputTextMonedaModif"/>
-                                            <p:outputLabel id="outputLabelTotalModif" value="total"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextTotalModif}"
-                                                                    id="inputTextTotalModif"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                </div>
-                            </p:columnGroup>
-                            <p:columnGroup binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.columnGroup4}"
-                                                      id="columnGroup4" style="font-size:11px;">
-                                <div style="float: left; width: 450px;">
-                                    <p:fieldset binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.fieldset2}"
-                                                           id="fieldset2" legend="Datos del contrato"
-                                                           style="font-size:11px;">
-                                        <p:panelGrid binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.panelGridDatosContratoModif}"
-                                                                id="panelGridDatosContratoModif" columns="2"
-                                                                style="ui-border:none;">
-                                            <p:outputLabel id="outputLabelNroContratoModif"
-                                                                      value="Nro de contrato"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNroContratoModif}"
-                                                                    id="inputTextNroContratoModifStr" readonly="true"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextNroContratoModifStr}"/>
-                                            <p:outputLabel id="outputLabelFechaInicioModif"
-                                                                      value="Fecha de inicio del contrato"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecIniContratoModif}"
-                                                                   id="calendarFecIniContratoModifStr"
-                                                                   pattern="dd-MM-yy"/>
-                                            <p:outputLabel id="outputLabelFechaSuscripcionModif"
-                                                                      value="Fecha de suscripción"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFecSuscripcionModif}"
-                                                                   id="calendarFecSuscripcionModifStr"
-                                                                   pattern="dd-MM-yy"/>
-                                            <p:outputLabel id="outputLabelPlazoContratoModif"
-                                                                      value="Plazo de contrato"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazoContratoModif}"
-                                                                    id="inputTextPlazoContratoModifStr"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextPlazoContratoModifStr}"/>
-                                            <p:outputLabel id="outputLabelMontoModif"
-                                                                      value="Monto contratado"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMontoContratadoModif}"
-                                                                    id="inputTextMontoContratadoModifStr"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextMontoContratadoModifStr}"/>
-                                            <p:outputLabel id="outputLabelMonedaModif1" value="Moneda"/>
-                                            <p:selectOneMenu binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.selectOneMenuMonedaModif}"
-                                                                        id="selectOneMenuMonedaModif"
-                                                                        value="backing_ositran_parametros_mantenimientoContratEmprSupervisor.monedaModif">
-                                                <f:selectItems value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.monedaSelectItemsModif}"/>
-                                                <f:ajax render="inputHiddenSelectedMonedaModif" event="change"
-                                                        execute="selectOneMenuMonedaModif"/>
-                                            </p:selectOneMenu>
-                                            <p:outputLabel id="outputLabelAdelantoOtorgadoModif"
-                                                                      value="Adelanto otorgado"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdelantoOtorgadoModif}"
-                                                                    id="inputTextAdelantoOtorgadoModifStr"
-                                                                    value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdelantoOtorgadoModifStr}"/>
-                                            <p:outputLabel id="outputLabelFechaAdelantoModif"
-                                                                      value="Fecha adelanto"/>
-                                            <p:calendar binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.calendarFechaAdelantoModif}"
-                                                                   id="calendarFechaAdelantoModifStr"
-                                                                   pattern="dd-MM-yy"/>
-                                            <p:outputLabel id="outputLabelRefPenalidadModif"
-                                                                      value="Referencia a penalidades"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefPenalidadModif}"
-                                                                        id="inputTextareaRefPenalidadModif"
-                                                                        value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefPenalidadModifStr}"/>
-                                            <p:outputLabel id="outputLabelRefCausalesCaduModif"
-                                                                      value="Referencia a causales de caducidad"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefCausalesCaduModif}"
-                                                                        id="inputTextareaRefCausalesCaduModif"
-                                                                        value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaRefCausalesCaduModifStr}"/>
-                                            <p:outputLabel id="outputLabelGarantiasModif"
-                                                                      value="Garantias a favor de OSITRAN"/>
-                                            <p:inputTextarea binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaGarantiasFavorModif}"
-                                                                        id="inputTextareaGarantiasFavorModif"
-                                                                        value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextareaGarantiasFavorModifStr}"/>
-                                            <p:outputLabel id="outputLabelAdjuntarContratoModif"
-                                                                      value="Adjuntar contrato"/>
-                                            <p:inputText binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputTextAdjutarContratoModif}"
-                                                                    id="inputTextAdjutarContratoModif"/>
-                                            <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonAgregarAdendaModif}"
-                                                                        id="commandButtonAgregarAdendaModif"
-                                                                        value="Agregar adenda"/>
-                                            <h:inputHidden binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHidden4}"
-                                                           id="inputHiddenSelectedMonedaModif"
-                                                           value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.inputHiddenSelectedMonedaModif}"/>
-                                            <p:dataTable binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.dataTableContratoModif}"
-                                                                    id="dataTableContratoModif"/>
-                                        </p:panelGrid>
-                                    </p:fieldset>
-                                </div>
-                            </p:columnGroup>
-                        </p:panelGrid>
+                <!-- MODIFICAR CONTRATO EMPRESA SUPERVISORA-->
+                <p:dialog id="popupeditar" header="MODIFICAR" widgetVar="popupeditar" height="500px" width="1320px">
+                    <div align="center">
+                        <h5 class="titulo5">MODIFICAR CONTRATO PARA EMPRESA SUPERVISORA</h5>
                     </div>
-                    <div align="center" style="font-size: 11px;">
-                        <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonDialModificar}"
-                                                    id="commandButtonDialModificar" value="Modificar"
-                                                    actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.modificar}"
-                                                    update=":form1:dataTableConEmprSupr :form1:mensaje :form1:dialogModificarConEmpSup"/>
+                    <table style="font-size:11px;">
+                        <tr>
+                            <td>
+                                <div style=" width: 620px">
+                                    <p:fieldset styleClass="fielsetinterno" legend="#{leg.dsdt}" id="fieldStd">
+                                        <table style="width:100% ;font-size:11px;">
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.numhr}
+                                                    <p:inputText style="width:100px" 
+                                                                 value="#{manteContEmprSupervisora.nrohrE}"/>
+                                                    <p:inputText style="width:100px" 
+                                                                 value="#{manteContEmprSupervisora.añohrE}"/>
+                                                    <p:commandButton image="ui-icon-search"
+                                                                     actionListener="#{manteContEmprSupervisora.BuscarStd()}"
+                                                                     update=":form:fieldStd"/>
+                                                </td>
+                                                <td align="left">
+                                                    #{cam.FR}<p:inputText readonly="true"
+                                                                          value="#{manteContEmprSupervisora.fregE}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" align="left">
+                                                    #{cam.asu}
+                                                    <p:inputTextarea style="width:80%" readonly="true"
+                                                                     value="#{manteContEmprSupervisora.asuntohr}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p:fieldset styleClass="fielsetinterno" legend="Criterio de búsqueda">
+                                                    <p:outputLabel value="Buscar Empresa Supervisora:"/>
+                                                    <p:commandButton image="ui-icon-search"
+                                                                     onclick="panelListaEmpresas.show()"
+                                                                     actionListener="#{manteContEmprSupervisora.buscarEmpresaSup()}"/>
+                                                </p:fieldset>
+                                            </td>
+                                            <td>
+                                                <p:fieldset styleClass="fielsetinterno"
+                                                            legend="Datos de empresa supervisora"
+                                                            id="datosNombreEmpresaSupervisoraE">
+                                                    <p:outputLabel value="nombre"/>
+                                                    <p:inputText />
+                                                </p:fieldset>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <p:fieldset styleClass="fielsetinterno" id="busquedacontratoE"
+                                                legend="Criterio de Busqueda">
+                                        <table style="margin-bottom:5px;font-size: 11px">
+                                            <tr>
+                                                <td align="left" colspan="4">
+                                                    Buscar Contrato Concesion: 
+                                                    <h:inputHidden value="#{manteContEmprSupervisora.contratoConcesion}"
+                                                                   readonly="false" style="width:300px"/>
+                                                     
+                                                    <p:commandButton id="searchContratosE" image="ui-icon-search"
+                                                                     update=":form:pListaContratos"
+                                                                     oncomplete="pListaContratos.show()"
+                                                                     actionListener="#{manteContEmprSupervisora.cargarListaContratos()}"/>
+                                                     
+                                                    <p:tooltip id="toolE" styleClass="tool" for="searchContratosE"
+                                                               value="Mostrar lista de contratos"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                     
+                                    <br></br>
+                                     
+                                    <p:fieldset styleClass="fielsetinterno" legend="Datos Contrato Concesion"
+                                                id="dContratoConcesionE">
+                                        <table>
+                                            <tr>
+                                                <td align="left">Concesion</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_concesionE}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Tipo Infraestructura</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_tinfraE}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Modalidad Concesion</td>
+                                                <td>
+                                                    <p:inputText readonly="true"
+                                                                 value="#{manteContEmprSupervisora.t_modconc}"></p:inputText>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Aeropuerto</td>
+                                                <td>
+                                                    <p:selectOneMenu id="listaInfraestructuraE"
+                                                                     value="#{manteContEmprSupervisora.infraestructuraSeleccionada}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaInfraestructuras}"
+                                                                       var="tip" itemLabel="#{tip.infNombre}"
+                                                                       itemValue="#{tip.infId}"/>
+                                                        <p:ajax event="valueChange"
+                                                                update=":form:listaInversionesE :form:datosCompromiso"
+                                                                listener="#{manteContEmprSupervisora.cargarInversion()}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Inversion</td>
+                                                <td>
+                                                    <p:selectOneMenu id="listaInversionesE"
+                                                                     value="#{manteContEmprSupervisora.inversionSeleccionada}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaInversiones}"
+                                                                       var="tip1" itemLabel="#{tip1.invDescripcion}"
+                                                                       itemValue="#{tip1.invId}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                     
+                                    <br></br>
+                                     
+                                    <p:fieldset styleClass="fielsetinterno" id="datosCompromisoE" legend="#{leg.etaCo}">
+                                        <table>
+                                            <tr>
+                                                <td colspan="1" align="left">
+                                                    #{cam.setapa}
+                                                </td>
+                                                <td colspan="3" align="left">
+                                                    <p:selectOneMenu id="listaCompromisoE"
+                                                                     value="#{manteContEmprSupervisora.contratoCompromisoSeleccionado}">
+                                                        <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaContratoCompromiso}"
+                                                                       var="tip2" itemLabel="#{tip2.ccoPeriodo}"
+                                                                       itemValue="#{tip2.ccoId}"/>
+                                                        <p:ajax event="valueChange"
+                                                                update=":form:datosCompromisoE"
+                                                                listener="#{manteContEmprSupervisora.cargarDatosCompromiso()}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Plazo:</td>
+                                                <td align="left" colspan="3">
+                                                    <p:inputText value="#{manteContEmprSupervisora.plazo}"
+                                                                 readonly="true" size="10" id="plazoE"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">Total:</td>
+                                                <td align="left">
+                                                    <p:inputText value="#{manteContEmprSupervisora.total}"
+                                                                 readonly="true" size="10" id="totalE"/>
+                                                </td>
+                                                <td align="left">Moneda:</td>
+                                                <td align="left">
+                                                    <p:inputText value="#{manteContEmprSupervisora.codigoMoneda}"
+                                                                 readonly="true" size="10" id="monedaE"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="float: left; width: 620px;">
+                                    <p:fieldset legend="Datos del contrato">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Nro. de contrato"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputText readonly="true"  value="#{manteContEmprSupervisora.contratoE}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Fecha de inicio del servicio"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:calendar id="calendarFecIniContratoNewE"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Fecha de suscripción"/>
+                                                </td>
+                                                <td>
+                                                    <p:calendar id="calendarFecSuscripcionNewE"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Plazo de contrato"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.plazocontrE}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Monto contratado"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.montocontrE}"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Moneda"/>
+                                                </td>
+                                                <td>
+                                                    <p:selectOneMenu value="#{manteContEmprSupervisora.monedaSeleccionada}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaMoneda}"
+                                                                       var="mon" itemLabel="#{mon.monNombre}"
+                                                                       itemValue="#{mon.monId}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Adelanto otorgado"/>
+                                                </td>
+                                                <td>
+                                                    <p:inputText value="#{manteContEmprSupervisora.adelantoE}"/>
+                                                </td>
+                                                <td>
+                                                    <p:outputLabel value="Fecha adelanto"/>
+                                                </td>
+                                                <td>
+                                                    <p:calendar id="calendarFechaAdelantoNewE"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Referencia a penalidades"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea value="#{manteContEmprSupervisora.cpsPenalidadesE}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Referencia a causales de caducidad"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea value="#{manteContEmprSupervisora.cpsCaducidadE}" />
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Garantias a favor de OSITRAN"/>
+                                                </td>
+                                                <td colspan="3">
+                                                    <p:inputTextarea value="#{manteContEmprSupervisora.cpsGarantiasE}"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td>
+                                                    <p:outputLabel value="Adjuntar contrato"/>
+                                                </td>
+                                                <td colspan="2">
+                                                    <p:inputText id="docEntregaE" style="width:100% !important;"
+                                                                 onblur="if (this.value != '') this.value='';"
+                                                                 disabled="#{not empty manteContEmprSupervisora.contratoSupervisoraVO.inputStreamNuevaEntrega}"
+                                                                 value="#{manteContEmprSupervisora.contratoSupervisoraVO.cenDocumentoFisico}"/>
+                                                </td>
+                                                <td>
+                                                    <p:fileUpload fileUploadListener="#{manteContEmprSupervisora.subirArchivoEntrega}"
+                                                                  update="docEntregaE" label="PDF" auto="true"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </p:fieldset>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="botones" align="center">
+                        <p:commandButton update=":form:dataTableEmprSupr :form:mensaje" oncomplete="popupeditar.hide()"
+                                         action="#{manteContEmprSupervisora.editar()}" style="width:70px"
+                                         value="#{btn.btn_modificar}"/>
                          
-                        <p:commandButton binding="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.commandButtonCancelarModif}"
-                                                    id="commandButtonCancelarModif"
-                                                    onclick="dialogModificarConEmpSup.hide()" value="Salir"/>
+                        <p:commandButton value="#{btn.btn_salir}" oncomplete="popupeditar.hide()"/>
                     </div>
                 </p:dialog>
-                
-                
-                 <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
-                          style="text-align:center;">
-                    
-                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                             paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
-                                             style="font-size:11px" id="tablaLC" var="lisContratos1"
-                                             value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.listaContratos}">
-                                 <p:column headerText="ID" style="width:5px">
-                                        <h:outputText value="#{lisContratos1.conId}" />
-                                    </p:column>
-                                    <p:column headerText="Nombre" style="width:50px">
-                                        <h:outputText value="#{lisContratos1.nombreConcesion}" />
-                                    </p:column>
-                                  
-                                    <p:column   headerText="Elegir" style="width:5px" >
-                                        <div align="center">
-                                            <p:commandButton
-                                                oncomplete="panelListaContratos.hide()" 
-                                                actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.elegirContrato(lisContratos1)}"
-                                                image="ui-icon-circle-check"  
-                                                style="width:22px;height:22px"
-                                                update=":form1:datosContrato"
-                                                >
-  
-                                            </p:commandButton>
-                                        </div>
-                                    </p:column>
-                                </p:dataTable>                   
-                </p:dialog>
-                
-                
-                  <p:dialog width="40%"  header="Lista Empresa Supervisora" widgetVar="panelListaEmpresas" id="panelListaEmpresas" 
-                          style="text-align:center;">
-                    
-                    <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                             paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
-                                             style="font-size:11px" id="tablaEP" var="empSup"
-                                             value="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.listaEmpresaSup}">
-                                 <p:column headerText="ID" style="width:5px">
-                                        <h:outputText value="#{empSup.supId}" />
-                                    </p:column>
-                                    <p:column headerText="Nombre" style="width:50px">
-                                        <h:outputText value="#{empSup.supNombre}" />
-                                    </p:column>
-                                  
-                                    <p:column   headerText="Elegir" style="width:5px" >
-                                        <div align="center">
-                                            <p:commandButton
-                                            oncomplete="panelListaEmpresas.hide()" 
-                                            actionListener="#{backing_ositran_parametros_mantenimientoContratEmprSupervisor.elegirEmpresa(empSup)}"
-                                            update=":form1:datosNombreEmpresaSupervisora"
-                                            value="Elegir"/>
-                                        </div>
-                                    </p:column>
-                                </p:dataTable> 
-                                    
-                </p:dialog>
-                
             </h:form>
         </h:body>
     </html>
-    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_parametros_mantenimientoContratEmprSupervisor-->
 </f:view>
