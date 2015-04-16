@@ -6,6 +6,7 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -207,6 +208,19 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         List<Object[]> list=(List<Object[]>)query.list(); 
         
 
+        session.close();
+        return list;
+    }
+
+    @Override
+    public List<Contrato> buscarContratos1(int tinfraestructura) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("FROM Contrato c WHERE c.csiId like :busqueda1 ");
+        query.setParameter("busqueda1",tinfraestructura);
+        list= query.list();
+        session.getTransaction().commit();
         session.close();
         return list;
     }
