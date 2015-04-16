@@ -33,18 +33,26 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
+
 import java.io.IOException;
+
+import java.math.BigDecimal;
+
 import java.sql.SQLException;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
@@ -92,7 +100,7 @@ public class MantenimientoContratEmprSupervisor {
     private int t_tinfra;
     private String t_modconc;
     private String plazo;
-    private long total;
+    private BigDecimal total;
     private String nombreEmpresaSupervisora;
     private int codigoMoneda;
     private int contratoCompromisoSeleccionado;
@@ -835,11 +843,11 @@ public class MantenimientoContratEmprSupervisor {
         return plazo;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
