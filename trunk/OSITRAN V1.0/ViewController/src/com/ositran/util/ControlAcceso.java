@@ -60,6 +60,19 @@ public class ControlAcceso {
         String redirectPath = "/faces/ositran/logueo.xhtml";
         externalContext.redirect(servletContext.getContextPath() + redirectPath);
     }
+    public void logoutSesionInvalidate()throws IOException{
+        faceContext = FacesContext.getCurrentInstance();
+        
+
+       
+        ExternalContext externalContext = faceContext.getExternalContext();
+        ServletContext servletContext = (ServletContext) faceContext.getExternalContext().getContext();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        HttpSession session = httpServletRequest.getSession();
+        session.invalidate();
+        String redirectPath = "/faces/ositran/logueo.xhtml";
+        externalContext.redirect(servletContext.getContextPath() + redirectPath);
+    }
     public static void setNewInstance(ControlAcceso newInstance) {
         ControlAcceso.newInstance = newInstance;
     }
