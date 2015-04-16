@@ -10,26 +10,18 @@
         <h:body>
             <f:event listener="#{menuMB.init}" type="preRenderView"></f:event>
            
-            <table  align="center" style="width:100%;">
+            <table  align="center" style="width:100%;height: 100px;">
                 <tr>
-                    <td  align="right" style="width:22%;">
-                        <img src="../../images/logoOsitran.jpg" height="100" width="200"/>
+                    <td align="right" rowspan="2"  style="width:360px !important;">
+                         <img src="../../images/logoOsitran.jpg" height="100"/>
                     </td>
-                    <td align="left" style="padding:0px;width:50%;color: #0084c6;font-weight: bold;font-size: 11px;"> 
-                  
-                    <h:outputText value="Bienvenido: #{menuMB.usuarioLogueado.usuNombre}" style="top:40px !important;position: relative;" />
-                  
-                    </td>
-                    <td align="right" style="width:10%;">
-                   
-                    </td>
-                </tr>
-                 
-                <tr>
-                <td style="width:22%">
-                </td>
-                    <td  style="width:50%;">
-                    <table >
+                    <td align="left" rowspan="2" style="padding:0px;color: #0084c6;font-weight: bold;font-size: 11px;"> 
+                   <table style="position: relative;top: 25px;margin-left: 5px;">
+                        <tr>
+                        <td>
+                        <h:outputText value="Bienvenido: #{menuMB.usuarioLogueado.usuNombre}"  />
+                        </td>
+                        </tr>
                         <tr>
                         <td>
                         <p:menubar model="#{menuMB.model}" style="margin:0px;padding:0px;" />
@@ -48,6 +40,18 @@
                         </td>
                     </tr>
                        </table>
+                    
+                  
+                    </td>
+                    <td align="right" >
+                   
+                    </td>
+                </tr>
+                 
+                <tr>
+               
+                    <td  >
+                   
                     </td>
                     <td style="width:10%;">
                    
