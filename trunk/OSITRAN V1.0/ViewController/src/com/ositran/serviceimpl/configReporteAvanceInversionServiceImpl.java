@@ -179,11 +179,11 @@ public final class configReporteAvanceInversionServiceImpl implements configRepo
             reporteInversionPersistente.add(detalle);
         }
         cabReporteInversionActivo.setCaiFechaCambio(new GregorianCalendar().getTime());
-        cabReporteInversionActivo.setCaiUsuarioCambio(usuario.getUsuNombre());
+        cabReporteInversionActivo.setCaiUsuarioCambio(usuario.getUsuAlias());
         if(cabReporteInversionActivo.getCaiId()==null) {
             cabReporteInversionActivo.setCaiEstado(new BigDecimal(1));
             cabReporteInversionActivo.setCaiFechaAlta(new GregorianCalendar().getTime());
-            cabReporteInversionActivo.setCaiUsuarioAlta(usuario.getUsuNombre());
+            cabReporteInversionActivo.setCaiUsuarioAlta(usuario.getUsuAlias());
         }
         cabReporteInversionActivoPersistente=cabReporteInversionActivo.devuelveEntidadBD();
         if(cabReporteInversionActivoPersistente.getCaiId()==null) {
