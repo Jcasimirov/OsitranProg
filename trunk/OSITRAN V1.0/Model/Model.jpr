@@ -60,6 +60,7 @@
    </list>
    <value n="defaultPackage" v="model"/>
    <hash n="ejbModuleContainer">
+      <value n="dbConnection" v="localSINV"/>
       <value n="ejbMetaDataPrefs" v="PREFASANNON"/>
       <value n="ejbVersion" v="3.0"/>
       <value n="ejbVersionMinor" v="0.1"/>
@@ -364,6 +365,14 @@
          </hash>
          <hash>
             <value n="id" v="Spring-webmvc-portlet-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EJB"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -1119,6 +1128,14 @@
          </hash>
          <hash>
             <value n="id" v="Spring-webmvc-portlet-3.2.0.RELEASE.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EJB"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
