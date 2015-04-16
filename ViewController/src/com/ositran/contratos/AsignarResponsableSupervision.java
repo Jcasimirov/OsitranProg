@@ -1,5 +1,6 @@
 package com.ositran.contratos;
 
+import com.ositran.service.AsignarResponsableSupervisionService;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
@@ -11,6 +12,8 @@ import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
+import com.ositran.vo.bean.ContratoResSupDetalleVO;
+import com.ositran.vo.bean.ContratoRespSupVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
@@ -18,35 +21,49 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
-
 import java.io.IOException;
-
-import java.math.BigDecimal;
-
 import java.sql.SQLException;
-
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import com.ositran.util.Util;
+
+import java.text.SimpleDateFormat;
+
+import javax.faces.application.FacesMessage;
+
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "asignarResponsableMB")
 @ViewScoped
 public class AsignarResponsableSupervision {
+    
+    
+    //-----------------SESSION-----------------------//
+    public  final int formulario=28;
+    private RolOpcionesVO rolOpcion;
 
+    public void validarSesion() throws IOException{              
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
 
-//sesiones inicio
-public  final int formulario=7;
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
 
-//sessiones
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+    //---------------------------------------------//
+
 
 
 private String nameContrato;
@@ -60,7 +77,8 @@ private int codigoEtapa;
 private String plazo;
 private Double moneda;
 private int codigoMoneda;
-private BigDecimal total;
+private String nombreMoneda;
+private String total;
 HtmlForm form1;
 HtmlForm form2;
 private String nombreEmpresaSupervisora;
@@ -70,11 +88,13 @@ private int codigoTipoInfraestructurafiltro;
 private int codigoSupervisor;
 private int codigoContrato;
 
+    Util util = new Util();
+
 // de  abel 
   
   
   //Bean VO
-    private RolOpcionesVO rolOpcion;
+
 
     @ManagedProperty(value = "#{contratoCompromisoVO}")
       ContratoCompromisoVO contratoCompromisoVO;
@@ -84,12 +104,18 @@ private int codigoContrato;
     
     @ManagedProperty(value = "#{supervisorInversionesVO}")
     private SupervisorInversionesVO supervisorInversionesVO;
+    
+    @ManagedProperty(value = "#{contratoRespSupVO}")
+    private ContratoRespSupVO contratoRespSupVO;
+    
+    @ManagedProperty(value = "#{contratoResSupDetalleVO}")
+    private ContratoResSupDetalleVO contratoResSupDetalleVO;
+    
+    @ManagedProperty(value = "#{contratoVO}")
+    private ContratoVO contratoVO;
+    
+       
 
-
-
-    public void validarSesion() throws IOException{
-      rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-    }
 
 
 // Listas
@@ -103,6 +129,8 @@ private int codigoContrato;
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     List<TipoDocumentoVO> listaTipoDocumento;
     List<HashMap<String, Object>>  listaResponsables=new ArrayList<HashMap<String, Object>>();
+    
+        List<ContratoResSupDetalleVO> listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
      
      
      // service implement
@@ -122,6 +150,9 @@ private int codigoContrato;
    
     @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
     private SupervisorInversionesService supervisorInversionesServiceImpl;
+    
+    @ManagedProperty(value = "#{asignarResponsableSupervisionServiceImpl}")
+    private AsignarResponsableSupervisionService asignarResponsableSupervisionServiceImpl;
 
 
 
@@ -173,13 +204,6 @@ private int codigoContrato;
         return codigoEtapa;
     }
 
-    public void setPlazo(String plazo) {
-        this.plazo = plazo;
-    }
-
-    public String getPlazo() {
-        return plazo;
-    }
 
     public void setMoneda(Double moneda) {
         this.moneda = moneda;
@@ -189,11 +213,20 @@ private int codigoContrato;
         return moneda;
     }
 
-    public void setTotal(BigDecimal total) {
+
+    public void setPlazo(String plazo) {
+        this.plazo = plazo;
+    }
+
+    public String getPlazo() {
+        return plazo;
+    }
+
+    public void setTotal(String total) {
         this.total = total;
     }
 
-    public BigDecimal getTotal() {
+    public String getTotal() {
         return total;
     }
 
@@ -400,14 +433,7 @@ private int codigoContrato;
     }
 
 
-    public void setRolOpcion(RolOpcionesVO rolOpcion) {
-        this.rolOpcion = rolOpcion;
-    }
-
-    public RolOpcionesVO getRolOpcion() {
-        return rolOpcion;
-    }
-
+  
 
     public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
         this.infraestructuraTipoVO = infraestructuraTipoVO;
@@ -475,20 +501,96 @@ private int codigoContrato;
         return codigoMoneda;
     }
 
+    public void setAsignarResponsableSupervisionServiceImpl(AsignarResponsableSupervisionService asignarResponsableSupervisionServiceImpl) {
+        this.asignarResponsableSupervisionServiceImpl = asignarResponsableSupervisionServiceImpl;
+    }
+
+    public AsignarResponsableSupervisionService getAsignarResponsableSupervisionServiceImpl() {
+        return asignarResponsableSupervisionServiceImpl;
+    }
 
 
+    public void setContratoRespSupVO(ContratoRespSupVO contratoRespSupVO) {
+        this.contratoRespSupVO = contratoRespSupVO;
+    }
 
+    public ContratoRespSupVO getContratoRespSupVO() {
+        return contratoRespSupVO;
+    }
+
+    public void setContratoResSupDetalleVO(ContratoResSupDetalleVO contratoResSupDetalleVO) {
+        this.contratoResSupDetalleVO = contratoResSupDetalleVO;
+    }
+
+    public ContratoResSupDetalleVO getContratoResSupDetalleVO() {
+        return contratoResSupDetalleVO;
+    }
+
+
+    public void setListaDetalleAsignacion(List<ContratoResSupDetalleVO> listaDetalleAsignacion) {
+        this.listaDetalleAsignacion = listaDetalleAsignacion;
+    }
+
+    public List<ContratoResSupDetalleVO> getListaDetalleAsignacion() {
+        return listaDetalleAsignacion;
+    }
+
+
+    public void setUtil(Util util) {
+        this.util = util;
+    }
+
+    public Util getUtil() {
+        return util;
+    }
+
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
 
     public void eliminacionConfirmadaResponsable() throws SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("rowId");
+        Object str2 = requestMap.get("rowIdCod");
+        
         int idcodigo = Integer.valueOf(str.toString());
+        int idCodigoSup = Integer.valueOf(str2.toString());        
         listaResponsables.remove(idcodigo);
+        if(idCodigoSup > 0){
+        for(ContratoResSupDetalleVO detalle : listaDetalleAsignacion){
+            if(detalle.getRsdId() == idCodigoSup){
+                detalle.setRsdEstado(0);
+            }
+        }
+        }
+    }
+    
+    public void desactivarConfirmadaResponsable() throws SQLException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("rowIdE");
+        Object str2 = requestMap.get("rowIdCodDes");
+        int idcodigo = Integer.valueOf(str.toString());
+        int idCodigoSup = Integer.valueOf(str2.toString());
+        listaResponsables.get(idcodigo).put("estado","Inactivo");
+        if(idCodigoSup > 0){
+        for(ContratoResSupDetalleVO detalle : listaDetalleAsignacion){
+            if(detalle.getRsdId() == idCodigoSup){
+                detalle.setRsdEstado(2);
+            }
+        }
+        }
     }
 
 
     public void filtrarListaEmpSup(){
+        if(codigoContrato > 0){
         try {
             System.out.println("entro FiltrarListaEmpSup: " + listaEmpresasSup.size());
             System.out.println(nombreEmpresaSupervisora);
@@ -507,6 +609,12 @@ private int codigoContrato;
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
+        }
+            RequestContext.getCurrentInstance().execute("Dialog_ResultadoBusquedaEmpresa.show()");
+        }else{
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un Contrato de Concesión");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
     }
     public List<EmpresaSupervisoraVO> getQuery() throws SQLException{
@@ -542,63 +650,93 @@ private int codigoContrato;
     public List<HashMap<String, Object>> getListaResponsables() {
         return listaResponsables;
     }
+    
+    public void setContratoVO(ContratoVO contratoVO) {
+        this.contratoVO = contratoVO;
+    }
+
+    public ContratoVO getContratoVO() {
+        return contratoVO;
+    }
  
  
     
    
     public void seleccionarContratoConcesion(ActionEvent actionEvent){
-            ContratoVO contrato = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
-            nombreDescripcionModalidadConcesion=contrato.getConAsunto();
-            nombreDescripcionContratoConcesion=contrato.getNombreConcesion();
+            contratoVO = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
+            nombreDescripcionModalidadConcesion=contratoVO.getConAsunto();
+            nombreDescripcionContratoConcesion=contratoVO.getNombreConcesion();
             for (InfraestructuraTipoVO infraes: listaInfraestructuraTipos) {
-                if(infraes.getTinId()==contrato.getTinId()){
+                if(infraes.getTinId()==contratoVO.getTinId()){
                 nombreDescripcionTipoInfraestructura=infraes.getTinDescripcion();
                 } 
             }          
         }
     
     public void seleccionarContratoConcesion1(ActionEvent actionEvent) throws Exception{      
-            ContratoVO contrato = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
-         System.out.println("A");
-            nameTipoInfraestructura=contrato.getNombreTipoInfraestructura();
-                System.out.println("A");
-                
+            contratoVO = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
+         
+            nameTipoInfraestructura=contratoVO.getNombreTipoInfraestructura();
             System.out.println(nameTipoInfraestructura);
-                System.out.println("A");
-                nameContrato=contrato.getNombreConcesion();
-                System.out.println("A");
+                nameContrato=contratoVO.getNombreConcesion();
                 System.out.println(nameContrato);
-                System.out.println("A");
-            nameModalidadConcesion=contrato.getNombreModalidad();
-                System.out.println("A");
+            nameModalidadConcesion=contratoVO.getNombreModalidad();
             System.out.println(nameModalidadConcesion);
-                codigoContrato = contrato.getConId();
-                System.out.println("A");
-                codigoTipoInfraestructurafiltro = contrato.getTinId();
-                listarSupervisoresxInfraestructura =supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
-                System.out.println("HOLAAAAA");
+                codigoContrato = contratoVO.getConId();
+                codigoTipoInfraestructurafiltro = contratoVO.getTinId();
+                listarSupervisoresxInfraestructura =
+                    supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
+                System.out.println(""+listarSupervisoresxInfraestructura.size());
                 
+                // LLeno el Bean de la Cabecera de la Asignación de Responsable de Supervisión
+                contratoRespSupVO.setCsiId(contratoVO.getCsiId()); 
+                contratoRespSupVO.setTinId(contratoVO.getTinId());
+                contratoRespSupVO.setMcoId(contratoVO.getMcoId());                
                 cargarInversion();
                 
             }
     
     
-    public void seleccionarEmpresa(ActionEvent actionEvent) {
+    public void seleccionarEmpresa(ActionEvent actionEvent) throws Exception{
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
         EmpresaSupervisoraVO empresa = (EmpresaSupervisoraVO) actionEvent.getComponent().getAttributes().get("empresa");
+        int validaReg = 0;
+        try{
+         validaReg = asignarResponsableSupervisionServiceImpl.ValidaAsignación(contratoVO.getConId(), contratoVO.getTinId(), contratoCompromisoSeleccionado, contratoVO.getCsiId(), 0, 0, empresa.getTdoId(), empresa.getSupNroDocumento(), 2);
+             }catch (Exception e){
+                 System.out.println(e);
+             }
+        
+        if(validaReg == 0){
+        
         System.out.println(empresa.getSupNombre());
         HashMap<String, Object> record = new HashMap<String, Object>();
         record.put("Etapa", "Falta");
-        record.put("nombre", empresa.getSupNombre());
+        record.put("nombre", empresa.getSupNombre());        
         record.put("tipoDocumento", empresa.getDescripcionDoc());
         record.put("numeroDocumento", empresa.getSupNroDocumento()); 
-        record.put("fechaAsignacion", (new Date()));        
+        record.put("fechaAsignacion", dt1.format(new Date()));        
         if (empresa.getSupEstado() == 1){
             record.put("estado", "Activo");
             }else{
                 record.put("estado", "Inactivo");
             }
+        record.put("id",0);
+        
         listaResponsables.add(record);
-
+        contratoResSupDetalleVO = new ContratoResSupDetalleVO();
+        contratoResSupDetalleVO.setRsdEstado(1);
+        contratoResSupDetalleVO.setTdoId(empresa.getTdoId());
+        contratoResSupDetalleVO.setRsdNroDocumento(empresa.getSupNroDocumento());
+        contratoResSupDetalleVO.setTccTipo(1);
+        contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());      
+        contratoResSupDetalleVO.setConId(contratoRespSupVO.getCsiId());
+        listaDetalleAsignacion.add(contratoResSupDetalleVO);
+        }else{
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Empresa Supervisora ya Asignada");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
 
     }
     
@@ -607,26 +745,58 @@ private int codigoContrato;
     
     
     public void seleccionarSupervisor() {
-       
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+        contratoResSupDetalleVO = new ContratoResSupDetalleVO();
         System.out.println(listarSupervisoresxInfraestructura.size());
         System.out.println(codigoSupervisor);
         HashMap<String, Object> record = new HashMap<String, Object>();
         for (SupervisorInversionesVO supervisor : listarSupervisoresxInfraestructura) {
             if (supervisor.getTsiId() == codigoSupervisor) {
+                
+                int validaReg = 0;
+                try{
+                 validaReg = asignarResponsableSupervisionServiceImpl.ValidaAsignación(contratoVO.getConId(), contratoVO.getTinId(), contratoCompromisoSeleccionado, contratoVO.getCsiId(), 0, 0, supervisor.getTdoId(), supervisor.getTsiNroDocumento(), 2);
+                     }catch (Exception e){
+                         System.out.println(e);
+                     }
+                if(validaReg == 0){
+                
+                
                 record.put("numeroDocumento", supervisor.getTsiNroDocumento());
-                record.put("tipoDocumento", supervisor.getTdoId());
+                
+                if (supervisor.getTdoId() == 1){
+                    record.put("tipoDocumento", "DNI");
+                }else{
+                    record.put("tipoDocumento", "RUC");
+                }
                 record.put("nombre", supervisor.getTsiNombre());
-                record.put("fechaAsignacion", (new Date()));
+                record.put("fechaAsignacion", dt1.format(new Date()));
                 if (supervisor.getTsiHabilitado() == 1){
                     record.put("estado", "Activo");
                     }else{
                         record.put("estado", "Inactivo");
                     }
+                record.put("id",0);
+                contratoResSupDetalleVO.setRsdEstado(1);
+                contratoResSupDetalleVO.setTdoId(supervisor.getTdoId());
+                contratoResSupDetalleVO.setRsdNroDocumento(supervisor.getTsiNroDocumento());
+                contratoResSupDetalleVO.setConId(contratoRespSupVO.getCsiId());
+                contratoResSupDetalleVO.setTccTipo(1);
+                contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());   
+                listaResponsables.add(record);
+                listaDetalleAsignacion.add(contratoResSupDetalleVO);
+                    }else{
+                        FacesMessage mensaje =
+                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Coordinador InSitu ya Asignado");
+                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                    }
                 
-            }
+            }            
+            
+                
         }
 
-        listaResponsables.add(record);
+        
     }
 
 
@@ -674,22 +844,15 @@ private int codigoContrato;
 
     public void cargarListaContratos() {
         try {
-            System.out.println("1");
             listaContratosConcesion = contratoConcesionServiceImp.query();
-                System.out.println("2");
             listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
-                System.out.println("3");
             for (ContratoVO contra : listaContratosConcesion) {
                 ConcesionVO concesion = new ConcesionVO();
-                System.out.println("4");
                 concesion = concesionServicesImpl.get(contra.getCsiId());
-                System.out.println("5");
                 contra.setNombreConcesion(concesion.getCsiNombre());
-                System.out.println("6");
                 contra.setCodigoConcesion(concesion.getCsiId());
                 
                 InfraestructuraTipoVO objtipinfra = new InfraestructuraTipoVO();
-                System.out.println("7");
                 objtipinfra = infraestructuraTipoServiceImpl.get(contra.getTinId());
                 contra.setNombreTipoInfraestructura(objtipinfra.getTinNombre());
                 contra.setTinId(objtipinfra.getTinId());
@@ -712,7 +875,6 @@ private int codigoContrato;
     public void cargarInversion(){
            try {
         listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
-               
           } catch (Exception e) {
                e.printStackTrace();
            }   
@@ -720,12 +882,43 @@ private int codigoContrato;
                    
                    
    // Para que se carge o selecionado
-     public void cargarDatosCompromiso(){
+     public void cargarDatosCompromiso() throws Exception{
            try {
+              SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
               contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
-              plazo=contratoCompromisoVO.getCcoPlazo();
-              total=contratoCompromisoVO.getCcoTotal();
+              plazo=contratoCompromisoVO.getCcoPlazo() +" Años";
+              total=""+contratoCompromisoVO.getCcoTotal();
               codigoMoneda=contratoCompromisoVO.getMonId();
+               if(codigoMoneda == 1){
+                   nombreMoneda = "Nuevos Soles";
+               }else{
+                   nombreMoneda="Dolares Americanos";
+               }
+              listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
+              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.query(contratoCompromisoSeleccionado);
+              for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
+                    String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento());
+                    HashMap<String, Object> record = new HashMap<String, Object>();
+                    record.put("Etapa", "Falta");
+                    record.put("nombre", nombre);
+                    if (detalle.getTdoId() == 1){
+                        record.put("tipoDocumento", "DNI");
+                    }else{
+                        record.put("tipoDocumento", "RUC");
+                    }
+                    record.put("numeroDocumento", detalle.getRsdNroDocumento()); 
+                    record.put("fechaAsignacion", dt1.format(detalle.getRsdFechaAsignacion()));        
+                    if (detalle.getRsdEstado() == 1){
+                        record.put("estado", "Activo");
+                        }else{
+                            record.put("estado", "Inactivo");
+                        }
+                    record.put("id",detalle.getRsdId());
+                    record.put("codEstado",detalle.getRsdEstado());
+                    
+                  
+                    listaResponsables.add(record);                      
+                }         
                
           } catch (Exception e) {
               System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
@@ -734,6 +927,65 @@ private int codigoContrato;
        }
     
     
+    // Guardar Cambios
+     
+    public int ValidarDatos(){
+        
+        return 0;
+        
+    }
+    
+     
+     public void Guardar() throws Exception{
+         ContratoRespSupVO contrato_Cab = new ContratoRespSupVO();
+         if(ValidarDatos() == 0){
+             try{
+                 contrato_Cab = asignarResponsableSupervisionServiceImpl.ValidaCab(contratoRespSupVO.getCsiId());
+                 // Nuevo Registro de Supervisión por etapa                 
+                 if( contrato_Cab == null){
+                     contratoCompromisoVO.setTccTipo(1);                  
+                     contratoRespSupVO.setConId(contratoVO.getConId());
+                     contratoRespSupVO.setCcoId(contratoCompromisoSeleccionado);
+                     contratoRespSupVO.setTccTipo(1);
+                     contratoRespSupVO = asignarResponsableSupervisionServiceImpl.insertCab(contratoRespSupVO);
+                     for (int i = 0; i<listaDetalleAsignacion.size(); i++){
+                         listaDetalleAsignacion.get(i).setRsuId(contratoRespSupVO.getRsuId());
+                         asignarResponsableSupervisionServiceImpl.insertDet(listaDetalleAsignacion.get(i));
+                         
+                     }
+                     FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
+                                                                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                     
+                 }else{
+                     for (int i = 0; i<listaDetalleAsignacion.size(); i++){
+                         // Nuevo Registro de Supervisor de Inversiones o Empresa Supervisora
+                         if(listaDetalleAsignacion.get(i).getRsdId() == null || listaDetalleAsignacion.get(i).getRsdId() == 0){
+                             listaDetalleAsignacion.get(i).setRsuId(contrato_Cab.getRsuId());
+                             listaDetalleAsignacion.get(i).setRsdFechaAsignacion(util.getObtenerFechaHoy());
+                             asignarResponsableSupervisionServiceImpl.insertDet(listaDetalleAsignacion.get(i));
+                             
+                             
+                             // Desactivación o Eliminación del Supervisor de Inversiones o Empresa Supervisora
+                         }else{
+                             asignarResponsableSupervisionServiceImpl.updateDet(listaDetalleAsignacion.get(i));
+                             
+                         }
+                     }
+                     FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
+                                                                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                     
+                 }
+                 listaResponsables=new ArrayList<HashMap<String, Object>>();
+                 cargarDatosCompromiso();
+             }catch(Exception e){
+                 System.out.println(e);
+                 FacesMessage mensaje =
+                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+             }
+         }
+         
+     }
    
 
    
