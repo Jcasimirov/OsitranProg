@@ -8,6 +8,7 @@ import com.ositran.vo.bean.InvAvnVO;
 import com.ositran.vo.bean.ValorizacionNotificacionVO;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,11 +153,11 @@ public class NotificacionServiceImpl implements NotificacionService{
             invAvnVO.setTinId(invAvn.getTinId());
             invAvnVO.setTiaAprobadoPor(invAvn.getTiaAprobadoPor());
             invAvnVO.setTiaRutaNot(invAvn.getTiaRutaNot());
+            invAvnVO.setCcoId(invAvn.getCcoId());
             return invAvnVO;
         }
         private InvAvn toInvAvn(InvAvnVO invAvnVO){
-            InvAvn invAvn=new InvAvn();
-            
+            InvAvn invAvn=new InvAvn();            
             invAvn.setConId(invAvnVO.getConId());
             invAvn.setCsiId(invAvnVO.getCsiId());
             invAvn.setIaeId(invAvnVO.getIaeId());
@@ -184,7 +185,11 @@ public class NotificacionServiceImpl implements NotificacionService{
             return invAvn;
             
         }
-
+    public List<InvAvnVO> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
+        List<InvAvn> list=notificacionDAOImpl.obtenerDeclaracionesxIdContrato(idcontrato);
+        List<InvAvnVO> listVO=toListInvAvnVO(list);
+        return listVO;
+    }
 
    
 }
