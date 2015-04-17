@@ -163,19 +163,19 @@ public class Concesionario {
                RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                FacesContext.getCurrentInstance().addMessage(null,
                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                             "Se Registro con Exito"));
+                                                                             "Se agregó el concesionario con éxito"));
            } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               correo +
-                                                                              " No se pudo registrar el concecionario ")); 
+                                                                              " No se pudo agregar el concecionario ")); 
                 
             } 
             catch ( Exception e){
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                   correo +
-                                                                                  " No se pudo registrar el concecionario "));
+                                                                                  " No se pudo agregar el concecionario "));
                 }
           
         }
@@ -449,19 +449,19 @@ public class Concesionario {
            cargarListaConcesionarios();
            FacesContext.getCurrentInstance().addMessage(null,
                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                         "Se elimino correctamente"));
+                                                                         "Se eliminó correctamente"));
        }  catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           correo +
-                                                                          " No se pudo editar el concecionario ")); 
+                                                                          " No se pudo eliminar ")); 
             
         } 
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               correo +
-                                                                              " No se pudo editar el concecionario "));
+                                                                              " No se pudo eliminar "));
             }
  
     }
