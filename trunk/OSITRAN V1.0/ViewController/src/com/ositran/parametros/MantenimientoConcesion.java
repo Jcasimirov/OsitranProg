@@ -90,10 +90,10 @@ public class MantenimientoConcesion {
 
         if (codigoTipoInfraestructuraInsert == 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha selecionado tipo de infraestructura");
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Debe ingresar el Tipo de Infraestructura");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (nombre.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "no ha ingresado Nombre de Concesion");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Debe ingrear nombre de concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
