@@ -68,7 +68,7 @@
                                                                  value=" Nuevo"
                                                                  update=":form:registrar"
                                                                  />
-                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Registrar un nuevo concecionario" />
+                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Agregar un nuevo concecionario" />
                                             </td>                                          
                                         </tr>
                                     </table>
@@ -77,10 +77,10 @@
                                 <p:dataTable paginatorPosition="bottom"
                                 emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="3,4,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                               id="tablaC" var="conc1" style="font-size:10px"
                                              value="#{concesionarioMB.listaCon}">                                            
-                                     <p:column headerText="N°ro"  style="width:2%">
+                                     <p:column headerText="Nro"  style="width:2%">
                                         <h:outputText value="#{conc1.contador}"/>
                                     </p:column>         
                                     <p:column headerText="Nombre" >
@@ -100,25 +100,28 @@
                                     </p:column>
                                     <p:column style="width:4%" headerText="Modificar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" >                                   
                                     <div align="center" >
-                                                <p:commandButton 
+                                                <p:commandButton id="btnmodificar"
                                                         oncomplete="editarPanel.show()"
                                                          update=":form:editarPanel :form:oculto1 :form:oculto2"
                                                          actionListener="#{concesionarioMB.cargarEditar}"
                                                          image="ui-icon-pencil"   styleClass="controles" >
                                                           <f:param id="idModificar" name="idModificar" value="#{conc1.cncId}"/>
                                                 </p:commandButton>
+                                                <p:tooltip styleClass="tool"  id="toolTipFade4" for="btnmodificar" value="Modificar la fila" />
                                                                  </div>                   
                                     </p:column>
                                     <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar eq 1}" headerText="Eliminar" style="width:4%" >
                                     
                                      <div align="center" >
                                                 
-                                        <p:commandButton  actionListener="#{concesionarioMB.cargarEliminar}"
+                                        <p:commandButton id="btneliminar"
+                                                            actionListener="#{concesionarioMB.cargarEliminar}"
                                                          update=":form:confirEliminar :form:oculto"
                                                          oncomplete="confirEliminar.show()"  image="ui-icon-trash"
                                                          styleClass="controles">
                                                          <f:param id="idEliminar" name="idEliminar" value="#{conc1.cncId}"/>
                                                          </p:commandButton>
+                                                         <p:tooltip styleClass="tool"  id="toolTipFade5" for="btneliminar" value="Eliminar la fila" />
                                                                  </div>
                                     </p:column>
                                 </p:dataTable>
@@ -127,7 +130,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Proyecto Ositran-Developer Por AsisTP-2015</div>
+                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
