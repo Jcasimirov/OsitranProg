@@ -87,11 +87,11 @@ public class MantenimientoTipoInfraestructura {
         if (tinNombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No se ha registrado el nombre"));
+                                                                          "Debe ingresar el nombre"));
         } else if (tinDescripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No se registrado la descripccion"));
+                                                                          "Debe ingresar la descripción"));
         } else {
             try {
 
@@ -107,7 +107,7 @@ public class MantenimientoTipoInfraestructura {
                 ListarInfraestructura();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                              "Se Registro con Exito"));
+                                                                              "Se agregó exitosamente"));
             } catch (SQLException e) {
 
                 e.printStackTrace();
@@ -141,7 +141,7 @@ public class MantenimientoTipoInfraestructura {
             ListarInfraestructura();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                          "Se Modifico con Exito"));
+                                                                          "Se actualizó correctamente"));
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
