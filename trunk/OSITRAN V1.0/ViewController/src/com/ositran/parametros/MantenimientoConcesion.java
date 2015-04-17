@@ -123,7 +123,7 @@ public class MantenimientoConcesion {
                 listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
                 listarInfraestructuras();
                 RequestContext.getCurrentInstance().execute("window.location.reload()");
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se registro con Exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se agregó exitosamente");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
               
