@@ -1,20 +1,10 @@
 package com.ositran.vo.bean;
 
 import java.io.InputStream;
-import java.io.Serializable;
 
 import java.math.BigDecimal;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.primefaces.model.DefaultStreamedContent;
 
 
 public class InvAvnVO{
@@ -22,6 +12,7 @@ public class InvAvnVO{
     private Integer conId;
     private Integer csiId;
     private Integer iaeId;
+    private String iaeNombreEstado;
     private Integer invId;
     private Integer mcoId;
     private Integer monId;
@@ -41,22 +32,24 @@ public class InvAvnVO{
     private Integer tinId;
     private Integer tiaAprobadoPor;
     private String tiaRutaNot;
-    
+    private String nombreConcesion;
+    private String nombreTipoInfraestructura;
+    private String nombreModalidad;
     // Datos de Tablas externas
         private int moneda;
         private String estado;
         private String aprobadopor;
-        private Date fechaNotificacion;
-        private String nombreTipoInfraestructura;
+        private Date fechaNotificacion;        
         private String nombreMoneda;
         
     // Para Cargar Archivo
         
         private InputStream nombreFile ;
+        private String periodo;
+        private Integer ccoId;
+        private BigDecimal total;
+        private String plazo;
         
- 
-
-
     public void setTiaRutaNot(String tiaRutaNot) {
         this.tiaRutaNot = tiaRutaNot;
     }
@@ -291,6 +284,59 @@ public class InvAvnVO{
     }
 
 
+    public void setIaeNombreEstado(String iaeNombreEstado) {
+        this.iaeNombreEstado = iaeNombreEstado;
+    }
 
+    public String getIaeNombreEstado() {
+        return iaeNombreEstado;
+    }
 
+    public void setNombreConcesion(String nombreConcesion) {
+        this.nombreConcesion = nombreConcesion;
+    }
+
+    public String getNombreConcesion() {
+        return nombreConcesion;
+    }
+
+    public void setNombreModalidad(String nombreModalidad) {
+        this.nombreModalidad = nombreModalidad;
+    }
+
+    public String getNombreModalidad() {
+        return nombreModalidad;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
+
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setPlazo(String plazo) {
+        this.plazo = plazo;
+    }
+
+    public String getPlazo() {
+        return plazo;
+    }
 }
