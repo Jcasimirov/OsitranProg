@@ -1,12 +1,15 @@
 package com.ositran.daoimpl;
 
-import java.util.List;
-import org.hibernate.Session;
-import java.sql.SQLException;
-import com.ositran.util.HibernateUtil;;
 import com.ositran.dao.NotificacionDAO;
 import com.ositran.model.InvAvn;
 import com.ositran.model.ValorizacionNotificacion;
+import com.ositran.util.HibernateUtil;
+
+import java.sql.SQLException;
+
+import java.util.List;
+
+import org.hibernate.Session;
 
 
 public class NotificacionDAOImpl implements NotificacionDAO {
@@ -24,7 +27,6 @@ public class NotificacionDAOImpl implements NotificacionDAO {
         session.getTransaction().commit();
         session.close();
         return list;
-
     }
     
     
@@ -50,5 +52,10 @@ public class NotificacionDAOImpl implements NotificacionDAO {
     return result;
     }
     
-
+    public List<InvAvn> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4").list();
+        session.close();
+        return list;
+    }
 }
