@@ -114,7 +114,7 @@
                     </p:layoutUnit>
                 </p:layout>
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
-                <p:dialog id="insertarPanel" header="Registrar" widgetVar="insertarPanel" modal="true">
+                <p:dialog id="insertarPanel" header="Agregar Concesión" widgetVar="insertarPanel" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td>
@@ -156,7 +156,7 @@
                                  
                                 <p:outputPanel id="books">
                                     <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list"
-                                                 id="booksTable">
+                                                 id="booksTable" emptyMessage="No se encontraron filas">
                                         <p:column headerText="Title">
                                             <h:outputText value="#{list.infNombre}"
                                                           style="width:300px;text-transform:uppercase; "/>
@@ -259,7 +259,7 @@
                     </table>
                     <!--Mantenimiento de Infraestructuras-->
                     <p:dataTable rowIndexVar="rowId" style="font-size:11px;" id="tablaES2" var="var2"
-                                 value="#{mantenimientoconcesionMB.listaInfraestructuras}">
+                                 value="#{mantenimientoconcesionMB.listaInfraestructuras}" emptyMessage="No se encontraron filas">
                         <!--p:column headerText="ID">
                             <h:outputText value="#{var2.infId}"/>
                         </p:column-->
