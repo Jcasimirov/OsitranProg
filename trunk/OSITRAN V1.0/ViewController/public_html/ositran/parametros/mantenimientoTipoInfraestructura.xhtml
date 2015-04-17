@@ -48,7 +48,7 @@
                                                                          action="#{infraestructuraMB.SearchListaInfra}"/>
                                                          
                                                         <p:tooltip styleClass="tool" id="tool1" for="buscartodos"
-                                                                   value="Buscar por Nombre Descripcion y siglas"/>
+                                                                   value="Buscar por Nombre / Descripción del tipo de Infraestructura"/>
                                                          
                                                         <p:commandButton id="btnbuscar"
                                                                          actionListener="#{infraestructuraMB.cargarTodo}"
@@ -65,7 +65,7 @@
                                                                          image="ui-icon-circle-plus"/>
                                                          
                                                         <p:tooltip styleClass="tool" id="tool3" for="nuevoinfra"
-                                                                   value="Registrar nuevo tipo de Infraestructura"/>
+                                                                   value="Agrega Tipo de Infraestructura"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -81,7 +81,7 @@
                                              value="#{infraestructuraMB.listaInfraestructura}" rows="10" paginator="true"
                                              paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" selectionMode="single" rowKey="#{mti.tinId}"
+                                             rowsPerPageTemplate="5,10,20" selectionMode="single" rowKey="#{mti.tinId}"
                                              rowIndexVar="rowIndex">
                                     <p:column headerText="N°" style="width:3%">
                                         <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
@@ -94,19 +94,21 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Descripcion"/>
+                                            <h:outputText value="Descripción"/>
                                         </f:facet>
                                         <h:outputText value="#{mti.tinDescripcion}"/>
                                     </p:column>
                                     <p:column width="8" rendered="#{infraestructuraMB.rolOpcion.troModificar  eq 1}">
                                         <f:facet name="header">
-                                            <h:outputText value="Actualizar"/>
+                                            <h:outputText value="Modificar"/>
                                         </f:facet>
                                         <div align="center">
-                                            <p:commandButton update=":form:popupeditar" styleClass="controles"
+                                            <p:commandButton   id="btnmodificar" 
+                                                                update=":form:popupeditar" styleClass="controles"
                                                              action="#{infraestructuraMB.cargarEditar(mti)}"
                                                              oncomplete="popupeditar.show()" image="ui-icon-pencil"
                                                                 />
+                                            <p:tooltip styleClass="tool"  id="toolTipFade4" for="btnmodificar" value="Modificar la fila" />
                                         </div>
                                     </p:column>
                                     <p:column width="8" rendered="#{infraestructuraMB.rolOpcion.troEliminar  eq 1}">
@@ -117,8 +119,9 @@
                                             <p:commandButton update=":form:popupeliminar :form:codEliminar" styleClass="controles"
                                                              actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"
                                                              oncomplete="popupeliminar.show()" image="ui-icon-trash"
-                                                             
+                                                             id="btneliminar"
                                                              />
+                                            <p:tooltip styleClass="tool"  id="toolTipFade5" for="btneliminar" value="Eliminar la fila" />
                                         </div>
                                     </p:column>
                                 </p:dataTable>
@@ -126,13 +129,17 @@
                         </div>
                     </p:layoutUnit>
                     <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar"/>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                    </p:layoutUnit>
                 </p:layout>
                 <!-- pdialog para boton eliminar -->
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Eliminar el tipo de infraestructura: " 
+                                Confirme eliminación del Tipo de Infraestructura: " 
                                 #{infraestructuraMB.nombreEliminar}"
                             </td>
                         </tr>
@@ -243,7 +250,7 @@
                                     <p:commandButton update=":form:tablaMTI :form:mensaje"
                                                      oncomplete="popupeditar.hide()"
                                                      action="#{infraestructuraMB.editar}" style="width:70px"
-                                                     value="#{btn.btn_modificar}"/>
+                                                     value="Guardar"/>
                                      
                                     <p:commandButton value="#{btn.btn_salir}" oncomplete="popupeditar.hide()"/>
                                 </td>
