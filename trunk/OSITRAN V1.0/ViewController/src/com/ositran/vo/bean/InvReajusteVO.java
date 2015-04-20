@@ -1,0 +1,93 @@
+package com.ositran.vo.bean;
+
+import java.math.BigDecimal;
+
+public class InvReajusteVO {
+    private Integer csiId;   
+    private Integer infId;
+    private Integer tinId;
+    
+    private Integer irjId;
+   
+    private BigDecimal irjMontoAprobado;
+  
+    private BigDecimal irjMontoReajuste;
+   
+    private Integer monId;
+   
+    private Integer tiaNumero;
+    
+    private String nombreInfraestructura;
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
+    public void setIrjId(Integer irjId) {
+        this.irjId = irjId;
+    }
+
+    public Integer getIrjId() {
+        return irjId;
+    }
+
+    public void setIrjMontoAprobado(BigDecimal irjMontoAprobado) {
+        this.irjMontoAprobado = irjMontoAprobado;
+    }
+
+    public BigDecimal getIrjMontoAprobado() {
+        return irjMontoAprobado;
+    }
+
+    public void setIrjMontoReajuste(BigDecimal irjMontoReajuste) {
+        this.irjMontoReajuste = irjMontoReajuste;
+    }
+
+    public BigDecimal getIrjMontoReajuste() {
+        return irjMontoReajuste;
+    }
+
+    public void setMonId(Integer monId) {
+        this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
+
+    public void setTiaNumero(Integer tiaNumero) {
+        this.tiaNumero = tiaNumero;
+    }
+
+    public Integer getTiaNumero() {
+        return tiaNumero;
+    }
+
+    public void setNombreInfraestructura(String nombreInfraestructura) {
+        this.nombreInfraestructura = nombreInfraestructura;
+    }
+
+    public String getNombreInfraestructura() {
+        return nombreInfraestructura;
+    }
+
+}
