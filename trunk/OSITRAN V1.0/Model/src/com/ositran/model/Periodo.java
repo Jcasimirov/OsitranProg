@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 
 public class Periodo implements Serializable {
     private static final long serialVersionUID = -6631118244370905156L;
-    @Column(name = "PER_CANTIDADENDÍAS", nullable = false)
+    @Column(name = "PER_CANTIDADENDIAS", nullable = false)
     private Integer perCantidadendías;
     @Column(name = "PER_DESCRIPCION", nullable = false, length = 100)
     private String perDescripcion;
