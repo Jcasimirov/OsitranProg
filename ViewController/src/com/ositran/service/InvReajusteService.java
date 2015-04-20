@@ -13,5 +13,5 @@ public interface InvReajusteService {
     public String delete(Integer id) throws SQLException;
     public String update(InvReajusteVO invReajuste) throws SQLException;
     public InvReajuste get(Integer id) throws SQLException;
-    public List<InvReajuste> getInvReajustesAvance(Integer tiaNumero) throws SQLException;
+    public List<InvReajusteVO> getInvReajustesAvance(Integer tiaNumero) throws SQLException;
 }
