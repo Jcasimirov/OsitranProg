@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,101 +22,93 @@ import org.hibernate.annotations.Parameter;
 public class InvReajuste implements Serializable {
     private static final long serialVersionUID = -102984099843979792L;
     @Column(name = "CSI_ID")
-    private BigDecimal csiId;
+    private Integer csiId;
     @Column(name = "INF_ID")
-    private BigDecimal infId;
+    private Integer infId;
+    @Column(name = "TIN_ID")
+    private Integer tinId;
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "IRJ_ID", nullable = false)
-    private BigDecimal irjId;
+    private Integer irjId;
     @Column(name = "IRJ_MONTO_APROBADO", nullable = false)
-    private Long irjMontoAprobado;
+    private BigDecimal irjMontoAprobado;
     @Column(name = "IRJ_MONTO_REAJUSTE", nullable = false)
-    private Long irjMontoReajuste;
+    private BigDecimal irjMontoReajuste;
     @Column(name = "MON_ID")
-    private BigDecimal monId;
+    private Integer monId;
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)
-    private BigDecimal tiaNumero;
-    @Column(name = "TIN_ID")
-    private BigDecimal tinId;
+    private Integer tiaNumero;
+
 
     public InvReajuste() {
     }
 
-    public InvReajuste(BigDecimal csiId, BigDecimal infId, BigDecimal irjId, Long irjMontoAprobado,
-                       Long irjMontoReajuste, BigDecimal monId, BigDecimal tiaNumero, BigDecimal tinId) {
+
+    public void setCsiId(Integer csiId) {
         this.csiId = csiId;
-        this.infId = infId;
-        this.irjId = irjId;
-        this.irjMontoAprobado = irjMontoAprobado;
-        this.irjMontoReajuste = irjMontoReajuste;
-        this.monId = monId;
-        this.tiaNumero = tiaNumero;
-        this.tinId = tinId;
     }
 
-    public BigDecimal getCsiId() {
+    public Integer getCsiId() {
         return csiId;
     }
 
-    public void setCsiId(BigDecimal csiId) {
-        this.csiId = csiId;
-    }
-
-    public BigDecimal getInfId() {
-        return infId;
-    }
-
-    public void setInfId(BigDecimal infId) {
+    public void setInfId(Integer infId) {
         this.infId = infId;
     }
 
-    public BigDecimal getIrjId() {
-        return irjId;
+    public Integer getInfId() {
+        return infId;
     }
 
-    public void setIrjId(BigDecimal irjId) {
+    public void setIrjId(Integer irjId) {
         this.irjId = irjId;
     }
 
-    public Long getIrjMontoAprobado() {
-        return irjMontoAprobado;
+    public Integer getIrjId() {
+        return irjId;
     }
 
-    public void setIrjMontoAprobado(Long irjMontoAprobado) {
+    public void setIrjMontoAprobado(BigDecimal irjMontoAprobado) {
         this.irjMontoAprobado = irjMontoAprobado;
     }
 
-    public Long getIrjMontoReajuste() {
-        return irjMontoReajuste;
+    public BigDecimal getIrjMontoAprobado() {
+        return irjMontoAprobado;
     }
 
-    public void setIrjMontoReajuste(Long irjMontoReajuste) {
+    public void setIrjMontoReajuste(BigDecimal irjMontoReajuste) {
         this.irjMontoReajuste = irjMontoReajuste;
     }
 
-    public BigDecimal getMonId() {
-        return monId;
+    public BigDecimal getIrjMontoReajuste() {
+        return irjMontoReajuste;
     }
 
-    public void setMonId(BigDecimal monId) {
+    public void setMonId(Integer monId) {
         this.monId = monId;
     }
 
-    public BigDecimal getTiaNumero() {
-        return tiaNumero;
+    public Integer getMonId() {
+        return monId;
     }
 
-    public void setTiaNumero(BigDecimal tiaNumero) {
+    public void setTiaNumero(Integer tiaNumero) {
         this.tiaNumero = tiaNumero;
     }
 
-    public BigDecimal getTinId() {
+    public Integer getTiaNumero() {
+        return tiaNumero;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
         return tinId;
     }
 
-    public void setTinId(BigDecimal tinId) {
-        this.tinId = tinId;
-    }
+
 }
