@@ -26,6 +26,7 @@ public class InvReconocimientoVO {
     private Integer infId;
     private Integer cvaId;
     private String nombreInfraestructura;
+    private String desConcepto;
     
     public void setIreEstado(BigDecimal ireEstado) {
         this.ireEstado = ireEstado;
@@ -121,5 +122,13 @@ public class InvReconocimientoVO {
 
     public String getNombreInfraestructura() {
         return nombreInfraestructura;
+    }
+
+    public void setDesConcepto(String desConcepto) {
+        this.desConcepto = desConcepto;
+    }
+
+    public String getDesConcepto() {
+        return desConcepto;
     }
 }
