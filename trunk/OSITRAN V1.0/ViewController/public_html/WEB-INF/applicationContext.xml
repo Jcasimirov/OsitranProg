@@ -530,6 +530,11 @@
     <bean id="invReconocimientoServiceImpl" class="com.ositran.serviceimpl.InvReconocimientoServiceImpl">
         <property name="invReconocimientoDAOImpl" ref="invReconocimientoDAOImpl"/>
     </bean>
+        <bean id="valorizacionConcepto" class="com.ositran.model.ValorizacionConcepto" />
+    <bean id="valorizacionConceptoDAOImpl" class="com.ositran.daoimpl.ValorizacionConceptoDAOImpl"/>
+    <bean id="valorizacionConceptoServiceImpl" class="com.ositran.serviceimpl.ValorizacionConceptoServiceImpl">
+        <property name="valorizacionConceptoDAOImpl" ref="valorizacionConceptoDAOImpl"/>
+    </bean>
     <bean id="rectificacioninversion" class="com.ositran.valorizaciones.RectificarInversion">
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
@@ -545,5 +550,6 @@
         <property name="inversionAvanceEstadoServiceImpl" ref="inversionAvanceEstadoServiceImpl"/>
         <property name="invReconocimientoServiceImpl" ref="invReconocimientoServiceImpl"/>
         <property name="invReajusteServiceImpl" ref="invReajusteServiceImpl"/>
+        <property name="valorizacionConceptoServiceImpl" ref="valorizacionConceptoServiceImpl"/>
     </bean>
 </beans>
