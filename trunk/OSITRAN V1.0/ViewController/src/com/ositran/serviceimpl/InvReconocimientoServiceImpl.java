@@ -8,7 +8,6 @@ import com.ositran.vo.bean.InvReconocimientoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InvReconocimientoServiceImpl implements InvReconocimientoService{
@@ -58,9 +57,10 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
     }
 
     @Override
-    public List<InvReconocimiento> getInvReconocimientosAvance(Integer invId) throws SQLException {
-        // TODO Implement this method
-        return Collections.emptyList();
+    public List<InvReconocimientoVO> getInvReconocimientosAvance(Integer invId) throws SQLException {
+        List<InvReconocimiento> list=  invReconocimientoDAOImpl.getInvReconocimientosAvance(invId);
+         List<InvReconocimientoVO> lista= toListInvReconocimientoVO(list);
+          return lista; 
     }
     //conversiones
     private List<InvReconocimientoVO> toListInvReconocimientoVO(List<InvReconocimiento> list){
