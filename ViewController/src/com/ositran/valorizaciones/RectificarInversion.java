@@ -9,6 +9,7 @@ import com.ositran.service.MonedaService;
 import com.ositran.service.NotificacionService;
 import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
+import com.ositran.service.ValorizacionConceptoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
@@ -25,12 +26,15 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InvAvnEstadoVO;
 import com.ositran.vo.bean.InvAvnVO;
+import com.ositran.vo.bean.InvReajusteVO;
+import com.ositran.vo.bean.InvReconocimientoVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.PeriodoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
+import com.ositran.vo.bean.ValorizacionConceptoVO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -110,7 +114,13 @@ public class RectificarInversion {
     @ManagedProperty(value = "#{invReajusteServiceImpl}")
     InvReajusteService invReajusteServiceImpl;
     
+    @ManagedProperty(value = "#{valorizacionConceptoServiceImpl}")
+    ValorizacionConceptoService valorizacionConceptoServiceImpl;
+    
     // Lista Bean VO
+    private List<ValorizacionConceptoVO> listaValorizacionConceptos = new ArrayList<ValorizacionConceptoVO>();
+    private List<InvReconocimientoVO> listaReconocimiento = new ArrayList<InvReconocimientoVO>();
+    private List<InvReajusteVO> listaReajuste = new ArrayList<InvReajusteVO>();
     private List<InvAvnVO> listaValorizaciones = new ArrayList<InvAvnVO>();
     private List<InvAvnEstadoVO> listarEstadosIA = new ArrayList<InvAvnEstadoVO>();
     List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<InfraestructuraTipoVO>();
@@ -262,7 +272,14 @@ public class RectificarInversion {
             buscarContratos();
         }
     }
-
+    public void cargarValorizacionConceptos(){
+        try {
+         listaValorizacionConceptos=valorizacionConceptoServiceImpl.query();
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
     // Metodo Para Listar Infraestructuras
 
     public void cargarInfraestructurasContrato(Integer contratoId) {
@@ -345,7 +362,7 @@ public class RectificarInversion {
         cargarDatosCompromiso(invAvnVO.getCcoId());
 
     }
-
+    
     public void cargarDatosCompromiso(int ccoId) {
         try {
             ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
@@ -433,6 +450,23 @@ public class RectificarInversion {
         }
     }
 
+    public void cargarReconocimiento(int tiaNumero){
+        try {
+         listaReconocimiento =  invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
+    
+    public void cargarReajuste(int tiaNumero){
+        try {
+          listaReajuste =  invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
     public void setContratoId(Integer contratoId) {
         this.contratoId = contratoId;
     }
@@ -826,5 +860,37 @@ public class RectificarInversion {
 
     public InvReajusteService getInvReajusteServiceImpl() {
         return invReajusteServiceImpl;
+    }
+
+    public void setListaReconocimiento(List<InvReconocimientoVO> listaReconocimiento) {
+        this.listaReconocimiento = listaReconocimiento;
+    }
+
+    public List<InvReconocimientoVO> getListaReconocimiento() {
+        return listaReconocimiento;
+    }
+
+    public void setListaReajuste(List<InvReajusteVO> listaReajuste) {
+        this.listaReajuste = listaReajuste;
+    }
+
+    public List<InvReajusteVO> getListaReajuste() {
+        return listaReajuste;
+    }
+
+    public void setValorizacionConceptoServiceImpl(ValorizacionConceptoService valorizacionConceptoServiceImpl) {
+        this.valorizacionConceptoServiceImpl = valorizacionConceptoServiceImpl;
+    }
+
+    public ValorizacionConceptoService getValorizacionConceptoServiceImpl() {
+        return valorizacionConceptoServiceImpl;
+    }
+
+    public void setListaValorizacionConceptos(List<ValorizacionConceptoVO> listaValorizacionConceptos) {
+        this.listaValorizacionConceptos = listaValorizacionConceptos;
+    }
+
+    public List<ValorizacionConceptoVO> getListaValorizacionConceptos() {
+        return listaValorizacionConceptos;
     }
 }
