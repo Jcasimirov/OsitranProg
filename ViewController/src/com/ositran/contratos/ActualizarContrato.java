@@ -393,8 +393,8 @@ public class ActualizarContrato {
            try {
                listaContrato =
                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),tipoinfra,concesion,fechaInicioSuscripcion,fechaFinSuscripcion);
-               System.out.println("***"+nombreConcesion+"****"+"tipoinfra "+tipoinfra+" concesion "+concesion+" modalidad "+modalidad);
-               for (ContratoVO aux : listaContrato) {
+               System.out.println("listaConcesiones.size()"+listaConcesiones.size());
+               /*   for (ContratoVO aux : listaContrato) {
                    for (ConcesionVO concesion : listaConcesiones) {
                        if (concesion.getCsiId() == aux.getCsiId())
                            aux.setNombreConcesion(concesion.getCsiNombre());
@@ -409,7 +409,7 @@ public class ActualizarContrato {
                    }
 
 
-               }
+               } */
                 /*  for (int i = 0; i < listaContrato.size(); i++) {
                    listaContrato.get(i).setNombreConcesion(concesionServiceImpl.get(listaContrato.get(i).getCsiId()).getCsiNombre());
                    //listaContrato.get(i).setNombreConcesionario(concesionarioServiceImpl.get(listaContrato.get(i).getCncId()).getCncNombre());
