@@ -8,7 +8,6 @@ import com.ositran.vo.bean.InvReajusteVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InvReajusteServiceImpl implements InvReajusteService{
@@ -58,9 +57,10 @@ public class InvReajusteServiceImpl implements InvReajusteService{
     }
 
     @Override
-    public List<InvReajuste> getInvReajustesAvance(Integer tiaNumero) throws SQLException {
-        // TODO Implement this method
-        return Collections.emptyList();
+    public List<InvReajusteVO> getInvReajustesAvance(Integer tiaNumero) throws SQLException {
+        List<InvReajuste> list = invReajusteDAOImpl.getInvReajustesAvance(tiaNumero);        
+        List<InvReajusteVO> lista= toListInvReajusteVO(list);
+         return lista;
     }
     
     //conversiones
@@ -96,5 +96,5 @@ public class InvReajusteServiceImpl implements InvReajusteService{
         InvReajuste1.setMonId(InvReajusteVO1.getMonId()); 
         return InvReajuste1;
         
-    }
+    } 
 }
