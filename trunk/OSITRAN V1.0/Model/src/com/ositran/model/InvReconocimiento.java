@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -44,7 +43,15 @@ public class InvReconocimiento implements Serializable {
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)
     private BigDecimal tiaNumero;
-
+    
+    @Column(name = "CSI_ID")
+    private Integer csiId;
+    @Column(name = "TIN_ID")
+    private Integer tinId;
+    @Column(name = "INF_ID")
+    private Integer infId;
+    @Column(name = "CVA_ID")
+    private Integer cvaId;
     public InvReconocimiento() {
     }
 
@@ -113,5 +120,37 @@ public class InvReconocimiento implements Serializable {
 
     public void setTiaNumero(BigDecimal tiaNumero) {
         this.tiaNumero = tiaNumero;
+    }
+
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setCvaId(Integer cvaId) {
+        this.cvaId = cvaId;
+    }
+
+    public Integer getCvaId() {
+        return cvaId;
     }
 }
