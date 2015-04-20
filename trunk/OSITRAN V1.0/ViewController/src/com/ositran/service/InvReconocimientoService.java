@@ -18,5 +18,5 @@ public interface InvReconocimientoService {
 
     public InvReconocimiento get(Integer id) throws SQLException;
 
-    public List<InvReconocimiento> getInvReconocimientosAvance(Integer invId) throws SQLException;
+    public List<InvReconocimientoVO> getInvReconocimientosAvance(Integer invId) throws SQLException;
 }
