@@ -94,7 +94,7 @@ public class InvReajusteDAOImpl implements InvReajusteDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM InvReajuste cc where cc.tiaNumero = :busqueda1 order by irjId DESC");
+        query = session.createQuery("FROM InvReajuste cc where cc.tiaNumero = :busqueda1 order by irjId asc");
         query.setParameter("busqueda1",tiaNumero);            
         List<InvReajuste> list = query.list();
         session.getTransaction().commit();
