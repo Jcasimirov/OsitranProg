@@ -39,6 +39,8 @@ import com.ositran.vo.bean.ValorizacionConceptoVO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.math.BigDecimal;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -156,7 +158,11 @@ public class RectificarInversion {
     private UsuarioVO usuario;
     private int tipoInfraestructura;
 
-
+    private BigDecimal totalivrMontoPresentado=new BigDecimal("0");
+    private BigDecimal totalivrMontoAprobado=new BigDecimal("0");
+    private BigDecimal totalirjMontoAprobado=new BigDecimal("0");
+    private BigDecimal totalirjMontoReajuste=new BigDecimal("0");
+    
     public void validarSesion() throws IOException {
         /* rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -231,7 +237,7 @@ public class RectificarInversion {
         }
     }
 
-    public void ListarInfraestrcuturas() throws SQLException {
+    public void listarInfraEstructuras() throws SQLException {
         try {
             listarInfraestructura = infraestructuraServiceImpl.query();
         } catch (Exception e) {
@@ -360,7 +366,8 @@ public class RectificarInversion {
         System.out.println("seleccionarDeclaracion");
        
         cargarDatosCompromiso(invAvnVO.getCcoId());
-
+        cargarReconocimiento(invAvnVO.getTiaNumero());
+        cargarReajuste(invAvnVO.getTiaNumero());
     }
     
     public void cargarDatosCompromiso(int ccoId) {
@@ -453,15 +460,52 @@ public class RectificarInversion {
     public void cargarReconocimiento(int tiaNumero){
         try {
          listaReconocimiento =  invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
+            System.out.println(listaReconocimiento.size());
+            for (InvReconocimientoVO invReconocimiento : listaReconocimiento) {
+                System.out.println("invReconocimiento.getIvrMontoAprobado()??????:"+invReconocimiento.getIvrMontoAprobado());
+                if(invReconocimiento.getIvrMontoAprobado()!=null)
+                    totalivrMontoAprobado=totalivrMontoAprobado.add(invReconocimiento.getIvrMontoAprobado());                
+                if(invReconocimiento.getIvrMontoPresentado()!=null)
+                    totalivrMontoPresentado=totalivrMontoPresentado.add(invReconocimiento.getIvrMontoPresentado());
+                
+            }
+            cargarDescripcionesInfraestructura(listaReconocimiento);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
-    
+    public void cargarDescripcionesInfraestructura(List<?> lista){
+        for(Object item : lista){
+            for(InfraestructuraVO infraestructuraVO : listarInfraestructura){
+                if(item instanceof InvReconocimientoVO){
+                    InvReconocimientoVO aux=((InvReconocimientoVO)item);
+                    if(aux.getInfId()==infraestructuraVO.getInfId()){
+                            aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+                    }
+                }
+                if(item instanceof InvReajusteVO){
+                    InvReajusteVO aux=((InvReajusteVO)item);
+                    if(aux.getInfId()==infraestructuraVO.getInfId())
+                            aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+                }
+            }
+           
+        }
+    }
+    public void cargarDescripcionesMoneda(){
+        
+    }
     public void cargarReajuste(int tiaNumero){
         try {
           listaReajuste =  invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
+            for (InvReajusteVO invReajuste : listaReajuste) {
+                if(invReajuste.getIrjMontoAprobado()!=null)
+                    totalirjMontoAprobado=totalirjMontoAprobado.add(invReajuste.getIrjMontoAprobado());
+                if(invReajuste.getIrjMontoReajuste()!=null)
+                    totalirjMontoReajuste=totalirjMontoReajuste.add(invReajuste.getIrjMontoReajuste());
+            }
+            System.out.println("totalirjMontoReajuste??????:"+totalirjMontoAprobado);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -893,4 +937,38 @@ public class RectificarInversion {
     public List<ValorizacionConceptoVO> getListaValorizacionConceptos() {
         return listaValorizacionConceptos;
     }
+
+
+    public void setTotalivrMontoPresentado(BigDecimal totalivrMontoPresentado) {
+        this.totalivrMontoPresentado = totalivrMontoPresentado;
+    }
+
+    public BigDecimal getTotalivrMontoPresentado() {
+        return totalivrMontoPresentado;
+    }
+
+    public void setTotalivrMontoAprobado(BigDecimal totalivrMontoAprobado) {
+        this.totalivrMontoAprobado = totalivrMontoAprobado;
+    }
+
+    public BigDecimal getTotalivrMontoAprobado() {
+        return totalivrMontoAprobado;
+    }
+
+    public void setTotalirjMontoAprobado(BigDecimal totalirjMontoAprobado) {
+        this.totalirjMontoAprobado = totalirjMontoAprobado;
+    }
+
+    public BigDecimal getTotalirjMontoAprobado() {
+        return totalirjMontoAprobado;
+    }
+
+    public void setTotalirjMontoReajuste(BigDecimal totalirjMontoReajuste) {
+        this.totalirjMontoReajuste = totalirjMontoReajuste;
+    }
+
+    public BigDecimal getTotalirjMontoReajuste() {
+        return totalirjMontoReajuste;
+    }
+
 }
