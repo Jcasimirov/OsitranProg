@@ -26,23 +26,23 @@ import org.hibernate.annotations.Parameter;
 public class InvReconocimiento implements Serializable {
     private static final long serialVersionUID = -1528610907457548562L;
     @Column(name = "IRE_ESTADO", nullable = false)
-    private BigDecimal ireEstado;
+    private Integer ireEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "IRE_FECHA_REGISTRO")
     private Date ireFechaRegistro;
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "IRE_ID", nullable = false)
-    private BigDecimal ireId;
+    private Integer ireId;
     @Column(name = "IVR_MONTO_APROBADO", nullable = false)
-    private Long ivrMontoAprobado;
+    private BigDecimal ivrMontoAprobado;
     @Column(name = "IVR_MONTO_PRESENTADO", nullable = false)
-    private Long ivrMontoPresentado;
+    private BigDecimal ivrMontoPresentado;
     @Column(name = "MON_ID")
-    private BigDecimal monId;
+    private Integer monId;
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)
-    private BigDecimal tiaNumero;
+    private Integer tiaNumero;
     
     @Column(name = "CSI_ID")
     private Integer csiId;
@@ -55,8 +55,8 @@ public class InvReconocimiento implements Serializable {
     public InvReconocimiento() {
     }
 
-    public InvReconocimiento(BigDecimal ireEstado, Date ireFechaRegistro, BigDecimal ireId, Long ivrMontoAprobado,
-                             Long ivrMontoPresentado, BigDecimal monId, BigDecimal tiaNumero) {
+    public InvReconocimiento(Integer ireEstado, Date ireFechaRegistro, Integer ireId, BigDecimal ivrMontoAprobado,
+                             BigDecimal ivrMontoPresentado, Integer monId, Integer tiaNumero) {
         this.ireEstado = ireEstado;
         this.ireFechaRegistro = ireFechaRegistro;
         this.ireId = ireId;
@@ -66,13 +66,7 @@ public class InvReconocimiento implements Serializable {
         this.tiaNumero = tiaNumero;
     }
 
-    public BigDecimal getIreEstado() {
-        return ireEstado;
-    }
-
-    public void setIreEstado(BigDecimal ireEstado) {
-        this.ireEstado = ireEstado;
-    }
+   
 
     public Date getIreFechaRegistro() {
         return ireFechaRegistro;
@@ -82,44 +76,22 @@ public class InvReconocimiento implements Serializable {
         this.ireFechaRegistro = ireFechaRegistro;
     }
 
-    public BigDecimal getIreId() {
-        return ireId;
-    }
+ 
 
-    public void setIreId(BigDecimal ireId) {
-        this.ireId = ireId;
-    }
-
-    public Long getIvrMontoAprobado() {
+    public BigDecimal getIvrMontoAprobado() {
         return ivrMontoAprobado;
     }
 
-    public void setIvrMontoAprobado(Long ivrMontoAprobado) {
+    public void setIvrMontoAprobado(BigDecimal ivrMontoAprobado) {
         this.ivrMontoAprobado = ivrMontoAprobado;
     }
 
-    public Long getIvrMontoPresentado() {
+    public BigDecimal getIvrMontoPresentado() {
         return ivrMontoPresentado;
     }
 
-    public void setIvrMontoPresentado(Long ivrMontoPresentado) {
+    public void setIvrMontoPresentado(BigDecimal ivrMontoPresentado) {
         this.ivrMontoPresentado = ivrMontoPresentado;
-    }
-
-    public BigDecimal getMonId() {
-        return monId;
-    }
-
-    public void setMonId(BigDecimal monId) {
-        this.monId = monId;
-    }
-
-    public BigDecimal getTiaNumero() {
-        return tiaNumero;
-    }
-
-    public void setTiaNumero(BigDecimal tiaNumero) {
-        this.tiaNumero = tiaNumero;
     }
 
     public void setCsiId(Integer csiId) {
@@ -153,4 +125,37 @@ public class InvReconocimiento implements Serializable {
     public Integer getCvaId() {
         return cvaId;
     }
+
+    public void setIreEstado(Integer ireEstado) {
+        this.ireEstado = ireEstado;
+    }
+
+    public Integer getIreEstado() {
+        return ireEstado;
+    }
+
+    public void setIreId(Integer ireId) {
+        this.ireId = ireId;
+    }
+
+    public Integer getIreId() {
+        return ireId;
+    }
+
+    public void setMonId(Integer monId) {
+        this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
+
+    public void setTiaNumero(Integer tiaNumero) {
+        this.tiaNumero = tiaNumero;
+    }
+
+    public Integer getTiaNumero() {
+        return tiaNumero;
+    }
+
 }
