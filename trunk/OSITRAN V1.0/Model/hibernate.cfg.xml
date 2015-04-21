@@ -79,5 +79,6 @@
         <mapping class="com.ositran.model.InvAvnEstado"/>
         <mapping class="com.ositran.model.InvAvn"/>
         <mapping class="com.ositran.model.Inv"/>
+     
     </session-factory>
 </hibernate-configuration>
