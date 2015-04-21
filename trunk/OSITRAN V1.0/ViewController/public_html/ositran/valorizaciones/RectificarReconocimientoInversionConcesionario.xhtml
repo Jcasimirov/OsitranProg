@@ -57,7 +57,12 @@
          
         <f:event listener="#{rectificarInversion.listaPeriodos}" type="preRenderComponent"/>
          
+        <f:event listener="#{rectificarInversion.cargarValorizacionConceptos}" type="preRenderComponent"/>
+        
         <f:event listener="#{rectificarInversion.listarEstadosDelaInversion}" type="preRenderComponent"/>
+        <f:event listener="#{rectificarInversion.listarInfraEstructuras}" type="preRenderComponent"/>
+        
+        
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
@@ -217,7 +222,7 @@
                                                         </p:column>
                                                         <p:column headerText="Seleccionar" style="width:4%">
                                                             <div align="center">
-                                                                <p:commandButton icon="ui-icon-check"
+                                                                <p:commandButton icon="ui-icon-check" update=":form:tblResultadoReconocimiento"
                                                                                  actionListener="#{rectificarInversion.seleccionarDeclaracion}"
                                                                                  ajax="false"
                                                                                  >
@@ -306,9 +311,8 @@
                                                                 <p:selectOneMenu id="Dias"
                                                                                  value="#{rectificarInversion.contratoVO.conTipodias}">
                                                                     <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
-                                                                    <f:selectItems  value="#{rectificarInversion.listarEstadosIA}"  var="est"
-                                                                                    itemValue="#{est.iaeId}"
-                                                                                    itemLabel="#{est.iaeNombre}"/>
+                                                                    <f:selectItem itemLabel="Aprobado" itemValue="1"/>
+                                                                    <f:selectItem itemLabel="Observado" itemValue="2"/>                                                                   
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
@@ -326,40 +330,40 @@
                                                                     <table>
                                                                         <tr>
                                                                             <td colspan="3">
-                                                                                <p:dataTable value="#{rectificarInversion.listaContrato}"
+                                                                                <p:dataTable value="#{rectificarInversion.listaReconocimiento}"
                                                                                              id="tblResultadoReconocimiento"
-                                                                                             var="contrato11"
+                                                                                             var="reconocimiento"
                                                                                              style="font-size:11px"
                                                                                              emptyMessage="No se Encontraron Registros">
                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
+                                                                                            <h:outputText value="#{reconocimiento.tiaNumero}"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Aeropuerto"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{contrato11.nombreTipoInfraestructura}"
+                                                                                            <h:outputText value="#{reconocimiento.nombreInfraestructura}"
                                                                                                           style="text-transform:uppercase;"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Descripcion del Concepto"
                                                                                               style="width:10%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"/>
+                                                                                        <h:outputText value="#{reconocimiento.desConcepto}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="Moneda"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreModalidad}"/>
+                                                                                        <h:outputText value="#{reconocimiento.nombreMoneda}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="MontoPresentado"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"
+                                                                                        <h:outputText value="#{reconocimiento.ivrMontoPresentado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
                                                                                      <p:column headerText="MontoAprobado"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"
+                                                                                        <h:outputText value="#{reconocimiento.ivrMontoAprobado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
                                                                                    
@@ -371,8 +375,8 @@
                                                                                                              actionListener="#{rectificarInversion.seleccionarContrato}"
                                                                                                              oncomplete="popupBuscarContrato.hide();">
                                                                                                 <f:attribute name="idcontrato"
-                                                                                                             value="#{contrato11}"></f:attribute>
-                                                                                                <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
+                                                                                                             value="#{reconocimiento}"></f:attribute>
+                                                                                                
                                                                                             </p:commandButton>
                                                                                         </div>
                                                                                     </p:column>
@@ -383,10 +387,10 @@
                                                                         <tr>
                                                                             <td>TOTAL</td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText value="#{rectificarInversion.totalivrMontoPresentado}"/>
                                                                             </td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText value="#{rectificarInversion.totalivrMontoAprobado}"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -400,40 +404,40 @@
                                                                     <table>
                                                                         <tr>
                                                                             <td colspan="3">
-                                                                                <p:dataTable value="#{rectificarInversion.listaContrato}"
+                                                                                <p:dataTable value="#{rectificarInversion.listaReajuste}"
                                                                                              id="tblReajuste"
-                                                                                             var="contrato11"
+                                                                                             var="reajuste"
                                                                                              style="font-size:11px"
                                                                                              emptyMessage="No se Encontraron Registros">
                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
+                                                                                            <h:outputText value="#{reajuste.tiaNumero}"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Aeropuerto"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{contrato11.nombreTipoInfraestructura}"
+                                                                                            <h:outputText value="#{reajuste.nombreInfraestructura}"
                                                                                                           style="text-transform:uppercase;"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Descripcion del Concepto"
                                                                                               style="width:10%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"/>
+                                                                                        <h:outputText value="#{reajuste.desConcepto}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="Moneda"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreModalidad}"/>
+                                                                                        <h:outputText value="#{reconocimiento.nombreMoneda}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="MontoPresentado"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"
+                                                                                        <h:outputText value="#{reajuste.irjMontoAprobado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
                                                                                      <p:column headerText="MontoAprobado"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{contrato11.nombreConcesion}"
+                                                                                        <h:outputText value="#{reajuste.irjMontoReajuste}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
                                                                                    
@@ -457,10 +461,10 @@
                                                                         <tr>
                                                                             <td>TOTAL</td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText value="#{rectificarInversion.totalirjMontoAprobado}"/>
                                                                             </td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText value="#{rectificarInversion.totalirjMontoReajuste}"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
