@@ -145,4 +145,5 @@ public class InvReconocimientoVO {
     public String getNombreMoneda() {
         return nombreMoneda;
     }
+
 }
