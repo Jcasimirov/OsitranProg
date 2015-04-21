@@ -92,7 +92,7 @@ public class InvReconocimientoDAOImpl implements InvReconocimientoDAO {
     @Override
     public List<InvReconocimiento> getInvReconocimientosAvance(Integer invId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Query query = session.createQuery("FROM InvReconocimiento cc where cc.ireEstado <> 0 and cc.tiaNumero = :busqueda1 order by ireId DESC");
+        Query query = session.createQuery("FROM InvReconocimiento cc where cc.ireEstado <> 0 and cc.tiaNumero = :busqueda1 order by ireId asc");
         query.setParameter("busqueda1",invId);            
         List<InvReconocimiento> list = query.list();
         return list;        
