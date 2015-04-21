@@ -75,6 +75,7 @@ public class InvReajusteServiceImpl implements InvReajusteService{
     }
     private InvReajusteVO toInvReajusteVO(InvReajuste InvReajuste1){
         InvReajusteVO invReajusteVO1=new InvReajusteVO();
+        invReajusteVO1.setTiaNumero(InvReajuste1.getTiaNumero());
         invReajusteVO1.setIrjId(InvReajuste1.getIrjId());
         invReajusteVO1.setIrjMontoAprobado(InvReajuste1.getIrjMontoAprobado());
         invReajusteVO1.setIrjMontoReajuste(InvReajuste1.getIrjMontoReajuste());
