@@ -74,6 +74,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
     }
     private InvReconocimientoVO toInvReconocimientoVO(InvReconocimiento InvReconocimiento1){
         InvReconocimientoVO InvReconocimientoVO1=new InvReconocimientoVO();
+        InvReconocimientoVO1.setTiaNumero(InvReconocimiento1.getTiaNumero());
         InvReconocimientoVO1.setIreId(InvReconocimiento1.getIreId());
         InvReconocimientoVO1.setCsiId(InvReconocimiento1.getCsiId());
         InvReconocimientoVO1.setInfId(InvReconocimiento1.getInfId());
