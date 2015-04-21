@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -13,9 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "InvAvn.findAll", query = "select o from InvAvn o") })
 @Table(name = "T_INV_AVN")
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_INV_AVN"))
 public class InvAvn implements Serializable {
     private static final long serialVersionUID = 271670407741238178L;
     @Column(name = "CON_ID")
@@ -57,6 +62,7 @@ public class InvAvn implements Serializable {
     @Column(name = "TIA_MONTO_TOTAL_REAJUSTADO")
     private Long tiaMontoTotalReajustado;
     @Id
+    @GeneratedValue(generator = "generator")
     @Column(name = "TIA_NUMERO")
     private Integer tiaNumero;
     @Column(name = "TIA_PLAZO_EN_DIAS")
