@@ -31,7 +31,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        query =session.createQuery("FROM ContratoCompromiso cc where cc.conId = :filtro");
+        query =session.createQuery("FROM ContratoCompromiso cc where cc.conId = :filtro and cc.ccoEstado=1");
         query.setParameter("filtro",codigo);
         List<ContratoCompromiso> list = query.list();
         session.getTransaction().commit();
@@ -104,7 +104,8 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
     
     @Override
     public List<ContratoCompromiso> getCompromisosContrato(Integer conId) throws SQLException{
-        System.out.println("hola llega hasta aqui");
+        System.out.println("INI DAO METHOD: getCompromisosContrato");
+        System.out.println("conId: " + conId);        
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
@@ -114,6 +115,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
              
         List<ContratoCompromiso> list = query.list();
         session.getTransaction().commit();
+        System.out.println("FIN DAO METHOD: getCompromisosContrato");
         return list;        
               
         

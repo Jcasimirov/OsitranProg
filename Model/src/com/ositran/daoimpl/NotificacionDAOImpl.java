@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
@@ -59,5 +60,16 @@ public class NotificacionDAOImpl implements NotificacionDAO {
         List list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4").list();
         session.close();
         return (List<InvAvn>)list;
+    }
+    
+    @Override
+    public List<InvAvn> ListarDeclaracionesSupervContratoCompromiso(int contratoCompromisoId) throws SQLException{            
+        System.out.println("contratoCompromisoId: " + contratoCompromisoId);
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        query =session.createQuery("FROM InvAvn i WHERE i.iaeId = 3 AND ccoId = :contratoCompromisoId");
+        query.setParameter("contratoCompromisoId",contratoCompromisoId);
+        System.out.println("tanaño de la listra:" + query.list().size());
+        return query.list();
     }
 }
