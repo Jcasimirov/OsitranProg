@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class NotificacionDAOImpl implements NotificacionDAO {
     
     List<InvAvn> list = null; 
@@ -54,8 +56,8 @@ public class NotificacionDAOImpl implements NotificacionDAO {
     
     public List<InvAvn> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4").list();
+        List list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4").list();
         session.close();
-        return list;
+        return (List<InvAvn>)list;
     }
 }
