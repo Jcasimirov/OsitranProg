@@ -527,7 +527,7 @@ public class RectificarInversion {
     public void grabarReconocimiento(ActionEvent e) {
         Integer idreconocimiento = (Integer) e.getComponent().getAttributes().get("reconocimiento");
         BigDecimal montoAprobado = new BigDecimal("" + e.getComponent().getAttributes().get("montoAprobado"));
-        if (montoAprobado.compareTo(BigDecimal.ZERO) == 0||montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
+        if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Monto no puede ser Cero"));
@@ -566,23 +566,35 @@ public class RectificarInversion {
     public void grabarReajuste(ActionEvent e) {
         Integer idreajuste = (Integer) e.getComponent().getAttributes().get("idreajuste");
         BigDecimal montoAprobado = new BigDecimal("" + e.getComponent().getAttributes().get("montoReajuste"));
-        try {
-            for (InvReajusteVO invReconocimientoVO : listaReajuste) {
-                if (idreajuste == invReconocimientoVO.getIrjId()) {
-                    invReconocimientoVO.setIrjMontoReajuste(montoAprobado);
-                }
-            }
-
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
-            RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
-            RequestContext.getCurrentInstance().update("form:tblReajuste");
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
+                                                                          "El Monto no puede ser Cero"));
+        } else if (montoAprobado.compareTo(BigDecimal.ZERO) < 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "El Monto no puede ser Negativo"));
+        } else {
+            try {
+                for (InvReajusteVO invReconocimientoVO : listaReajuste) {
+                    if (idreajuste == invReconocimientoVO.getIrjId()) {
+                        invReconocimientoVO.setIrjMontoReajuste(montoAprobado);
+                    }
+                }
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                              Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
+                RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
+                RequestContext.getCurrentInstance().update("form:tblReajuste");
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                              Constantes.ERROR,
+                                                                              Constantes.ERRORGUARDAR));
+            }
         }
     }
 
