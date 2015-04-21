@@ -5,19 +5,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class InvReconocimientoVO {
-    private BigDecimal ireEstado;
+    private Integer ireEstado;
 
     private Date ireFechaRegistro;
  
-    private BigDecimal ireId;
+    private Integer ireId;
 
-    private Long ivrMontoAprobado;
+    private BigDecimal ivrMontoAprobado;
 
-    private Long ivrMontoPresentado;
+    private BigDecimal ivrMontoPresentado;
 
-    private BigDecimal monId;
+    private Integer monId;
 
-    private BigDecimal tiaNumero;
+    private Integer tiaNumero;
 
     private Integer csiId;
   
@@ -27,14 +27,8 @@ public class InvReconocimientoVO {
     private Integer cvaId;
     private String nombreInfraestructura;
     private String desConcepto;
-    
-    public void setIreEstado(BigDecimal ireEstado) {
-        this.ireEstado = ireEstado;
-    }
+    private String nombreMoneda;
 
-    public BigDecimal getIreEstado() {
-        return ireEstado;
-    }
 
     public void setIreFechaRegistro(Date ireFechaRegistro) {
         this.ireFechaRegistro = ireFechaRegistro;
@@ -44,45 +38,25 @@ public class InvReconocimientoVO {
         return ireFechaRegistro;
     }
 
-    public void setIreId(BigDecimal ireId) {
-        this.ireId = ireId;
-    }
 
-    public BigDecimal getIreId() {
-        return ireId;
-    }
 
-    public void setIvrMontoAprobado(Long ivrMontoAprobado) {
+    public void setIvrMontoAprobado(BigDecimal ivrMontoAprobado) {
         this.ivrMontoAprobado = ivrMontoAprobado;
     }
 
-    public Long getIvrMontoAprobado() {
+    public BigDecimal getIvrMontoAprobado() {
         return ivrMontoAprobado;
     }
 
-    public void setIvrMontoPresentado(Long ivrMontoPresentado) {
+    public void setIvrMontoPresentado(BigDecimal ivrMontoPresentado) {
         this.ivrMontoPresentado = ivrMontoPresentado;
     }
 
-    public Long getIvrMontoPresentado() {
+    public BigDecimal getIvrMontoPresentado() {
         return ivrMontoPresentado;
     }
 
-    public void setMonId(BigDecimal monId) {
-        this.monId = monId;
-    }
-
-    public BigDecimal getMonId() {
-        return monId;
-    }
-
-    public void setTiaNumero(BigDecimal tiaNumero) {
-        this.tiaNumero = tiaNumero;
-    }
-
-    public BigDecimal getTiaNumero() {
-        return tiaNumero;
-    }
+   
 
     public void setCsiId(Integer csiId) {
         this.csiId = csiId;
@@ -130,5 +104,45 @@ public class InvReconocimientoVO {
 
     public String getDesConcepto() {
         return desConcepto;
+    }
+
+    public void setIreEstado(Integer ireEstado) {
+        this.ireEstado = ireEstado;
+    }
+
+    public Integer getIreEstado() {
+        return ireEstado;
+    }
+
+    public void setIreId(Integer ireId) {
+        this.ireId = ireId;
+    }
+
+    public Integer getIreId() {
+        return ireId;
+    }
+
+    public void setMonId(Integer monId) {
+        this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
+
+    public void setTiaNumero(Integer tiaNumero) {
+        this.tiaNumero = tiaNumero;
+    }
+
+    public Integer getTiaNumero() {
+        return tiaNumero;
+    }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
     }
 }
