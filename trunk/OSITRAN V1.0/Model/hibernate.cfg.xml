@@ -5,14 +5,14 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <!--<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <!--property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
         <property name="connection.username">SINV</property>
-        <property name="connection.password">SINV</property>-->
+        <property name="connection.password">SINV</property-->
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
-        <property name="connection.username">ositran</property>
-        <property name="connection.password">ositran</property>
+        <property name="connection.username">SINV</property>
+        <property name="connection.password">SINV</property>
         <property name="connection.pool_size">5</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
@@ -77,5 +77,7 @@
         <mapping class="com.ositran.model.InvReajuste"/>
         <mapping class="com.ositran.model.ValorizacionConcepto"/>
         <mapping class="com.ositran.model.InvAvnEstado"/>
+        <mapping class="com.ositran.model.InvAvn"/>
+        <mapping class="com.ositran.model.Inv"/>
     </session-factory>
 </hibernate-configuration>
