@@ -33,7 +33,8 @@ public class Inv implements Serializable {
     private Date invFechaEmisionInforme;
     @Temporal(TemporalType.DATE)
     @Column(name = "INV_FECHA_EMISION_OFICIO")
-    private Date invFechaEmisionOficio;    
+    private Date invFechaEmisionOficio; 
+    @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "INV_ID", nullable = false)
     private Integer invId;
