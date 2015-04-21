@@ -219,7 +219,7 @@
                                 <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoAprobado}"
                                              readonly="true"/>
                                 <h:outputText value="Monto Aprobado"/>
-                                <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}"/>
+                                <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}" onkeypress="return ValidarNumFloat(event,this);"/>
                                 <p:commandButton value="#{btn.btn_guardar}"
                                                  actionListener="#{rectificarInversion.grabarReajuste}"
                                                  update=":form:mensaje">
