@@ -28,6 +28,22 @@
               te = String.fromCharCode(tecla);
               return patron.test(te);
           }
+
+          function ValidarNumFloat(e, obj) {
+              tecla = (document.all) ? e.keyCode : e.which;
+              if (tecla == 8)
+                  return true;
+
+              Punto = obj.value.split('.');
+              if (Punto.length >= 2) {
+                  patron = /[0-9]/;
+              }
+              else 
+              patron = /[0-9.]/;
+              te = String.fromCharCode(tecla);
+
+              return patron.test(te);
+          }
         </script>
         <meta content="1500" http-equiv="REFRESH"></meta>
         <script type="text/javascript">
@@ -58,11 +74,10 @@
         <f:event listener="#{rectificarInversion.listaPeriodos}" type="preRenderComponent"/>
          
         <f:event listener="#{rectificarInversion.cargarValorizacionConceptos}" type="preRenderComponent"/>
-        
+         
         <f:event listener="#{rectificarInversion.listarEstadosDelaInversion}" type="preRenderComponent"/>
+         
         <f:event listener="#{rectificarInversion.listarInfraEstructuras}" type="preRenderComponent"/>
-        
-        
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
@@ -173,6 +188,50 @@
                         </h:form>
                     </p:dialog>
                      
+                    <p:dialog id="dlgReconocimiento" widgetVar="_dlgReconocimiento"
+                              header="Editar Montos en Reconocimiento" modal="true" resizable="false"
+                              appendToBody="true" closable="true">
+                        <h:form id="frmEditarMontoRec">
+                            <p:panelGrid styleClass="pnlEdicion" columnClasses="etiquetas,cajas" columns="2">
+                                <h:outputText value="Monto Presentado"/>
+                                <p:inputText value="#{rectificarInversion.invReconocimientoVO.ivrMontoPresentado}"
+                                             readonly="true"/>
+                                <h:outputText value="Monto Aprobado"/>
+                                <p:inputText value="#{rectificarInversion.invReconocimientoVO.ivrMontoAprobado}" onkeypress="return ValidarNumFloat(event,this);"/>
+                                <p:commandButton value="#{btn.btn_guardar}"
+                                                 actionListener="#{rectificarInversion.grabarReconocimiento}"
+                                                 update=":form:mensaje">
+                                    <f:attribute name="reconocimiento"
+                                                 value="#{rectificarInversion.invReconocimientoVO.ireId}"/>
+                                    <f:attribute name="montoAprobado"
+                                                 value="#{rectificarInversion.invReconocimientoVO.ivrMontoAprobado}"/>
+                                </p:commandButton>
+                                <p:commandButton value="#{btn.btn_salir}" onclick="_dlgReconocimiento.hide();"></p:commandButton>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                     
+                    <p:dialog id="dlgRejuste" widgetVar="_dlgRejuste" header="Editar Montos en Reajuste" modal="true"
+                              resizable="false" appendToBody="true" closable="true">
+                        <h:form id="frmEditarMontoRea">
+                            <p:panelGrid styleClass="pnlEdicion" columnClasses="etiquetas,cajas" columns="2">
+                                <h:outputText value="Monto Presentado"/>
+                                <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoAprobado}"
+                                             readonly="true"/>
+                                <h:outputText value="Monto Aprobado"/>
+                                <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}"/>
+                                <p:commandButton value="#{btn.btn_guardar}"
+                                                 actionListener="#{rectificarInversion.grabarReajuste}"
+                                                 update=":form:mensaje">
+                                    <f:attribute name="idreajuste" value="#{rectificarInversion.invReajusteVO.irjId}"/>
+                                    <f:attribute name="montoReajuste"
+                                                 value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}"/>
+                                </p:commandButton>
+                                <p:commandButton value="#{btn.btn_salir}" onclick="_dlgReconocimiento.hide();"></p:commandButton>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                     
                     <h:form id="form">
                         <p:growl id="mensaje" showDetail="true" life="3000"/>
                         <table>
@@ -222,12 +281,11 @@
                                                         </p:column>
                                                         <p:column headerText="Seleccionar" style="width:4%">
                                                             <div align="center">
-                                                                <p:commandButton icon="ui-icon-check" update=":form:tblResultadoReconocimiento"
+                                                                <p:commandButton icon="ui-icon-check"
+                                                                                 update=":form:tblResultadoReconocimiento"
                                                                                  actionListener="#{rectificarInversion.seleccionarDeclaracion}"
-                                                                                 ajax="false"
-                                                                                 >
+                                                                                 ajax="false">
                                                                     <f:attribute name="idDeclaracion" value="#{val}"></f:attribute>
-                                                                    
                                                                 </p:commandButton>
                                                             </div>
                                                         </p:column>
@@ -238,19 +296,21 @@
                                                     <table>
                                                         <tr>
                                                             <td>
-                                                                <h:outputText value="Concesion" />
+                                                                <h:outputText value="Concesion"/>
                                                             </td>
                                                             <td>
-                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreConcesion}" style="width:200px;" readonly="true"/>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreConcesion}"
+                                                                             style="width:200px;" readonly="true"/>
                                                             </td>
                                                         </tr>
                                                          
                                                         <tr>
                                                             <td>
-                                                                <h:outputText value="Tipo Infraestructura" />
+                                                                <h:outputText value="Tipo Infraestructura"/>
                                                             </td>
                                                             <td>
-                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreTipoInfraestructura}" style="width:200px;" readonly="true"/>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreTipoInfraestructura}"
+                                                                             style="width:200px;" readonly="true"/>
                                                             </td>
                                                         </tr>
                                                          
@@ -259,10 +319,10 @@
                                                                 <h:outputText value="Modalidad de Concesion"/>
                                                             </td>
                                                             <td>
-                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreModalidad}" style="width:200px;"  readonly="true"/>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreModalidad}"
+                                                                             style="width:200px;" readonly="true"/>
                                                             </td>
-                                                        </tr>                                                       
-                                                       
+                                                        </tr>
                                                     </table>
                                                 </p:fieldset>
                                                  
@@ -273,31 +333,40 @@
                                                                 <h:outputText value="Etapa / Periodo:"/>
                                                             </td>
                                                             <td>
-                                                                <p:inputText value="#{rectificarInversion.invAvnVO.periodo}" style="margin-left:90px;width:200px;" readonly="true" />
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.periodo}"
+                                                                             style="margin-left:90px;width:200px;"
+                                                                             readonly="true"/>
                                                             </td>
                                                         </tr>
-                                                         <tr>
+                                                         
+                                                        <tr>
                                                             <td>
                                                                 <h:outputText value="Plazo:"/>
                                                             </td>
                                                             <td colspan="3">
-                                                                 <p:inputText value="#{rectificarInversion.invAvnVO.plazo}" style="margin-left:90px;width:200px;" readonly="true"/>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.plazo}"
+                                                                             style="margin-left:90px;width:200px;"
+                                                                             readonly="true"/>
                                                             </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h:outputText value="Total:"/>
-                                                                </td>
-                                                                <td >
-                                                                     <p:inputText value="#{rectificarInversion.invAvnVO.total}" style="margin-left:90px;width:200px;" readonly="true"/>
-                                                                </td>
-                                                                 <td>
-                                                                    <h:outputText value="Moneda:"/>
-                                                                </td>
-                                                                <td >
-                                                                     <p:inputText value="#{rectificarInversion.invAvnVO.nombreMoneda}" style="width:200px;" readonly="true"/>
-                                                                </td>
-                                                            </tr>
+                                                        </tr>
+                                                         
+                                                        <tr>
+                                                            <td>
+                                                                <h:outputText value="Total:"/>
+                                                            </td>
+                                                            <td>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.total}"
+                                                                             style="margin-left:90px;width:200px;"
+                                                                             readonly="true"/>
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="Moneda:"/>
+                                                            </td>
+                                                            <td>
+                                                                <p:inputText value="#{rectificarInversion.invAvnVO.nombreMoneda}"
+                                                                             style="width:200px;" readonly="true"/>
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </p:fieldset>
                                             </td>
@@ -310,9 +379,10 @@
                                                             <td>
                                                                 <p:selectOneMenu id="Dias"
                                                                                  value="#{rectificarInversion.contratoVO.conTipodias}">
-                                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                                                                    <f:selectItem itemLabel="--Seleccione--"
+                                                                                  itemValue="0"/>
                                                                     <f:selectItem itemLabel="Aprobado" itemValue="1"/>
-                                                                    <f:selectItem itemLabel="Observado" itemValue="2"/>                                                                   
+                                                                    <f:selectItem itemLabel="Observado" itemValue="2"/>
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
@@ -333,8 +403,15 @@
                                                                                 <p:dataTable value="#{rectificarInversion.listaReconocimiento}"
                                                                                              id="tblResultadoReconocimiento"
                                                                                              var="reconocimiento"
-                                                                                             style="font-size:11px"
-                                                                                             emptyMessage="No se Encontraron Registros">
+                                                                                             style="font-size:11px;"
+                                                                                             emptyMessage="No se Encontraron Registros"
+                                                                                             rowIndexVar="rowIndex">
+                                                                                    <p:column headerText="Nro"
+                                                                                              style="width:7%">
+                                                                                        <div style="text-align: center;">
+                                                                                            <h:outputText value="#{reconocimiento.ireId}"/>
+                                                                                        </div>
+                                                                                    </p:column>
                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
@@ -357,40 +434,40 @@
                                                                                         <h:outputText value="#{reconocimiento.nombreMoneda}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="MontoPresentado"
-                                                                                              style="width:35%">
+                                                                                              style="width:35%;">
                                                                                         <h:outputText value="#{reconocimiento.ivrMontoPresentado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
-                                                                                     <p:column headerText="MontoAprobado"
-                                                                                              style="width:35%">
+                                                                                    <p:column headerText="MontoAprobado"
+                                                                                              style="width:35%;">
                                                                                         <h:outputText value="#{reconocimiento.ivrMontoAprobado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
-                                                                                   
-                                                                                    
-                                                                                    <p:column headerText="EditarMontos"
+                                                                                    <p:column headerText="EditarMonto"
                                                                                               style="width:4%">
                                                                                         <div align="center">
                                                                                             <p:commandButton icon="ui-icon-check"
-                                                                                                             actionListener="#{rectificarInversion.seleccionarContrato}"
-                                                                                                             oncomplete="popupBuscarContrato.hide();">
-                                                                                                <f:attribute name="idcontrato"
+                                                                                                             actionListener="#{rectificarInversion.editarReconocimiento}"
+                                                                                                             update=":frmEditarMontoRec"
+                                                                                                             oncomplete="_dlgReconocimiento.show();">
+                                                                                                <f:attribute name="reconocimiento"
                                                                                                              value="#{reconocimiento}"></f:attribute>
-                                                                                                
                                                                                             </p:commandButton>
                                                                                         </div>
                                                                                     </p:column>
+                                                                                    <p:columnGroup type="footer">
+                                                                                        <p:row>
+                                                                                            <p:column colspan="5"
+                                                                                                      footerText="Total"
+                                                                                                      style="text-align:right;"></p:column>
+                                                                                            <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText="#{rectificarInversion.totalivrMontoAprobado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText=""></p:column>
+                                                                                        </p:row>
+                                                                                    </p:columnGroup>
                                                                                 </p:dataTable>
-                                                                            </td>
-                                                                        </tr>
-                                                                         
-                                                                        <tr>
-                                                                            <td>TOTAL</td>
-                                                                            <td>
-                                                                                <p:inputText value="#{rectificarInversion.totalivrMontoPresentado}"/>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p:inputText value="#{rectificarInversion.totalivrMontoAprobado}"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -409,6 +486,12 @@
                                                                                              var="reajuste"
                                                                                              style="font-size:11px"
                                                                                              emptyMessage="No se Encontraron Registros">
+                                                                                    <p:column headerText="Nro"
+                                                                                              style="width:7%">
+                                                                                        <div style="text-align: center;">
+                                                                                            <h:outputText value="#{reajuste.irjId}"/>
+                                                                                        </div>
+                                                                                    </p:column>
                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
@@ -430,41 +513,41 @@
                                                                                               style="width:35%">
                                                                                         <h:outputText value="#{reconocimiento.nombreMoneda}"/>
                                                                                     </p:column>
-                                                                                    <p:column headerText="MontoPresentado"
+                                                                                    <p:column headerText="MontoAprobado"
                                                                                               style="width:35%">
                                                                                         <h:outputText value="#{reajuste.irjMontoAprobado}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
-                                                                                     <p:column headerText="MontoAprobado"
+                                                                                    <p:column headerText="MontoReajuste"
                                                                                               style="width:35%">
                                                                                         <h:outputText value="#{reajuste.irjMontoReajuste}"
                                                                                                       style="text-transform:uppercase;"/>
                                                                                     </p:column>
-                                                                                   
-                                                                                    
-                                                                                    <p:column headerText="EditarMontos"
+                                                                                    <p:column headerText="EditarMonto"
                                                                                               style="width:4%">
                                                                                         <div align="center">
                                                                                             <p:commandButton icon="ui-icon-check"
-                                                                                                             actionListener="#{rectificarInversion.seleccionarContrato}"
-                                                                                                             oncomplete="popupBuscarContrato.hide();">
-                                                                                                <f:attribute name="idcontrato"
-                                                                                                             value="#{contrato11}"></f:attribute>
-                                                                                                <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
+                                                                                                             actionListener="#{rectificarInversion.editarReajuste}"
+                                                                                                             update=":frmEditarMontoRea"
+                                                                                                             oncomplete="_dlgRejuste.show();">
+                                                                                                <f:attribute name="reajuste"
+                                                                                                             value="#{reajuste}"></f:attribute>
                                                                                             </p:commandButton>
                                                                                         </div>
                                                                                     </p:column>
+                                                                                    <p:columnGroup type="footer">
+                                                                                        <p:row>
+                                                                                            <p:column colspan="5"
+                                                                                                      footerText="Total"
+                                                                                                      style="text-align:right;"></p:column>
+                                                                                            <p:column footerText="#{rectificarInversion.totalirjMontoAprobado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText="#{rectificarInversion.totalirjMontoReajuste}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText=""></p:column>
+                                                                                        </p:row>
+                                                                                    </p:columnGroup>
                                                                                 </p:dataTable>
-                                                                            </td>
-                                                                        </tr>
-                                                                         
-                                                                        <tr>
-                                                                            <td>TOTAL</td>
-                                                                            <td>
-                                                                                <p:inputText value="#{rectificarInversion.totalirjMontoAprobado}"/>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p:inputText value="#{rectificarInversion.totalirjMontoReajuste}"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -479,11 +562,11 @@
                                                                         <tr>
                                                                             <td>Monto Total Aprobado</td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText/>
                                                                             </td>
                                                                             <td>Monto Total con Reajuste</td>
                                                                             <td>
-                                                                                <p:inputText />
+                                                                                <p:inputText/>
                                                                             </td>
                                                                             <td>
                                                                                 <p:selectBooleanCheckbox></p:selectBooleanCheckbox>
