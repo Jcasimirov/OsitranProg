@@ -111,14 +111,14 @@ public class RectificarInversion {
 
     @ManagedProperty(value = "#{invReconocimientoServiceImpl}")
     InvReconocimientoService invReconocimientoServiceImpl;
-    
-    
+
+
     @ManagedProperty(value = "#{invReajusteServiceImpl}")
     InvReajusteService invReajusteServiceImpl;
-    
+
     @ManagedProperty(value = "#{valorizacionConceptoServiceImpl}")
     ValorizacionConceptoService valorizacionConceptoServiceImpl;
-    
+
     // Lista Bean VO
     private List<ValorizacionConceptoVO> listaValorizacionConceptos = new ArrayList<ValorizacionConceptoVO>();
     private List<InvReconocimientoVO> listaReconocimiento = new ArrayList<InvReconocimientoVO>();
@@ -158,11 +158,15 @@ public class RectificarInversion {
     private UsuarioVO usuario;
     private int tipoInfraestructura;
 
-    private BigDecimal totalivrMontoPresentado=new BigDecimal("0");
-    private BigDecimal totalivrMontoAprobado=new BigDecimal("0");
-    private BigDecimal totalirjMontoAprobado=new BigDecimal("0");
-    private BigDecimal totalirjMontoReajuste=new BigDecimal("0");
-    
+    private BigDecimal totalivrMontoPresentado = new BigDecimal("0");
+    private BigDecimal totalivrMontoAprobado = new BigDecimal("0");
+    private BigDecimal totalirjMontoAprobado = new BigDecimal("0");
+    private BigDecimal totalirjMontoReajuste = new BigDecimal("0");
+
+
+    private InvReconocimientoVO invReconocimientoVO;
+    private InvReajusteVO invReajusteVO;
+
     public void validarSesion() throws IOException {
         /* rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -221,7 +225,7 @@ public class RectificarInversion {
     public void filtrarConcesion() {
         try {
             listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoinfra);
-            System.out.println("listaConcesiones:"+listaConcesiones.size());
+            System.out.println("listaConcesiones:" + listaConcesiones.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -266,7 +270,7 @@ public class RectificarInversion {
         for (InvAvnVO invAvn : listaDeclaraciones) {
             for (InvAvnEstadoVO estadosIA : listarEstadosIA) {
                 if (invAvn.getIaeId() == estadosIA.getIaeId())
-                    invAvn.setIaeNombreEstado(estadosIA.getIaeNombre());              
+                    invAvn.setIaeNombreEstado(estadosIA.getIaeNombre());
             }
         }
     }
@@ -278,9 +282,10 @@ public class RectificarInversion {
             buscarContratos();
         }
     }
-    public void cargarValorizacionConceptos(){
+
+    public void cargarValorizacionConceptos() {
         try {
-         listaValorizacionConceptos=valorizacionConceptoServiceImpl.query();
+            listaValorizacionConceptos = valorizacionConceptoServiceImpl.query();
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -305,7 +310,7 @@ public class RectificarInversion {
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoinfra,
                                                                    concesion, fechaInicioSuscripcion,
                                                                    fechaFinSuscripcion);
-        /*  for (ContratoVO aux : listaContrato) {
+            /*  for (ContratoVO aux : listaContrato) {
                 for (ConcesionVO concesion : listaConcesiones) {
                     if (concesion.getCsiId() == aux.getCsiId())
                         aux.setNombreConcesion(concesion.getCsiNombre());
@@ -332,6 +337,7 @@ public class RectificarInversion {
 
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
+
         cargarInfraestructurasContrato(contratoVO.getConId());
         resetDialogoBuscarContrato();
 
@@ -358,18 +364,18 @@ public class RectificarInversion {
 
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
-        System.out.println("contratoVO.getNombreConcesion():"+contratoVO.getNombreConcesion());
+        System.out.println("contratoVO.getNombreConcesion():" + contratoVO.getNombreConcesion());
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
         System.out.println("seleccionarDeclaracion");
-       
+
         cargarDatosCompromiso(invAvnVO.getCcoId());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
     }
-    
+
     public void cargarDatosCompromiso(int ccoId) {
         try {
             ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
@@ -378,7 +384,7 @@ public class RectificarInversion {
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (contratoCompromisoVO.getMonId() == moneda.getMonId()) {
                     invAvnVO.setNombreMoneda(moneda.getMonNombre());
-                    System.out.println("invAvnVO.getNombreMoneda():"+invAvnVO.getNombreMoneda());
+                    System.out.println("invAvnVO.getNombreMoneda():" + invAvnVO.getNombreMoneda());
                     break;
                 }
             }
@@ -457,17 +463,14 @@ public class RectificarInversion {
         }
     }
 
-    public void cargarReconocimiento(int tiaNumero){
+    public void cargarReconocimiento(int tiaNumero) {
         try {
-         listaReconocimiento =  invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
-            System.out.println(listaReconocimiento.size());
+            listaReconocimiento = invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
             for (InvReconocimientoVO invReconocimiento : listaReconocimiento) {
-                System.out.println("invReconocimiento.getIvrMontoAprobado()??????:"+invReconocimiento.getIvrMontoAprobado());
-                if(invReconocimiento.getIvrMontoAprobado()!=null)
-                    totalivrMontoAprobado=totalivrMontoAprobado.add(invReconocimiento.getIvrMontoAprobado());                
-                if(invReconocimiento.getIvrMontoPresentado()!=null)
-                    totalivrMontoPresentado=totalivrMontoPresentado.add(invReconocimiento.getIvrMontoPresentado());
-                
+                if (invReconocimiento.getIvrMontoAprobado() != null)
+                    totalivrMontoAprobado = totalivrMontoAprobado.add(invReconocimiento.getIvrMontoAprobado());
+                if (invReconocimiento.getIvrMontoPresentado() != null)
+                    totalivrMontoPresentado = totalivrMontoPresentado.add(invReconocimiento.getIvrMontoPresentado());
             }
             cargarDescripcionesInfraestructura(listaReconocimiento);
         } catch (SQLException sqle) {
@@ -475,42 +478,114 @@ public class RectificarInversion {
             sqle.printStackTrace();
         }
     }
-    public void cargarDescripcionesInfraestructura(List<?> lista){
-        for(Object item : lista){
-            for(InfraestructuraVO infraestructuraVO : listarInfraestructura){
-                if(item instanceof InvReconocimientoVO){
-                    InvReconocimientoVO aux=((InvReconocimientoVO)item);
-                    if(aux.getInfId()==infraestructuraVO.getInfId()){
-                            aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+
+    public void cargarDescripcionesInfraestructura(List<?> lista) {
+        for (Object item : lista) {
+            for (InfraestructuraVO infraestructuraVO : listarInfraestructura) {
+                if (item instanceof InvReconocimientoVO) {
+                    InvReconocimientoVO aux = ((InvReconocimientoVO) item);
+                    if (aux.getInfId() == infraestructuraVO.getInfId()) {
+                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                     }
                 }
-                if(item instanceof InvReajusteVO){
-                    InvReajusteVO aux=((InvReajusteVO)item);
-                    if(aux.getInfId()==infraestructuraVO.getInfId())
-                            aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+                if (item instanceof InvReajusteVO) {
+                    InvReajusteVO aux = ((InvReajusteVO) item);
+                    if (aux.getInfId() == infraestructuraVO.getInfId())
+                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                 }
             }
-           
+
         }
     }
-    public void cargarDescripcionesMoneda(){
-        
+
+    public void cargarDescripcionesMoneda() {
+
     }
-    public void cargarReajuste(int tiaNumero){
+
+    public void cargarReajuste(int tiaNumero) {
         try {
-          listaReajuste =  invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
+            listaReajuste = invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
             for (InvReajusteVO invReajuste : listaReajuste) {
-                if(invReajuste.getIrjMontoAprobado()!=null)
-                    totalirjMontoAprobado=totalirjMontoAprobado.add(invReajuste.getIrjMontoAprobado());
-                if(invReajuste.getIrjMontoReajuste()!=null)
-                    totalirjMontoReajuste=totalirjMontoReajuste.add(invReajuste.getIrjMontoReajuste());
+                if (invReajuste.getIrjMontoAprobado() != null)
+                    totalirjMontoAprobado = totalirjMontoAprobado.add(invReajuste.getIrjMontoAprobado());
+                if (invReajuste.getIrjMontoReajuste() != null)
+                    totalirjMontoReajuste = totalirjMontoReajuste.add(invReajuste.getIrjMontoReajuste());
             }
-            System.out.println("totalirjMontoReajuste??????:"+totalirjMontoAprobado);
+            cargarDescripcionesInfraestructura(listaReajuste);
+            System.out.println("totalirjMontoReajuste??????:" + totalirjMontoAprobado);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
+
+
+    public void editarReconocimiento(ActionEvent e) {
+        invReconocimientoVO = (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
+    }
+
+    public void grabarReconocimiento(ActionEvent e) {
+        Integer idreconocimiento = (Integer) e.getComponent().getAttributes().get("reconocimiento");
+        BigDecimal montoAprobado = new BigDecimal("" + e.getComponent().getAttributes().get("montoAprobado"));
+        if (montoAprobado.compareTo(BigDecimal.ZERO) == 0||montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "El Monto no puede ser Cero"));
+        } else if (montoAprobado.compareTo(BigDecimal.ZERO) < 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "El Monto no puede ser Negativo"));
+        } else {
+            try {
+                for (InvReconocimientoVO invReconocimientoVO : listaReconocimiento) {
+                    if (idreconocimiento == invReconocimientoVO.getIreId()) {
+                        invReconocimientoVO.setIvrMontoAprobado(montoAprobado);
+                    }
+                }
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                              Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
+                RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
+                RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                              Constantes.ERROR,
+                                                                              Constantes.ERRORGUARDAR));
+            }
+        }
+    }
+
+    public void editarReajuste(ActionEvent e) {
+        invReajusteVO = (InvReajusteVO) e.getComponent().getAttributes().get("reajuste");
+    }
+
+    public void grabarReajuste(ActionEvent e) {
+        Integer idreajuste = (Integer) e.getComponent().getAttributes().get("idreajuste");
+        BigDecimal montoAprobado = new BigDecimal("" + e.getComponent().getAttributes().get("montoReajuste"));
+        try {
+            for (InvReajusteVO invReconocimientoVO : listaReajuste) {
+                if (idreajuste == invReconocimientoVO.getIrjId()) {
+                    invReconocimientoVO.setIrjMontoReajuste(montoAprobado);
+                }
+            }
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
+            RequestContext.getCurrentInstance().update("form:tblReajuste");
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORGUARDAR));
+        }
+    }
+
     public void setContratoId(Integer contratoId) {
         this.contratoId = contratoId;
     }
@@ -971,4 +1046,19 @@ public class RectificarInversion {
         return totalirjMontoReajuste;
     }
 
+    public void setInvReconocimientoVO(InvReconocimientoVO invReconocimientoVO) {
+        this.invReconocimientoVO = invReconocimientoVO;
+    }
+
+    public InvReconocimientoVO getInvReconocimientoVO() {
+        return invReconocimientoVO;
+    }
+
+    public void setInvReajusteVO(InvReajusteVO invReajusteVO) {
+        this.invReajusteVO = invReajusteVO;
+    }
+
+    public InvReajusteVO getInvReajusteVO() {
+        return invReajusteVO;
+    }
 }

@@ -520,11 +520,13 @@
     <bean id="inversionAvanceEstadoServiceImpl" class="com.ositran.serviceimpl.InversionAvanceEstadoServiceImpl">
         <property name="inversionAvanceEstadoDAOImpl" ref="inversionAvanceEstadoDAOImpl"/>
     </bean>
+    <bean id="invReajusteVO" class="com.ositran.vo.bean.InvReajusteVO"></bean>
     <bean id="invReajuste" class="com.ositran.model.InvReajuste" />
     <bean id="invReajusteDAOImpl" class="com.ositran.daoimpl.InvReajusteDAOImpl"/>
     <bean id="invReajusteServiceImpl" class="com.ositran.serviceimpl.InvReajusteServiceImpl">
         <property name="invReajusteDAOImpl" ref="invReajusteDAOImpl"/>
     </bean>
+    <bean id="invReconocimientoVO" class="com.ositran.vo.bean.InvReconocimientoVO"></bean>
     <bean id="invReconocimiento" class="com.ositran.model.InvReconocimiento" />
     <bean id="invReconocimientoDAOImpl" class="com.ositran.daoimpl.InvReconocimientoDAOImpl"/>
     <bean id="invReconocimientoServiceImpl" class="com.ositran.serviceimpl.InvReconocimientoServiceImpl">
@@ -535,6 +537,7 @@
     <bean id="valorizacionConceptoServiceImpl" class="com.ositran.serviceimpl.ValorizacionConceptoServiceImpl">
         <property name="valorizacionConceptoDAOImpl" ref="valorizacionConceptoDAOImpl"/>
     </bean>
+    
     <bean id="rectificacioninversion" class="com.ositran.valorizaciones.RectificarInversion">
         <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
         <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
