@@ -185,6 +185,17 @@ public class NotificacionServiceImpl implements NotificacionService{
             return invAvn;
             
         }
+
+        
+        public List<InvAvnVO> ListarDeclaracionesSupervContratoCompromiso(int contratoCompromisoId) throws SQLException{
+            System.out.println("INI NotificacionServiceImpl.ListarDeclaracionesSupervContratoCompromiso");
+            List<InvAvn> list=notificacionDAOImpl.ListarDeclaracionesSupervContratoCompromiso(contratoCompromisoId);
+            List<InvAvnVO> listVO=toListInvAvnVO(list);
+            System.out.println("INI NotificacionServiceImpl.ListarDeclaracionesSupervContratoCompromiso");
+            return listVO;
+            
+        }
+
     public List<InvAvnVO> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
         List<InvAvn> list=notificacionDAOImpl.obtenerDeclaracionesxIdContrato(idcontrato);
         List<InvAvnVO> listVO=toListInvAvnVO(list);
