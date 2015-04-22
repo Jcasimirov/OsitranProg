@@ -1,9 +1,11 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionInversionAvanceDetalleDAOImpl;
+import com.ositran.model.InvAvn;
 import com.ositran.model.InversionTipo;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
+import com.ositran.vo.bean.InvAvnVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,7 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceDetalleServiceImpl implements ValorizacionInversionAvanceDetalleService{
-    ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl = new ValorizacionInversionAvanceDetalleDAOImpl();
+    private ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl =
+        new ValorizacionInversionAvanceDetalleDAOImpl();
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=new ValorizacionInversionAvanceDetalleVO();
     ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=new ValorizacionInversionAvanceDetalle();
     
@@ -30,7 +33,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     @Override
     public String insert(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1) throws SQLException, Exception {
         valorizacionInversionAvanceDetalle=toValorizacionInversionAvanceDetalle(valorizacionInversionAvanceDetalleVO1);
-        String result=valorizacionInversionAvanceDetalleDAOImpl.insert(valorizacionInversionAvanceDetalle);
+        String result = getValorizacionInversionAvanceDetalleDAOImpl().insert(valorizacionInversionAvanceDetalle);
         return result;
         
     }
@@ -97,6 +100,31 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
        
        return valorizacionInversionAvanceDetalle1;
     }
+
+
+    public ValorizacionInversionAvanceDetalleDAOImpl getValorizacionInversionAvanceDetalleDAOImpl() {
+        return valorizacionInversionAvanceDetalleDAOImpl;
+    }
+
+    public void setValorizacionInversionAvanceDetalleDAOImpl(ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl) {
+        this.valorizacionInversionAvanceDetalleDAOImpl = valorizacionInversionAvanceDetalleDAOImpl;
+    }
     
+    public List<ValorizacionInversionAvanceDetalleVO> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException ,Exception {
+        System.out.println("INI getInvAvanceDetallesInvAvance");
+        List<ValorizacionInversionAvanceDetalle> list=valorizacionInversionAvanceDetalleDAOImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+        List<ValorizacionInversionAvanceDetalleVO> listVO=toListValorizacionInversionAvanceDetalleVO(list);
+        System.out.println("FIN getInvAvanceDetallesInvAvance");
+        return listVO;
+    }
     
+    private List<ValorizacionInversionAvanceDetalleVO> toListValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalle> list){
+            List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+            for(int i=0;i<list.size();i++){
+                ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=(ValorizacionInversionAvanceDetalle)list.get(i);
+                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=toValorizacionInversionAvanceDetalleVO(valorizacionInversionAvanceDetalle);
+                listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO);
+            }
+            return listValorizacionInversionAvanceDetalleVO;
+        }    
 }
