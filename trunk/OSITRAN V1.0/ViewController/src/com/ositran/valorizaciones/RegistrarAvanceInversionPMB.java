@@ -81,9 +81,9 @@ public class RegistrarAvanceInversionPMB {
     private BigDecimal montoPrestado;
     private boolean igv;
     private int contador=0;
-    private double totalMonto=0;
-    private double totalIgv=0;
-    private double totalTotal=0;
+    private BigDecimal totalMonto = new BigDecimal(0);
+    private BigDecimal totalIgv = new BigDecimal(0);
+    private BigDecimal totalTotal = new BigDecimal(0);
     
     
     //CALENDARIO
@@ -334,7 +334,7 @@ public class RegistrarAvanceInversionPMB {
                 }
            
             else {
-            double igv1;
+            BigDecimal igv1;
            ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1= new ValorizacionInversionAvanceDetalleVO();
            valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
             inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
@@ -346,17 +346,17 @@ public class RegistrarAvanceInversionPMB {
                 }
            valorizacionInversionAvanceDetalleVO1.setMontoPresentado(montoPrestado);
             if (igv){
-                igv1=0.18;  
-                   // valorizacionInversionAvanceDetalleVO1.setIgv(0.18*montoPrestado);
+                igv1= new BigDecimal(0.18);  
+                    valorizacionInversionAvanceDetalleVO1.setIgv(igv1.multiply(montoPrestado));
                 }
             else {
-                    igv1=0;
+                    igv1 = new BigDecimal(0);
                 }
-                //valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado +( montoPrestado*igv1));
+                valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado.add( igv1.multiply(montoPrestado)));
             listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO1);
-                //totalMonto=totalMonto+montoPrestado;
-                totalIgv=totalIgv+valorizacionInversionAvanceDetalleVO1.getIgv();
-                totalTotal=totalTotal+valorizacionInversionAvanceDetalleVO1.getTiaTotal();
+                totalMonto=totalMonto.add(montoPrestado);
+                totalIgv=totalIgv.add(valorizacionInversionAvanceDetalleVO1.getIgv());
+                totalTotal=totalTotal.add(valorizacionInversionAvanceDetalleVO1.getTiaTotal());
             
             }
        } catch (Exception e) {
@@ -369,9 +369,9 @@ public class RegistrarAvanceInversionPMB {
             Map requestMap=context.getExternalContext().getRequestParameterMap();
             Object str=requestMap.get("indexLista");
             int idcodigo=Integer.valueOf(str.toString());
-            totalTotal=totalTotal-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal();
-            //totalMonto=totalMonto-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado();
-            totalIgv=totalIgv-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv();
+            totalTotal=totalTotal.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal());
+            totalMonto=totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado());
+            totalIgv=totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv());
             listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
         }
     
@@ -911,27 +911,27 @@ public class RegistrarAvanceInversionPMB {
     }
 
 
-    public void setTotalMonto(double totalMonto) {
+    public void setTotalMonto(BigDecimal totalMonto) {
         this.totalMonto = totalMonto;
     }
 
-    public double getTotalMonto() {
+    public BigDecimal getTotalMonto() {
         return totalMonto;
     }
 
-    public void setTotalIgv(double totalIgv) {
+    public void setTotalIgv(BigDecimal totalIgv) {
         this.totalIgv = totalIgv;
     }
 
-    public double getTotalIgv() {
+    public BigDecimal getTotalIgv() {
         return totalIgv;
     }
 
-    public void setTotalTotal(double totalTotal) {
+    public void setTotalTotal(BigDecimal totalTotal) {
         this.totalTotal = totalTotal;
     }
 
-    public double getTotalTotal() {
+    public BigDecimal getTotalTotal() {
         return totalTotal;
     }
 
