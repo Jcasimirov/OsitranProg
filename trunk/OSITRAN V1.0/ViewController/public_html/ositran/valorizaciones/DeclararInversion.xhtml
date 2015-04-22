@@ -1,0 +1,495 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <style type="text/css">
+                .ui-dialog-titlebar {
+                    font-size: 13px;
+                    font-family: sans-serif;
+                }
+
+                .pnlEdicion tr {
+                    font-size: 11px;
+                    border: none !important;
+                    font-weight: bold;
+                    margin: 3px !important;
+                }
+
+                .pnlEdicion td {
+                    border: none !important;
+                    margin: 5px !important;
+                }
+
+                .etiquetas {
+                    text-align: left !important;
+                    width: 50px !important;
+                }
+
+                .cajas {
+                    float: left !important;
+                    width: 250px !important;
+                    margin: 10px !important;
+                }
+
+                .validadores {
+                    float: left !important;
+                    width: 10px !important;
+                    margin: 10px !important;
+                }
+
+                .nomarchivo {
+                    float: left !important;
+                }
+            </style>
+        </h:head>
+        <h:body>
+            <f:event listener="#{declararInversionMB.validarSesion}" type="preRenderComponent"/>
+             
+            <f:event listener="#{declararInversionMB.listarTiposMoneda}" type="preRenderComponent"/>
+             
+            <f:event listener="#{declararInversionMB.listarTiposdeInfraestructura}" type="preRenderComponent"/>
+             
+            <f:event listener="#{declararInversionMB.filtrarConcesion}" type="preRenderComponent"/>
+             
+            <f:event listener="#{declararInversionMB.listaPeriodos}" type="preRenderComponent"/>
+             
+            <f:event listener="#{declararInversionMB.listarTipoInversion}" type="preRenderComponent"/>
+             
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <div align="center">
+                            <div align="center">
+                                <h4 style="color: #003194;">DECLARAR INVERSION</h4>
+                            </div>
+                            <table style="font-size: 11px">
+                                <tr>
+                                    <td valign="top">
+                                        <p:fieldset legend="Datos Contrato Concesión">
+                                            <p:fieldset id="fsCriterioBusqueda" styleClass="fielsetinterno"
+                                                        legend="Criterio de Busqueda">
+                                                <p:inputText id="cb" style="width:200px;"
+                                                             value="#{declararInversionMB.nombreConcesion}"/>
+                                                <p:watermark for="cb" value="Buscar Contrato Concesión"/>
+                                                <p:commandButton icon="ui-icon-search"
+                                                                 actionListener="#{declararInversionMB.abrirBuscarContratos()}"
+                                                                 oncomplete="popupBuscarContrato.show();"/>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosConcesion"
+                                                        legend="Datos Concesión">
+                                                <table>
+                                                    <tr>
+                                                        <td align="left">Concesi&#243;n</td>
+                                                        <td>
+                                                            <p:inputText value="#{declararInversionMB.contratoVO.nombreConcesion}"
+                                                                         readonly="true" style="width:260px"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Tipo Infraestructura</td>
+                                                        <td>
+                                                            <p:inputText value="#{declararInversionMB.contratoVO.nombreTipoInfraestructura}"
+                                                                         readonly="true" style="width:200px"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Modalidad Concesi&#243;n</td>
+                                                        <td>
+                                                            <p:inputText value="#{declararInversionMB.contratoVO.nombreModalidad}"
+                                                                         style="width:200px" readonly="true"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosCompromiso"
+                                                        legend="ETAPA DE CONSECIÓN">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="1" align="left">
+                                                            #{cam.setapa}
+                                                        </td>
+                                                        <td colspan="3" align="left">
+                                                            <p:selectOneMenu id="compromiso"
+                                                                             value="#{declararInversionMB.contratoCompromisoId}">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{declararInversionMB.listaContratoCompromiso}"
+                                                                               var="tip2" itemLabel="#{tip2.ccoPeriodo}"
+                                                                               itemValue="#{tip2.ccoId}"/>
+                                                                <p:ajax event="valueChange"
+                                                                        update=":form:datosCompromiso :form:tablaAvanceInversion"
+                                                                        listener="#{declararInversionMB.cargarDatosCompromiso()}"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Plazo:</td>
+                                                        <td align="left" colspan="3">
+                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.ccoPlazo}"
+                                                                         style="text-align:right; width: 40px"
+                                                                         readonly="true" size="10"/>
+                                                             Dia(s)
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Total:</td>
+                                                        <td align="left">
+                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.ccoTotal}"
+                                                                         style="text-align:right; " readonly="true"
+                                                                         size="10"></p:inputText>
+                                                        </td>
+                                                        <td align="left">
+                                                            #{cam.mon}
+                                                        </td>
+                                                        <td align="left">
+                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.monNombre}"
+                                                                         readonly="true" size="10"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosExpe"
+                                                        legend="EXPEDIENTE DE  RECONOCIMIENTO">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px; width:500px"
+                                                             id="tablaAvanceInversion"
+                                                             value="#{declararInversionMB.listaInvAvnVO}"
+                                                             var="tInversion"
+                                                             selection="#{declararInversionMB.codigoInversion}"
+                                                             rowKey="#{tInversion.tiaNumero}">
+                                                    <p:ajax event="rowSelect"
+                                                            listener="#{declararInversionMB.cargarDetalleInversion()}"/>
+                                                    <p:column selectionMode="single"
+                                                              style="width:16px;text-align:center"/>
+                                                    <p:column headerText="Nro. Val">
+                                                        <h:outputText value="#{tInversion.tiaNumero}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Fcha de Reg." style="width:16%">
+                                                        <h:outputText value="#{tInversion.tiaFechaRegistro}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:16%">
+                                                        <h:outputText value="#{tInversion.nombreMoneda}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Total" style="text-align:right;">
+                                                        <h:outputText value="#{tInversion.tiaMontoTotalPresentado}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Estado" style="width:20%">
+                                                        <h:outputText value="#{tInversion.iaeNombreEstado}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:fieldset>
+                                        </p:fieldset>
+                                    </td>
+                                    <td valign="top">
+                                        <p:fieldset legend="Datos de Reconocimiento">
+                                            <table>
+                                                <tr>
+                                                    <td>Estado del Reconomiento:</td>
+                                                    <td>
+                                                        <p:selectOneMenu widgetVar="monedaP" id="estRec"
+                                                                         value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
+                                                                         style="width:210px">
+                                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                            <f:selectItem itemLabel="APROBADO" itemValue="1"/>
+                                                            <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>Observaci&#243;n</td>
+                                                    <td>
+                                                        <p:inputTextarea id="obsRecf" style="width:400px;"
+                                                                         value="#{declararInversionMB.invVO.invObservaciones}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosResult"
+                                                        legend="RESULTADO DE RECONOCIMIENTO">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px; width:560px" id="tablaResultado"
+                                                             value="#{declararInversionMB.listaInvReconocimientoVO}"
+                                                             var="tReconocimiento">
+                                                    <p:column headerText="Inversión">
+                                                        <h:outputText value="#{tReconocimiento.tiaNumero}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Aeropuerto">
+                                                        <h:outputText value="#{tReconocimiento.nombreInfraestructura}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Desc. del Concepto">
+                                                        <h:outputText value="#{tReconocimiento.desConcepto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda">
+                                                        <h:outputText value="#{tReconocimiento.nombreMoneda}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto Presentado">
+                                                        <h:outputText value="#{tReconocimiento.ivrMontoPresentado}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto Aprobado">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                <h:outputText value="#{tReconocimiento.ivrMontoAprobado}"/>
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:inputText value="#{tReconocimiento.ivrMontoAprobado}"
+                                                                             style="width:100%"/>
+                                                            </f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column colspan="4" footerText="Total"
+                                                                      style="text-align:right;"></p:column>
+                                                            <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
+                                                                      style="text-align:left;"></p:column>
+                                                            <p:column footerText="#{rectificarInversion.totalivrMontoAprobado}"
+                                                                      style="text-align:left;"></p:column>
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosReajuste"
+                                                        legend="REAJUSTE">
+                                                <p:dataTable paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             style="font-size:11px; width:560px" id="tablaReajuste"
+                                                             value="#{declararInversionMB.listaInvReajusteVO}"
+                                                             var="tReajuste">
+                                                    <p:column headerText="Inversion">
+                                                        <h:outputText value="#{tReajuste.tiaNumero}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Aeropuerto">
+                                                        <h:outputText value="#{tReajuste.nombreInfraestructura}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Desc. del Concepto">
+                                                        <h:outputText value="#{tReajuste.desConcepto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda">
+                                                        <h:outputText value="#{tReajuste.nombreMoneda}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Monto Aprobado">
+                                                        <h:outputText value="#{tReajuste.irjMontoAprobado}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Reajuste">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                <h:outputText value="#{tReajuste.irjMontoReajuste}"/>
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:inputText value="#{tReajuste.irjMontoReajuste}"
+                                                                             style="width:100%"/>
+                                                            </f:facet>
+                                                        </p:cellEditor>                                                        
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column colspan="4" footerText="Total"
+                                                                      style="text-align:right;"></p:column>
+                                                            <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
+                                                                      style="text-align:left;"></p:column>
+                                                            <p:column footerText="#{rectificarInversion.totalivrMontoAprobado}"
+                                                                      style="text-align:left;"></p:column>
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosResumen" legend="RESUMEN">
+                                                <table>
+                                                    <tr>
+                                                        <td>Monto Total Aprobado</td>
+                                                        <td>
+                                                            <p:inputText value="#{declararInversionMB.invVO.invMontoTotalAprobado}"
+                                                                         size="10"></p:inputText>
+                                                        </td>
+                                                        <td>Monto Total con Reajuste</td>
+                                                        <td>
+                                                            <p:inputText value="#{declararInversionMB.invVO.invMontoTotalReajuste}"
+                                                                         size="10"></p:inputText>
+                                                        </td>
+                                                        <td>Monto con IGV</td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <table>
+                                                <tr>
+                                                    <td>Numero de Informe</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invNumeroInforme}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                    <td>Fecha de Emisi&#243;n</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                    <td>Reg. de Salida</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invRegSalidaInforme}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>Numero de Oficio</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invNumeroOficio}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                    <td>Fecha de Emisi&#243;n</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                    <td>Reg. de Salida</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invRegSalidaOficio}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td>Tipo de Cambio</td>
+                                                    <td>
+                                                        <p:selectOneMenu widgetVar="monedaP" id="tipoCambio"
+                                                                         value="#{declararInversionMB.invVO.monId}"
+                                                                         style="width:210px">
+                                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                            <f:selectItems value="#{declararInversionMB.listaTipoMonedas}"
+                                                                           var="mon" itemLabel="#{mon.monNombre}"
+                                                                           itemValue="#{mon.monId}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                    <td>Monto</td>
+                                                    <td>
+                                                        <p:inputText value="#{declararInversionMB.invVO.invMontoTipoCambio}"
+                                                                     size="10"></p:inputText>
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>Nota</td>
+                                                    <td colspan="3">
+                                                        <p:inputTextarea id="nota" style="width:400px;"
+                                                                         value="#{declararInversionMB.invVO.invNota}"
+                                                                         onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:fieldset>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="text-align:center;font-size: 11px">
+                            <p:commandButton style="width:80px" value="Guardar"/>
+                             
+                            <p:commandButton style="width:80px" value="Limpiar"/>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+             
+            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
+                      resizable="false" appendToBody="true" closable="true">
+                <h:form id="frmBuscarContratoDlg">
+                    <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
+                                 columnClasses="etiquetas,cajas,validadores">
+                        <p:outputLabel for="tipoinfra" value="#{cam.ti}"/>
+                        <p:selectOneMenu id="tipoinfra" value="#{declararInversionMB.tipoinfra}" style="width:280px;">
+                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                            <f:selectItems value="#{declararInversionMB.listaTipoInfraestructura}" var="lisinfra"
+                                           itemLabel="#{lisinfra.tinNombre}" itemValue="#{lisinfra.tinId}"/>
+                            <p:ajax listener="#{declararInversionMB.filtrarConcesion}" update="concesion"/>
+                        </p:selectOneMenu>
+                        <p:message for="tipoinfra" display="icon"/>
+                        <p:outputLabel for="concesion" value="#{cam.concesion}"/>
+                        <p:selectOneMenu id="concesion" value="#{declararInversionMB.concesion}" style="width:280px;">
+                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                            <f:selectItems value="#{declararInversionMB.listaConcesiones}" var="lisConcesion"
+                                           itemLabel="#{lisConcesion.csiNombre}" itemValue="#{lisConcesion.csiId}"/>
+                        </p:selectOneMenu>
+                        <p:message for="concesion" display="icon"/>
+                        <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
+                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC"
+                                    value="#{declararInversionMB.fechaInicioSuscripcion}" locale="es"
+                                    pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                        <p:message for="fechaInicioBC" display="icon"/>
+                        <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
+                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC"
+                                    value="#{declararInversionMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy"
+                                    style="float:left;position:relative;"/>
+                        <p:message for="fechaFinBC" display="icon"/>
+                    </p:panelGrid>
+                    <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1">
+                        <p:commandButton value="Buscar Contrato"
+                                         actionListener="#{declararInversionMB.buscarContratos()}"
+                                         update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
+                        <p:dataTable value="#{declararInversionMB.listaContrato}" id="contrato" var="contrato11"
+                                     style="font-size:11px" emptyMessage="No se Encontraron Registros">
+                            <p:column headerText="Fecha Suscripción" style="width:7%">
+                                <div style="text-align: center;">
+                                    <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
+                                </div>
+                            </p:column>
+                            <p:column headerText="Tipo de Infraestructura" style="width:7%">
+                                <div style="text-align: center;">
+                                    <h:outputText value="#{contrato11.nombreTipoInfraestructura}"
+                                                  style="text-transform:uppercase;"/>
+                                </div>
+                            </p:column>
+                            <p:column headerText="Concesión" style="width:10%">
+                                <h:outputText value="#{contrato11.nombreConcesion}"/>
+                            </p:column>
+                            <p:column headerText="Modalidad" style="width:35%">
+                                <h:outputText value="#{contrato11.nombreModalidad}"/>
+                            </p:column>
+                            <p:column headerText="Concesionario" style="width:35%">
+                                <h:outputText value="#{contrato11.nombreConcesion}" style="text-transform:uppercase;"/>
+                            </p:column>
+                            <p:column headerText="Seleccionar" style="width:4%">
+                                <div align="center">
+                                    <p:commandButton icon="ui-icon-check"
+                                                     actionListener="#{declararInversionMB.seleccionarContrato}" update=":form:datosConcesion :form:compromiso  :frmBuscarContratoDlg:pnlBuscarContratoDlg 
+                                                             :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
+                                                     oncomplete="popupBuscarContrato.hide();">
+                                        <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton update=":frmBuscarContratoDlg:pnlBuscarContratoDlg  :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
+                                         process="@this" value="#{btn.btn_salir}"
+                                         oncomplete="popupBuscarContrato.hide();">
+                            <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
+                        </p:commandButton>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </h:body>
+    </html>
+</f:view>
