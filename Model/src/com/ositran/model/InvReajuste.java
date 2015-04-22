@@ -41,8 +41,8 @@ public class InvReajuste implements Serializable {
     @Column(name = "TIA_NUMERO", nullable = false)
     private Integer tiaNumero;
 
-    @Column(name = "CVA_ID")
-    private Integer cvaId;
+    @Column(name = "IAD_ID")
+    private Integer iadId;
     public InvReajuste() {
     }
 
@@ -111,12 +111,13 @@ public class InvReajuste implements Serializable {
         return tinId;
     }
 
-    public void setCvaId(Integer cvaId) {
-        this.cvaId = cvaId;
+    public void setIadId(Integer iadId) {
+        this.iadId = iadId;
     }
 
-    public Integer getCvaId() {
-        return cvaId;
+    public Integer getIadId() {
+        return iadId;
     }
+
 
 }

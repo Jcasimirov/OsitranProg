@@ -50,8 +50,8 @@ public class InvReconocimiento implements Serializable {
     private Integer tinId;
     @Column(name = "INF_ID")
     private Integer infId;
-    @Column(name = "CVA_ID")
-    private Integer cvaId;
+    @Column(name = "IAD_ID")
+    private Integer iadId;
     public InvReconocimiento() {
     }
 
@@ -118,12 +118,13 @@ public class InvReconocimiento implements Serializable {
         return infId;
     }
 
-    public void setCvaId(Integer cvaId) {
-        this.cvaId = cvaId;
+
+    public void setIadId(Integer iadId) {
+        this.iadId = iadId;
     }
 
-    public Integer getCvaId() {
-        return cvaId;
+    public Integer getIadId() {
+        return iadId;
     }
 
     public void setIreEstado(Integer ireEstado) {
