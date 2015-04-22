@@ -18,13 +18,13 @@ public class InvReconocimientoVO {
     private Integer monId;
 
     private Integer tiaNumero;
-
+    private Integer iadId;
     private Integer csiId;
   
     private Integer tinId;
  
     private Integer infId;
-    private Integer cvaId;
+
     private String nombreInfraestructura;
     private String desConcepto;
     private String nombreMoneda;
@@ -82,13 +82,7 @@ public class InvReconocimientoVO {
         return infId;
     }
 
-    public void setCvaId(Integer cvaId) {
-        this.cvaId = cvaId;
-    }
 
-    public Integer getCvaId() {
-        return cvaId;
-    }
 
     public void setNombreInfraestructura(String nombreInfraestructura) {
         this.nombreInfraestructura = nombreInfraestructura;
@@ -146,4 +140,11 @@ public class InvReconocimientoVO {
         return nombreMoneda;
     }
 
+    public void setIadId(Integer iadId) {
+        this.iadId = iadId;
+    }
+
+    public Integer getIadId() {
+        return iadId;
+    }
 }

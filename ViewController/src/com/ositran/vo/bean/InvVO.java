@@ -24,7 +24,8 @@ public class InvVO {
     private Integer tivId;
     private Integer invEstado;
     private String invNota;
-
+    private Long invNroDocFormalizacion;
+    private Date invFechaEmisionDocFomalizacion;
     public InvVO() {
         super();
     }
@@ -172,6 +173,21 @@ public class InvVO {
     public void setInvEstado(Integer invEstado) {
         this.invEstado = invEstado;
     }
-    
-    
+
+    public void setInvNroDocFormalizacion(Long invNroDocFormalizacion) {
+        this.invNroDocFormalizacion = invNroDocFormalizacion;
+    }
+
+    public Long getInvNroDocFormalizacion() {
+        return invNroDocFormalizacion;
+    }
+
+    public void setInvFechaEmisionDocFomalizacion(Date invFechaEmisionDocFomalizacion) {
+        this.invFechaEmisionDocFomalizacion = invFechaEmisionDocFomalizacion;
+    }
+
+    public Date getInvFechaEmisionDocFomalizacion() {
+        return invFechaEmisionDocFomalizacion;
+    }
+
 }
