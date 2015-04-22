@@ -83,6 +83,7 @@ public class InvReajusteServiceImpl implements InvReajusteService{
         invReajusteVO1.setTinId(InvReajuste1.getTinId());
         invReajusteVO1.setInfId(InvReajuste1.getInfId());  
         invReajusteVO1.setMonId(InvReajuste1.getMonId());
+        invReajusteVO1.setCvaId(InvReajuste1.getCvaId());
  
         return invReajusteVO1;
     }
