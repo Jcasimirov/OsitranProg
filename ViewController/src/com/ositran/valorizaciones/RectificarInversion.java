@@ -193,7 +193,7 @@ public class RectificarInversion {
         super();
 
     }
-
+    
     public void listarTiposMoneda() {
         try {
             List<MonedaVO> lista = new ArrayList<MonedaVO>();
@@ -265,7 +265,17 @@ public class RectificarInversion {
             e.printStackTrace();
         }
     }
-
+    public void listarValorizacionInversionAvanceDetalleVO(int tiaNumero){
+        try {
+            listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
     public void resetearCamposBuscarContratos() {
         tipoinfra = 0;
         concesion = 0;
@@ -385,10 +395,12 @@ public class RectificarInversion {
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
         System.out.println("seleccionarDeclaracion");
-
+        
+        listarValorizacionInversionAvanceDetalleVO(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
+       
     }
 
     public void cargarDatosCompromiso(int ccoId) {
