@@ -86,9 +86,9 @@ public class DerivarReconocimientoSupervisorMB {
     private long montoPrestado;
     private boolean igv;
     private int contador=0;
-    private double totalMonto=0;
-    private double totalIgv=0;
-    private double totalTotal=0;
+    private BigDecimal totalMonto= new BigDecimal(0);
+    private BigDecimal totalIgv = new BigDecimal(0);
+    private BigDecimal totalTotal = new BigDecimal(0);
     
     //CALENDARIO
     private boolean diasCalendario;
@@ -421,7 +421,7 @@ public class DerivarReconocimientoSupervisorMB {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO","DEBE SELECIONAR AEROPUERTO")); 
                 }
             else {
-            double igv1;
+            BigDecimal igv1;
            ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1= new ValorizacionInversionAvanceDetalleVO();
            valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
            infraestructuraVO=infraestructuraServiceImpl.get2(codigoInfraValSelecionado);    
@@ -975,27 +975,27 @@ public class DerivarReconocimientoSupervisorMB {
     }
 
 
-    public void setTotalMonto(double totalMonto) {
+    public void setTotalMonto(BigDecimal totalMonto) {
         this.totalMonto = totalMonto;
     }
 
-    public double getTotalMonto() {
+    public BigDecimal getTotalMonto() {
         return totalMonto;
     }
 
-    public void setTotalIgv(double totalIgv) {
+    public void setTotalIgv(BigDecimal totalIgv) {
         this.totalIgv = totalIgv;
     }
 
-    public double getTotalIgv() {
+    public BigDecimal getTotalIgv() {
         return totalIgv;
     }
 
-    public void setTotalTotal(double totalTotal) {
+    public void setTotalTotal(BigDecimal totalTotal) {
         this.totalTotal = totalTotal;
     }
 
-    public double getTotalTotal() {
+    public BigDecimal getTotalTotal() {
         return totalTotal;
     }
 

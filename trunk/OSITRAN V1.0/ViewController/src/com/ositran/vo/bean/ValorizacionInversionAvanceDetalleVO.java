@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 
 public class ValorizacionInversionAvanceDetalleVO {
@@ -9,15 +11,18 @@ public class ValorizacionInversionAvanceDetalleVO {
     
 
     private int cnvId;
-    private double igv;
+    private BigDecimal igv;
     private int monId;
-    private double montoPresentado;
+    private BigDecimal montoPresentado;
     private int tiaNumero;
-    private double tiaTotal;
+    private BigDecimal tiaTotal;
     private int iad_Id;
     private int tivId;
     private int dtiId;
     private int iadPDF;   
+    private int infId;
+    private int csiId;
+    private int tinId;
     
     
     private String aeropuertos;
@@ -33,11 +38,11 @@ public class ValorizacionInversionAvanceDetalleVO {
         return cnvId;
     }
 
-    public void setIgv(double igv) {
+    public void setIgv(BigDecimal igv) {
         this.igv = igv;
     }
 
-    public double getIgv() {
+    public BigDecimal getIgv() {
         return igv;
     }
 
@@ -49,11 +54,11 @@ public class ValorizacionInversionAvanceDetalleVO {
         return monId;
     }
 
-    public void setMontoPresentado(double montoPresentado) {
+    public void setMontoPresentado(BigDecimal montoPresentado) {
         this.montoPresentado = montoPresentado;
     }
 
-    public double getMontoPresentado() {
+    public BigDecimal getMontoPresentado() {
         return montoPresentado;
     }
 
@@ -65,11 +70,11 @@ public class ValorizacionInversionAvanceDetalleVO {
         return tiaNumero;
     }
 
-    public void setTiaTotal(double tiaTotal) {
+    public void setTiaTotal(BigDecimal tiaTotal) {
         this.tiaTotal = tiaTotal;
     }
 
-    public double getTiaTotal() {
+    public BigDecimal getTiaTotal() {
         return tiaTotal;
     }
 
@@ -129,5 +134,29 @@ public class ValorizacionInversionAvanceDetalleVO {
 
     public int getIadPDF() {
         return iadPDF;
+    }
+
+    public int getInfId() {
+        return infId;
+    }
+
+    public void setInfId(int infId) {
+        this.infId = infId;
+    }
+
+    public int getCsiId() {
+        return csiId;
+    }
+
+    public void setCsiId(int csiId) {
+        this.csiId = csiId;
+    }
+
+    public int getTinId() {
+        return tinId;
+    }
+
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
     }
 }
