@@ -78,7 +78,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimientoVO1.setIreId(InvReconocimiento1.getIreId());
         InvReconocimientoVO1.setCsiId(InvReconocimiento1.getCsiId());
         InvReconocimientoVO1.setInfId(InvReconocimiento1.getInfId());
-        InvReconocimientoVO1.setCvaId(InvReconocimiento1.getCvaId());
+        InvReconocimientoVO1.setIadId(InvReconocimiento1.getIadId());
         InvReconocimientoVO1.setMonId(InvReconocimiento1.getMonId());
         InvReconocimientoVO1.setIvrMontoAprobado(InvReconocimiento1.getIvrMontoAprobado()); 
         InvReconocimientoVO1.setIvrMontoPresentado(InvReconocimiento1.getIvrMontoPresentado()); 
@@ -89,7 +89,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimiento1.setIreId(InvReconocimientoVO1.getIreId());
         InvReconocimiento1.setCsiId(InvReconocimientoVO1.getCsiId());
         InvReconocimiento1.setInfId(InvReconocimientoVO1.getInfId());
-        InvReconocimiento1.setCvaId(InvReconocimientoVO1.getCvaId());
+        InvReconocimiento1.setIadId(InvReconocimientoVO1.getIadId());
         InvReconocimiento1.setMonId(InvReconocimientoVO1.getMonId());
         InvReconocimiento1.setIvrMontoAprobado(InvReconocimientoVO1.getIvrMontoAprobado()); 
         InvReconocimiento1.setIvrMontoPresentado(InvReconocimientoVO1.getIvrMontoPresentado());  
