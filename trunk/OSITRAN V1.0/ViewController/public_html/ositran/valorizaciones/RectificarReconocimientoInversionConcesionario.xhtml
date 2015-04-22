@@ -198,9 +198,8 @@
                                              readonly="true"/>
                                 <h:outputText value="Monto Aprobado"/>
                                 <p:inputText value="#{rectificarInversion.invReconocimientoVO.ivrMontoAprobado}" onkeypress="return ValidarNumFloat(event,this);"/>
-                                <p:commandButton value="#{btn.btn_guardar}"
-                                                 actionListener="#{rectificarInversion.grabarReconocimiento}"
-                                                 update=":form:mensaje">
+                                <p:commandButton value="#{btn.btn_aceptar}"
+                                                 actionListener="#{rectificarInversion.grabarReconocimiento}">
                                     <f:attribute name="reconocimiento"
                                                  value="#{rectificarInversion.invReconocimientoVO.ireId}"/>
                                     <f:attribute name="montoAprobado"
@@ -220,9 +219,8 @@
                                              readonly="true"/>
                                 <h:outputText value="Monto Aprobado"/>
                                 <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}" onkeypress="return ValidarNumFloat(event,this);"/>
-                                <p:commandButton value="#{btn.btn_guardar}"
-                                                 actionListener="#{rectificarInversion.grabarReajuste}"
-                                                 update=":form:mensaje">
+                                <p:commandButton value="#{btn.btn_aceptar}"
+                                                 actionListener="#{rectificarInversion.grabarReajuste}">
                                     <f:attribute name="idreajuste" value="#{rectificarInversion.invReajusteVO.irjId}"/>
                                     <f:attribute name="montoReajuste"
                                                  value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}"/>
@@ -373,11 +371,14 @@
                                             <td valign="top">
                                                 <p:fieldset legend="Solicitud del Concesionario">
                                                     <table>
+                                                       <tr>
+                                                       <td colspan="2">
+                                                       <table style="width:100%;">
                                                         <tr>
                                                             <td align="left" style="width:10px;">Estado del
                                                                                                  Reconocimiento</td>
                                                             <td>
-                                                                <p:selectOneMenu id="Dias"
+                                                                <p:selectOneMenu id="Dias" style="width:210px;"
                                                                                  value="#{rectificarInversion.contratoVO.conTipodias}">
                                                                     <f:selectItem itemLabel="--Seleccione--"
                                                                                   itemValue="0"/>
@@ -390,10 +391,12 @@
                                                         <tr>
                                                             <td align="left" style="width:10px;">Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea cols="50" rows="10"/>
+                                                                <p:inputTextarea style="width:100%;"/>
                                                             </td>
                                                         </tr>
-                                                         
+                                                         </table>
+                                                       </td>
+                                                       </tr>
                                                         <tr>
                                                             <td colspan="2">
                                                                 <p:fieldset legend="Resultado del Reconocimiento">
@@ -511,7 +514,7 @@
                                                                                     </p:column>
                                                                                     <p:column headerText="Moneda"
                                                                                               style="width:35%">
-                                                                                        <h:outputText value="#{reconocimiento.nombreMoneda}"/>
+                                                                                        <h:outputText value="#{reajuste.nombreMoneda}"/>
                                                                                     </p:column>
                                                                                     <p:column headerText="MontoAprobado"
                                                                                               style="width:35%">
@@ -562,19 +565,93 @@
                                                                         <tr>
                                                                             <td>Monto Total Aprobado</td>
                                                                             <td>
-                                                                                <p:inputText/>
+                                                                                <p:inputText id="resumenMonPre" value="#{rectificarInversion.totalivrMontoAprobadoI}"/>
                                                                             </td>
                                                                             <td>Monto Total con Reajuste</td>
                                                                             <td>
-                                                                                <p:inputText/>
+                                                                                <p:inputText id="resumenMonRea" value="#{rectificarInversion.totalirjMontoReajusteI}"/>
                                                                             </td>
+                                                                            <td>Montos con IGV?</td>
                                                                             <td>
-                                                                                <p:selectBooleanCheckbox></p:selectBooleanCheckbox>
+                                                                                <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}">
+                                                                                <p:ajax listener="#{rectificarInversion.resetIGV()}" update="form"/>
+                                                                                </p:selectBooleanCheckbox>                                                                              
+                                                                            </td>
+                                                                             <td><h:outputText value="IGV" rendered="#{rectificarInversion.renderMostrarIGV}"/></td>
+                                                                            <td>
+                                                                              <p:inputMask id="igv" value="#{rectificarInversion.igv}"  mask="0.99" size="3" rendered="#{rectificarInversion.renderMostrarIGV}" >
+                                                                              <p:ajax listener="#{rectificarInversion.calularMontosconIGV()}"  update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea"></p:ajax>                                                                               
+                                                                             </p:inputMask>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
                                                                 </p:fieldset>
                                                             </td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                        <td>
+                                                        <table>
+                                                        <tr>
+                                                        <td><h:outputText value="Nro Informe" /></td>
+                                                        <td><p:inputText/></td>
+                                                        
+                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td><p:calendar pattern="dd/MM/yyyy"/></td>
+                                                        
+                                                        <td><h:outputText value="Registro de Salida" /></td>
+                                                        <td><p:inputText/></td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                        <td><h:outputText value="Nro Oficio" /></td>
+                                                        <td><p:inputText/></td>
+                                                        
+                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td><p:calendar pattern="dd/MM/yyyy"/></td>
+                                                        
+                                                        <td><h:outputText value="Registro de Salida" /></td>
+                                                        <td><p:inputText/></td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                        <td><h:outputText value="Tipo de Cambio" /></td>
+                                                        <td><p:selectOneMenu style="width:210px;">
+                                                            <f:selectItem itemLabel="--seleccione--" itemValue="0"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                        
+                                                        <td ><h:outputText value="Monto Tipo de Cambio" /></td>                                                      
+                                                        <td colspan="3"><p:inputText/></td>                                                       
+                                                       
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                       
+                                                        
+                                                        <td ><h:outputText value="Nota" /></td>                                                      
+                                                        <td colspan="5"><p:inputTextarea style="width:100%;" /></td>                                                       
+                                                       
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                        <td><h:outputText value="Nro. Documento de Formalizacion" /></td>
+                                                        <td><p:inputText/></td>
+                                                        
+                                                        <td><h:outputText value="Fecha Emision" /></td>                                                      
+                                                        <td colspan="3"><p:calendar pattern="dd/MM/yyyy"/></td>                                                       
+                                                       
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                       
+                                                        
+                                                        <td ><h:outputText value="Observaciones" /></td>                                                      
+                                                        <td colspan="5"><p:inputTextarea style="width:100%;" /></td>                                                       
+                                                       
+                                                        </tr>
+                                                        </table>
+                                                        </td>
                                                         </tr>
                                                     </table>
                                                 </p:fieldset>
