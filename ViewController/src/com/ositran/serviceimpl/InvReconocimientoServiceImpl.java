@@ -82,6 +82,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimientoVO1.setMonId(InvReconocimiento1.getMonId());
         InvReconocimientoVO1.setIvrMontoAprobado(InvReconocimiento1.getIvrMontoAprobado()); 
         InvReconocimientoVO1.setIvrMontoPresentado(InvReconocimiento1.getIvrMontoPresentado()); 
+        
         return InvReconocimientoVO1;
     }
     private InvReconocimiento toInvReconocimiento(InvReconocimientoVO InvReconocimientoVO1){
