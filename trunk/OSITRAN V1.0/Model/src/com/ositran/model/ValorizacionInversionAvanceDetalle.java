@@ -38,6 +38,19 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     private int dtiId;
     @Column(name = "IAD_PDF")
     private int iadPDF;    
+    
+    //
+    @Column(name = "TIN_ID")
+    private Integer tinId;    
+    @Column(name = "CSI_ID")
+    private Integer csiId;    
+    @Column(name = "INF_ID")
+    private Integer infId;    
+    @Column(name = "INV_ID")
+    private Integer invId;    
+    
+    
+    
         
         
     
@@ -45,13 +58,18 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     }
 
     public ValorizacionInversionAvanceDetalle(int cnvId, double igv, int monId, double montoPresentado,
-                                              int tiaNumero, double tiaTotal) {
+                                              int tiaNumero, double tiaTotal, Integer tinId, Integer csiId,
+                                              Integer infId, Integer invId) {
         this.cnvId = cnvId;
         this.igv = igv;
         this.monId = monId;
         this.montoPresentado = montoPresentado;
         this.tiaNumero = tiaNumero;
         this.tiaTotal = tiaTotal;
+        this.tinId = tinId;
+        this.csiId = csiId;
+        this.infId = infId;
+        
     }
 
     public int getCnvId() {
@@ -134,5 +152,37 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
 
     public int getIadPDF() {
         return iadPDF;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
     }
 }

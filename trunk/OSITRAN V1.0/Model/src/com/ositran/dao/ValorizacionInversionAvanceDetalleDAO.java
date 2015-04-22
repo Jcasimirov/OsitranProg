@@ -15,4 +15,5 @@ public interface ValorizacionInversionAvanceDetalleDAO {
     public String delete(Integer id)throws SQLException ,Exception;
     public String update(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle)throws SQLException ,Exception;
     public ValorizacionInversionAvanceDetalle get(Integer id)throws SQLException ,Exception;
+    public List<ValorizacionInversionAvanceDetalle> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException, Exception ;
 }
