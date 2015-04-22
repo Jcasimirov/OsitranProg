@@ -11,5 +11,7 @@ import java.util.List;
 public interface NotificacionService {
     public List<InvAvnVO> ListarDeclaraciones() throws SQLException;
     public String NotificarInversion(InvAvnVO invAvnVO, ValorizacionNotificacionVO valorizacionNotificacionVO) throws SQLException;
+    public List<InvAvnVO> ListarDeclaracionesSupervContratoCompromiso(int contratoCompromisoId) throws SQLException;
     public List<InvAvnVO> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException;
+
 }
