@@ -83,7 +83,7 @@ public class InvReajusteServiceImpl implements InvReajusteService{
         invReajusteVO1.setTinId(InvReajuste1.getTinId());
         invReajusteVO1.setInfId(InvReajuste1.getInfId());  
         invReajusteVO1.setMonId(InvReajuste1.getMonId());
-        invReajusteVO1.setCvaId(InvReajuste1.getCvaId());
+        invReajusteVO1.setIadId(InvReajuste1.getIadId());
  
         return invReajusteVO1;
     }
@@ -95,7 +95,9 @@ public class InvReajusteServiceImpl implements InvReajusteService{
         InvReajuste1.setCsiId(InvReajusteVO1.getCsiId());
         InvReajuste1.setTinId(InvReajusteVO1.getTinId());
         InvReajuste1.setInfId(InvReajusteVO1.getInfId());  
-        InvReajuste1.setMonId(InvReajusteVO1.getMonId()); 
+        InvReajuste1.setMonId(InvReajusteVO1.getMonId());
+        InvReajuste1.setTiaNumero(InvReajusteVO1.getTiaNumero());
+        InvReajuste1.setIadId(InvReajusteVO1.getIadId());
         return InvReajuste1;
         
     } 
