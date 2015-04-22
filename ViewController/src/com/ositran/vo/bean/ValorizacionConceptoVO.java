@@ -1,12 +1,11 @@
 package com.ositran.vo.bean;
 
-import java.math.BigDecimal;
 
 public class ValorizacionConceptoVO {
 
     private String cvaDescripcion;
-    private BigDecimal cvaEstado;
-    private BigDecimal cvaId;
+    private Integer cvaEstado;
+    private Integer cvaId;
     private String cvaNombre;
 
 
@@ -18,19 +17,20 @@ public class ValorizacionConceptoVO {
         return cvaDescripcion;
     }
 
-    public void setCvaEstado(BigDecimal cvaEstado) {
+
+    public void setCvaEstado(Integer cvaEstado) {
         this.cvaEstado = cvaEstado;
     }
 
-    public BigDecimal getCvaEstado() {
+    public Integer getCvaEstado() {
         return cvaEstado;
     }
 
-    public void setCvaId(BigDecimal cvaId) {
+    public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
     }
 
-    public BigDecimal getCvaId() {
+    public Integer getCvaId() {
         return cvaId;
     }
 
