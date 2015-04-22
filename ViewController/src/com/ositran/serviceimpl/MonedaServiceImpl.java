@@ -32,6 +32,10 @@ public class MonedaServiceImpl implements MonedaService{
         return listVO;
     }
     
+    public MonedaVO get(Integer id) throws Exception{
+        Moneda moneda = monedaDaoImpl.get(id);
+        return  toMonedaVO(moneda);        
+    }
     
     //conversiones
     private List<MonedaVO> toListMonedaVO(List<Moneda> list)throws SQLException{
