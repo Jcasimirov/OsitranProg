@@ -584,7 +584,7 @@
         <property name="inversionAvanceEstadoServiceImpl" ref="inversionAvanceEstadoServiceImpl"/>
         <property name="invReconocimientoServiceImpl" ref="invReconocimientoServiceImpl"/>
         <property name="invReajusteServiceImpl" ref="invReajusteServiceImpl"/>
-        <property name="valorizacionConceptoServiceImpl" ref="valorizacionConceptoServiceImpl"/>
+
         <property name="invVO" ref="invVO"/>
         <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
         <property name="valorizacionInversionAvanceDetalleServiceImpl" ref="valorizacionInversionAvanceDetalleServiceImpl"/>
