@@ -2,8 +2,6 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,17 +17,17 @@ public class ValorizacionConcepto implements Serializable {
     @Column(name = "CVA_DESCRIPCION", nullable = false, length = 100)
     private String cvaDescripcion;
     @Column(name = "CVA_ESTADO", nullable = false)
-    private BigDecimal cvaEstado;
+    private Integer cvaEstado;
     @Id
     @Column(name = "CVA_ID", nullable = false)
-    private BigDecimal cvaId;
+    private Integer cvaId;
     @Column(name = "CVA_NOMBRE", nullable = false, length = 100)
     private String cvaNombre;
 
     public ValorizacionConcepto() {
     }
 
-    public ValorizacionConcepto(String cvaDescripcion, BigDecimal cvaEstado, BigDecimal cvaId, String cvaNombre) {
+    public ValorizacionConcepto(String cvaDescripcion, Integer cvaEstado, Integer cvaId, String cvaNombre) {
         this.cvaDescripcion = cvaDescripcion;
         this.cvaEstado = cvaEstado;
         this.cvaId = cvaId;
@@ -44,20 +42,21 @@ public class ValorizacionConcepto implements Serializable {
         this.cvaDescripcion = cvaDescripcion;
     }
 
-    public BigDecimal getCvaEstado() {
-        return cvaEstado;
-    }
 
-    public void setCvaEstado(BigDecimal cvaEstado) {
+    public void setCvaEstado(Integer cvaEstado) {
         this.cvaEstado = cvaEstado;
     }
 
-    public BigDecimal getCvaId() {
-        return cvaId;
+    public Integer getCvaEstado() {
+        return cvaEstado;
     }
 
-    public void setCvaId(BigDecimal cvaId) {
+    public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
+    }
+
+    public Integer getCvaId() {
+        return cvaId;
     }
 
     public String getCvaNombre() {
