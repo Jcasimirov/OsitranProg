@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -67,7 +66,10 @@ public class Inv implements Serializable {
     private Integer tivId;
     @Column(name = "INV_ESTADO") 
     private Integer invEstado;
-
+    @Column(name = "INV_NRO_DOC_FORMALIZACION") 
+    private Long invNroDocFormalizacion;
+    @Column(name = "INV_FECHA_EMISION_FORM")
+    private Date invFechaEmisionDocFomalizacion;
     public Inv() {
     }
 
@@ -238,5 +240,21 @@ public class Inv implements Serializable {
 
     public void setInvEstado(Integer invEstado) {
         this.invEstado = invEstado;
+    }
+
+    public void setInvNroDocFormalizacion(Long invNroDocFormalizacion) {
+        this.invNroDocFormalizacion = invNroDocFormalizacion;
+    }
+
+    public Long getInvNroDocFormalizacion() {
+        return invNroDocFormalizacion;
+    }
+
+    public void setInvFechaEmisionDocFomalizacion(Date invFechaEmisionDocFomalizacion) {
+        this.invFechaEmisionDocFomalizacion = invFechaEmisionDocFomalizacion;
+    }
+
+    public Date getInvFechaEmisionDocFomalizacion() {
+        return invFechaEmisionDocFomalizacion;
     }
 }
