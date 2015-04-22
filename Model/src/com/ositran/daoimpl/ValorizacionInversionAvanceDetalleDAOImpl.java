@@ -1,5 +1,6 @@
 package com.ositran.daoimpl;
 import com.ositran.dao.ValorizacionInversionAvanceDetalleDAO;
+import com.ositran.model.ContratoPpo;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.util.HibernateUtil;
 
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionInversionAvanceDetalleDAO {
@@ -56,4 +58,18 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
         // TODO Implement this method
         return null;
     }
+    
+    @Override
+    public List<ValorizacionInversionAvanceDetalle> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        Query query; 
+        query = session.createQuery("FROM ValorizacionInversionAvanceDetalle ia where ia.tiaNumero = :tiaNumero order by ia.iad_Id DESC");
+        query.setParameter("tiaNumero",tiaNumero);            
+        List<ValorizacionInversionAvanceDetalle> list = query.list();
+        session.getTransaction().commit();
+        return list;     
+    }
+    
+    
 }
