@@ -20,7 +20,7 @@ public class InvReajusteVO {
     private String nombreInfraestructura;
     private String desConcepto;
     private String nombreMoneda;
-    private Integer cvaId;
+    private Integer iadId;
     public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
@@ -109,11 +109,12 @@ public class InvReajusteVO {
         this.nombreMoneda = nombreMoneda;
     }
 
-    public void setCvaId(Integer cvaId) {
-        this.cvaId = cvaId;
+
+    public void setIadId(Integer iadId) {
+        this.iadId = iadId;
     }
 
-    public Integer getCvaId() {
-        return cvaId;
+    public Integer getIadId() {
+        return iadId;
     }
 }
