@@ -27,6 +27,21 @@
               te = String.fromCharCode(tecla);
               return patron.test(te);
           }
+           function ValidarNumFloat(e, obj) {
+              tecla = (document.all) ? e.keyCode : e.which;
+              if (tecla == 8)
+                  return true;
+
+              Punto = obj.value.split('.');
+              if (Punto.length >= 2) {
+                  patron = /[0-9]/;
+              }
+              else 
+              patron = /[0-9.]/;
+              te = String.fromCharCode(tecla);
+
+              return patron.test(te);
+          }
         </script>
         <meta content="1500" http-equiv="REFRESH"></meta>
         <script type="text/javascript">
@@ -63,7 +78,7 @@
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
-                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <ui:include src="/ositran/util/menu.xhtml"/>
                 <div align="center">
                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO
                                                                                       CONCESI&#211;N - AEROPUERTO</h5>
@@ -630,7 +645,7 @@
                                         
                                         <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:inputText id="montoadenda" style="width:100% !important;"                                                       
-                                                         onkeypress="return validarNum(event);"
+                                                         onkeypress="return ValidarNumFloat(event,this);"
                                                          value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}"
                                                          
                                                          rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
@@ -891,7 +906,7 @@
                                         <p:outputLabel for="valortotalcom" value="Valor Total"/>
                                         <p:inputText id="valortotalcom" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTotal}"
-                                                   onkeypress="return validarNum(event);" />
+                                                   onkeypress="return ValidarNumFloat(event,this);" />
                                         
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
@@ -917,7 +932,7 @@
                                         <p:outputLabel for="netocom" value="Neto"/>
                                         <p:inputText id="netocom" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoNeto}"
-                                                     disabled="true" onkeypress="return validarNum(event);"/>
+                                                     disabled="true" onkeypress="return ValidarNumFloat(event,this);"/>
                                         
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         <p:outputLabel for="plazocom" value="Plazo"/>
@@ -1062,7 +1077,7 @@
                                         <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
                                         <p:inputText id="valortotalcomsup" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTotal}"
-                                                     onkeypress="return validarNum(event);"/>
+                                                     onkeypress="return ValidarNumFloat(event,this);"/>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="incigvcomsup" value="Incluye IGV?"/>
@@ -1234,7 +1249,7 @@
                                         <p:outputLabel for="montopenalidad" value="Monto"/>
                                         <p:inputText id="montopenalidad" style="width:200px;" 
                                                      value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpTotal}"
-                                                     onkeypress="return validarNum(event);"/>
+                                                     onkeypress="return ValidarNumFloat(event,this);"/>
                                        <p:graphicImage url="../../images/obligatorio.gif" />
                                         <h:outputText value=""/>
                                        
