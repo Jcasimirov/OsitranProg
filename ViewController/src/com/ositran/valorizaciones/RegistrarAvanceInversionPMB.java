@@ -78,7 +78,7 @@ public class RegistrarAvanceInversionPMB {
     private List<InversionDescripcionVO> listaDescripcionTipoInversion=new ArrayList<>();
     private Date inicioPeriodo;
     private Date finPeriodo;
-    private long montoPrestado;
+    private BigDecimal montoPrestado;
     private boolean igv;
     private int contador=0;
     private double totalMonto=0;
@@ -320,7 +320,7 @@ public class RegistrarAvanceInversionPMB {
     public void agregar(){
         try {
             
-            if (montoPrestado==0){
+            if (montoPrestado== new BigDecimal(0)){
                     FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO","DEBE INGRASAR EL MONTO PRESENTADO")); 
                 }
@@ -347,14 +347,14 @@ public class RegistrarAvanceInversionPMB {
            valorizacionInversionAvanceDetalleVO1.setMontoPresentado(montoPrestado);
             if (igv){
                 igv1=0.18;  
-                    valorizacionInversionAvanceDetalleVO1.setIgv(0.18*montoPrestado);
+                   // valorizacionInversionAvanceDetalleVO1.setIgv(0.18*montoPrestado);
                 }
             else {
                     igv1=0;
                 }
-                valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado +( montoPrestado*igv1));
+                //valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado +( montoPrestado*igv1));
             listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO1);
-                totalMonto=totalMonto+montoPrestado;
+                //totalMonto=totalMonto+montoPrestado;
                 totalIgv=totalIgv+valorizacionInversionAvanceDetalleVO1.getIgv();
                 totalTotal=totalTotal+valorizacionInversionAvanceDetalleVO1.getTiaTotal();
             
@@ -370,7 +370,7 @@ public class RegistrarAvanceInversionPMB {
             Object str=requestMap.get("indexLista");
             int idcodigo=Integer.valueOf(str.toString());
             totalTotal=totalTotal-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal();
-            totalMonto=totalMonto-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado();
+            //totalMonto=totalMonto-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado();
             totalIgv=totalIgv-listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv();
             listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
         }
@@ -860,11 +860,11 @@ public class RegistrarAvanceInversionPMB {
     }
 
 
-    public void setMontoPrestado(long montoPrestado) {
+    public void setMontoPrestado(BigDecimal montoPrestado) {
         this.montoPrestado = montoPrestado;
     }
 
-    public long getMontoPrestado() {
+    public BigDecimal getMontoPrestado() {
         return montoPrestado;
     }
 

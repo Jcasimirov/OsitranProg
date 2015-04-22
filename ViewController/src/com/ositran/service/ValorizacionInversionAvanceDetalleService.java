@@ -1,5 +1,6 @@
 package com.ositran.service;
 
+import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -12,4 +13,5 @@ public interface ValorizacionInversionAvanceDetalleService {
     public String delete(Integer id) throws SQLException ,Exception;
     public String update(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO) throws ParseException,SQLException ,Exception;
     public ValorizacionInversionAvanceDetalleVO get(Integer id) throws SQLException ,Exception ;
+    public List<ValorizacionInversionAvanceDetalleVO> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException ,Exception ;
 }

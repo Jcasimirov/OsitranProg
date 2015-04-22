@@ -289,7 +289,7 @@ public class MantenimientoContratEmprSupervisor {
            e.printStackTrace();
        }
     }
-    public void cargarDatosCompromiso(){
+    /* public void cargarDatosCompromiso(){
         try {
            contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
            plazo=contratoCompromisoVO.getCcoPlazo();
@@ -299,7 +299,7 @@ public class MantenimientoContratEmprSupervisor {
            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
            e.printStackTrace();
         }        
-    }
+    } */
     //---fin buscar contrato concesion---//
     
     //PDF  --//  
