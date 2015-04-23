@@ -1,13 +1,12 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionInversionAvanceDetalleDAOImpl;
-import com.ositran.model.InvAvn;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
-import com.ositran.vo.bean.InvAvnVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
+
 import java.sql.SQLException;
+
 import java.text.ParseException;
 
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     }
     private ValorizacionInversionAvanceDetalleVO toValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1)  {
        ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1=new ValorizacionInversionAvanceDetalleVO();
-       valorizacionInversionAvanceDetalleVO1.setCnvId(valorizacionInversionAvanceDetalle1.getCnvId());
+
        valorizacionInversionAvanceDetalleVO1.setIgv(valorizacionInversionAvanceDetalle1.getIgv());
        valorizacionInversionAvanceDetalleVO1.setMonId(valorizacionInversionAvanceDetalle1.getMonId());
        valorizacionInversionAvanceDetalleVO1.setMontoPresentado(valorizacionInversionAvanceDetalle1.getMontoPresentado());
@@ -87,7 +86,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     }
     private ValorizacionInversionAvanceDetalle toValorizacionInversionAvanceDetalle(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1)  {
        ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1=new ValorizacionInversionAvanceDetalle();
-        valorizacionInversionAvanceDetalle1.setCnvId(valorizacionInversionAvanceDetalleVO1.getCnvId());
+
         valorizacionInversionAvanceDetalle1.setIgv(valorizacionInversionAvanceDetalleVO1.getIgv());
         valorizacionInversionAvanceDetalle1.setMonId(valorizacionInversionAvanceDetalleVO1.getMonId());
         valorizacionInversionAvanceDetalle1.setMontoPresentado(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());

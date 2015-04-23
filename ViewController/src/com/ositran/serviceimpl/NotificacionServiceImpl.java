@@ -1,10 +1,16 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.NotificacionDAOImpl;
+import com.ositran.model.Inv;
 import com.ositran.model.InvAvn;
+import com.ositran.model.InvReajuste;
+import com.ositran.model.InvReconocimiento;
 import com.ositran.model.ValorizacionNotificacion;
 import com.ositran.service.NotificacionService;
 import com.ositran.vo.bean.InvAvnVO;
+import com.ositran.vo.bean.InvReajusteVO;
+import com.ositran.vo.bean.InvReconocimientoVO;
+import com.ositran.vo.bean.InvVO;
 import com.ositran.vo.bean.ValorizacionNotificacionVO;
 
 import java.sql.SQLException;
@@ -14,7 +20,9 @@ import java.util.List;
 
 public class NotificacionServiceImpl implements NotificacionService{
     private NotificacionDAOImpl notificacionDAOImpl;
-
+    private InvReajusteServiceImpl invReajusteServiceImpl;
+    private InvReconocimientoServiceImpl invReconocimientoServiceImpl;
+    private InvServiceImpl invServiceImpl;
 
     public void setNotificacionDAOImpl(NotificacionDAOImpl notificacionDAOImpl) {
         this.notificacionDAOImpl = notificacionDAOImpl;
@@ -202,5 +210,40 @@ public class NotificacionServiceImpl implements NotificacionService{
         return listVO;
     }
 
-   
+
+    @Override
+    public void updateRectificacion(InvAvnVO invAvnvo,List<InvReconocimientoVO> reconocimientoVO,List<InvReajusteVO> reajusteVO,InvVO invVO)throws SQLException {
+     InvAvn invAvn=toInvAvn(invAvnvo);
+     List<InvReajuste> invReajuste=invReajusteServiceImpl.toListInvReajuste(reajusteVO);
+     List<InvReconocimiento> reconocimiento=invReconocimientoServiceImpl.toListInvReconocimiento(reconocimientoVO);
+     Inv inv=invServiceImpl.toInv(invVO);
+     notificacionDAOImpl.updateRectificacion(invAvn,reconocimiento,invReajuste,inv);
+    }
+  
+
+    public void setInvReajusteServiceImpl(InvReajusteServiceImpl invReajusteServiceImpl) {
+        this.invReajusteServiceImpl = invReajusteServiceImpl;
+    }
+
+    public InvReajusteServiceImpl getInvReajusteServiceImpl() {
+        return invReajusteServiceImpl;
+    }
+
+    public void setInvReconocimientoServiceImpl(InvReconocimientoServiceImpl invReconocimientoServiceImpl) {
+        this.invReconocimientoServiceImpl = invReconocimientoServiceImpl;
+    }
+
+    public InvReconocimientoServiceImpl getInvReconocimientoServiceImpl() {
+        return invReconocimientoServiceImpl;
+    }
+
+    public void setInvServiceImpl(InvServiceImpl invServiceImpl) {
+        this.invServiceImpl = invServiceImpl;
+    }
+
+    public InvServiceImpl getInvServiceImpl() {
+        return invServiceImpl;
+    }
+
+
 }

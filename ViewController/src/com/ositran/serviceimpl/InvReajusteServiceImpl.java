@@ -73,6 +73,15 @@ public class InvReajusteServiceImpl implements InvReajusteService{
         }
         return listVO;
     }
+    public List<InvReajuste> toListInvReajuste(List<InvReajusteVO> list){
+        List<InvReajuste> lista=new ArrayList<InvReajuste>();
+        for(int i=0;i<list.size();i++){
+            InvReajusteVO InvReajuste=(InvReajusteVO)list.get(i);
+            InvReajuste invReajuste=toInvReajuste(InvReajuste);
+            lista.add(invReajuste);
+        }
+        return lista;
+    }
     private InvReajusteVO toInvReajusteVO(InvReajuste InvReajuste1){
         InvReajusteVO invReajusteVO1=new InvReajusteVO();
         invReajusteVO1.setTiaNumero(InvReajuste1.getTiaNumero());
@@ -87,7 +96,7 @@ public class InvReajusteServiceImpl implements InvReajusteService{
  
         return invReajusteVO1;
     }
-    private InvReajuste toInvReajuste(InvReajusteVO InvReajusteVO1){
+    public InvReajuste toInvReajuste(InvReajusteVO InvReajusteVO1){
         InvReajuste InvReajuste1=new InvReajuste();
         InvReajuste1.setIrjId(InvReajusteVO1.getIrjId());
         InvReajuste1.setIrjMontoAprobado(InvReajusteVO1.getIrjMontoAprobado());

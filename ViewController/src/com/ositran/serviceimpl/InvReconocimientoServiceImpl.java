@@ -72,6 +72,15 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         }
         return listVO;
     }
+    public List<InvReconocimiento> toListInvReconocimiento(List<InvReconocimientoVO> list){
+        List<InvReconocimiento> lista=new ArrayList<InvReconocimiento>();
+        for(int i=0;i<list.size();i++){
+            InvReconocimientoVO InvReconocimiento=(InvReconocimientoVO)list.get(i);
+            InvReconocimiento invReconocimiento=toInvReconocimiento(InvReconocimiento);
+            lista.add(invReconocimiento);
+        }
+        return lista;
+    }
     private InvReconocimientoVO toInvReconocimientoVO(InvReconocimiento InvReconocimiento1){
         InvReconocimientoVO InvReconocimientoVO1=new InvReconocimientoVO();
         InvReconocimientoVO1.setTiaNumero(InvReconocimiento1.getTiaNumero());
@@ -85,7 +94,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         
         return InvReconocimientoVO1;
     }
-    private InvReconocimiento toInvReconocimiento(InvReconocimientoVO InvReconocimientoVO1){
+    public InvReconocimiento toInvReconocimiento(InvReconocimientoVO InvReconocimientoVO1){
         InvReconocimiento InvReconocimiento1=new InvReconocimiento();
         InvReconocimiento1.setIreId(InvReconocimientoVO1.getIreId());
         InvReconocimiento1.setCsiId(InvReconocimientoVO1.getCsiId());

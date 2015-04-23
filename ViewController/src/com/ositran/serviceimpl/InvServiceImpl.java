@@ -2,15 +2,12 @@ package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.InvDAOImpl;
 import com.ositran.model.Inv;
-import com.ositran.model.Inv;
 import com.ositran.service.InvService;
-import com.ositran.vo.bean.InvVO;
 import com.ositran.vo.bean.InvVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InvServiceImpl implements InvService {
@@ -69,7 +66,7 @@ public class InvServiceImpl implements InvService {
         InvVO invVO=new InvVO();
         
         invVO.setInvEstado(inv.getInvEstado());
-        invVO.setInvEstadoReconocimiento(inv.getInvEstadoReconocimiento());
+
         invVO.setInvFechaEmisionInforme(inv.getInvFechaEmisionInforme());
         invVO.setInvFechaEmisionOficio(inv.getInvFechaEmisionOficio());
         invVO.setInvId(inv.getInvId());
@@ -91,11 +88,11 @@ public class InvServiceImpl implements InvService {
         return invVO;
     }
     
-    private Inv toInv(InvVO invVO){
+    public Inv toInv(InvVO invVO){
         Inv inv=new Inv();        
             
         inv.setInvEstado(invVO.getInvEstado());
-        inv.setInvEstadoReconocimiento(invVO.getInvEstadoReconocimiento());
+
         inv.setInvFechaEmisionInforme(invVO.getInvFechaEmisionInforme());
         inv.setInvFechaEmisionOficio(invVO.getInvFechaEmisionOficio());
         inv.setInvId(invVO.getInvId());
