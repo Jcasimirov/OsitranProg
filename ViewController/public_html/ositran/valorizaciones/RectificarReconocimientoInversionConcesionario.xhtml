@@ -67,7 +67,7 @@
          
         <f:event listener="#{rectificarInversion.listarTiposdeInfraestructura}" type="preRenderComponent"/>
          
-        <f:event listener="#{rectificarInversion.filtrarConcesion}" type="preRenderComponent"/>
+        <f:event listener="#{rectificarInversion.ListarConcesiones}" type="preRenderComponent"/>
          
         <f:event listener="#{rectificarInversion.ListarModalidad}" type="preRenderComponent"/>
          
@@ -668,7 +668,7 @@
                             <tr>
                                 <td align="center" colspan="2">
                                     <p:commandButton value="#{btn.btn_guardar}"
-                                                     actionListener="#{rectificarInversion.guardarContrato()}"
+                                                     actionListener="#{rectificarInversion.guardarRectificarReconocimiento()}"
                                                      update=":form:mensaje"></p:commandButton>
                                      
                                     <p:commandButton value="#{btn.btn_salir}"
