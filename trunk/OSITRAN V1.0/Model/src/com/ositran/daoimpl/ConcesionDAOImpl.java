@@ -22,7 +22,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         System.out.println("DAO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list = session.createQuery("From Concesion o where o.csiEstado <> 0 order by CSI_ID DESC ").list();
+        List list = session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId <> 0 order by CSI_ID DESC ").list();
         session.getTransaction().commit();
 
         
