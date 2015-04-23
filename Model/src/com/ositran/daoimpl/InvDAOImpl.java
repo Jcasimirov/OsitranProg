@@ -136,4 +136,19 @@ public class InvDAOImpl implements InvDAO {
         System.out.println("## FIN INSERT INV");
         return result;
     }  
+    
+    public Inv obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+
+        Query query; 
+        query = session.createQuery("FROM Inv cc where cc.invEstado <> 0 and cc.invId = :idinversion and cc.tiaNumero = :tianumero  order by invId DESC");
+        query.setParameter("idinversion",invId);     
+        query.setParameter("tianumero",tiaNumero);            
+        Inv inv = (Inv)query.uniqueResult();
+        session.close();
+        return inv;        
+              
+        
+        
+    }   
 }
