@@ -57,8 +57,6 @@ public class Inv implements Serializable {
     private String invRegSalidaOficio;
     @Column(name = "MON_ID", nullable = false)
     private Integer monId;
-    @Column(name = "ITR_ID")
-    private Integer itrId;
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)
     private Integer tiaNumero;
@@ -90,7 +88,7 @@ public class Inv implements Serializable {
         this.invRegSalidaInforme = invRegSalidaInforme;
         this.invRegSalidaOficio = invRegSalidaOficio;
         this.monId = Monid;
-        this.itrId = itrId;
+    
         this.tiaNumero = tiaNumero;
         this.invEstado = invEstado;
         this.invNroDocFormalizacion = invNroDocFormalizacion;
@@ -206,14 +204,6 @@ public class Inv implements Serializable {
 
     public void setMonId(Integer monId) {
         this.monId = monId;
-    }
-
-    public Integer getItrId() {
-        return itrId;
-    }
-
-    public void setItrId(Integer itrId) {
-        this.itrId = itrId;
     }
 
     public Integer getTiaNumero() {
