@@ -171,10 +171,10 @@
                                         <div align="center">
                                             <p:commandButton icon="ui-icon-check"
                                                              actionListener="#{rectificarInversion.seleccionarContrato}"
-                                                             update=":form:tablaValorizaciones"
+                                                             update=":form :form:tablaValorizaciones"
                                                              oncomplete="popupBuscarContrato.hide();">
                                                 <f:attribute name="idcontrato" value="#{contrato11}"></f:attribute>
-                                                <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
+                                               
                                             </p:commandButton>
                                         </div>
                                     </p:column>
@@ -280,9 +280,9 @@
                                                         <p:column headerText="Seleccionar" style="width:4%">
                                                             <div align="center">
                                                                 <p:commandButton icon="ui-icon-check"
-                                                                                 update=":form:tblResultadoReconocimiento"
+                                                                                 update=":form :form:tblResultadoReconocimiento"
                                                                                  actionListener="#{rectificarInversion.seleccionarDeclaracion}"
-                                                                                 ajax="false">
+                                                                                 >
                                                                     <f:attribute name="idDeclaracion" value="#{val}"></f:attribute>
                                                                 </p:commandButton>
                                                             </div>
@@ -562,7 +562,7 @@
                                                         <tr>
                                                             <td colspan="2">
                                                                 <p:fieldset legend="RESUMEN">
-                                                                    <table>
+                                                                    <table style="width:100%;">
                                                                         <tr>
                                                                             <td>Monto Total Aprobado</td>
                                                                             <td>
@@ -669,7 +669,7 @@
                                 <td align="center" colspan="2">
                                     <p:commandButton value="#{btn.btn_guardar}"
                                                      actionListener="#{rectificarInversion.guardarRectificarReconocimiento()}"
-                                                     update=":form :form:mensaje"></p:commandButton>
+                                                     update=":form:tablaValorizaciones :form:mensaje"></p:commandButton>
                                      
                                     <p:commandButton value="#{btn.btn_salir}"
                                                      action="#{viewcontroller.redirect('ositran/principal.xhtml')}"></p:commandButton>
