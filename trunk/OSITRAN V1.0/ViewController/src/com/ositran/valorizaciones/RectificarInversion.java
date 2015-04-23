@@ -190,7 +190,9 @@ public class RectificarInversion {
 
     private int estadoReconocimiento;
     private boolean deshabilitadoxObservado;
-
+    private boolean deshabilitadoxDeclaracionNoCargada=true;
+    private boolean mostrarxDeclaracionCargada=false;
+    private boolean readOnlyMontoTipoCambio=false;
     public void validarSesion() throws IOException {
         /* rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -201,9 +203,9 @@ public class RectificarInversion {
         super();
 
     }
-    public void cargarInvxTiaNumero(int numeroInversion){
+    public void cargarInvxTiaNumero(int numeroInversion,int tianumero){
         try {
-            invVO=invServiceImpl.get(numeroInversion);
+            invVO=invServiceImpl.obtenerInversion(numeroInversion,tianumero);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -308,9 +310,13 @@ public class RectificarInversion {
 
     public void cargarDescripcionesMoneda(List<InvAvnVO> listaDeclaraciones) {
         for (InvAvnVO invAvn : listaDeclaraciones) {
+            System.out.println("invAvn.getTiaObservaciones()"+invAvn.getTiaObservaciones());
             for (MonedaVO moneda : listarTipoMonedas) {
-                if (invAvn.getMonId() == moneda.getMonId())
+                if (invAvn.getMonId() == moneda.getMonId()){
                     invAvn.setNombreMoneda(moneda.getMonNombre());
+                    System.out.println("invAvn.getMonId():"+invAvn.getMonId());
+                }
+                   
             }
         }
     }
@@ -359,7 +365,9 @@ public class RectificarInversion {
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoinfra,
                                                                    concesion, fechaInicioSuscripcion,
                                                                    fechaFinSuscripcion);
-
+                for (ContratoVO contrato : listaContrato) {
+                System.out.println("buscado contrato.getConId():"+contrato.getConId());;
+                    }
             /*  for (ContratoVO aux : listaContrato) {
                 for (ConcesionVO concesion : listaConcesiones) {
                     if (concesion.getCsiId() == aux.getCsiId())
@@ -390,10 +398,7 @@ public class RectificarInversion {
         System.out.println("contratoVO.getConId()"+contratoVO.getConId());
         cargarInfraestructurasContrato(contratoVO.getConId());
         resetDialogoBuscarContrato();
-
         listarDeclaraciones(contratoVO.getConId());
-
-
         if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
             RequestContext.getCurrentInstance().update("frmInversion:tablaContratoInversion");
             RequestContext.getCurrentInstance().update("frmAgregarInversion:AeropuertoInversion");
@@ -407,6 +412,7 @@ public class RectificarInversion {
             listaValorizaciones = notificacionServiceImpl.obtenerDeclaracionesxIdContrato(codigoContrato);
             cargarDescripcionesMoneda(listaValorizaciones);
             cargarEstadosdelAvanceInversion(listaValorizaciones);
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -418,26 +424,54 @@ public class RectificarInversion {
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println("invAvnVO.getInvId():"+invAvnVO.getCcoId());
-        cargarInvxTiaNumero(invAvnVO.getInvId());
+        System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
+        cargarInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
         listarValorizacionInversionAvanceDetalleVO(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
-       
+        deshabilitadoxDeclaracionNoCargada=false;
+        mostrarxDeclaracionCargada=true;
+        reset();
+    }
+    public void reset(){
+        renderMostrarIGV=false;
+        igv=BigDecimal.ZERO;
+        
+    }
+    public void resetTipoCambio(){
+        if(invVO.getMonId()==Constantes.SOLES){
+        invVO.setInvMontoTipoCambio(BigDecimal.ZERO);
+        readOnlyMontoTipoCambio=true;
+        }else{
+            readOnlyMontoTipoCambio=false;
+        }
     }
     public void guardarRectificarReconocimiento(){
-        try {            
-            if(estadoReconocimiento==2){
-                invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+        try {     
+            if(estadoReconocimiento==0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                              "Debe Seleccionar El Estado del Reconocimiento"));
             }else{
-                invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
+                if(estadoReconocimiento==2){
+                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+                    invVO.setInvEstadoReconocimiento(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+                }else{
+                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
+                    invVO.setInvEstadoReconocimiento(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
+                }
+                System.out.println("GUARDADO : invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
+                 invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
+                 invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI); 
+                notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));  
             }
-            notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            
+           
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -1302,5 +1336,29 @@ public class RectificarInversion {
 
     public ValorizacionInversionAvanceService getValorizacionInversionAvanceServiceImpl() {
         return valorizacionInversionAvanceServiceImpl;
+    }
+
+    public void setDeshabilitadoxDeclaracionNoCargada(boolean deshabilitadoxDeclaracionNoCargada) {
+        this.deshabilitadoxDeclaracionNoCargada = deshabilitadoxDeclaracionNoCargada;
+    }
+
+    public boolean isDeshabilitadoxDeclaracionNoCargada() {
+        return deshabilitadoxDeclaracionNoCargada;
+    }
+
+    public void setMostrarxDeclaracionCargada(boolean mostrarxDeclaracionCargada) {
+        this.mostrarxDeclaracionCargada = mostrarxDeclaracionCargada;
+    }
+
+    public boolean isMostrarxDeclaracionCargada() {
+        return mostrarxDeclaracionCargada;
+    }
+
+    public void setReadOnlyMontoTipoCambio(boolean readOnlyMontoTipoCambio) {
+        this.readOnlyMontoTipoCambio = readOnlyMontoTipoCambio;
+    }
+
+    public boolean isReadOnlyMontoTipoCambio() {
+        return readOnlyMontoTipoCambio;
     }
 }
