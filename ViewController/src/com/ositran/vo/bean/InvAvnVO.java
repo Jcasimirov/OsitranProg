@@ -49,7 +49,7 @@ public class InvAvnVO{
         private Integer ccoId;
         private BigDecimal total;
         private String plazo;
-        
+        private String tiaObservaciones;
     public void setTiaRutaNot(String tiaRutaNot) {
         this.tiaRutaNot = tiaRutaNot;
     }
@@ -338,5 +338,13 @@ public class InvAvnVO{
 
     public String getPlazo() {
         return plazo;
+    }
+
+    public void setTiaObservaciones(String tiaObservaciones) {
+        this.tiaObservaciones = tiaObservaciones;
+    }
+
+    public String getTiaObservaciones() {
+        return tiaObservaciones;
     }
 }
