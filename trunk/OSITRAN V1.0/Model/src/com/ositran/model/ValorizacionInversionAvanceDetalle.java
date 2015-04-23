@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -18,8 +19,7 @@ import org.hibernate.annotations.Parameter;
 
 public class ValorizacionInversionAvanceDetalle implements Serializable {
     private static final long serialVersionUID = -8422886764978732689L;
-    @Column(name = "CNV_ID")
-    private int cnvId;
+
     @Column(name = "IAD_IGV",nullable = false)
     private BigDecimal igv;
     @Id
@@ -63,7 +63,7 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     public ValorizacionInversionAvanceDetalle(int cnvId, BigDecimal igv, int monId, BigDecimal montoPresentado,
                                               int tiaNumero, BigDecimal tiaTotal, Integer tinId, Integer csiId,
                                               Integer infId, Integer invId) {
-        this.cnvId = cnvId;
+   
         this.igv = igv;
         this.monId = monId;
         this.montoPresentado = montoPresentado;
@@ -75,13 +75,6 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
         
     }
 
-    public int getCnvId() {
-        return cnvId;
-    }
-
-    public void setCnvId(int cnvId) {
-        this.cnvId = cnvId;
-    }
 
     public BigDecimal getIgv() {
         return igv;
