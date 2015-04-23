@@ -1054,8 +1054,10 @@ public class DeclararInversion {
     
     public void guardarDeclaracion (){
         try{
+            
             invVO.setInvMontoTotalAprobado(totalMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalMontoReajustado);                    
+            invServiceImpl.insertDeclaracion(invVO, listaInvReconocimientoVO, listaInvReajusteVO);
         }catch(Exception e){
             e.printStackTrace();    
         }
