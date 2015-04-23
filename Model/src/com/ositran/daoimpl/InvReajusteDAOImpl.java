@@ -92,12 +92,12 @@ public class InvReajusteDAOImpl implements InvReajusteDAO {
     @Override
     public List<InvReajuste> getInvReajustesAvance(Integer tiaNumero) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
+
         Query query; 
         query = session.createQuery("FROM InvReajuste cc where cc.tiaNumero = :busqueda1 order by irjId asc");
         query.setParameter("busqueda1",tiaNumero);            
         List<InvReajuste> list = query.list();
-        session.getTransaction().commit();
+        session.close();
         return list;   
     }
 }
