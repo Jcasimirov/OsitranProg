@@ -19,7 +19,6 @@ public class InvVO {
     private String invRegSalidaInforme;
     private String invRegSalidaOficio;
     private Integer monId;
-    private Integer itrId;
     private Integer tiaNumero;    
     private Integer invEstado;
     private String invNota;
@@ -141,13 +140,6 @@ public class InvVO {
         this.monId = monId;
     }
 
-    public Integer getItrId() {
-        return itrId;
-    }
-
-    public void setItrId(Integer itrId) {
-        this.itrId = itrId;
-    }
 
     public Integer getTiaNumero() {
         return tiaNumero;
