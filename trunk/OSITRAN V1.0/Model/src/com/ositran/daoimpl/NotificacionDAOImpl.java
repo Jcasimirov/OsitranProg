@@ -83,9 +83,11 @@ public class NotificacionDAOImpl implements NotificacionDAO {
             session.update(invAvn);
             for (InvReconocimiento rec : reconocimiento){
                 session.update(rec);  
+                System.out.println("DAO rec.getIreEstado():"+rec.getIreEstado());
             }
             for (InvReajuste rea : reajuste){
                 session.update(rea);
+                System.out.println("DAO rea.getTiaNumero():"+rea.getTiaNumero()+" rea.getIrjId():"+rea.getIrjId());
             }
             session.update(inv);            
             session.getTransaction().commit();
