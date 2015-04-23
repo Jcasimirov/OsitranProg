@@ -97,8 +97,10 @@ public class NotificacionDAOImpl implements NotificacionDAO {
             result=e.getMessage();
             System.out.println(result);
             e.printStackTrace();
+        }finally{
+            session.close();  
         }
-        session.close();
+
         
     }
 }
