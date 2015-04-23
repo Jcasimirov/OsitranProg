@@ -167,6 +167,7 @@ public class NotificacionServiceImpl implements NotificacionService{
         private InvAvn toInvAvn(InvAvnVO invAvnVO){
             InvAvn invAvn=new InvAvn();            
             invAvn.setConId(invAvnVO.getConId());
+            invAvn.setCcoId(invAvnVO.getCcoId());
             invAvn.setCsiId(invAvnVO.getCsiId());
             invAvn.setIaeId(invAvnVO.getIaeId());
             invAvn.setInvId(invAvnVO.getInvId());
