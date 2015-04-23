@@ -2,6 +2,9 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.InvDAO;
 import com.ositran.model.Inv;
+import com.ositran.model.InvReajuste;
+import com.ositran.model.InvReconocimiento;
+import com.ositran.model.ValorizacionInversionAvance;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
@@ -94,8 +97,43 @@ public class InvDAOImpl implements InvDAO {
         List<Inv> list = query.list();
         session.getTransaction().commit();
         return list;        
-              
-        
-        
+                          
+    }  
+    
+    @Override
+    public String insertDeclaracion(Inv inv, List<InvReconocimiento> listInvReconocimiento,List<InvReajuste> listInvReajuste) throws SQLException{
+                
+        String result=null;
+        System.out.println("## INI INSERT DECLARACION");
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();            
+            session.persist(inv);
+            System.out.println("insert INV OK");
+            
+            for(InvReconocimiento invReconocimiento:listInvReconocimiento){
+                session.persist(invReconocimiento);
+            }
+            System.out.println("insert RECONOCIMIENTO OK");
+            
+            for(InvReajuste invReajuste:listInvReajuste){
+                session.persist(invReajuste);
+            }
+            System.out.println("insert REAJUSTE OK");
+                        
+            ValorizacionInversionAvance valorizacionInversionAvance = (ValorizacionInversionAvance) session.get(ValorizacionInversionAvance.class, inv.getTiaNumero());
+            valorizacionInversionAvance.setIaeId(4);
+            session.update(valorizacionInversionAvance);
+            System.out.println("update AVANCE_INV OK");
+            session.getTransaction().commit();
+            System.out.println("## Insert DECLARACION OK");
+            
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+            System.out.println("## Insert DECLARACION ROLLBACK");;
+        }
+        System.out.println("## FIN INSERT INV");
+        return result;
     }  
 }
