@@ -85,9 +85,8 @@ public class InvServiceImpl implements InvService {
         invVO.setInvObservaciones(inv.getInvObservaciones());
         invVO.setInvRegSalidaInforme(inv.getInvRegSalidaInforme());
         invVO.setInvRegSalidaOficio(inv.getInvRegSalidaOficio());
-        
         invVO.setMonId(inv.getMonId());
-        invVO.setTiaNumero(inv.getTiaNumero());        
+        invVO.setTiaNumero(inv.getTiaNumero());
         invVO.setInvNroDocFormalizacion(inv.getInvNroDocFormalizacion());
         invVO.setInvFechaEmisionDocFomalizacion(inv.getInvFechaEmisionDocFomalizacion());
         return invVO;
@@ -111,7 +110,7 @@ public class InvServiceImpl implements InvService {
         inv.setInvRegSalidaInforme(invVO.getInvRegSalidaInforme());
         inv.setInvRegSalidaOficio(invVO.getInvRegSalidaOficio());
         inv.setMonId(invVO.getMonId());
-        inv.setTiaNumero(invVO.getTiaNumero());        
+        inv.setTiaNumero(invVO.getTiaNumero());
         inv.setInvNroDocFormalizacion(invVO.getInvNroDocFormalizacion());
         inv.setInvFechaEmisionDocFomalizacion(invVO.getInvFechaEmisionDocFomalizacion());
         return inv;
@@ -150,7 +149,11 @@ public class InvServiceImpl implements InvService {
         String result = invDAOImpl.insertDeclaracion(inv,listInvReconocimiento, listInvReajuste);
         return result;
     }
-
+    public InvVO obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException{
+        Inv inv = invDAOImpl.obtenerInversion(invId, tiaNumero);
+        InvVO invVO=toInvVO(inv);
+        return invVO;
+    }
     public InvReconocimientoServiceImpl getInvReconocimientoServiceImpl() {
         return invReconocimientoServiceImpl;
     }
@@ -166,4 +169,5 @@ public class InvServiceImpl implements InvService {
     public void setInvReajusteServiceImpl(InvReajusteServiceImpl invReajusteServiceImpl) {
         this.invReajusteServiceImpl = invReajusteServiceImpl;
     }
+
 }
