@@ -55,7 +55,7 @@ public class Inv implements Serializable {
     private String invRegSalidaInforme;
     @Column(name = "INV_REG_SALIDA_OFICIO", length = 100)
     private String invRegSalidaOficio;
-    @Column(name = "MONEDA_ID", nullable = false)
+    @Column(name = "MON_ID", nullable = false)
     private Integer monId;
     @Column(name = "ITR_ID")
     private Integer itrId;
