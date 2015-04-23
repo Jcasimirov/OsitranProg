@@ -1,7 +1,10 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.NotificacionDAO;
+import com.ositran.model.Inv;
 import com.ositran.model.InvAvn;
+import com.ositran.model.InvReajuste;
+import com.ositran.model.InvReconocimiento;
 import com.ositran.model.ValorizacionNotificacion;
 import com.ositran.util.HibernateUtil;
 
@@ -57,7 +60,7 @@ public class NotificacionDAOImpl implements NotificacionDAO {
     
     public List<InvAvn> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        List list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4").list();
+        List list=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4 order by i.tiaNumero asc").list();
         session.close();
         return (List<InvAvn>)list;
     }
@@ -71,5 +74,29 @@ public class NotificacionDAOImpl implements NotificacionDAO {
         query.setParameter("contratoCompromisoId",contratoCompromisoId);
         System.out.println("tanaño de la listra:" + query.list().size());
         return query.list();
+    }
+    public void updateRectificacion(InvAvn invAvn,List<InvReconocimiento> reconocimiento,List<InvReajuste> reajuste,Inv inv)throws SQLException{
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(invAvn);
+            for (InvReconocimiento rec : reconocimiento){
+                session.update(rec);  
+            }
+            for (InvReajuste rea : reajuste){
+                session.update(rea);
+            }
+            session.update(inv);            
+            session.getTransaction().commit();
+                    
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        session.close();
+        
     }
 }
