@@ -280,7 +280,7 @@
                                                         <p:column headerText="Seleccionar" style="width:4%">
                                                             <div align="center">
                                                                 <p:commandButton icon="ui-icon-check"
-                                                                                 update=":form :form:tblResultadoReconocimiento"
+                                                                                 update=":form"
                                                                                  actionListener="#{rectificarInversion.seleccionarDeclaracion}"
                                                                                  >
                                                                     <f:attribute name="idDeclaracion" value="#{val}"></f:attribute>
@@ -369,7 +369,7 @@
                                                 </p:fieldset>
                                             </td>
                                             <td valign="top">
-                                                <p:fieldset legend="Solicitud del Concesionario">
+                                                <p:fieldset legend="Solicitud del Concesionario" rendered="#{rectificarInversion.mostrarxDeclaracionCargada}">
                                                     <table>
                                                        <tr>
                                                        <td colspan="2">
@@ -386,6 +386,10 @@
                                                                     <f:selectItem itemLabel="Aprobado" itemValue="1"/>
                                                                     <f:selectItem itemLabel="Observado" itemValue="2"/>
                                                                 </p:selectOneMenu>
+                                                             
+                                                            </td>
+                                                            <td>
+                                                            <p:message display="icon" for="Dias"/>
                                                             </td>
                                                         </tr>
                                                          
@@ -618,6 +622,7 @@
                                                         <tr>
                                                         <td><h:outputText value="Tipo de Cambio" /></td>
                                                         <td><p:selectOneMenu style="width:210px;" value="#{rectificarInversion.invVO.monId}" disabled="#{rectificarInversion.deshabilitadoxObservado}">
+                                                        <p:ajax listener="#{rectificarInversion.resetTipoCambio()}" update="montotipocambio"></p:ajax>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItems value="#{rectificarInversion.listarTipoMonedas}"
                                                                            var="tipMoneda" itemLabel="#{tipMoneda.monNombre}"
@@ -626,7 +631,7 @@
                                                         </td>
                                                         
                                                         <td ><h:outputText value="Monto Tipo de Cambio" /></td>                                                      
-                                                        <td colspan="3"><p:inputText value="#{rectificarInversion.invVO.invMontoTipoCambio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
+                                                        <td colspan="3"><p:inputText id="montotipocambio" value="#{rectificarInversion.invVO.invMontoTipoCambio}" readonly="#{rectificarInversion.readOnlyMontoTipoCambio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
                                                        
                                                         </tr>
                                                         
@@ -667,7 +672,7 @@
                              
                             <tr>
                                 <td align="center" colspan="2">
-                                    <p:commandButton value="#{btn.btn_guardar}"
+                                    <p:commandButton value="#{btn.btn_guardar}" disabled="#{rectificarInversion.deshabilitadoxDeclaracionNoCargada}"
                                                      actionListener="#{rectificarInversion.guardarRectificarReconocimiento()}"
                                                      update=":form:tablaValorizaciones :form:mensaje"></p:commandButton>
                                      
