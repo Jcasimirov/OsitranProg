@@ -74,7 +74,6 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
         query.setParameter("tianumero",tiaNumero);            
 
         List<ValorizacionInversionAvanceDetalle> list = query.list();
-        session.getTransaction().commit();
         System.out.println("FIN DAO METHOD: getInvAvanceDetallesInvAvance");
         session.close();
         return list; 

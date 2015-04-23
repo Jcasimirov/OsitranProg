@@ -67,7 +67,7 @@ public class Inv implements Serializable {
     @Column(name = "INV_ESTADO") 
     private Integer invEstado;
     @Column(name = "INV_NRO_DOC_FORMALIZACION") 
-    private Long invNroDocFormalizacion;
+    private String invNroDocFormalizacion;
     @Column(name = "INV_FECHA_EMISION_FORM")
     private Date invFechaEmisionDocFomalizacion;
     public Inv() {
@@ -77,7 +77,7 @@ public class Inv implements Serializable {
                Integer invId, BigDecimal invMontoTipoCambio, BigDecimal invMontoTotalAprobado, BigDecimal invMontoTotalReajuste,
                String invNota, String invNumeroInforme, String invNumeroOficio, String invObservaciones,
                String invRegSalidaInforme, String invRegSalidaOficio, Integer Monid, Integer itrId,
-               Integer tiaNumero, Integer tivId, Integer invEstado) {
+               Integer tiaNumero, Integer tivId, Integer invEstado, String invNroDocFormalizacion) {
         this.invEstadoReconocimiento = invEstadoReconocimiento;
         this.invFechaEmisionInforme = invFechaEmisionInforme;
         this.invFechaEmisionOficio = invFechaEmisionOficio;
@@ -96,6 +96,7 @@ public class Inv implements Serializable {
         this.tiaNumero = tiaNumero;
         this.tivId = tivId;
         this.invEstado = invEstado;
+        this.invNroDocFormalizacion = invNroDocFormalizacion;
     }
 
     public Integer getInvEstadoReconocimiento() {
@@ -242,11 +243,11 @@ public class Inv implements Serializable {
         this.invEstado = invEstado;
     }
 
-    public void setInvNroDocFormalizacion(Long invNroDocFormalizacion) {
+    public void setInvNroDocFormalizacion(String invNroDocFormalizacion) {
         this.invNroDocFormalizacion = invNroDocFormalizacion;
     }
 
-    public Long getInvNroDocFormalizacion() {
+    public String getInvNroDocFormalizacion() {
         return invNroDocFormalizacion;
     }
 
