@@ -2,13 +2,10 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.InvDAO;
 import com.ositran.model.Inv;
-import com.ositran.model.Inv;
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -81,9 +78,9 @@ public class InvDAOImpl implements InvDAO {
     @Override
     public Inv get(Integer id) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
+
         Inv inv = (Inv) session.get(Inv.class, id);
-        session.getTransaction().commit();
+        session.close();
         return inv;
     }
     
