@@ -78,7 +78,8 @@ public class InvAvn implements Serializable {
     @Column(name = "CCO_ID")
     private Integer ccoId;
     
-
+    @Column(name = "TIA_OBSERVACIONES")
+    private String tiaObservaciones; 
     public InvAvn() {
     }
 
@@ -295,5 +296,13 @@ public class InvAvn implements Serializable {
 
     public Integer getCcoId() {
         return ccoId;
+    }
+
+    public void setTiaObservaciones(String tiaObservaciones) {
+        this.tiaObservaciones = tiaObservaciones;
+    }
+
+    public String getTiaObservaciones() {
+        return tiaObservaciones;
     }
 }
