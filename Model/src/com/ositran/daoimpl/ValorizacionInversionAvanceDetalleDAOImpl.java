@@ -12,6 +12,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionInversionAvanceDetalleDAO {
     public ValorizacionInversionAvanceDetalleDAOImpl() {
         super();
@@ -62,14 +64,22 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
     
     @Override
     public List<ValorizacionInversionAvanceDetalle> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException, Exception {
+        
+        System.out.println("INI DAO METHOD: getInvAvanceDetallesInvAvance");
+        System.out.println("tiaNumero:" + tiaNumero);    
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
  
         Query query; 
-        query = session.createQuery("FROM ValorizacionInversionAvanceDetalle ia where ia.tiaNumero = :tiaNumero order by ia.iad_Id DESC");
-        query.setParameter("tiaNumero",tiaNumero);            
-        List lista = query.list();
+        query = session.createQuery("FROM ValorizacionInversionAvanceDetalle ia where ia.tiaNumero = :tianumero order by ia.iad_Id DESC");
+        query.setParameter("tianumero",tiaNumero);            
+
+        List<ValorizacionInversionAvanceDetalle> list = query.list();
+        session.getTransaction().commit();
+        System.out.println("FIN DAO METHOD: getInvAvanceDetallesInvAvance");
         session.close();
-        return (List<ValorizacionInversionAvanceDetalle>)lista;     
+        return list; 
+
+
     }
     
     
