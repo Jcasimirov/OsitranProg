@@ -40,7 +40,7 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     @Column(name = "DTI_ID", nullable = false)
     private int dtiId;
     @Column(name = "IAD_PDF")
-    private int iadPDF;    
+    private String iadPDF;    
     
     //
     @Column(name = "TIN_ID")
@@ -62,7 +62,7 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
 
     public ValorizacionInversionAvanceDetalle(int cnvId, BigDecimal igv, int monId, BigDecimal montoPresentado,
                                               int tiaNumero, BigDecimal tiaTotal, Integer tinId, Integer csiId,
-                                              Integer infId, Integer invId) {
+                                              Integer infId, Integer invId, String iadPDF) {
    
         this.igv = igv;
         this.monId = monId;
@@ -72,7 +72,8 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
         this.tinId = tinId;
         this.csiId = csiId;
         this.infId = infId;
-        
+        this.invId = invId;
+        this.iadPDF = iadPDF;
     }
 
 
@@ -142,11 +143,11 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
         return dtiId;
     }
 
-    public void setIadPDF(int iadPDF) {
+    public void setIadPDF(String iadPDF) {
         this.iadPDF = iadPDF;
     }
 
-    public int getIadPDF() {
+    public String getIadPDF() {
         return iadPDF;
     }
 
