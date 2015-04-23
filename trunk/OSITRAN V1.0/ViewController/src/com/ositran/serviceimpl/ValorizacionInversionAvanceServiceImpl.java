@@ -1,24 +1,31 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionInversionAvanceDAOImpl;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.ValorizacionInversionAvance;
 import com.ositran.service.ValorizacionInversionAvanceService;
-import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
+
 import java.sql.SQLException;
+
 import java.text.ParseException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInversionAvanceService{
     ValorizacionInversionAvanceVO valorizacionInversionAvanceVO=new ValorizacionInversionAvanceVO();
     ValorizacionInversionAvance valorizacionInversionAvance=new ValorizacionInversionAvance();
-    ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl=new ValorizacionInversionAvanceDAOImpl();
-    
-    
+    ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl;
+
+
+    public void setValorizacionInversionAvanceDAOImpl(ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl) {
+        this.valorizacionInversionAvanceDAOImpl = valorizacionInversionAvanceDAOImpl;
+    }
+
+    public ValorizacionInversionAvanceDAOImpl getValorizacionInversionAvanceDAOImpl() {
+        return valorizacionInversionAvanceDAOImpl;
+    }
+
     public ValorizacionInversionAvanceServiceImpl() {
         super();
     }
@@ -139,4 +146,5 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
        
        return valorizacionInversionAvance1;
     }
+    
 }
