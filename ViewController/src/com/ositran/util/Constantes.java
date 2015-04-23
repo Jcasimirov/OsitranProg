@@ -27,4 +27,7 @@ public class Constantes {
     public static Integer TIPINFAEROPUERTOS=2;
     
     public static String RUTANOTIFICACION="D:/filesositran/temp/notificacion/";
+    
+    public static Integer ESTADORECONOCIMIENTO_OBSERVADO=0;
+    public static Integer ESTADORECONOCIMIENTO_RECTIFICADO=5;
 }
