@@ -4,6 +4,7 @@ import com.ositran.service.ConcesionarioService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.InvReajusteService;
 import com.ositran.service.InvReconocimientoService;
+import com.ositran.service.InvService;
 import com.ositran.service.InversionAvanceEstadoService;
 import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.MonedaService;
@@ -11,6 +12,7 @@ import com.ositran.service.NotificacionService;
 import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
+import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
@@ -126,6 +128,12 @@ public class RectificarInversion {
     
     @ManagedProperty(value = "#{valorizacionInversionAvanceDetalleServiceImpl}")
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServiceImpl;
+    
+    @ManagedProperty(value = "#{invServiceImpl}")
+    InvService invServiceImpl;
+    @ManagedProperty(value = "#{valorizacionInversionAvanceServiceImpl}")
+    ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl;
+    
     // Lista Bean VO
     private List<InversionDescripcionVO> listaConceptos = new ArrayList<InversionDescripcionVO>();
     private List<ValorizacionInversionAvanceDetalleVO> listaValorizacionInversionAvanceDetalleVO =
@@ -193,7 +201,14 @@ public class RectificarInversion {
         super();
 
     }
-    
+    public void cargarInvxTiaNumero(int numeroInversion){
+        try {
+            invVO=invServiceImpl.get(numeroInversion);
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
     public void listarTiposMoneda() {
         try {
             List<MonedaVO> lista = new ArrayList<MonedaVO>();
@@ -246,7 +261,14 @@ public class RectificarInversion {
             e.printStackTrace();
         }
     }
-
+    public void ListarConcesiones() {
+        try {
+            listaConcesiones = concesionServiceImpl.query();
+            System.out.println("listaConcesiones:" + listaConcesiones.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // Metodo para Listar Modalidad de Concesión
     public void ListarModalidad() throws SQLException {
         try {
@@ -336,6 +358,7 @@ public class RectificarInversion {
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoinfra,
                                                                    concesion, fechaInicioSuscripcion,
                                                                    fechaFinSuscripcion);
+
             /*  for (ContratoVO aux : listaContrato) {
                 for (ConcesionVO concesion : listaConcesiones) {
                     if (concesion.getCsiId() == aux.getCsiId())
@@ -363,7 +386,7 @@ public class RectificarInversion {
 
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
-
+        System.out.println("contratoVO.getConId()"+contratoVO.getConId());
         cargarInfraestructurasContrato(contratoVO.getConId());
         resetDialogoBuscarContrato();
 
@@ -379,6 +402,7 @@ public class RectificarInversion {
 
     public void listarDeclaraciones(int codigoContrato) {
         try {
+            System.out.println("listarDeclaraciones");
             listaValorizaciones = notificacionServiceImpl.obtenerDeclaracionesxIdContrato(codigoContrato);
             cargarDescripcionesMoneda(listaValorizaciones);
             cargarEstadosdelAvanceInversion(listaValorizaciones);
@@ -387,22 +411,33 @@ public class RectificarInversion {
         }
     }
 
-
+   
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
-        invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println("seleccionarDeclaracion");
-        
+        System.out.println("invAvnVO.getInvId():"+invAvnVO.getInvId());
+        cargarInvxTiaNumero(invAvnVO.getInvId());
         listarValorizacionInversionAvanceDetalleVO(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
+        System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
        
     }
-
+    public void guardarRectificarReconocimiento(){
+        try {            
+            if(estadoReconocimiento==2){
+                invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+            }else{
+                invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
+            }
+            notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+    }
     public void cargarDatosCompromiso(int ccoId) {
         try {
             ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
@@ -421,34 +456,7 @@ public class RectificarInversion {
         }
 
     }
-    /*--Reporte de Avance de Obra
-     * periodoseleccionado=contratoVO.getPerId();
-     * aplicaAvancedeObra=contratoVO.getConAvanceobra() == 1 ? true : false;
-     * contratoVO.conDiames
-     * --Plazos de Revisión
-     * contratoVO.conPlazorevision
-     * contratoVO.conTipodias
-     * --Otros Datos
-     * contratoVO.conFechaSuscripcion
-     * contratoVO.conPlazoconcesion
-     * contratoVO.conPdfcontrato
-     * contratoVO.conFicharesumen*/
-    public void guardarContrato() {
-        try {
-
-            contratoVO.setConFechaCambio(new Date());
-            contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
-            contratoConcesionServiceImp.update(contratoVO);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.EXITOCONTRATOACTUALIZADO));
-        } catch (Exception sqle) {
-            sqle.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
-        }
-    }
+ 
 
     public void resetDialogoBuscarContrato() {
         tipoinfra = 0;
@@ -492,8 +500,8 @@ public class RectificarInversion {
 
     public void cargarReconocimiento(int tiaNumero) {
         try {
-
             listaReconocimiento = invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
+            System.out.println("listaReconocimiento.size():"+listaReconocimiento.size());
             calcularTotalesReconocimiento(listaReconocimiento);
             cargarDescripcionesInfraestructura(listaReconocimiento);
             cargarDescripcionesMonedas(listaReconocimiento);
@@ -647,11 +655,7 @@ public class RectificarInversion {
                         invReconocimientoVO.setIrjMontoAprobado(montoAprobado);
                     }
                 }
-                calcularTotalesReajuste(listaReajuste);
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
-                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
+                calcularTotalesReajuste(listaReajuste);              
                 RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
                 RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
@@ -662,7 +666,7 @@ public class RectificarInversion {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                               Constantes.ERROR,
-                                                                              Constantes.ERRORGUARDAR));
+                                                                              Constantes.ERROR));
             }
         }
     }
@@ -690,10 +694,6 @@ public class RectificarInversion {
                     }
                 }
                 calcularTotalesReajuste(listaReajuste);
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
-                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
                 RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
                 RequestContext.getCurrentInstance().update("form:resumenMonRea");
@@ -702,7 +702,7 @@ public class RectificarInversion {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                               Constantes.ERROR,
-                                                                              Constantes.ERRORGUARDAR));
+                                                                              Constantes.ERROR));
             }
         }
     }
@@ -1280,4 +1280,20 @@ public class RectificarInversion {
         return valorizacionInversionAvanceDetalleServiceImpl;
     }
 
+    public void setInvServiceImpl(InvService invServiceImpl) {
+        this.invServiceImpl = invServiceImpl;
+    }
+
+    public InvService getInvServiceImpl() {
+        return invServiceImpl;
+    }
+
+
+    public void setValorizacionInversionAvanceServiceImpl(ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl) {
+        this.valorizacionInversionAvanceServiceImpl = valorizacionInversionAvanceServiceImpl;
+    }
+
+    public ValorizacionInversionAvanceService getValorizacionInversionAvanceServiceImpl() {
+        return valorizacionInversionAvanceServiceImpl;
+    }
 }
