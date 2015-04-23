@@ -1,13 +1,17 @@
 package com.ositran.daoimpl;
 
-import java.util.List;
-import org.hibernate.Session;
-import org.springframework.stereotype.Repository;
 import com.ositran.dao.InfraestructuraTipoDAO;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
+
+import java.util.List;
+
 import org.hibernate.Query;
+import org.hibernate.Session;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
@@ -71,7 +75,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
     public List query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from InfraestructuraTipo o order by TIN_ID asc").list();
+        List list = session.createQuery("From InfraestructuraTipo o WHERE o.tinId > 0  order by TIN_ID asc").list();
         return list;
     }
 
