@@ -13,6 +13,7 @@ import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.InvReajusteServiceImpl;
 import com.ositran.serviceimpl.InvReconocimientoServiceImpl;
+import com.ositran.serviceimpl.InvServiceImpl;
 import com.ositran.serviceimpl.InversionAvanceEstadoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.NotificacionServiceImpl;
@@ -64,6 +65,10 @@ import com.ositran.vo.bean.InvReconocimientoVO;
 import com.ositran.vo.bean.InvVO;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
+
+import java.math.BigDecimal;
+
+import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name = "declararInversionMB")
 @ViewScoped
@@ -124,26 +129,31 @@ public class DeclararInversion {
     @ManagedProperty(value = "#{notificacionServiceImpl}")
     private NotificacionServiceImpl notificacionServiceImpl;
     private List<InvAvnVO> listaInvAvnVO = new ArrayList<>();
+    //@ManagedProperty(value = "#{invAvnVO}")
+    private InvAvnVO invAvnVO;
     
     @ManagedProperty(value = "#{inversionAvanceEstadoServiceImpl}")
     private InversionAvanceEstadoServiceImpl inversionAvanceEstadoServiceImpl;
     private List<InvAvnEstadoVO> listaInvAvnEstadoVO = new ArrayList<>();
     
+    @ManagedProperty(value = "#{invServiceImpl}")
+    private InvServiceImpl invServiceImpl;
     @ManagedProperty(value = "#{invVO}")
-    private InvVO invVO;    
+    private InvVO invVO = new InvVO();    
     
     @ManagedProperty(value = "#{invReconocimientoServiceImpl}")
     private InvReconocimientoServiceImpl invReconocimientoServiceImpl;
-    private List<InvReconocimientoVO> listaInvReconocimientoVO;  
+    private List<InvReconocimientoVO> listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>() ;  
     
     @ManagedProperty(value = "#{invReajusteServiceImpl}")
     private InvReajusteServiceImpl invReajusteServiceImpl;    
-    private List<InvReajusteVO> listaInvReajusteVO;
+    private List<InvReajusteVO> listaInvReajusteVO = new ArrayList<InvReajusteVO>();
     
-    @ManagedProperty(value = "#{invAvanceDetalleServiceImpl}")
-    private ValorizacionInversionAvanceDetalleServiceImpl invAvanceDetalleServiceImpl;        
+    @ManagedProperty(value = "#{valorizacionInversionAvanceDetalleServiceImpl}")
+    private ValorizacionInversionAvanceDetalleServiceImpl valorizacionInversionAvanceDetalleServiceImpl;        
     private List<ValorizacionInversionAvanceDetalleVO> listaInvAvanceDetalleVO;
-    private ValorizacionInversionAvanceDetalleVO invAvanceDetalleVO;
+    @ManagedProperty(value = "#{valorizacionInversionAvanceDetalleVO}")
+    private ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO;
     
     @ManagedProperty(value = "#{inversionDescripcionServicesImpl}")
     private InversionDescripcionServicesImpl inversionDescripcionServicesImpl;
@@ -161,7 +171,7 @@ public class DeclararInversion {
     private Integer contratoCompromisoId = 0;
     private int codigoAeropuerto;
     private int codigoContrato;
-    private Integer codigoInversion;
+    private int codigoInversion;
 
     private DefaultStreamedContent downloadFichaResumen;
     private List<ConcesionVO> listaConcesiones;
@@ -179,16 +189,21 @@ public class DeclararInversion {
     // datos de inv
     private Integer reconoEstado = 0;
     private  String reconoObs;
+    private BigDecimal totalMontoPresentado;
+    private BigDecimal totalMontoAprobado;
+    private BigDecimal totalMontoReajustado;
 
     public DeclararInversion() {
-        super();
+        super();        
+        
     }
 
 
     public void validarSesion() throws IOException {
-        setRolOpcion(ControlAcceso.getNewInstance().validarSesion(formulario));
+        /* setRolOpcion(ControlAcceso.getNewInstance().validarSesion(formulario));
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
-        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId()); */
+        
     }
 
 
@@ -686,11 +701,11 @@ public class DeclararInversion {
     }
 
 
-    public Integer getCodigoInversion() {
+    public int getCodigoInversion() {
         return codigoInversion;
     }
 
-    public void setCodigoInversion(Integer codigoInversion) {
+    public void setCodigoInversion(int codigoInversion) {
         this.codigoInversion = codigoInversion;
     }
 
@@ -816,10 +831,18 @@ public class DeclararInversion {
     }
     
     
-    public void cargarDetalleInversion(){
-        try{
-            InvReconocimientoVO  invReconocimientoVO = new InvReconocimientoVO();
-            listaInvAvanceDetalleVO = invAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(codigoInversion);
+    public void cargarDetalleInversion(SelectEvent event){
+        System.out.println("codigoInversion: " +  ((InvAvnVO)event.getObject()).getTiaNumero());
+         try{
+            System.out.println("INI cargarDetalleInversion");
+            listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>();
+            totalMontoAprobado = new BigDecimal(0);
+            totalMontoPresentado = new BigDecimal(0);
+            totalMontoReajustado = new BigDecimal(0);
+            listaInvReajusteVO = new ArrayList<InvReajusteVO>();             
+            InvReconocimientoVO  invReconocimientoVO = new InvReconocimientoVO();    
+            InvReajusteVO  invReajusteVO = new InvReajusteVO();     
+            listaInvAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(((InvAvnVO)event.getObject()).getTiaNumero());
             ListaInversionDescripcionVO = inversionDescripcionServicesImpl.query();
             
             for (ValorizacionInversionAvanceDetalleVO invAvanceDetalleVO : listaInvAvanceDetalleVO) {
@@ -829,35 +852,76 @@ public class DeclararInversion {
                 invReconocimientoVO.setMonId(invAvanceDetalleVO.getMonId());                
                 invReconocimientoVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
                 invReconocimientoVO.setIvrMontoPresentado(invAvanceDetalleVO.getMontoPresentado());
+                invReconocimientoVO.setIadId(invAvanceDetalleVO.getIad_Id());
+                
+                totalMontoPresentado = totalMontoPresentado.add(invReconocimientoVO.getIvrMontoPresentado());
+                
+                invReajusteVO.setCsiId(invAvanceDetalleVO.getCsiId());
+                invReajusteVO.setInfId(invAvanceDetalleVO.getInfId());
+                invReajusteVO.setTinId(invAvanceDetalleVO.getTinId());
+                invReajusteVO.setMonId(invAvanceDetalleVO.getMonId());  
+                invReajusteVO.setIadId(invAvanceDetalleVO.getIad_Id());
+                
+                invReajusteVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
                 
                 for (MonedaVO moneda : listaTipoMonedas) {
                    if(moneda.getMonId()==invAvanceDetalleVO.getMonId()){
                        invReconocimientoVO.setNombreMoneda(moneda.getMonNombre()); // infraestructura
+                       invReajusteVO.setNombreMoneda(moneda.getMonNombre()); 
                    }
                 }
                 
                 for(InfraestructuraVO infraestructuraVO:listaInfraestructura) {
                     if(infraestructuraVO.getInfId() == invAvanceDetalleVO.getInfId()){
                         invReconocimientoVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+                        invReajusteVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                     }
                 }
                 
                 for(InversionDescripcionVO inversionDescripcionVO :ListaInversionDescripcionVO){
                     if(inversionDescripcionVO.getItdId() == invAvanceDetalleVO.getDtiId()){
                         invReconocimientoVO.setDesConcepto(inversionDescripcionVO.getItdNombre());
+                        invReajusteVO.setDesConcepto(inversionDescripcionVO.getItdNombre());
                     }
                 }
+               
+               // totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
+               
+                listaInvReconocimientoVO.add(invReconocimientoVO);
                 
-              
+                listaInvReajusteVO.add(invReajusteVO);
                 
                 
             }
             
+            System.out.println("totalMontoPresentado" + totalMontoPresentado);
         }catch(Exception e){
             e.printStackTrace();
-        }
-        
+        } 
+        System.out.println("FIN cargarDetalleInversion");
             
+    }
+    
+    public void cargarReajuste(){
+        totalMontoAprobado = new BigDecimal(0);
+        totalMontoReajustado = new BigDecimal(0);
+        for(InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO){
+            if(invReconocimientoVO.getIvrMontoAprobado() != null){
+                totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
+            }
+            for(InvReajusteVO invReajusteVO : listaInvReajusteVO){
+                
+                if(invReconocimientoVO.getIadId() == invReajusteVO.getIadId()){
+                    invReajusteVO.setIrjMontoAprobado(invReconocimientoVO.getIvrMontoAprobado());
+                    if(invReajusteVO.getIrjMontoReajuste() != null){
+                            totalMontoReajustado = totalMontoReajustado.add(invReajusteVO.getIrjMontoReajuste());
+                    }                    
+                }
+            }
+        
+        }
+        //invVO.setInvMontoTotalAprobado(totalMontoAprobado);
+        //invVO.setInvMontoTotalReajuste(totalMontoReajustado);
     }
 
     public Integer getReconoEstado() {
@@ -916,12 +980,12 @@ public class DeclararInversion {
         this.invReajusteServiceImpl = invReajusteServiceImpl;
     }
 
-    public ValorizacionInversionAvanceDetalleServiceImpl getInvAvanceDetalleServiceImpl() {
-        return invAvanceDetalleServiceImpl;
+    public ValorizacionInversionAvanceDetalleServiceImpl getValorizacionInversionAvanceDetalleServiceImpl() {
+        return valorizacionInversionAvanceDetalleServiceImpl;
     }
 
-    public void setInvAvanceDetalleServiceImpl(ValorizacionInversionAvanceDetalleServiceImpl invAvanceDetalleServiceImpl) {
-        this.invAvanceDetalleServiceImpl = invAvanceDetalleServiceImpl;
+    public void setValorizacionInversionAvanceDetalleServiceImpl(ValorizacionInversionAvanceDetalleServiceImpl valorizacionInversionAvanceDetalleServiceImpl) {
+        this.valorizacionInversionAvanceDetalleServiceImpl = valorizacionInversionAvanceDetalleServiceImpl;
     }
 
     public List<ValorizacionInversionAvanceDetalleVO> getListaInvAvanceDetalleVO() {
@@ -932,12 +996,12 @@ public class DeclararInversion {
         this.listaInvAvanceDetalleVO = listaInvAvanceDetalleVO;
     }
 
-    public ValorizacionInversionAvanceDetalleVO getInvAvanceDetalleVO() {
-        return invAvanceDetalleVO;
+    public ValorizacionInversionAvanceDetalleVO getValorizacionInversionAvanceDetalleVO() {
+        return valorizacionInversionAvanceDetalleVO;
     }
 
-    public void setInvAvanceDetalleVO(ValorizacionInversionAvanceDetalleVO invAvanceDetalleVO) {
-        this.invAvanceDetalleVO = invAvanceDetalleVO;
+    public void setValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO) {
+        this.valorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleVO;
     }
 
     public InversionDescripcionServicesImpl getInversionDescripcionServicesImpl() {
@@ -962,5 +1026,50 @@ public class DeclararInversion {
 
     public void setListaInversionDescripcionVO(List<InversionDescripcionVO> ListaInversionDescripcionVO) {
         this.ListaInversionDescripcionVO = ListaInversionDescripcionVO;
+    }
+    
+    public void limpiarDatos(){
+        System.out.println("llega a limpiar");
+    }
+
+    public BigDecimal getTotalMontoPresentado() {
+        return totalMontoPresentado;
+    }
+
+    public void setTotalMontoPresentado(BigDecimal totalMontoPresentado) {
+        this.totalMontoPresentado = totalMontoPresentado;
+    }
+
+    public BigDecimal getTotalMontoAprobado() {
+        return totalMontoAprobado;
+    }
+
+    public void setTotalMontoAprobado(BigDecimal totalMontoAprobado) {
+        this.totalMontoAprobado = totalMontoAprobado;
+    }
+
+    public BigDecimal getTotalMontoReajustado() {
+        return totalMontoReajustado;
+    }
+    
+    public void guardarDeclaracion (){
+        try{
+            invVO.setInvMontoTotalAprobado(totalMontoAprobado);
+            invVO.setInvMontoTotalReajuste(totalMontoReajustado);                    
+        }catch(Exception e){
+            e.printStackTrace();    
+        }
+    }
+
+    public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
+        this.totalMontoReajustado = totalMontoReajustado;
+    }
+
+    public InvServiceImpl getInvServiceImpl() {
+        return invServiceImpl;
+    }
+
+    public void setInvServiceImpl(InvServiceImpl invServiceImpl) {
+        this.invServiceImpl = invServiceImpl;
     }
 }

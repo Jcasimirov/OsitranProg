@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ValorizacionInversionAvanceDetalleServiceImpl implements ValorizacionInversionAvanceDetalleService{
+public class ValorizacionInversionAvanceDetalleServiceImpl implements ValorizacionInversionAvanceDetalleService {
     private ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl =
         new ValorizacionInversionAvanceDetalleDAOImpl();
-    ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=new ValorizacionInversionAvanceDetalleVO();
-    ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=new ValorizacionInversionAvanceDetalle();
-    
+    ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO =
+        new ValorizacionInversionAvanceDetalleVO();
+    ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle = new ValorizacionInversionAvanceDetalle();
+
     public ValorizacionInversionAvanceDetalleServiceImpl() {
         super();
     }
@@ -30,11 +31,13 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     }
 
     @Override
-    public String insert(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1) throws SQLException, Exception {
-        valorizacionInversionAvanceDetalle=toValorizacionInversionAvanceDetalle(valorizacionInversionAvanceDetalleVO1);
+    public String insert(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1) throws SQLException,
+                                                                                                            Exception {
+        valorizacionInversionAvanceDetalle =
+            toValorizacionInversionAvanceDetalle(valorizacionInversionAvanceDetalleVO1);
         String result = getValorizacionInversionAvanceDetalleDAOImpl().insert(valorizacionInversionAvanceDetalle);
         return result;
-        
+
     }
 
     @Override
@@ -56,36 +59,44 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         // TODO Implement this method
         return null;
     }
-    
-    
-    
-    //conversiones
-    private List<ValorizacionInversionAvanceDetalleVO> toValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalle> list)  {
-       List<ValorizacionInversionAvanceDetalleVO> listVO=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
-       for(int i=0;i<list.size();i++){
-           valorizacionInversionAvanceDetalle=(ValorizacionInversionAvanceDetalle)list.get(i);
-           valorizacionInversionAvanceDetalleVO=toValorizacionInversionAvanceDetalleVO(valorizacionInversionAvanceDetalle);
-           listVO.add(valorizacionInversionAvanceDetalleVO);
-       }
-       return listVO;
-    }
-    private ValorizacionInversionAvanceDetalleVO toValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1)  {
-       ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1=new ValorizacionInversionAvanceDetalleVO();
 
-       valorizacionInversionAvanceDetalleVO1.setIgv(valorizacionInversionAvanceDetalle1.getIgv());
-       valorizacionInversionAvanceDetalleVO1.setMonId(valorizacionInversionAvanceDetalle1.getMonId());
-       valorizacionInversionAvanceDetalleVO1.setMontoPresentado(valorizacionInversionAvanceDetalle1.getMontoPresentado());
-       valorizacionInversionAvanceDetalleVO1.setTiaNumero(valorizacionInversionAvanceDetalle1.getTiaNumero());
-       valorizacionInversionAvanceDetalleVO1.setTiaTotal(valorizacionInversionAvanceDetalle1.getTiaTotal());
-       valorizacionInversionAvanceDetalleVO1.setIad_Id(valorizacionInversionAvanceDetalle1.getIad_Id());
-       valorizacionInversionAvanceDetalleVO1.setDtiId(valorizacionInversionAvanceDetalle1.getDtiId());
-       valorizacionInversionAvanceDetalleVO1.setIadPDF(valorizacionInversionAvanceDetalle1.getIadPDF());
-       valorizacionInversionAvanceDetalleVO1.setTivId(valorizacionInversionAvanceDetalle1.getTivId());
-       
-       return valorizacionInversionAvanceDetalleVO1;
+
+    //conversiones
+    private List<ValorizacionInversionAvanceDetalleVO> toValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalle> list) {
+        List<ValorizacionInversionAvanceDetalleVO> listVO = new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+        for (int i = 0; i < list.size(); i++) {
+            valorizacionInversionAvanceDetalle = (ValorizacionInversionAvanceDetalle) list.get(i);
+            valorizacionInversionAvanceDetalleVO =
+                toValorizacionInversionAvanceDetalleVO(valorizacionInversionAvanceDetalle);
+            listVO.add(valorizacionInversionAvanceDetalleVO);
+        }
+        return listVO;
     }
-    private ValorizacionInversionAvanceDetalle toValorizacionInversionAvanceDetalle(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1)  {
-       ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1=new ValorizacionInversionAvanceDetalle();
+
+    private ValorizacionInversionAvanceDetalleVO toValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1) {
+        ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
+            new ValorizacionInversionAvanceDetalleVO();
+        valorizacionInversionAvanceDetalleVO1.setCnvId(valorizacionInversionAvanceDetalle1.getCnvId());
+        valorizacionInversionAvanceDetalleVO1.setIgv(valorizacionInversionAvanceDetalle1.getIgv());
+        valorizacionInversionAvanceDetalleVO1.setMonId(valorizacionInversionAvanceDetalle1.getMonId());
+        valorizacionInversionAvanceDetalleVO1.setMontoPresentado(valorizacionInversionAvanceDetalle1.getMontoPresentado());
+        valorizacionInversionAvanceDetalleVO1.setTiaNumero(valorizacionInversionAvanceDetalle1.getTiaNumero());
+        valorizacionInversionAvanceDetalleVO1.setTiaTotal(valorizacionInversionAvanceDetalle1.getTiaTotal());
+        valorizacionInversionAvanceDetalleVO1.setIad_Id(valorizacionInversionAvanceDetalle1.getIad_Id());
+        valorizacionInversionAvanceDetalleVO1.setDtiId(valorizacionInversionAvanceDetalle1.getDtiId());
+        valorizacionInversionAvanceDetalleVO1.setIadPDF(valorizacionInversionAvanceDetalle1.getIadPDF());
+        valorizacionInversionAvanceDetalleVO1.setTivId(valorizacionInversionAvanceDetalle1.getTivId());
+        valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
+        valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
+        valorizacionInversionAvanceDetalleVO1.setCsiId(valorizacionInversionAvanceDetalle1.getCsiId());
+        valorizacionInversionAvanceDetalleVO1.setInvId(valorizacionInversionAvanceDetalle1.getInvId());
+
+        return valorizacionInversionAvanceDetalleVO1;
+    }
+
+    private ValorizacionInversionAvanceDetalle toValorizacionInversionAvanceDetalle(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1) {
+        ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1 =
+            new ValorizacionInversionAvanceDetalle();
 
         valorizacionInversionAvanceDetalle1.setIgv(valorizacionInversionAvanceDetalleVO1.getIgv());
         valorizacionInversionAvanceDetalle1.setMonId(valorizacionInversionAvanceDetalleVO1.getMonId());
@@ -96,8 +107,12 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalle1.setDtiId(valorizacionInversionAvanceDetalleVO1.getDtiId());
         valorizacionInversionAvanceDetalle1.setIadPDF(valorizacionInversionAvanceDetalleVO1.getIadPDF());
         valorizacionInversionAvanceDetalle1.setTivId(valorizacionInversionAvanceDetalleVO1.getTivId());
-       
-       return valorizacionInversionAvanceDetalle1;
+
+        valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
+        valorizacionInversionAvanceDetalle1.setTinId(valorizacionInversionAvanceDetalleVO1.getTinId());
+        valorizacionInversionAvanceDetalle1.setCsiId(valorizacionInversionAvanceDetalleVO1.getCsiId());
+        valorizacionInversionAvanceDetalle1.setInvId(valorizacionInversionAvanceDetalleVO1.getInvId());
+        return valorizacionInversionAvanceDetalle1;
     }
 
 
@@ -108,22 +123,27 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     public void setValorizacionInversionAvanceDetalleDAOImpl(ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl) {
         this.valorizacionInversionAvanceDetalleDAOImpl = valorizacionInversionAvanceDetalleDAOImpl;
     }
-    
-    public List<ValorizacionInversionAvanceDetalleVO> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException ,Exception {
+
+    public List<ValorizacionInversionAvanceDetalleVO> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException,
+                                                                                                              Exception {
         System.out.println("INI getInvAvanceDetallesInvAvance");
-        List<ValorizacionInversionAvanceDetalle> list=valorizacionInversionAvanceDetalleDAOImpl.getInvAvanceDetallesInvAvance(tiaNumero);
-        List<ValorizacionInversionAvanceDetalleVO> listVO=toListValorizacionInversionAvanceDetalleVO(list);
+        List<ValorizacionInversionAvanceDetalle> list =
+            valorizacionInversionAvanceDetalleDAOImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+        List<ValorizacionInversionAvanceDetalleVO> listVO = toListValorizacionInversionAvanceDetalleVO(list);
         System.out.println("FIN getInvAvanceDetallesInvAvance");
         return listVO;
     }
-    
-    private List<ValorizacionInversionAvanceDetalleVO> toListValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalle> list){
-            List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
-            for(int i=0;i<list.size();i++){
-                ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=(ValorizacionInversionAvanceDetalle)list.get(i);
-                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=toValorizacionInversionAvanceDetalleVO(valorizacionInversionAvanceDetalle);
-                listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO);
-            }
-            return listValorizacionInversionAvanceDetalleVO;
-        }    
+
+    private List<ValorizacionInversionAvanceDetalleVO> toListValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalle> list) {
+        List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO =
+            new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+        for (int i = 0; i < list.size(); i++) {
+            ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle =
+                (ValorizacionInversionAvanceDetalle) list.get(i);
+            ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO =
+                toValorizacionInversionAvanceDetalleVO(valorizacionInversionAvanceDetalle);
+            listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO);
+        }
+        return listValorizacionInversionAvanceDetalleVO;
+    }
 }

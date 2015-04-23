@@ -27,7 +27,7 @@ public class InvAvnVO{
     private Long tiaMontoTotalAprobado;
     private Long tiaMontoTotalPresentado;
     private Long tiaMontoTotalReajustado;
-    private Integer tiaNumero;
+    private int tiaNumero;
     private Integer tiaPlazoEnDías;
     private Integer tinId;
     private Integer tiaAprobadoPor;
@@ -202,11 +202,11 @@ public class InvAvnVO{
         return tiaMontoTotalReajustado;
     }
 
-    public void setTiaNumero(Integer tiaNumero) {
+    public void setTiaNumero(int tiaNumero) {
         this.tiaNumero = tiaNumero;
     }
 
-    public Integer getTiaNumero() {
+    public int getTiaNumero() {
         return tiaNumero;
     }
 
