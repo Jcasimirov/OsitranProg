@@ -91,7 +91,7 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimientoVO1.setMonId(InvReconocimiento1.getMonId());
         InvReconocimientoVO1.setIvrMontoAprobado(InvReconocimiento1.getIvrMontoAprobado()); 
         InvReconocimientoVO1.setIvrMontoPresentado(InvReconocimiento1.getIvrMontoPresentado()); 
-        
+        InvReconocimientoVO1.setIreEstado(InvReconocimiento1.getIreEstado());
         return InvReconocimientoVO1;
     }
     public InvReconocimiento toInvReconocimiento(InvReconocimientoVO InvReconocimientoVO1){
@@ -103,6 +103,9 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimiento1.setMonId(InvReconocimientoVO1.getMonId());
         InvReconocimiento1.setIvrMontoAprobado(InvReconocimientoVO1.getIvrMontoAprobado()); 
         InvReconocimiento1.setIvrMontoPresentado(InvReconocimientoVO1.getIvrMontoPresentado());  
+        InvReconocimiento1.setIreEstado(InvReconocimientoVO1.getIreEstado());  
+        InvReconocimiento1.setTiaNumero(InvReconocimientoVO1.getTiaNumero());
+
         return InvReconocimiento1;
         
     }

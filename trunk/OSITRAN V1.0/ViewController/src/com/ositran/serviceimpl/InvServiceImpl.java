@@ -66,7 +66,7 @@ public class InvServiceImpl implements InvService {
         InvVO invVO=new InvVO();
         
         invVO.setInvEstado(inv.getInvEstado());
-
+        invVO.setInvEstadoReconocimiento(inv.getInvEstadoReconocimiento());
         invVO.setInvFechaEmisionInforme(inv.getInvFechaEmisionInforme());
         invVO.setInvFechaEmisionOficio(inv.getInvFechaEmisionOficio());
         invVO.setInvId(inv.getInvId());
@@ -92,7 +92,7 @@ public class InvServiceImpl implements InvService {
         Inv inv=new Inv();        
             
         inv.setInvEstado(invVO.getInvEstado());
-
+        inv.setInvEstadoReconocimiento(invVO.getInvEstadoReconocimiento());
         inv.setInvFechaEmisionInforme(invVO.getInvFechaEmisionInforme());
         inv.setInvFechaEmisionOficio(invVO.getInvFechaEmisionOficio());
         inv.setInvId(invVO.getInvId());
