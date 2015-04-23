@@ -290,6 +290,7 @@ public class RectificarInversion {
     public void listarValorizacionInversionAvanceDetalleVO(int tiaNumero){
         try {
             listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+            System.out.println("####################listaValorizacionInversionAvanceDetalleVO:"+listaValorizacionInversionAvanceDetalleVO.size());
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
