@@ -5,7 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <style type="text/css">
+            <style type="text/css">                
                 .ui-dialog-titlebar {
                     font-size: 13px;
                     font-family: sans-serif;
@@ -62,7 +62,7 @@
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
                             <div align="center">
                                 <h4 style="color: #003194;">DECLARAR INVERSION</h4>
@@ -169,12 +169,12 @@
                                                              id="tablaAvanceInversion"
                                                              value="#{declararInversionMB.listaInvAvnVO}"
                                                              var="tInversion"
-                                                             selection="#{declararInversionMB.codigoInversion}"
+                                                             selectionMode="single"
+                                                            
                                                              rowKey="#{tInversion.tiaNumero}">
                                                     <p:ajax event="rowSelect"
-                                                            listener="#{declararInversionMB.cargarDetalleInversion()}"/>
-                                                    <p:column selectionMode="single"
-                                                              style="width:16px;text-align:center"/>
+                                                            listener="#{declararInversionMB.cargarDetalleInversion}" update=":form:tablaReconocimiento :form:tablaReajuste"/>                                                    
+                                                     <p:ajax event="rowUnselect" listener="#{declararInversionMB.limpiarDatos()}" update=":form:tablaReconocimiento :form:tablaReajuste" />
                                                     <p:column headerText="Nro. Val">
                                                         <h:outputText value="#{tInversion.tiaNumero}"/>
                                                     </p:column>
@@ -200,7 +200,7 @@
                                                 <tr>
                                                     <td>Estado del Reconomiento:</td>
                                                     <td>
-                                                        <p:selectOneMenu widgetVar="monedaP" id="estRec"
+                                                        <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px">
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
@@ -219,16 +219,18 @@
                                                 </tr>
                                             </table>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosResult"
+                                            <p:fieldset styleClass="fielsetinterno" id="datosReconoc"
                                                         legend="RESULTADO DE RECONOCIMIENTO">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px; width:560px" id="tablaResultado"
+                                                             style="font-size:11px; width:560px" id="tablaReconocimiento"
                                                              value="#{declararInversionMB.listaInvReconocimientoVO}"
+                                                             editable="true" editMode="cell"
                                                              var="tReconocimiento">
+                                                    <p:ajax event="cellEdit" listener="#{declararInversionMB.cargarReajuste}" update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen" />
                                                     <p:column headerText="Inversión">
                                                         <h:outputText value="#{tReconocimiento.tiaNumero}"/>
                                                     </p:column>
@@ -259,9 +261,9 @@
                                                         <p:row>
                                                             <p:column colspan="4" footerText="Total"
                                                                       style="text-align:right;"></p:column>
-                                                            <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
+                                                            <p:column footerText="#{declararInversionMB.totalMontoPresentado}"
                                                                       style="text-align:left;"></p:column>
-                                                            <p:column footerText="#{rectificarInversion.totalivrMontoAprobado}"
+                                                            <p:column footerText="#{declararInversionMB.totalMontoAprobado}"
                                                                       style="text-align:left;"></p:column>
                                                         </p:row>
                                                     </p:columnGroup>
@@ -277,7 +279,9 @@
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
                                                              style="font-size:11px; width:560px" id="tablaReajuste"
                                                              value="#{declararInversionMB.listaInvReajusteVO}"
+                                                             editable="true" editMode="cell"
                                                              var="tReajuste">
+                                                    <p:ajax event="cellEdit" listener="#{declararInversionMB.cargarReajuste}" update=":form:tablaReajuste :form:datosResumen" />
                                                     <p:column headerText="Inversion">
                                                         <h:outputText value="#{tReajuste.tiaNumero}"/>
                                                     </p:column>
@@ -308,9 +312,9 @@
                                                         <p:row>
                                                             <p:column colspan="4" footerText="Total"
                                                                       style="text-align:right;"></p:column>
-                                                            <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
+                                                            <p:column footerText="#{declararInversionMB.totalMontoAprobado}"
                                                                       style="text-align:left;"></p:column>
-                                                            <p:column footerText="#{rectificarInversion.totalivrMontoAprobado}"
+                                                            <p:column footerText="#{declararInversionMB.totalMontoReajustado}"
                                                                       style="text-align:left;"></p:column>
                                                         </p:row>
                                                     </p:columnGroup>
@@ -322,13 +326,13 @@
                                                     <tr>
                                                         <td>Monto Total Aprobado</td>
                                                         <td>
-                                                            <p:inputText value="#{declararInversionMB.invVO.invMontoTotalAprobado}"
-                                                                         size="10"></p:inputText>
+                                                            <p:inputText value="#{declararInversionMB.totalMontoAprobado}"
+                                                                         size="10" readonly="true" style="text-align:right"></p:inputText>
                                                         </td>
                                                         <td>Monto Total con Reajuste</td>
                                                         <td>
-                                                            <p:inputText value="#{declararInversionMB.invVO.invMontoTotalReajuste}"
-                                                                         size="10"></p:inputText>
+                                                            <p:inputText value="#{declararInversionMB.totalMontoReajustado}"
+                                                                         size="10" readonly="true" style="text-align:right"></p:inputText>
                                                         </td>
                                                         <td>Monto con IGV</td>
                                                     </tr>
@@ -343,8 +347,9 @@
                                                     </td>
                                                     <td>Fecha de Emisi&#243;n</td>
                                                     <td>
-                                                        <p:inputText value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
-                                                                     size="10"></p:inputText>
+                                                        <p:calendar size="10"
+                                                                    value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
+                                                                    locale="es" pattern="dd-MM-yyyy"/>                                                       
                                                     </td>
                                                     <td>Reg. de Salida</td>
                                                     <td>
@@ -361,8 +366,8 @@
                                                     </td>
                                                     <td>Fecha de Emisi&#243;n</td>
                                                     <td>
-                                                        <p:inputText value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
-                                                                     size="10"></p:inputText>
+                                                        <p:calendar size="10" value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
+                                                                    locale="es" pattern="dd-MM-yyyy"/>                                                        
                                                     </td>
                                                     <td>Reg. de Salida</td>
                                                     <td>

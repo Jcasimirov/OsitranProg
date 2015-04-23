@@ -19,10 +19,12 @@ public class ValorizacionInversionAvanceDetalleVO {
     private int iad_Id;
     private int tivId;
     private int dtiId;
-    private int iadPDF;   
+    private String iadPDF;   
     private int infId;
     private int csiId;
     private int tinId;
+    private int invId;
+    
     
     
     private String aeropuertos;
@@ -128,11 +130,11 @@ public class ValorizacionInversionAvanceDetalleVO {
         return dtiId;
     }
 
-    public void setIadPDF(int iadPDF) {
+    public void setIadPDF(String iadPDF) {
         this.iadPDF = iadPDF;
     }
 
-    public int getIadPDF() {
+    public String getIadPDF() {
         return iadPDF;
     }
 
@@ -158,5 +160,13 @@ public class ValorizacionInversionAvanceDetalleVO {
 
     public void setTinId(int tinId) {
         this.tinId = tinId;
+    }
+
+    public int getInvId() {
+        return invId;
+    }
+
+    public void setInvId(int invId) {
+        this.invId = invId;
     }
 }
