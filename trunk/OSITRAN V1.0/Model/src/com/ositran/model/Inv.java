@@ -62,8 +62,6 @@ public class Inv implements Serializable {
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)
     private Integer tiaNumero;
-    @Column(name = "TIV_ID")
-    private Integer tivId;
     @Column(name = "INV_ESTADO") 
     private Integer invEstado;
     @Column(name = "INV_NRO_DOC_FORMALIZACION") 
@@ -77,7 +75,7 @@ public class Inv implements Serializable {
                Integer invId, BigDecimal invMontoTipoCambio, BigDecimal invMontoTotalAprobado, BigDecimal invMontoTotalReajuste,
                String invNota, String invNumeroInforme, String invNumeroOficio, String invObservaciones,
                String invRegSalidaInforme, String invRegSalidaOficio, Integer Monid, Integer itrId,
-               Integer tiaNumero, Integer tivId, Integer invEstado, String invNroDocFormalizacion) {
+               Integer tiaNumero, Integer invEstado, String invNroDocFormalizacion) {
         this.invEstadoReconocimiento = invEstadoReconocimiento;
         this.invFechaEmisionInforme = invFechaEmisionInforme;
         this.invFechaEmisionOficio = invFechaEmisionOficio;
@@ -94,7 +92,6 @@ public class Inv implements Serializable {
         this.monId = Monid;
         this.itrId = itrId;
         this.tiaNumero = tiaNumero;
-        this.tivId = tivId;
         this.invEstado = invEstado;
         this.invNroDocFormalizacion = invNroDocFormalizacion;
     }
@@ -225,15 +222,7 @@ public class Inv implements Serializable {
 
     public void setTiaNumero(Integer tiaNumero) {
         this.tiaNumero = tiaNumero;
-    }
-
-    public Integer getTivId() {
-        return tivId;
-    }
-
-    public void setTivId(Integer tivId) {
-        this.tivId = tivId;
-    }
+    }   
 
     public Integer getInvEstado() {
         return invEstado;
