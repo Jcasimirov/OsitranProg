@@ -1,18 +1,18 @@
 package com.ositran.daoimpl;
 
 
-import java.util.List;
-import org.hibernate.Session;
-import org.springframework.stereotype.Repository;
-import org.hibernate.Query;
-import java.sql.SQLException;
-import com.ositran.util.HibernateUtil;
-import com.ositran.model.ModalidadConcesion;
 import com.ositran.dao.ModalidadConcesionDAO;
-import com.ositran.model.EmpresaSupervisora;
-import com.ositran.model.Igv;
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.ModalidadConcesion;
+import com.ositran.util.HibernateUtil;
+
+import java.sql.SQLException;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
@@ -26,10 +26,10 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
     @Override
     public List<ModalidadConcesion> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        list= session.createQuery("select o from ModalidadConcesion o where o.mcoEstado<> 2").list();            
+
+        List<ModalidadConcesion> list= session.createQuery("From ModalidadConcesion o where o.mcoEstado<> 2").list();            
         System.out.println("LISTA = "+list);
-        session.getTransaction().commit();
+
         session.close();
         return list;
     }

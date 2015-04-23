@@ -417,7 +417,7 @@ public class RectificarInversion {
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println("invAvnVO.getInvId():"+invAvnVO.getInvId());
+        System.out.println("invAvnVO.getInvId():"+invAvnVO.getCcoId());
         cargarInvxTiaNumero(invAvnVO.getInvId());
         listarValorizacionInversionAvanceDetalleVO(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
@@ -434,8 +434,14 @@ public class RectificarInversion {
                 invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
             }
             notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          Constantes.ERRORGUARDAR));
         }
     }
     public void cargarDatosCompromiso(int ccoId) {
