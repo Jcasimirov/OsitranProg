@@ -76,7 +76,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     private ValorizacionInversionAvanceDetalleVO toValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle1) {
         ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
             new ValorizacionInversionAvanceDetalleVO();
-        valorizacionInversionAvanceDetalleVO1.setCnvId(valorizacionInversionAvanceDetalle1.getCnvId());
+        //valorizacionInversionAvanceDetalleVO1.setCnvId(valorizacionInversionAvanceDetalle1.getCnvId());
         valorizacionInversionAvanceDetalleVO1.setIgv(valorizacionInversionAvanceDetalle1.getIgv());
         valorizacionInversionAvanceDetalleVO1.setMonId(valorizacionInversionAvanceDetalle1.getMonId());
         valorizacionInversionAvanceDetalleVO1.setMontoPresentado(valorizacionInversionAvanceDetalle1.getMontoPresentado());
