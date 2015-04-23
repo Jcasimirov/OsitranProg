@@ -87,8 +87,7 @@ public class InvServiceImpl implements InvService {
         invVO.setInvRegSalidaOficio(inv.getInvRegSalidaOficio());
         invVO.setItrId(inv.getItrId());
         invVO.setMonId(inv.getMonId());
-        invVO.setTiaNumero(inv.getTiaNumero());
-        invVO.setTivId(inv.getTivId());
+        invVO.setTiaNumero(inv.getTiaNumero());        
         invVO.setInvNroDocFormalizacion(inv.getInvNroDocFormalizacion());
         invVO.setInvFechaEmisionDocFomalizacion(inv.getInvFechaEmisionDocFomalizacion());
         return invVO;
@@ -113,8 +112,7 @@ public class InvServiceImpl implements InvService {
         inv.setInvRegSalidaOficio(invVO.getInvRegSalidaOficio());
         inv.setItrId(invVO.getItrId());
         inv.setMonId(invVO.getMonId());
-        inv.setTiaNumero(invVO.getTiaNumero());
-        inv.setTivId(invVO.getTivId());
+        inv.setTiaNumero(invVO.getTiaNumero());        
         inv.setInvNroDocFormalizacion(invVO.getInvNroDocFormalizacion());
         inv.setInvFechaEmisionDocFomalizacion(invVO.getInvFechaEmisionDocFomalizacion());
         return inv;
