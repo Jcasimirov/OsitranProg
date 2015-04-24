@@ -1,7 +1,10 @@
 package com.ositran.serviceimpl;
 
+import com.ositran.dao.ContratoEmpresaSupervisoraAdendaDAO;
+import com.ositran.dao.ContratoEmpresaSupervisoraDAO;
 import com.ositran.daoimpl.ContratoEmpresaSupervisoraDAOImpl;
 import com.ositran.model.ContratoSupervisora;
+import com.ositran.model.ContratoSupervisoraAdenda;
 import com.ositran.model.EmpresaSupervisora;
 
 import com.ositran.model.Usuario;
@@ -9,6 +12,7 @@ import com.ositran.model.Usuario;
 import java.sql.SQLException;
 import com.ositran.service.ContratoEmpresaSupervisoraService;
 import com.ositran.util.HibernateUtil;
+import com.ositran.vo.bean.ContratoSupervisoraAdendaVO;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
@@ -24,19 +28,36 @@ import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSupervisoraService{
 
+    ContratoEmpresaSupervisoraDAO contratoEmpresaSupervisoraDAOImpl;
+    ContratoSupervisora contratoSupervisora;
+    ContratoSupervisoraVO contratoSupervisoraVO;
 
-private ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl;
 
-
-    public void setContratoEmpresaSupervisoraDAOImpl(ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl) {
+    public void setContratoEmpresaSupervisoraDAOImpl(ContratoEmpresaSupervisoraDAO contratoEmpresaSupervisoraDAOImpl) {
         this.contratoEmpresaSupervisoraDAOImpl = contratoEmpresaSupervisoraDAOImpl;
     }
 
-    public ContratoEmpresaSupervisoraDAOImpl getContratoEmpresaSupervisoraDAOImpl() {
+    public ContratoEmpresaSupervisoraDAO getContratoEmpresaSupervisoraDAOImpl() {
         return contratoEmpresaSupervisoraDAOImpl;
     }
 
-    
+    public void setContratoSupervisora(ContratoSupervisora contratoSupervisora) {
+        this.contratoSupervisora = contratoSupervisora;
+    }
+
+    public ContratoSupervisora getContratoSupervisora() {
+        return contratoSupervisora;
+    }
+
+    public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
+        this.contratoSupervisoraVO = contratoSupervisoraVO;
+    }
+
+    public ContratoSupervisoraVO getContratoSupervisoraVO() {
+        return contratoSupervisoraVO;
+    }
+
+
     @Override
     public List<ContratoSupervisoraVO> query() throws SQLException {
         List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.query();
