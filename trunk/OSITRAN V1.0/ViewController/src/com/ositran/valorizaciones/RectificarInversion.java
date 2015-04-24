@@ -420,6 +420,8 @@ public class RectificarInversion {
 
    
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
+        invAvnVO=new InvAvnVO();
+        invVO=new InvVO();
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
@@ -433,9 +435,9 @@ public class RectificarInversion {
         cargarReajuste(invAvnVO.getTiaNumero());
         deshabilitadoxDeclaracionNoCargada=false;
         mostrarxDeclaracionCargada=true;
-        reset();
+        resetCamposIGV();
     }
-    public void reset(){
+    public void resetCamposIGV(){
         renderMostrarIGV=false;
         igv=BigDecimal.ZERO;
         
@@ -466,6 +468,7 @@ public class RectificarInversion {
                  invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
                  invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI); 
                 notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
+                listarDeclaraciones(contratoVO.getConId());
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                               Constantes.GRABARMENSAJESATISFACTORIO));  
@@ -751,6 +754,10 @@ public class RectificarInversion {
     public void deshabilitarxObservado() {
         if (estadoReconocimiento == 2) {
             deshabilitadoxObservado = true;
+            resetCamposIGV();
+            calcularTotalesReajuste(listaReajuste);
+            calcularTotalesReconocimiento(listaReconocimiento);
+                
         } else {
             deshabilitadoxObservado = false;
         }
