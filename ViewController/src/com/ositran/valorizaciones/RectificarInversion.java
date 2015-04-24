@@ -196,9 +196,10 @@ public class RectificarInversion {
     private boolean readOnlyMontoTipoCambio=false;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        System.out.println("rolOpcion.getTroConsultar():"+rolOpcion.getTroConsultar());
+       
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         tipoInfraestructura= Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        System.out.println("tipoInfraestructura:"+tipoInfraestructura);
     }
 
     public RectificarInversion() {
