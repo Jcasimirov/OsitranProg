@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+           <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            </h:head>
+    <h:body>    
+    <f:event listener="#{registrarRevisionSupervisorMB.cargarMoneda()}" type="postAddToView"></f:event>
+	<h:form id="form">
+            <p:growl id="mensaje" showDetail="true" life="10000"/>
+            <p:layout fullPage="true" style="border:none">
+            <p:layoutUnit position="center" style="border:0px">
+            <ui:include src="/ositran/util/menu.xhtml"/>
+            <div align="center" >
+            <div align="center" ><h5 class="titulo5">REGISTRAR REVISION SUPERVISOR</h5></div>
+		<table style="font-size: 11px">
+			<tr>
+				<td valign="top">
+				<p:fieldset legend="Datos Contrato Concesión">
+				
+					<p:fieldset styleClass="fielsetinterno" id="datosSDT" legend="Datos STD">
+                                        
+                                        <table>
+                                            <tr>
+                                                <td class="negrita">Nro HR: <h:outputText style="color:White" value="n"/></td>
+                                                 <td >
+                                                   
+                                                    Nro: <p:inputText value="#{registrarRevisionSupervisorMB.numero}"  style="width:60px"  />
+                                                     <h:outputText style="color:White" value="nnn"/>
+                                                    </td>
+                                                  <td >Año: <p:inputText value="#{registrarRevisionSupervisorMB.anio}" style="width:60px" />
+                                                    <p:commandButton image="ui-icon-search" 
+                                                                     actionListener="#{registrarRevisionSupervisorMB.cargarDatosSDT()}"  
+                                                                     update=":form:datosSDT :form:mensaje"/>  </td>
+                                                       
+                                                   <td> <h:outputText style="color:White" value="nn"/>
+                                                   Fecha Registro: <p:calendar value="#{registrarRevisionSupervisorMB.fechaRegistroSDT}" locale="es" styleClass="calendario"  /></td>
+                                            </tr>
+                                             <tr>
+                                                <td class="negrita">Asunto:</td>
+                                                
+                                                 <td colspan="3"><p:inputTextarea  value="#{registrarRevisionSupervisorMB.asunto}"  style="width:97%;height:25px" /></td>
+                                                  
+                                            </tr>
+                                             <tr>
+                                                <td class="negrita">Plazo:</td>
+                                                <td><p:inputText value="#{registrarRevisionSupervisorMB.plazo}"  style="width:70px" /></td>
+                                                 <td>
+                                                    <table style="font-size:9px;width:100%">
+                                                            <tr>
+                                                                <td><p:selectBooleanCheckbox  value="#{registrarRevisionSupervisorMB.diasCalendario}" id="diasCalendario">
+                                                                     <p:ajax update=":form:diasHabiles" listener="#{registrarRevisionSupervisorMB.desDiasHabiles}"/>
+                                                                </p:selectBooleanCheckbox  > Calendarios</td>
+                                                            </tr>
+                                                             <tr>
+                                                                <td><p:selectBooleanCheckbox value="#{registrarRevisionSupervisorMB.diasHabiles}" id="diasHabiles" >
+                                                                 <p:ajax update=":form:diasCalendario" listener="#{registrarRevisionSupervisorMB.desDiasCalendario}"/>
+                                                                </p:selectBooleanCheckbox> Habiles</td>
+                                                            </tr>
+                                                    </table>
+                                                 </td>
+                                                <td >Vencimiento Plazo: <p:calendar locale="es" styleClass="calendario"   /></td>
+                                            </tr>
+                                        </table>												
+					</p:fieldset>	
+                                        <br></br>
+				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
+                               
+                                        <h:outputText value="Buscar Contratos Concesión"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:commandButton image="ui-icon-search"
+                                                                oncomplete="panelListaContratos.show()"
+                                                                id="cargarContrato" 
+                                                                update=":form:panelListaContratos"
+                                                                actionListener="#{registrarRevisionSupervisorMB.cargarListaContratos}"
+                                                                
+                                                                />
+                                        <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
+                                                          value="Cargar lista de contrato concesión"/>
+                                                               
+				</p:fieldset>
+					<br></br>
+				<p:fieldset styleClass="fielsetinterno" id="datosConcesion" legend="Datos Concesión">
+					<table>
+									<tr>
+										<td align="left">Concesión</td>
+										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreConcecion}" readonly="true" ></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Tipo Infraestructura</td>
+										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreTipoInfraestructura}"  readonly="true"></p:inputText></td>
+									</tr>
+									<tr>
+										<td align="left">Modalidad Concesión</td>
+										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
+									</tr>
+                                   	
+                                                                      	
+								</table>
+				</p:fieldset>
+                               <br></br>
+				<p:fieldset styleClass="fielsetinterno" id="datosCompromiso" legend="#{leg.etaCo}">
+                                                <table>
+									<tr>
+										<td colspan="1" align="left">#{cam.setapa}</td>
+										<td colspan="3" align="left">
+                                                                                    <p:selectOneMenu id="listaCompromiso"  value="#{registrarRevisionSupervisorMB.contratoCompromisoSeleccionado}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems  
+                                                                                                value="#{registrarRevisionSupervisorMB.listaContratoCompromiso}"  
+                                                                                                var="tip2"
+                                                                                                itemLabel="#{tip2.ccoPeriodo}" 
+                                                                                                itemValue="#{tip2.ccoId}"/>
+                                                                                        <p:ajax event="valueChange" 
+                                                                                                update=":form:datosCompromiso " 
+                                                                                                listener="#{registrarRevisionSupervisorMB.cargarDatosCompromiso()}"  /> 
+                                                                                    </p:selectOneMenu>
+										</td>
+									</tr>
+									
+									<tr>
+										<td align="left">Plazo:</td>
+										<td align="left" colspan="3"><p:inputText value="#{registrarRevisionSupervisorMB.plazo}" size="10"  /></td>
+										
+									</tr>
+									<tr>
+										<td align="left">Total:</td>
+										<td align="left" ><p:inputText value="#{registrarRevisionSupervisorMB.plazo}" size="10"></p:inputText></td>
+										<td align="left">#{cam.mon}</td>
+										<td align="left"><p:inputText value="#{registrarRevisionSupervisorMB.plazo}"  size="10"></p:inputText></td>
+									</tr>
+								</table>
+							</p:fieldset>
+					</p:fieldset>	
+                                        
+                                         <p:fieldset styleClass="fielsetinterno" legend="Valorización">
+                                
+                                 <p:dataTable paginatorPosition="bottom"  rows="10"   emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             value="#{registrarRevisionSupervisorMB.listValorizacionInversionAvanceVO}"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLV" var="inversionAvance1" >
+                                    <p:column headerText="Nur Val" style="width:50px">
+                                       <h:outputText value="#{inversionAvance1.tiaNumero}" />
+                                    </p:column>
+                                  <p:column headerText="Fecha Registro" style="width:50px">
+                                        <h:outputText value="#{inversionAvance1.tiaFechaInicio}" />
+                                    </p:column>
+                                    <p:column headerText="Moneda" style="width:50px">
+                                        <h:outputText value="#{inversionAvance1.monedaNombre}" />
+                                    </p:column>
+                                    <p:column headerText="Total" style="width:50px">
+                                        <h:outputText value="#{inversionAvance1.tiaMontoTotalReajustado}" />
+                                    </p:column>
+                                    <p:column headerText="Estado Revision" style="width:50px">
+                                        <h:outputText value="#{inversionAvance1.estadoNombre}" />
+                                    </p:column>
+                                    <p:column   headerText="Selección" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                
+                                                actionListener="#{registrarRevisionSupervisorMB.cargarListaValorizacionDetalle(inversionAvance1.tiaNumero)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarValorizacion"
+                                                style="width:22px;height:22px"
+                                                update=":form:tablaDV :form:total" >
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                                          
+				</p:fieldset>
+				</td>
+				<td valign="top">
+                                 <p:fieldset  legend="Datos Valorización">
+                               
+                                   <table>
+                                    <tr>
+                                     <td colspan="2" class="negrita">
+                                        Valorización revisada por:
+                                     </td>
+                                   </tr>
+                                   <tr >
+                                     <td class="negrita" >Nombre:</td>
+                                      <td><p:inputText style="width:300px"></p:inputText></td>
+                                   
+                                   </tr>
+                                   </table>
+                                                               
+				</p:fieldset>
+                                <br></br>
+                                <p:fieldset styleClass="fielsetinterno" legend="Resultado Supervición">
+					<br></br>
+					<table>
+                                            <tr>
+                                                <td>Estado:</td>
+                                                 <td>
+                                                 <p:selectOneMenu id="estadoRevision"  value="#{registrarRevisionSupervisorMB.estadoRevision}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+                                                                                        <f:selectItem   itemLabel="Aprobado" itemValue="1" />
+                                                                                        <f:selectItem   itemLabel="Observado" itemValue="2" />
+                                                                                        <f:ajax event="valueChange" 
+                                                                                                render="tablaDV12" 
+                                                                                                listener="#{registrarRevisionSupervisorMB.ocultarPanel()}"  /> 
+                                                                                    </p:selectOneMenu>
+                                                 
+                                                 
+                                                 </td>
+                                            </tr>
+                                   	 <tr>
+                                                <td>Observaciones:</td>
+                                                 <td><p:inputTextarea style="width:300px"   /></td>
+                                            </tr>
+                                             
+                                             
+                                             <tr>
+                                                <td colspan="2">
+                                 <br></br>
+                                  <br></br>
+                                  <h:panelGroup id="tablaDV12" >
+                                 <p:dataTable rendered="#{registrarRevisionSupervisorMB.ocultarPanelDetalle eq 0}"   emptyMessage="NO SE ENCONTRARON DATOS"
+                                             style="font-size:11px" id="tablaDV" 
+                                             var="vaDetalle1" 
+                                             value="#{registrarRevisionSupervisorMB.listValorizacionInversionAvanceDetalleVO}">
+                                           
+                                 <p:column headerText="Descripción de Concepto">
+                                        <h:outputText value="#{vaDetalle1.descripcionInversion}" />
+                                    </p:column>
+                                    <p:column headerText="Moneda" style="width:50px">
+                                        <h:outputText value="#{vaDetalle1.nombreMoneda}" />
+                                    </p:column>
+                                  <p:column headerText="Monto Presentado" style="width:50px">
+                                        <h:outputText value="#{vaDetalle1.montoPresentado}" />
+                                    </p:column>
+                                    
+                                     <p:column headerText="Monto Revisado" style="width:50px">
+                                        <h:outputText style="width:50px" value="#{vaDetalle1.iasMontoRevisado}" />
+                                    </p:column>
+                                    <p:column headerText="Ajustar" style="width:50px">
+                                    <div align="center">
+                                        <p:commandButton
+                                        styleClass="controles"
+                                        oncomplete="ajustarMonto.show()"
+                                        image="ui-icon-pencil"
+                                        actionListener="#{registrarRevisionSupervisorMB.actualizarValoresAjustados(vaDetalle1.iad_Id)}">
+                                            
+                                        </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>  
+                                <br></br>
+                                <br></br> 
+                                <div class="negrita" align="right">
+                                    Total Presentado : <p:inputText id="total" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalTotal}" />
+                                    <br></br>                                 
+                                   Total Ajustado : <p:inputText id="totalAjustado" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalRevisado}" />
+                                
+                                </div>
+                                </h:panelGroup>
+                                <br></br>
+                                                
+                                                </td>
+                                                 
+                                            </tr>                         	
+					</table>
+				</p:fieldset>
+                               
+                            
+                                
+                                
+				</td>
+			</tr>
+                        
+                       
+                        
+		</table>	
+		</div>               
+                  <div style="text-align:center;font-size: 11px">
+                                 <p:commandButton  style="width:80px"  update=":form:mensaje" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
+                                    <p:commandButton style="width:80px" value="Limpiar"/>
+                                    </div>
+                </p:layoutUnit>
+            </p:layout>
+            
+             <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
+                          style="text-align:center;">
+                    
+                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaLC" var="lisContratos1"
+                                             value="#{registrarRevisionSupervisorMB.listaContratos}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{lisContratos1.conId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{lisContratos1.nombreConcesion}" />
+                                    </p:column>
+                                  
+                                    <p:column   headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaContratos.hide()" 
+                                                actionListener="#{registrarRevisionSupervisorMB.elegirContrato(lisContratos1)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
+                                                style="width:22px;height:22px"
+                                                update=":form:datosConcesion :form:tablaLV :form:datosCompromiso "
+                                                >
+                                                
+                              
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>                   
+                </p:dialog>
+                <p:dialog width="40%"  header="Lista Contratos" widgetVar="ajustarMonto" id="ajustarMonto" 
+                          style="text-align:center;font-size:11px">
+                  Ingrese nomto ajustado:
+                  <p:inputText value="#{registrarRevisionSupervisorMB.montoAjustado}"></p:inputText>
+                      <br></br>     
+                      <p:commandButton  value="Ajustar" oncomplete="ajustarMonto.hide()"   actionListener="#{registrarRevisionSupervisorMB.ajustarMonto()}"
+                      update=":form:tablaDV :form:tablaDV12"
+                      ></p:commandButton>
+                </p:dialog>
+            
+	</h:form>
+      
+    </h:body>
+    </html>
+</f:view>
