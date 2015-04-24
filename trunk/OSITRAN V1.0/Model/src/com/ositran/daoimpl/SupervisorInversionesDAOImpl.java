@@ -43,4 +43,18 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
         SupervisorInversiones contratoAdenda=(SupervisorInversiones)session.get(SupervisorInversiones.class, codtipoInfraestructura);
         return contratoAdenda;
     }
+    @Override
+    public SupervisorInversiones buscarSupervisor(int tsiId) throws SQLException {
+
+      
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;  
+        query = session.createQuery("From SupervisorInversiones c WHERE c.tsiId = :tsiId");   
+        query.setParameter("tsiId",tsiId);
+        SupervisorInversiones  sup =(SupervisorInversiones) query.uniqueResult();
+
+        session.close();
+      
+        return sup;   
+    }
 }
