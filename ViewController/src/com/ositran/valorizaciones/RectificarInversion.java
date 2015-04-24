@@ -291,7 +291,7 @@ public class RectificarInversion {
             e.printStackTrace();
         }
     }
-    public void listarValorizacionInversionAvanceDetalleVO(int tiaNumero){
+    public void obtenerDeatalleInvAvn(int tiaNumero){
         try {
             listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
             System.out.println("####################listaValorizacionInversionAvanceDetalleVO:"+listaValorizacionInversionAvanceDetalleVO.size());
@@ -361,32 +361,12 @@ public class RectificarInversion {
 
 
     public void buscarContratos() {
-        System.out.println("actualizarContratoMB.buscarContratos");
+ 
         try {
             listaContrato =
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoinfra,
                                                                    concesion, fechaInicioSuscripcion,
                                                                    fechaFinSuscripcion);
-                for (ContratoVO contrato : listaContrato) {
-                System.out.println("buscado contrato.getConId():"+contrato.getConId());;
-                    }
-            /*  for (ContratoVO aux : listaContrato) {
-                for (ConcesionVO concesion : listaConcesiones) {
-                    if (concesion.getCsiId() == aux.getCsiId())
-                        aux.setNombreConcesion(concesion.getCsiNombre());
-                }
-                for (InfraestructuraTipoVO infraestructuratipo : listaTipoInfraestructura) {
-                    if (infraestructuratipo.getTinId() == aux.getTinId())
-                        aux.setNombreTipoInfraestructura(infraestructuratipo.getTinNombre());
-                }
-                for (ModalidadConcesionVO modalidad : listaModalidad) {
-                    if (modalidad.getMcoId() == aux.getMcoId())
-                        aux.setNombreModalidad(modalidad.getMcoNombre());
-                }
-
-
-            } */
-
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -397,13 +377,12 @@ public class RectificarInversion {
 
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
-        System.out.println("contratoVO.getConId()"+contratoVO.getConId());
         cargarInfraestructurasContrato(contratoVO.getConId());
         resetDialogoBuscarContrato();
         listarDeclaraciones(contratoVO.getConId());
         if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
-            RequestContext.getCurrentInstance().update("frmInversion:tablaContratoInversion");
-            RequestContext.getCurrentInstance().update("frmAgregarInversion:AeropuertoInversion");
+            /*  RequestContext.getCurrentInstance().update("frmInversion:tablaContratoInversion");
+            RequestContext.getCurrentInstance().update("frmAgregarInversion:AeropuertoInversion"); */
         }
     }
 
@@ -422,15 +401,13 @@ public class RectificarInversion {
 
    
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
-        invAvnVO=new InvAvnVO();
-        invVO=new InvVO();
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
         System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
         cargarInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
-        listarValorizacionInversionAvanceDetalleVO(invAvnVO.getTiaNumero());
+        obtenerDeatalleInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
@@ -494,8 +471,8 @@ public class RectificarInversion {
             invAvnVO.setTotal(contratoCompromisoVO.getCcoTotal());
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (contratoCompromisoVO.getMonId() == moneda.getMonId()) {
+                    invAvnVO.setMonId(moneda.getMonId());
                     invAvnVO.setNombreMoneda(moneda.getMonNombre());
-                    System.out.println("invAvnVO.getNombreMoneda():" + invAvnVO.getNombreMoneda());
                     break;
                 }
             }
