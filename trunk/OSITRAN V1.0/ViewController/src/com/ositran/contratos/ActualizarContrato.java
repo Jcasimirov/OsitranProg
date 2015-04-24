@@ -2661,7 +2661,7 @@ public class ActualizarContrato {
     public List<ContratoCompromisoVO>  descripciones(List<ContratoCompromisoVO> lista){
         for (ContratoCompromisoVO contratoComprom : lista) {
             for (TipoInversionVO tipoInversion : listaTipoInversion) {
-                if(tipoInversion.getTivId()==contratoComprom.getTivId()){
+                if(contratoComprom.getTivId()!=null && tipoInversion.getTivId()==contratoComprom.getTivId()){
                     contratoComprom.setTivNombre(tipoInversion.getTivNombre());
                 }
            }
