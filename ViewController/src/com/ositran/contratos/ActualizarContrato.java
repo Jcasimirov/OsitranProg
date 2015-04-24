@@ -356,7 +356,14 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
-
+    public void ListarConcesiones() {
+        try {
+            listaConcesiones = concesionServiceImpl.query();
+            System.out.println("listaConcesiones:" + listaConcesiones.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // Metodo para Filtrar la Lista de Concesión
     public void filtrarConcesion() {
         try {
