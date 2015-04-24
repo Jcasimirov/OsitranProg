@@ -19,6 +19,7 @@ import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.Constantes;
+import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ConcesionarioVO;
@@ -164,7 +165,7 @@ public class RectificarInversion {
     private DefaultStreamedContent downloadFichaResumen;
 
 
-    public final int formulario = 29;
+    public final int formulario = 34;
     private RolOpcionesVO rolOpcion;
     private boolean renderAeropuertos;
     private Date fechaInicioSuscripcion;
@@ -194,9 +195,9 @@ public class RectificarInversion {
     private boolean mostrarxDeclaracionCargada=false;
     private boolean readOnlyMontoTipoCambio=false;
     public void validarSesion() throws IOException {
-        /* rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura= Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();*/
+        tipoInfraestructura= Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
     }
 
     public RectificarInversion() {
@@ -1371,4 +1372,5 @@ public class RectificarInversion {
     public boolean isReadOnlyMontoTipoCambio() {
         return readOnlyMontoTipoCambio;
     }
+    
 }
