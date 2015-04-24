@@ -585,8 +585,9 @@
                                                                              <td><h:outputText value="IGV" rendered="#{rectificarInversion.renderMostrarIGV}"/></td>
                                                                             <td>
                                                                               <p:inputMask id="igv" value="#{rectificarInversion.igv}"  mask="0.99" size="3" rendered="#{rectificarInversion.renderMostrarIGV}" >
-                                                                              <p:ajax listener="#{rectificarInversion.calularMontosconIGV()}"  update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea"></p:ajax>                                                                               
+                                                                              
                                                                              </p:inputMask>
+                                                                             <p:commandButton icon="ui-icon-refresh"  actionListener="#{rectificarInversion.calularMontosconIGV()}" update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea" rendered="#{rectificarInversion.renderMostrarIGV}"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
