@@ -165,7 +165,7 @@ public class RectificarInversion {
     private DefaultStreamedContent downloadFichaResumen;
 
 
-    public final int formulario = 34;
+    public final int formulario = 36;
     private RolOpcionesVO rolOpcion;
     private boolean renderAeropuertos;
     private Date fechaInicioSuscripcion;
@@ -312,11 +312,11 @@ public class RectificarInversion {
 
     public void cargarDescripcionesMoneda(List<InvAvnVO> listaDeclaraciones) {
         for (InvAvnVO invAvn : listaDeclaraciones) {
-            System.out.println("invAvn.getTiaObservaciones()"+invAvn.getTiaObservaciones());
+            System.out.println("################invAvn.getMonId():"+invAvn.getMonId());
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (invAvn.getMonId() == moneda.getMonId()){
                     invAvn.setNombreMoneda(moneda.getMonNombre());
-                    System.out.println("invAvn.getMonId():"+invAvn.getMonId());
+                    System.out.println("################invAvn.getMonId():"+invAvn.getMonId());
                 }
                    
             }
@@ -606,13 +606,14 @@ public class RectificarInversion {
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
-                    if (aux.getInfId() == moneda.getMonId()) {
+                    System.out.println("aux.getMonId()+aux.getNombreMoneda()&&&&&&"+aux.getMonId()+aux.getNombreMoneda());
+                    if (aux.getMonId() == moneda.getMonId()) {                        
                         aux.setNombreMoneda(moneda.getMonNombre());
                     }
                 }
                 if (item instanceof InvReajusteVO) {
                     InvReajusteVO aux = ((InvReajusteVO) item);
-                    if (aux.getInfId() == moneda.getMonId())
+                    if (aux.getMonId() == moneda.getMonId())
                         aux.setNombreMoneda(moneda.getMonNombre());
                 }
             }
