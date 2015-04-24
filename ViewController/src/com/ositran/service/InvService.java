@@ -1,6 +1,5 @@
 package com.ositran.service;
 
-import com.ositran.model.Inv;
 import com.ositran.vo.bean.InvReajusteVO;
 import com.ositran.vo.bean.InvReconocimientoVO;
 import com.ositran.vo.bean.InvVO;
@@ -16,5 +15,6 @@ public interface InvService {
     public String update(InvVO invVO) throws SQLException;
     public InvVO get(Integer tiaNumero) throws SQLException;
     public List<InvVO> getInvsAvance(Integer tiaNumero) throws SQLException;
+    public InvVO obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException;
     public String insertDeclaracion(InvVO invVO, List<InvReconocimientoVO> listInvReconocimientoVO,List<InvReajusteVO> listInvReajusteVO) throws SQLException;
 }

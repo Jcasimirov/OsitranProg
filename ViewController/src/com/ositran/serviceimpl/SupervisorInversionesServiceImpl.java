@@ -137,7 +137,7 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
 
     @Override
     public SupervisorInversionesVO getSupervisorInversiones(int idsupinv)throws SQLException {
-        SupervisorInversiones supinv= supervisorInversionesDAOImpl.getSupervisorInversiones(idsupinv);
+        SupervisorInversiones supinv= supervisorInversionesDAOImpl.buscarSupervisor(idsupinv);
         SupervisorInversionesVO supinvVO=toV_VO(supinv);
         return supinvVO;
     }
