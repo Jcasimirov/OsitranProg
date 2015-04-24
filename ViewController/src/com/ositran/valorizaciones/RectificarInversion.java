@@ -461,7 +461,9 @@ public class RectificarInversion {
                                                                           Constantes.ERRORGUARDAR));
         }finally{
             invVO=new InvVO();
-             invAvnVO=new InvAvnVO();   
+             invAvnVO=new InvAvnVO(); 
+            listaReconocimiento=new ArrayList<InvReconocimientoVO>();
+            listaReajuste=new ArrayList<InvReajusteVO>();
         }
     }
     public void cargarDatosCompromiso(int ccoId) {
