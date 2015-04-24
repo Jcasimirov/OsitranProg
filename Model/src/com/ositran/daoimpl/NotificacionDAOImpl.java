@@ -122,9 +122,7 @@ public class NotificacionDAOImpl implements NotificacionDAO {
                                     "        invObservaciones=:invObservaciones,\n" +
                                     "        invRegSalidaInforme=:invRegSalidaInforme,\n" +
                                     "        invRegSalidaOficio=:invRegSalidaOficio,\n" +
-                                    "        itrId=:itrId,\n" + 
-                                    "        monId=:monId,\n" +
-                                    "        tivId=:tivId \n" + 
+                                    "        monId=:monId \n" +
                                     "        where invId=:invId" +
                                     "        and   tiaNumero=:tiaNumero");
             query.setParameter("invEstado", inv.getInvEstado());
@@ -142,7 +140,6 @@ public class NotificacionDAOImpl implements NotificacionDAO {
             query.setParameter("invObservaciones", inv.getInvObservaciones());
             query.setParameter("invRegSalidaInforme", inv.getInvRegSalidaInforme());
             query.setParameter("invRegSalidaOficio", inv.getInvRegSalidaOficio());
-            query.setParameter("itrId", inv.getItrId());
             query.setParameter("monId", inv.getMonId());
             query.setParameter("invId", inv.getInvId());
             query.setParameter("tiaNumero", inv.getTiaNumero());
