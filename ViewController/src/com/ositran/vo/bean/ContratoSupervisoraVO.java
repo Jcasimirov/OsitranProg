@@ -43,11 +43,14 @@ public class ContratoSupervisoraVO {
     
     
     private String cenDocumentoFisico;
-        private String cenFechaDescripcion;
-        private Integer cenEntrega;
-        private InputStream inputStreamNuevaEntrega;  
+    private String cenDocumentoFisicoA;
+    private String cenFechaDescripcion;
+    private Integer cenEntrega;
+    private InputStream inputStreamNuevaEntrega;
+    private InputStream inputStreamNuevaEntregaA;
     private int contador;
-    
+    private String nombreInfraestructura;
+    private String nombreSupervisora;
     
     
     public ContratoSupervisoraVO(){
@@ -357,5 +360,37 @@ public class ContratoSupervisoraVO {
 
     public int getContador() {
         return contador;
+    }
+
+    public void setCenDocumentoFisicoA(String cenDocumentoFisicoA) {
+        this.cenDocumentoFisicoA = cenDocumentoFisicoA;
+    }
+
+    public String getCenDocumentoFisicoA() {
+        return cenDocumentoFisicoA;
+    }
+
+    public void setInputStreamNuevaEntregaA(InputStream inputStreamNuevaEntregaA) {
+        this.inputStreamNuevaEntregaA = inputStreamNuevaEntregaA;
+    }
+
+    public InputStream getInputStreamNuevaEntregaA() {
+        return inputStreamNuevaEntregaA;
+    }
+
+    public void setNombreInfraestructura(String nombreInfraestructura) {
+        this.nombreInfraestructura = nombreInfraestructura;
+    }
+
+    public String getNombreInfraestructura() {
+        return nombreInfraestructura;
+    }
+
+    public void setNombreSupervisora(String nombreSupervisora) {
+        this.nombreSupervisora = nombreSupervisora;
+    }
+
+    public String getNombreSupervisora() {
+        return nombreSupervisora;
     }
 }
