@@ -60,7 +60,7 @@ public class NotificacionDAOImpl implements NotificacionDAO {
     
     public List<InvAvn> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Query query=session.createQuery("FROM InvAvn i WHERE (i.iaeId = 4 or i.iaeId = 0)  and i.conId=:idcontrato order by i.tiaNumero asc");
+        Query query=session.createQuery("FROM InvAvn i WHERE i.iaeId = 4  and i.conId=:idcontrato order by i.tiaNumero asc");
         query.setParameter("idcontrato", idcontrato);
         List lista=query.list();
         session.close();
