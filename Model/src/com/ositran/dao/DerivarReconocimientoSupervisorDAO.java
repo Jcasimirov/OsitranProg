@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface DerivarReconocimientoSupervisorDAO {
-    DerivarReconocimientoSupervisor derivarReconocimientoSupervisor=new DerivarReconocimientoSupervisor();
+    
     
     
     public List<DerivarReconocimientoSupervisor> query()throws SQLException ,Exception;
