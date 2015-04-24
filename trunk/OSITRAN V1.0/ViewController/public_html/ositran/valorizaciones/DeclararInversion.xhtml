@@ -62,7 +62,7 @@
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
                                 <h4 style="color: #003194;">DECLARAR INVERSION</h4>
@@ -334,7 +334,7 @@
                                                             <p:inputText value="#{declararInversionMB.totalMontoReajustado}"
                                                                          size="10" readonly="true" style="text-align:right"></p:inputText>
                                                         </td>
-                                                        <td>Monto con IGV</td>
+                                                        <!--td>Monto con IGV</td-->
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
@@ -411,7 +411,10 @@
                             </table>
                         </div>
                         <div style="text-align:center;font-size: 11px">
-                            <p:commandButton style="width:80px" value="Guardar"/>
+                            <p:commandButton style="width:80px" value="Guardar"
+                                             ajax="false"
+                                             actionListener="#{declararInversionMB.guardarDeclaracion()}"
+                            />
                              
                             <p:commandButton style="width:80px" value="Limpiar"/>
                         </div>
