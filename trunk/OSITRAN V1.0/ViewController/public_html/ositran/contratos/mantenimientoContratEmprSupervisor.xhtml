@@ -56,9 +56,11 @@
                                             </p:selectOneMenu>
                                         </td>
                                         <td align="right">
-                                            <p:commandButton id="btnnuevo" value="Nuevo" type="reset"
+                                            <p:commandButton id="btnnuevo" value="Nuevo" 
                                                              image="ui-icon-circle-plus" styleClass="botones"
-                                                             onclick="dialogRegConEmpSup.show()"/>
+                                                             actionListener="#{manteContEmprSupervisora.limpiarCampos()}"
+                                                             oncomplete="dialogRegConEmpSup.show()"
+                                                             update=":form:dialogRegConEmpSup :form:stdfieldset"/>
                                              
                                             <p:tooltip styleClass="tool" id="toolTipFade2" for="btnnuevo"
                                                        value="Registrar contrato de empresa supervisora"/>
@@ -81,16 +83,17 @@
                                         <h:outputText value="#{cEmpreSup.cpsNroDeContrato}"/>
                                     </p:column>
                                     <p:column headerText="Empresa supervisora">
-                                        <h:outputText value="#{cEmpreSup.supId}"/>
+                                        <h:outputText value="#{cEmpreSup.nombreSupervisora}"/>
                                     </p:column>
                                     <p:column headerText="Tipo de infraestructura">
-                                        <h:outputText value="#{cEmpreSup.tinId}"/>
+                                        <h:outputText value="#{cEmpreSup.nombreInfraestructura}"/>
                                     </p:column>
                                     <p:column headerText="Ver">
                                         <div align="center">
-                                            <p:commandButton image="ui-icon-search" onclick="dialogVerContEmpSup.show()"
+                                            <p:commandButton update=":form:dialogVerContEmpSup" image="ui-icon-search"
+                                                             oncomplete="dialogVerContEmpSup.show()"
                                                              styleClass="controles" id="vercontrato"
-                                                             actionListener="#{manteContEmprSupervisora.cargarEditar(cEmpreSup)}"/>
+                                                             action="#{manteContEmprSupervisora.cargarEditar(cEmpreSup)}"/>
                                              
                                             <p:tooltip styleClass="tool" id="toolTipFade3" for="vercontrato"
                                                        value="Visualizar contrato de empresa supervisora"/>
@@ -121,7 +124,7 @@
                     <h:inputHidden value="#{manteContEmprSupervisora.codigoEliminar}" id="codEliminar"/>
                 </p:layout>
                 <!-- REGISTRAR CONTRATO EMPRESA SUPERVISORA-->
-                <p:dialog header="REGISTRAR" widgetVar="dialogRegConEmpSup" height="500px" width="1320px">
+                <p:dialog id="dialogRegConEmpSup" header="REGISTRAR" widgetVar="dialogRegConEmpSup" height="500px" width="1320px">
                     <div align="center">
                         <h5 class="titulo5">REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA</h5>
                     </div>
@@ -129,7 +132,7 @@
                         <tr>
                             <td>
                                 <div style=" width: 620px">
-                                    <p:fieldset styleClass="fielsetinterno" legend="#{leg.dsdt}">
+                                    <p:fieldset id="stdfieldset" styleClass="fielsetinterno" legend="#{leg.dsdt}">
                                         <table style="width:100% ;font-size:11px;">
                                             <tr>
                                                 <td align="left">
@@ -162,7 +165,8 @@
                                                     <p:outputLabel value="Buscar Empresa Supervisora:"/>
                                                     <p:commandButton image="ui-icon-search"
                                                                      onclick="panelListaEmpresas.show()"
-                                                                     actionListener="#{manteContEmprSupervisora.buscarEmpresaSup()}"/>
+                                                                     actionListener="#{manteContEmprSupervisora.buscarEmpresaSup()}"
+                                                                     update=":form:tablaEP"/>
                                                 </p:fieldset>
                                             </td>
                                             <td>
@@ -204,7 +208,7 @@
                                                 <td align="left">Concesion</td>
                                                 <td>
                                                     <p:inputText readonly="true"
-                                                                 value="#{manteContEmprSupervisora.t_concesion}"></p:inputText>
+                                                                 value="#{manteContEmprSupervisora.contratoConcesion}"></p:inputText>
                                                 </td>
                                             </tr>
                                              
@@ -310,7 +314,7 @@
                                                     <p:outputLabel value="Nro. de contrato"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputText value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
+                                                    <p:inputText  value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
                                                 </td>
                                             </tr>
                                              
@@ -319,7 +323,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar id="calendarFecIniContratoNew" />
+                                                    <p:calendar id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}"/>
                                                 </td>
                                             </tr>
                                              
@@ -328,7 +332,7 @@
                                                     <p:outputLabel value="Fecha de suscripción"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar id="calendarFecSuscripcionNew"/>
+                                                    <p:calendar id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato"/>
@@ -369,7 +373,7 @@
                                                     <p:outputLabel value="Fecha adelanto"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar id="calendarFechaAdelantoNew"/>
+                                                    <p:calendar id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}"/>
                                                 </td>
                                             </tr>
                                              
@@ -405,7 +409,7 @@
                                                     <p:outputLabel value="Adjuntar contrato"/>
                                                 </td>
                                                 <td colspan="2">
-                                                    <p:inputText id="docEntrega" style="width:100% !important;"
+                                                    <p:inputText id="docEntrega" style="width:80% !important;"
                                                                  onblur="if (this.value != '') this.value='';"
                                                                  disabled="#{not empty manteContEmprSupervisora.contratoSupervisoraVO.inputStreamNuevaEntrega}"
                                                                  value="#{manteContEmprSupervisora.contratoSupervisoraVO.cenDocumentoFisico}"/>
@@ -414,6 +418,49 @@
                                                     <p:fileUpload fileUploadListener="#{manteContEmprSupervisora.subirArchivoEntrega}"
                                                                   update="docEntrega" label="PDF" auto="true"/>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                <p:commandButton value="Agregar Adenda"
+                                                                 actionListener="#{manteContEmprSupervisora.tAdenda()}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            <td colspan="4">
+                                            <p:dataTable emptyMessage="NO SE ENCONTRARON DATOS"
+                                                         style="font-size:11px" id="tAdenda" var="tAdenda"
+                                                         value="#{manteContEmprSupervisora.listaAdenda}">
+                                            <p:column headerText="Nro.">
+                                                        <h:outputText value="#{tAdenda.cpsNroDeContrato}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:15px">
+                                                        <p:calendar value="#{tAdenda.csaFecha}" />
+                                                    </p:column>
+                                                    <p:column headerText="Monto" style="width:15px">
+                                                        <h:outputText value="#{tAdenda.csaMonto}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:15px">
+                                                        <h:outputText value="#{tAdenda.monId}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Plazo" style="width:15px">
+                                                        <h:outputText value="#{tAdenda.csaPlazo}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Ver" style="width:15px">
+                                                        <p:commandButton styleClass="controles"
+                                                                         image="ui-icon-trash"/>
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="width:15px">
+                                                        <div align="center">
+                                                            <p:commandButton    update=":form:tAdenda"
+                                                                                styleClass="controles"
+                                                                                actionListener="#{manteContEmprSupervisora.cargarEliminar()}"
+                                                                                image="ui-icon-trash"/>
+                                                        </div>
+                                                    </p:column>
+                                            
+                                            
+                                            </p:dataTable>
+                                            </td>
                                             </tr>
                                         </table>
                                     </p:fieldset>
@@ -428,6 +475,60 @@
                                          style="width:70px; font-size: 10px"/>
                     </div>
                 </p:dialog>
+                <!-- pdialog adenda -->
+                <p:dialog id="agregarAdenda" widgetVar="agregarAdenda" header="Agregar Adenda" modal="true">
+                <table>
+                                        
+                    <tr>
+                        <td>plazo:</td>
+                        <td><p:inputTextarea value="#{manteContEmprSupervisora.adendaPlazo}"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Monto:</td>
+                        <td> <p:inputText value="#{manteContEmprSupervisora.adendaMonto}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Moneda</td>
+                        <td>
+                            <p:selectOneMenu value="#{manteContEmprSupervisora.monedaSeleccionada}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{manteContEmprSupervisora.listaMoneda}"
+                                                                       var="mon" itemLabel="#{mon.monNombre}"
+                                                                       itemValue="#{mon.monId}"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Fecha:</td>
+                        <td> <p:calendar value="#{manteContEmprSupervisora.adendaFecha}"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Adjuntar PDF:</td>
+                        <td>
+                        <p:inputText id="adendaEntrega" style="width:80% !important;"
+                                    onblur="if (this.value != '') this.value='';"
+                                    value="#{manteContEmprSupervisora.contratoSupervisoraAdendaVO.cenDocumentoFisicoA}"/>
+                        <p:fileUpload fileUploadListener="#{manteContEmprSupervisora.subirAdendaEntrega}"
+                                      update="adendaEntrega" label="PDF" auto="true" style="width:20%"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="4" align="center">
+                        <p:commandButton value="Guardar"
+                        update=":form:tAdenda"
+                        actionListener="#{manteContEmprSupervisora.guardarTabla()}"/>
+                        <p:commandButton value="Salir" onclick="agregarAdenda.hide()" />
+                        </td>
+                    </tr>
+                </table>
+                </p:dialog>
+                
                 <!-- pdialog lista y busqueda de contrato concesion-->
                 <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
                           id="pListaContratos" resizable="false" style="text-align:center;">
@@ -473,99 +574,110 @@
                 </p:dialog>
                 <!-- VER CONTRATO EMPRESA SUPERVISORA-->
                 <p:dialog id="dialogVerContEmpSup" header="Contrato de Empresa Supervisora"
-                          widgetVar="dialogVerContEmpSup" modal="true" resizable="false" height="310px" width="630px">
+                          widgetVar="dialogVerContEmpSup" modal="true" resizable="false" height="400px" width="700px">
+                        <div align="center">
+                        <h5 class="titulo5">CONTRATO DE EMPRESA SUPERVISORA</h5>
+                    </div>
+                        <div align="center">  
                     <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 300px;width: 600px;"
                            border="1">
-                        <tr>
-                            <td align="left">Numero:</td>
-                            <td align="left">
-                                <h:outputText value="#{manteContEmprSupervisora.nrohr}"/>
+                           
+                           <tr>
+                            <td align="left" width="30%"><b>NUMERO DE CONTRATO:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.contratoE}"/>
                             </td>
-                            <td align="left">Anho:</td>
-                            <td align="left">
-                                <h:outputText value="#{manteContEmprSupervisora.añohr}"/>
+                            <td align="left" width="30%"><b>TIPO INFRAESTRUCTURA:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.t_tinfraE}"/>
+                            </td>
+                           </tr>
+                           
+                        <tr>
+                            <td align="left" width="30%"><b>NUMERO DE HR:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.nrohrE}"/>
+                            </td>
+                            <td align="left" width="30%"><b>AÑO DE HR:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.añohrE}"/>
+                            </td>
+                        </tr>
+                         
+                         <tr>
+                            
+                            <td align="left" width="30%"><b>FECHA REGISTRO HR:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText  value="#{manteContEmprSupervisora.fregE}"/>
+                            </td>
+                            <td align="left" width="30%"><b>ASUNTO HR:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.asuntohrE}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%"><b>FECHA DE INICIO:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.fechaInicioE}"/>
+                            </td>
+                            <td align="left" width="30%"><b>FECHA SUSCRIPCION:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.fechaSuscripcionE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left">Fecha de inicio:</td>
-                            <td align="left">
-                                <h:outputText/>
-                            </td>
-                            <td align="left">Fecha de Suscripcion:</td>
-                            <td align="left">
-                                <h:outputText/>
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="left">Plazo:</td>
-                            <td align="left">
+                            <td align="left" width="30%"><b>PLAZO DE CONTRATO:</b></td>
+                            <td align="left" width="20%">
                                 <h:outputText value="#{manteContEmprSupervisora.plazocontrE}"/>
                             </td>
-                            <td align="left">Monto contratado:</td>
-                            <td align="left">
+                            <td align="left" width="30%"><b>MONTO CONTRATADO:</b></td>
+                            <td align="left" width="20%">
                                 <h:outputText value="#{manteContEmprSupervisora.montocontrE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left">Adelanto otorgado:</td>
-                            <td align="left">
+                            <td align="left" width="30%"><b>ADELANTO OTORGADO:</b></td>
+                            <td align="left" width="20%">
                                 <h:outputText value="#{manteContEmprSupervisora.adelantoE}"/>
                             </td>
-                            <td align="left">Fecha de adelanto:</td>
-                            <td align="left">
-                                <h:outputText/>
+                            <td align="left" width="30%"><b>FECHA DE ADELANTO:</b></td>
+                            <td align="left" width="20%">
+                                <h:outputText value="#{manteContEmprSupervisora.fechaAdelantoE}"/>
                             </td>
                         </tr>
-                         
                         <tr>
-                            <td align="left">Nro de Contrato:</td>
-                            <td align="left">
-                                <h:outputText value="#{manteContEmprSupervisora.contratoE}"/>
-                            </td>
-                            <td align="left">Fecha registro:</td>
-                            <td align="left">
-                                <h:outputText />
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="left">Asunto:</td>
-                            <td align="left">
-                                <h:outputText />
-                            </td>
-                            <td align="left">Tipo de Infraestructura:</td>
-                            <td align="left">
-                                <h:outputText value="#{manteContEmprSupervisora.t_tinfraE}"/>
-                            </td>
-                        </tr>
-                         
-                        <tr>
-                            <td align="left">Penalidades:</td>
-                            <td align="left">
+                        <td align="left" width="30%"><b>PENALIDADES:</b></td>
+                            <td align="left" colspan="3" >
                                 <h:outputText value="#{manteContEmprSupervisora.cpsPenalidadesE}"></h:outputText>
                             </td>
-                            <td align="left">Caducidad:</td>
-                            <td align="left">
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" width="30%"><b>CADUCIDAD:</b></td>
+                            <td align="left" colspan="3">
                                 <h:outputText value="#{manteContEmprSupervisora.cpsCaducidadE}"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left">Garantias:</td>
-                            <td align="left">
+                            <td align="left" width="30%"><b>GARANTIAS:</b></td>
+                            <td align="left" colspan="3">
                                 <h:outputText value="#{manteContEmprSupervisora.cpsGarantiasE}"></h:outputText>
                             </td>
                         </tr>
-                         
                         <tr>
-                            <td colspan="4" align="center">
-                                <p:commandButton onclick="dialogVerContEmpSup.hide()" value="Aceptar"/>
+                        <td align="left" width="30%"><b>CONTRATO RUTA:</b></td>
+                        <td align="left" colspan="3">
+                                <h:outputText ></h:outputText>
                             </td>
-                        </tr>
-                    </table>
+                        </tr> 
+                        </table>
+                        </div>
+                        <div align="center">
+                            <p:commandButton onclick="dialogVerContEmpSup.hide()" value="Aceptar"/>
+                        </div>
                 </p:dialog>
                 <!-- pdialog para boton eliminar -->
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
@@ -620,7 +732,7 @@
                                                 <td colspan="2" align="left">
                                                     #{cam.asu}
                                                     <p:inputTextarea style="width:80%" readonly="true"
-                                                                     value="#{manteContEmprSupervisora.asuntohr}"/>
+                                                                     value="#{manteContEmprSupervisora.asuntohrE}"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -639,8 +751,8 @@
                                                 <p:fieldset styleClass="fielsetinterno"
                                                             legend="Datos de empresa supervisora"
                                                             id="datosNombreEmpresaSupervisoraE">
-                                                    <p:outputLabel value="nombre"/>
-                                                    <p:inputText />
+                                                    <p:outputLabel value="nombre" />
+                                                    <p:inputText value="#{manteContEmprSupervisora.supIdE}" readonly="true"/>
                                                 </p:fieldset>
                                             </td>
                                         </tr>
@@ -751,16 +863,16 @@
                                             <tr>
                                                 <td align="left">Plazo:</td>
                                                 <td align="left" colspan="3">
-                                                    <p:inputText value="#{manteContEmprSupervisora.plazo}"
-                                                                 readonly="true" size="10" id="plazoE"/>
+                                                    <p:inputText 
+                                                                 readonly="true" size="10" />
                                                 </td>
                                             </tr>
                                              
                                             <tr>
                                                 <td align="left">Total:</td>
                                                 <td align="left">
-                                                    <p:inputText value="#{manteContEmprSupervisora.total}"
-                                                                 readonly="true" size="10" id="totalE"/>
+                                                    <p:inputText 
+                                                                 readonly="true" size="10" />
                                                 </td>
                                                 <td align="left">Moneda:</td>
                                                 <td align="left">
@@ -790,7 +902,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar id="calendarFecIniContratoNewE"/>
+                                                    <p:calendar id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}"/>
                                                 </td>
                                             </tr>
                                              
@@ -799,7 +911,7 @@
                                                     <p:outputLabel value="Fecha de suscripción"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar id="calendarFecSuscripcionNewE"/>
+                                                    <p:calendar id="calendarFecSuscripcionNewE" value="#{manteContEmprSupervisora.fechaSuscripcionE}" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato"/>
@@ -840,7 +952,7 @@
                                                     <p:outputLabel value="Fecha adelanto"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar id="calendarFechaAdelantoNewE"/>
+                                                    <p:calendar id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}"/>
                                                 </td>
                                             </tr>
                                              
@@ -876,7 +988,7 @@
                                                     <p:outputLabel value="Adjuntar contrato"/>
                                                 </td>
                                                 <td colspan="2">
-                                                    <p:inputText id="docEntregaE" style="width:100% !important;"
+                                                    <p:inputText id="docEntregaE" style="width:80% !important;"
                                                                  onblur="if (this.value != '') this.value='';"
                                                                  disabled="#{not empty manteContEmprSupervisora.contratoSupervisoraVO.inputStreamNuevaEntrega}"
                                                                  value="#{manteContEmprSupervisora.contratoSupervisoraVO.cenDocumentoFisico}"/>
@@ -886,11 +998,56 @@
                                                                   update="docEntregaE" label="PDF" auto="true"/>
                                                 </td>
                                             </tr>
+                                           <tr>
+                                                <td colspan="4">
+                                                <p:commandButton value="Agregar Adenda"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            <td colspan="4">
+                                            <p:dataTable  emptyMessage="NO SE ENCONTRARON DATOS"
+                                                         style="font-size:11px" id="adendaE" var="adenda"
+                                                         value="#{manteContEmprSupervisora.listaAdenda1}">
+                                            <p:column headerText="Nro.">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:15px">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Monto" style="width:15px">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Moneda" style="width:15px">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Plazo" style="width:15px">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Ver" style="width:15px">
+                                                        <h:outputText />
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="width:15px">
+                                                        <div align="center">
+                                                            <p:commandButton update=":form:adendaE"
+                                                                             styleClass="controles"
+                                                                             image="ui-icon-trash"/>
+                                                        </div>
+                                                    </p:column>
+                                            
+                                            
+                                            </p:dataTable>
+                                            </td>
+                                            </tr>
+                                            
                                         </table>
                                     </p:fieldset>
                                 </div>
                             </td>
                         </tr>
+                        
+                        
+                        
+                        
                     </table>
                     <div id="botones" align="center">
                         <p:commandButton update=":form:dataTableEmprSupr :form:mensaje" oncomplete="popupeditar.hide()"
@@ -900,6 +1057,7 @@
                         <p:commandButton value="#{btn.btn_salir}" oncomplete="popupeditar.hide()"/>
                     </div>
                 </p:dialog>
+                
             </h:form>
         </h:body>
     </html>
