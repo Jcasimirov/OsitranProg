@@ -833,6 +833,7 @@ public class DeclararInversion {
     
     public void cargarDetalleInversion(SelectEvent event){
         System.out.println("codigoInversion: " +  ((InvAvnVO)event.getObject()).getTiaNumero());
+        invAvnVO = (InvAvnVO)event.getObject();
          try{
             System.out.println("INI cargarDetalleInversion");
             listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>();
@@ -853,6 +854,7 @@ public class DeclararInversion {
                 invReconocimientoVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
                 invReconocimientoVO.setIvrMontoPresentado(invAvanceDetalleVO.getMontoPresentado());
                 invReconocimientoVO.setIadId(invAvanceDetalleVO.getIad_Id());
+                invReconocimientoVO.setIreEstado(1);
                 
                 totalMontoPresentado = totalMontoPresentado.add(invReconocimientoVO.getIvrMontoPresentado());
                 
@@ -861,6 +863,7 @@ public class DeclararInversion {
                 invReajusteVO.setTinId(invAvanceDetalleVO.getTinId());
                 invReajusteVO.setMonId(invAvanceDetalleVO.getMonId());  
                 invReajusteVO.setIadId(invAvanceDetalleVO.getIad_Id());
+                
                 
                 invReajusteVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
                 
@@ -1054,13 +1057,34 @@ public class DeclararInversion {
     
     public void guardarDeclaracion (){
         try{
-            
+            invVO.setTiaNumero(invAvnVO.getTiaNumero());
+            invVO.setInvEstado(1);            
             invVO.setInvMontoTotalAprobado(totalMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalMontoReajustado);                    
             invServiceImpl.insertDeclaracion(invVO, listaInvReconocimientoVO, listaInvReajusteVO);
+            limpiarFormulario();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito",
+                                                                          "Se Declaro la Inversión"));  
         }catch(Exception e){
             e.printStackTrace();    
         }
+    }
+    
+    public void limpiarFormulario(){
+        invAvnVO = null;
+        invVO = null;
+        listaInvReajusteVO = null;
+        listaInvReconocimientoVO = null;
+        totalMontoAprobado = new BigDecimal(0);
+        totalMontoPresentado = new BigDecimal(0);
+        totalMontoReajustado = new BigDecimal(0);
+        listaContratoCompromiso = null;
+        contratoCompromisoVO = null;
+        listaInvAvnVO = null;
+        contratoVO = null;
+        
+        
     }
 
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
