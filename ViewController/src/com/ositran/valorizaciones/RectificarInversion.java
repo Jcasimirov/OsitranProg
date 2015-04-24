@@ -480,6 +480,9 @@ public class RectificarInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORGUARDAR));
+        }finally{
+            invVO=new InvVO();
+             invAvnVO=new InvAvnVO();   
         }
     }
     public void cargarDatosCompromiso(int ccoId) {
