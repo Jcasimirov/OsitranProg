@@ -245,7 +245,7 @@
                                                     <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
                                                                      actionListener="#{rectificarInversion.abrirBuscarContratos()}"
                                                                      update=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
-                                                                     oncomplete="popupBuscarContrato.show();">
+                                                                     oncomplete="popupBuscarContrato.show();" rendered="#{rectificarInversion.rolOpcion.troConsultar eq 1}">
                                                         <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                     </p:commandButton>
                                                 </p:fieldset>
