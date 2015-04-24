@@ -65,7 +65,7 @@ public class MenuMB {
             listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
             //primer submenu
             Submenu primersubmenu = new Submenu();  
-            primersubmenu.setLabel("PARAMETROS "); 
+            primersubmenu.setLabel("PARÁMETROS "); 
             for (int i=0;i<listaRolOpciones.size();i++){ 
                  menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
                 if (menVO.getMenPadre()==1){
