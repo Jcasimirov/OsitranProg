@@ -426,8 +426,8 @@
                                                                                             <h:outputText value="#{reconocimiento.tiaNumero}"/>
                                                                                         </div>
                                                                                     </p:column>
-                                                                                    <p:column headerText="Aeropuerto"
-                                                                                              style="width:7%">
+                                                                                    <p:column headerText="Aeropuerto" rendered="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"
+                                                                                              style="width:7%"  >
                                                                                         <div style="text-align: center;">
                                                                                             <h:outputText value="#{reconocimiento.nombreInfraestructura}"
                                                                                                           style="text-transform:uppercase;"/>
@@ -507,7 +507,7 @@
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Aeropuerto"
-                                                                                              style="width:7%">
+                                                                                              style="width:7%" rendered="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                                                         <div style="text-align: center;">
                                                                                             <h:outputText value="#{reajuste.nombreInfraestructura}"
                                                                                                           style="text-transform:uppercase;"/>
