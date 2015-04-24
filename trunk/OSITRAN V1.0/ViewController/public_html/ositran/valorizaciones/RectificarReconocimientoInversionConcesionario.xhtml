@@ -83,8 +83,7 @@
             <p:layoutUnit position="center" style="border:0px">
                 <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                 <div align="center">
-                    <h1 style="color:Black;font-weight:bold;font-family: sans-serif;">RECTIFICAR RECONOCIMIENTO DE
-                                                                                      INVERSION - CONCESIONARIO</h1>
+                    <h3>RECTIFICAR RECONOCIMIENTO DE INVERSION - CONCESIONARIO</h3>
                 </div>
                 <div align="center" style="font-size: 11px;">
                     <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
@@ -465,7 +464,7 @@
                                                                                     </p:column>
                                                                                     <p:columnGroup type="footer">
                                                                                         <p:row>
-                                                                                            <p:column colspan="5"
+                                                                                            <p:column colspan="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos?5:4}"
                                                                                                       footerText="Total"
                                                                                                       style="text-align:right;"></p:column>
                                                                                             <p:column footerText="#{rectificarInversion.totalivrMontoPresentado}"
@@ -545,7 +544,7 @@
                                                                                     </p:column>
                                                                                     <p:columnGroup type="footer">
                                                                                         <p:row>
-                                                                                            <p:column colspan="5"
+                                                                                            <p:column colspan="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos?5:4}"
                                                                                                       footerText="Total"
                                                                                                       style="text-align:right;"></p:column>
                                                                                             <p:column footerText="#{rectificarInversion.totalirjMontoAprobado}"
