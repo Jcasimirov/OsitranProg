@@ -15,19 +15,35 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 @Repository
 public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionInversionAvanceDetalleDAO {
+    
     public ValorizacionInversionAvanceDetalleDAOImpl() {
         super();
     }
 
     @Override
     public List<ValorizacionInversionAvanceDetalle> query() throws SQLException, Exception {
-        // TODO Implement this method
-        return Collections.emptyList();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        return session.createCriteria(ValorizacionInversionAvanceDetalle.class).list();
+    }
+    
+    @Override
+    public List<ValorizacionInversionAvanceDetalle> query1(int codigoValorizacion) throws SQLException, Exception {
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        query =session.createQuery("FROM ValorizacionInversionAvanceDetalle  E WHERE E.tiaNumero=:busqueda ");
+        query.setParameter("busqueda",codigoValorizacion);
+        return query.list();
     }
 
     @Override
     public String insert(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle) throws SQLException,
                                                                                                        Exception {
+        System.out.println("DAO");
+        System.out.println("monead"+valorizacionInversionAvanceDetalle.getMonId());
+        System.out.println("CABECERA"+valorizacionInversionAvanceDetalle.getTiaNumero());
+        System.out.println("INVER"+valorizacionInversionAvanceDetalle.getDtiId());
+        System.out.println("INVERTIPO"+valorizacionInversionAvanceDetalle.getTivId());
+        
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
@@ -61,6 +77,7 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
         // TODO Implement this method
         return null;
     }
+
     
     @Override
     public List<ValorizacionInversionAvanceDetalle> getInvAvanceDetallesInvAvance(Integer tiaNumero) throws SQLException, Exception {
