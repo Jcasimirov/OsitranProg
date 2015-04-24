@@ -30,9 +30,9 @@ public class ContratoSupervisora implements Serializable {
     private int cpsAnyo;
     @Column(name = "CPS_ARCHIVO_PDF")
     private String cpsArchivoPdf;
-    @Column(name = "CPS_ASUNTO",  length = 4000)
+    @Column(name = "CPS_ASUNTO",    length = 4000)
     private String cpsAsunto;
-    @Column(name = "CPS_CADUCIDAD",  length = 4000)
+    @Column(name = "CPS_CADUCIDAD", length = 4000)
     private String cpsCaducidad;
     @Column(name = "CPS_ESTADO")
     private int cpsEstado;
@@ -59,7 +59,7 @@ public class ContratoSupervisora implements Serializable {
     private Date cpsFechaSuscripcion;
     @Column(name = "CPS_GARANTIAS", length = 4000)
     private String cpsGarantias;
-    @Column(name = "CPS_MONTO_CONTRATADO" )
+    @Column(name = "CPS_MONTO_CONTRATADO")
     private int cpsMontoContratado;
     @Id
     @Column(name = "CPS_NRO_DE_CONTRATO" )
