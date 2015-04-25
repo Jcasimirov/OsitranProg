@@ -586,8 +586,11 @@
                                                                               <p:inputMask id="igv" value="#{rectificarInversion.igv}"  mask="0.99" size="3" rendered="#{rectificarInversion.renderMostrarIGV}" >
                                                                               
                                                                              </p:inputMask>
+                                                                             </td>
+                                                                             <td>
                                                                              <p:commandButton icon="ui-icon-refresh"  actionListener="#{rectificarInversion.calularMontosconIGV()}" update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea" rendered="#{rectificarInversion.renderMostrarIGV}"/>
-                                                                            </td>
+                                                                             </td>
+                                                         
                                                                         </tr>
                                                                     </table>
                                                                 </p:fieldset>
