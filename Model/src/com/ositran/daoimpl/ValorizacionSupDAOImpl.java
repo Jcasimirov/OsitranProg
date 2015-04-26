@@ -37,7 +37,19 @@ public class ValorizacionSupDAOImpl implements ValorizacionSupDAO {
 
     @Override
     public String update(ValorizacionSup valorizacionSup) throws SQLException, Exception {
-        return null;
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(valorizacionSup);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result=e.getMessage();
+            System.out.println(result);
+        }
+        session.close();
+        return result;
     }
 
     @Override
@@ -47,6 +59,21 @@ public class ValorizacionSupDAOImpl implements ValorizacionSupDAO {
         ValorizacionSup valorizacionSup=(ValorizacionSup)session.get(ValorizacionSup.class, id); 
         session.getTransaction().commit();
         return valorizacionSup;
+    }
+	
+	//Ivan 
+    
+    @Override
+    public List<ValorizacionSup> ListaValorizacionesRegistradas(Integer id) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("from ValorizacionSup val where val.tvsEstado = 1  and val.supId = :busqueda");
+        query.setParameter("busqueda",id);
+        List<ValorizacionSup> Lista= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return Lista;     
     }
     
     
