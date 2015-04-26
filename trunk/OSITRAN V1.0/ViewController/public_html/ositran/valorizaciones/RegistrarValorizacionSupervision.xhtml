@@ -12,6 +12,8 @@
             </script>
         </h:head>
         <h:body>
+            <f:event listener="#{regValorizacionSupervisionMB.validarSesion}" type="postAddToView"></f:event>
+             
             <f:event listener="#{regValorizacionSupervisionMB.cargarListaMoneda()}" type="postAddToView"></f:event>
              
             <f:event listener="#{regValorizacionSupervisionMB.cargarListaconcepto()}" type="postAddToView"></f:event>
@@ -20,14 +22,14 @@
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
                                 <h4 style="color: #003194;">REGISTRAR VALORIZACION DE SUPERVISION</h4>
                             </div>
                             <table style="font-size: 11px">
                                 <tr>
-                                    <td >
+                                    <td>
                                         <p:fieldset legend="Datos Contrato Concesion">
                                             <p:fieldset styleClass="fielsetinterno" id="busquedacontrato"
                                                         legend="Criterio de Busqueda">
@@ -242,7 +244,7 @@
                                                                          value="#{regValorizacionSupervisionMB.montoTabla}"/>
                                                         </td>
                                                         <td>
-                                                            <p:selectBooleanCheckbox/>
+                                                            <p:selectBooleanCheckbox value="#{regValorizacionSupervisionMB.igv}"/>
                                                              
                                                             <h:outputText style="font-size:9px" value="Con IGV"/>
                                                         </td>
@@ -253,25 +255,27 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <p:dataTable emptyMessage="NO SE ENCONTRARON DATOS"
-                                                             style="font-size:11px" id="tMonto" var="tMonto"
+                                                <p:dataTable
+                                                resizableColumns="true"
+                                                emptyMessage="NO SE ENCONTRARON DATOS" 
+                                                             style="font-size:11px;width:660px" id="tMonto" var="tMonto"
                                                              value="#{regValorizacionSupervisionMB.listaValorizacion}">
-                                                    <p:column headerText="Descripción del Concepto">
+                                                    <p:column headerText="Descripción del Concepto" style="width:30%">
                                                         <h:outputText value="#{tMonto.cvaId}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:15px">
+                                                    <p:column headerText="Moneda" style="width:15%">
                                                         <h:outputText value="#{tMonto.monId}"/>
                                                     </p:column>
-                                                    <p:column headerText="Neto" style="width:15px">
+                                                    <p:column headerText="Neto" style="width:15%">
                                                         <h:outputText value="#{tMonto.neto}"/>
                                                     </p:column>
                                                     <p:column headerText="Igv" style="width:15px">
                                                         <h:outputText value="#{tMonto.igv}"/>
                                                     </p:column>
-                                                    <p:column headerText="Total" style="width:15px">
+                                                    <p:column headerText="Total" style="width:15%">
                                                         <h:outputText value="#{tMonto.total}"/>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:15px">
+                                                    <p:column headerText="Eliminar" style="width:10%" >
                                                         <div align="center">
                                                             <p:commandButton update=":form:tMonto"
                                                                              styleClass="controles"
