@@ -24,6 +24,7 @@ public class InvVO {
     private String invNota;
     private String invNroDocFormalizacion;
     private Date invFechaEmisionDocFomalizacion;
+    private Integer invIgv;
     public InvVO() {
         super();
     }
@@ -173,4 +174,11 @@ public class InvVO {
         return invFechaEmisionDocFomalizacion;
     }
 
+    public Integer getInvIgv() {
+        return invIgv;
+    }
+
+    public void setInvIgv(Integer invIgv) {
+        this.invIgv = invIgv;
+    }
 }
