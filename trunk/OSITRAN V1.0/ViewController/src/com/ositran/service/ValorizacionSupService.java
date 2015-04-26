@@ -13,5 +13,8 @@ public interface ValorizacionSupService {
     public String delete(Integer id) throws SQLException ,Exception;
     public String update(ValorizacionSupVO valorizacionSupVO) throws ParseException,SQLException ,Exception;
     public ValorizacionSupVO get(Integer id) throws SQLException ,Exception ;
+	
+	//Ivan
+    public List<ValorizacionSupVO> ListaValorizacionesRegistradas(Integer Id) throws SQLException, Exception;
     
 }
