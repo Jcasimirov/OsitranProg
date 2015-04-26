@@ -1,6 +1,9 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +26,7 @@ public class ValorizacionSupDetalle implements Serializable {
     @GeneratedValue(generator = "generator")    
     private Integer cvaId;
     @Column(nullable = false)
-    private double igv;
+    private BigDecimal igv;
     @Column(name = "MON_ID", nullable = false)
     private Integer monId;
     @Column(nullable = false)
@@ -36,7 +39,7 @@ public class ValorizacionSupDetalle implements Serializable {
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, Long igv, Integer monId, Long neto, Long total,
+    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, Long neto, Long total,
                                   Integer tvsHr) {
         this.cvaId = cvaId;
         this.igv = igv;
@@ -54,11 +57,12 @@ public class ValorizacionSupDetalle implements Serializable {
         return cvaId;
     }
 
-    public void setIgv(double igv) {
+
+    public void setIgv(BigDecimal igv) {
         this.igv = igv;
     }
 
-    public double getIgv() {
+    public BigDecimal getIgv() {
         return igv;
     }
 
