@@ -15,6 +15,9 @@ public interface ValorizacionSupDAO {
     public String delete(Integer id)throws SQLException ,Exception;
     public String update(ValorizacionSup valorizacionSup)throws SQLException ,Exception;
     public ValorizacionSup get(Integer id)throws SQLException ,Exception;
+	
+	//Ivan
+    public List<ValorizacionSup> ListaValorizacionesRegistradas(Integer id) throws SQLException, Exception ;
     
 }
     
