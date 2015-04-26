@@ -14,9 +14,10 @@ public class ValorizacionSupVO {
 
 
     public ValorizacionSupVO(Integer monId, Long tvsBruto, Integer tvsHr, Long tvsIgv, Date tvsInfFechaEmision,
-                             Integer tvsInfNumero, String tvsInfRegSalida, Date tvsMemFechaEmision,
-                             Integer tvsMemNumero, String tvsMemRegSalida, Long tvsNeto, Date tvsOfiFechaEmision,
-                             Integer tvsOfiNumero, String tvsOfiRegSalida) {
+                             String tvsInfNumero, String tvsInfRegSalida, Date tvsMemFechaEmision,
+                             String tvsMemNumero, String tvsMemRegSalida, Long tvsNeto, Date tvsOfiFechaEmision,
+                             String tvsOfiNumero, String tvsOfiRegSalida, Integer tvsEstado, Integer supId,
+                             Integer tvsAnyo, Date tvsFechaRegistro, String tvsAsunto, String nombreMoneda, String nombreEstado, Long tvsAprobado, String tvsObservacion) {
         
         this.monId = monId;
         this.tvsBruto = tvsBruto;
@@ -32,6 +33,15 @@ public class ValorizacionSupVO {
         this.tvsOfiFechaEmision = tvsOfiFechaEmision;
         this.tvsOfiNumero = tvsOfiNumero;
         this.tvsOfiRegSalida = tvsOfiRegSalida;
+        this.tvsEstado = tvsEstado;
+        this.supId = supId;
+        this.tvsAnyo = tvsAnyo;
+        this.tvsFechaRegistro = tvsFechaRegistro;
+        this.tvsAsunto = tvsAsunto;
+        this.nombreMoneda = nombreMoneda;
+        this.nombreEstado = nombreEstado;
+        this.tvsAprobado = tvsAprobado;
+        this.tvsObservacion = tvsObservacion;
     }
 
     private Integer monId;
@@ -39,15 +49,25 @@ public class ValorizacionSupVO {
     private Integer tvsHr;
     private Long tvsIgv;
     private Date tvsInfFechaEmision;
-    private Integer tvsInfNumero;
+    private String tvsInfNumero;
     private String tvsInfRegSalida;
     private Date tvsMemFechaEmision;
-    private Integer tvsMemNumero;
+    private String tvsMemNumero;
     private String tvsMemRegSalida;
     private Long tvsNeto;
     private Date tvsOfiFechaEmision;
-    private Integer tvsOfiNumero;
+    private String tvsOfiNumero;
     private String tvsOfiRegSalida;
+    private Integer tvsEstado;
+    private Integer supId;
+    private Integer tvsAnyo;    
+    private Date tvsFechaRegistro;
+    private String tvsAsunto;
+    private String nombreMoneda;
+    private String nombreEstado;
+    private long tvsAprobado;
+    private String tvsObservacion;
+
 
 
     public void setMonId(Integer monId) {
@@ -90,11 +110,11 @@ public class ValorizacionSupVO {
         return tvsInfFechaEmision;
     }
 
-    public void setTvsInfNumero(Integer tvsInfNumero) {
+    public void setTvsInfNumero(String tvsInfNumero) {
         this.tvsInfNumero = tvsInfNumero;
     }
 
-    public Integer getTvsInfNumero() {
+    public String getTvsInfNumero() {
         return tvsInfNumero;
     }
 
@@ -114,11 +134,11 @@ public class ValorizacionSupVO {
         return tvsMemFechaEmision;
     }
 
-    public void setTvsMemNumero(Integer tvsMemNumero) {
+    public void setTvsMemNumero(String tvsMemNumero) {
         this.tvsMemNumero = tvsMemNumero;
     }
 
-    public Integer getTvsMemNumero() {
+    public String getTvsMemNumero() {
         return tvsMemNumero;
     }
 
@@ -146,11 +166,11 @@ public class ValorizacionSupVO {
         return tvsOfiFechaEmision;
     }
 
-    public void setTvsOfiNumero(Integer tvsOfiNumero) {
+    public void setTvsOfiNumero(String tvsOfiNumero) {
         this.tvsOfiNumero = tvsOfiNumero;
     }
 
-    public Integer getTvsOfiNumero() {
+    public String getTvsOfiNumero() {
         return tvsOfiNumero;
     }
 
@@ -160,5 +180,77 @@ public class ValorizacionSupVO {
 
     public String getTvsOfiRegSalida() {
         return tvsOfiRegSalida;
+    }
+
+    public void setTvsEstado(Integer tvsEstado) {
+        this.tvsEstado = tvsEstado;
+    }
+
+    public Integer getTvsEstado() {
+        return tvsEstado;
+    }
+
+    public void setSupId(Integer supId) {
+        this.supId = supId;
+    }
+
+    public Integer getSupId() {
+        return supId;
+    }
+
+    public void setTvsAnyo(Integer tvsAnyo) {
+        this.tvsAnyo = tvsAnyo;
+    }
+
+    public Integer getTvsAnyo() {
+        return tvsAnyo;
+    }
+
+    public void setTvsFechaRegistro(Date tvsFechaRegistro) {
+        this.tvsFechaRegistro = tvsFechaRegistro;
+    }
+
+    public Date getTvsFechaRegistro() {
+        return tvsFechaRegistro;
+    }
+
+    public void setTvsAsunto(String tvsAsunto) {
+        this.tvsAsunto = tvsAsunto;
+    }
+
+    public String getTvsAsunto() {
+        return tvsAsunto;
+    }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
+    public void setTvsAprobado(long tvsAprobado) {
+        this.tvsAprobado = tvsAprobado;
+    }
+
+    public long getTvsAprobado() {
+        return tvsAprobado;
+    }
+
+    public void setTvsObservacion(String tvsObservacion) {
+        this.tvsObservacion = tvsObservacion;
+    }
+
+    public String getTvsObservacion() {
+        return tvsObservacion;
     }
 }
