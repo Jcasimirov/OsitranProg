@@ -89,6 +89,9 @@
         <mapping class="com.ositran.model.Inv"/>
         <mapping class="com.ositran.model.InvReconocimiento"/>
         <mapping class="com.ositran.model.InvReajuste"/>
+		
+		   <mapping class="com.ositran.model.ValorizacionSup"/>
+   <mapping class="com.ositran.model.ValorizacionSupDetalle"/>
         
     </session-factory>
 </hibernate-configuration>
