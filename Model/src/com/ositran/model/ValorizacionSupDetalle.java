@@ -25,28 +25,31 @@ public class ValorizacionSupDetalle implements Serializable {
     @Column(name = "CVA_ID", nullable = false)
     @GeneratedValue(generator = "generator")    
     private Integer cvaId;
-    @Column(nullable = false)
-    private BigDecimal igv;
-    @Column(name = "MON_ID", nullable = false)
+    @Column(name="VSD_IGV")
+    private double igv;
+    @Column(name = "MON_ID")
     private Integer monId;
-    @Column(nullable = false)
+    @Column(name="VSD_NETO")
     private double neto;
-    @Column(nullable = false)
+    @Column(name="VSD_TOTAL")
     private double total;
-    @Column(name = "TVS_HR", nullable = false)
+    @Column(name = "TVS_HR")
     private Integer tvsHr;
+    @Column(name="VSD_TOTAL_APROBADO")
+    private double totalAprobado;
 
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, Long neto, Long total,
-                                  Integer tvsHr) {
+    public ValorizacionSupDetalle(Integer cvaId, Long igv, Integer monId, Long neto, Long total,
+                                  Integer tvsHr, double totalAprobado) {
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
         this.neto = neto;
         this.total = total;
         this.tvsHr = tvsHr;
+        this.totalAprobado = totalAprobado;
     }
 
     public void setCvaId(Integer cvaId) {
@@ -57,12 +60,11 @@ public class ValorizacionSupDetalle implements Serializable {
         return cvaId;
     }
 
-
-    public void setIgv(BigDecimal igv) {
+    public void setIgv(double igv) {
         this.igv = igv;
     }
 
-    public BigDecimal getIgv() {
+    public double getIgv() {
         return igv;
     }
 
@@ -96,5 +98,13 @@ public class ValorizacionSupDetalle implements Serializable {
 
     public Integer getTvsHr() {
         return tvsHr;
+    }
+
+    public void setTotalAprobado(double totalAprobado) {
+        this.totalAprobado = totalAprobado;
+    }
+
+    public double getTotalAprobado() {
+        return totalAprobado;
     }
 }
