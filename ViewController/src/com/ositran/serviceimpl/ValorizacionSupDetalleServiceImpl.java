@@ -2,10 +2,13 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.ValorizacionSupDetalleDAO;
 import com.ositran.model.InfraestructuraTipo;
+import com.ositran.model.ValorizacionSup;
 import com.ositran.model.ValorizacionSupDetalle;
 import com.ositran.service.ValorizacionSupDetalleService;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
+import com.ositran.vo.bean.ValorizacionSupVO;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -77,6 +80,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
         valorizacionSupDetalleVO.setNeto(valorizacionSupDetalle.getNeto());
         valorizacionSupDetalleVO.setTotal(valorizacionSupDetalle.getTotal());
         valorizacionSupDetalleVO.setTvsHr(valorizacionSupDetalle.getTvsHr());
+        valorizacionSupDetalleVO.setTotalAprobado(valorizacionSupDetalle.getTotalAprobado());
         return valorizacionSupDetalleVO;
     }
     private ValorizacionSupDetalle toValorizacionSupDetalle(ValorizacionSupDetalleVO valorizacionSupDetalleVO){
@@ -87,6 +91,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
         valorizacionSupDetalle.setNeto(valorizacionSupDetalleVO.getNeto());
         valorizacionSupDetalle.setTotal(valorizacionSupDetalleVO.getTotal());
         valorizacionSupDetalle.setTvsHr(valorizacionSupDetalleVO.getTvsHr());
+        valorizacionSupDetalle.setTotalAprobado(valorizacionSupDetalleVO.getTotalAprobado());
         return valorizacionSupDetalle;
         
     }
@@ -114,6 +119,14 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
 
     public ValorizacionSupDetalleVO getValorizacionSupDetalleVO() {
         return valorizacionSupDetalleVO;
+    }
+    
+    //Ivan
+    @Override
+    public List<ValorizacionSupDetalleVO> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception {
+        List<ValorizacionSupDetalle> Lista = valorizacionSupDetalleDAOImpl.ListaValorizacionesDetRegistradas(id);
+        List<ValorizacionSupDetalleVO> ListaVO = toListValorizacionSupDetalleVO(Lista);
+        return ListaVO;
     }
 
 }
