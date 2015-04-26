@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class ValorizacionSupServiceImpl implements ValorizacionSupService {
@@ -37,8 +38,9 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
 
     @Override
     public String update(ValorizacionSupVO valorizacionSupVO) throws ParseException, SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        ValorizacionSup valorizacionSup=toValorizacionSup(valorizacionSupVO);
+        String result=this.valorizacionSupDAOImpl.update(valorizacionSup);
+        return result;
     }
 
     @Override
@@ -86,6 +88,13 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSupVO.setTvsOfiFechaEmision(valorizacionSup.getTvsOfiFechaEmision());
         valorizacionSupVO.setTvsOfiNumero(valorizacionSup.getTvsOfiNumero());
         valorizacionSupVO.setTvsOfiRegSalida(valorizacionSup.getTvsOfiRegSalida());
+        valorizacionSupVO.setTvsEstado(valorizacionSup.getTvsEstado());
+        valorizacionSupVO.setSupId(valorizacionSup.getSupId());
+        valorizacionSupVO.setTvsAnyo(valorizacionSup.getTvsAnyo());
+        valorizacionSupVO.setTvsFechaRegistro(valorizacionSup.getTvsFechaRegistro());
+        valorizacionSupVO.setTvsAsunto(valorizacionSup.getTvsAsunto());
+        valorizacionSupVO.setTvsAprobado(valorizacionSup.getTvsAprobado());
+        valorizacionSupVO.setTvsObservacion(valorizacionSup.getTvsObservacion());
         return valorizacionSupVO;
     }
     
@@ -106,8 +115,24 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSup.setTvsOfiFechaEmision(valorizacionSupVO.getTvsOfiFechaEmision());
         valorizacionSup.setTvsOfiNumero(valorizacionSupVO.getTvsOfiNumero());
         valorizacionSup.setTvsOfiRegSalida(valorizacionSupVO.getTvsOfiRegSalida());
+        valorizacionSup.setTvsEstado(valorizacionSupVO.getTvsEstado());
+        valorizacionSup.setSupId(valorizacionSupVO.getSupId());
+        valorizacionSup.setTvsAnyo(valorizacionSupVO.getTvsAnyo());
+        valorizacionSup.setTvsFechaRegistro(valorizacionSupVO.getTvsFechaRegistro());
+        valorizacionSup.setTvsAsunto(valorizacionSupVO.getTvsAsunto()); 
+        valorizacionSup.setTvsAprobado(valorizacionSupVO.getTvsAprobado());
+        valorizacionSup.setTvsObservacion(valorizacionSupVO.getTvsObservacion());
+        
         return valorizacionSup;
         
+    }
+    
+    //Ivan
+    @Override
+    public List<ValorizacionSupVO> ListaValorizacionesRegistradas(Integer id) throws SQLException, Exception {
+        List<ValorizacionSup> Lista = valorizacionSupDAOImpl.ListaValorizacionesRegistradas(id);
+        List<ValorizacionSupVO> ListaVO = toListValorizacionSupVO(Lista);
+        return ListaVO;
     }
     
 }
