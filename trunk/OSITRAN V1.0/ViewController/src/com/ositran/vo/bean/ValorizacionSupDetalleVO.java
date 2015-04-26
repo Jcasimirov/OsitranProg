@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,12 +9,12 @@ import javax.persistence.Id;
 public class ValorizacionSupDetalleVO {
     
     private Integer cvaId;
-    private double igv;
+    private BigDecimal igv;
     private Integer monId;
     private double neto;
     private double total;
     private Integer tvsHr;
-    
+    private BigDecimal tTotal;
     private String aeropuertos;
     private String descripcionInversion;
     private String nombreMoneda;
@@ -25,7 +27,9 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer cvaId, Long igv, Integer monId, Long neto, Long total, Integer tvsHr) {
+    public ValorizacionSupDetalleVO(int cvaId, BigDecimal igv, Integer monId, double neto, double total,
+                                    Integer tvsHr, String aeropuertos, String descripcionInversion, String nombreMoneda,
+                                    int contador) {
         super();
         this.cvaId = cvaId;
         this.igv = igv;
@@ -33,6 +37,10 @@ public class ValorizacionSupDetalleVO {
         this.neto = neto;
         this.total = total;
         this.tvsHr = tvsHr;
+        this.aeropuertos = aeropuertos;
+        this.descripcionInversion = descripcionInversion;
+        this.nombreMoneda = nombreMoneda;
+        this.contador = contador;
     }
 
 
@@ -44,11 +52,11 @@ public class ValorizacionSupDetalleVO {
         return cvaId;
     }
 
-    public void setIgv(double igv) {
+    public void setIgv(BigDecimal igv) {
         this.igv = igv;
     }
 
-    public double getIgv() {
+    public BigDecimal getIgv() {
         return igv;
     }
 
@@ -108,7 +116,6 @@ public class ValorizacionSupDetalleVO {
         return nombreMoneda;
     }
 
-
     public void setContador(int contador) {
         this.contador = contador;
     }
@@ -116,4 +123,13 @@ public class ValorizacionSupDetalleVO {
     public int getContador() {
         return contador;
     }
+
+    public void setTTotal(BigDecimal tTotal) {
+        this.tTotal = tTotal;
+    }
+
+    public BigDecimal getTTotal() {
+        return tTotal;
+    }
+
 }
