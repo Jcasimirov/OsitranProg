@@ -66,6 +66,8 @@ public class Inv implements Serializable {
     private String invNroDocFormalizacion;
     @Column(name = "INV_FECHA_EMISION_FORM")
     private Date invFechaEmisionDocFomalizacion;
+    @Column(name = "INV_IGV") 
+    private Integer invIgv;
     public Inv() {
     }
 
@@ -73,7 +75,7 @@ public class Inv implements Serializable {
                Integer invId, BigDecimal invMontoTipoCambio, BigDecimal invMontoTotalAprobado, BigDecimal invMontoTotalReajuste,
                String invNota, String invNumeroInforme, String invNumeroOficio, String invObservaciones,
                String invRegSalidaInforme, String invRegSalidaOficio, Integer Monid, Integer itrId,
-               Integer tiaNumero, Integer invEstado, String invNroDocFormalizacion) {
+               Integer tiaNumero, Integer invEstado, String invNroDocFormalizacion, Integer invIgv) {
         this.invEstadoReconocimiento = invEstadoReconocimiento;
         this.invFechaEmisionInforme = invFechaEmisionInforme;
         this.invFechaEmisionOficio = invFechaEmisionOficio;
@@ -92,6 +94,7 @@ public class Inv implements Serializable {
         this.tiaNumero = tiaNumero;
         this.invEstado = invEstado;
         this.invNroDocFormalizacion = invNroDocFormalizacion;
+        this.invIgv = invIgv;
     }
 
     public Integer getInvEstadoReconocimiento() {
@@ -236,5 +239,13 @@ public class Inv implements Serializable {
 
     public Date getInvFechaEmisionDocFomalizacion() {
         return invFechaEmisionDocFomalizacion;
+    }
+
+    public Integer getInvIgv() {
+        return invIgv;
+    }
+
+    public void setInvIgv(Integer invIgv) {
+        this.invIgv = invIgv;
     }
 }
