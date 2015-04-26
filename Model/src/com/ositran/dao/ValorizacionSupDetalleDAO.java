@@ -19,5 +19,8 @@ public interface ValorizacionSupDetalleDAO {
     public String update(ValorizacionSupDetalle valorizacionSupDetalle) throws SQLException;
 
     public ValorizacionSupDetalle get(Integer id) throws SQLException; 
+	
+	//Ivan
+	public List<ValorizacionSupDetalle> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception;
 
 }
