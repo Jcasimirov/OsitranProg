@@ -1,7 +1,5 @@
 package com.ositran.vo.bean;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,17 +7,21 @@ import javax.persistence.Id;
 public class ValorizacionSupDetalleVO {
     
     private Integer cvaId;
-    private BigDecimal igv;
+    private double igv;
     private Integer monId;
     private double neto;
     private double total;
     private Integer tvsHr;
-    private BigDecimal tTotal;
+    
     private String aeropuertos;
     private String descripcionInversion;
     private String nombreMoneda;
     
     private int contador;
+    
+    private double totalAprobado;
+    
+    private int fila;
     
     
     
@@ -27,9 +29,7 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(int cvaId, BigDecimal igv, Integer monId, double neto, double total,
-                                    Integer tvsHr, String aeropuertos, String descripcionInversion, String nombreMoneda,
-                                    int contador) {
+    public ValorizacionSupDetalleVO(Integer cvaId, Long igv, Integer monId, Long neto, Long total, Integer tvsHr, double totalAprobado, int fila) {
         super();
         this.cvaId = cvaId;
         this.igv = igv;
@@ -37,10 +37,8 @@ public class ValorizacionSupDetalleVO {
         this.neto = neto;
         this.total = total;
         this.tvsHr = tvsHr;
-        this.aeropuertos = aeropuertos;
-        this.descripcionInversion = descripcionInversion;
-        this.nombreMoneda = nombreMoneda;
-        this.contador = contador;
+        this.totalAprobado = totalAprobado;
+        this.fila = fila;
     }
 
 
@@ -52,11 +50,11 @@ public class ValorizacionSupDetalleVO {
         return cvaId;
     }
 
-    public void setIgv(BigDecimal igv) {
+    public void setIgv(double igv) {
         this.igv = igv;
     }
 
-    public BigDecimal getIgv() {
+    public double getIgv() {
         return igv;
     }
 
@@ -116,6 +114,7 @@ public class ValorizacionSupDetalleVO {
         return nombreMoneda;
     }
 
+
     public void setContador(int contador) {
         this.contador = contador;
     }
@@ -124,12 +123,19 @@ public class ValorizacionSupDetalleVO {
         return contador;
     }
 
-    public void setTTotal(BigDecimal tTotal) {
-        this.tTotal = tTotal;
+    public void setTotalAprobado(double totalAprobado) {
+        this.totalAprobado = totalAprobado;
     }
 
-    public BigDecimal getTTotal() {
-        return tTotal;
+    public double getTotalAprobado() {
+        return totalAprobado;
     }
 
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getFila() {
+        return fila;
+    }
 }
