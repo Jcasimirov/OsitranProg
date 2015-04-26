@@ -14,6 +14,7 @@ import com.ositran.serviceimpl.InversionDescripcionServicesImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoVO;
@@ -23,16 +24,22 @@ import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
 
+import java.io.IOException;
+
 import java.math.BigDecimal;
 
 import java.sql.SQLException;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -42,7 +49,10 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "regValorizacionSupervisionMB")
 @ViewScoped
 
-public class RegistrarValorizacionSupervision {    
+public class RegistrarValorizacionSupervision {
+    public final int formulario = 35;
+    private RolOpcionesVO rolOpcion;
+
     private String nombreConcesion;
     private String contratoConcesion;
     private String nombreTipoInfraestructura;
@@ -65,25 +75,24 @@ public class RegistrarValorizacionSupervision {
     private int codigoInfraestructura;
     private int idTipoInfraestructura;
     private int añohrbus;
-    private int nrohrbus;    
+    private int nrohrbus;
     private String plazo;
     private int codigoMoneda;
     private int codigoContrato;
     private BigDecimal total;
-    private int montoTabla;
-    private int neto;
+    private BigDecimal montoTabla;
     private int cvaId;
-    private int igv;
-    private List<ValorizacionSupDetalleVO> listamontos = new ArrayList<>();
+    private boolean igv;
+
     private List<ContratoVO> listaContratos = new ArrayList<>();
     private List<InversionDescripcionVO> listaConcepto = new ArrayList<>();
-    private List<MonedaVO> listaMoneda  = new ArrayList<>();
+    private List<MonedaVO> listaMoneda = new ArrayList<>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
     private List<InversionVO> listaInversiones = new ArrayList<>();
     private List<ContratoVO> listaContratosConcesion = new ArrayList<>();
     private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
-   private  List<ValorizacionSupDetalleVO> listaValorizacion=new ArrayList<>();
+    private List<ValorizacionSupDetalleVO> listaValorizacion = new ArrayList<>();
 
 
     @ManagedProperty(value = "#{monedaServiceImpl}")
@@ -111,36 +120,40 @@ public class RegistrarValorizacionSupervision {
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     InfraestructuraTipoVO infraestructuraTipoVO;
     @ManagedProperty(value = "#{concesionVO}")
-    ConcesionVO concesionVO;    
+    ConcesionVO concesionVO;
     @ManagedProperty(value = "#{modalidadConcesionVO}")
     ModalidadConcesionVO modalidadConcesionVO;
     @ManagedProperty(value = "#{modalidadConcesionServiceImpl}")
-    ModalidadConcesionServiceImpl modalidadConcesionServiceImpl; 
+    ModalidadConcesionServiceImpl modalidadConcesionServiceImpl;
     @ManagedProperty(value = "#{infraestructura}")
     Infraestructura infraestructura;
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
     InfraestructuraServiceImpl infraestructuraServiceImpl;
     @ManagedProperty(value = "#{infraestructuraVO}")
-    InfraestructuraVO infraestructuraVO;    
+    InfraestructuraVO infraestructuraVO;
     @ManagedProperty(value = "#{inversionServiceImpl}")
     InversionService inversionServiceImpl;
     @ManagedProperty(value = "#{inversionVO}")
     InversionVO inversionVO;
     @ManagedProperty(value = "#{contratoVO}")
-    ContratoVO contratoVO;  
+    ContratoVO contratoVO;
 
-    
+    public void validarSesion() throws IOException {
+
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
+
 
     public void cargarListaContratos() {
         try {
             listaContratos = contratoConcesionServiceImp.query();
             for (ContratoVO contra : listaContratos) {
                 concesionVO = concesionServiceImpl.get(contra.getCsiId());
-                contratoVO=contratoConcesionServiceImp.get(contra.getConId());
-                codigoContrato=contratoVO.getConId();
+                contratoVO = contratoConcesionServiceImp.get(contra.getConId());
+                codigoContrato = contratoVO.getConId();
                 modalidadConcesionVO = modalidadConcesionServiceImpl.get(contra.getMcoId());
                 contra.setNombreConcesion(concesionVO.getCsiNombre());
-                contra.setNombreModalidad(modalidadConcesionVO.getMcoNombre()); 
+                contra.setNombreModalidad(modalidadConcesionVO.getMcoNombre());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,45 +162,44 @@ public class RegistrarValorizacionSupervision {
 
     public void elegirContrato(ContratoVO contrato1) {
         try {
-            concesionVO=concesionServiceImpl.get(contrato1.getCncId());
-            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
+            concesionVO = concesionServiceImpl.get(contrato1.getCncId());
+            listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
             t_concesion = contrato1.getNombreConcesion();
-            t_tinfra = contrato1.getTinId();           
+            t_tinfra = contrato1.getTinId();
             t_modconc = contrato1.getNombreModalidad();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-     public void cargarInversion() {
+    public void cargarInversion() {
         try {
-            infraestructuraVO=infraestructuraServiceImpl.get2(infraestructuraSeleccionada);
+            infraestructuraVO = infraestructuraServiceImpl.get2(infraestructuraSeleccionada);
             infraestructura.setCsiId(infraestructuraVO.getCsiId());
             infraestructura.setInfId(infraestructuraVO.getInfId());
-            infraestructura.setTinId(infraestructuraVO.getTinId()); 
-            listaInversiones=inversionServiceImpl.query1(infraestructura,codigoContrato);           
-            listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
+            infraestructura.setTinId(infraestructuraVO.getTinId());
+            listaInversiones = inversionServiceImpl.query1(infraestructura, codigoContrato);
+            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } 
-    
-    public void cargarDatosCompromiso(){
-        try {
-           contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
-           plazo=contratoCompromisoVO.getCcoPlazo();
-           total=contratoCompromisoVO.getCcoTotal();
-           codigoMoneda=contratoCompromisoVO.getMonId();  
-       } catch (Exception e) {
-           System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
-           e.printStackTrace();
-        }        
     }
-    
-    
-    
+
+    public void cargarDatosCompromiso() {
+        try {
+            contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+            plazo = contratoCompromisoVO.getCcoPlazo();
+            total = contratoCompromisoVO.getCcoTotal();
+            codigoMoneda = contratoCompromisoVO.getMonId();
+        } catch (Exception e) {
+            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
+            e.printStackTrace();
+        }
+    }
+
+
     //--buscar std--//
     public void BuscarStd() throws SQLException {
         if (nrohr.trim().equals("")) {
@@ -235,53 +247,54 @@ public class RegistrarValorizacionSupervision {
 
     public void cargarListaMoneda() {
         try {
-            
-            listaMoneda =  monedaServiceImpl.query();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }
-    
-    public void cargarListaconcepto() {
-        try {
-            
-            listaConcepto =  inversionDescripcionServicesImpl.query();
+
+            listaMoneda = monedaServiceImpl.query();
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
-    public void guardarTabla(){
-       
-            try {
-           listaMoneda =  monedaServiceImpl.query();
-               
-           neto=getMontoTabla(); 
-           igv = (int) (neto * 0.18);
-                 
-           ValorizacionSupDetalleVO valorizacionSupDetalleVO= new ValorizacionSupDetalleVO();
-           valorizacionSupDetalleVO.setMonId(monedaSeleccionada);  
-           valorizacionSupDetalleVO.setNeto(Long.parseLong(String.valueOf(neto)));
-           valorizacionSupDetalleVO.setIgv(Long.parseLong(String.valueOf(igv)));
-             
-           listaValorizacion.add(valorizacionSupDetalleVO);
-           
-             
-           System.out.println(neto);
-           System.out.println(cvaId);
-       } catch (Exception e) {
+    public void cargarListaconcepto() {
+        try {
+
+            listaConcepto = inversionDescripcionServicesImpl.query();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void guardarTabla() {
+
+        try {
+            listaMoneda = monedaServiceImpl.query();
+            BigDecimal igv1;
+
+            //neto = getMontoTabla();
+            ValorizacionSupDetalleVO valorizacionSupDetalleVO = new ValorizacionSupDetalleVO();
+            valorizacionSupDetalleVO.setCvaId(conceptoSeleccionada);
+            valorizacionSupDetalleVO.setMonId(monedaSeleccionada);
+            valorizacionSupDetalleVO.setNeto(Long.parseLong(String.valueOf(montoTabla)));
+            
+            if(igv){
+                    igv1= new BigDecimal(0.18);
+                    valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla));
+                }
+            else{
+                    igv1= new BigDecimal(0);
+                    valorizacionSupDetalleVO.setIgv(igv1);
+                }
+            //valorizacionSupDetalleVO.settTotal(montoTabla.add(igv1.multiply(montoTabla))); 
+            listaValorizacion.add(valorizacionSupDetalleVO);
+
+
+          
+        } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
         }
-    
-        
-       
-        
+
+
     }
-
-
-
-
 
 
     //--------- FIN DATOS VALORIZACION-------------//
@@ -310,7 +323,7 @@ public class RegistrarValorizacionSupervision {
         return contratoConcesion;
     }
 
-     public void setTipoInfraestructura(int tipoInfraestructura) {
+    public void setTipoInfraestructura(int tipoInfraestructura) {
         this.tipoInfraestructura = tipoInfraestructura;
     }
 
@@ -612,7 +625,7 @@ public class RegistrarValorizacionSupervision {
         return listaContratosConcesion;
     }
 
-      public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
+    public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
         this.monedaServiceImpl = monedaServiceImpl;
     }
 
@@ -745,30 +758,14 @@ public class RegistrarValorizacionSupervision {
     }
 
 
-    public void setMontoTabla(int montoTabla) {
+    public void setMontoTabla(BigDecimal montoTabla) {
         this.montoTabla = montoTabla;
     }
 
-    public int getMontoTabla() {
+    public BigDecimal getMontoTabla() {
         return montoTabla;
     }
 
-
-    public void setNeto(int neto) {
-        this.neto = neto;
-    }
-
-    public int getNeto() {
-        return neto;
-    }
-
-    public void setListamontos(List<ValorizacionSupDetalleVO> listamontos) {
-        this.listamontos = listamontos;
-    }
-
-    public List<ValorizacionSupDetalleVO> getListamontos() {
-        return listamontos;
-    }
 
     public void setCvaId(int cvaId) {
         this.cvaId = cvaId;
@@ -788,11 +785,21 @@ public class RegistrarValorizacionSupervision {
     }
 
 
-    public void setIgv(int igv) {
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
+
+    public void setIgv(boolean igv) {
         this.igv = igv;
     }
 
-    public int getIgv() {
+    public boolean isIgv() {
         return igv;
     }
+    
 }
