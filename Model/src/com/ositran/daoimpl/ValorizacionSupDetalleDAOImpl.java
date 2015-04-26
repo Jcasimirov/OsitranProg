@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ValorizacionSupDetalleDAOImpl implements ValorizacionSupDetalleDAO{
@@ -86,6 +87,20 @@ public class ValorizacionSupDetalleDAOImpl implements ValorizacionSupDetalleDAO{
 
     public ValorizacionSupDetalle getValorizacionSupDetalle() {
         return valorizacionSupDetalle;
+    }
+	
+	//Ivan
+    @Override
+    public List<ValorizacionSupDetalle> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
+        session.beginTransaction();    
+        Query query;     
+        query=session.createQuery("from ValorizacionSupDetalle val where val.tvsHr = :busqueda");
+        query.setParameter("busqueda",id);
+        List<ValorizacionSupDetalle> Lista= query.list();
+        session.getTransaction().commit();
+        session.close();
+        return Lista;     
     }
 
 }
