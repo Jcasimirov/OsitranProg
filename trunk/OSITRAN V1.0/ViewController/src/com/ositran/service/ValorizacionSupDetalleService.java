@@ -12,5 +12,7 @@ public interface ValorizacionSupDetalleService {
     public String update(ValorizacionSupDetalleVO valorizacionSupDetalleVO)throws SQLException;
     public ValorizacionSupDetalleVO get(Integer id) throws SQLException;
    
+   //Ivan
+   public List<ValorizacionSupDetalleVO> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception;
     
 }
