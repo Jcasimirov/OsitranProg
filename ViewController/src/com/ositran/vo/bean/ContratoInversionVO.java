@@ -19,6 +19,7 @@ public class ContratoInversionVO {
     private String invUsuarioAlta;
     private String invUsuarioBaja;
     private String invUsuarioCambio;
+    private String invTerminal;
     
     public ContratoInversionVO() {
         super();
@@ -134,5 +135,13 @@ public class ContratoInversionVO {
 
     public String getInvUsuarioCambio() {
         return invUsuarioCambio;
+    }
+
+    public void setInvTerminal(String invTerminal) {
+        this.invTerminal = invTerminal;
+    }
+
+    public String getInvTerminal() {
+        return invTerminal;
     }
 }
