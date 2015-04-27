@@ -177,7 +177,7 @@ public class MantenimientoTipoInfraestructura {
             ListarInfraestructura();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                          "Se Elimino con Exito"));
+                                                                          "Se eliminó correctamente"));
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
