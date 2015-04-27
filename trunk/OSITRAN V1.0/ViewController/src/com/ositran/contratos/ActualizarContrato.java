@@ -493,6 +493,7 @@ public class ActualizarContrato {
             }
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
+            contratoVO.setConTerminal(usuario.getUsuTerminal());
             contratoConcesionServiceImp.update(contratoVO);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
@@ -663,6 +664,7 @@ public class ActualizarContrato {
             Date fechaActual=new Date();
             contratoNuevaAdendaVO.setCadFechaAlta(fechaActual);
             contratoNuevaAdendaVO.setCadUsuarioAlta(usuario.getUsuAlias());
+            contratoNuevaAdendaVO.setCadTerminal(usuario.getUsuTerminal());
             /*FIN AUDITORIA*/
             contratoAdendaServiceImpl.insert(contratoNuevaAdendaVO);
             listContratoAdenda.add(contratoNuevaAdendaVO);
