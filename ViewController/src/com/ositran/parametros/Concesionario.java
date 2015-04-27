@@ -114,33 +114,33 @@ public class Concesionario {
             }
         else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe ingresar el nombre"));
         } else if (descripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe ingresar la descripcion"));
         } else if (tipDocumento == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe selecionar tipo documento"));
         } else if (tipDocumento == 2 && numeroDocumento.length() != 11) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "El RUC debe de tener 11 dijitos"));
         } else if (tipDocumento == 1 && numeroDocumento.length() != 8) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "El DNI debe de tener 8 dijitos"));
         } else if (!correo.equals("") && matcher.find() != true) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           correo +
                                                                           " No es un formato de correo valido "));
 
         } else if (representante.equals("")){
                           FacesContext.getCurrentInstance().addMessage(null,
-                                                                       new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                       new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                                         " Debe ingresar el representante legal ")); 
                       }
         
