@@ -26,6 +26,7 @@ public class ContratoPenalidadVO {
     private String tcpUsuarioAlta;
     private String tcpUsuarioBaja;
     private String tcpUsuarioCambio;
+    private String tcpTerminal;
     public ContratoPenalidadVO() {
         super();
     }
@@ -173,5 +174,13 @@ public class ContratoPenalidadVO {
 
     public String getTcpUsuarioCambio() {
         return tcpUsuarioCambio;
+    }
+
+    public void setTcpTerminal(String tcpTerminal) {
+        this.tcpTerminal = tcpTerminal;
+    }
+
+    public String getTcpTerminal() {
+        return tcpTerminal;
     }
 }

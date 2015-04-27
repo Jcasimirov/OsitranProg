@@ -27,6 +27,7 @@ public class ContratoCaoVO {
     private String caoUsuarioAlta;
     private String caoUsuarioBaja;
     private String caoUsuarioCambio;
+    private String caoTerminal;
     public ContratoCaoVO() {
     }
 
@@ -164,6 +165,14 @@ public class ContratoCaoVO {
 
     public String getCaoUsuarioCambio() {
         return caoUsuarioCambio;
+    }
+
+    public void setCaoTerminal(String caoTerminal) {
+        this.caoTerminal = caoTerminal;
+    }
+
+    public String getCaoTerminal() {
+        return caoTerminal;
     }
 }
 
