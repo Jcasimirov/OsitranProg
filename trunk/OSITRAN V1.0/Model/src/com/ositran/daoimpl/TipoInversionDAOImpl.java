@@ -19,7 +19,7 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     @SuppressWarnings("unchecked")
     public List<InversionTipo> query() throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        List list=session.createQuery("FROM InversionTipo  E WHERE E.tivEstado <> 0").list();
+        List list=session.createQuery("FROM InversionTipo  E WHERE E.tivEstado <> 0 and E.tivId <> 0").list();
         session.close();
         return list;
     }
