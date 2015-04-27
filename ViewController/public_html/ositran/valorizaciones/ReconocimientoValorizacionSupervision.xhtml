@@ -11,14 +11,14 @@
               };
             </script>
         </h:head>
+        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
             
-             
+             <f:event listener="#{ReconocimientoValSupervisionMB.validarSesion}" type="preRenderComponent"></f:event>
             <h:form id="form">
             <p:growl id="mensaje" showDetail="true" life="3000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
-                        <ui:include src="/ositran/util/menu.xhtml"/>
                         <div align="center">
                             <div align="center">
                                 <h4 style="color: #003194;">RECONOCIMIENTO DE VALORIZACION DE SUPERVISION</h4>
@@ -232,7 +232,7 @@
                             </table>
                         </div>
                         <div style="text-align:center;font-size: 11px">
-                            <p:commandButton style="width:80px" value="Guardar" actionListener="#{ReconocimientoValSupervisionMB.reconocerValorizacion}" update=":form:mensaje" />
+                            <p:commandButton style="width:80px" value="Guardar" rendered="#{ReconocimientoValSupervisionMB.rolOpcion.troAgregar eq 1}" actionListener="#{ReconocimientoValSupervisionMB.reconocerValorizacion}" update=":form:mensaje" />
                         </div>
                     </p:layoutUnit>
                 </p:layout>
