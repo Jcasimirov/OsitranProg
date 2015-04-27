@@ -35,6 +35,7 @@ public class ContratoAdendaVO {
     private String cadUsuarioBaja;
     private Date cadFechaCambio;
     private String cadUsuarioCambio;
+    private String cadTerminal;
     
     public String getCadDescripcion() {
         return cadDescripcion;
@@ -211,5 +212,13 @@ public class ContratoAdendaVO {
 
     public String getCadUsuarioCambio() {
         return cadUsuarioCambio;
+    }
+
+    public void setCadTerminal(String cadTerminal) {
+        this.cadTerminal = cadTerminal;
+    }
+
+    public String getCadTerminal() {
+        return cadTerminal;
     }
 }
