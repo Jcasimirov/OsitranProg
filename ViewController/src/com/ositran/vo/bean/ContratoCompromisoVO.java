@@ -29,6 +29,7 @@ public class ContratoCompromisoVO {
     private String ccoUsuarioAlta;
     private String ccoUsuarioBaja;
     private String ccoUsuarioCambio;
+    private String ccoTerminal;
     public ContratoCompromisoVO() {
         super();
     }
@@ -208,5 +209,13 @@ public class ContratoCompromisoVO {
 
     public String getCcoUsuarioCambio() {
         return ccoUsuarioCambio;
+    }
+
+    public void setCcoTerminal(String ccoTerminal) {
+        this.ccoTerminal = ccoTerminal;
+    }
+
+    public String getCcoTerminal() {
+        return ccoTerminal;
     }
 }
