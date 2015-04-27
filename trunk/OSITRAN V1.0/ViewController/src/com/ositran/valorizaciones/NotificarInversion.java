@@ -45,7 +45,7 @@ public class NotificarInversion {
     
     
     //-----------------SESSION-----------------------//
-    public  final int formulario=28;
+    public  final int formulario=33;
     private RolOpcionesVO rolOpcion;
 
     public void validarSesion() throws IOException{              
@@ -429,7 +429,7 @@ public class NotificarInversion {
                     Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTANOTIFICACION + rutapdf,
                                                                         invAvnVO.getNombreFile());
                     invAvnVO.setTiaRutaNot(rutapdf);
-                    ///////////////////////////////
+   
                     notificacionServiceImpl.NotificarInversion(invAvnVO, valorizacionNotificacionVO);
                     FacesMessage mensaje =
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Notifico con Exito");
