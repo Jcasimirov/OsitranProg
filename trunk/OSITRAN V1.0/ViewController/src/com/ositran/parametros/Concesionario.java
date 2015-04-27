@@ -284,7 +284,7 @@ public class Concesionario {
                 RequestContext.getCurrentInstance().execute("editarPanel.hide()");
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                              "Se Edito con Exito"));
+                                                                              "Se actualizó correctamente."));
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
