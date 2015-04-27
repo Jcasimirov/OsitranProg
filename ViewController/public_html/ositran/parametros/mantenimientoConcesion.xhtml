@@ -60,11 +60,12 @@
                                             </p:selectOneMenu>
                                         </td>                                        
                                         <td  align="right">
-                                           <p:commandButton actionListener="#{mantenimientoconcesionMB.resetear()}"
+                                           <p:commandButton id="botonNuevo" actionListener="#{mantenimientoconcesionMB.resetear()}"
                                                              oncomplete="insertarPanel.show()"
                                                              image="ui-icon-circle-plus"
                                                              update=":form:insertarPanel" value="Nuevo"
                                                              rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"/>
+                                            <p:tooltip for="botonNuevo" value="Agregar nueva concesión." styleClass="tool"/>
                                           </td>  
                                     </tr>
                                 </table>
@@ -74,7 +75,7 @@
                                              rows="10" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15">
-                                    <p:column headerText="N°ro" style="width:2%">
+                                    <p:column headerText="Nro" style="width:2%">
                                         <h:outputText value="#{var1.correla}"
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
@@ -87,21 +88,23 @@
                                                       style="width:300px;text-transform:uppercase;"/>
                                     </p:column>
                                     <p:column style="width:4%" headerText="Modificar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
-                                        <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
+                                        <p:commandButton id="botonModificar" actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
                                                          oncomplete="editarPanel.show()" image="ui-icon-document"
                                                          styleClass="controles  " update=":form:editarPanel">
                                             <f:param id="idModificar" name="idModificar" value="#{var1.csiId}"/>
                                         </p:commandButton>
+                                        <p:tooltip for="botonModificar" value="Modificar la fila" styleClass="tool"/>
                                     </p:column>
                                     
                                     <p:column headerText="Eliminar" style="width:4%" rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
-                                        <p:commandButton actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
+                                        <p:commandButton id="botonEliminar" actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
                                                          oncomplete="eliminarConcesionPanel.show()"
                                                          image="ui-icon-document" styleClass="controles"
                                                          update=":form:tablaES :form:eliminarConcesionPanel">
                                             <f:param id="idEliminarConcesion" name="idEliminarConcesion"
                                                      value="#{var1.csiId}"/>
                                         </p:commandButton>
+                                        <p:tooltip for="botonEliminar" value="Eliminar la fila" styleClass="tool"/>
                                     </p:column>
                                 </p:dataTable>
                             </div>
