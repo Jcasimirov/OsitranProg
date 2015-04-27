@@ -24,6 +24,7 @@ public class ContratoEntregaVO {
     private String cenUsuarioBaja;
     private Date cenFechaCambio;
     private String cenUsuarioCambio;
+    private String cenTerminal;
     public ContratoEntregaVO() {
         super();
    }
@@ -164,5 +165,13 @@ public class ContratoEntregaVO {
 
     public String getCenUsuarioCambio() {
         return cenUsuarioCambio;
+    }
+
+    public void setCenTerminal(String cenTerminal) {
+        this.cenTerminal = cenTerminal;
+    }
+
+    public String getCenTerminal() {
+        return cenTerminal;
     }
 }
