@@ -2688,6 +2688,7 @@ public class ActualizarContrato {
             contratoNuevoCompromisoVO=new ContratoCompromisoVO();
             contratoNuevoCompromisoVO.setConId(contratoVO.getConId());
             incIgv=0;
+        activaIGV=true;
     }
     public void listarTipoInversion(){
         try {
