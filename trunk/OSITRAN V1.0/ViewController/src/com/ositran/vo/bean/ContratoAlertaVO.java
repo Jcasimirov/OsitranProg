@@ -23,6 +23,7 @@ public class ContratoAlertaVO {
     private String calUsuarioAlta;
     private String calUsuarioBaja;
     private String calUsuarioCambio;
+    private String calTerminal;
     public ContratoAlertaVO() {
         super();
     }
@@ -170,5 +171,13 @@ public class ContratoAlertaVO {
 
     public String getCalUsuarioCambio() {
         return calUsuarioCambio;
+    }
+
+    public void setCalTerminal(String calTerminal) {
+        this.calTerminal = calTerminal;
+    }
+
+    public String getCalTerminal() {
+        return calTerminal;
     }
 }

@@ -27,6 +27,7 @@ public class ContratoPpoVO {
     private String ppoUsuarioAlta;
     private String ppoUsuarioBaja;
     private String ppoUsuarioCambio;
+    private String ppoTerminal;
     public ContratoPpoVO() {
         super();
     }
@@ -165,5 +166,13 @@ public class ContratoPpoVO {
 
     public String getPpoUsuarioCambio() {
         return ppoUsuarioCambio;
+    }
+
+    public void setPpoTerminal(String ppoTerminal) {
+        this.ppoTerminal = ppoTerminal;
+    }
+
+    public String getPpoTerminal() {
+        return ppoTerminal;
     }
 }

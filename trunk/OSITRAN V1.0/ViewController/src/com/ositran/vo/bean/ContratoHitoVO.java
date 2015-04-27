@@ -26,6 +26,7 @@ public class ContratoHitoVO {
     private String htoUsuarioAlta;
     private String htoUsuarioBaja;
     private String htoUsuarioCambio;
+    private String htoTerminal;
     
     public ContratoHitoVO() {
         super();
@@ -166,5 +167,13 @@ public class ContratoHitoVO {
 
     public String getHtoUsuarioCambio() {
         return htoUsuarioCambio;
+    }
+
+    public void setHtoTerminal(String htoTerminal) {
+        this.htoTerminal = htoTerminal;
+    }
+
+    public String getHtoTerminal() {
+        return htoTerminal;
     }
 }
