@@ -6,12 +6,16 @@ import com.ositran.service.TipoDocumentoService;
 import com.ositran.service.ValorizacionSupService;
 import com.ositran.serviceimpl.ValorizacionSupDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 
 import com.ositran.vo.bean.ValorizacionSupVO;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -39,6 +43,23 @@ import org.primefaces.context.RequestContext;
 @Generated(value = "1ositran/valorizaciones/ReconocimientoValorizacionSupervision.jsf",
            comments = "oracle-jdev-comment:managed-bean-jsp-link")
 public class ReconocimientoValSupervision {
+    
+    //-----------------SESSION-----------------------//
+    public  final int formulario=38;
+    private RolOpcionesVO rolOpcion;
+
+    public void validarSesion() throws IOException{              
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+    //---------------------------------------------//
     
     private HtmlForm form;
 
