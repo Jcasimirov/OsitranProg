@@ -2719,24 +2719,28 @@ public class ActualizarContrato {
         }
         
     }
-
+    public void actualizarTotal(AjaxBehaviorEvent event){
+        if(incIgv==1){
+            calculaNeto(event);
+        }else{
+            contratoNuevoCompromisoVO.setCcoTotal(contratoNuevoCompromisoVO.getCcoNeto());
+        }
+    }
     public void activaCamposIGV(){
         if(incIgv==1){
-            activaIGV=false;
+            activaIGV=false;         
         }else{
-            contratoNuevoCompromisoVO.setCcoNeto(null);
+            contratoNuevoCompromisoVO.setCcoTotal(contratoNuevoCompromisoVO.getCcoNeto());
             contratoNuevoCompromisoVO.setCcoIgv(null);
             contratoNuevoCompromisoVO.setPorIgv(null);
             activaIGV=true;    
         }
     }
     public void calculaNeto(AjaxBehaviorEvent event){
-        if(contratoNuevoCompromisoVO.getPorIgv()!=null && contratoNuevoCompromisoVO.getCcoTotal()!=null){
-        BigDecimal calculadoIGV=(contratoNuevoCompromisoVO.getCcoTotal()).multiply(contratoNuevoCompromisoVO.getPorIgv()); 
-        contratoNuevoCompromisoVO.setCcoIgv(calculadoIGV);  
-        contratoNuevoCompromisoVO.setCcoNeto(contratoNuevoCompromisoVO.getCcoTotal().subtract(contratoNuevoCompromisoVO.getCcoIgv()));
-        }else{
-            contratoNuevoCompromisoVO.setCcoNeto(null);
+        if(contratoNuevoCompromisoVO.getPorIgv()!=null && contratoNuevoCompromisoVO.getCcoNeto()!=null){
+            BigDecimal calculadoIGV=(contratoNuevoCompromisoVO.getCcoNeto()).multiply(contratoNuevoCompromisoVO.getPorIgv()); 
+            contratoNuevoCompromisoVO.setCcoIgv(calculadoIGV);  
+            contratoNuevoCompromisoVO.setCcoTotal(contratoNuevoCompromisoVO.getCcoNeto().add(contratoNuevoCompromisoVO.getCcoIgv()));
         }
     }
     
@@ -2879,7 +2883,7 @@ public class ActualizarContrato {
         if(contratoNuevoCompromisoSupervisadoVO.getPorIgv()!=null && contratoNuevoCompromisoSupervisadoVO.getCcoTotal()!=null){
         BigDecimal calculadoIGV=(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()).multiply(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
         contratoNuevoCompromisoSupervisadoVO.setCcoIgv(calculadoIGV);  
-        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal().subtract(contratoNuevoCompromisoSupervisadoVO.getCcoIgv()));
+        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal().add(contratoNuevoCompromisoSupervisadoVO.getCcoIgv()));
         }else{
             contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
         }
