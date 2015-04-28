@@ -940,7 +940,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGV}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this Neto"
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaTotalInd}" process="@this Neto"
                                                     update="totalcom"/>
                                         </p:inputMask>                                        
                                         <p:graphicImage url="../../images/obligatorio.gif" />
@@ -1099,10 +1099,12 @@
                                          </p:inputMask>
                                          <p:graphicImage url="../../images/obligatorio.gif" />   
                                         
-                                        <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
-                                        <p:inputText id="valortotalcomsup" style="width:200px;" 
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTotal}"
-                                                     onkeypress="return ValidarNumFloat(event,this);"/>
+                                       <p:outputLabel for="netocomsup" value="Neto"/>
+                                        <p:inputText id="netocomsup" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}"
+                                                      onkeypress="return ValidarNumFloat(event,this);">
+                                        <p:ajax event="keyup" listener="#{actualizarContratoMB.actualizarTotalSup}" process="@this valortotalcomsup" update="valortotalcomsup"/>
+                                        </p:inputText>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         
                                         <p:outputLabel for="incigvcomsup" value="Incluye IGV?"/>
@@ -1120,18 +1122,18 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGVSup}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNetoSupervisado}"
-                                                    process="@this valortotalcomsup" update="netocomsup"/>
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaTotalSupervisado}"
+                                                    process="@this netocomsup" update="valortotalcomsup"/>
                                         </p:inputMask>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         
-                                        <p:outputLabel for="netocomsup" value="Neto"/>
-                                        <p:inputText id="netocomsup" style="width:200px;"
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}"
-                                                     disabled="true" />
+                                                                               
+                                         <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
+                                        <p:inputText id="valortotalcomsup" style="width:200px;" 
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTotal}"
+                                                     readonly="true"/>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
-                                                
-                                                                              
+                                                                                                                      
                                         <p:outputLabel for="plazocomsup" value="Plazo"/>
                                         <p:inputText id="plazocomsup" style="width:200px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPlazo}"
