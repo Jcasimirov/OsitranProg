@@ -10,7 +10,7 @@ import java.util.Date;
 public class ContratoCaoVO {
 
     private Date caoFecha;
-    private Date caoFechaDescripcion;
+    private String caoFechaDescripcion;
     private Integer caoId;
     private BigDecimal caoMonto;
     private String caoOficio;
@@ -176,11 +176,11 @@ public class ContratoCaoVO {
         return caoTerminal;
     }
 
-    public void setCaoFechaDescripcion(Date caoFechaDescripcion) {
+    public void setCaoFechaDescripcion(String caoFechaDescripcion) {
         this.caoFechaDescripcion = caoFechaDescripcion;
     }
 
-    public Date getCaoFechaDescripcion() {
+    public String getCaoFechaDescripcion() {
         return caoFechaDescripcion;
     }
 }
