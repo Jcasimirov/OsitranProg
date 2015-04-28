@@ -89,8 +89,8 @@
                                     </p:column>
                                     <p:column style="width:4%" headerText="Modificar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton id="botonModificar" actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
-                                                         oncomplete="editarPanel.show()" image="ui-icon-document"
-                                                         styleClass="controles  " update=":form:editarPanel">
+                                                         oncomplete="editarPanel.show()" image="ui-icon-pencil"
+                                                         styleClass="controles" update=":form:editarPanel">
                                             <f:param id="idModificar" name="idModificar" value="#{var1.csiId}"/>
                                         </p:commandButton>
                                         <p:tooltip for="botonModificar" value="Modificar la fila" styleClass="tool"/>
@@ -99,7 +99,7 @@
                                     <p:column headerText="Eliminar" style="width:4%" rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                                         <p:commandButton id="botonEliminar" actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
                                                          oncomplete="eliminarConcesionPanel.show()"
-                                                         image="ui-icon-document" styleClass="controles"
+                                                         image="ui-icon-trash" styleClass="controles"
                                                          update=":form:tablaES :form:eliminarConcesionPanel">
                                             <f:param id="idEliminarConcesion" name="idEliminarConcesion"
                                                      value="#{var1.csiId}"/>
@@ -187,7 +187,7 @@
                           modal="true" style="text-align:center;">
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="left">Desea Eliminar la Concesión:  </td>
+                            <td align="left">Confirme eliminación del concesionario:  </td>
                             <td align="left">
                                 <h:outputText value="#{mantenimientoconcesionMB.nombreConcesion}"
                                               style="align:left; text-align:left"></h:outputText>
@@ -203,7 +203,7 @@
                                      style="width:70px;font-size:11px" value="#{btn.btn_eliminar}"/>
                 </p:dialog>
                 <!--Mantenimiento de Infraestructuras-->
-                <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
+                <p:dialog header="Modificar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
                     <table id="detalle" style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
@@ -284,7 +284,7 @@
                                                  oncomplete="editarPanel.hide()"
                                                  actionListener="#{mantenimientoconcesionMB.editar()}"
                                                  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}"
-                                                 style="botones"    value="Grabar"/>
+                                                 style="botones"    value="Guardar"/>
                            <h:outputText value="n" style="color:white" />
                                 <p:commandButton style="botones" value="Salir" onclick="editarPanel.hide ()"/>
                            </td>
