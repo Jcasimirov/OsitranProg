@@ -909,7 +909,7 @@
                                         
                                          <p:outputLabel for="tipocambio"  value="Tipo de Cambio" />
                                          <p:inputMask id="tipocambio" style="width:200px;" disabled="#{actualizarContratoMB.contratoNuevoCompromisoVO.monId eq 2}"
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTipoCambio}"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTipoCambio}"
                                                      mask="9.99" size="3" onkeypress="return validarNum(event);"  >
                                            
                                          </p:inputMask>
@@ -940,7 +940,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGV}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaTotalInd}" process="@this Neto"
+                                            <p:ajax event="keyup" listener="#{actualizarContratoMB.calculaTotalInd}" process="@this Neto"
                                                     update="totalcom"/>
                                         </p:inputMask>                                        
                                         <p:graphicImage url="../../images/obligatorio.gif" />
@@ -1122,7 +1122,7 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGVSup}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaTotalSupervisado}"
+                                            <p:ajax event="keyup" listener="#{actualizarContratoMB.calculaTotalSupervisado}"
                                                     process="@this netocomsup" update="valortotalcomsup"/>
                                         </p:inputMask>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
