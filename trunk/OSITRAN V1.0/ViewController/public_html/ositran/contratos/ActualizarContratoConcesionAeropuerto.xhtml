@@ -1084,11 +1084,20 @@
                                        <p:outputLabel for="monedacompromisocomsup" value="Moneda"/>                                             
                                         <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId}"
                                                          id="monedacompromisocomsup" style="width:210px" >
+                                            <p:ajax update="tipocambiosup" />
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
                                                            itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
                                         </p:selectOneMenu>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
+                                        
+                                         <p:outputLabel for="tipocambiosup"  value="Tipo de Cambio"/> 
+                                         <p:inputMask id="tipocambiosup" style="width:200px;" disabled="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId eq 2}"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTipoCambio}"
+                                                     mask="9.99" size="3" onkeypress="return validarNum(event);"  >
+                                           
+                                         </p:inputMask>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />   
                                         
                                         <p:outputLabel for="valortotalcomsup" value="Valor Total"/>
                                         <p:inputText id="valortotalcomsup" style="width:200px;" 
@@ -1130,14 +1139,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                          
                                      
-                                         <p:outputLabel for="tipocambiosup"  value="Tipo de Cambio"/>                                          
-                                        
-                                         <p:inputMask id="tipocambiosup" style="width:200px;"
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTipoCambio}"
-                                                     mask="9.99" size="3" onkeypress="return validarNum(event);"  >
                                            
-                                         </p:inputMask>
-                                         <p:graphicImage url="../../images/obligatorio.gif" />      
                                          
                                         </p:panelGrid>
                                         
