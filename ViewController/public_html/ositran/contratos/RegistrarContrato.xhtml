@@ -74,26 +74,10 @@
                                                    var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
                                                    itemValue="#{lisinfra.tinId}"/>
                                                    <p:ajax listener="#{bk_registrarContrato.filtrarConcesion}" update=":form:concesion"/>
-                                </p:selectOneMenu>
-                                                    
+                                </p:selectOneMenu>                              
+                   
                                                 </td>
                                                 
-                                                <td align="left">
-                                                    #{cam.mc}
-                                                </td>
-                                                <td align="left">
-                                                   <p:selectOneMenu id="modalidad"
-                                                 value="#{bk_registrarContrato.modalidad}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{bk_registrarContrato.listaModalidad}"
-                                                   var="listamod" itemLabel="#{listamod.mcoNombre}"
-                                                   itemValue="#{listamod.mcoId}"/>
-                                </p:selectOneMenu>
-                                                </td>
-                                               
-                                            </tr>
-                                             
-                                            <tr>
                                                 <td align="left">
                                                     #{cam.concesion}
                                                 </td>
@@ -105,6 +89,22 @@
                                                    var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}"
                                                    itemValue="#{lisConcesion.csiId}"/>
                                                    
+                                </p:selectOneMenu>
+                                                </td>
+
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.mc}
+                                                </td>
+                                                <td align="left">
+                                                   <p:selectOneMenu id="modalidad"
+                                                 value="#{bk_registrarContrato.modalidad}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{bk_registrarContrato.listaModalidad}"
+                                                   var="listamod" itemLabel="#{listamod.mcoNombre}"
+                                                   itemValue="#{listamod.mcoId}"/>
                                 </p:selectOneMenu>
                                                 </td>
                                             </tr>
