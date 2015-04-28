@@ -19,6 +19,10 @@
               obj = obj.toLowerCase();
               document.getElementById(id).value = obj;
           }
+          function pasarValor(obj, id) {             
+              document.getElementById(id).value = obj;
+              alert('hola'+id);
+          }
          function validarNum(e) {
               tecla = (document.all) ? e.keyCode : e.which;
               if (tecla == 8)
@@ -33,7 +37,7 @@
                   return true;
 
               Punto = obj.value.split('.');
-              if (Punto.length >= 2) {
+              if (Punto.length >= 2) {//punto.legth tendra valores 0 y 1 si es 2 o mas quiere decir que se intenta escribir numeros invalidos  ejemplo:1000.00.000
                   patron = /[0-9]/;
               }
               else 
@@ -78,7 +82,7 @@
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
-                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <ui:include src="/ositran/util/menu.xhtml"/>
                 <div align="center">
                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO
                                                                                       CONCESI&#211;N - AEROPUERTO</h5>
@@ -326,7 +330,7 @@
                                 </table>
                             </h:form>
                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
-                                      resizable="false" appendToBody="true" closable="true">
+                                      resizable="false" appendToBody="true" closable="true" width="900" height="400">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                                  columnClasses="etiquetas,cajas,validadores">
@@ -467,7 +471,7 @@
                             <h:form id="frmAdenda">
                                 <table>
                                     <tr>
-                                        <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre y
+                                        <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre 
                                                                                     Otros</td>
                                         <td align="right">
                                             <p:commandButton value="#{btn.btn_nuevo}" id="nuevaadenda"
@@ -861,7 +865,7 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Compromiso de Inversion (Indicado)"
+                            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" 
                                       widgetVar="popupAgregarCompromiso"  modal="true" resizable="false" appendToBody="true" closable="true">
                                 <h:form id="frmNuevoCompromisoDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoDlg" styleClass="pnlEdicion" columns="3"
@@ -895,24 +899,37 @@
                                         <p:outputLabel for="monedaInversioncom" value="Moneda"/>
                                         <p:selectOneMenu 
                                                          value="#{actualizarContratoMB.contratoNuevoCompromisoVO.monId}"
-                                                         id="monedaInversioncom" style="width:210px" >
+                                                         id="monedaInversioncom" style="width:210px;" >
+                                            <p:ajax  update="tipocambio" />
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="tip"
                                                            itemLabel="#{tip.monNombre}" itemValue="#{tip.monId}"/>
-                                        </p:selectOneMenu>
-                                        
+                                        </p:selectOneMenu>                                        
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
-                                        <p:outputLabel for="valortotalcom" value="Valor Total"/>
-                                        <p:inputText id="valortotalcom" style="width:200px;" 
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTotal}"
-                                                   onkeypress="return ValidarNumFloat(event,this);" />
-                                        
+                                         <p:outputLabel for="tipocambio"  value="Tipo de Cambio" />
+                                         <p:inputMask id="tipocambio" style="width:200px;" disabled="#{actualizarContratoMB.contratoNuevoCompromisoVO.monId eq 2}"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTipoCambio}"
+                                                     mask="9.99" size="3" onkeypress="return validarNum(event);"  >
+                                           
+                                         </p:inputMask>
+                                         <p:graphicImage url="../../images/obligatorio.gif" />     
+                                         
+                                         
+                                        <p:outputLabel for="Neto" value="Neto"/>
+                                        <p:inputText id="Neto" style="width:200px;" 
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoNeto}"
+                                                   onkeypress="return ValidarNumFloat(event,this);" >
+                                        <p:ajax event="keyup" listener="#{actualizarContratoMB.actualizarTotal}" process="@this totalcom" update="totalcom"/>
+
+                                        </p:inputText>
+                                                                           
+                                       
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         
                                         <p:outputLabel for="incigvcom" value="Incluye IGV?"/>
                                         <p:selectOneRadio id="incigvcom" value="#{actualizarContratoMB.incIgv}">
-                                            <p:ajax listener="#{actualizarContratoMB.activaCamposIGV()}" update="igvcom netocom"/>
+                                            <p:ajax listener="#{actualizarContratoMB.activaCamposIGV()}" process="@this,Neto" update="igvcom totalcom"/>
                                             <f:selectItem itemLabel="Si" itemValue="1"/>
                                             <f:selectItem itemLabel="No" itemValue="0"/>
                                         </p:selectOneRadio>
@@ -923,16 +940,15 @@
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoVO.porIgv}"
                                                      onkeypress="return validarNum(event);"
                                                      disabled="#{actualizarContratoMB.activaIGV}" mask="0.99" size="3">
-                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this valortotalcom"
-                                                    update="netocom"/>
-                                        </p:inputMask>
-                                        
+                                            <p:ajax event="blur" listener="#{actualizarContratoMB.calculaNeto}" process="@this Neto"
+                                                    update="totalcom"/>
+                                        </p:inputMask>                                        
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                         
-                                        <p:outputLabel for="netocom" value="Neto"/>
-                                        <p:inputText id="netocom" style="width:200px;"
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoNeto}"
-                                                     disabled="true" onkeypress="return ValidarNumFloat(event,this);"/>
+                                        <p:outputLabel for="totalcom" value="Total"/>
+                                        <p:inputText id="totalcom" style="width:200px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoTotal}"
+                                                     readonly="true" />
                                         
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                         <p:outputLabel for="plazocom" value="Plazo"/>
@@ -942,7 +958,7 @@
                                        
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                       
-                                        
+                                         
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevoCompromisoBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="grabarcompromiso" 
