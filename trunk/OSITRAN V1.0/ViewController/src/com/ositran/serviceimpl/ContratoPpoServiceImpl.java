@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoPpoDAOImpl;
 import com.ositran.model.ContratoPpo;
 import com.ositran.service.ContratoPpoService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoPpoVO;
 
 import java.sql.SQLException;
@@ -71,6 +72,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpoVO.setPpoArchivoPdf(contratoPpo.getPpoArchivoPdf());
         contratoPpoVO.setPpoEstado(contratoPpo.getPpoEstado());
         contratoPpoVO.setPpoFecha(contratoPpo.getPpoFecha());
+        contratoPpoVO.setPpoFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoPpo.getPpoFecha()));
         contratoPpoVO.setPpoId(contratoPpo.getPpoId());
         contratoPpoVO.setPpoMonto(contratoPpo.getPpoMonto());        
         
