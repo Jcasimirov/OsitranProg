@@ -601,10 +601,10 @@ public class RegistrarContratoMB {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else{
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
         try {
             viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
-            if (viewTdInternosVO !=null){
+            if (viewTdInternosVO !=null && viewTdInternosVO.getFechaRegistro() != null){
                 freghr = dt1.format(viewTdInternosVO.getFechaRegistro());
                 asuntohr = viewTdInternosVO.getAsunto();
                 añohrbus = viewTdInternosVO.getAnyo();
@@ -612,6 +612,8 @@ public class RegistrarContratoMB {
             }else{
                 freghr = "";
                 asuntohr = "";
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
             
         } catch (Exception e) {
@@ -652,7 +654,7 @@ public class RegistrarContratoMB {
             contratoVO.setCncId(concesionario);
             contratoVO.setConAnyo(añohrbus);
             contratoVO.setConNumero(nrohrbus);
-            SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
             contratoVO.setConFechaRegistro(dt1.parse(freghr));
             contratoVO.setConAsunto(asuntohr);
             contratoVO.setConEstado(1);          
