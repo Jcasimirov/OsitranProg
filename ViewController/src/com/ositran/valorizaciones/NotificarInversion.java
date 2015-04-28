@@ -218,7 +218,8 @@ public class NotificarInversion {
     }
 
     //Metodo Listar Tipo Aprobaciones
-    public void ListarTipoAprobaciones() throws Exception {
+    public void listarTipoAprobaciones() throws Exception {
+        System.out.println("entro");
         try {
             listaAprobaciones = invTipoRevisionServiceImpl.ListarAprobaciones();
 
@@ -354,7 +355,7 @@ public class NotificarInversion {
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohrnot), nrohrnot);
-                if (viewTdInternosVO != null) {
+                if (viewTdInternosVO != null && viewTdInternosVO.getFechaRegistro() != null) {
                     freghrnot = dt1.format(viewTdInternosVO.getFechaRegistro());
                     asuntohrnot = viewTdInternosVO.getAsunto();
                     añohrbusnot = viewTdInternosVO.getAnyo();
@@ -367,6 +368,8 @@ public class NotificarInversion {
                 } else {
                     freghrnot = "";
                     asuntohrnot = "";
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
 
             } catch (Exception e) {
