@@ -2721,7 +2721,7 @@ public class ActualizarContrato {
     }
     public void actualizarTotal(AjaxBehaviorEvent event){
         if(incIgv==1){
-            calculaNeto(event);
+            calculaTotalInd(event);
         }else{
             contratoNuevoCompromisoVO.setCcoTotal(contratoNuevoCompromisoVO.getCcoNeto());
         }
@@ -2736,7 +2736,7 @@ public class ActualizarContrato {
             activaIGV=true;    
         }
     }
-    public void calculaNeto(AjaxBehaviorEvent event){
+    public void calculaTotalInd(AjaxBehaviorEvent event){
         if(contratoNuevoCompromisoVO.getPorIgv()!=null && contratoNuevoCompromisoVO.getCcoNeto()!=null){
             BigDecimal calculadoIGV=(contratoNuevoCompromisoVO.getCcoNeto()).multiply(contratoNuevoCompromisoVO.getPorIgv()); 
             contratoNuevoCompromisoVO.setCcoIgv(calculadoIGV);  
@@ -2825,7 +2825,7 @@ public class ActualizarContrato {
         try {
 
             idCompromisoEliminarI.setCcoEstado(0);
-            idCompromisoEliminarI.setCcoTipoCambio(new BigDecimal("0.0"));
+            idCompromisoEliminarI.setCcoTipoCambio(BigDecimal.ZERO);
             idCompromisoEliminarI.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             /*AUDITORIA*/
             Date fechaActual=new Date();
@@ -2869,23 +2869,28 @@ public class ActualizarContrato {
             contratoNuevoCompromisoSupervisadoVO.setConId(contratoVO.getConId());
             incIgvSup=0;
     }
+    
+    public void actualizarTotalSup(AjaxBehaviorEvent event){
+        if(incIgv==1){
+            calculaTotalSupervisado(event);
+        }else{
+            contratoNuevoCompromisoSupervisadoVO.setCcoTotal(contratoNuevoCompromisoSupervisadoVO.getCcoNeto());
+        }
+    }
     public void activaCamposIGVSupervisado(){
         if(incIgvSup==1){
             activaIGVSup=false;
         }else{
-            contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
             contratoNuevoCompromisoSupervisadoVO.setCcoIgv(null);
             contratoNuevoCompromisoSupervisadoVO.setPorIgv(null);
             activaIGVSup=true;    
         }
     }
-    public void calculaNetoSupervisado(AjaxBehaviorEvent event){
-        if(contratoNuevoCompromisoSupervisadoVO.getPorIgv()!=null && contratoNuevoCompromisoSupervisadoVO.getCcoTotal()!=null){
-        BigDecimal calculadoIGV=(contratoNuevoCompromisoSupervisadoVO.getCcoTotal()).multiply(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
+    public void calculaTotalSupervisado(AjaxBehaviorEvent event){
+        if(contratoNuevoCompromisoSupervisadoVO.getPorIgv()!=null && contratoNuevoCompromisoSupervisadoVO.getCcoNeto()!=null){
+        BigDecimal calculadoIGV=(contratoNuevoCompromisoSupervisadoVO.getCcoNeto()).multiply(contratoNuevoCompromisoSupervisadoVO.getPorIgv()); 
         contratoNuevoCompromisoSupervisadoVO.setCcoIgv(calculadoIGV);  
-        contratoNuevoCompromisoSupervisadoVO.setCcoNeto(contratoNuevoCompromisoSupervisadoVO.getCcoTotal().add(contratoNuevoCompromisoSupervisadoVO.getCcoIgv()));
-        }else{
-            contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
+        contratoNuevoCompromisoSupervisadoVO.setCcoTotal(contratoNuevoCompromisoSupervisadoVO.getCcoNeto().add(contratoNuevoCompromisoSupervisadoVO.getCcoIgv()));
         }
     }
     public void grabarContratoCompromisoSupervisado(){
