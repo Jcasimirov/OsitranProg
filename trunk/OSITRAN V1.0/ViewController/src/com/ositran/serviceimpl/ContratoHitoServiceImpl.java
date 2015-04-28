@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoHitoDAOImpl;
 import com.ositran.model.ContratoHito;
 import com.ositran.service.ContratoHitoService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoHitoVO;
 
 import java.sql.SQLException;
@@ -70,6 +71,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHitoVO.setConId(contratoHito.getConId());
         contratoHitoVO.setHtoEstado(contratoHito.getHtoEstado());
         contratoHitoVO.setHtoFecha(contratoHito.getHtoFecha());
+        contratoHitoVO.setHtoFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoHito.getHtoFecha()));
         contratoHitoVO.setHtoId(contratoHito.getHtoId());
         contratoHitoVO.setHtoMonto(contratoHito.getHtoMonto());        
         contratoHitoVO.setHtoPdf(contratoHito.getHtoPdf());
