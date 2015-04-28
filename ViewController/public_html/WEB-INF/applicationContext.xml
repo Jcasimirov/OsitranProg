@@ -3,7 +3,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:sca="http://xmlns.oracle.com/weblogic/weblogic-sca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    <!--Beans*****************************************************************************-->
+    <!--Beans**********************-->
     <bean id="tipoInversionVO" class="com.ositran.vo.bean.TipoInversionVO"/>
     <bean id="inversionTipo" class="com.ositran.model.InversionTipo"/>
     <bean id="concesionarioVO" class="com.ositran.vo.bean.ConcesionarioVO"/>
@@ -60,11 +60,18 @@
     <bean id="contratoNuevaPenalidadVO" class="com.ositran.vo.bean.ContratoPenalidadVO"/>
     <bean id="contratoPenalidadEstado" class="com.ositran.model.ContratoPenalidadEstado"/>
     <bean id="contratoAlertaEstadoVO" class="com.ositran.vo.bean.ContratoAlertaEstadoVO"/>
-    <bean id="invAvnVO" class="com.ositran.vo.bean.InvAvnVO"/>
+  
     <bean id="invVO" class="com.ositran.vo.bean.InvVO"/>
     <bean id="valorizacionInversionAvanceDetalleVO" class="com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO"/>
+    <bean id="modalidadConcesionVO" class="com.ositran.vo.bean.ModalidadConcesionVO"/>
+    <bean id="contratoSupervisoraVO" class="com.ositran.vo.bean.ContratoSupervisoraVO"/>
     
     
+      <bean id="igv" class="com.ositran.model.Igv"/>	
+    <bean id="igvVO" class="com.ositran.vo.bean.IgvVO"/>
+    
+    
+    <bean id="valorizacionNotificacionVO" class="com.ositran.vo.bean.ValorizacionNotificacionVO"/>
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -113,7 +120,7 @@
         <property name="tipoInversionServicesImpl" ref="tipoInversionServicesImpl"/>
         <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
     </bean>
-    <!--Tipo de inversiÃƒÆ’Ã‚Â³n-->
+    <!--Tipo de inversion-->
     <bean id="tipoInversionDAOImpl" class="com.ositran.daoimpl.TipoInversionDAOImpl">
         <property name="inversionTipo" ref="inversionTipo"/>
     </bean>
@@ -191,6 +198,13 @@
     <bean id="rolOpcionesDAOImpl" class="com.ositran.daoimpl.RolOpcionesDAOImpl">
         <property name="rolOpciones" ref="rolOpciones"/>
     </bean>
+     <!--Igv-->
+     <bean id="igvDAOImpl" class="com.ositran.daoimpl.IgvDAOImpl">
+     </bean>
+     
+     <bean id="igvServiceImpl" class="com.ositran.serviceimpl.IgvServiceImpl">
+     <property name="igvDAOImpl" ref="igvDAOImpl"/>
+     </bean>
     <bean id="rolOpcionesServiceImpl" class="com.ositran.serviceimpl.RolOpcionesServiceImpl">
         <property name="rolOpcionesDAOImpl" ref="rolOpcionesDAOImpl"/>
         <property name="rolOpciones" ref="rolOpciones"/>
@@ -366,6 +380,14 @@
         <property name="contratoCompromisoVO" ref="contratoCompromisoVO"/>
         <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>
         <property name="viewTdInternosVO" ref="viewTdInternosVO"/>
+        <property name="monedaServiceImpl" ref="monedaServiceImpl"/>
+        <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
+        <property name="igvVO" ref="igvVO"/>
+        <property name="igvServiceImpl" ref="igvServiceImpl"/>
+         <property name="valorizacionSupDetalleVO" ref="valorizacionSupDetalleVO"/>
+        
+        <property name="inversionVO" ref="inversionVO"/>
+        <property name="inversionDescripcionVO" ref="inversionDescripcionVO"/>
     </bean>
     <!-- Contrato Entrega -->
     <bean id="contratoEntregaDAOImpl" class="com.ositran.daoimpl.ContratoEntregaDAOImpl"/>
@@ -551,6 +573,18 @@
         <property name="invReconocimientoServiceImpl" ref="invReconocimientoServiceImpl"/>
         <property name="invServiceImpl" ref="invServiceImpl"/>
     </bean>
+    
+       <bean id="invTipoRevision" class="com.ositran.model.InvTipoRevision" />
+    <bean id="invTipoRevisionVO" class="com.ositran.vo.bean.InvTipoRevisionVO" />
+   
+    <bean id="invAvn" class="com.ositran.model.InvAvn" />
+    <bean id="invAvnVO" class="com.ositran.vo.bean.InvAvnVO" />
+        <bean id="valorizacionSupDetalle" class="com.ositran.model.ValorizacionSupDetalle"/>	
+    <bean id="valorizacionSupDetalleVO" class="com.ositran.vo.bean.ValorizacionSupDetalleVO"/>
+        <bean id="valorizacionSup" class="com.ositran.model.ValorizacionSup"/>	
+    <bean id="valorizacionSupVO" class="com.ositran.vo.bean.ValorizacionSupVO"/>
+    
+    
     <!--temporal de Ivan-->
     <bean id="invAvnEstado" class="com.ositran.model.InvAvnEstado"/>
     <bean id="inversionAvanceEstadoDAOImpl" class="com.ositran.daoimpl.InversionAvanceEstadoDAOImpl"/>
@@ -602,4 +636,76 @@
         <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
         <property name="valorizacionInversionAvanceDetalleServiceImpl" ref="valorizacionInversionAvanceDetalleServiceImpl"/>
     </bean>
+    
+    <!-- Mantenimiento contrato empresa supervisora-->
+        <bean id="manteContEmprSupervisora" class="com.ositran.contratos.MantenimientoContratEmprSupervisor">
+            <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+            <property name="infraestructuraTipoVO" ref="infraestructuraTipoVO"/>
+            <property name="viewTdInternosVO" ref="viewTdInternosVO"/>
+            <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>            
+            <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+            <property name="concesionVO" ref="concesionVO"/>
+            <property name="concesionServiceImpl" ref="concesionServiceImpl"/>
+            <property name="contratoVO" ref="contratoVO"/>
+            <property name="modalidadConcesionVO" ref="modalidadConcesionVO"/>
+            <property name="modalidadConcesionServiceImpl" ref="modalidadConcesionServiceImpl"/>
+            <property name="infraestructuraServiceImpl" ref="infraestructuraServiceImpl"/>
+            <property name="infraestructuraVO" ref="infraestructuraVO"/>
+            <property name="infraestructura" ref="infraestructura"/>
+            <property name="inversionServiceImpl" ref="inversionServiceImpl"/>
+            <property name="contratoCompromisoServiceImpl" ref="contratoCompromisoServiceImpl"/>
+            <property name="contratoCompromisoVO" ref="contratoCompromisoVO"/>
+            <property name="contratoSupervisoraVO" ref="contratoSupervisoraVO"/>
+            <property name="monedaServiceImpl" ref="monedaServiceImpl"/>
+            <property name="empresaSupervisoraServiceImpl" ref="empresaSupervisoraServiceImpl"/>
+            <property name="contratoNuevaAdendaVO" ref="contratoNuevaAdendaVO"/>
+            <property name="adendaTipoServiceImpl" ref="adendaTipoServiceImpl"/>
+            <property name="contratoAdendaServiceImpl" ref="contratoAdendaServiceImpl"/>
+             <property name="contratoEmpresaSupervisoraServiceImpl" ref="contratoEmpresaSupervisoraServiceImpl"/>
+             <property name="contratoEmpresaSupervisoraAdendaServiceImpl" ref="contratoEmpresaSupervisoraAdendaServiceImpl"/>
+    </bean>
+    
+    <bean id="contratoEmpresaSupervisoraDAOImpl" class="com.ositran.daoimpl.ContratoEmpresaSupervisoraDAOImpl"/>
+        <bean id="contratoEmpresaSupervisoraServiceImpl" class="com.ositran.serviceimpl.ContratoEmpresaSupervisoraServiceImpl">
+            <property name="contratoEmpresaSupervisoraDAOImpl" ref="contratoEmpresaSupervisoraDAOImpl"/>
+    </bean>
+    
+    <bean id="contratoEmpresaSupervisoraAdendaDAOImpl" class="com.ositran.daoimpl.ContratoEmpresaSupervisoraAdendaDAOImpl"/>
+        <bean id="contratoEmpresaSupervisoraAdendaServiceImpl" class="com.ositran.serviceimpl.ContratoEmpresaSupervisoraAdendaServiceImpl">
+            <property name="contratoEmpresaSupervisoraAdendaDAOImpl" ref="contratoEmpresaSupervisoraAdendaDAOImpl"/>
+    </bean>
+	
+	<bean id="valorizacionSupDAOImpl" class="com.ositran.daoimpl.ValorizacionSupDAOImpl"/>
+    <bean id="valorizacionSupServiceImpl" class="com.ositran.serviceimpl.ValorizacionSupServiceImpl">
+        <property name="valorizacionSupDAOImpl" ref="valorizacionSupDAOImpl"/>
+    </bean>
+    
+    <bean id="valorizacionSupDetalleDAOImpl" class="com.ositran.daoimpl.ValorizacionSupDetalleDAOImpl"/>
+    <bean id="valorizacionSupDetalleServiceImpl" class="com.ositran.serviceimpl.ValorizacionSupDetalleServiceImpl">
+        <property name="valorizacionSupDetalleDAOImpl" ref="valorizacionSupDetalleDAOImpl"/>
+    </bean>
+    
+    <bean id="reconocimientoValSupervision" class="com.ositran.valorizaciones.ReconocimientoValSupervision">   
+        <property name="valorizacionSupServiceImpl" ref="valorizacionSupServiceImpl"/>
+        <property name="valorizacionSupDetalleServiceImpl" ref="valorizacionSupDetalleServiceImpl"/>
+        <property name="empSupServiceImp" ref="empSupServiceImp"/>
+        <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>
+    </bean>
+    
+     <!--Notificar Valorizacion-->
+    
+    
+    <bean id="notificarInversion" class="com.ositran.valorizaciones.NotificarInversion">
+        <property name="notificacionServiceImpl" ref="notificacionServiceImpl"/>
+        <property name="invTipoRevisionServiceImpl" ref="invTipoRevisionServiceImpl"/>
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="datosStdServiceImpl" ref="datosStdServiceImpl"/>
+    </bean>
+    
+    <!--Tipo Aprobacion-->
+    <bean id="invTipoRevisionDAOImpl" class="com.ositran.daoimpl.InvTipoRevisionDAOImpl"/>
+    <bean id="invTipoRevisionServiceImpl" class="com.ositran.serviceimpl.InvTipoRevisionServiceImpl">
+        <property name="invTipoRevisionDAOImpl" ref="invTipoRevisionDAOImpl"/>
+    </bean>
+    
 </beans>
