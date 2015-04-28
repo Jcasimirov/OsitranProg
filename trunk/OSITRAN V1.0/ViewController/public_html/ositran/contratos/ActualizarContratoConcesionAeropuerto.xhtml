@@ -785,7 +785,7 @@
                         </p:tab>
                         <p:tab id="tab2" title="Compromiso - Penalidades" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                          <h:form id="frmCompromisoIndicado">
-                                <table>
+                                <table style="width:100% !important;">
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
                                                                                     Periodo/Etapa - Indicado en el
@@ -808,7 +808,7 @@
                                                          paginator="true"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                         style="font-size:11px;" id="tablaCompromisoIndicado" 
+                                                         style="font-size:11px;width:100%;" id="tablaCompromisoIndicado" 
                                                         value="#{actualizarContratoMB.listarContratoCompromiso}"
                                                          var="compromiso">
                                                 <p:column headerText="Periodo/Etapa" style="width:4%">
@@ -978,7 +978,7 @@
                                 </h:form>
                                 </p:dialog>
                                 <h:form id="frmCompromisoSupervisado">
-                                <table>
+                                <table style="width:100% !important;">
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n
                                                                                     Periodo/Etapa - Supervisado por
@@ -1003,7 +1003,7 @@
                                                          paginator="true"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="4,6,8" resizableColumns="true"
-                                                         style="font-size:11px;" id="tablaComprmisoSupervisado"
+                                                         style="font-size:11px;width:100% !important;" id="tablaComprmisoSupervisado"
                                                          value="#{actualizarContratoMB.listarContratoCompromisoSupervisado}"
                                                          var="comsup">
                                                  <p:column headerText="Periodo/Etapa" style="width:7%">
@@ -1164,7 +1164,7 @@
                             </p:dialog>
                            
                             <h:form id="frmCompromisoPenalidad">
-                                <table>
+                                <table style="width:100% !important;">
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Penalidades</td>
                                         <td align="right">
@@ -1187,7 +1187,7 @@
                                                          paginator="true"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="4,6,8" resizableColumns="true"
-                                                         style="font-size:11px;" id="tablaComprmisoPenalidad"
+                                                         style="font-size:11px;width:100% !important;" id="tablaComprmisoPenalidad"
                                                          value="#{actualizarContratoMB.listarContratoPenalidad}"
                                                          var="penalidad">
                                                  <p:column headerText="Motivo" style="width:7%">
