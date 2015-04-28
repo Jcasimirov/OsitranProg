@@ -10,6 +10,7 @@ public class ContratoHitoVO {
   
     private Integer conId;
     private Date htoFecha;
+    private String htoFechaDescripcion;
     private Integer htoId;
     private BigDecimal htoMonto;
     private String htoOficio;
@@ -175,5 +176,13 @@ public class ContratoHitoVO {
 
     public String getHtoTerminal() {
         return htoTerminal;
+    }
+
+    public void setHtoFechaDescripcion(String htoFechaDescripcion) {
+        this.htoFechaDescripcion = htoFechaDescripcion;
+    }
+
+    public String getHtoFechaDescripcion() {
+        return htoFechaDescripcion;
     }
 }
