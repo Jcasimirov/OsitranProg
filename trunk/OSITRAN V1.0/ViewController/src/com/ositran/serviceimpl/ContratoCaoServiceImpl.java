@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoCaoDAOImpl;
 import com.ositran.model.ContratoCao;
 import com.ositran.service.ContratoCaoService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoCaoVO;
 
 import java.sql.SQLException;
@@ -67,6 +68,7 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         
         contratoCaoVO.setCaoEstado(contratoCao.getCaoEstado());
         contratoCaoVO.setCaoFecha(contratoCao.getCaoFecha());
+        contratoCaoVO.setCaoFechaDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoCao.getCaoFecha()));
         contratoCaoVO.setCaoId(contratoCao.getCaoId());
         contratoCaoVO.setCaoMonto(contratoCao.getCaoMonto());        
         contratoCaoVO.setCaoPdf(contratoCao.getCaoPdf());
