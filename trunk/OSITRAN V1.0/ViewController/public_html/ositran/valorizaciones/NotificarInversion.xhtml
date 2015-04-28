@@ -18,8 +18,8 @@
         </h:head>
      <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
-        <f:event listener="#{bk_NotificarInversion.validarSesion()}" type="postAddToView"></f:event>
-            <f:event listener="#{bk_NotificarInversion.ListarTipoAprobaciones}" type="preRenderComponent"/>             
+        <f:event listener="#{bk_NotificarInversion.validarSesion}" type="preRenderComponent"></f:event>
+            <f:event listener="#{bk_NotificarInversion.listarTipoAprobaciones}" type="preRenderComponent"/>             
             <f:event listener="#{bk_NotificarInversion.listarDeclaraciones}" type="preRenderComponent"/>                                  
           
             <p:growl id="mensaje" showDetail="true" life="3000"/>
@@ -29,11 +29,11 @@
                     
                     <div align="center">
                         <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                            #{msg.tituloNID}
+                            NOTIFICAR INVERSIONES DECLARADAS
                         </h3>
                     </div>
                     <div align="center" style="font-size: 11px">
-                <div style="width:97%" >
+                <div style="width:100%" >
                     <p:dataTable value="#{bk_NotificarInversion.listaValorizaciones}" id="tablaValorizaciones" var="val"
                                  style="font-size:11px" rows="10" paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
