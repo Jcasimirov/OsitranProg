@@ -22,6 +22,7 @@ public class InvAvnVO{
     private Date tiaFechaFin;
     private Date tiaFechaInicio;
     private Date tiaFechaRegistro;
+    private String tiaFechaRegistroDescripcion;
     private Date tiaFechaVencimientoPlazo;
     private Integer tiaHr;
     private Long tiaMontoTotalAprobado;
@@ -346,5 +347,13 @@ public class InvAvnVO{
 
     public String getTiaObservaciones() {
         return tiaObservaciones;
+    }
+
+    public void setTiaFechaRegistroDescripcion(String tiaFechaRegistroDescripcion) {
+        this.tiaFechaRegistroDescripcion = tiaFechaRegistroDescripcion;
+    }
+
+    public String getTiaFechaRegistroDescripcion() {
+        return tiaFechaRegistroDescripcion;
     }
 }
