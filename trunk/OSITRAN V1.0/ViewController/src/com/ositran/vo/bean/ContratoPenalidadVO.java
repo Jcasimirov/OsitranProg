@@ -3,6 +3,8 @@ package com.ositran.vo.bean;
 
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 
@@ -15,7 +17,7 @@ public class ContratoPenalidadVO {
     private String tcpFechaDescripcion;
     private Integer tcpId;
     private String tcpMotivo;
-    private Long tcpTotal;
+    private BigDecimal tcpTotal;
     private String tcpEstado;
     private String monNombre;
     private String tcpDocumentoFisico;
@@ -79,11 +81,11 @@ public class ContratoPenalidadVO {
         this.tcpMotivo = tcpMotivo;
     }
 
-    public Long getTcpTotal() {
+    public BigDecimal getTcpTotal() {
         return tcpTotal;
     }
 
-    public void setTcpTotal(Long tcpTotal) {
+    public void setTcpTotal(BigDecimal tcpTotal) {
         this.tcpTotal = tcpTotal;
     }
 
