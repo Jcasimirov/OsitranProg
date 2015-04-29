@@ -354,6 +354,7 @@ public class RectificarInversion {
     public void cargarInfraestructurasContrato(Integer contratoId) {
         try {
             listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
+            System.out.println("listaInfraestructura#########:"+listaInfraestructura.size());
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -390,7 +391,7 @@ public class RectificarInversion {
 
     public void listarDeclaraciones(int codigoContrato) {
         try {
-            System.out.println("listarDeclaraciones");
+            System.out.println("codigoContrato:"+codigoContrato);
             listaValorizaciones = notificacionServiceImpl.obtenerDeclaracionesxIdContrato(codigoContrato);
             cargarDescripcionesMoneda(listaValorizaciones);
             cargarEstadosdelAvanceInversion(listaValorizaciones);
