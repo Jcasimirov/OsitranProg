@@ -11,13 +11,12 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.hibernate.criterion.Restrictions;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MonedaDAOImpl implements MonedaDAO{
-       
-
-  
     
     @Override    
     public String insert(Moneda moneda) throws SQLException {
@@ -79,7 +78,7 @@ public class MonedaDAOImpl implements MonedaDAO{
     @SuppressWarnings("unchecked")    
     public List<Moneda> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Moneda.class).list();
+        return session.createCriteria(Moneda.class).add(Restrictions.not(Restrictions.eq("monId", 0))).list();
     }
 
     @Override
