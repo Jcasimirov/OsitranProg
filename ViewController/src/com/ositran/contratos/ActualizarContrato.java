@@ -281,7 +281,7 @@ public class ActualizarContrato {
     private int incIgvSup;
     private boolean activaIGVSup=true;
     private double tipocambiosup;
-    private String nombreConcesion;
+    private String nombreConcesion="";
     private Date fechaInicioSuscripcion;
     private Date fechaFinSuscripcion;
     private String campo;
