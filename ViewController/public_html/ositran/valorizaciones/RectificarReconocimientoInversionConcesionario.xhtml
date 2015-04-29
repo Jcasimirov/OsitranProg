@@ -413,16 +413,17 @@
                                                                                              style="font-size:11px;"
                                                                                              emptyMessage="No se Encontraron Registros"
                                                                                              rowIndexVar="rowIndex" >
+                                                                               
                                                                                     <p:column headerText="Nro. Valorización"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{reconocimiento.ireId}"/>
+                                                                                            <h:outputText value="#{reconocimiento.tiaNumero}"/>
                                                                                         </div>
                                                                                     </p:column>
-                                                                                    <p:column headerText="Inversion"
+                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{reconocimiento.tiaNumero}"/>
+                                                                                            <h:outputText value="#{reconocimiento.iadId}"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Aeropuerto" rendered="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"
@@ -496,13 +497,13 @@
                                                                                     <p:column headerText="Nro. Valorización"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{reajuste.irjId}"/>
+                                                                                            <h:outputText value="#{reajuste.tiaNumero}"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Inversion"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
-                                                                                            <h:outputText value="#{reajuste.tiaNumero}"/>
+                                                                                            <h:outputText value="#{reajuste.iadId}"/>
                                                                                         </div>
                                                                                     </p:column>
                                                                                     <p:column headerText="Aeropuerto"
