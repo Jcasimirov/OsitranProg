@@ -7,6 +7,7 @@ import com.ositran.model.InvReajuste;
 import com.ositran.model.InvReconocimiento;
 import com.ositran.model.ValorizacionNotificacion;
 import com.ositran.service.NotificacionService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InvAvnVO;
 import com.ositran.vo.bean.InvReajusteVO;
 import com.ositran.vo.bean.InvReconocimientoVO;
@@ -151,6 +152,7 @@ public class NotificacionServiceImpl implements NotificacionService{
             invAvnVO.setTiaFechaFin(invAvn.getTiaFechaFin());
             invAvnVO.setTiaFechaInicio(invAvn.getTiaFechaInicio());
             invAvnVO.setTiaFechaRegistro(invAvn.getTiaFechaRegistro());
+            invAvnVO.setTiaFechaRegistroDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(invAvn.getTiaFechaRegistro()));
             invAvnVO.setTiaFechaVencimientoPlazo(invAvn.getTiaFechaVencimientoPlazo());
             invAvnVO.setTiaHr(invAvn.getTiaHr());
             invAvnVO.setTiaMontoTotalAprobado(invAvn.getTiaMontoTotalAprobado());
