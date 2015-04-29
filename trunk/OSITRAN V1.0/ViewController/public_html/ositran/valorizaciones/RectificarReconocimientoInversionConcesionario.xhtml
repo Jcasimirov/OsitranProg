@@ -83,11 +83,11 @@
             <p:layoutUnit position="center" style="border:0px">
                 <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                 <div align="center">
-                    <h3>RECTIFICAR RECONOCIMIENTO DE INVERSION - CONCESIONARIO</h3>
+                    <h5>RECTIFICAR RECONOCIMIENTO DE INVERSION - CONCESIONARIO</h5>
                 </div>
                 <div align="center" style="font-size: 11px;">
                     <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
-                              resizable="false" appendToBody="true" closable="true">
+                              resizable="false" appendToBody="true" closable="true" width="900" height="400">
                         <h:form id="frmBuscarContratoDlg">
                             <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                          columnClasses="etiquetas,cajas,validadores">
@@ -234,9 +234,9 @@
                         <table>
                             <tr>
                                 <td>
-                                    <table>
+                                    <table align="left">
                                         <tr>
-                                            <td valign="top">
+                                            <td align="left">
                                                 <p:fieldset legend="Criterios de Busqueda">
                                                     <p:inputText id="cb" style="width:200px;"
                                                                  value="#{rectificarInversion.nombreConcesion}"/>
@@ -367,7 +367,7 @@
                                                     </table>
                                                 </p:fieldset>
                                             </td>
-                                            <td valign="top">
+                                            <td align="top">
                                                 <p:fieldset legend="Solicitud del Concesionario" rendered="#{rectificarInversion.mostrarxDeclaracionCargada}">
                                                     <table>
                                                        <tr>
