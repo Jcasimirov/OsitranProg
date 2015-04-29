@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface AsignarResponsableSupervisionService {
     
-    public List<ContratoResSupDetalleVO> query(int CodigoContrato) throws SQLException;
+    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException;
     public ContratoRespSupVO insertCab(ContratoRespSupVO contratoRespSupVO) throws SQLException;
     public String insertDet(ContratoResSupDetalleVO contratoResSupDetalleVO) throws SQLException;
     public String updateDet(ContratoResSupDetalleVO contratoResSupDetalleVO) throws SQLException;
     public ContratoRespSupVO getCab(Integer id) throws SQLException;
     public ContratoResSupDetalleVO getDet(Integer id) throws SQLException;
-    public ContratoRespSupVO ValidaCab(Integer concesion) throws SQLException;
-    public String ObtieneNombre(Integer tipoDoc, String nroDocumento) throws SQLException;
+    public ContratoRespSupVO ValidaCab(Integer concesion, Integer compromiso) throws SQLException;
+    public String ObtieneNombre(Integer tipoDoc, String nroDocumento, Integer tipoSup) throws SQLException;
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException;
   
 }
