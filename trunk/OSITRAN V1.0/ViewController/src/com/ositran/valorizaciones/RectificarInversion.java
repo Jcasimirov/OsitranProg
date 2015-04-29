@@ -456,7 +456,7 @@ public class RectificarInversion {
             }
             
            
-        } catch (SQLException sqle) {
+        } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
