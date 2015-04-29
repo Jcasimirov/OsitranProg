@@ -466,6 +466,8 @@ public class RectificarInversion {
              invAvnVO=new InvAvnVO(); 
             listaReconocimiento=new ArrayList<InvReconocimientoVO>();
             listaReajuste=new ArrayList<InvReajusteVO>();
+            totalivrMontoAprobadoI=BigDecimal.ZERO;
+            totalirjMontoReajusteI=BigDecimal.ZERO;
         }
     }
     public void cargarDatosCompromiso(int ccoId) {
