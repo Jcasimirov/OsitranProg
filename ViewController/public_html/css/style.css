@@ -1,12 +1,22 @@
-.ui-widget {
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 11px !important;
-}
-
 .ui-dialog-titlebar {
     font-size: 13px;
     font-family: sans-serif;
 }
+
+.ui-selectonemenu{
+     font-family: Verdana, Arial, sans-serif;
+     font-size: 9px !important;
+     width: 100% !important;
+}
+.ui-selectonemenu-list{
+     font-family: Verdana, Arial, sans-serif;
+     font-size: 9px !important;
+     width: 100% !important;
+}
+div.ui-datepicker{
+font-size:10px!important;
+} 
+
 
 .tool {
     font-size: 13px;
