@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -40,7 +42,7 @@ public class ContratoPenalidad implements Serializable {
     @Column(name = "TCP_MOTIVO", nullable = false, length = 4000)
     private String tcpMotivo;
     @Column(name = "TCP_TOTAL", nullable = false)
-    private Long tcpTotal;
+    private BigDecimal tcpTotal;
     @Column(name = "TCP_ESTADO")
     private String tcpEstado;
     
@@ -66,7 +68,7 @@ public class ContratoPenalidad implements Serializable {
     }
 
     public ContratoPenalidad(Integer conId, Integer monId, Integer pesId, Date tcpFecha, Integer tcpId,
-                             String tcpMotivo, Long tcpTotal, String tcpEstado) {
+                             String tcpMotivo, BigDecimal tcpTotal, String tcpEstado) {
         this.conId = conId;
         this.monId = monId;
         this.pesId = pesId;
@@ -125,11 +127,11 @@ public class ContratoPenalidad implements Serializable {
         this.tcpMotivo = tcpMotivo;
     }
 
-    public Long getTcpTotal() {
+    public BigDecimal getTcpTotal() {
         return tcpTotal;
     }
 
-    public void setTcpTotal(Long tcpTotal) {
+    public void setTcpTotal(BigDecimal tcpTotal) {
         this.tcpTotal = tcpTotal;
     }
 
