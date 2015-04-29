@@ -808,6 +808,7 @@ private int codigoInversion;
         contratoResSupDetalleVO.setTccTipo(1);
         contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());      
         contratoResSupDetalleVO.setConId(contratoRespSupVO.getCsiId());
+        contratoResSupDetalleVO.setTipoSup(2);
         listaDetalleAsignacion.add(contratoResSupDetalleVO);
         }else{
             FacesMessage mensaje =
@@ -861,7 +862,7 @@ private int codigoInversion;
                     contratoResSupDetalleVO.setConId(contratoRespSupVO.getCsiId());
                     contratoResSupDetalleVO.setTccTipo(1);
                     contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());
-                    
+                    contratoResSupDetalleVO.setTipoSup(1);
                     listaResponsables.add(record);
                     listaDetalleAsignacion.add(contratoResSupDetalleVO);
                 
@@ -988,9 +989,10 @@ private int codigoInversion;
                }
               
               listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
-              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.query(contratoCompromisoSeleccionado);
+              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+              listaResponsables=new ArrayList<HashMap<String, Object>>();
               for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {      
-                    String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento());
+                    String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
                     HashMap<String, Object> record = new HashMap<String, Object>();
                     record.put("Etapa", "Falta");
                     record.put("nombre", nombre);
@@ -1033,7 +1035,7 @@ private int codigoInversion;
          ContratoRespSupVO contrato_Cab = new ContratoRespSupVO();
          if(ValidarDatos() == 0){
              try{
-                 contrato_Cab = asignarResponsableSupervisionServiceImpl.ValidaCab(contratoRespSupVO.getCsiId());
+                 contrato_Cab = asignarResponsableSupervisionServiceImpl.ValidaCab(contratoRespSupVO.getCsiId(),contratoCompromisoSeleccionado);
                  // Nuevo Registro de Supervisión por etapa                 
                  if( contrato_Cab == null){
                      contratoCompromisoVO.setTccTipo(1);                  
@@ -1047,6 +1049,10 @@ private int codigoInversion;
                      }
                      FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
                                                                  FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                     contratoRespSupVO.setRsuId(null);                     
+                     contratoRespSupVO.setInfId(null);
+                     contratoRespSupVO.setInvId(null);                    
+                     contratoRespSupVO.setTsiId(null);
                  }else{
                      for (int i = 0; i<listaDetalleAsignacion.size(); i++){
                          // Nuevo Registro de Supervisor de Inversiones o Empresa Supervisora
