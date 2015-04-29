@@ -951,11 +951,20 @@
                                                      readonly="true" />
                                         
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
-                                        <p:outputLabel for="plazocom" value="Plazo"/>
-                                        <p:inputText id="plazocom" style="width:200px;"
-                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPlazo}"
-                                                      />
+                                        <p:outputLabel  value="Plazo"/>
+                                        <h:panelGrid border="1" columns="2" style="padding:0px !important;">
                                        
+                                        <p:inputText id="plazocom" style="width:90px;margin:0px;"
+                                                     value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPlazo}"
+                                                     onkeypress="return validarNum(event);" />
+                                        <p:selectOneMenu value="#{actualizarContratoMB.plazoCompromisoIndicado}" style="margin:0px;padding:0px;">
+                                        <f:selectItem itemLabel="DIA(S)" itemValue="DIA(S)" />
+                                        <f:selectItem itemLabel="SEMANA(S)" itemValue="SEMANA(S)" />
+                                        <f:selectItem itemLabel="MES(ES)" itemValue="MES(ES)" />                                        
+                                        <f:selectItem itemLabel="AÑO(S)" itemValue="AÑO(S)" />
+                                        </p:selectOneMenu>              
+                                       
+                                       </h:panelGrid>
                                         <p:graphicImage url="../../images/obligatorio.gif" />                                        
                                       
                                          
@@ -1134,10 +1143,19 @@
                                                      readonly="true"/>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                                                                                                       
-                                        <p:outputLabel for="plazocomsup" value="Plazo"/>
-                                        <p:inputText id="plazocomsup" style="width:200px;"
+                                        <p:outputLabel value="Plazo"/>
+                                        <h:panelGrid border="1" columns="2" style="padding:0px !important;">
+                                        <p:inputText id="plazocomsup" style="width:90px;"
                                                      value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPlazo}"
-                                                     />
+                                                     onkeypress="return validarNum(event);" />
+                                        
+                                        <p:selectOneMenu value="#{actualizarContratoMB.plazoCompromisoSupervisado}">
+                                        <f:selectItem itemLabel="Dia(s)" itemValue="DIA(S)" />
+                                        <f:selectItem itemLabel="Semana(s)" itemValue="SEMANA(S)" />
+                                        <f:selectItem itemLabel="Mes(es)" itemValue="MES(ES)" />                                        
+                                        <f:selectItem itemLabel="Año(s)" itemValue="AÑO(S)" />
+                                        </p:selectOneMenu>              
+                                       </h:panelGrid>
                                         <p:graphicImage url="../../images/obligatorio.gif" />
                                          
                                      
@@ -2083,7 +2101,7 @@
                                         <tr>
                                             <td align="left">Fecha de Inicio</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy"
                                                             value="#{actualizarContratoMB.fechaIniAlerta}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -2093,7 +2111,7 @@
                                         <tr>
                                             <td align="left">Fecha de Fin</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy"
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy"
                                                             value="#{actualizarContratoMB.fechaFinAlerta}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -2103,10 +2121,20 @@
                                         <tr>
                                             <td align="left">Plazo</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.plazoAlerta}"
-                                                             style="width:200px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                 <h:panelGrid border="1" columns="2" style="padding:0px !important;">
+                                                    <p:inputText  style="width:90px;"
+                                                                 value="#{actualizarContratoMB.plazoAlerta}"
+                                                                 onkeypress="return validarNum(event);" />
+                                                    
+                                                    <p:selectOneMenu value="#{actualizarContratoMB.unidadTiempo}">
+                                                    <f:selectItem itemLabel="Dia(s)" itemValue="DIA(S)" />
+                                                    <f:selectItem itemLabel="Semana(s)" itemValue="SEMANA(S)" />
+                                                    <f:selectItem itemLabel="Mes(es)" itemValue="MES(ES)" />                                        
+                                                    <f:selectItem itemLabel="Año(s)" itemValue="AÑO(S)" />
+                                                    </p:selectOneMenu>              
+                                                   </h:panelGrid>
+                                                   </td>
+                                                   <td>
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
@@ -2116,9 +2144,8 @@
                                             <td align="left">
                                                  <p:inputText value="#{actualizarContratoMB.diaPresAlerta}"
                                                              style="width:200px;"
-                                                             onkeypress="return validarNum(event);"/>                                                
-                                                 
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                             onkeypress="return validarNum(event);"/> 
+                                            <img src="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
