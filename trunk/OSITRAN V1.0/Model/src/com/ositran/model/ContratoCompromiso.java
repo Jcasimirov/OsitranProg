@@ -51,7 +51,7 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "POR_IGV")
     private BigDecimal porIgv;
     //@Id
-    @Column(name = "TCC_TIPO", nullable = false)
+    @Column(name = "TCC_TIPO")
     private Integer tccTipo;
     @Column(name = "TIV_ID")
     private Integer tivId;
