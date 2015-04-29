@@ -3148,7 +3148,7 @@ public class ActualizarContrato {
                                  FacesContext.getCurrentInstance().addMessage(null,
                                                                               new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                                "No ha seleccionado el Tipo de Moneda"));             
-         }else if (contratoNuevaPenalidadVO.getTcpTotal()==null || contratoNuevaPenalidadVO.getTcpTotal()==0){
+         }else if (contratoNuevaPenalidadVO.getTcpTotal()==null || contratoNuevaPenalidadVO.getTcpTotal().compareTo(BigDecimal.ZERO)==0){
              FacesContext.getCurrentInstance().addMessage(null,
                                                                      new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                       "No ha ingresado el Monto"));             
