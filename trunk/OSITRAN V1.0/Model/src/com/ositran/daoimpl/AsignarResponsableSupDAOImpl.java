@@ -20,12 +20,13 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     }
     
     @Override
-    public List<ContratoResSupDetalle> query(int CodigoContrato) throws SQLException{
+    public List<ContratoResSupDetalle> ListarDetalle(int codigoContrato, int compromiso) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
-        query = session.createQuery("From ContratoResSupDetalle c where c.conId = :busqueda and c.rsdEstado <> 0");
-        query.setParameter("busqueda",CodigoContrato);
+        query = session.createQuery("From ContratoResSupDetalle c where c.conId = :contrato and c.rsdEstado <> 0 and c.ccoId = :compromiso");
+        query.setParameter("contrato",codigoContrato);
+        query.setParameter("compromiso",compromiso);
         List<ContratoResSupDetalle> list = query.list();
         session.getTransaction().commit();
         session.close();
@@ -99,12 +100,13 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     }
     
     @Override
-    public ContratoRespSup ValidaCab(Integer concesion) throws SQLException{
+    public ContratoRespSup ValidaCab(Integer concesion, Integer compromiso) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM ContratoRespSup c WHERE c.csiId = :busqueda ");
-        query.setParameter("busqueda",concesion);
+        query=session.createQuery("FROM ContratoRespSup c WHERE c.csiId = :concesion and c.ccoId = :compromiso ");
+        query.setParameter("concesion",concesion);
+        query.setParameter("compromiso",compromiso);
         List<ContratoRespSup> lista= query.list();
         session.getTransaction().commit();
         session.close();
@@ -116,21 +118,23 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     }
     
     @Override
-    public String ObtieneNombre(Integer tipoDoc, String nroDocumento) throws SQLException{
+    public String ObtieneNombre(Integer tipoDoc, String nroDocumento,Integer tipoSup) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;
-        if(tipoDoc == 1){
-            query=session.createQuery("select s.tsiNombre FROM SupervisorInversiones s WHERE s.tsiNroDocumento = :nro and s.tdoId = :tipo ");
-        }else{
-            query=session.createQuery("select e.supNombre FROM EmpresaSupervisora e WHERE e.supNroDocumento = :nro and e.tdoId = :tipo ");
+        String nombre = "";
+        if(tipoSup != null && tipoSup>0){
+            if(tipoSup == 1){
+                query=session.createQuery("select s.tsiNombre FROM SupervisorInversiones s WHERE s.tsiNroDocumento = :nro and s.tdoId = :tipo ");
+            }else {
+                query=session.createQuery("select e.supNombre FROM EmpresaSupervisora e WHERE e.supNroDocumento = :nro and e.tdoId = :tipo ");
+            }    
+            query.setParameter("nro",nroDocumento);  
+            query.setParameter("tipo",tipoDoc);  
+            nombre = query.uniqueResult().toString();
+            session.getTransaction().commit();
+            session.close();
         }        
-        query.setParameter("nro",nroDocumento);  
-        query.setParameter("tipo",tipoDoc);  
-        String nombre = query.uniqueResult().toString();
-        session.getTransaction().commit();
-        session.close();
-       
         return nombre; 
     }
     
