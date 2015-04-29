@@ -69,6 +69,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         
         contratoPpoVO.setConId(contratoPpo.getConId());
         contratoPpoVO.setMonId(contratoPpo.getMonId());
+        contratoPpoVO.setPpoNombre(contratoPpo.getPpoNombre());
         contratoPpoVO.setPpoArchivoPdf(contratoPpo.getPpoArchivoPdf());
         contratoPpoVO.setPpoEstado(contratoPpo.getPpoEstado());
         contratoPpoVO.setPpoFecha(contratoPpo.getPpoFecha());
@@ -92,6 +93,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         
         contratoPpo.setConId(contratoPpoVO.getConId());
         contratoPpo.setMonId(contratoPpoVO.getMonId());
+        contratoPpo.setPpoNombre(contratoPpoVO.getPpoNombre());
         contratoPpo.setPpoArchivoPdf(contratoPpoVO.getPpoArchivoPdf());
         contratoPpo.setPpoEstado(contratoPpoVO.getPpoEstado());
         contratoPpo.setPpoFecha(contratoPpoVO.getPpoFecha());
