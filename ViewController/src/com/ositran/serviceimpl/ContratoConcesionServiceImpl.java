@@ -179,15 +179,15 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
             con.setConAvanceobra(columna[13]!=null?new Integer(columna[13].toString()):null);
             con.setPerId(columna[14]!=null?new Integer(columna[14].toString()):null);
             con.setConDiames(columna[15]!=null?new Integer(columna[15].toString()):null);
-            con.setConPlazorevision(new Integer(columna[16].toString()));
-            con.setConTipodias(new Integer(columna[17].toString()));
+            con.setConPlazorevision(columna[16]!=null?new Integer(columna[16].toString()):null);
+            con.setConTipodias(columna[17]!=null?new Integer(columna[17].toString()):null);
             con.setConPlazoconcesion((Date)columna[18]);
             con.setConPlazoconcesionDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(con.getConPlazoconcesion()));
-            con.setConAnyo(new Integer(columna[19].toString()));
-            con.setConNumero(new Integer(columna[20].toString()));
-            con.setConEstado(new Integer(columna[21].toString()));
+            con.setConAnyo(columna[19]!=null?new Integer(columna[19].toString()):null);
+            con.setConNumero(columna[20]!=null?new Integer(columna[20].toString()):null);
+            con.setConEstado(columna[21]!=null?new Integer(columna[21].toString()):null);
             con.setConFechaAlta((Date)columna[22]);
-            con.setConAsunto(columna[23].toString());
+            con.setConAsunto(columna[23]!=null?columna[23].toString():null);
             lstBusquedaxNombreConcesion.add(con);
            // System.out.println("*********SERVICE*******buscarContratoxNombreConcesion():"+((Date)columna[0])+"-"+columna[1].toString()+"-"+columna[2].toString()+"-"+columna[3].toString()+"-"+columna[4].toString()+"-"+columna[5].toString()+"-"+columna[6].toString());
        }
