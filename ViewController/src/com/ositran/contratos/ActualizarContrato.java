@@ -1490,7 +1490,7 @@ public class ActualizarContrato {
             listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 for (InfraestructuraVO aux : listaInfraestructura) {
-                    if (aux.getInfId() == contratoInversionVO.getInfId()) {
+                    if (aux.getInfId() == contratoInversionVO.getInfId() && aux.getTinId()==contratoInversionVO.getTinId() && aux.getCsiId()==contratoInversionVO.getCsiId()) {
                         contratoInversionVO.setInfNombre(aux.getInfNombre());
                     }
                 }
@@ -2915,7 +2915,7 @@ public class ActualizarContrato {
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Plazo"));                    
         }
-        else if (contratoNuevoCompromisoSupervisadoVO.getCcoTipoCambio()==null) {
+        else if (contratoNuevoCompromisoSupervisadoVO.getMonId()!= 2 && contratoNuevoCompromisoSupervisadoVO.getCcoTipoCambio()==null) {
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                                   "No ha ingresado el Tipo de Cambio"));                    

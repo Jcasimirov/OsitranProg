@@ -1110,7 +1110,7 @@
                                         <p:outputLabel for="incigvcomsup" value="Incluye IGV?"/>
                                         <p:selectOneRadio id="incigvcomsup" value="#{actualizarContratoMB.incIgvSup}">
                                             <p:ajax listener="#{actualizarContratoMB.activaCamposIGVSupervisado()}"
-                                                    update="igvcomsup netocomsup"/>
+                                                    update="igvcomsup valortotalcomsup"/>
                                             <f:selectItem itemLabel="Si" itemValue="1"/>
                                             <f:selectItem itemLabel="No" itemValue="0"/>
                                         </p:selectOneRadio>
@@ -1507,7 +1507,7 @@
                                                              value="#{actualizarContratoMB.listContratoPpoVO}"
                                                              rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Aeropuerto">
-                                                        <h:outputText value="#{tHito.htoNombre}"/>
+                                                        <h:outputText value="#{tPpo.ppoNombre}"/>
                                                     </p:column>
                                                     <p:column headerText="Nro" style="width:12%">
                                                         <h:outputText value="#{tPpo.ppoId}"/>

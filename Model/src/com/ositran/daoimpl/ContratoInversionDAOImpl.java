@@ -2,19 +2,17 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoInversionDAO;
 import com.ositran.model.ContratoInversion;
-import com.ositran.model.ContratoInversion;
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class ContratoInversionDAOImpl implements ContratoInversionDAO {
     public ContratoInversionDAOImpl() {
@@ -37,13 +35,15 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoInversion);
+            session.save(contratoInversion);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
             e.printStackTrace();
         }
+        session.flush();
+        session.close();
         return result;
     }
 
@@ -75,6 +75,8 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
             session.getTransaction().rollback();
             result=e.getMessage();
         }
+        session.flush();
+        session.close();
         return result;
     }
 

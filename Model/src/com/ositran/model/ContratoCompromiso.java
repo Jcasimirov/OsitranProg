@@ -39,7 +39,7 @@ public class ContratoCompromiso implements Serializable {
     private String ccoPeriodo;
     @Column(name = "CCO_PLAZO", nullable = false)
     private String ccoPlazo;
-    @Column(name = "CCO_TIPO_CAMBIO", nullable = false)
+    @Column(name = "CCO_TIPO_CAMBIO")
     private BigDecimal ccoTipoCambio;
     @Column(name = "CCO_TOTAL", nullable = false)
     private BigDecimal ccoTotal;
@@ -51,7 +51,7 @@ public class ContratoCompromiso implements Serializable {
     @Column(name = "POR_IGV")
     private BigDecimal porIgv;
     //@Id
-    @Column(name = "TCC_TIPO")
+    @Column(name = "TCC_TIPO", nullable = false)
     private Integer tccTipo;
     @Column(name = "TIV_ID")
     private Integer tivId;

@@ -6,13 +6,13 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
     public ContratoAlertaDAOImpl() {
@@ -35,7 +35,7 @@ public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoAlerta);
+            session.save(contratoAlerta);
             session.getTransaction().commit();
             System.out.print("inserto contratoAlerta \n ");
         } catch (Exception e) {
@@ -44,6 +44,8 @@ public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
             System.out.print(" error al insertar contratoAlerta \n ");
             e.printStackTrace();
         }
+        session.flush();
+        session.close();
         System.out.print("#######   FIN INSERT contratoAlerta \n ");
         return result;
     }

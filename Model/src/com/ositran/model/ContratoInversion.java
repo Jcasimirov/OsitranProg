@@ -41,7 +41,7 @@ public class ContratoInversion implements Serializable {
     private Integer invEstado;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "INV_FECHA_ALTA", nullable = false)
+    @Column(name = "INV_FECHA_ALTA")
     private Date invFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "INV_FECHA_BAJA")

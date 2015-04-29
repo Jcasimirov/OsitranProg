@@ -13,6 +13,7 @@ public class ContratoPpoVO {
     private Integer monId;
     private String ppoArchivoPdf;
     private Date ppoFecha;
+    private String ppoFechaDescripcion;
     private Integer ppoId;
     private BigDecimal ppoMonto;
     private String ppoOficio;
@@ -174,5 +175,13 @@ public class ContratoPpoVO {
 
     public String getPpoTerminal() {
         return ppoTerminal;
+    }
+
+    public void setPpoFechaDescripcion(String ppoFechaDescripcion) {
+        this.ppoFechaDescripcion = ppoFechaDescripcion;
+    }
+
+    public String getPpoFechaDescripcion() {
+        return ppoFechaDescripcion;
     }
 }
