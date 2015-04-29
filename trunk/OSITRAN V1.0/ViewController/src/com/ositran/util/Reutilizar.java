@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.math.BigDecimal;
+
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -88,5 +90,20 @@ public class Reutilizar {
     public static Reutilizar getNewInstance() {
         return newInstance;
     }
-
+    public BigDecimal sumaBigDecimal(BigDecimal monto1,BigDecimal monto2){
+        monto1=monto1.add(monto2);
+        return (monto1);
+    }
+    public BigDecimal restaBigDecimal(BigDecimal monto1,BigDecimal monto2){
+        monto1=monto1.subtract(monto2);
+        return monto1;
+    }
+    public BigDecimal multiplicaBigDecimal(BigDecimal monto1,BigDecimal monto2){
+        monto1=monto1.multiply(monto2);
+        return monto1;
+    }
+    public BigDecimal divideBigDecimal(BigDecimal monto1,BigDecimal monto2){
+        monto1=monto1.divide(monto2);
+        return monto1;
+    }
 }
