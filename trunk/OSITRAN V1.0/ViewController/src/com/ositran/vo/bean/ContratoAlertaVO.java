@@ -9,6 +9,9 @@ public class ContratoAlertaVO {
     private Integer calDiaPresentacion;   
     private Date calFechaFin;   
     private Date calFechaInicio;
+    private String calFechaFinDescripcion;
+    private String calFechaInicioDescripcion;
+    
     private Integer calId;   
     private String calNombreconcesion;
     private String calPlazo;  
@@ -179,5 +182,21 @@ public class ContratoAlertaVO {
 
     public String getCalTerminal() {
         return calTerminal;
+    }
+
+    public void setCalFechaFinDescripcion(String calFechaFinDescripcion) {
+        this.calFechaFinDescripcion = calFechaFinDescripcion;
+    }
+
+    public String getCalFechaFinDescripcion() {
+        return calFechaFinDescripcion;
+    }
+
+    public void setCalFechaInicioDescripcion(String calFechaInicioDescripcion) {
+        this.calFechaInicioDescripcion = calFechaInicioDescripcion;
+    }
+
+    public String getCalFechaInicioDescripcion() {
+        return calFechaInicioDescripcion;
     }
 }
