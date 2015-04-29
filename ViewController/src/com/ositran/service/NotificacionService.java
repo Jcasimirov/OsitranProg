@@ -16,6 +16,6 @@ public interface NotificacionService {
     public String NotificarInversion(InvAvnVO invAvnVO, ValorizacionNotificacionVO valorizacionNotificacionVO) throws SQLException;
     public List<InvAvnVO> ListarDeclaracionesSupervContratoCompromiso(int contratoCompromisoId) throws SQLException;
     public List<InvAvnVO> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException;
-    public void updateRectificacion(InvAvnVO invAvnvo,List<InvReconocimientoVO> reconocimientoVO,List<InvReajusteVO> reajusteVO,InvVO invVO)throws SQLException;
+    public void updateRectificacion(InvAvnVO invAvnvo,List<InvReconocimientoVO> reconocimientoVO,List<InvReajusteVO> reajusteVO,InvVO invVO)throws Exception;
 
 }
