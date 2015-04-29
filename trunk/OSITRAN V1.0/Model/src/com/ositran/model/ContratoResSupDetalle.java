@@ -39,13 +39,17 @@ public class ContratoResSupDetalle implements Serializable {
     @Column(name = "TCC_TIPO")
     private Integer tccTipo;
     @Column(name = "TDO_ID")
-    private Integer tdoId;
+    private Integer tdoId;    
+    @Column(name = "CCO_ID")
+    private Integer ccoId;      
+    @Column(name = "TIPO_SUPERVISOR")
+    private Integer tipoSup;
 
     public ContratoResSupDetalle() {
     }
 
     public ContratoResSupDetalle(Integer conId, Integer rsdEstado, Date rsdFechaAsignacion, Integer rsdId,
-                                 String rsdNroDocumento, Integer rsuId, Integer tccTipo, Integer tdoId) {
+                                 String rsdNroDocumento, Integer rsuId, Integer tccTipo, Integer tdoId, Integer tipoSup, Integer ccoId) {
         this.conId = conId;
         this.rsdEstado = rsdEstado;
         this.rsdFechaAsignacion = rsdFechaAsignacion;
@@ -54,6 +58,8 @@ public class ContratoResSupDetalle implements Serializable {
         this.rsuId = rsuId;
         this.tccTipo = tccTipo;
         this.tdoId = tdoId;
+        this.tipoSup = tipoSup;
+        this.ccoId = ccoId;
     }
 
 
@@ -119,5 +125,21 @@ public class ContratoResSupDetalle implements Serializable {
 
     public Integer getTdoId() {
         return tdoId;
+    }
+
+    public void setTipoSup(Integer tipoSup) {
+        this.tipoSup = tipoSup;
+    }
+
+    public Integer getTipoSup() {
+        return tipoSup;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
     }
 }
