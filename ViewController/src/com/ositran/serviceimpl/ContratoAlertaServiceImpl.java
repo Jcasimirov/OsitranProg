@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoAlertaDAOImpl;
 import com.ositran.model.ContratoAlerta;
 import com.ositran.service.ContratoAlertaService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoAlertaVO;
 
 import java.sql.SQLException;
@@ -71,6 +72,10 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlertaVO.setCalEstado(contratoAlerta.getCalEstado());
         contratoAlertaVO.setCalFechaFin(contratoAlerta.getCalFechaFin());
         contratoAlertaVO.setCalFechaInicio(contratoAlerta.getCalFechaInicio());
+        
+        contratoAlertaVO.setCalFechaFinDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAlerta.getCalFechaFin()));
+        contratoAlertaVO.setCalFechaInicioDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAlerta.getCalFechaInicio()));
+        
         contratoAlertaVO.setCalId(contratoAlerta.getCalId());
         contratoAlertaVO.setCalNombreconcesion(contratoAlerta.getCalNombreconcesion());
         contratoAlertaVO.setCalPlazo(contratoAlerta.getCalPlazo());
