@@ -15,5 +15,5 @@ public interface NotificacionDAO {
     public String NotificarInversion(InvAvn invAvn, ValorizacionNotificacion valorizacionNotificacion) throws SQLException;
     public List<InvAvn> obtenerDeclaracionesxIdContrato(int idcontrato) throws SQLException;
     public List<InvAvn> ListarDeclaracionesSupervContratoCompromiso(int contratoCompromisoId) throws SQLException;
-    public void updateRectificacion(InvAvn invAvn,List<InvReconocimiento> reconocimientoVO,List<InvReajuste> reajusteVO,Inv inv)throws SQLException;
+    public void updateRectificacion(InvAvn invAvn,List<InvReconocimiento> reconocimientoVO,List<InvReajuste> reajusteVO,Inv inv)throws Exception;
 }
