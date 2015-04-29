@@ -294,6 +294,11 @@ public class ActualizarContrato {
     private ContratoCompromisoVO idCompromisoEliminarI;
     private ContratoCompromisoVO idCompromisoEliminarS;
     private ContratoPenalidadVO idPenalidadEliminar;
+    
+    private String plazoCompromisoIndicado;
+    private String plazoCompromisoSupervisado;
+    private String unidadTiempo;
+    
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -1589,10 +1594,12 @@ public class ActualizarContrato {
                 contratoAlertaVO.setCalAeropuerto(nombAeropuerto);
                 contratoAlertaVO.setCalDiaPresentacion(diaPresAlerta);
                 contratoAlertaVO.setCalEstado(1);
-                contratoAlertaVO.setCalPlazo(plazoAlerta);
+
                 contratoAlertaVO.setCalFechaInicio(fechaIniAlerta);
                 contratoAlertaVO.setCalFechaFin(fechaFinAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
+                String concatenado=plazoAlerta+unidadTiempo;
+                contratoAlertaVO.setCalPlazo(concatenado);
                 /*AUDITORIA*/
                 Date fechaActual=new Date();
                 contratoAlertaVO.setCalFechaAlta(fechaActual);
@@ -1625,7 +1632,7 @@ public class ActualizarContrato {
         fechaIniAlerta = null;
         fechaFinAlerta = null;
         descAlerta = null;
-        
+        unidadTiempo="DIAS(S)";
     }
 
     public String getPlazoAlerta() {
@@ -2701,6 +2708,7 @@ public class ActualizarContrato {
             contratoNuevoCompromisoVO.setConId(contratoVO.getConId());
             incIgv=0;
         activaIGV=true;
+        plazoCompromisoIndicado="DIA(S)";
     }
     public void listarTipoInversion(){
         try {
@@ -2783,9 +2791,11 @@ public class ActualizarContrato {
     public void ejecutarCompromisoIndicado(){
         try {
             System.out.println("try grabarContratoCompromisoIndicado");
-            contratoNuevoCompromisoVO.setCcoTipoCambio(new BigDecimal("0.0"));
+            contratoNuevoCompromisoVO.setCcoTipoCambio(BigDecimal.ZERO);
             contratoNuevoCompromisoVO.setTccTipo(Constantes.SUPERVISADOXINDICACION);
             contratoNuevoCompromisoVO.setCcoEstado(1);
+            String concatenado=contratoNuevoCompromisoVO.getCcoPlazo()+" "+plazoCompromisoIndicado;
+            contratoNuevoCompromisoVO.setCcoPlazo(concatenado);
             if(incIgv==0){
                 contratoNuevoCompromisoVO.setCcoNeto(null);
                 contratoNuevoCompromisoVO.setCcoIgv(null);
@@ -2863,6 +2873,7 @@ public class ActualizarContrato {
             contratoNuevoCompromisoSupervisadoVO=new ContratoCompromisoVO();
             contratoNuevoCompromisoSupervisadoVO.setConId(contratoVO.getConId());
             incIgvSup=0;
+            plazoCompromisoSupervisado="DIA(S)";
     }
     
     public void actualizarTotalSup(AjaxBehaviorEvent event){
@@ -2935,8 +2946,9 @@ public class ActualizarContrato {
         try {
             contratoNuevoCompromisoSupervisadoVO.setTccTipo(Constantes.SUPERVISADOXOSITRAN);          
             contratoNuevoCompromisoSupervisadoVO.setCcoEstado(1);
-            //contratoNuevoCompromisoSupervisadoVO.setCcoTipoCambio(tipocambiosup);
             contratoNuevoCompromisoSupervisadoVO.setTivId(0);
+            String concatenado=contratoNuevoCompromisoSupervisadoVO.getCcoPlazo()+" "+plazoCompromisoSupervisado;
+            contratoNuevoCompromisoSupervisadoVO.setCcoPlazo(concatenado);
             if(incIgvSup==0){
                 contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
                 contratoNuevoCompromisoSupervisadoVO.setCcoIgv(null);
@@ -3335,5 +3347,30 @@ public class ActualizarContrato {
 
     public int getTipoInfraestructura() {
         return tipoInfraestructura;
+    }
+
+    public void setPlazoCompromisoIndicado(String plazoCompromisoIndicado) {
+        this.plazoCompromisoIndicado = plazoCompromisoIndicado;
+    }
+
+    public String getPlazoCompromisoIndicado() {
+        return plazoCompromisoIndicado;
+    }
+
+    public void setPlazoCompromisoSupervisado(String plazoCompromisoSupervisado) {
+        this.plazoCompromisoSupervisado = plazoCompromisoSupervisado;
+    }
+
+    public String getPlazoCompromisoSupervisado() {
+        return plazoCompromisoSupervisado;
+    }
+
+
+    public void setUnidadTiempo(String unidadTiempo) {
+        this.unidadTiempo = unidadTiempo;
+    }
+
+    public String getUnidadTiempo() {
+        return unidadTiempo;
     }
 }
