@@ -12,6 +12,8 @@ public class ContratoResSupDetalleVO {
     private Integer rsuId;
     private Integer tccTipo;
     private Integer tdoId;
+    private Integer tipoSup;
+    private Integer ccoId;
 
 
     public void setConId(Integer conId) {
@@ -78,5 +80,20 @@ public class ContratoResSupDetalleVO {
         return tdoId;
     }
 
+    public void setTipoSup(Integer tipoSup) {
+        this.tipoSup = tipoSup;
+    }
+
+    public Integer getTipoSup() {
+        return tipoSup;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
 
 }
