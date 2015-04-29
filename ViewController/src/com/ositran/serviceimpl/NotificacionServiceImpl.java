@@ -216,7 +216,7 @@ public class NotificacionServiceImpl implements NotificacionService{
 
 
     @Override
-    public void updateRectificacion(InvAvnVO invAvnvo,List<InvReconocimientoVO> reconocimientoVO,List<InvReajusteVO> reajusteVO,InvVO invVO)throws SQLException {
+    public void updateRectificacion(InvAvnVO invAvnvo,List<InvReconocimientoVO> reconocimientoVO,List<InvReajusteVO> reajusteVO,InvVO invVO)throws Exception {
      InvAvn invAvn=toInvAvn(invAvnvo);
      List<InvReajuste> invReajuste=invReajusteServiceImpl.toListInvReajuste(reajusteVO);
      List<InvReconocimiento> reconocimiento=invReconocimientoServiceImpl.toListInvReconocimiento(reconocimientoVO);
