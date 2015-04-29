@@ -2205,12 +2205,7 @@ public class ActualizarContrato {
                                                                                   "No ha ingresado el Docuemento"));
             } else {
                 try {
-                    //Date date = new Date();
-                    //DateFormat fechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
-                    //String convertido = fechaHora.format(date);
-                    //documentoCAO = "DOCUMENT_CAO_" + convertido;
-
-                    Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAPPO + documentoPpo,
+                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAPPO + documentoPpo,
                                                                     getContratoPpoVO().getFilePpo());
 
                 getContratoPpoVO().setConId(contratoVO.getConId());
@@ -2232,7 +2227,7 @@ public class ActualizarContrato {
                     contratoPpoVO.setPpoUsuarioAlta(usuario.getUsuAlias());
                     contratoPpoVO.setPpoTerminal(usuario.getUsuTerminal());
                     /*FIN AUDITORIA*/
-                getContratoPpoServiceImpl().insert(getContratoPpoVO());
+                    getContratoPpoServiceImpl().insert(getContratoPpoVO());
                     System.out.println("guardo ok");
 
                     cargarListaPpos(contratoVO.getConId());
