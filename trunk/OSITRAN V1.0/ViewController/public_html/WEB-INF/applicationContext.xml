@@ -708,4 +708,25 @@
         <property name="invTipoRevisionDAOImpl" ref="invTipoRevisionDAOImpl"/>
     </bean>
     
+     <!--Asignar Supervisión-->
+    <bean id="asignarResponsableSupDAOImpl" class="com.ositran.daoimpl.AsignarResponsableSupDAOImpl"/>
+    <bean id="asignarResponsableSupervisionServiceImpl" class="com.ositran.serviceimpl.AsignarResponsableSupervisionServiceImpl">
+        <property name="asignarResponsableSupDAOImpl" ref="asignarResponsableSupDAOImpl"/>
+    </bean>
+    
+    
+    <bean id="asiResSupAeropuerto" class="com.ositran.contratos.AsignarResponsableSupervisionAeropuertos">      
+        
+        
+        <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
+        <property name="contratoConcesionServiceImp" ref="contratoConcesionServiceImp"/>
+        <property name="concesionServicesImpl" ref="concesionServicesImpl"/>
+        <property name="supervisorInversionesServiceImpl" ref="supervisorInversionesServiceImpl"/>
+        <property name="supervisorInversionesVO" ref="supervisorInversionesVO"/>
+        <property name="empSupVO" ref="empSupVO"/>
+        <property name="empSupServiceImp" ref="empSupServiceImp"/>
+        <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>          
+
+    </bean>
+    
 </beans>
