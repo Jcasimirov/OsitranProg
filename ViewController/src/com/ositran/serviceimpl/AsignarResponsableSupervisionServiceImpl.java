@@ -28,8 +28,8 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
     }
 
     @Override
-    public List<ContratoResSupDetalleVO> query(int CodigoContrato) throws SQLException{
-        List<ContratoResSupDetalle> list=asignarResponsableSupDAOImpl.query(CodigoContrato);
+    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException{
+        List<ContratoResSupDetalle> list=asignarResponsableSupDAOImpl.ListarDetalle(codigoContrato,compromiso);
         List<ContratoResSupDetalleVO> listVO=toListContratoResSupDetalleVO(list);
         return listVO;
     }
@@ -137,6 +137,8 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         contratoResSupDetalleVO.setRsuId(contratoResSupDetalle.getRsuId());
         contratoResSupDetalleVO.setTccTipo(contratoResSupDetalle.getTccTipo());
         contratoResSupDetalleVO.setTdoId(contratoResSupDetalle.getTdoId());
+        contratoResSupDetalleVO.setTipoSup(contratoResSupDetalle.getTipoSup());
+        contratoResSupDetalleVO.setCcoId(contratoResSupDetalle.getCcoId());        
     
         return contratoResSupDetalleVO;
     }
@@ -152,13 +154,15 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         contratoResSupDetalle.setRsuId(contratoResSupDetalleVO.getRsuId());
         contratoResSupDetalle.setTccTipo(contratoResSupDetalleVO.getTccTipo());
         contratoResSupDetalle.setTdoId(contratoResSupDetalleVO.getTdoId());
+        contratoResSupDetalle.setTipoSup(contratoResSupDetalleVO.getTipoSup());
+        contratoResSupDetalle.setCcoId(contratoResSupDetalleVO.getCcoId());    
     
         return contratoResSupDetalle;
     }
     
     // Validar si Existe Concesion 
-    public ContratoRespSupVO ValidaCab(Integer concesion) throws SQLException{
-        ContratoRespSup contratoRespSup= asignarResponsableSupDAOImpl.ValidaCab(concesion);
+    public ContratoRespSupVO ValidaCab(Integer concesion, Integer compromiso) throws SQLException{
+        ContratoRespSup contratoRespSup= asignarResponsableSupDAOImpl.ValidaCab(concesion,compromiso);
         if(contratoRespSup != null){
             ContratoRespSupVO contratoRespSupVO=toContratoRespSupVO(contratoRespSup);
             return contratoRespSupVO;
@@ -167,8 +171,8 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
     }
     
     
-    public String ObtieneNombre(Integer tipoDoc, String NroDocumento) throws SQLException{
-        String nombre = asignarResponsableSupDAOImpl.ObtieneNombre(tipoDoc, NroDocumento);
+    public String ObtieneNombre(Integer tipoDoc, String NroDocumento,Integer tipoSup) throws SQLException{
+        String nombre = asignarResponsableSupDAOImpl.ObtieneNombre(tipoDoc, NroDocumento, tipoSup );
         return nombre;
     }
     
