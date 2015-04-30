@@ -77,7 +77,7 @@ public class NotificacionDAOImpl implements NotificacionDAO {
         System.out.println("tanaño de la listra:" + query.list().size());
         return query.list();
     }
-    public void updateRectificacion(InvAvn invAvn,List<InvReconocimiento> reconocimiento,List<InvReajuste> reajuste,Inv inv)throws SQLException{
+    public void updateRectificacion(InvAvn invAvn,List<InvReconocimiento> reconocimiento,List<InvReajuste> reajuste,Inv inv)throws Exception{
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
