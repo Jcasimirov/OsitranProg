@@ -2,6 +2,8 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -56,11 +58,11 @@ public class InvAvn implements Serializable {
     @Column(name = "TIA_HR", nullable = false)
     private Integer tiaHr;
     @Column(name = "TIA_MONTO_TOTAL_APROBADO")
-    private Long tiaMontoTotalAprobado;
+    private BigDecimal tiaMontoTotalAprobado;
     @Column(name = "TIA_MONTO_TOTAL_PRESENTADO")
-    private Long tiaMontoTotalPresentado;
+    private BigDecimal tiaMontoTotalPresentado;
     @Column(name = "TIA_MONTO_TOTAL_REAJUSTADO")
-    private Long tiaMontoTotalReajustado;
+    private BigDecimal tiaMontoTotalReajustado;
     @Id
     @GeneratedValue(generator = "generator")
     @Column(name = "TIA_NUMERO")
@@ -86,7 +88,7 @@ public class InvAvn implements Serializable {
     public InvAvn(Integer conId, Integer csiId, Integer iaeId, Integer invId, Integer mcoId,
                   Integer monId, Integer tiaAnyo, String tiaAsunto, Integer tiaDiasHabiles, Date tiaFechaFin,
                   Date tiaFechaInicio, Date tiaFechaRegistro, Date tiaFechaVencimientoPlazo, Integer tiaHr,
-                  Long tiaMontoTotalAprobado, Long tiaMontoTotalPresentado, Long tiaMontoTotalReajustado,
+                  BigDecimal tiaMontoTotalAprobado, BigDecimal tiaMontoTotalPresentado, BigDecimal tiaMontoTotalReajustado,
                   Integer tiaNumero, Integer tiaPlazoEnDías, Integer tinId, Integer tiaAprobadoPor, String tiaRutaNot) {
         this.conId = conId;
         this.csiId = csiId;
@@ -225,27 +227,27 @@ public class InvAvn implements Serializable {
         return tiaHr;
     }
 
-    public void setTiaMontoTotalAprobado(Long tiaMontoTotalAprobado) {
+    public void setTiaMontoTotalAprobado(BigDecimal tiaMontoTotalAprobado) {
         this.tiaMontoTotalAprobado = tiaMontoTotalAprobado;
     }
 
-    public Long getTiaMontoTotalAprobado() {
+    public BigDecimal getTiaMontoTotalAprobado() {
         return tiaMontoTotalAprobado;
     }
 
-    public void setTiaMontoTotalPresentado(Long tiaMontoTotalPresentado) {
+    public void setTiaMontoTotalPresentado(BigDecimal tiaMontoTotalPresentado) {
         this.tiaMontoTotalPresentado = tiaMontoTotalPresentado;
     }
 
-    public Long getTiaMontoTotalPresentado() {
+    public BigDecimal getTiaMontoTotalPresentado() {
         return tiaMontoTotalPresentado;
     }
 
-    public void setTiaMontoTotalReajustado(Long tiaMontoTotalReajustado) {
+    public void setTiaMontoTotalReajustado(BigDecimal tiaMontoTotalReajustado) {
         this.tiaMontoTotalReajustado = tiaMontoTotalReajustado;
     }
 
-    public Long getTiaMontoTotalReajustado() {
+    public BigDecimal getTiaMontoTotalReajustado() {
         return tiaMontoTotalReajustado;
     }
 
