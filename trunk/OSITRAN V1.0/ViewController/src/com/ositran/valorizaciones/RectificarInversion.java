@@ -665,8 +665,10 @@ public class RectificarInversion {
     }
 
     public void grabarReconocimiento(ActionEvent e) {
-        Integer idreconocimiento = (Integer) e.getComponent().getAttributes().get("reconocimiento");
-        BigDecimal montoAprobado = new BigDecimal("" + e.getComponent().getAttributes().get("montoAprobado"));
+        InvReconocimientoVO rec = (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
+        Integer idreconocimiento=rec.getIreId();
+        BigDecimal montoAprobado = rec.getIvrMontoAprobado();
+        BigDecimal montoPresentado = rec.getIvrMontoPresentado();
         if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
@@ -675,7 +677,11 @@ public class RectificarInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Monto no puede ser Negativo"));
-        } else {
+        }else if (montoAprobado.compareTo(montoPresentado) > 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "El Monto Aprobado no puede ser Mayor al Monto Presentado"));
+        }else {
             try {
                 for (InvReconocimientoVO invReconocimientoVO : listaReconocimiento) {
                     if (idreconocimiento == invReconocimientoVO.getIreId()) {
@@ -709,8 +715,11 @@ public class RectificarInversion {
     }
 
     public void grabarReajuste(ActionEvent e) {
-        Integer idreajuste = (Integer) e.getComponent().getAttributes().get("idreajuste");
-        BigDecimal montoReajuste = new BigDecimal("" + e.getComponent().getAttributes().get("montoReajuste"));
+        
+        InvReajusteVO rea = (InvReajusteVO) e.getComponent().getAttributes().get("reajuste");
+        Integer idreajuste=rea.getIrjId();
+        BigDecimal montoReajuste = rea.getIrjMontoReajuste();
+        BigDecimal montoAprobado = rea.getIrjMontoAprobado();
         if (montoReajuste.compareTo(BigDecimal.ZERO) == 0 || montoReajuste.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
@@ -719,6 +728,10 @@ public class RectificarInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Monto no puede ser Negativo"));
+        } else if (montoReajuste.compareTo(montoAprobado) > 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "El Monto Reajustado no puede ser Mayor al Monto Aprobado"));
         } else {
             try {
                 for (InvReajusteVO invReconocimientoVO : listaReajuste) {
