@@ -198,11 +198,10 @@
                                 <h:outputText value="Monto Aprobado"/>
                                 <p:inputText value="#{rectificarInversion.invReconocimientoVO.ivrMontoAprobado}" onkeypress="return ValidarNumFloat(event,this);"/>
                                 <p:commandButton value="#{btn.btn_aceptar}"
-                                                 actionListener="#{rectificarInversion.grabarReconocimiento}">
+                                                 actionListener="#{rectificarInversion.grabarReconocimiento}" update=":form:mensaje">
                                     <f:attribute name="reconocimiento"
-                                                 value="#{rectificarInversion.invReconocimientoVO.ireId}"/>
-                                    <f:attribute name="montoAprobado"
-                                                 value="#{rectificarInversion.invReconocimientoVO.ivrMontoAprobado}"/>
+                                                 value="#{rectificarInversion.invReconocimientoVO}"/>
+                                    
                                 </p:commandButton>
                                 <p:commandButton value="#{btn.btn_salir}" onclick="_dlgReconocimiento.hide();"></p:commandButton>
                             </p:panelGrid>
@@ -219,10 +218,9 @@
                                 <h:outputText value="Monto Aprobado"/>
                                 <p:inputText value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}" onkeypress="return ValidarNumFloat(event,this);"/>
                                 <p:commandButton value="#{btn.btn_aceptar}"
-                                                 actionListener="#{rectificarInversion.grabarReajuste}">
-                                    <f:attribute name="idreajuste" value="#{rectificarInversion.invReajusteVO.irjId}"/>
-                                    <f:attribute name="montoReajuste"
-                                                 value="#{rectificarInversion.invReajusteVO.irjMontoReajuste}"/>
+                                                 actionListener="#{rectificarInversion.grabarReajuste}" update=":form:mensaje">                                  
+                                    <f:attribute name="reajuste"
+                                                 value="#{rectificarInversion.invReajusteVO}"/>
                                 </p:commandButton>
                                 <p:commandButton value="#{btn.btn_salir}" onclick="_dlgRejuste.hide();"></p:commandButton>
                             </p:panelGrid>
@@ -234,7 +232,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <table align="left">
+                                    <table align="top">
                                         <tr>
                                             <td align="left">
                                                 <p:fieldset legend="Criterios de Busqueda">
@@ -570,11 +568,11 @@
                                                                         <tr>
                                                                             <td>Monto Total Aprobado</td>
                                                                             <td>
-                                                                                <p:inputText id="resumenMonPre" value="#{rectificarInversion.totalivrMontoAprobadoI}" readonly="true" disabled="#{rectificarInversion.deshabilitadoxObservado}"/>
+                                                                                <p:inputText id="resumenMonPre" value="#{rectificarInversion.invVO.invMontoTotalAprobado}" readonly="true" disabled="#{rectificarInversion.deshabilitadoxObservado}"/>
                                                                             </td>
                                                                             <td>Monto Total con Reajuste</td>
                                                                             <td>
-                                                                                <p:inputText id="resumenMonRea" value="#{rectificarInversion.totalirjMontoReajusteI}" readonly="true" disabled="#{rectificarInversion.deshabilitadoxObservado}"/>
+                                                                                <p:inputText id="resumenMonRea" value="#{rectificarInversion.invVO.invMontoTotalReajuste}" readonly="true" disabled="#{rectificarInversion.deshabilitadoxObservado}"/>
                                                                             </td>
                                                                             <td>Montos con IGV?</td>
                                                                             <td>
