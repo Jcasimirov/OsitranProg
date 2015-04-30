@@ -559,7 +559,7 @@ public class RectificarInversion {
         try {
 
             listaReajuste = invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
-            calcularTotalesReajuste(listaReajuste);
+            calcularTotalesResumen(listaReajuste);
             cargarDescripcionesInfraestructura(listaReajuste);
             cargarDescripcionesMonedas(listaReajuste);
             cargarDescripcionesConcepto(listaReajuste);
@@ -570,11 +570,11 @@ public class RectificarInversion {
         }
     }
 
-    public void calcularTotalesReajuste(List<InvReajusteVO> listaReajuste) {
+    public void calcularTotalesResumen(List<InvReajusteVO> listaReajuste) {
         setTotalirjMontoAprobado(BigDecimal.ZERO);
         setTotalirjMontoReajuste(BigDecimal.ZERO);
-        setTotalivrMontoAprobadoI(BigDecimal.ZERO);
-        setTotalirjMontoReajusteI(BigDecimal.ZERO);
+        invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
+        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
         for (InvReajusteVO invReajuste : listaReajuste) {
             if (invReajuste.getIrjMontoAprobado() != null) {
                 totalirjMontoAprobado = totalirjMontoAprobado.add(invReajuste.getIrjMontoAprobado());
@@ -584,8 +584,8 @@ public class RectificarInversion {
                 totalirjMontoReajuste = totalirjMontoReajuste.add(invReajuste.getIrjMontoReajuste());
             }
         }
-        setTotalivrMontoAprobadoI(totalirjMontoAprobado);
-        setTotalirjMontoReajusteI(totalirjMontoReajuste);
+        invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
+        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
     }
 
     public void cargarDescripcionesInfraestructura(List<?> lista) {
@@ -694,7 +694,7 @@ public class RectificarInversion {
                         invReconocimientoVO.setIrjMontoAprobado(montoAprobado);
                     }
                 }
-                calcularTotalesReajuste(listaReajuste);              
+                calcularTotalesResumen(listaReajuste);              
                 RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
                 RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
@@ -739,7 +739,7 @@ public class RectificarInversion {
                         invReconocimientoVO.setIrjMontoReajuste(montoReajuste);
                     }
                 }
-                calcularTotalesReajuste(listaReajuste);
+                calcularTotalesResumen(listaReajuste);
                 RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
                 RequestContext.getCurrentInstance().update("form:resumenMonRea");
@@ -757,7 +757,7 @@ public class RectificarInversion {
         if (estadoReconocimiento == 2) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
-            calcularTotalesReajuste(listaReajuste);
+            calcularTotalesResumen(listaReajuste);
             calcularTotalesReconocimiento(listaReconocimiento);
                 
         } else {
