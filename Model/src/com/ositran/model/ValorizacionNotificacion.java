@@ -69,9 +69,9 @@ public class ValorizacionNotificacion implements Serializable {
     @Column(name = "VAN_TERMINAL", length = 20)
     private String vanTerminal;
     @Column(name = "VAN_TOTAL_PRESENTADO", nullable = false)
-    private Long vanTotalPresentado;
+    private BigDecimal vanTotalPresentado;
     @Column(name = "VAN_TOTAL_RECONOCIDO", nullable = false)
-    private Long vanTotalReconocido;
+    private BigDecimal vanTotalReconocido;
     @Column(name = "VAN_USUARIO_ALTA", length = 20)
     private String vanUsuarioAlta;
     @Column(name = "VAN_USUARIO_BAJA", length = 20)
@@ -87,7 +87,7 @@ public class ValorizacionNotificacion implements Serializable {
                                     Integer vanEstado, Date vanFechaAlta, Date vanFechaBaja, Date vanFechaCambio,
                                     Date vanFechaNotificacion, Date vanFechaRegistro, Integer vanId,
                                     String vanNroCargo, Integer vanNroHr, String vanTerminal,
-                                    Long vanTotalPresentado, Long vanTotalReconocido, String vanUsuarioAlta,
+                                    BigDecimal vanTotalPresentado, BigDecimal vanTotalReconocido, String vanUsuarioAlta,
                                     String vanUsuarioBaja, String vanUsuarioCambio) {
         this.itrId = itrId;
         this.monId = monId;
@@ -249,19 +249,19 @@ public class ValorizacionNotificacion implements Serializable {
         return vanTerminal;
     }
 
-    public void setVanTotalPresentado(Long vanTotalPresentado) {
+    public void setVanTotalPresentado(BigDecimal vanTotalPresentado) {
         this.vanTotalPresentado = vanTotalPresentado;
     }
 
-    public Long getVanTotalPresentado() {
+    public BigDecimal getVanTotalPresentado() {
         return vanTotalPresentado;
     }
 
-    public void setVanTotalReconocido(Long vanTotalReconocido) {
+    public void setVanTotalReconocido(BigDecimal vanTotalReconocido) {
         this.vanTotalReconocido = vanTotalReconocido;
     }
 
-    public Long getVanTotalReconocido() {
+    public BigDecimal getVanTotalReconocido() {
         return vanTotalReconocido;
     }
 
