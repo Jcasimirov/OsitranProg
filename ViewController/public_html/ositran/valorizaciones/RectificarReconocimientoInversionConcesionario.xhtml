@@ -232,14 +232,14 @@
                         <table>
                             <tr>
                                 <td>
-                                    <table align="top">
+                                    <table >
                                         <tr>
-                                            <td align="left">
-                                                <p:fieldset legend="Criterios de Busqueda">
-                                                    <p:inputText id="cb" style="width:200px;"
+                                            <td valign="top">
+                                                <p:fieldset legend="Criterios de Busqueda" >
+                                                    <p:inputText id="cb" style="width:200px;float:left;position:relative;"
                                                                  value="#{rectificarInversion.nombreConcesion}"/>
                                                     <p:watermark for="cb" value="Buscar Contrato Concesión"/>
-                                                    <p:commandButton image="ui-icon-search" id="btnBuscarContrato"
+                                                    <p:commandButton image="ui-icon-search" id="btnBuscarContrato" style="float:left;position:relative;"
                                                                      actionListener="#{rectificarInversion.abrirBuscarContratos()}"
                                                                      update=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
                                                                      oncomplete="popupBuscarContrato.show();" rendered="#{rectificarInversion.rolOpcion.troConsultar eq 1}">
