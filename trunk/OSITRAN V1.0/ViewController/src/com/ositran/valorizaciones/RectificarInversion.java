@@ -186,8 +186,7 @@ public class RectificarInversion {
     private InvReajusteVO invReajusteVO;
     private boolean renderMostrarIGV = false;
     private BigDecimal igv = BigDecimal.ZERO;
-    private BigDecimal totalivrMontoAprobadoI = BigDecimal.ZERO;
-    private BigDecimal totalirjMontoReajusteI = BigDecimal.ZERO;
+
 
     private int estadoReconocimiento;
     private boolean deshabilitadoxObservado;
@@ -206,7 +205,7 @@ public class RectificarInversion {
         super();
 
     }
-    public void cargarInvxTiaNumero(int numeroInversion,int tianumero){
+    public void cargarInversionesInvxTiaNumero(int numeroInversion,int tianumero){
         try {
             invVO=invServiceImpl.obtenerInversion(numeroInversion,tianumero);
         } catch (SQLException sqle) {
@@ -292,7 +291,7 @@ public class RectificarInversion {
             e.printStackTrace();
         }
     }
-    public void obtenerDeatalleInvAvn(int tiaNumero){
+    public void obtenerDeatalleInversionAvanceInvAvn(int tiaNumero){
         try {
             listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
             System.out.println("####################listaValorizacionInversionAvanceDetalleVO:"+listaValorizacionInversionAvanceDetalleVO.size());
@@ -408,8 +407,8 @@ public class RectificarInversion {
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
         System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-        cargarInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
-        obtenerDeatalleInvAvn(invAvnVO.getTiaNumero());
+        cargarInversionesInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
+        obtenerDeatalleInversionAvanceInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
@@ -419,7 +418,7 @@ public class RectificarInversion {
         resetCamposIGV();
     }
     public void resetCamposIGV(){
-        renderMostrarIGV=false;
+        renderMostrarIGV=invVO.getInvIgv()==1?true:false;;
         igv=BigDecimal.ZERO;
         
     }
@@ -446,10 +445,10 @@ public class RectificarInversion {
                     invVO.setInvEstadoReconocimiento(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
                 }
                 System.out.println("GUARDADO : invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-                 invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
-                 invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI); 
+
                 notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
                 listarDeclaraciones(contratoVO.getConId());
+                reseteaCampos();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                               Constantes.GRABARMENSAJESATISFACTORIO));  
@@ -461,14 +460,14 @@ public class RectificarInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           Constantes.ERRORGUARDAR));
-        }finally{
-            invVO=new InvVO();
-             invAvnVO=new InvAvnVO(); 
-            listaReconocimiento=new ArrayList<InvReconocimientoVO>();
-            listaReajuste=new ArrayList<InvReajusteVO>();
-            totalivrMontoAprobadoI=BigDecimal.ZERO;
-            totalirjMontoReajusteI=BigDecimal.ZERO;
         }
+    }
+    public void reseteaCampos(){
+        invVO=new InvVO();
+        invAvnVO=new InvAvnVO(); 
+        listaReconocimiento=new ArrayList<InvReconocimientoVO>();
+        listaReajuste=new ArrayList<InvReajusteVO>();
+
     }
     public void cargarDatosCompromiso(int ccoId) {
         try {
@@ -569,7 +568,32 @@ public class RectificarInversion {
             sqle.printStackTrace();
         }
     }
+    public void deshabilitarxObservado() {
+        if (estadoReconocimiento == 2) {
+            deshabilitadoxObservado = true;
+            resetCamposIGV();
+            calcularTotalesResumen(listaReajuste);
+            calcularTotalesReconocimiento(listaReconocimiento);
+                
+        } else {
+            deshabilitadoxObservado = false;
+        }
+    }
 
+    public void resetMontosconIGV() {
+        if (!renderMostrarIGV) {
+            invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
+            invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
+            setIgv(BigDecimal.ZERO);
+        }
+    }
+
+    public void calularMontosconIGV() {
+        invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
+        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
+        invVO.setInvMontoTotalAprobado(invVO.getInvMontoTotalAprobado().add(igv.multiply(invVO.getInvMontoTotalAprobado())));
+        invVO.setInvMontoTotalReajuste(invVO.getInvMontoTotalReajuste().add(igv.multiply(invVO.getInvMontoTotalReajuste())));
+    }
     public void calcularTotalesResumen(List<InvReajusteVO> listaReajuste) {
         setTotalirjMontoAprobado(BigDecimal.ZERO);
         setTotalirjMontoReajuste(BigDecimal.ZERO);
@@ -753,32 +777,7 @@ public class RectificarInversion {
         }
     }
 
-    public void deshabilitarxObservado() {
-        if (estadoReconocimiento == 2) {
-            deshabilitadoxObservado = true;
-            resetCamposIGV();
-            calcularTotalesResumen(listaReajuste);
-            calcularTotalesReconocimiento(listaReconocimiento);
-                
-        } else {
-            deshabilitadoxObservado = false;
-        }
-    }
-
-    public void resetIGV() {
-        if (!renderMostrarIGV) {
-            setTotalivrMontoAprobadoI(totalivrMontoAprobado);
-            setTotalirjMontoReajusteI(totalirjMontoReajuste);
-            setIgv(BigDecimal.ZERO);
-        }
-    }
-
-    public void calularMontosconIGV() {
-        setTotalivrMontoAprobadoI(totalivrMontoAprobado);
-        setTotalirjMontoReajusteI(totalirjMontoReajuste);
-        totalivrMontoAprobadoI = totalivrMontoAprobadoI.add(igv.multiply(totalivrMontoAprobadoI));
-        totalirjMontoReajusteI = totalirjMontoReajusteI.add(igv.multiply(totalirjMontoReajusteI));
-    }
+   
 
     public void setContratoId(Integer contratoId) {
         this.contratoId = contratoId;
@@ -1272,22 +1271,6 @@ public class RectificarInversion {
 
     public BigDecimal getIgv() {
         return igv;
-    }
-
-    public void setTotalivrMontoAprobadoI(BigDecimal totalivrMontoAprobadoI) {
-        this.totalivrMontoAprobadoI = totalivrMontoAprobadoI;
-    }
-
-    public BigDecimal getTotalivrMontoAprobadoI() {
-        return totalivrMontoAprobadoI;
-    }
-
-    public void setTotalirjMontoReajusteI(BigDecimal totalirjMontoReajusteI) {
-        this.totalirjMontoReajusteI = totalirjMontoReajusteI;
-    }
-
-    public BigDecimal getTotalirjMontoReajusteI() {
-        return totalirjMontoReajusteI;
     }
 
     public void setInvVO(InvVO invVO) {
