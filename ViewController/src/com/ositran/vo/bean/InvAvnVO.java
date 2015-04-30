@@ -25,9 +25,9 @@ public class InvAvnVO{
     private String tiaFechaRegistroDescripcion;
     private Date tiaFechaVencimientoPlazo;
     private Integer tiaHr;
-    private Long tiaMontoTotalAprobado;
-    private Long tiaMontoTotalPresentado;
-    private Long tiaMontoTotalReajustado;
+    private BigDecimal tiaMontoTotalAprobado;
+    private BigDecimal tiaMontoTotalPresentado;
+    private BigDecimal tiaMontoTotalReajustado;
     private int tiaNumero;
     private Integer tiaPlazoEnDías;
     private Integer tinId;
@@ -179,27 +179,27 @@ public class InvAvnVO{
         return tiaHr;
     }
 
-    public void setTiaMontoTotalAprobado(Long tiaMontoTotalAprobado) {
+    public void setTiaMontoTotalAprobado(BigDecimal tiaMontoTotalAprobado) {
         this.tiaMontoTotalAprobado = tiaMontoTotalAprobado;
     }
 
-    public Long getTiaMontoTotalAprobado() {
+    public BigDecimal getTiaMontoTotalAprobado() {
         return tiaMontoTotalAprobado;
     }
 
-    public void setTiaMontoTotalPresentado(Long tiaMontoTotalPresentado) {
+    public void setTiaMontoTotalPresentado(BigDecimal tiaMontoTotalPresentado) {
         this.tiaMontoTotalPresentado = tiaMontoTotalPresentado;
     }
 
-    public Long getTiaMontoTotalPresentado() {
+    public BigDecimal getTiaMontoTotalPresentado() {
         return tiaMontoTotalPresentado;
     }
 
-    public void setTiaMontoTotalReajustado(Long tiaMontoTotalReajustado) {
+    public void setTiaMontoTotalReajustado(BigDecimal tiaMontoTotalReajustado) {
         this.tiaMontoTotalReajustado = tiaMontoTotalReajustado;
     }
 
-    public Long getTiaMontoTotalReajustado() {
+    public BigDecimal getTiaMontoTotalReajustado() {
         return tiaMontoTotalReajustado;
     }
 
