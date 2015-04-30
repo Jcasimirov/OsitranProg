@@ -1,6 +1,8 @@
 package com.ositran.vo.bean;
 
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 public class ValorizacionNotificacionVO{
@@ -22,8 +24,8 @@ public class ValorizacionNotificacionVO{
     private String vanNroCargo;
     private Integer vanNroHr;
     private String vanTerminal;
-    private Long vanTotalPresentado;
-    private Long vanTotalReconocido;
+    private BigDecimal vanTotalPresentado;
+    private BigDecimal vanTotalReconocido;
     private String vanUsuarioAlta;
     private String vanUsuarioBaja;
     private String vanUsuarioCambio;
@@ -168,19 +170,19 @@ public class ValorizacionNotificacionVO{
         return vanTerminal;
     }
 
-    public void setVanTotalPresentado(Long vanTotalPresentado) {
+    public void setVanTotalPresentado(BigDecimal vanTotalPresentado) {
         this.vanTotalPresentado = vanTotalPresentado;
     }
 
-    public Long getVanTotalPresentado() {
+    public BigDecimal getVanTotalPresentado() {
         return vanTotalPresentado;
     }
 
-    public void setVanTotalReconocido(Long vanTotalReconocido) {
+    public void setVanTotalReconocido(BigDecimal vanTotalReconocido) {
         this.vanTotalReconocido = vanTotalReconocido;
     }
 
-    public Long getVanTotalReconocido() {
+    public BigDecimal getVanTotalReconocido() {
         return vanTotalReconocido;
     }
 
