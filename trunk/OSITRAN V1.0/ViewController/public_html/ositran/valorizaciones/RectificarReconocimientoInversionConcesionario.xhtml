@@ -577,7 +577,7 @@
                                                                             <td>Montos con IGV?</td>
                                                                             <td>
                                                                                 <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}" disabled="#{rectificarInversion.deshabilitadoxObservado}">
-                                                                                <p:ajax listener="#{rectificarInversion.resetIGV()}" update="form"/>
+                                                                                <p:ajax listener="#{rectificarInversion.resetMontosconIGV()}" update="form"/>
                                                                                 </p:selectBooleanCheckbox>                                                                              
                                                                             </td>
                                                                              <td><h:outputText value="IGV" rendered="#{rectificarInversion.renderMostrarIGV}"/></td>
