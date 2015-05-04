@@ -27,7 +27,7 @@
         <p:layoutUnit position="center"   style="border:0px">  
         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center">
-                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                    <h5 class="titulo5">
                                 #{msg.tituloAJAC}
                     </h5>
             </div>
@@ -137,17 +137,30 @@
                                     <p:column headerText="Jefe Area" >
                                         <h:outputText value="#{jefearea1.nombreJefeArea}"/>
                                     </p:column>
-                                     <p:column headerText="Documento" >
+                                     <p:column headerText="Documento" style="width:60px" >
                                         <h:outputText value="#{jefearea1.cjaNroDocumento}"/>
                                     </p:column>
-                                    <p:column headerText="Estado" style="width:60px">
+                                    <p:column headerText="Fec Inicio" style="width:60px">
                                     <div align="center">
+                                         <h:outputText value="#{jefearea1.cjaFechaInicial}"/>
+                                         </div >
+                                    </p:column>
+                                     <p:column headerText="Fec Fin" style="width:60px">
+                                    <div align="center">
+                                         <h:outputText value="#{jefearea1.cjaFechaFinal}"/>
+                                         </div >
+                                    </p:column>
+                                     <p:column headerText="Estado" style="width:50px">
+                                    <div align="center" style="font-size: 9px;font-weight: bold;">
                                          <h:outputText value="#{jefearea1.estadoDes}"/>
                                          </div >
                                     </p:column>
                                      <p:column headerText="Baja"   style="width:4%">
                                      <div align="center">
-                                        <p:commandButton rendered="#{jefearea1.cjaEstado eq 1}" update=":form:tablaAJ"  actionListener="#{jefeAreaContratoConcecionMB.desabilitar(jefearea1.cjaId)}" image="ui-icon-arrowstop-1-s"  styleClass="controles" />
+                                        <p:commandButton rendered="#{jefearea1.cjaEstado eq 1}" update=":form:tablaAJ" 
+                                        actionListener="#{jefeAreaContratoConcecionMB.desabilitar(jefearea1.cjaId)}" 
+                                        image="ui-icon-arrowstop-1-s"  styleClass="controles" />
+                                   
                                          </div >
                                     </p:column>
                                 </p:dataTable>
