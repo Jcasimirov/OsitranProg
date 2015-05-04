@@ -74,7 +74,7 @@ public class PeriodoServiceImpl implements PeriodoService {
         PeriodoVO periodoVO=new PeriodoVO();
         
         periodoVO.setPerId(periodo.getPerId());
-        periodoVO.setPerCantidadendías(periodo.getPerCantidadendías());
+        periodoVO.setPerCantidadendias(periodo.getPerCantidadendias());
         periodoVO.setPerDescripcion(periodo.getPerDescripcion());
         periodoVO.setPerNombre(periodo.getPerNombre());
     
@@ -85,7 +85,7 @@ public class PeriodoServiceImpl implements PeriodoService {
         Periodo periodo=new Periodo();
         
         periodo.setPerId(periodoVO.getPerId());
-        periodo.setPerCantidadendías(periodoVO.getPerCantidadendías());
+        periodo.setPerCantidadendías(periodoVO.getPerCantidadendias());
         periodo.setPerDescripcion(periodoVO.getPerDescripcion());
         periodo.setPerNombre(periodoVO.getPerNombre());
 
