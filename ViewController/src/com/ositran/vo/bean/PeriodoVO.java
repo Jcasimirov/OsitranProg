@@ -1,22 +1,24 @@
 package com.ositran.vo.bean;
+
+
 public class PeriodoVO {
     public PeriodoVO() {
         super();
     }
     
 
-    private Integer perCantidadendías;
+    private Integer perCantidadendias;
     private String perDescripcion;
     private Integer perId;
     private String perNombre;
 
 
-    public Integer getPerCantidadendías() {
-        return perCantidadendías;
+    public Integer getPerCantidadendias() {
+        return perCantidadendias;
     }
 
-    public void setPerCantidadendías(Integer perCantidadendías) {
-        this.perCantidadendías = perCantidadendías;
+    public void setPerCantidadendias(Integer perCantidadendias) {
+        this.perCantidadendias = perCantidadendias;
     }
 
     public String getPerDescripcion() {
