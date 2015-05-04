@@ -18,7 +18,7 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</h5>
+                            <h5 class="titulo5" >MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</h5>
                             <div style="width:80%" align="center">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
@@ -70,14 +70,14 @@
                                     <p:column headerText="Descripción">
                                         <h:outputText value="#{inversionDes.itdDescripcion}"/>
                                     </p:column>
-<<<<<<< .mine
+
                                     <p:column headerText="Tipo Inversión">
                                         <h:outputText value="#{inversionDes.nombreTI}"/>
                                     </p:column>
+
                                     <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:4%">
-=======
-                                    <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:4%">
->>>>>>> .r2034
+
+
                                         <div align="center">
                                         <p:commandButton  image="ui-icon-pencil" update=":form:editarPanel :form:nombreAntiguo"
                                                          oncomplete="editarPanel.show()"
