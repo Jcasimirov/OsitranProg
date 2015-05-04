@@ -23,12 +23,12 @@ public class DerivarReconocimientoSupervisor implements Serializable {
     private static final Long serialVersionUID = -2681439446291471079L;
     @Column(name = "CSI_ID")
     private int csiId;
-    @Column(name = "IAD_ANYO", nullable = false)
-    private Integer iadAnyo;
-    @Column(name = "IAD_ASUNTO", nullable = false)
+    @Column(name = "IAD_ANYO")
+    private int iadAnyo;
+    @Column(name = "IAD_ASUNTO")
     private String iadAsunto;
-    @Column(name = "IAD_DIAS_HABILES", nullable = false)
-    private Integer iadDiasHabiles;
+    @Column(name = "IAD_DIAS_HABILES")
+    private int iadDiasHabiles;
     @Temporal(TemporalType.DATE)
     @Column(name = "IAD_FECHA_EMISIÓN")
     private Date iadFechaEmisión;
@@ -59,7 +59,7 @@ public class DerivarReconocimientoSupervisor implements Serializable {
     @Column(name = "IAD_NUMERO", nullable = false)
     private int iadNumero;
     @Column(name = "IAD_PLAZO_DÍAS", nullable = false)
-    private Integer iadPlazoDías;
+    private int iadPlazoDías;
     @Column(name = "IAD_PLAZO_EN_DÍAS", nullable = false)
     private double iadPlazoEnDías;
     @Column(name = "IAD_REG_SALIDA", length = 20)
@@ -97,10 +97,10 @@ public class DerivarReconocimientoSupervisor implements Serializable {
     public DerivarReconocimientoSupervisor() {
     }
 
-    public DerivarReconocimientoSupervisor(int csiId, Integer iadAnyo, String iadAsunto, Integer iadDiasHabiles,
+    public DerivarReconocimientoSupervisor(int csiId, int iadAnyo, String iadAsunto, int iadDiasHabiles,
                            Date iadFechaEmisión, Date iadFechaFin, Date iadFechaInicio, Date iadFechaRecepción,
                            Date iadFechaRegistro, Date iadFechaRespuesta, Date iadFechaVencimiento, int iadHr,
-                           String iadNroCarta, int iadNumero, Integer iadPlazoDías, double iadPlazoEnDías,
+                           String iadNroCarta, int iadNumero, int iadPlazoDías, double iadPlazoEnDías,
                            String iadRegSalida, int iadTipoDías, int iasEstado, Date iasFechaAlta,
                            Date iasFechaBaja, Date iasFechaCambio, String iasTerminal, String iasUsuarioAlta,
                            String iasUsuarioBaja, String iasUsuarioCambio, int invId, int mcoId,
@@ -145,11 +145,11 @@ public class DerivarReconocimientoSupervisor implements Serializable {
         this.csiId = csiId;
     }
 
-    public Integer getIadAnyo() {
+    public int getIadAnyo() {
         return iadAnyo;
     }
 
-    public void setIadAnyo(Integer iadAnyo) {
+    public void setIadAnyo(int iadAnyo) {
         this.iadAnyo = iadAnyo;
     }
 
@@ -161,11 +161,11 @@ public class DerivarReconocimientoSupervisor implements Serializable {
         this.iadAsunto = iadAsunto;
     }
 
-    public Integer getIadDiasHabiles() {
+    public int getIadDiasHabiles() {
         return iadDiasHabiles;
     }
 
-    public void setIadDiasHabiles(Integer iadDiasHabiles) {
+    public void setIadDiasHabiles(int iadDiasHabiles) {
         this.iadDiasHabiles = iadDiasHabiles;
     }
 
@@ -249,11 +249,11 @@ public class DerivarReconocimientoSupervisor implements Serializable {
         this.iadNumero = iadNumero;
     }
 
-    public Integer getIadPlazoDías() {
+    public int getIadPlazoDías() {
         return iadPlazoDías;
     }
 
-    public void setIadPlazoDías(Integer iadPlazoDías) {
+    public void setIadPlazoDías(int iadPlazoDías) {
         this.iadPlazoDías = iadPlazoDías;
     }
 
