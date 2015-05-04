@@ -3,6 +3,8 @@ package com.ositran.service;
 
 import com.ositran.vo.bean.SupervisorInversionesVO;
 
+import com.ositran.vo.bean.TipoInversionVO;
+
 import java.sql.SQLException;
 
 import java.util.List;
