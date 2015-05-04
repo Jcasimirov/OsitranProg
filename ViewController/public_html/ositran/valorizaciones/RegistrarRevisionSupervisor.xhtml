@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+           <script src="../../js/validaciones.js" type="text/javascript"></script>
             </h:head>
     <h:body>    
     <f:event listener="#{registrarRevisionSupervisorMB.cargarMoneda()}" type="postAddToView"></f:event>
@@ -12,7 +13,7 @@
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
-            <ui:include src="/ositran/util/menu.xhtml"/>
+            <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
             <div align="center" ><h5 class="titulo5">REGISTRAR REVISION SUPERVISOR</h5></div>
 		<table style="font-size: 11px">
@@ -44,25 +45,7 @@
                                                  <td colspan="3"><p:inputTextarea  value="#{registrarRevisionSupervisorMB.asunto}"  style="width:97%;height:25px" /></td>
                                                   
                                             </tr>
-                                             <tr>
-                                                <td class="negrita">Plazo:</td>
-                                                <td><p:inputText value="#{registrarRevisionSupervisorMB.plazo}"  style="width:70px" /></td>
-                                                 <td>
-                                                    <table style="font-size:9px;width:100%">
-                                                            <tr>
-                                                                <td><p:selectBooleanCheckbox  value="#{registrarRevisionSupervisorMB.diasCalendario}" id="diasCalendario">
-                                                                     <p:ajax update=":form:diasHabiles" listener="#{registrarRevisionSupervisorMB.desDiasHabiles}"/>
-                                                                </p:selectBooleanCheckbox  > Calendarios</td>
-                                                            </tr>
-                                                             <tr>
-                                                                <td><p:selectBooleanCheckbox value="#{registrarRevisionSupervisorMB.diasHabiles}" id="diasHabiles" >
-                                                                 <p:ajax update=":form:diasCalendario" listener="#{registrarRevisionSupervisorMB.desDiasCalendario}"/>
-                                                                </p:selectBooleanCheckbox> Habiles</td>
-                                                            </tr>
-                                                    </table>
-                                                 </td>
-                                                <td >Vencimiento Plazo: <p:calendar locale="es" styleClass="calendario"   /></td>
-                                            </tr>
+                                        
                                         </table>												
 					</p:fieldset>	
                                         <br></br>
@@ -86,15 +69,15 @@
 					<table>
 									<tr>
 										<td align="left">Concesión</td>
-										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreConcecion}" readonly="true" ></p:inputText></td>
+										<td><p:inputText style="width:300px" value="#{registrarRevisionSupervisorMB.nombreConcecion}" readonly="true" ></p:inputText></td>
 									</tr>
 									<tr>
 										<td align="left">Tipo Infraestructura</td>
-										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreTipoInfraestructura}"  readonly="true"></p:inputText></td>
+										<td><p:inputText  style="width:300px" value="#{registrarRevisionSupervisorMB.nombreTipoInfraestructura}"  readonly="true"></p:inputText></td>
 									</tr>
 									<tr>
 										<td align="left">Modalidad Concesión</td>
-										<td><p:inputText value="#{registrarRevisionSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
+										<td><p:inputText  style="width:300px" value="#{registrarRevisionSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
 									</tr>
                                    	
                                                                       	
@@ -114,7 +97,7 @@
                                                                                                 itemLabel="#{tip2.ccoPeriodo}" 
                                                                                                 itemValue="#{tip2.ccoId}"/>
                                                                                         <p:ajax event="valueChange" 
-                                                                                                update=":form:datosCompromiso " 
+                                                                                                update=":form:datosCompromiso :form:tablaLV" 
                                                                                                 listener="#{registrarRevisionSupervisorMB.cargarDatosCompromiso()}"  /> 
                                                                                     </p:selectOneMenu>
 										</td>
@@ -127,9 +110,9 @@
 									</tr>
 									<tr>
 										<td align="left">Total:</td>
-										<td align="left" ><p:inputText value="#{registrarRevisionSupervisorMB.plazo}" size="10"></p:inputText></td>
+										<td align="left" ><p:inputText value="#{registrarRevisionSupervisorMB.total}" size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
-										<td align="left"><p:inputText value="#{registrarRevisionSupervisorMB.plazo}"  size="10"></p:inputText></td>
+										<td align="left"><p:inputText value="#{registrarRevisionSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
@@ -146,13 +129,13 @@
                                        <h:outputText value="#{inversionAvance1.tiaNumero}" />
                                     </p:column>
                                   <p:column headerText="Fecha Registro" style="width:50px">
-                                        <h:outputText value="#{inversionAvance1.tiaFechaInicio}" />
+                                        <h:outputText value="#{inversionAvance1.tiaFechaRegistro}" />
                                     </p:column>
                                     <p:column headerText="Moneda" style="width:50px">
                                         <h:outputText value="#{inversionAvance1.monedaNombre}" />
                                     </p:column>
                                     <p:column headerText="Total" style="width:50px">
-                                        <h:outputText value="#{inversionAvance1.tiaMontoTotalReajustado}" />
+                                        <h:outputText value="#{inversionAvance1.tiaMontoTotalPresentado}" />
                                     </p:column>
                                     <p:column headerText="Estado Revision" style="width:50px">
                                         <h:outputText value="#{inversionAvance1.estadoNombre}" />
@@ -160,12 +143,11 @@
                                     <p:column   headerText="Selección" style="width:5px" >
                                         <div align="center">
                                             <p:commandButton
-                                                
                                                 actionListener="#{registrarRevisionSupervisorMB.cargarListaValorizacionDetalle(inversionAvance1.tiaNumero)}"
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarValorizacion"
                                                 style="width:22px;height:22px"
-                                                update=":form:tablaDV :form:total" >
+                                                update=":form:tablaDV :form:nombreSupervisor :form:total :form:totalAjustado">
                                             </p:commandButton>
                                         </div>
                                     </p:column>
@@ -183,7 +165,7 @@
                                    </tr>
                                    <tr >
                                      <td class="negrita" >Nombre:</td>
-                                      <td><p:inputText style="width:300px"></p:inputText></td>
+                                      <td><p:inputText style="width:300px" id="nombreSupervisor" value="#{registrarRevisionSupervisorMB.nombreRevisor}"></p:inputText></td>
                                    
                                    </tr>
                                    </table>
@@ -210,7 +192,7 @@
                                             </tr>
                                    	 <tr>
                                                 <td>Observaciones:</td>
-                                                 <td><p:inputTextarea style="width:300px"   /></td>
+                                                 <td><p:inputTextarea style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
                                             </tr>
                                              
                                              
@@ -244,7 +226,7 @@
                                         oncomplete="ajustarMonto.show()"
                                         image="ui-icon-pencil"
                                         actionListener="#{registrarRevisionSupervisorMB.actualizarValoresAjustados(vaDetalle1.iad_Id)}">
-                                            
+                    
                                         </p:commandButton>
                                         </div>
                                     </p:column>
@@ -252,10 +234,11 @@
                                 <br></br>
                                 <br></br> 
                                 <div class="negrita" align="right">
-                                    Total Presentado : <p:inputText id="total" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalTotal}" />
+                                    
                                     <br></br>                                 
-                                   Total Ajustado : <p:inputText id="totalAjustado" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalRevisado}" />
-                                
+                                   Total Total : <p:inputText id="total" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalTotal}" />
+                                <br></br> 
+                                    Total Revisado : <p:inputText id="totalAjustado" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalRevisado}" />
                                 </div>
                                 </h:panelGroup>
                                 <br></br>
@@ -306,10 +289,8 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarContratos"
                                                 style="width:22px;height:22px"
-                                                update=":form:datosConcesion :form:tablaLV :form:datosCompromiso "
-                                                >
-                                                
-                              
+                                                update=":form:datosConcesion :form:tablaLV :form:datosCompromiso" >
+                                                                    
                                             </p:commandButton>
                                               <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
                                                           value="Selecionar un contrato"/>
@@ -323,7 +304,7 @@
                   <p:inputText value="#{registrarRevisionSupervisorMB.montoAjustado}"></p:inputText>
                       <br></br>     
                       <p:commandButton  value="Ajustar" oncomplete="ajustarMonto.hide()"   actionListener="#{registrarRevisionSupervisorMB.ajustarMonto()}"
-                      update=":form:tablaDV :form:tablaDV12"
+                      update=":form:tablaDV :form:tablaDV12  :form:totalAjustado"
                       ></p:commandButton>
                 </p:dialog>
             
