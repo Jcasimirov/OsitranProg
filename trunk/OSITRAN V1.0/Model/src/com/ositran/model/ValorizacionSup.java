@@ -35,18 +35,20 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_ASUNTO", length = 100)
     private String tvsAsunto;
     @Column(name = "TVS_BRUTO", nullable = false)
-    private Long tvsBruto;
+    private double tvsBruto;
     @Column(name = "TVS_ESTADO")
     private Integer tvsEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "TVS_FECHA_REGISTRO")
     private Date tvsFechaRegistro;
     @Id
-    @Column(name = "TVS_HR", nullable = false)
     @GeneratedValue(generator = "generator")
+    @Column(name = "TVS_ID")
+    private Integer tvsId;
+    @Column(name = "TVS_HR", nullable = false)
     private Integer tvsHr;
     @Column(name = "TVS_IGV", nullable = false)
-    private Long tvsIgv;
+    private double tvsIgv;
     @Temporal(TemporalType.DATE)
     @Column(name = "TVS_INF_FECHA_EMISION")
     private Date tvsInfFechaEmision;
@@ -62,7 +64,7 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_MEM_REG_SALIDA", length = 100)
     private String tvsMemRegSalida;
     @Column(name = "TVS_NETO", nullable = false)
-    private Long tvsNeto;
+    private double tvsNeto;
     @Temporal(TemporalType.DATE)
     @Column(name = "TVS_OFI_FECHA_EMISION")
     private Date tvsOfiFechaEmision;
@@ -78,11 +80,14 @@ public class ValorizacionSup implements Serializable {
     public ValorizacionSup() {
     }
 
-    public ValorizacionSup(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, Long tvsBruto,
-                           Integer tvsEstado, Date tvsFechaRegistro, Integer tvsHr, Long tvsIgv,
+
+    public ValorizacionSup(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, double tvsBruto,
+                           Integer tvsEstado, Date tvsFechaRegistro, Integer tvsId, Integer tvsHr, double tvsIgv,
                            Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
-                           Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, Long tvsNeto,
-                           Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, Long tvsAprobado, String tvsObservacion) {
+                           Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, double tvsNeto,
+                           Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, Long tvsAprobado,
+                           String tvsObservacion) {
+        super();
         this.monId = monId;
         this.supId = supId;
         this.tvsAnyo = tvsAnyo;
@@ -90,6 +95,7 @@ public class ValorizacionSup implements Serializable {
         this.tvsBruto = tvsBruto;
         this.tvsEstado = tvsEstado;
         this.tvsFechaRegistro = tvsFechaRegistro;
+        this.tvsId = tvsId;
         this.tvsHr = tvsHr;
         this.tvsIgv = tvsIgv;
         this.tvsInfFechaEmision = tvsInfFechaEmision;
@@ -106,13 +112,20 @@ public class ValorizacionSup implements Serializable {
         this.tvsObservacion = tvsObservacion;
     }
 
-
     public void setMonId(Integer monId) {
         this.monId = monId;
     }
 
     public Integer getMonId() {
         return monId;
+    }
+
+    public void setTvsId(Integer tvsId) {
+        this.tvsId = tvsId;
+    }
+
+    public Integer getTvsId() {
+        return tvsId;
     }
 
     public void setSupId(Integer supId) {
@@ -139,13 +152,7 @@ public class ValorizacionSup implements Serializable {
         return tvsAsunto;
     }
 
-    public void setTvsBruto(Long tvsBruto) {
-        this.tvsBruto = tvsBruto;
-    }
 
-    public Long getTvsBruto() {
-        return tvsBruto;
-    }
 
     public void setTvsEstado(Integer tvsEstado) {
         this.tvsEstado = tvsEstado;
@@ -171,13 +178,7 @@ public class ValorizacionSup implements Serializable {
         return tvsHr;
     }
 
-    public void setTvsIgv(Long tvsIgv) {
-        this.tvsIgv = tvsIgv;
-    }
-
-    public Long getTvsIgv() {
-        return tvsIgv;
-    }
+  
 
     public void setTvsInfFechaEmision(Date tvsInfFechaEmision) {
         this.tvsInfFechaEmision = tvsInfFechaEmision;
@@ -227,11 +228,28 @@ public class ValorizacionSup implements Serializable {
         return tvsMemRegSalida;
     }
 
-    public void setTvsNeto(Long tvsNeto) {
+
+    public void setTvsBruto(double tvsBruto) {
+        this.tvsBruto = tvsBruto;
+    }
+
+    public double getTvsBruto() {
+        return tvsBruto;
+    }
+
+    public void setTvsIgv(double tvsIgv) {
+        this.tvsIgv = tvsIgv;
+    }
+
+    public double getTvsIgv() {
+        return tvsIgv;
+    }
+
+    public void setTvsNeto(double tvsNeto) {
         this.tvsNeto = tvsNeto;
     }
 
-    public Long getTvsNeto() {
+    public double getTvsNeto() {
         return tvsNeto;
     }
 
