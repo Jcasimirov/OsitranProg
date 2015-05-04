@@ -22,7 +22,7 @@ public class PeriodoDAOImpl implements PeriodoDAO {
     public List<Periodo> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         
-        List list=session.createQuery("From Periodo o WHERE o.perId <> 0").list();
+        List list=session.createQuery("From Periodo o WHERE o.perId <> -1").list();
         session.close();
         return list;
     }
