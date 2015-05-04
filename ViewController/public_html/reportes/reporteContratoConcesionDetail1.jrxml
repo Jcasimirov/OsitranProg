@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteContratoConcesionDetail1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NVO_NO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_MODALIDAD" class="java.lang.String"/>
+	<parameter name="P_CONCESION" class="java.lang.String"/>
+	<parameter name="P_TIP_INFRA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT CON.CSI_ID, TA.TAD_NOMBRE AS TIPODOC, CA.CAD_FECHA AS FECHA, CA.CAD_DESCRIPCION AS OBJETO, MC.MCO_NOMBRE AS MODALIDAD,
+CC.CCO_PERIODO AS PERIODO, CC.CCO_ALCANCE AS ALCANCE, TIV.TIV_NOMBRE AS TIPOINVERSION, M.MON_NOMBRE AS MONEDA, CC.CCO_TOTAL AS TOTAL
+FROM T_CONTRATO CON, T_CONTRATO_ADENDA CA, T_ADENDA_TIPO TA,
+T_CONTRATO_COMPROMISO CC, T_CONCESION CONC, T_CONCESIONARIO CONCES, T_MODALIDAD_CONCESION MC, T_INFRAESTRUCTURA_TIPO TI, T_MONEDA M, T_INVERSION_TIPO TIV
+WHERE CON.CON_ID=CA.CON_ID AND
+CON.CON_ID=CC.CON_ID AND
+TA.TAD_ID=CA.TAD_ID AND
+CON.CSI_ID=CONC.CSI_ID AND
+CON.CNC_ID=CONCES.CNC_ID AND
+CON.TIN_ID=TI.TIN_ID AND
+CC.TIV_ID=CON.TIN_ID AND
+CC.MON_ID=M.MON_ID AND
+CON.TIN_ID=$P{P_TIP_INFRA} AND
+CON.CSI_ID=$P{P_CONCESION} AND
+MC.MCO_ID=$P{P_MODALIDAD}]]>
+	</queryString>
+	<field name="CSI_ID" class="java.math.BigDecimal"/>
+	<field name="TIPODOC" class="java.lang.String"/>
+	<field name="FECHA" class="java.sql.Timestamp"/>
+	<field name="OBJETO" class="java.lang.String"/>
+	<field name="MODALIDAD" class="java.lang.String"/>
+	<field name="PERIODO" class="java.lang.String"/>
+	<field name="ALCANCE" class="java.lang.String"/>
+	<field name="TIPOINVERSION" class="java.lang.String"/>
+	<field name="MONEDA" class="java.lang.String"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="363" height="21"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="89" y="0" width="84" height="21"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="0" width="69" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Doc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="0" width="84" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="363" y="0" width="424" height="21"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="175" y="0" width="190" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Objeto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="2" width="89" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período / Etapa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="690" y="4" width="96" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total compromiso]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="454" y="0" width="237" height="21"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="453" y="4" width="84" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alcance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="623" y="4" width="67" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Moneda]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="538" y="0" width="85" height="21"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="537" y="4" width="86" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Inversión]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="363" y="0" width="424" height="21"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="363" height="21"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="89" y="0" width="84" height="21"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPODOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="84" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="1" width="190" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OBJETO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="454" y="0" width="237" height="21"/>
+			</rectangle>
+			<textField>
+				<reportElement x="691" y="2" width="96" height="20"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="623" y="3" width="67" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MONEDA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="2" width="84" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALCANCE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="2" width="89" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PERIODO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="538" y="0" width="85" height="21"/>
+			</rectangle>
+			<textField>
+				<reportElement x="538" y="2" width="86" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPOINVERSION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="1" splitType="Stretch"/>
+	</summary>
+</jasperReport>
