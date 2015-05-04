@@ -25,7 +25,6 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
 
     @Override
     public List<ContratoSupInversiones> query1(int filtro) throws SQLException, Exception {
-        System.out.println("LLEGO AL DAO IMPLLLL");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         List list;
@@ -39,12 +38,6 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
-         System.out.println(contratoSupInversiones.getConId());
-            System.out.println(contratoSupInversiones.getCsiId());
-            System.out.println(contratoSupInversiones.getInfId());
-            System.out.println(contratoSupInversiones.getSivId());
-            
-            
             session.beginTransaction();
             session.save(contratoSupInversiones);
             session.getTransaction().commit();
