@@ -10,25 +10,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInversionAvanceService{
     ValorizacionInversionAvanceVO valorizacionInversionAvanceVO=new ValorizacionInversionAvanceVO();
     ValorizacionInversionAvance valorizacionInversionAvance=new ValorizacionInversionAvance();
-    ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl;
+    ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl= new ValorizacionInversionAvanceDAOImpl();
 
-
-    public void setValorizacionInversionAvanceDAOImpl(ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl) {
-        this.valorizacionInversionAvanceDAOImpl = valorizacionInversionAvanceDAOImpl;
-    }
-
-    public ValorizacionInversionAvanceDAOImpl getValorizacionInversionAvanceDAOImpl() {
-        return valorizacionInversionAvanceDAOImpl;
-    }
-
-    public ValorizacionInversionAvanceServiceImpl() {
-        super();
-    }
 
     @Override
     public List<ValorizacionInversionAvanceVO> query() throws SQLException, Exception {
@@ -39,12 +28,18 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
     
     
     @Override
+    public List<ValorizacionInversionAvanceVO> queryDerivarInversion(int codigoContrato, int codigoContratoCompromiso,
+                                                                     int estado) throws SQLException, Exception {
+        List<ValorizacionInversionAvance> list=valorizacionInversionAvanceDAOImpl.queryDerivarInversion(codigoContrato,codigoContratoCompromiso,estado);
+        List<ValorizacionInversionAvanceVO> listVO=toListValorizacionInversionAvanceVO(list);
+        System.out.println(listVO.size());
+        return listVO;
+    }
+    
+    @Override
     public List<ValorizacionInversionAvanceVO> query1(int codigoContrato) throws SQLException, Exception {
         List<ValorizacionInversionAvance> list=valorizacionInversionAvanceDAOImpl.query1(codigoContrato);
-    System.out.println("tamaño de lista!!!!!");
-    System.out.println(list.size());
         List<ValorizacionInversionAvanceVO> listVO=toListValorizacionInversionAvanceVO(list);
-        System.out.println("tamaño de la lista pasada");
         System.out.println(listVO.size());
         return listVO;
     }
@@ -62,18 +57,19 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
         // TODO Implement this method
         return null;
     }
-
+    
     @Override
-    public String update(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO) throws ParseException,
-                                                                                             SQLException, Exception {
-        // TODO Implement this method
-        return null;
+    public String update(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO) throws ParseException, SQLException, Exception {
+         valorizacionInversionAvance=toValorizacionInversionAvance(valorizacionInversionAvanceVO);
+        String result=this.valorizacionInversionAvanceDAOImpl.update(valorizacionInversionAvance);
+        return result;  
     }
 
     @Override
     public ValorizacionInversionAvanceVO get(Integer id) throws SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        valorizacionInversionAvance =valorizacionInversionAvanceDAOImpl.get(id);
+        valorizacionInversionAvanceVO=toValorizacionInversionAvanceVO(valorizacionInversionAvance);
+        return valorizacionInversionAvanceVO;
     }
     
     
@@ -114,6 +110,14 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
        valorizacionInversionAvanceVO1.setTiaMontoTotalReajustado(valorizacionInversionAvance1.getTiaMontoTotalReajustado());
        valorizacionInversionAvanceVO1.setMonId(valorizacionInversionAvance1.getMonId());
        valorizacionInversionAvanceVO1.setIaeId(valorizacionInversionAvance1.getIaeId());
+       valorizacionInversionAvanceVO1.setCcoId(valorizacionInversionAvance1.getCcoId());
+       valorizacionInversionAvanceVO1.setTiaRutaNot(valorizacionInversionAvance1.getTiaRutaNot());
+       valorizacionInversionAvanceVO1.setTccTipo(valorizacionInversionAvance1.getTccTipo());
+       valorizacionInversionAvanceVO1.setTiaAprobadoPor(valorizacionInversionAvance1.getTiaAprobadoPor());
+       
+       
+       
+       
        
        
        
@@ -143,8 +147,24 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
         valorizacionInversionAvance1.setTiaMontoTotalReajustado(valorizacionInversionAvanceVO1.getTiaMontoTotalReajustado());
         valorizacionInversionAvance1.setMonId(valorizacionInversionAvanceVO1.getMonId());
         valorizacionInversionAvance1.setIaeId(valorizacionInversionAvanceVO1.getIaeId());
+        valorizacionInversionAvance1.setCcoId(valorizacionInversionAvanceVO1.getCcoId());
+        valorizacionInversionAvance1.setTiaRutaNot(valorizacionInversionAvanceVO1.getTiaRutaNot());
+        valorizacionInversionAvance1.setTccTipo(valorizacionInversionAvanceVO1.getTccTipo());
+        valorizacionInversionAvance1.setTiaAprobadoPor(valorizacionInversionAvanceVO1.getTiaAprobadoPor());
        
        return valorizacionInversionAvance1;
     }
-    
+
+
+    public void setValorizacionInversionAvanceDAOImpl(ValorizacionInversionAvanceDAOImpl valorizacionInversionAvanceDAOImpl) {
+        this.valorizacionInversionAvanceDAOImpl = valorizacionInversionAvanceDAOImpl;
+    }
+
+    public ValorizacionInversionAvanceDAOImpl getValorizacionInversionAvanceDAOImpl() {
+        return valorizacionInversionAvanceDAOImpl;
+    }
+
+    public ValorizacionInversionAvanceServiceImpl() {
+        super();
+    }
 }
