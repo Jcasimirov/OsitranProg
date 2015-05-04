@@ -29,6 +29,7 @@ public class Constantes {
     public static String RUTANOTIFICACION="D:/filesositran/temp/notificacion/";
     
     public static Integer ESTADORECONOCIMIENTO_OBSERVADO=0;
+    public static Integer ESTADORECONOCIMIENTO_DECLARADO=4;
     public static Integer ESTADORECONOCIMIENTO_RECTIFICADO=5;
     public static Integer SOLES=1;
 }
