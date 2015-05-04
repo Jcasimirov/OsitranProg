@@ -2,6 +2,7 @@ package com.ositran.serviceimpl;
 
 
 import com.ositran.dao.InfraestructuraTipoDAO;
+import com.ositran.daoimpl.InfraestructuraTipoDAOImpl;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.service.InfraestructuraTipoService;
 
@@ -16,8 +17,13 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     InfraestructuraTipoDAO infraestructuraTipoDAOImpl;
     InfraestructuraTipo infraestructuraTipo;
     InfraestructuraTipoVO infraestructuraTipoVO;
+    InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl1=new InfraestructuraTipoDAOImpl();
     
-  
+    public List<InfraestructuraTipoVO> query1() throws SQLException{
+        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl1.query();
+        List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
+        return listVO;
+    }  
 
     @Override
     public List<InfraestructuraTipoVO> query() throws SQLException{
