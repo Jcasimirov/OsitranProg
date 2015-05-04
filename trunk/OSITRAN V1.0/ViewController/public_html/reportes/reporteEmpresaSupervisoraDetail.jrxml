@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEmpresaSupervisora" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="INV_NO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIP_INFRA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONCESION" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ESTADO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FEC_FIN" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FEC_INI" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ES.SUP_ID, ES.SUP_NOMBRE, ES.SUP_DIRECCION, ES.SUP_CORREO, ES.SUP_SIGLAS, ES.SUP_TELEFONO, ES.SUP_REPRESENTANTE_LEGAL,
+ ES.SUP_JEFE_SUPERVISION,
+ CS.CPS_FECHA_SUSCRIPCION,
+DECODE(ES.SUP_ESTADO,1,'ACTIVO',0,'INACTIVO') AS ESTADO,
+MC.MCO_NOMBRE AS MODALIDAD,
+TO_CHAR(CS.CPS_FECHA_INICIO,'DD/MM/YYYY') AS FECHA_INICIO, (CS.CPS_FECHA_INICIO+CS.CPS_PLAZO_CONTRATO) AS FECHA_FIN, TI.TIN_NOMBRE, CS.CPS_MONTO_CONTRATADO, CONC.CSI_NOMBRE
+FROM  T_CONTRATO CON, T_EMPRESA_SUPERVISORA ES,T_MODALIDAD_CONCESION MC, T_CONTRATO_SUPERVISORA CS, T_INFRAESTRUCTURA_TIPO TI, T_CONCESION CONC
+WHERE CS.SUP_ID=ES.SUP_ID
+AND  CON.CON_ID=CS.CON_ID
+AND CS.TIN_ID=TI.TIN_ID
+AND CS.CSI_ID=CONC.CSI_ID
+AND CON.MCO_ID=MC.MCO_ID
+AND CS.CPS_FECHA_INICIO BETWEEN TO_DATE($P{FEC_INI}, 'DD/MM/YYYY') AND TO_DATE($P{FEC_FIN}, 'DD/MM/YYYY')
+AND TI.TIN_ID=$P{TIP_INFRA}
+AND CONC.CSI_ID = $P{CONCESION}
+AND ES.SUP_ESTADO = $P{ESTADO}]]>
+	</queryString>
+	<field name="SUP_ID" class="java.math.BigDecimal"/>
+	<field name="SUP_NOMBRE" class="java.lang.String"/>
+	<field name="SUP_DIRECCION" class="java.lang.String"/>
+	<field name="SUP_CORREO" class="java.lang.String"/>
+	<field name="SUP_SIGLAS" class="java.lang.String"/>
+	<field name="SUP_TELEFONO" class="java.lang.String"/>
+	<field name="SUP_REPRESENTANTE_LEGAL" class="java.lang.String"/>
+	<field name="SUP_JEFE_SUPERVISION" class="java.lang.String"/>
+	<field name="CPS_FECHA_SUSCRIPCION" class="java.sql.Timestamp"/>
+	<field name="ESTADO" class="java.lang.String"/>
+	<field name="MODALIDAD" class="java.lang.String"/>
+	<field name="FECHA_INICIO" class="java.lang.String"/>
+	<field name="FECHA_FIN" class="java.sql.Timestamp"/>
+	<field name="TIN_NOMBRE" class="java.lang.String"/>
+	<field name="CPS_MONTO_CONTRATADO" class="java.math.BigDecimal"/>
+	<field name="CSI_NOMBRE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="699" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Infraestructura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto contratado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="598" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concesión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="99" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Suscripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="500" y="0" width="99" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="599" y="0" width="100" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="200" y="0" width="100" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="400" y="0" width="100" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="300" y="0" width="100" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{CPS_FECHA_SUSCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIN_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="597" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CSI_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="100" y="0" width="100" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement x="101" y="0" width="98" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MODALIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="499" y="0" width="97" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CPS_MONTO_CONTRATADO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="2" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteContratoConcesionMaster" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NVO_NO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_MODALIDAD" class="java.lang.String"/>
+	<parameter name="P_CONCESION" class="java.lang.String"/>
+	<parameter name="P_TIP_INFRA" class="java.lang.String"/>
+	<parameter name="P_LOGO" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\JDeveloper\\mywork\\OSITRAN V1.0_0\\ViewController\\public_html\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT CON.CSI_ID, CONC.CSI_NOMBRE, CONCES.CNC_NOMBRE, TI.TIN_NOMBRE,
+MC.MCO_NOMBRE AS MODALIDAD,
+CON.CON_FECHA_SUSCRIPCION,
+CON.CON_PLAZOCONCESION,
+TA.TAD_NOMBRE, CA.CAD_FECHA, CA.CAD_DESCRIPCION,
+CC.CCO_ALCANCE, CC.TIV_ID, CC.MON_ID, CC.CCO_TOTAL
+FROM T_CONTRATO CON, T_CONTRATO_ADENDA CA, T_ADENDA_TIPO TA,
+T_CONTRATO_COMPROMISO CC, T_CONCESION CONC, T_CONCESIONARIO CONCES, T_INFRAESTRUCTURA_TIPO TI, T_MODALIDAD_CONCESION MC
+WHERE CON.CON_ID=CA.CON_ID AND
+CON.MCO_ID=MC.MCO_ID AND
+CON.CON_ID=CC.CON_ID AND
+TA.TAD_ID=CA.TAD_ID AND
+CON.CSI_ID=CONC.CSI_ID AND
+CON.CNC_ID=CONCES.CNC_ID AND
+CON.TIN_ID=TI.TIN_ID AND
+CON.TIN_ID=$P{P_TIP_INFRA} AND
+CON.CSI_ID=$P{P_CONCESION} AND
+MC.MCO_ID=$P{P_MODALIDAD}]]>
+	</queryString>
+	<field name="CSI_ID" class="java.math.BigDecimal"/>
+	<field name="CSI_NOMBRE" class="java.lang.String"/>
+	<field name="CNC_NOMBRE" class="java.lang.String"/>
+	<field name="TIN_NOMBRE" class="java.lang.String"/>
+	<field name="MODALIDAD" class="java.lang.String"/>
+	<field name="CON_FECHA_SUSCRIPCION" class="java.sql.Timestamp"/>
+	<field name="CON_PLAZOCONCESION" class="java.sql.Timestamp"/>
+	<field name="TAD_NOMBRE" class="java.lang.String"/>
+	<field name="CAD_FECHA" class="java.sql.Timestamp"/>
+	<field name="CAD_DESCRIPCION" class="java.lang.String"/>
+	<field name="CCO_ALCANCE" class="java.lang.String"/>
+	<field name="TIV_ID" class="java.math.BigDecimal"/>
+	<field name="MON_ID" class="java.math.BigDecimal"/>
+	<field name="CCO_TOTAL" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="702" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="744" y="40" width="56" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="700" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="702" y="40" width="30" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pág.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="6" width="224" height="34"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{P_LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="315" y="0" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Contrato de Concesión]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="160" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="0" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CSI_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="20" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CNC_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="40" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIN_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="60" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MODALIDAD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="61" y="80" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de suscripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="80" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plazo de concesión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="0" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concesión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="20" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concesionario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="40" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de infraestructura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="60" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="80" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{CON_FECHA_SUSCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="567" y="80" width="135" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{CON_PLAZOCONCESION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

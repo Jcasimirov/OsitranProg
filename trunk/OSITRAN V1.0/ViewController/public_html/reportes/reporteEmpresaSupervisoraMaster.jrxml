@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEmpresaSupervisoraMaster" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1"/>
+	<parameter name="INV_NO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIP_INFRA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ESTADO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONCESION" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FEC_INI" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FEC_FIN" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\JDeveloper\\Ultimo\\OSITRANINTEGRADO\\ViewController\\public_html\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT ES.SUP_ID, ES.SUP_NOMBRE, ES.SUP_DIRECCION, ES.SUP_CORREO, ES.SUP_SIGLAS, ES.SUP_TELEFONO, ES.SUP_REPRESENTANTE_LEGAL,
+ES.SUP_JEFE_SUPERVISION, ES.SUP_ESTADO, MC.MCO_NOMBRE
+FROM T_CONTRATO CON, T_EMPRESA_SUPERVISORA ES, T_CONTRATO_SUPERVISORA CS, T_INFRAESTRUCTURA_TIPO TI, T_MODALIDAD_CONCESION MC, T_CONCESION CONC
+WHERE CS.SUP_ID=ES.SUP_ID
+AND CON.MCO_ID=MC.MCO_ID
+AND CON.CON_ID=CS.CON_ID
+AND CS.TIN_ID=TI.TIN_ID
+AND CS.CSI_ID=CONC.CSI_ID
+AND CS.CPS_FECHA_INICIO BETWEEN TO_DATE($P{FEC_INI}, 'DD/MM/YYYY') AND TO_DATE($P{FEC_FIN}, 'DD/MM/YYYY')
+AND TI.TIN_ID=$P{TIP_INFRA}
+AND CONC.CSI_ID = $P{CONCESION}
+AND ES.SUP_ESTADO = $P{ESTADO}]]>
+	</queryString>
+	<field name="SUP_ID" class="java.math.BigDecimal"/>
+	<field name="SUP_NOMBRE" class="java.lang.String"/>
+	<field name="SUP_DIRECCION" class="java.lang.String"/>
+	<field name="SUP_CORREO" class="java.lang.String"/>
+	<field name="SUP_SIGLAS" class="java.lang.String"/>
+	<field name="SUP_TELEFONO" class="java.lang.String"/>
+	<field name="SUP_REPRESENTANTE_LEGAL" class="java.lang.String"/>
+	<field name="SUP_JEFE_SUPERVISION" class="java.lang.String"/>
+	<field name="SUP_ESTADO" class="java.math.BigDecimal"/>
+	<field name="MCO_NOMBRE" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="702" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="702" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="742" y="40" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="60" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Empresa Supervisora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="40" width="30" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pág.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="10" width="224" height="34"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="148" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="0" width="114" height="20" backcolor="#FFF5D0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="0" width="630" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="20" width="114" height="20" backcolor="#FFF5D0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="20" width="630" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_DIRECCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="40" width="114" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="40" width="630" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_CORREO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="60" width="114" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Siglas del nombre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="60" width="208" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_SIGLAS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="60" width="114" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="504" y="60" width="209" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_TELEFONO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="80" width="114" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Representante legal]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="80" width="208" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_REPRESENTANTE_LEGAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="80" width="114" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jefe de Supervisión]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="504" y="80" width="209" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUP_JEFE_SUPERVISION}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="100" width="802" height="48"/>
+				<subreportParameter name="CONCESION">
+					<subreportParameterExpression><![CDATA[$P{CONCESION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ESTADO">
+					<subreportParameterExpression><![CDATA[$P{ESTADO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FEC_FIN">
+					<subreportParameterExpression><![CDATA[$P{FEC_FIN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FEC_INI">
+					<subreportParameterExpression><![CDATA[$P{FEC_INI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INV_NO">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIP_INFRA">
+					<subreportParameterExpression><![CDATA[$P{TIP_INFRA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "reporteEmpresaSupervisoraDetail.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch"/>
+	</summary>
+</jasperReport>
