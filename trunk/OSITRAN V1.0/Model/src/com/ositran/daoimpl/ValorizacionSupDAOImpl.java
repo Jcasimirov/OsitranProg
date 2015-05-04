@@ -38,6 +38,7 @@ public class ValorizacionSupDAOImpl implements ValorizacionSupDAO {
         catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
+            e.printStackTrace();
         }
         return result;
     }
