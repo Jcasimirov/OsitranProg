@@ -26,6 +26,13 @@ public class DerivarReconocimientoSupervisorServiceImpl implements DerivarRecono
     }
 
     @Override
+    public List<DerivarReconocimientoSupervisorVO> queryDerivarInversion(int codigoCnotrato,
+                                                                         int codigoContratoCompromiso,
+                                                                         int estado) throws SQLException, Exception {
+       
+        return Collections.emptyList();
+    }
+    @Override
     public List<DerivarReconocimientoSupervisorVO> query() throws SQLException, Exception {
         // TODO Implement this method
         return Collections.emptyList();
@@ -33,6 +40,7 @@ public class DerivarReconocimientoSupervisorServiceImpl implements DerivarRecono
 
     @Override
     public String insert(DerivarReconocimientoSupervisorVO derivarReconocimientoSupervisorVO1) throws SQLException,Exception{
+        System.out.println("LLEGO AL SERVICES IMPL");
             derivarReconocimientoSupervisor=toDerivarReconocimientoSupervisor(derivarReconocimientoSupervisorVO1);
             String result=derivarReconocimientoSupervisorDAOImpl.insert(derivarReconocimientoSupervisor);
             return result;
@@ -91,10 +99,10 @@ public class DerivarReconocimientoSupervisorServiceImpl implements DerivarRecono
         derivarReconocimientoSupervisor1.setMcoId(derivarReconocimientoSupervisorVO1.getMcoId());
         derivarReconocimientoSupervisor1.setNroOficio(derivarReconocimientoSupervisorVO1.getNroOficio());
         derivarReconocimientoSupervisor1.setTinId(derivarReconocimientoSupervisorVO1.getTinId());
-        
-     
         return derivarReconocimientoSupervisor1;
     }
-    
-    
+
+ 
+
+  
 }
