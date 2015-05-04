@@ -961,6 +961,7 @@ public class MantenimientoContratEmprSupervisor {
         return plazo;
     }
 
+
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
