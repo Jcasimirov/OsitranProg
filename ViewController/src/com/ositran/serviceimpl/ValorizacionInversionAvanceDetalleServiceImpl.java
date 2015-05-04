@@ -17,33 +17,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=new ValorizacionInversionAvanceDetalleVO();
     ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=new ValorizacionInversionAvanceDetalle();
 
-    public void setValorizacionInversionAvanceDetalleDAOImpl(ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl) {
-        this.valorizacionInversionAvanceDetalleDAOImpl = valorizacionInversionAvanceDetalleDAOImpl;
-    }
-
-    public ValorizacionInversionAvanceDetalleDAOImpl getValorizacionInversionAvanceDetalleDAOImpl() {
-        return valorizacionInversionAvanceDetalleDAOImpl;
-    }
-
-    public void setValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO) {
-        this.valorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleVO;
-    }
-
-    public ValorizacionInversionAvanceDetalleVO getValorizacionInversionAvanceDetalleVO() {
-        return valorizacionInversionAvanceDetalleVO;
-    }
-
-    public void setValorizacionInversionAvanceDetalle(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle) {
-        this.valorizacionInversionAvanceDetalle = valorizacionInversionAvanceDetalle;
-    }
-
-    public ValorizacionInversionAvanceDetalle getValorizacionInversionAvanceDetalle() {
-        return valorizacionInversionAvanceDetalle;
-    }
-
-    public ValorizacionInversionAvanceDetalleServiceImpl() {
-        super();
-    }
+  
     
 
     public List<ValorizacionInversionAvanceDetalleVO> query1(int codigoValorizacion) throws SQLException, Exception {
@@ -114,6 +88,9 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
        /*        valorizacionInversionAvanceDetalleVO1.setIadDescripcion(valorizacionInversionAvanceDetalle1.getIadDescripcion());
        valorizacionInversionAvanceDetalleVO1.setIadFechaInicio(valorizacionInversionAvanceDetalle1.getIadFechaInicio());
        valorizacionInversionAvanceDetalleVO1.setIadFechaFin(valorizacionInversionAvanceDetalle1.getIadFechaFin()); */
+        valorizacionInversionAvanceDetalleVO1.setCsiId(valorizacionInversionAvanceDetalle1.getCsiId());
+        valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
+        valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
        
        
        return valorizacionInversionAvanceDetalleVO1;
@@ -133,6 +110,10 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         /*  valorizacionInversionAvanceDetalle1.setIadDescripcion(valorizacionInversionAvanceDetalleVO1.getIadDescripcion());
         valorizacionInversionAvanceDetalle1.setIadFechaInicio(valorizacionInversionAvanceDetalleVO1.getIadFechaInicio());
         valorizacionInversionAvanceDetalle1.setIadFechaFin(valorizacionInversionAvanceDetalleVO1.getIadFechaFin()); */
+        valorizacionInversionAvanceDetalle1.setCsiId(valorizacionInversionAvanceDetalleVO1.getCsiId());
+        valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
+        valorizacionInversionAvanceDetalle1.setTinId(valorizacionInversionAvanceDetalleVO1.getTinId());
+        
        
        return valorizacionInversionAvanceDetalle1;
     }
@@ -144,5 +125,33 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         List<ValorizacionInversionAvanceDetalleVO> listVO=toValorizacionInversionAvanceDetalleVO(list);
         System.out.println("FIN getInvAvanceDetallesInvAvance");
         return listVO;
+    }
+    
+    public void setValorizacionInversionAvanceDetalleDAOImpl(ValorizacionInversionAvanceDetalleDAOImpl valorizacionInversionAvanceDetalleDAOImpl) {
+        this.valorizacionInversionAvanceDetalleDAOImpl = valorizacionInversionAvanceDetalleDAOImpl;
+    }
+
+    public ValorizacionInversionAvanceDetalleDAOImpl getValorizacionInversionAvanceDetalleDAOImpl() {
+        return valorizacionInversionAvanceDetalleDAOImpl;
+    }
+
+    public void setValorizacionInversionAvanceDetalleVO(ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO) {
+        this.valorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleVO;
+    }
+
+    public ValorizacionInversionAvanceDetalleVO getValorizacionInversionAvanceDetalleVO() {
+        return valorizacionInversionAvanceDetalleVO;
+    }
+
+    public void setValorizacionInversionAvanceDetalle(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle) {
+        this.valorizacionInversionAvanceDetalle = valorizacionInversionAvanceDetalle;
+    }
+
+    public ValorizacionInversionAvanceDetalle getValorizacionInversionAvanceDetalle() {
+        return valorizacionInversionAvanceDetalle;
+    }
+
+    public ValorizacionInversionAvanceDetalleServiceImpl() {
+        super();
     }
 }
