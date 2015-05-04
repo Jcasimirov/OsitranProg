@@ -176,5 +176,57 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
             session.close();
             return empresaSupervisora;
         }
+        
+    @Override
+    public List<Object[]> BuscarEmpresaPorContrato (Integer contratoConcesion, Integer etapaContrato, String nombreEmpresa) throws SQLException{
+        String result=null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;   
+        List <Object[]> list = null;
+        try {
+            session.beginTransaction();
+            query=session.createQuery("SELECT E.supCorreo,\n" + 
+            "E.supDireccion,\n" + 
+            "E.supEstado,\n" + 
+            "E.supFechaAlta,\n" + 
+            "E.supFechaBaja,\n" + 
+            "E.supFechaCambio,\n" + 
+            "E.supId,\n" + 
+            "E.supJefeSupervision,\n" + 
+            "E.supNombre,\n" + 
+            "E.supNroDocumento,\n" + 
+            "E.supObra,\n" + 
+            "E.supRepresentanteLegal,\n" + 
+            "E.supSiglas,\n" + 
+            "E.supTelefono,\n" + 
+            "E.supTerminal,\n" + 
+            "E.supUsuarioAlta,\n" + 
+            "E.supUsuarioBaja,\n" + 
+            "E.supUsuarioCambio,\n" + 
+            "E.tdoId \n" +
+                "FROM EmpresaSupervisora E, ContratoSupervisora CS, ContratoCompromiso CC \n" +
+                "WHERE \n" +
+                "E.supId = CS.supId and \n" +
+                "CS.conId = CC.conId and \n" +
+                "CS.ccoId = CC.ccoId and \n" +
+                "CC.tccTipo = 1 and \n" +
+                "E.supEstado = 1 and \n" +
+                "CS.cpsEstado = 1 and \n"+
+                "CC.ccoEstado = 1 and \n" +
+                "CS.conId = :contrato and \n" +
+                "CC.ccoId = :etapa and \n" + 
+                "E.supNombre like :nombreEmpresa");
+            query.setParameter("contrato",contratoConcesion);
+            query.setParameter("etapa",etapaContrato);
+            query.setParameter("nombreEmpresa","%"+nombreEmpresa+"%");
+            list= query.list();
+            
+        } catch (Exception e) {            
+            result=e.getMessage();
+            System.out.println(result);
+        }
+        session.close();
+        return list;
+    }
 
 }
