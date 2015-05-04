@@ -158,6 +158,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contrato.setConDiaPlazoconcesion(contratoVO.getConDiaPlazoconcesion());
         contrato.setConMesoAnioPlazoconcesion(contratoVO.getConMesoAnioPlazoconcesion());
         contrato.setConNotaPlazoConcesion(contratoVO.getConNotaPlazoConcesion());        
+        contrato.setConFechaFinContrato(contratoVO.getConFechaFinContrato()); 
         return contrato;
         
     }
