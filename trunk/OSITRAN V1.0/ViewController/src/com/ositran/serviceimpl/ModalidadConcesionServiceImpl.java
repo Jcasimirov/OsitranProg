@@ -17,6 +17,7 @@ public class ModalidadConcesionServiceImpl implements ModalidadConcesionService{
     }
     
     private ModalidadConcesionDAOImpl modalidadConcesionDAOImpl;
+    private ModalidadConcesionDAOImpl modalidadConcesionDAOImpl1=new ModalidadConcesionDAOImpl();
 
 
     public void setModalidadConcesionDAOImpl(ModalidadConcesionDAOImpl modalidadConcesionDAOImpl) {
@@ -26,6 +27,13 @@ public class ModalidadConcesionServiceImpl implements ModalidadConcesionService{
     public ModalidadConcesionDAOImpl getModalidadConcesionDAOImpl() {
         return modalidadConcesionDAOImpl;
     }
+    
+    public List<ModalidadConcesionVO> query1() throws SQLException{
+        List<ModalidadConcesion> list=modalidadConcesionDAOImpl1.query();
+        List<ModalidadConcesionVO> listVO=toListModalidadConcesionVO(list);
+        return listVO;        
+    }
+    
 
     @Override
     public List<ModalidadConcesionVO> query() throws SQLException{
