@@ -1,6 +1,13 @@
 package com.ositran.vo.bean;
 
+
 import java.math.BigDecimal;
+
+import java.util.Date;
+
+
+
+
 
 import javax.persistence.Column;
 
@@ -8,9 +15,6 @@ public class ValorizacionInversionAvanceDetalleVO {
     public ValorizacionInversionAvanceDetalleVO() {
         super();
     }
-    
-
-    private int cnvId;
     private BigDecimal igv;
     private int monId;
     private BigDecimal montoPresentado;
@@ -25,20 +29,15 @@ public class ValorizacionInversionAvanceDetalleVO {
     private int tinId;
     private int invId;
     
-    
-    
+    private String iadDescripcion;
+    private Date iadFechaInicio;
+    private Date iadFechaFin;
     private String aeropuertos;
     private String descripcionInversion;
     private String nombreMoneda;
+   private BigDecimal iasMontoRevisado;
+   private BigDecimal montoRevisado;
 
-
-    public void setCnvId(int cnvId) {
-        this.cnvId = cnvId;
-    }
-
-    public int getCnvId() {
-        return cnvId;
-    }
 
     public void setIgv(BigDecimal igv) {
         this.igv = igv;
@@ -138,6 +137,49 @@ public class ValorizacionInversionAvanceDetalleVO {
         return iadPDF;
     }
 
+    public void setIadDescripcion(String iadDescripcion) {
+        this.iadDescripcion = iadDescripcion;
+    }
+
+    public String getIadDescripcion() {
+        return iadDescripcion;
+    }
+
+    public void setIadFechaInicio(Date iadFechaInicio) {
+        this.iadFechaInicio = iadFechaInicio;
+    }
+
+    public Date getIadFechaInicio() {
+        return iadFechaInicio;
+    }
+
+    public void setIadFechaFin(Date iadFechaFin) {
+        this.iadFechaFin = iadFechaFin;
+    }
+
+    public Date getIadFechaFin() {
+        return iadFechaFin;
+    }
+
+
+    public void setIasMontoRevisado(BigDecimal iasMontoRevisado) {
+        this.iasMontoRevisado = iasMontoRevisado;
+    }
+
+    public BigDecimal getIasMontoRevisado() {
+        return iasMontoRevisado;
+    }
+
+    public void setMontoRevisado(BigDecimal montoRevisado) {
+        this.montoRevisado = montoRevisado;
+    }
+
+    public BigDecimal getMontoRevisado() {
+        return montoRevisado;
+    }
+
+
+
     public int getInfId() {
         return infId;
     }
@@ -169,4 +211,7 @@ public class ValorizacionInversionAvanceDetalleVO {
     public void setInvId(int invId) {
         this.invId = invId;
     }
+
 }
+
+
