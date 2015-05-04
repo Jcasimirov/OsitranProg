@@ -37,6 +37,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "jefeAreaContratoConcecionMB")
 @ViewScoped
 public class JefeAreaContratoConcecionMB {
+    
     private int tipoInfraestructura;
     private String tipoInfraestructuraS;
     private String buscar;
@@ -53,7 +54,6 @@ public class JefeAreaContratoConcecionMB {
     private List<ContratoVO> listaContratos = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
     private List<ContratoJefeAreaVO> listaJefeArea = new ArrayList<>();
-   
 
     @ManagedProperty(value = "#{contratoJefeAreaVO}")
     ContratoJefeAreaVO contratoJefeAreaVO;
@@ -104,7 +104,6 @@ public class JefeAreaContratoConcecionMB {
         codigoConcesion = 0;
         codigoContrato = 0;
         tipoInfraestructuraS="";
-        
     }
 
     public void cargarListaInfraestructura() {
@@ -113,7 +112,6 @@ public class JefeAreaContratoConcecionMB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void cargarJefeAreaContratoConcesion() {
@@ -149,10 +147,19 @@ public class JefeAreaContratoConcecionMB {
     public void desabilitar(int codigo){
         contratoJefeAreaVO=contratoJefeAreaServiceImpl.get(codigo);
         contratoJefeAreaVO.setCjaEstado(0);
+        contratoJefeAreaVO.setCjaFechaFinal(new Date());
         contratoJefeAreaServiceImpl.update(contratoJefeAreaVO); 
         listarJefeAreaContrato();
         }
     
+    
+    public void activar(int codigo){
+        contratoJefeAreaVO=contratoJefeAreaServiceImpl.get(codigo);
+        contratoJefeAreaVO.setCjaEstado(0);
+        contratoJefeAreaVO.setCjaFechaFinal(new Date());
+        contratoJefeAreaServiceImpl.update(contratoJefeAreaVO); 
+        listarJefeAreaContrato();
+        }
     
     public void cargarListaContratos() {
         try {
@@ -174,7 +181,6 @@ public class JefeAreaContratoConcecionMB {
                 }
             }
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
@@ -192,11 +198,8 @@ public class JefeAreaContratoConcecionMB {
             tipoInfraestructuraC=contrato1.getTinId();
             listarJefeAreaContrato();
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
-
-        
     }
 
     public void registrarContrato() {
@@ -213,7 +216,6 @@ public class JefeAreaContratoConcecionMB {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe deshabilitar el jefe de area actual");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
-            
            else  if (tipoInfraestructura == 0) {
                 FacesMessage mensaje =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar el tipo de infraestructura");
@@ -236,20 +238,18 @@ public class JefeAreaContratoConcecionMB {
                 listarJefeAreaContrato();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                limpiar();
-               
+                limpiar(); 
             }
         } catch (Exception e) {
             System.out.println("SE CALLO EN EL METODO REGISTRAR CONTRATO");
             e.printStackTrace();
         }
-        
     }
     
     public void listarJefeAreaContrato(){ 
         try {
            int contador=1;
-           listaJefeArea=contratoJefeAreaServiceImpl.query1(codigoContratoP);
+                listaJefeArea=contratoJefeAreaServiceImpl.query1(codigoContratoP);
             for (ContratoJefeAreaVO contratoJefeAreaVO1:listaJefeArea){
                 concesionVO=concesionServiceImpl.get(contratoJefeAreaVO1.getCsiId());
                 contratoJefeAreaVO1.setConcesionNombre(concesionVO.getCsiNombre());
