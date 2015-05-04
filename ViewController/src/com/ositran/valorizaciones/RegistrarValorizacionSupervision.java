@@ -277,11 +277,11 @@ public class RegistrarValorizacionSupervision {
             
             if(igv){
                     igv1= new BigDecimal(0.18);
-                    valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla));
+                    valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla).doubleValue());
                 }
             else{
                     igv1= new BigDecimal(0);
-                    valorizacionSupDetalleVO.setIgv(igv1);
+                    valorizacionSupDetalleVO.setIgv(igv1.doubleValue());
                 }
             //valorizacionSupDetalleVO.settTotal(montoTabla.add(igv1.multiply(montoTabla))); 
             listaValorizacion.add(valorizacionSupDetalleVO);
