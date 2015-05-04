@@ -5,9 +5,9 @@ import java.util.Date;
 public class DerivarReconocimientoSupervisorVO {
     
     private int csiId;
-    private Integer iadAnyo;
+    private int iadAnyo;
     private String iadAsunto;
-    private Integer iadDiasHabiles;
+    private int iadDiasHabiles;
     private Date iadFechaEmisión;
     private Date iadFechaFin;
     private Date iadFechaInicio;
@@ -18,7 +18,7 @@ public class DerivarReconocimientoSupervisorVO {
     private int iadHr;
     private String iadNroCarta;
     private int iadNumero;
-    private Integer iadPlazoDías;
+    private int iadPlazoDías;
     private double iadPlazoEnDías;
     private String iadRegSalida;
     private int iadTipoDías;
@@ -45,11 +45,11 @@ public class DerivarReconocimientoSupervisorVO {
         return csiId;
     }
 
-    public void setIadAnyo(Integer iadAnyo) {
+    public void setIadAnyo(int iadAnyo) {
         this.iadAnyo = iadAnyo;
     }
 
-    public Integer getIadAnyo() {
+    public int getIadAnyo() {
         return iadAnyo;
     }
 
@@ -61,11 +61,11 @@ public class DerivarReconocimientoSupervisorVO {
         return iadAsunto;
     }
 
-    public void setIadDiasHabiles(Integer iadDiasHabiles) {
+    public void setIadDiasHabiles(int iadDiasHabiles) {
         this.iadDiasHabiles = iadDiasHabiles;
     }
 
-    public Integer getIadDiasHabiles() {
+    public int getIadDiasHabiles() {
         return iadDiasHabiles;
     }
 
@@ -149,11 +149,11 @@ public class DerivarReconocimientoSupervisorVO {
         return iadNumero;
     }
 
-    public void setIadPlazoDías(Integer iadPlazoDías) {
+    public void setIadPlazoDías(int iadPlazoDías) {
         this.iadPlazoDías = iadPlazoDías;
     }
 
-    public Integer getIadPlazoDías() {
+    public int getIadPlazoDías() {
         return iadPlazoDías;
     }
 
