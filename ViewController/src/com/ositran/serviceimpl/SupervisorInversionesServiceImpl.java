@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SupervisorInversionesServiceImpl implements SupervisorInversionesService {
     
-    private SupervisorInversionesDAOImpl supervisorInversionesDAOImpl;                   
-    private SupervisorInversionesVO supervisorInversionesVO;
-    private SupervisorInversiones supervisorInversiones;
+    private SupervisorInversionesDAOImpl supervisorInversionesDAOImpl= new SupervisorInversionesDAOImpl();                   
+    private SupervisorInversionesVO supervisorInversionesVO = new SupervisorInversionesVO();
+    private SupervisorInversiones supervisorInversiones = new SupervisorInversiones();
     List<SupervisorInversionesVO> listVO;
 
 
