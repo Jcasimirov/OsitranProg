@@ -48,6 +48,7 @@ public class ContratoVO {
     private Integer conDiaPlazoconcesion;
     private Integer conMesoAnioPlazoconcesion;
     private String conNotaPlazoConcesion;
+    private Date conFechaFinContrato;
     
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
@@ -359,5 +360,13 @@ public class ContratoVO {
 
     public String getConNotaPlazoConcesion() {
         return conNotaPlazoConcesion;
+    }
+
+    public void setConFechaFinContrato(Date conFechaFinContrato) {
+        this.conFechaFinContrato = conFechaFinContrato;
+    }
+
+    public Date getConFechaFinContrato() {
+        return conFechaFinContrato;
     }
 }
