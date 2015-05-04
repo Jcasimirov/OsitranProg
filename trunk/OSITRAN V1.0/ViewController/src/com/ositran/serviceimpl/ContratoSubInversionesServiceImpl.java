@@ -92,7 +92,7 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
        contratoSubInversionesVO1.setSivFechaInicial(contratoSubInversiones1.getSivFechaInicial());
        contratoSubInversionesVO1.setSivId(contratoSubInversiones1.getSivId());
        contratoSubInversionesVO1.setSivNombre(contratoSubInversiones1.getSivNombre());
-       contratoSubInversionesVO1.setSivUmero(contratoSubInversiones1.getSivUmero());
+       contratoSubInversionesVO1.setSivUmero(contratoSubInversiones1.getSivNumero());
        contratoSubInversionesVO1.setConId(contratoSubInversiones1.getConId());
        contratoSubInversionesVO1.setTdoId(contratoSubInversiones1.getTdoId());
        contratoSubInversionesVO1.setTinId(contratoSubInversiones1.getTinId());
@@ -112,7 +112,7 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
         contratoSubInversiones1.setSivFechaInicial(contratoSubInversionesVO1.getSivFechaInicial());
         contratoSubInversiones1.setSivId(contratoSubInversionesVO1.getSivId());
         contratoSubInversiones1.setSivNombre(contratoSubInversionesVO1.getSivNombre());
-        contratoSubInversiones1.setSivUmero(contratoSubInversionesVO1.getSivUmero());
+        contratoSubInversiones1.setSivNumero(contratoSubInversionesVO1.getSivUmero());
         contratoSubInversiones1.setConId(contratoSubInversionesVO1.getConId());
         contratoSubInversiones1.setTdoId(contratoSubInversionesVO1.getTdoId());
         contratoSubInversiones1.setTinId(contratoSubInversionesVO1.getTinId());
