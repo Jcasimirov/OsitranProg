@@ -80,31 +80,68 @@
             <f:event listener="#{declararInversionMB.listaPeriodos}" type="preRenderComponent"/>
              
             <f:event listener="#{declararInversionMB.listarTipoInversion}" type="preRenderComponent"/>
-             
-            <h:form id="form">
-                <p:growl id="mensaje" showDetail="true" life="10000"/>
-                <p:layout fullPage="true" style="border:none">
+               <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <p:dialog widgetVar="_dlgEditarReconocimiento" header="Editar Montos en Reconocimiento" modal="true" resizable="false"
+                              appendToBody="true" closable="true">
+                            <h:form id="frmEditarMontoRec">
+                                <p:panelGrid styleClass="pnlEdicion" columnClasses="etiquetas,cajas" columns="2">
+                                    <h:outputText value="Monto Presentado"/>
+                                    <p:inputText value="#{declararInversionMB.invReconocimientoVO.ivrMontoPresentado}"
+                                                 readonly="true"/>
+                                    <h:outputText value="Monto Aprobado"/>
+                                    <p:inputText value="#{declararInversionMB.invReconocimientoVO.ivrMontoAprobado}" onkeypress="return ValidarNumFloat(event,this);"/>
+                                    <p:commandButton value="#{btn.btn_aceptar}"
+                                                     actionListener="#{declararInversionMB.grabarReconocimiento}" >
+                                        <f:attribute name="reconocimiento"
+                                                     value="#{declararInversionMB.invReconocimientoVO}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{btn.btn_salir}" onclick="_dlgEditarReconocimiento.hide();"></p:commandButton>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:dialog>
+                        
+                         <p:dialog widgetVar="_dlgEditarReajuste" header="Editar Montos en Reajuste" modal="true" resizable="false"
+                              appendToBody="true" closable="true">
+                            <h:form id="frmEditarMontoRea">
+                                <p:panelGrid styleClass="pnlEdicion" columnClasses="etiquetas,cajas" columns="2">
+                                    <h:outputText value="Monto Aprobado"/>
+                                    <p:inputText value="#{declararInversionMB.invReajusteVO.irjMontoAprobado}"
+                                                 readonly="true"/>
+                                    <h:outputText value="Monto Reajustado"/>
+                                    <p:inputText value="#{declararInversionMB.invReajusteVO.irjMontoReajuste}" onkeypress="return ValidarNumFloat(event,this);"/>
+                                    <p:commandButton value="#{btn.btn_aceptar}"
+                                                     actionListener="#{declararInversionMB.grabarReajuste}" >
+                                        <f:attribute name="reajuste"
+                                                     value="#{declararInversionMB.invReajusteVO}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="#{btn.btn_salir}" onclick="_dlgEditarReajuste.hide();"></p:commandButton>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:dialog>
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="10000"/>
+              
                         <div align="center">
                             <div align="center">
                                 <h4 style="color: #003194;">DECLARAR INVERSION</h4>
                             </div>
-                            <table style="font-size: 11px">
+                            <table style="font-size: 11px;">
                                 <tr>
                                     <td valign="top">
                                         <p:fieldset legend="Datos Contrato Concesión">
-                                            <p:fieldset id="fsCriterioBusqueda" styleClass="fielsetinterno"
-                                                        legend="Criterio de Busqueda">
-                                                <p:inputText id="cb" style="width:200px;"
+                                            <p:fieldset id="fsCriterioBusqueda"  
+                                                        legend="Criterio de Busqueda" >
+                                                <p:inputText id="cb" style="width:200px;position:relative;float:left;"
                                                              value="#{declararInversionMB.nombreConcesion}"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
-                                                <p:commandButton icon="ui-icon-search"
+                                                <p:commandButton icon="ui-icon-search" style="position:relative;float:left;"
                                                                  actionListener="#{declararInversionMB.abrirBuscarContratos()}"
                                                                  oncomplete="popupBuscarContrato.show();"/>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosConcesion"
+                                            <p:fieldset  id="datosConcesion"
                                                         legend="Datos Concesión">
                                                 <table>
                                                     <tr>
@@ -132,7 +169,7 @@
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosCompromiso"
+                                            <p:fieldset  id="datosCompromiso"
                                                         legend="ETAPA DE CONSECIÓN">
                                                 <table>
                                                     <tr>
@@ -181,7 +218,7 @@
                                                 </table>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosExpe"
+                                            <p:fieldset  id="datosExpe"
                                                         legend="EXPEDIENTE DE  RECONOCIMIENTO">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
@@ -194,11 +231,13 @@
                                                              var="tInversion" selectionMode="single"
                                                              rowKey="#{tInversion.tiaNumero}">
                                                     <p:ajax event="rowSelect"
+
                                                             listener="#{declararInversionMB.cargarDetalleInversion}"
-                                                            update=":form:tablaReconocimiento :form:tablaReajuste"/>
+                                                            update=":form:tablaReconocimiento :form:tablaReajuste :form"/>
                                                     <p:ajax event="rowUnselect"
                                                             listener="#{declararInversionMB.limpiarDatos()}"
-                                                            update=":form:tablaReconocimiento :form:tablaReajuste"/>
+                                                            update=":form:tablaReconocimiento"/>
+
                                                     <p:column headerText="Nro. Val">
                                                         <h:outputText value="#{tInversion.tiaNumero}"/>
                                                     </p:column>
@@ -222,8 +261,8 @@
                                         <p:fieldset legend="Datos de Reconocimiento" id="datosDeclaracion">
                                             <table>
                                                 <tr>
-                                                    <td>Estado del Reconomiento:</td>
-                                                    <td>
+                                                    <td align="left">Estado del Reconomiento:</td>
+                                                    <td align="left">
                                                         <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px">
@@ -235,8 +274,8 @@
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td>Observaci&#243;n</td>
-                                                    <td>
+                                                    <td align="left">Observaci&#243;n</td>
+                                                    <td align="left">
                                                         <p:inputTextarea id="obsRecf" style="width:400px;"
                                                                          onkeyup="pasarMayuscula(this.value,this.id)"
                                                                          value="#{declararInversionMB.invVO.invObservaciones}"/>
@@ -244,25 +283,29 @@
                                                 </tr>
                                             </table>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosReconoc"
+                                            <p:fieldset  id="datosReconoc"
                                                         legend="RESULTADO DE RECONOCIMIENTO">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px; width:560px"
+                                                             style="font-size:11px; "
                                                              id="tablaReconocimiento"
                                                              value="#{declararInversionMB.listaInvReconocimientoVO}"
-                                                             editable="true" editMode="cell" var="tReconocimiento">
-                                                    <p:ajax event="cellEdit"
-                                                            listener="#{declararInversionMB.cargarReajuste}"
-                                                            update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen"/>
-                                                    <p:column headerText="Inversión">
-                                                        <h:outputText value="#{tReconocimiento.tiaNumero}"/>
+                                                             var="tReconocimiento">                                   
+                                                     <p:column headerText="Nro Val">
+                                                     <h:outputText value="#{tReconocimiento.tiaNumero}"/>
                                                     </p:column>
+                                                  
+
+                                                    <p:column headerText="Inversión">
+                                                        <h:outputText value="#{tReconocimiento.iadId}"/>
+                                                    </p:column>
+
                                                     <p:column headerText="Aeropuerto"
                                                               rendered="#{declararInversionMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+
                                                         <h:outputText value="#{tReconocimiento.nombreInfraestructura}"/>
                                                     </p:column>
                                                     <p:column headerText="Desc. del Concepto">
@@ -275,48 +318,51 @@
                                                         <h:outputText value="#{tReconocimiento.ivrMontoPresentado}"/>
                                                     </p:column>
                                                     <p:column headerText="Monto Aprobado">
-                                                        <p:cellEditor>
-                                                            <f:facet name="output">
-                                                                <h:outputText value="#{tReconocimiento.ivrMontoAprobado}"/>
-                                                            </f:facet>
-                                                            <f:facet name="input">
-                                                                <p:inputText value="#{tReconocimiento.ivrMontoAprobado}"
-                                                                             style="width:100%"
-                                                                             onkeypress="return ValidarNumFloat(event,this);"/>
-                                                            </f:facet>
-                                                        </p:cellEditor>
+                                                        <h:outputText value="#{tReconocimiento.ivrMontoAprobado}"/>
+
                                                     </p:column>
-                                                    <p:columnGroup type="footer">
+                                                     <p:column style="width:32px">
+                                                        <p:commandButton icon="ui-icon-pencil" actionListener="#{declararInversionMB.editarReconocimiento}" update=":frmEditarMontoRec" oncomplete="_dlgEditarReconocimiento.show();">
+                                                        <f:attribute name="reconocimiento" value="#{tReconocimiento}" />
+                                                        </p:commandButton>
+                                                    </p:column>
+                                                    <p:columnGroup  type="footer">
                                                         <p:row>
-                                                            <p:column colspan="#{declararInversionMB.cantFilas}"
+                                                            <p:column colspan="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos ? 6 : 5}"
                                                                       footerText="Total" style="text-align:right;"></p:column>
                                                             <p:column footerText="#{declararInversionMB.totalMontoPresentado}"
                                                                       style="text-align:left;"></p:column>
                                                             <p:column footerText="#{declararInversionMB.totalMontoAprobado}"
                                                                       style="text-align:left;"></p:column>
+                                                               <p:column/>    
                                                         </p:row>
                                                     </p:columnGroup>
                                                 </p:dataTable>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosReajuste"
+                                            <p:fieldset  id="datosReajuste"
                                                         legend="REAJUSTE">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="3,4,10" resizableColumns="true"
-                                                             style="font-size:11px; width:560px" id="tablaReajuste"
+                                                             style="font-size:11px;" id="tablaReajuste"
                                                              value="#{declararInversionMB.listaInvReajusteVO}"
-                                                             editable="true" editMode="cell" var="tReajuste">
-                                                    <p:ajax event="cellEdit"
-                                                            listener="#{declararInversionMB.cargarReajuste()}"
-                                                            update=":form:tablaReajuste :form:datosResumen"/>
-                                                    <p:column headerText="Inversion">
-                                                        <h:outputText value="#{tReajuste.tiaNumero}"/>
+
+                                                             var="tReajuste">
+                                                   <p:column headerText="Nro Val">
+                                                     <h:outputText value="#{tReajuste.tiaNumero}"/>
                                                     </p:column>
+                                                           
+                                                    <p:column headerText="Inversión">
+                                                        <h:outputText value="#{tReajuste.iadId}"/>
+                                                    </p:column>
+                                                   
+
                                                     <p:column headerText="Aeropuerto"
                                                               rendered="#{declararInversionMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+
                                                         <h:outputText value="#{tReajuste.nombreInfraestructura}"/>
                                                     </p:column>
                                                     <p:column headerText="Desc. del Concepto">
@@ -329,30 +375,35 @@
                                                         <h:outputText value="#{tReajuste.irjMontoAprobado}"/>
                                                     </p:column>
                                                     <p:column headerText="Reajuste">
-                                                        <p:cellEditor>
-                                                            <f:facet name="output">
-                                                                <h:outputText value="#{tReajuste.irjMontoReajuste}"/>
-                                                            </f:facet>
-                                                            <f:facet name="input">
-                                                                <p:inputText value="#{tReajuste.irjMontoReajuste}"
-                                                                             style="width:100%" onkeypress="return ValidarNumFloat(event,this);"/>
-                                                            </f:facet>
-                                                        </p:cellEditor>
+
+                                                    <h:outputText value="#{tReajuste.irjMontoReajuste}"/>
+                                                    </p:column>
+                                                    <p:column style="width:32px;">
+                                                        <p:commandButton icon="ui-icon-pencil" rendered="#{tReajuste.irjMontoAprobado ne null}"
+                                                        actionListener="#{declararInversionMB.editarReajuste}" 
+                                                        update=":frmEditarMontoRea" 
+                                                        oncomplete="_dlgEditarReajuste.show();">
+                                                        <f:attribute name="reajuste" value="#{tReajuste}" />
+                                                        </p:commandButton>
+
                                                     </p:column>
                                                     <p:columnGroup type="footer">
                                                         <p:row>
-                                                            <p:column colspan="#{declararInversionMB.cantFilas}"
+
+                                                            <p:column colspan="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos ? 6 : 5}"
                                                                       footerText="Total" style="text-align:right;"></p:column>
+
                                                             <p:column footerText="#{declararInversionMB.totalMontoAprobado}"
                                                                       style="text-align:left;"></p:column>
                                                             <p:column footerText="#{declararInversionMB.totalMontoReajustado}"
                                                                       style="text-align:left;"></p:column>
+                                                            <p:column/> 
                                                         </p:row>
                                                     </p:columnGroup>
                                                 </p:dataTable>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" id="datosResumen" legend="RESUMEN">
+                                            <p:fieldset  id="datosResumen" legend="RESUMEN">
                                                 <table>
                                                     <tr>
                                                         <td>Monto Total Aprobado</td>
@@ -387,38 +438,40 @@
                                             </p:fieldset>
                                             <table>
                                                 <tr>
-                                                    <td>Numero de Informe</td>
-                                                    <td>
+                                                    <td align="left">Numero de Informe</td>
+                                                    <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroInforme}"
                                                                      size="10"></p:inputText>
                                                     </td>
-                                                    <td>Fecha de Emisi&#243;n</td>
-                                                    <td>
+                                                    <td align="left">Fecha de Emisi&#243;n</td>
+                                                    <td align="left">
                                                         <p:calendar size="10"
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
-                                                                    locale="es" pattern="dd-MM-yyyy"/>
+                                                                    locale="es" pattern="dd/MM/yyyy"/>
+
                                                     </td>
-                                                    <td>Reg. de Salida</td>
-                                                    <td>
+                                                    <td align="left">Reg. de Salida</td>
+                                                    <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaInforme}"
                                                                      size="10"></p:inputText>
                                                     </td>
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td>Numero de Oficio</td>
-                                                    <td>
+                                                    <td align="left">Numero de Oficio</td>
+                                                    <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroOficio}"
                                                                      size="10"></p:inputText>
                                                     </td>
-                                                    <td>Fecha de Emisi&#243;n</td>
-                                                    <td>
+                                                  <td align="left">Fecha de Emisi&#243;n</td>
+                                                    <td  align="left">
                                                         <p:calendar size="10"
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
-                                                                    locale="es" pattern="dd-MM-yyyy"/>
+                                                                    locale="es" pattern="dd/MM/yyyy"/>
+
                                                     </td>
-                                                    <td>Reg. de Salida</td>
-                                                    <td>
+                                                    <td  align="left">Reg. de Salida</td>
+                                                    <td  align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaOficio}"
                                                                      size="10"></p:inputText>
                                                     </td>
@@ -426,19 +479,18 @@
                                             </table>
                                             <table>
                                                 <tr>
-                                                    <td>Tipo de Cambio</td>
-                                                    <td>
-                                                        <p:selectOneMenu widgetVar="monedaP" id="tipoCambio"
-                                                                         value="#{declararInversionMB.invVO.monId}"
-                                                                         style="width:210px">
+                                                    <td  align="left">Tipo de Cambio</td>
+                                                    <td  align="left">
+                                                        <p:selectOneMenu  id="tipoCambio"
+                                                                         value="#{declararInversionMB.invVO.monId}">
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItems value="#{declararInversionMB.listaTipoMonedas}"
                                                                            var="mon" itemLabel="#{mon.monNombre}"
                                                                            itemValue="#{mon.monId}"/>
                                                         </p:selectOneMenu>
                                                     </td>
-                                                    <td>Monto</td>
-                                                    <td>
+                                                    <td  align="left">Monto</td>
+                                                    <td  align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invMontoTipoCambio}"
                                                                      onkeypress="return ValidarNumFloat(event,this);"
                                                                      size="10"></p:inputText>
@@ -446,8 +498,8 @@
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td>Nota</td>
-                                                    <td colspan="3">
+                                                    <td align="left">Nota</td>
+                                                    <td colspan="3"  align="left">
                                                         <p:inputTextarea id="nota" style="width:400px;"
                                                                          value="#{declararInversionMB.invVO.invNota}"
                                                                          onkeyup="pasarMayuscula(this.value,this.id);"/>
@@ -461,18 +513,18 @@
                         </div>
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px" value="Guardar"
-                            ajax="false"
-                            update=":form:datosDeclaracion :form:datosConcesion"
-                                             actionListener="#{declararInversionMB.guardarDeclaracion()}"/>
+                            actionListener="#{declararInversionMB.guardarDeclaracion()}"
+                            update=":form:datosDeclaracion :form:mensaje"/>
+
                              
                             <p:commandButton style="width:80px" value="Limpiar"/>
                         </div>
-                    </p:layoutUnit>
-                </p:layout>
+                 
             </h:form>
-             
+                </p:layoutUnit>
+                </p:layout>
             <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
-                      resizable="false" appendToBody="true" closable="true">
+                      resizable="false" appendToBody="true" closable="true" width="1250" height="600">
                 <h:form id="frmBuscarContratoDlg">
                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                  columnClasses="etiquetas,cajas,validadores">
@@ -502,12 +554,14 @@
                                     style="float:left;position:relative;"/>
                         <p:message for="fechaFinBC" display="icon"/>
                     </p:panelGrid>
-                    <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1">
+                    <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
+  
                         <p:commandButton value="Buscar Contrato"
                                          actionListener="#{declararInversionMB.buscarContratos()}"
                                          update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
+                       
                         <p:dataTable value="#{declararInversionMB.listaContrato}" id="contrato" var="contrato11"
-                                     style="font-size:11px" emptyMessage="No se Encontraron Registros">
+                                     style="font-size:11px;width:100% !important;" emptyMessage="No se Encontraron Registros">
                             <p:column headerText="Fecha Suscripción" style="width:7%">
                                 <div style="text-align: center;">
                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
@@ -544,6 +598,7 @@
                                 </div>
                             </p:column>
                         </p:dataTable>
+                     
                         <p:commandButton update=":frmBuscarContratoDlg:pnlBuscarContratoDlg  :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"
                                          process="@this" value="#{btn.btn_salir}"
                                          oncomplete="popupBuscarContrato.hide();">
