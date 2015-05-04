@@ -21,6 +21,7 @@ public class ContratoResSupDetalleVO {
     private Integer codigoSup;
     
     private String nombresup;
+    private String correoSupervisor;
 
 
     public void setConId(Integer conId) {
@@ -133,6 +134,14 @@ public class ContratoResSupDetalleVO {
 
     public Integer getCodigoSup() {
         return codigoSup;
+    }
+
+    public void setCorreoSupervisor(String correoSupervisor) {
+        this.correoSupervisor = correoSupervisor;
+    }
+
+    public String getCorreoSupervisor() {
+        return correoSupervisor;
     }
 
 }
