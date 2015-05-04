@@ -37,7 +37,7 @@ public class InvAvn implements Serializable {
     private Integer mcoId;
     @Column(name = "MON_ID")
     private Integer monId;
-    @Column(name = "TIA_ANYO", nullable = false)
+    @Column(name = "TIA_ANYO")
     private Integer tiaAnyo;
     @Column(name = "TIA_ASUNTO", nullable = false, length = 4000)
     private String tiaAsunto;
@@ -79,7 +79,6 @@ public class InvAvn implements Serializable {
     
     @Column(name = "CCO_ID")
     private Integer ccoId;
-    
     @Column(name = "TIA_OBSERVACIONES")
     private String tiaObservaciones; 
     public InvAvn() {
