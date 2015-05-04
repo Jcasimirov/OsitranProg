@@ -25,7 +25,12 @@
                                         <td style="width:60px">
                                             <p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectTipoInfraestructura}"
                                                              id="selectTipoInfraestructura">
-                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.listarObjects}"/>
+                                                <f:selectItem binding="#{backing_ositran_reports_empresaSupervisora.selectItemTipoInfraestructura}"
+                                                              id="selectItemTipoInfraestructura" itemLabel="Seleccione"
+                                                              itemValue="0"/>
+                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.listarInfraestructura()}"
+                                                               var="obj" itemLabel="#{obj.tinNombre}"
+                                                               itemValue="#{obj.tinId}"/>
                                             </p:selectOneMenu>
                                         </td>
                                         <td>
@@ -34,9 +39,13 @@
                                         </td>
                                         <td>
                                             <p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectConcesion}"
-                                                             id="selectConcesion"
-                                                             value="#{backing_ositran_reports_empresaSupervisora.concesion}">
-                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.concesionSelectItems}"/>
+                                                             id="selectConcesion">
+                                                <f:selectItem binding="#{backing_ositran_reports_empresaSupervisora.selectItemConcesion}"
+                                                              id="selectItemConcesion" itemLabel="Seleccione"
+                                                              itemValue="0"/>
+                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.listarConcesion()}"
+                                                               var="obj" itemLabel="#{obj.csiNombre}"
+                                                               itemValue="#{obj.csiId}"/>
                                                 <f:ajax render="selectedItemConcesion" event="change"
                                                         execute="selectConcesion"/>
                                             </p:selectOneMenu>
@@ -47,22 +56,24 @@
                                         </td>
                                         <td>
                                             <p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectEstado}"
-                                                             id="selectEstado"
-                                                             value="#{backing_ositran_reports_empresaSupervisora.estado}">
-                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.estadoSelectItems}"/>
+                                                             id="selectEstado">
+                                                <f:selectItem binding="#{backing_ositran_reports_empresaSupervisora.selectItemEstado}"
+                                                              id="selectItemEstado" itemLabel="Seleccione"
+                                                              itemValue="0"/>
+                                                <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.listarEstados()}"
+                                                               var="obj" itemLabel="#{obj.nombre}"
+                                                               itemValue="#{obj.id}"/>
                                                 <f:ajax render="selectedItemEstado" event="change"
                                                         execute="selectEstado"/>
                                             </p:selectOneMenu>
                                         </td>
                                     </tr>
-                                     
                                     <tr>
                                         <td colspan="6" align="left" style="font-weight:bold">
                                             <p:outputLabel binding="#{backing_ositran_reports_empresaSupervisora.outputLabel2}"
                                                            id="outputLabel2" value="Fecha de suscripción:"/>
                                         </td>
                                     </tr>
-                                     
                                     <tr>
                                         <td></td>
                                         <td>
@@ -92,13 +103,6 @@
                                     </tr>
                                 </table>
                             </p:fieldset>
-                            <!--p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisora.selectTipoInfraestructura}"
-                                                                    id="selectTipoInfraestructura"
-                                                                    value="#{backing_ositran_reports_empresaSupervisora.tipoInfraestructura}">
-                                            <f:selectItems value="#{backing_ositran_reports_empresaSupervisora.tipoInfraestructuraSelectItems}"/>
-                                            <f:ajax render="selectedItemTipoInfraestructura" event="change"
-                                                    execute="selectTipoInfraestructura"/>
-                                        </p:selectOneMenu-->
                             <p:outputLabel id="relleno2" value=""/>
                             <h:commandLink value="Generar Excel"
                                            actionListener="#{backing_ositran_reports_empresaSupervisora.generarExcel()}"
@@ -124,5 +128,4 @@
             </div>
         </h:body>
     </html>
-    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_empresaSupervisora-->
 </f:view>
