@@ -20,7 +20,9 @@
         <h:body>
         <f:event listener="#{bk_NotificarInversion.validarSesion}" type="preRenderComponent"></f:event>
             <f:event listener="#{bk_NotificarInversion.listarTipoAprobaciones}" type="preRenderComponent"/>             
-            <f:event listener="#{bk_NotificarInversion.listarDeclaraciones}" type="preRenderComponent"/>                                  
+            <f:event listener="#{bk_NotificarInversion.listarDeclaraciones}" type="preRenderComponent"/>
+            <f:event listener="#{bk_NotificarInversion.listarTiposMoneda}" type="preRenderComponent"/>
+            <f:event listener="#{bk_NotificarInversion.cargarConceptos}" type="preRenderComponent"/>
           
             <p:growl id="mensaje" showDetail="true" life="3000"/>
             <p:layout style="min-width:400px;min-height:500px;">
@@ -32,50 +34,59 @@
                             NOTIFICAR INVERSIONES DECLARADAS
                         </h3>
                     </div>
-                    <div align="center" style="font-size: 11px">
+                    <div align="center" >
                 <div style="width:100%" >
                     <p:dataTable value="#{bk_NotificarInversion.listaValorizaciones}" id="tablaValorizaciones" var="val"
-                                 style="font-size:11px" rows="10" paginator="true"
+                                 rows="10" paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 paginatorPosition="bottom" rowsPerPageTemplate="5,10,15"
+                                rowsPerPageTemplate="5,10,15"
                                  emptyMessage="No se Encontraron Registros" rowIndexVar="rowIndex">
-                        <p:column headerText="N°" style="width:3%">
-                            <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                        <p:column headerText="N°" style="font-size: 9px">
+                            <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase; font-size: 9px"/>
                         </p:column>
-                        <p:column headerText="Tipo Infraestructura" style="width:7%">
+                        <p:column headerText="Infraestructura" style="font-size: 9px">
                             <div style="text-align: center;">
                                 <h:outputText value="#{val.nombreTipoInfraestructura}"
-                                              style="text-transform:uppercase;"/>
+                                              style="text-transform:uppercase; font-size: 9px"/>
                             </div>
                         </p:column>
-                        <p:column headerText="Nro. Valorización" style="width:5%">
-                            <h:outputText value="#{val.tiaNumero}"/>
+                        <p:column headerText="Nro.Valorización"  style="font-size: 9px">
+                            <h:outputText value="#{val.tiaNumero}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Fecha Registro" style="width:10%">
-                            <h:outputText value="#{val.tiaFechaRegistro}" style="text-transform:uppercase;"/>
+                        <p:column headerText="Fecha Reg." style="font-size: 9px">
+                            <h:outputText value="#{val.tiaFechaRegistro}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Moneda" style="width:10%">
-                            <h:outputText value="#{val.nombreMoneda}" style="text-transform:uppercase;"/>
+                        <p:column headerText="Moneda" style="font-size: 9px">
+                            <h:outputText value="#{val.nombreMoneda}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Total Presentado" style="width:10%">
-                            <h:outputText value="#{val.tiaMontoTotalPresentado}" style="text-transform:uppercase;"/>
+                        <p:column headerText="T.Presentado" style="font-size: 9px">
+                            <h:outputText value="#{val.tiaMontoTotalPresentado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Total Reconocido" style="width:10%">
-                            <h:outputText value="#{val.tiaMontoTotalAprobado}" style="text-transform:uppercase;"/>
+                        <p:column headerText="T.Reconocido" style="font-size: 9px">
+                            <h:outputText value="#{val.tiaMontoTotalAprobado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Total Reajustado" style="width:10%">
-                            <h:outputText value="#{val.tiaMontoTotalReajustado}" style="text-transform:uppercase;"/>
+                        <p:column headerText="T.Reajustado" style="font-size: 9px">
+                            <h:outputText value="#{val.tiaMontoTotalReajustado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Estado" style="width:10%">
-                            <h:outputText value="#{val.estado}" style="text-transform:uppercase;"/>
+                        <p:column headerText="Estado" style="font-size: 9px">
+                            <h:outputText value="#{val.estado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="AprobadoPor" style="width:10%">
-                            <h:outputText value="#{val.aprobadopor}" style="text-transform:uppercase;"/>
+                        <p:column headerText="Aprob.Por" style="font-size: 9px">
+                            <h:outputText value="#{val.aprobadopor}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Fecha Notificación" style="width:10%">
-                            <h:outputText value="#{val.tiaFechaFin}" style="text-transform:uppercase;"/>
+                        <p:column headerText="Fecha Not." style="font-size: 9px">
+                            <h:outputText value="#{val.tiaFechaFin}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="Notificar" style="width:5%" rendered="#{bk_NotificarInversion.rolOpcion.troAgregar eq 1}">
+                        <p:column headerText="Declaración"  style="font-size: 9px">
+                            <div style="text-align: center;">
+                                <p:commandButton 
+                                                 actionListener="#{bk_NotificarInversion.verDeclaracion}"
+                                                 image="ui-icon-pencil" oncomplete="declaracion_inv.show();" update=":sdeclaracion_inv" >
+                                    <f:attribute id="valorizacionDec" name="valorizacionDec" value="#{val}"/>
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+                        <p:column headerText="Notificar"  rendered="#{bk_NotificarInversion.rolOpcion.troAgregar eq 1}" style="font-size: 9px">
                             <div style="text-align: center;">
                                 <p:commandButton rendered="#{val.iaeId eq 4}"
                                                  actionListener="#{bk_NotificarInversion.notificarDeclaracion}"
@@ -84,7 +95,7 @@
                                 </p:commandButton>
                             </div>
                         </p:column>
-                        <p:column headerText="Cargo" style="width:5%">
+                        <p:column headerText="Cargo" style="font-size: 9px" >
                             <div style="text-align: center;">
                             
                             <p:commandButton  icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{val.tiaRutaNot ne null}"
@@ -232,6 +243,285 @@
                         </table>
                     </div>
                     </h:form>
+                </p:dialog>               
+                
+                 <p:dialog widgetVar="declaracion_inv" id="sdeclaracion_inv" header="INVERSIÓN DECLARADA" height="560"
+                          width="1300" >
+                         
+              <div align="center" style="width: 100%" >
+                    
+                    <table style="font-size: 11px">
+                                <tr>
+                                    <td valign="top">
+                 <p:fieldset styleClass="fielsetinterno" id="datosConcesion"
+                                                        legend="Datos Concesión">
+                                                <table>
+                                                    <tr>
+                                                        <td align="left">Concesión</td>
+                                                        <td>
+                                                            <p:inputText value="#{bk_NotificarInversion.nombreConcesion}"
+                                                                         readonly="true" style="width:260px"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Tipo Infraestructura</td>
+                                                        <td>
+                                                            <p:inputText value="#{bk_NotificarInversion.nombreTipoInfraestructura}"
+                                                                         readonly="true" style="width:260px"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Modalidad Concesión</td>
+                                                        <td>
+                                                            <p:inputText value="#{bk_NotificarInversion.nombreModalidad}"
+                                                                         style="width:260px" readonly="true"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            
+                                            
+                                             <p:fieldset styleClass="fielsetinterno" id="datosCompromiso"
+                                                        legend="ETAPA DE CONSECIÓN">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="1" align="left">
+                                                            #{cam.setapa}
+                                                        </td>
+                                                        <td colspan="3" align="left">
+                                                        <p:inputText value="#{bk_NotificarInversion.nombreEtapa}"
+                                                                         style="width: 260px"
+                                                                         readonly="true" />                                                      
+                                                                                                                
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Plazo:</td>
+                                                        <td align="left" colspan="3">
+                                                            <p:inputText value="#{bk_NotificarInversion.desPlazo}"
+                                                                         style="width: 260px"
+                                                                         readonly="true" />
+                                                             
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Total:</td>
+                                                        <td align="left">
+                                                            <p:inputText value="#{bk_NotificarInversion.etapaTotal}"
+                                                                         style="text-align:right; " readonly="true"
+                                                                         ></p:inputText>
+                                                        </td>
+                                                        <td align="left">
+                                                            #{cam.mon}
+                                                        </td>
+                                                        <td align="left">
+                                                            <p:inputText value="#{bk_NotificarInversion.monNombre}"
+                                                                         readonly="true" ></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            
+                                             <table>
+                                                <tr>
+                                                    <td>Estado del Reconomiento:</td>
+                                                    <td>
+                                                    <p:inputText value="#{bk_NotificarInversion.estadoReconocimiento}"
+                                                                         readonly="true" style="width:260px;"></p:inputText>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>Observación</td>
+                                                    <td>
+                                                        <p:inputTextarea id="obsRecf" style="width:400px;"    
+                                                        value="#{bk_NotificarInversion.invAvnVO.tiaObservaciones}"
+                                                                          readonly="true"/>
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </table>
+                                            
+                                            </td>
+                                            
+                                            <td valign="top">
+                                             <p:fieldset legend="Resultado del Reconocimiento" >
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td colspan="3">
+                                                                                <p:dataTable value="#{bk_NotificarInversion.listaReconocimiento}" 
+                                                                                             id="tblResultadoReconocimiento"
+                                                                                             var="reconocimiento"
+                                                                                             style="font-size:11px;"
+                                                                                             emptyMessage="No se Encontraron Registros"
+                                                                                             rowIndexVar="rowIndex" >
+                                                                                    <p:column headerText="Nro. Valorización"
+                                                                                              style="width:7%">
+                                                                                        <div style="text-align: center;">
+                                                                                            <h:outputText value="#{reconocimiento.ireId}"/>
+                                                                                        </div>
+                                                                                    </p:column>
+                                                                                    
+                                                                                    <p:column headerText="Descripcion del Concepto"
+                                                                                              style="width:10%">
+                                                                                        <h:outputText value="#{reconocimiento.desConcepto}"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="Moneda"
+                                                                                              style="width:35%">
+                                                                                        <h:outputText value="#{reconocimiento.nombreMoneda}"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="MontoPresentado"
+                                                                                              style="width:35%;">
+                                                                                        <h:outputText value="#{reconocimiento.ivrMontoPresentado}"
+                                                                                                      style="text-transform:uppercase;"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="MontoAprobado"
+                                                                                              style="width:35%;">
+                                                                                        <h:outputText value="#{reconocimiento.ivrMontoAprobado}"
+                                                                                                      style="text-transform:uppercase;"/>
+                                                                                    </p:column>
+                                                                                    
+                                                                                    <p:columnGroup type="footer">
+                                                                                        <p:row>
+                                                                                            <p:column colspan="3"
+                                                                                                      footerText="Total"
+                                                                                                      style="text-align:right;"></p:column>
+                                                                                            <p:column footerText="#{bk_NotificarInversion.totalivrMontoPresentado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText="#{bk_NotificarInversion.totalivrMontoAprobado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            
+                                                                                        </p:row>
+                                                                                    </p:columnGroup>
+                                                                                </p:dataTable>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </p:fieldset>
+                                                                
+                                                                <br></br>
+                                                                <br></br>
+                                                                
+                                                                <p:fieldset legend="Reajuste">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td colspan="3">
+                                                                                <p:dataTable value="#{bk_NotificarInversion.listaReajuste}"
+                                                                                             id="tblReajuste"
+                                                                                             var="reajuste"
+                                                                                             style="font-size:11px"
+                                                                                             emptyMessage="No se Encontraron Registros">
+                                                                                    <p:column headerText="Nro. Valorización"
+                                                                                              style="width:7%">
+                                                                                        <div style="text-align: center;">
+                                                                                            <h:outputText value="#{reajuste.irjId}"/>
+                                                                                        </div>
+                                                                                    </p:column>
+                                                                                   
+                                                                                    <p:column headerText="Descripcion del Concepto"
+                                                                                              style="width:10%">
+                                                                                        <h:outputText value="#{reajuste.desConcepto}"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="Moneda"
+                                                                                              style="width:35%">
+                                                                                        <h:outputText value="#{reajuste.nombreMoneda}"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="MontoAprobado"
+                                                                                              style="width:35%">
+                                                                                        <h:outputText value="#{reajuste.irjMontoAprobado}"
+                                                                                                      style="text-transform:uppercase;"/>
+                                                                                    </p:column>
+                                                                                    <p:column headerText="MontoReajuste"
+                                                                                              style="width:35%">
+                                                                                        <h:outputText value="#{reajuste.irjMontoReajuste}"
+                                                                                                      style="text-transform:uppercase;"/>
+                                                                                    </p:column>
+                                                                                    
+                                                                                    <p:columnGroup type="footer">
+                                                                                        <p:row>
+                                                                                            <p:column colspan="3"
+                                                                                                      footerText="Total"
+                                                                                                      style="text-align:right;"></p:column>
+                                                                                            <p:column footerText="#{bk_NotificarInversion.totalirjMontoAprobado}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            <p:column footerText="#{bk_NotificarInversion.totalirjMontoReajuste}"
+                                                                                                      style="text-align:left;"></p:column>
+                                                                                            
+                                                                                        </p:row>
+                                                                                    </p:columnGroup>
+                                                                                </p:dataTable>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </p:fieldset>
+                                                                
+                                                                
+                                                                 <p:fieldset legend="RESUMEN">
+                                                                    <table style="width:100%;">
+                                                                        <tr>
+                                                                            <td>Monto Total Aprobado</td>
+                                                                            <td>
+                                                                                <p:inputText id="resumenMonPre" value="#{bk_NotificarInversion.totalivrMontoAprobadoI}" readonly="true" />
+                                                                            </td>
+                                                                            <td>Monto Total con Reajuste</td>
+                                                                            <td>
+                                                                                <p:inputText id="resumenMonRea" value="#{bk_NotificarInversion.totalirjMontoReajusteI}" readonly="true" />
+                                                                            </td>
+                                                                            
+                                                                            
+                                                                        </tr>
+                                                                    </table>
+                                                                    <br></br>
+                                                                    <table>
+                                                        <tr>
+                                                        <td><h:outputText value="Nro Informe" /></td>
+                                                        <td><p:inputText value="#{bk_NotificarInversion.invVO.invNumeroInforme}" readonly="true"/></td>
+                                                        
+                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td><p:inputText  value="#{bk_NotificarInversion.invVO.invFechaEmisionInforme}" readonly="true"/></td>
+                                                        
+                                                        <td><h:outputText value="Registro de Salida" /></td>
+                                                        <td><p:inputText value="#{bk_NotificarInversion.invVO.invRegSalidaInforme}" readonly="true"/></td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                        <td><h:outputText value="Nro Oficio" /></td>
+                                                        <td><p:inputText value="#{bk_NotificarInversion.invVO.invNumeroOficio}" readonly="true"/></td>
+                                                        
+                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td><p:inputText value="#{bk_NotificarInversion.invVO.invFechaEmisionOficio}" readonly="true"/></td>
+                                                        
+                                                        <td><h:outputText value="Registro de Salida" /></td>
+                                                        <td><p:inputText value="#{bk_NotificarInversion.invVO.invRegSalidaOficio}" readonly="true"/></td>
+                                                        </tr>                                                    
+                                            
+                                                        
+                                                        <tr>
+                                                       
+                                                        
+                                                        <td ><h:outputText value="Nota" /></td>                                                      
+                                                        <td colspan="5"><p:inputTextarea style="width:100%;" value="#{bk_NotificarInversion.invVO.invNota}" readonly="true"/></td>                                                       
+                                                       
+                                                        </tr>
+                                                        
+                                                        
+                                                        </table>
+                                                                </p:fieldset>
+                                                                
+                                                                
+                                            
+                                            
+                                            </td>
+                                            </tr>
+                                            </table>
+                                            
+                                            </div>
+                  
                 </p:dialog>
             
         </h:body>
