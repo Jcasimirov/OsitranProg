@@ -138,7 +138,10 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         contratoResSupDetalleVO.setTccTipo(contratoResSupDetalle.getTccTipo());
         contratoResSupDetalleVO.setTdoId(contratoResSupDetalle.getTdoId());
         contratoResSupDetalleVO.setTipoSup(contratoResSupDetalle.getTipoSup());
-        contratoResSupDetalleVO.setCcoId(contratoResSupDetalle.getCcoId());        
+        contratoResSupDetalleVO.setCcoId(contratoResSupDetalle.getCcoId());
+        contratoResSupDetalleVO.setInfId(contratoResSupDetalle.getInfId());
+        contratoResSupDetalleVO.setInvId(contratoResSupDetalle.getInvId());
+        contratoResSupDetalleVO.setCodigoSup(contratoResSupDetalle.getCodigoSup());
     
         return contratoResSupDetalleVO;
     }
@@ -155,8 +158,11 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         contratoResSupDetalle.setTccTipo(contratoResSupDetalleVO.getTccTipo());
         contratoResSupDetalle.setTdoId(contratoResSupDetalleVO.getTdoId());
         contratoResSupDetalle.setTipoSup(contratoResSupDetalleVO.getTipoSup());
-        contratoResSupDetalle.setCcoId(contratoResSupDetalleVO.getCcoId());    
-    
+        contratoResSupDetalle.setCcoId(contratoResSupDetalleVO.getCcoId());
+        contratoResSupDetalle.setInfId(contratoResSupDetalleVO.getInfId());
+        contratoResSupDetalle.setInvId(contratoResSupDetalleVO.getInvId());
+        contratoResSupDetalle.setCodigoSup(contratoResSupDetalleVO.getCodigoSup());
+
         return contratoResSupDetalle;
     }
     
@@ -179,6 +185,18 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException{
         int validacion = asignarResponsableSupDAOImpl.ValidaAsignación(contrato, tipoInfra, compromiso, concesion, aeropuerto, inversion, tipoDoc, nroDoc, tipoQuery);
         return validacion;
+    }
+    
+    @Override
+    public List<ContratoResSupDetalleVO> BuscarAsignacion(Integer contrato, Integer etapa, Integer aeropuerto, Integer inversion, Integer tipoSupervision) throws SQLException{
+        List<ContratoResSupDetalle> list=asignarResponsableSupDAOImpl.BuscarAsignacion(contrato, etapa,aeropuerto,inversion,tipoSupervision);        
+        List<ContratoResSupDetalleVO> listVO=toListContratoResSupDetalleVO(list);
+        for (int i =0 ; i< listVO.size() ; i++){
+            String nombre = ObtieneNombre(listVO.get(i).getTdoId(), listVO.get(i).getRsdNroDocumento(),listVO.get(i).getTipoSup());
+            listVO.get(i).setNombresup(nombre);
+        }
+        
+        return listVO;
     }
 
    
