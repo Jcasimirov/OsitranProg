@@ -1,16 +1,13 @@
 package com.ositran.daoimpl;
+
 import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
-
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     InversionTipoDescripcion inversionTipoDescripcion;
@@ -98,8 +95,8 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public InversionTipoDescripcion get(Integer id) throws SQLException ,Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-       inversionTipoDescripcion = (InversionTipoDescripcion) session.get(InversionTipoDescripcion.class, id);
-         session.getTransaction().commit();
+        inversionTipoDescripcion = (InversionTipoDescripcion) session.get(InversionTipoDescripcion.class, id);
+        session.getTransaction().commit();
         return inversionTipoDescripcion;
     }
 
