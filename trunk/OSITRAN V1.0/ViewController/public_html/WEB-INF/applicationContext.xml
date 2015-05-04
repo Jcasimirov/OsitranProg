@@ -63,15 +63,18 @@
   
     <bean id="invVO" class="com.ositran.vo.bean.InvVO"/>
     <bean id="valorizacionInversionAvanceDetalleVO" class="com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO"/>
+
     <bean id="modalidadConcesionVO" class="com.ositran.vo.bean.ModalidadConcesionVO"/>
     <bean id="contratoSupervisoraVO" class="com.ositran.vo.bean.ContratoSupervisoraVO"/>
-    
+
     
       <bean id="igv" class="com.ositran.model.Igv"/>	
     <bean id="igvVO" class="com.ositran.vo.bean.IgvVO"/>
     
+
     
     <bean id="valorizacionNotificacionVO" class="com.ositran.vo.bean.ValorizacionNotificacionVO"/>
+
     <!--Concesionario-->
     <bean id="concesionarioDAOImpl" class="com.ositran.daoimpl.ConcesionarioDAOImpl">
         <property name="concesionario" ref="concesionario"/>
@@ -637,7 +640,8 @@
         <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
         <property name="valorizacionInversionAvanceDetalleServiceImpl" ref="valorizacionInversionAvanceDetalleServiceImpl"/>
     </bean>
-    
+
+
     <!-- Mantenimiento contrato empresa supervisora-->
         <bean id="manteContEmprSupervisora" class="com.ositran.contratos.MantenimientoContratEmprSupervisor">
             <property name="infraestructuraTipoServiceImpl" ref="infraestructuraTipoServiceImpl"/>
@@ -729,5 +733,5 @@
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>          
 
     </bean>
-    
+
 </beans>
