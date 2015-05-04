@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,13 +15,17 @@ public class ValorizacionInversionAvanceVO {
         super();
     }  
     
+    private static final double serialVersionUID = -8313961451913199541L;
+    private int ccoId;
     private int conId;
     private int csiId;
     private int iaeId;
     private int invId;
     private int mcoId;
     private int monId;
+    private int tccTipo;
     private Integer tiaAnyo;
+    private int tiaAprobadoPor;
     private String tiaAsunto;
     private Integer tiaDiasHabiles;
     private Date tiaFechaFin;
@@ -27,19 +33,26 @@ public class ValorizacionInversionAvanceVO {
     private Date tiaFechaRegistro;
     private Date tiaFechaVencimientoPlazo;
     private int tiaHr;
-    
-    
     private String tiaMontoTotalAprobado;
-    private double tiaMontoTotalPresentado;
-    private double tiaMontoTotalReajustado;
-    private int tiaPlazoEnDias;
-    private int tinId;
-    
-    
+    private BigDecimal tiaMontoTotalPresentado;
+    private BigDecimal tiaMontoTotalReajustado;
     private int tiaNumero;
-    
-    
-    
+    private int tiaPlazoEnDias;
+    private String tiaRutaNot;
+    private int tinId;
+    private String monedaNombre;
+    private String  estadoNombre;
+    private String contratoConcesionNombre;
+    private String concesionNombre;
+
+    public void setCcoId(int ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public int getCcoId() {
+        return ccoId;
+    }
+
     public void setConId(int conId) {
         this.conId = conId;
     }
@@ -54,6 +67,14 @@ public class ValorizacionInversionAvanceVO {
 
     public int getCsiId() {
         return csiId;
+    }
+
+    public void setIaeId(int iaeId) {
+        this.iaeId = iaeId;
+    }
+
+    public int getIaeId() {
+        return iaeId;
     }
 
     public void setInvId(int invId) {
@@ -72,12 +93,36 @@ public class ValorizacionInversionAvanceVO {
         return mcoId;
     }
 
+    public void setMonId(int monId) {
+        this.monId = monId;
+    }
+
+    public int getMonId() {
+        return monId;
+    }
+
+    public void setTccTipo(int tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public int getTccTipo() {
+        return tccTipo;
+    }
+
     public void setTiaAnyo(Integer tiaAnyo) {
         this.tiaAnyo = tiaAnyo;
     }
 
     public Integer getTiaAnyo() {
         return tiaAnyo;
+    }
+
+    public void setTiaAprobadoPor(int tiaAprobadoPor) {
+        this.tiaAprobadoPor = tiaAprobadoPor;
+    }
+
+    public int getTiaAprobadoPor() {
+        return tiaAprobadoPor;
     }
 
     public void setTiaAsunto(String tiaAsunto) {
@@ -136,12 +181,36 @@ public class ValorizacionInversionAvanceVO {
         return tiaHr;
     }
 
+    public void setTiaMontoTotalAprobado(String tiaMontoTotalAprobado) {
+        this.tiaMontoTotalAprobado = tiaMontoTotalAprobado;
+    }
+
+    public String getTiaMontoTotalAprobado() {
+        return tiaMontoTotalAprobado;
+    }
+
     public void setTiaNumero(int tiaNumero) {
         this.tiaNumero = tiaNumero;
     }
 
     public int getTiaNumero() {
         return tiaNumero;
+    }
+
+    public void setTiaPlazoEnDias(int tiaPlazoEnDias) {
+        this.tiaPlazoEnDias = tiaPlazoEnDias;
+    }
+
+    public int getTiaPlazoEnDias() {
+        return tiaPlazoEnDias;
+    }
+
+    public void setTiaRutaNot(String tiaRutaNot) {
+        this.tiaRutaNot = tiaRutaNot;
+    }
+
+    public String getTiaRutaNot() {
+        return tiaRutaNot;
     }
 
     public void setTinId(int tinId) {
@@ -152,52 +221,52 @@ public class ValorizacionInversionAvanceVO {
         return tinId;
     }
 
-
-    public void setIaeId(int iaeId) {
-        this.iaeId = iaeId;
+    public void setMonedaNombre(String monedaNombre) {
+        this.monedaNombre = monedaNombre;
     }
 
-    public int getIaeId() {
-        return iaeId;
+    public String getMonedaNombre() {
+        return monedaNombre;
     }
 
-    public void setMonId(int monId) {
-        this.monId = monId;
+    public void setEstadoNombre(String estadoNombre) {
+        this.estadoNombre = estadoNombre;
     }
 
-    public int getMonId() {
-        return monId;
+    public String getEstadoNombre() {
+        return estadoNombre;
     }
 
-    public void setTiaMontoTotalAprobado(String tiaMontoTotalAprobado) {
-        this.tiaMontoTotalAprobado = tiaMontoTotalAprobado;
-    }
-
-    public String getTiaMontoTotalAprobado() {
-        return tiaMontoTotalAprobado;
-    }
-
-    public void setTiaMontoTotalPresentado(double tiaMontoTotalPresentado) {
+    public void setTiaMontoTotalPresentado(BigDecimal tiaMontoTotalPresentado) {
         this.tiaMontoTotalPresentado = tiaMontoTotalPresentado;
     }
 
-    public double getTiaMontoTotalPresentado() {
+    public BigDecimal getTiaMontoTotalPresentado() {
         return tiaMontoTotalPresentado;
     }
 
-    public void setTiaMontoTotalReajustado(double tiaMontoTotalReajustado) {
+    public void setTiaMontoTotalReajustado(BigDecimal tiaMontoTotalReajustado) {
         this.tiaMontoTotalReajustado = tiaMontoTotalReajustado;
     }
 
-    public double getTiaMontoTotalReajustado() {
+    public BigDecimal getTiaMontoTotalReajustado() {
         return tiaMontoTotalReajustado;
     }
 
-    public void setTiaPlazoEnDias(int tiaPlazoEnDias) {
-        this.tiaPlazoEnDias = tiaPlazoEnDias;
+    public void setContratoConcesionNombre(String contratoConcesionNombre) {
+        this.contratoConcesionNombre = contratoConcesionNombre;
     }
 
-    public int getTiaPlazoEnDias() {
-        return tiaPlazoEnDias;
+    public String getContratoConcesionNombre() {
+        return contratoConcesionNombre;
+    }
+
+
+    public void setConcesionNombre(String concesionNombre) {
+        this.concesionNombre = concesionNombre;
+    }
+
+    public String getConcesionNombre() {
+        return concesionNombre;
     }
 }
