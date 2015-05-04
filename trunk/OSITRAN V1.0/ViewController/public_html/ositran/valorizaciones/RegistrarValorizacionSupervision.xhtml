@@ -172,7 +172,7 @@
                                     </td>
                                     <td valign="top">
                                         <p:fieldset legend="Datos Valorizacion de Supervision">
-                                            <p:fieldset styleClass="fielsetinterno" legend="#{leg.dsdt}">
+                                            <p:fieldset id="std" styleClass="fielsetinterno" legend="#{leg.dsdt}">
                                                 <table style="width:100% ;font-size:11px;">
                                                     <tr>
                                                         <td align="left">
@@ -189,7 +189,7 @@
                                                             <p:watermark for="bfecha" value="Ingrese Año"/>
                                                              
                                                             <p:commandButton image="ui-icon-search"
-                                                                             actionListener="#{regValorizacionSupervisionMB.BuscarStd}"
+                                                                             actionListener="#{regValorizacionSupervisionMB.BuscarStd()}"
                                                                              update=":form:freg :form:asuntohr"/>
                                                         </td>
                                                         <td align="left">
@@ -210,7 +210,9 @@
                                                 </table>
                                             </p:fieldset>
                                             <br></br>
-                                            <div align="right">
+                                            <br></br>
+                                            <p:fieldset id="valorizacion" styleClass="fielsetinterno" legend="Datos Valorizacion">
+                                                <div align="right">
                                                 <table>
                                                     <tr>
                                                         <td colspan="2" align="left">Moneda</td>
@@ -224,9 +226,8 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </div>
-                                            <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" legend="Datos Valorizacion">
+                                                </div>
+
                                                 <table>
                                                     <tr>
                                                         <td>Concepto:</td>
@@ -234,8 +235,8 @@
                                                             <p:selectOneMenu value="#{regValorizacionSupervisionMB.conceptoSeleccionada}">
                                                                 <f:selectItem itemLabel="-Seleccione-" itemValue="0"/>
                                                                 <f:selectItems value="#{regValorizacionSupervisionMB.listaConcepto}"
-                                                                               var="conc" itemLabel="#{conc.itdNombre}"
-                                                                               itemValue="#{conc.itdId}"/>
+                                                                               var="conc" itemLabel="#{conc.ccoPeriodo}"
+                                                                               itemValue="#{conc.ccoId}"/>
                                                             </p:selectOneMenu>
                                                         </td>
                                                         <td>Monto Presentado</td>
@@ -251,45 +252,48 @@
                                                         <td>
                                                             <p:commandButton value="Agregar" image="ui-icon-circle-plus"
                                                                              actionListener="#{regValorizacionSupervisionMB.guardarTabla()}"
-                                                                             update=":form:tMonto"/>
+                                                                             update=":form:tMonto :form:dato1 :form:dato2 :form:dato3"/>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <p:dataTable
-                                                resizableColumns="true"
-                                                emptyMessage="NO SE ENCONTRARON DATOS" 
+                                                <p:dataTable rowIndexVar="rowId"
+                                                             resizableColumns="true"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" 
                                                              style="font-size:11px;width:660px" id="tMonto" var="tMonto"
                                                              value="#{regValorizacionSupervisionMB.listaValorizacion}">
                                                     <p:column headerText="Descripción del Concepto" style="width:30%">
-                                                        <h:outputText value="#{tMonto.cvaId}"/>
+                                                        <h:outputText value="#{tMonto.descripcionInversion}"/>
                                                     </p:column>
                                                     <p:column headerText="Moneda" style="width:15%">
-                                                        <h:outputText value="#{tMonto.monId}"/>
+                                                        <h:outputText value="#{tMonto.nombreMoneda}"/>
                                                     </p:column>
-                                                    <p:column headerText="Neto" style="width:15%">
+                                                    <p:column headerText="Neto" style="width:50px">
                                                         <h:outputText value="#{tMonto.neto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Igv" style="width:15px">
+                                                    <p:column headerText="Igv" style="width:50px">
                                                         <h:outputText value="#{tMonto.igv}"/>
                                                     </p:column>
-                                                    <p:column headerText="Total" style="width:15%">
-                                                        <h:outputText value="#{tMonto.total}"/>
+                                                    <p:column headerText="Total" style="width:50px">
+                                                        <h:outputText value="#{tMonto.ttotal}"/>
                                                     </p:column>
                                                     <p:column headerText="Eliminar" style="width:10%" >
                                                         <div align="center">
-                                                            <p:commandButton update=":form:tMonto"
+                                                            <p:commandButton update=":form:tMonto :form:dato1 :form:dato2 :form:dato3"
                                                                              styleClass="controles"
-                                                                             image="ui-icon-trash"/>
+                                                                             image="ui-icon-trash"
+                                                                             actionListener="#{regValorizacionSupervisionMB.quitarLista()}">
+                                                            <f:param id="indexLista" name="indexLista" value="#{rowId}"/>
+                                                            </p:commandButton>
                                                         </div>
                                                     </p:column>
                                                 </p:dataTable>
-                                                <div align="right" class="negrita">
+                                                <div align="right" class="negrita" >
                                                     Total: 
-                                                    <p:inputText readonly="true" style="width:50px"/>
+                                                    <p:inputText readonly="true" id="dato1" value="#{regValorizacionSupervisionMB.tvsNeto}" style="width:50px"/>
                                                      
-                                                    <p:inputText readonly="true" style="width:50px"/>
+                                                    <p:inputText readonly="true" id="dato2" value="#{regValorizacionSupervisionMB.tvsIgv}" style="width:50px"/>
                                                      
-                                                    <p:inputText readonly="true" style="width:50px"/>
+                                                    <p:inputText readonly="true" id="dato3" value="#{regValorizacionSupervisionMB.tvsBruto}" style="width:50px"/>
                                                 </div>
                                             </p:fieldset>
                                             <br></br>
@@ -299,9 +303,10 @@
                             </table>
                         </div>
                         <div style="text-align:center;font-size: 11px">
-                            <p:commandButton style="width:80px" value="Guardar"/>
-                             
-                            <p:commandButton style="width:80px" value="Limpiar" type="reset"/>
+                            <p:commandButton style="width:80px"
+                                             update=":form:mensaje :form:std :form:valorizacion :form:dato1 :form:dato2 form:dato3 :form:dContratoConcesion :form:datosCompromiso :form:supervisor" 
+                                             value="Guardar" 
+                                             actionListener="#{regValorizacionSupervisionMB.guardar()}" />
                         </div>
                     </p:layoutUnit>
                 </p:layout>
