@@ -15,9 +15,8 @@ public interface ContratoConcesionService {
         public String update(ContratoVO contratoVO) throws SQLException;
         public ContratoVO get(Integer id) throws SQLException;
         public int ValidarContratoConcesion(int concesion, int tipoinfra) throws SQLException;
+    public List<ContratoVO> buscarContratos1(int tinfraestructura) throws SQLException;
         public List<ContratoVO> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException;
-
-        public List<ContratoVO> buscarContratos1(int tinfraestructura) throws SQLException;
 
         public List<ContratoVO> buscarxNombreConcesion(String nombreConcesion,int codTipoInfraestructura,int codConcesion,Date fechaIncioSuscripcion,Date fechafinSuscripcion) throws SQLException;
 
