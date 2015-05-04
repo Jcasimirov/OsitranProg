@@ -2,6 +2,8 @@ package com.ositran.vo.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+
 public class ContratoResSupDetalleVO {
     
     private Integer conId;
@@ -14,6 +16,11 @@ public class ContratoResSupDetalleVO {
     private Integer tdoId;
     private Integer tipoSup;
     private Integer ccoId;
+    private Integer infId;
+    private Integer invId;
+    private Integer codigoSup;
+    
+    private String nombresup;
 
 
     public void setConId(Integer conId) {
@@ -94,6 +101,38 @@ public class ContratoResSupDetalleVO {
 
     public Integer getCcoId() {
         return ccoId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setNombresup(String nombresup) {
+        this.nombresup = nombresup;
+    }
+
+    public String getNombresup() {
+        return nombresup;
+    }
+
+    public void setCodigoSup(Integer codigoSup) {
+        this.codigoSup = codigoSup;
+    }
+
+    public Integer getCodigoSup() {
+        return codigoSup;
     }
 
 }
