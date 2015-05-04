@@ -17,7 +17,7 @@ public interface InfraestructuraDAO {
 
     public String update(Infraestructura infraestructura) throws SQLException;
 
-    public InfraestructuraTipo get(Integer id) throws SQLException;
+    public Infraestructura get(int codifoInfraestructura,int codigoConcesion,int tipoInfraestructura)throws SQLException;
 
     public List<Infraestructura> query1(int codigoC) throws SQLException;
     
