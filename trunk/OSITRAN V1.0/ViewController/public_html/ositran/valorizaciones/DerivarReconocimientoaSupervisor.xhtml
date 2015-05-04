@@ -8,76 +8,22 @@
          <script src="../../js/validaciones.js" type="text/javascript"></script>
             </h:head>
     <h:body>    
+      <f:event listener="#{derivarReconocimientoSupervisorMB.validarSesion}" type="preRenderComponent"></f:event>
     <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}"  type="postAddToView"></f:event>  
-     <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}"  type="postAddToView"></f:event>  
-    
+     <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}"  type="postAddToView"></f:event> 
 	<h:form id="form">
+       
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
-            <ui:include src="/ositran/util/menu.xhtml"/>
+            <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
             
                     <div align="center" ><h5 class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR (AEROPUERTO)</h5></div>
 		<table style="font-size: 11px">
 			<tr>
-				<td valign="top">
-				<p:fieldset legend="Datos Contrato Concesión">
-				
-                                <p:fieldset styleClass="fielsetinterno" id="datosConcesion" legend="Tipo Supervisión:">
-					<table>
-                                                                        <tr>
-										<td align="left" class="negrita">Tipo Supervisión: </td>
-										<td>
-                                                                                     <p:selectOneMenu id="lista"  value="#{derivarReconocimientoSupervisorMB.codigoTipoRevision}">
-										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
-										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaTipoRevision}" var="tip1"
-                                                                                                               itemLabel="#{tip1.itrDescripcion}" itemValue="#{tip1.itrId}"/>
-					    						</p:selectOneMenu>
-                                                                                </td>
-									</tr>	
-								</table>
-				</p:fieldset>
-                                <br></br>
-                                 <p:fieldset styleClass="fielsetinterno" id="datosConcesion2" legend="busqueda coordinador insitu">
-					<table>
-                                                                        <tr>
-										<td align="left" class="negrita">Tipo Infraestructura: </td>
-										<td>
-                                                                                     <p:selectOneMenu id="lista2"  value="#{derivarReconocimientoSupervisorMB.codigoInfraValSelecionado}">
-										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
-										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInfraestructuras}" var="tip2"
-                                                                                                                itemLabel="#{tip2.infNombre}" itemValue="#{tip2.infId}"/>
-                                                                                            <p:ajax listener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}" update=":form:listaSupervisoresInversion" event="valueChange"/>
-					    						</p:selectOneMenu>
-                                                                                </td>
-									</tr>	
-								</table>
-				</p:fieldset>
-                                <br></br>                                
-                                <p:fieldset id="listaSupervisoresInversion" styleClass="fielsetinterno" legend="Datos de coordinador insitu">
-                               
-                                        <h:outputText value="Buscar Coordinador Insitu:"></h:outputText>
-                                        <h:outputText style="color:White" value="n"></h:outputText>
-					<p:commandButton image="ui-icon-search"
-                                                                oncomplete="panelListaSupervisorInversines.show()" 
-                                                                id="cargarContrato" 
-                                                                update=":form:panelListaSupervisorInversines :form:mensaje"
-                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}"
-                                                                
-                                                                />
-                                     
-                                                               
-				</p:fieldset>
-				   <br></br>   
-                                    <p:fieldset styleClass="fielsetinterno" legend="coordinador insitu">
-                               
-                                        <h:outputText value="Nombre:"></h:outputText>
-                                        <h:outputText style="color:White" value="n"></h:outputText>
-					<p:inputText id="nombreSupervisor" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
-                                                               
-				</p:fieldset>
-                                <br></br>
+                            <td valign="top">
+				<p:fieldset id="principalIzquierdo" legend="Datos Contrato Concesión"> 
 				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
                                
                                         <h:outputText value="Buscar Contratos Concesión"></h:outputText>
@@ -147,7 +93,7 @@
                                                                                                 itemLabel="#{tip2.ccoPeriodo}" 
                                                                                                 itemValue="#{tip2.ccoId}"/>
                                                                                         <p:ajax event="valueChange" 
-                                                                                                update=":form:datosCompromiso " 
+                                                                                                update=":form:datosCompromiso   :form:tablaLC " 
                                                                                                 listener="#{derivarReconocimientoSupervisorMB.cargarDatosCompromiso()}"  /> 
                                                                                     </p:selectOneMenu>
 										</td>
@@ -160,53 +106,104 @@
 									</tr>
 									<tr>
 										<td align="left">Total:</td>
-										<td align="left" ><p:inputText value="#{derivarReconocimientoSupervisorMB.plazo}" size="10"></p:inputText></td>
+										<td align="left" ><p:inputText value="#{derivarReconocimientoSupervisorMB.total}" size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
-										<td align="left"><p:inputText value="#{derivarReconocimientoSupervisorMB.plazo}"  size="10"></p:inputText></td>
+										<td align="left"><p:inputText value="#{derivarReconocimientoSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
+                                                        
+                                                        
+                                                           <p:fieldset styleClass="fielsetinterno" id="datosConcesion" legend="Tipo Supervisión:">
+					<table>
+                                                                        <tr>
+										<td align="left" class="negrita">Tipo Supervisión: </td>
+										<td>
+                                                                                     <p:selectOneMenu id="lista"  value="#{derivarReconocimientoSupervisorMB.codigoTipoRevision}">
+										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaTipoRevision}" var="tip1"
+                                                                                                        itemLabel="#{tip1.itrDescripcion}" itemValue="#{tip1.itrId}"/>
+                                                                                  <f:ajax  listener="#{derivarReconocimientoSupervisorMB.cambiarDatos}" render="panel panelNombres " event="valueChange"/>
+					    						</p:selectOneMenu>
+                                                                                </td>
+									</tr>	
+					
+                                                                     	
+								</table>
+				</p:fieldset>
+                                <br></br>                                
+                                <p:fieldset id="listaSupervisoresInversion"  styleClass="fielsetinterno" legend="BUSQUEDA">
+                               <h:panelGroup id="panel">
+                                        <h:outputText styleClass="negrita" id="tipo1" rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 1}"  value="Buscar Coordinador Insitu:"></h:outputText>
+                                        <h:outputText styleClass="negrita" id="tipo2" rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 2}"  value="Buscar Empresa Supervisora:"></h:outputText>
+                                        <h:outputText styleClass="negrita" id="tipo3" rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 0}"  value="Buscar "></h:outputText>
+                                  </h:panelGroup>      
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:commandButton image="ui-icon-search"
+                                                                oncomplete="panelListaSupervisorInversines.show()" 
+                                                                id="cargarContrato" 
+                                                                update=":form:panelListaSupervisorInversines :form:tablaESuper :form:mensaje"
+                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}"
+                                                                render="panelSupervisor"
+                                                                />
+                                     
+                                                               
+				</p:fieldset>
+                                   <h:panelGroup id="panelNombres">
+                                    <p:fieldset  rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 1}"  styleClass="fielsetinterno" legend="cordinador insitu">
+                                        <h:outputText value="Nombre:"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:inputText id="nombreSupervisor" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
+                                                               
+				</p:fieldset>
+                                <p:fieldset  rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 2}"  styleClass="fielsetinterno" legend="empresa supervisora">
+                               
+                                        <h:outputText value="Nombre:"></h:outputText>
+                                        <h:outputText style="color:White" value="n"></h:outputText>
+					<p:inputText id="empresa" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
+                                                               
+				</p:fieldset>                               
+                                </h:panelGroup>                                
 					</p:fieldset>	
 				</td>
 				<td valign="top">
-				<p:fieldset legend="Datos de Contrato Concesión">
+				<p:fieldset id="principalDerecho" legend="Datos de Contrato Concesión">
 				
                                 <p:fieldset styleClass="fielsetinterno" legend="Valorización">
                                 
-                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                 <p:dataTable paginatorPosition="bottom"  rows="10"   emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceVO}"
                                              rowsPerPageTemplate="6,8,10" 
                                              style="font-size:11px" id="tablaLC" var="inversionAvance" >
-                                    <p:column headerText="Nur Val" style="width:50px">
+                                    <p:column headerText="Num Val" style="width:50px">
                                        <h:outputText value="#{inversionAvance.tiaNumero}" />
                                     </p:column>
                                   <p:column headerText="Fecha Registro" style="width:50px">
                                         <h:outputText value="#{inversionAvance.tiaFechaRegistro}" />
                                     </p:column>
                                     <p:column headerText="Moneda" style="width:50px">
-                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.monedaNombre}" />
                                     </p:column>
                                     <p:column headerText="Total" style="width:50px">
-                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.tiaMontoTotalPresentado}" />
                                     </p:column>
                                     <p:column headerText="Estado Revision" style="width:50px">
-                                        <h:outputText value="#{inversionAvance.tsiNroDocumento}" />
+                                        <h:outputText value="#{inversionAvance.estadoNombre}" />
                                     </p:column>
                                     <p:column   headerText="Selección" style="width:5px" >
                                         <div align="center">
                                             <p:commandButton
                                                 oncomplete="panelListaSupervisorInversines.hide()" 
-                            
+                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaValorizacionDetalle(inversionAvance.tiaNumero)}"
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarValorizacion"
-                                                style="width:22px;height:22px"
+                                               
+                                                update=":form:tablaDV :form:total"
+                                                styleClass="controles"
                                                 >
-                                                
-                              
                                             </p:commandButton>
-                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
-                                                          value="Selecionar un contrato"/>
+                                            
                                         </div>
                                     </p:column>
                                 </p:dataTable>                   
@@ -221,22 +218,24 @@
                                  <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              rowsPerPageTemplate="6,8,10" 
-                                             style="font-size:11px" id="tablaDV"  >
+                                             style="font-size:11px" id="tablaDV" 
+                                             var="vaDetalle" 
+                                             value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceDetalleVO}">
                                            
                                  <p:column headerText="Descripción de Concepto">
-                                       
+                                        <h:outputText value="#{vaDetalle.descripcionInversion}" />
                                     </p:column>
                                     <p:column headerText="Moneda" style="width:50px">
-                                       
+                                        <h:outputText value="#{vaDetalle.nombreMoneda}" />
                                     </p:column>
-                                  <p:column headerText="Monto Prestado" style="width:50px">
-                                        <h:outputText value="#{supervisorI.tsiNroDocumento}" />
+                                  <p:column headerText="Monto Presentado" style="width:50px">
+                                        <h:outputText value="#{vaDetalle.montoPresentado}" />
                                     </p:column>
                                 </p:dataTable>                                             
 				</p:fieldset>
                                 
                                 <div class="negrita" align="right">
-                                    Total : <p:inputText value="#{derivarReconocimientoSupervisorMB.totalTotal}" />
+                                    Total : <p:inputText id="total" style="width:70px" readonly="true" value="#{derivarReconocimientoSupervisorMB.totalTotal}" />
                                 
                                 </div>
                                 <br></br>
@@ -246,8 +245,8 @@
                                     <td><p:inputText value="#{derivarReconocimientoSupervisorMB.numeroOficio}" style="width:50px" /></td>
                                     <td>Reg. Salida</td>
                                     <td><p:inputText value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  /></td>
-                                    <td>Fecha de Emisión:</td>
-                                    <td><p:calendar value="#{derivarReconocimientoSupervisorMB.fechaEmision}" styleClass="calendario"   /></td>
+                                    <td colspan="2">Fecha de Emisión:</td>
+                                    <td><p:calendar locale="es" id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   /></td>
                                 </tr>
                                  <tr >
                                     <td class="negrita">Plazo otorgado:</td>
@@ -258,32 +257,26 @@
                                         <tr>
                                             <td>
                                               <p:selectBooleanCheckbox  value="#{derivarReconocimientoSupervisorMB.diasCalendario}" id="diasCalendario">
-                                              
-                                                                </p:selectBooleanCheckbox  >Dias Calendario
+                                                    <p:ajax update="form:diasHabiles" listener="#{derivarReconocimientoSupervisorMB.desDiasHabiles()}" />
+                                                </p:selectBooleanCheckbox  >Dias Calendario
                                             </td>
                                           
                                         </tr>
                                          <tr>
                                             <td>
-                                                <p:selectBooleanCheckbox  value="#{derivarReconocimientoSupervisorMB.diasCalendario}" id="diasHabiles">
-                                                 
+                                                <p:selectBooleanCheckbox  value="#{derivarReconocimientoSupervisorMB.diasHabiles}" id="diasHabiles">
+                                                 <p:ajax update="form:diasCalendario"   listener="#{derivarReconocimientoSupervisorMB.desDiasCalendario()}" />
                                                         </p:selectBooleanCheckbox  >Dias Habiles
-                                            </td>
-                                          
-                                        </tr>
-                                    
-                                    
-                                       
-                                                             
-                                                                
+                                            </td>                                     
+                                        </tr>                       
                                     </table>
-                                    
-                                  
-                                                                
-                                    
+                                    </td>
+                                    <td style="width:10px">
+                                        <p:commandButton image="ui-icon-arrowthick-1-e" id="ObtenerFechaLimite" update=":form:fechaLimite" actionListener="#{derivarReconocimientoSupervisorMB.obtenerFechaLimite()}" ></p:commandButton>
+                                        <p:tooltip for="ObtenerFechaLimite" value="Generar Fecha Limite" styleClass="tool" />
                                     </td>
                                     <td class="negrita">Fecha limite de respuesta:</td>
-                                    <td><p:calendar value="#{derivarReconocimientoSupervisorMB.fechaLimite}" styleClass="calendario"  /></td>
+                                    <td><p:calendar value="#{derivarReconocimientoSupervisorMB.fechaLimiteDS}"   id="fechaLimite" locale="es" styleClass="calendario1"  /></td>
                                    
                                 </tr>
                                 
@@ -301,16 +294,20 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                                 <p:commandButton  style="width:80px"  update=":form:mensaje" actionListener="#{derivarReconocimientoSupervisorMB.guardar()}"  value="Guardar"/>
-                                    <p:commandButton style="width:80px" value="Limpiar"/>
+                                 <p:commandButton  style="width:80px" 
+                                 
+                                 update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" 
+                                 
+                                 actionListener="#{derivarReconocimientoSupervisorMB.guardar()}"  value="Guardar"/>
+                                    <p:commandButton  actionListener="#{derivarReconocimientoSupervisorMB.limpiarTodo()}"    update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
             </p:layout>
             
              <p:dialog width="40%"  header="Lista Supervision de Inversiones" widgetVar="panelListaSupervisorInversines" id="panelListaSupervisorInversines" 
                           style="text-align:center;">
-                    
-                            <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                    <h:panelGroup id="panelSupervisor">
+                            <p:dataTable rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 1}" paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              rowsPerPageTemplate="6,8,10" 
                                              style="font-size:11px" id="tablaV" var="supervisorI"
@@ -341,7 +338,41 @@
                                                           value="Selecionar un contrato"/>
                                         </div>
                                     </p:column>
-                                </p:dataTable>                   
+                                </p:dataTable>     
+                                
+                                
+                                
+                                <p:dataTable rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 2}" paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             paginator="true"
+                                             rowsPerPageTemplate="6,8,10" 
+                                             style="font-size:11px" id="tablaESuper" var="empresaSu"
+                                             value="#{derivarReconocimientoSupervisorMB.listaEmpresaSupervisora}">
+                                 <p:column headerText="ID" style="width:5px">
+                                        <h:outputText value="#{empresaSu.supId}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre" style="width:50px">
+                                        <h:outputText value="#{empresaSu.supNombre}" />
+                                    </p:column>
+                                  <p:column headerText="Numero" style="width:50px">
+                                        <h:outputText value="#{empresaSu.supNroDocumento}" />
+                                    </p:column>
+                                    <p:column    headerText="Elegir" style="width:5px" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                oncomplete="panelListaSupervisorInversines.hide()" 
+                                                actionListener="#{derivarReconocimientoSupervisorMB.elegirEmpresaSup(empresaSu)}"
+                                                image="ui-icon-circle-check"  
+                                                id="selecionarContratos"
+                                                style="width:22px;height:22px"
+                                                update=":form:datosConcesion :form:empresa  :form:datosConcesion1 :form:datosCompromiso "
+                                                >
+                                            </p:commandButton>
+                                              <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                                          value="Selecionar un contrato"/>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>    
+                                </h:panelGroup>
                 </p:dialog>
                 
                  <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
@@ -367,7 +398,7 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarContratos"
                                                 style="width:22px;height:22px"
-                                                update=":form:datosConcesion1  :form:datosCompromiso "
+                                                update=":form:datosConcesion1 :form:datosCompromiso "
                                                 >
                                                 
                               
