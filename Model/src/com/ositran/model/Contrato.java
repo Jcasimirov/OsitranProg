@@ -59,9 +59,7 @@ public class Contrato implements Serializable {
     private Integer conNumero;
     @Column(name = "CON_PDFCONTRATO")
     private String conPdfcontrato;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CON_PLAZOCONCESION")
-    private Date conPlazoconcesion;
+
     @Column(name = "CON_PLAZOREVISION")
     private Integer conPlazorevision;
     @Column(name = "CON_TERMINAL", length = 20)
@@ -83,6 +81,16 @@ public class Contrato implements Serializable {
     @Column(name = "TIN_ID")
     private Integer tinId;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CON_PLAZOCONCESION")
+    private Date conPlazoconcesion;
+    @Column(name = "CON_DIA_PLAZOCONCESION")
+    private Integer conDiaPlazoconcesion;
+    @Column(name = "CON_MESOANIO_PLAZOCONCESION")
+    private Integer conMesoAnioPlazoconcesion;
+    @Column(name = "CON_NOTA_PLAZOCONCESION", length = 4000)
+    private String conNotaPlazoConcesion;
+    
     public Contrato() {
     }
 
@@ -337,5 +345,29 @@ public class Contrato implements Serializable {
 
     public Integer getTinId() {
         return tinId;
+    }
+
+    public void setConDiaPlazoconcesion(Integer conDiaPlazoconcesion) {
+        this.conDiaPlazoconcesion = conDiaPlazoconcesion;
+    }
+
+    public Integer getConDiaPlazoconcesion() {
+        return conDiaPlazoconcesion;
+    }
+
+    public void setConMesoAnioPlazoconcesion(Integer conMesoAnioPlazoconcesion) {
+        this.conMesoAnioPlazoconcesion = conMesoAnioPlazoconcesion;
+    }
+
+    public Integer getConMesoAnioPlazoconcesion() {
+        return conMesoAnioPlazoconcesion;
+    }
+
+    public void setConNotaPlazoConcesion(String conNotaPlazoConcesion) {
+        this.conNotaPlazoConcesion = conNotaPlazoConcesion;
+    }
+
+    public String getConNotaPlazoConcesion() {
+        return conNotaPlazoConcesion;
     }
 }
