@@ -17,10 +17,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ContratoConcesionDAOImpl implements ContratoConcesionDAO { 
-     
         List<Contrato> list = null;    
-
-
     public ContratoConcesionDAOImpl() {
         super();
     }
