@@ -2,9 +2,11 @@ package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.InvDAOImpl;
 import com.ositran.model.Inv;
+import com.ositran.model.InvAvn;
 import com.ositran.model.InvReajuste;
 import com.ositran.model.InvReconocimiento;
 import com.ositran.service.InvService;
+import com.ositran.vo.bean.InvAvnVO;
 import com.ositran.vo.bean.InvReajusteVO;
 import com.ositran.vo.bean.InvReconocimientoVO;
 import com.ositran.vo.bean.InvVO;
@@ -16,6 +18,7 @@ import java.util.List;
 
 public class InvServiceImpl implements InvService {
     private InvDAOImpl invDAOImpl;
+    private NotificacionServiceImpl notificacionServiceImpl;
     private InvReconocimientoServiceImpl invReconocimientoServiceImpl;
     private InvReajusteServiceImpl invReajusteServiceImpl;
     
@@ -144,11 +147,13 @@ public class InvServiceImpl implements InvService {
         return listVO;
     }
     @Override    
-    public String insertDeclaracion(InvVO invVO, List<InvReconocimientoVO> listInvReconocimientoVO,List<InvReajusteVO> listInvReajusteVO) throws SQLException{
+    public String insertDeclaracion(InvAvnVO invAvnVO,InvVO invVO, List<InvReconocimientoVO> listInvReconocimientoVO,List<InvReajusteVO> listInvReajusteVO) throws SQLException{
         Inv inv = toInv(invVO);
         List<InvReconocimiento> listInvReconocimiento = invReconocimientoServiceImpl.toListInvReconocimiento(listInvReconocimientoVO);
         List<InvReajuste> listInvReajuste = invReajusteServiceImpl.toListInvReajuste(listInvReajusteVO);
-        String result = invDAOImpl.insertDeclaracion(inv,listInvReconocimiento, listInvReajuste);
+        System.out.println("invAvnVO.getIaeId();"+invAvnVO.getIaeId());
+        InvAvn invAvn= notificacionServiceImpl.toInvAvn(invAvnVO);
+        String result = invDAOImpl.insertDeclaracion(invAvn,inv,listInvReconocimiento, listInvReajuste);
         return result;
     }
     public InvVO obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException{
@@ -172,4 +177,11 @@ public class InvServiceImpl implements InvService {
         this.invReajusteServiceImpl = invReajusteServiceImpl;
     }
 
+    public void setNotificacionServiceImpl(NotificacionServiceImpl notificacionServiceImpl) {
+        this.notificacionServiceImpl = notificacionServiceImpl;
+    }
+
+    public NotificacionServiceImpl getNotificacionServiceImpl() {
+        return notificacionServiceImpl;
+    }
 }
