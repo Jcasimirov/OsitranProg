@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+        </h:head>
+        <h:body>
+       
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <f:event listener="#{editarAvanceInversionMB.listarAvanceInversion}" type="postAddToView"></f:event>
+            <h:form id="form">
+                <p:growl id="mensaje" showDetail="true" life="2000"/>
+                <p:messages autoUpdate="true"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <div align="center">
+                            <h5 class="titulo5">MODIFICAR AVANCE INVERSION</h5>
+                            <div style="width:80%">
+                                <div  width="100%"  align="left" class="letra11" >
+                                   
+                                </div>
+                                <br></br>                               
+                                <p:dataTable paginatorPosition="bottom"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,20" 
+                                              id="tablaC" var="avance" style="font-size:10px"
+                                             value="#{editarAvanceInversionMB.listaAvanceInversion}">                                            
+                                     <p:column headerText="Codigo"  style="width:2%">
+                                        <h:outputText value="#{avance.tiaNumero}"/>
+                                    </p:column>         
+                                    <p:column headerText="Compromiso"  >
+                                        <h:outputText value="#{avance.contratoConcesionNombre}"/>
+                                    </p:column>
+                                     <p:column headerText="Concesion" >
+                                        <h:outputText value="#{avance.concesionNombre}"/>
+                                    </p:column>                                    
+                                    <p:column headerText="Fecha Registro" style="width:10%">
+                                        <h:outputText value="#{avance.tiaFechaRegistro}"></h:outputText>
+                                    </p:column>
+                                      <p:column headerText="Asunto" style="width:10%">
+                                        <h:outputText value="#{avance.tiaAsunto}"></h:outputText>
+                                    </p:column>
+                                     <p:column headerText="Monto Presentado" style="width:10%">
+                                        <h:outputText value="#{avance.tiaMontoTotalPresentado}"></h:outputText>
+                                    </p:column>
+                                   
+                                    <p:column style="width:4%" headerText="Modificar">                                   
+                                    <div align="center" >
+                                                <p:commandButton id="btnmodificar"
+                                                         image="ui-icon-pencil"   styleClass="controles"
+                                                         oncomplete="editarPanel.show()"
+                                                         update=":form:editarPanel"
+                                                         actionListener="#{editarAvanceInversionMB.cargarEditar()}">
+                                                         
+                                                          <f:param id="idModificar" name="idModificar" value="#{avance.tiaNumero}"/>
+                                                </p:commandButton>
+                                                <p:tooltip styleClass="tool"  id="toolTipFade4" for="btnmodificar" value="Modificar la fila" />
+                                                                 </div>                   
+                                    </p:column>
+                                  
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                    </p:layoutUnit>
+                </p:layout>
+                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                         
+                </p:dialog>
+                <p:dialog header="Editar" height="500"  widgetVar="editarPanel"  id="editarPanel" modal="true" style="text-align:center;">
+                          <div align="center">
+                            <div align="center">
+                                <h5 class="titulo5">EDITAR AVANCE INVERSION</h5>
+                            </div>
+                            <table style="font-size: 11px">
+                                <tr>
+                                    <td valign="top">
+                                        <p:fieldset id="todoIzquierdo" legend="Datos Contrato Concesión">
+                                            <p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
+                                                <h:outputText value="Buscar Contratos Concesión"></h:outputText>
+                                                <h:outputText style="color:White" value="n"></h:outputText>
+                                                <p:commandButton image="ui-icon-search"
+                                                                 oncomplete="panelListaContratos.show()"
+                                                                 id="cargarContrato" update=":form:panelListaContratos"
+                                                                 actionListener="#{editarAvanceInversionMB.cargarListaContratos}"/>
+                                                <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
+                                                           value="Cargar lista de contrato concesión"/>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosConcesion"
+                                                        legend="Datos Concesión">
+                                                <table>
+                                                    <tr>
+                                                        <td align="left">Concesi&#243;n</td>
+                                                        <td>
+                                                            <p:inputText value="#{editarAvanceInversionMB.nombreConcecion}"
+                                                                         readonly="true"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Tipo Infraestructura</td>
+                                                        <td>
+                                                            <p:inputText value="#{editarAvanceInversionMB.nombreTipoInfraestructura}"
+                                                                         readonly="true"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Modalidad Concesi&#243;n</td>
+                                                        <td>
+                                                            <p:inputText value="#{editarAvanceInversionMB.nombreModalidadConceción}"
+                                                                         readonly="true"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" id="datosCompromiso"
+                                                        legend="#{leg.etaCo}">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="1" align="left">
+                                                            #{cam.setapa}
+                                                        </td>
+                                                        <td colspan="3" align="left">
+                                                            <p:selectOneMenu id="listaCompromiso"
+                                                                             value="#{editarAvanceInversionMB.contratoCompromisoSeleccionado}">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{editarAvanceInversionMB.listaContratoCompromiso}"
+                                                                               var="tip2" itemLabel="#{tip2.ccoPeriodo}"
+                                                                               itemValue="#{tip2.ccoId}"/>
+                                                                <p:ajax event="valueChange"
+                                                                        update=":form:datosCompromiso  :form:inversionDescripcion "
+                                                                        listener="#{editarAvanceInversionMB.cargarDatosCompromiso()}"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Plazo:</td>
+                                                        <td align="left" colspan="3">
+                                                            <p:inputText readonly="true"
+                                                                         value="#{editarAvanceInversionMB.plazoCompromiso}"
+                                                                         size="10"/>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td align="left">Total:</td>
+                                                        <td align="left">
+                                                            <p:inputText readonly="true"
+                                                                         value="#{editarAvanceInversionMB.total}"
+                                                                         size="10"></p:inputText>
+                                                        </td>
+                                                        <td align="left">
+                                                            #{cam.mon}
+                                                        </td>
+                                                        <td align="left">
+                                                            <p:inputText readonly="true"
+                                                                         value="#{editarAvanceInversionMB.nombreMoneda}"
+                                                                         size="10"></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                        </p:fieldset>
+                                    </td>
+                                    <td valign="top">
+                                        <p:fieldset id="todoDerecho" legend="Solicitud del Concesionario">
+                                            <p:fieldset styleClass="fielsetinterno" id="datosSDT" legend="Datos STD">
+                                                <table>
+                                                    <tr>
+                                                        <td class="negrita">
+                                                            Nro HR: 
+                                                            <h:outputText style="color:White" value="n"/>
+                                                        </td>
+                                                        <td>
+                                                            Nro: 
+                                                            <p:inputText 
+                                                                         value="#{editarAvanceInversionMB.numero}"
+                                                                         style="width:60px"/>
+                                                             
+                                                            <h:outputText style="color:White" value="nnn"/>
+                                                        </td>
+                                                        <td>
+                                                            A&#241;o: 
+                                                            <p:inputText value="#{editarAvanceInversionMB.anio}"
+                                                                      
+                                                                         style="width:60px"/>
+                                                             
+                                                            <p:commandButton image="ui-icon-search"
+                                                                             actionListener="#{editarAvanceInversionMB.cargarDatosSDT()}"
+                                                                             update=":form:datosSDT  :form:fechaVencimiento  :form:mensaje"/>
+                                                        </td>
+                                                        <td>
+                                                            <h:outputText style="color:White" value="nn"/>
+                                                             Fecha Registro: 
+                                                            <p:calendar value="#{editarAvanceInversionMB.fechaRegistroSDT}"
+                                                                        locale="es" styleClass="calendario1"/>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td class="negrita">Asunto:</td>
+                                                        <td colspan="3">
+                                                            <p:inputTextarea value="#{editarAvanceInversionMB.asunto}"
+                                                                             style="width:97%;height:25px"/>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td class="negrita">Plazo:</td>
+                                                        <td>
+                                                            <p:inputText 
+                                                                         value="#{editarAvanceInversionMB.plazoContrato}"
+                                                                         id="plazoContrato" style="width:70px"/>
+                                                        </td>
+                                                        <td>
+                                                            <table style="font-size:9px;width:100%">
+                                                                <tr>
+                                                                    <td>
+                                                                        <p:selectBooleanCheckbox value="#{editarAvanceInversionMB.diasCalendario}"
+                                                                                                 id="diasCalendario">
+                                                                            <p:ajax update=":form:diasHabiles"
+                                                                                    listener="#{editarAvanceInversionMB.desDiasHabiles()}"/>
+                                                                        </p:selectBooleanCheckbox>
+                                                                         Calendarios
+                                                                    </td>
+                                                                </tr>
+                                                                 
+                                                                <tr>
+                                                                    <td>
+                                                                        <p:selectBooleanCheckbox value="#{editarAvanceInversionMB.diasHabiles}"
+                                                                                                 id="diasHabiles">
+                                                                            <p:ajax update=":form:diasCalendario"
+                                                                                    listener="#{editarAvanceInversionMB.desDiasCalendario()}"/>
+                                                                        </p:selectBooleanCheckbox>
+                                                                         Habiles
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            Vencimiento Plazo: 
+                                                                <p:calendar   value="#{editarAvanceInversionMB.fechaVencimiento}"  id="fechaVencimiento" readonly="true" locale="es"
+                                                                        styleClass="calendario1"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <br></br>
+                                            <p:fieldset styleClass="fielsetinterno" legend="Datos Valorización">
+                                                <table>
+                                                    <tr>
+                                                        <td>Periodo Ejecuci&#243;n(Inicio)</td>
+                                                        <td>
+                                                            <p:calendar locale="es"
+                                                                        value="#{editarAvanceInversionMB.inicioPeriodo}"
+                                                                        styleClass="calendario1"/>
+                                                        </td>
+                                                        <td>Periodo Ejecuci&#243;n(Fin)</td>
+                                                        <td>
+                                                            <p:calendar locale="es"
+                                                                        value="#{editarAvanceInversionMB.finPeriodo}"
+                                                                        styleClass="calendario1"/>
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Moneda</td>
+                                                                    <td>
+                                                                        <p:selectOneMenu id="ListaMoneda"
+                                                                                         value="#{editarAvanceInversionMB.codMoneda}">
+                                                                            <f:selectItem itemLabel="-Seleccione-"
+                                                                                          itemValue="0"/>
+                                                                            <f:selectItems var="varMoneda"
+                                                                                           value="#{editarAvanceInversionMB.listaMoneda}"
+                                                                                           itemLabel="#{varMoneda.monNombre}"
+                                                                                           itemValue="#{varMoneda.monId}"/>
+                                                                        </p:selectOneMenu>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <br></br>
+                                                <br></br>
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>Aeropuerto:</td>
+                                                        <td>
+                                                            <p:selectOneMenu style="width:110px"
+                                                                             value="#{editarAvanceInversionMB.codigoInfraestructura}"
+                                                                             id="aeropuerto">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{editarAvanceInversionMB.listaInfraestructuras}"
+                                                                               var="tip" itemLabel="#{tip.infNombre}"
+                                                                               itemValue="#{tip.infId}"/>
+                                                                <p:ajax event="valueChange" update=":form:lista"
+                                                                        listener="#{editarAvanceInversionMB.cargarInversion()}"/>
+                                                                <f:selectItem itemLabel="-Otros-" itemValue="111"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                        <td>Inversi&#243;n:</td>
+                                                        <td colspan="2">
+                                                            <p:selectOneMenu style="width:210px" id="lista"
+                                                                             value="#{editarAvanceInversionMB.codigoInversion}">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{editarAvanceInversionMB.listaInversiones}"
+                                                                               var="tip1"
+                                                                               itemLabel="#{tip1.invDescripcion}"
+                                                                               itemValue="#{tip1.invId}"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td>Concepto:</td>
+                                                        <td>
+                                                            <p:selectOneMenu id="inversionDescripcion"
+                                                                             style="width:110px"
+                                                                             value="#{editarAvanceInversionMB.codigoInversionDescripcion}">
+                                                                <f:selectItem itemLabel="-Seleccione-" itemValue="0"/>
+                                                                <f:selectItems value="#{editarAvanceInversionMB.listaDescripcionTipoInversion}"
+                                                                               var="varInversion"
+                                                                               itemLabel="#{varInversion.itdNombre}"
+                                                                               itemValue="#{varInversion.itdId}"/>
+                                                            </p:selectOneMenu>
+                                                        </td>
+                                                        <td>Monto Presentado</td>
+                                                        <td>
+                                                            <p:inputText value="#{editarAvanceInversionMB.montoPrestado}"
+                                                                         style="width:100px"/>
+                                                        </td>
+                                                        <td>
+                                                            <p:selectBooleanCheckbox value="#{editarAvanceInversionMB.igv}"/>
+                                                             
+                                                            <h:outputText style="font-size:9px" value="Con IGV"/>
+                                                        </td>
+                                                        <td align="right">
+                                                            <p:commandButton value="Agregar"
+                                                                             update=":form:tablaVS :form:mensaje :form:montosTotales1 :form:montosTotales2 :form:montosTotales3"
+                                                                             actionListener="#{editarAvanceInversionMB.agregar}"
+                                                                             image="ui-icon-circle-plus"/>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <tr>
+                                                        <td>Descripci&#243;n</td>
+                                                        <td colspan="5">
+                                                            <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                                                         style="width:345px"
+                                                                         value="#{editarAvanceInversionMB.descripcionValorizacionDetalle}"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:fieldset>
+                                            <br></br>
+                                        </p:fieldset>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="2">
+                                    <div align="center">
+                                        <p:dataTable rowIndexVar="rowId" paginatorPosition="bottom" rows="10"
+                                                     emptyMessage="NO SE ENCONTRARON DATOS"
+                                                     style="font-size:9px;width:90%" id="tablaVS" var="valSup"
+                                                     value="#{editarAvanceInversionMB.listValorizacionInversionAvanceDetalleVO}">
+                                            <p:column headerText="Aeropuertos">
+                                                <h:outputText style="font-size:9px;" value="#{valSup.aeropuertos}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Concepto">
+                                                <h:outputText style="font-size:9px;"
+                                                              value="#{valSup.descripcionInversion}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Descripción del Concepto">
+                                                <h:outputText style="font-size:9px;" value="#{valSup.iadDescripcion}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Moneda" style="width:20px">
+                                                <h:outputText value="#{valSup.nombreMoneda}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Neto">
+                                                <h:outputText value="#{valSup.tiaTotal}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Igv" style="width:15px;">
+                                                <h:outputText style="font-weight:bold" value="#{valSup.igv}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Inicio" style="width:60px">
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" styleClass="calendario1"
+                                                            readonly="true" value="#{valSup.iadFechaInicio}"></p:calendar>
+                                            </p:column>
+                                            <p:column headerText="Fin" style="width:60px">
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" styleClass="calendario1"
+                                                            readonly="true" value="#{valSup.iadFechaFin}"></p:calendar>
+                                            </p:column>
+                                            <p:column headerText="Total">
+                                                <h:outputText style="font-weight:bold" value="#{valSup.montoPresentado}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Eliminar" style="width:20px">
+                                                <div align="center">
+                                                    <p:commandButton styleClass="controles"
+                                                                     update=":form:tablaVS :form:montosTotales1 :form:montosTotales2 :form:montosTotales3"
+                                                                     actionListener="#{editarAvanceInversionMB.quitarLista()}"
+                                                                     image="ui-icon-trash">
+                                                        <f:param id="indexLista" name="indexLista" value="#{rowId}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                            </p:column>
+                                        </p:dataTable>
+                                         
+                                        <br></br>
+                                         
+                                        <br></br>
+                                        <div align="right" class="negrita">
+                                            Total Neto: 
+                                            <p:inputText id="montosTotales1"
+                                                         style="font-weight:bold;font-size:13px;width:150px"
+                                                         value="#{editarAvanceInversionMB.totalMonto}"/>
+                                             Total Igv: 
+                                            <p:inputText id="montosTotales2"
+                                                         style="font-weight:bold;font-size:13px;width:150px"
+                                                         value="#{editarAvanceInversionMB.totalIgv}"/>
+                                             Total Presentado: 
+                                            <p:inputText id="montosTotales3"
+                                                         style="font-weight:bold;font-size:13px;width:150px"
+                                                         value="#{editarAvanceInversionMB.totalPresentado}"/>
+                                        </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br></br>
+                        </div> 
+                      <div style="text-align:center;font-size: 11px">
+                            <p:commandButton style="width:80px"
+                                             
+                                             actionListener="#{editarAvanceInversionMB.guardar()}" value="Modificar"/>
+                             
+                            <p:commandButton 
+                                             actionListener="#{editarAvanceInversionMB.limpiarTodo()}"
+                                             style="width:80px" value="Limpiar"/>
+                        </div>
+                </p:dialog>
+        
+            
+                <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center;">
+                         
+                </p:dialog>
+                <p:dialog width="40%" header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos"
+                          style="text-align:center;">
+                    <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px" id="tablaLC"
+                                 var="lisContratos1" value="#{editarAvanceInversionMB.listaContratos}">
+                        <p:column headerText="ID" style="width:5px">
+                            <h:outputText value="#{lisContratos1.conId}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width:50px">
+                            <h:outputText value="#{lisContratos1.nombreConcesion}"/>
+                        </p:column>
+                        <p:column headerText="Elegir" style="width:5px">
+                            <div align="center">
+                                <p:commandButton oncomplete="panelListaContratos.hide()"
+                                                 actionListener="#{editarAvanceInversionMB.elegirContrato(lisContratos1)}"
+                                                 image="ui-icon-circle-check" id="selecionarContratos"
+                                                 style="width:22px;height:22px"
+                                                 update=":form:datosConcesion :form:datosCompromiso :form:aeropuerto :form:plazoContrato :form:diasHabiles :form:diasCalendario"></p:commandButton>
+                                 
+                                <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
+                                           value="Selecionar un contrato"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+        </h:body>
+    </html>
+</f:view>
+
+
+
