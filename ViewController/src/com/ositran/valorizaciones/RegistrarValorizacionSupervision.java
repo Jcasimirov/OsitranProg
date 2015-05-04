@@ -7,6 +7,8 @@ import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.DatosStdService;
 import com.ositran.service.InversionService;
+import com.ositran.service.ValorizacionInversionAvanceService;
+import com.ositran.service.ValorizacionSupService;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
@@ -14,10 +16,14 @@ import com.ositran.serviceimpl.InversionDescripcionServicesImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
+import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
+import com.ositran.serviceimpl.ValorizacionSupServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
+import com.ositran.vo.bean.ContratoSupervisoraVO;
 import com.ositran.vo.bean.ContratoVO;
+import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InversionDescripcionVO;
@@ -26,7 +32,9 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
+import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
+import com.ositran.vo.bean.ValorizacionSupVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
 
 import java.io.IOException;
@@ -38,7 +46,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -83,17 +94,24 @@ public class RegistrarValorizacionSupervision {
     private BigDecimal montoTabla;
     private int cvaId;
     private boolean igv;
+    private double ttotal;
+    private double tvsNeto = 0;
+    private double tvsBruto = 0;
+    private double tvsIgv = 0;
 
     private List<ContratoVO> listaContratos = new ArrayList<>();
-    private List<InversionDescripcionVO> listaConcepto = new ArrayList<>();
     private List<MonedaVO> listaMoneda = new ArrayList<>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
     private List<InversionVO> listaInversiones = new ArrayList<>();
+    private List<SupervisorInversionesVO> listaSupervisor = new ArrayList<>();
     private List<ContratoVO> listaContratosConcesion = new ArrayList<>();
+    private List<ContratoCompromisoVO> listaConcepto = new ArrayList<>();
     private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
     private List<ValorizacionSupDetalleVO> listaValorizacion = new ArrayList<>();
 
+    ValorizacionSupVO valorizacionSupVO = new ValorizacionSupVO();
+    ValorizacionSupService valorizacionSupServiceImpl = new ValorizacionSupServiceImpl();
 
     @ManagedProperty(value = "#{monedaServiceImpl}")
     private MonedaServiceImpl monedaServiceImpl;
@@ -133,6 +151,8 @@ public class RegistrarValorizacionSupervision {
     InfraestructuraVO infraestructuraVO;
     @ManagedProperty(value = "#{inversionServiceImpl}")
     InversionService inversionServiceImpl;
+    @ManagedProperty(value = "#{supervisorInversionesServiceImpl}")
+    SupervisorInversionesServiceImpl supervisorInversionesServiceImpl;
     @ManagedProperty(value = "#{inversionVO}")
     InversionVO inversionVO;
     @ManagedProperty(value = "#{contratoVO}")
@@ -182,6 +202,10 @@ public class RegistrarValorizacionSupervision {
             infraestructura.setTinId(infraestructuraVO.getTinId());
             listaInversiones = inversionServiceImpl.query1(infraestructura, codigoContrato);
             listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+
+            listaSupervisor = supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(t_tinfra);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -202,43 +226,23 @@ public class RegistrarValorizacionSupervision {
 
     //--buscar std--//
     public void BuscarStd() throws SQLException {
-        if (nrohr.trim().equals("")) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (!nrohr.trim().equals("") && Integer.parseInt(nrohr) < 0) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta Válido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (añohr.trim().equals("")) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Año de Hoja de Ruta");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (!añohr.trim().equals("") && Integer.parseInt(añohr) < 0) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else if (!añohr.trim().equals("") && añohr.length() < 4) {
-            FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else {
-            SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
-            try {
-                viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
-                if (viewTdInternosVO != null) {
-                    freg = dt1.format(viewTdInternosVO.getFechaRegistro());
-                    asuntohr = viewTdInternosVO.getAsunto();
-                    añohrbus = viewTdInternosVO.getAnyo();
-                    nrohrbus = Integer.parseInt(viewTdInternosVO.getNroRegistro());
-                } else {
-                    freg = "";
-                    asuntohr = "";
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
+            if (viewTdInternosVO != null) {
+                freg = dt1.format(viewTdInternosVO.getFechaRegistro());
+                asuntohr = viewTdInternosVO.getAsunto();
+                añohrbus = viewTdInternosVO.getAnyo();
+                nrohrbus = Integer.parseInt(viewTdInternosVO.getNroRegistro());
+            } else {
+                freg = "";
+                asuntohr = "";
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
     //----------------------//
 
@@ -256,46 +260,140 @@ public class RegistrarValorizacionSupervision {
 
     public void cargarListaconcepto() {
         try {
-
-            listaConcepto = inversionDescripcionServicesImpl.query();
+            listaConcepto = contratoCompromisoServiceImpl.query();
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
-
+    //--quitar lista---//
+    
+    public void quitarLista(){
+            FacesContext context=FacesContext.getCurrentInstance();
+            Map requestMap=context.getExternalContext().getRequestParameterMap();
+            Object str=requestMap.get("indexLista");
+            int idcodigo=Integer.valueOf(str.toString());
+                tvsNeto=tvsNeto-listaValorizacion.get(idcodigo).getNeto();
+                tvsIgv=tvsIgv-listaValorizacion.get(idcodigo).getIgv();
+                tvsBruto=tvsBruto-listaValorizacion.get(idcodigo).getTtotal();
+            listaValorizacion.remove(idcodigo);
+        }
+    
+    
+    
+    //--fin quitar lista--//
     public void guardarTabla() {
-
         try {
             listaMoneda = monedaServiceImpl.query();
             BigDecimal igv1;
 
-            //neto = getMontoTabla();
+
+            MonedaVO monNombre = getMonedaServiceImpl().get(monedaSeleccionada);
+            ContratoCompromisoVO ccoPeriodo = contratoCompromisoServiceImpl.get(conceptoSeleccionada);
             ValorizacionSupDetalleVO valorizacionSupDetalleVO = new ValorizacionSupDetalleVO();
             valorizacionSupDetalleVO.setCvaId(conceptoSeleccionada);
+            valorizacionSupDetalleVO.setDescripcionInversion(ccoPeriodo.getCcoPeriodo());
             valorizacionSupDetalleVO.setMonId(monedaSeleccionada);
+            valorizacionSupDetalleVO.setNombreMoneda(monNombre.getMonNombre());
             valorizacionSupDetalleVO.setNeto(Long.parseLong(String.valueOf(montoTabla)));
-            
-            if(igv){
-                    igv1= new BigDecimal(0.18);
-                    valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla).doubleValue());
-                }
-            else{
-                    igv1= new BigDecimal(0);
-                    valorizacionSupDetalleVO.setIgv(igv1.doubleValue());
-                }
-            //valorizacionSupDetalleVO.settTotal(montoTabla.add(igv1.multiply(montoTabla))); 
+            if (igv) {
+                igv1 = new BigDecimal(0.18).setScale(2,BigDecimal.ROUND_UP);
+                valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla).doubleValue());
+            } else {
+                igv1 = new BigDecimal(0).setScale(2,BigDecimal.ROUND_UP);
+                valorizacionSupDetalleVO.setIgv(igv1.doubleValue());
+            }
+
+
+            valorizacionSupDetalleVO.setTtotal(montoTabla.doubleValue() + igv1.setScale(2,BigDecimal.ROUND_UP).multiply(montoTabla).setScale(2,BigDecimal.ROUND_UP).doubleValue());
             listaValorizacion.add(valorizacionSupDetalleVO);
 
 
-          
+            tvsNeto = tvsNeto + montoTabla.doubleValue();
+            tvsIgv = tvsIgv + valorizacionSupDetalleVO.getIgv();
+            tvsBruto = tvsBruto + valorizacionSupDetalleVO.getTtotal();
+
+
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
 
 
+        //FALTA VALIDACIONES
+
+
     }
 
+    public void guardar() {
+        if (nrohr=="" || nrohr.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "INGRESAR NUMERO DE HR."));
+        } else if (añohr=="" || añohr.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "INGRESAR AÑO DE HR."));
+
+        } else if (monedaSeleccionada == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "SELECCIONAR TIPO DE MONEDA"));
+        } else if (conceptoSeleccionada == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "SELECCIONAR CONCEPTO"));
+        } /* else if (montoTabla=="" || montoTabla.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "INGRESAR MONTO"));
+        } */
+
+        else {
+            try {
+                valorizacionSupVO.setTvsHr(Integer.parseInt(nrohr));
+                valorizacionSupVO.setTvsAnyo(Integer.parseInt(añohr));
+                valorizacionSupVO.setTvsFechaRegistro(new Date(freg));
+                valorizacionSupVO.setTvsAsunto(asuntohr);
+                valorizacionSupVO.setTvsNeto(tvsNeto);
+                valorizacionSupVO.setTvsIgv(tvsIgv);
+                valorizacionSupVO.setTvsBruto(tvsBruto);
+                valorizacionSupVO.setMonId(monedaSeleccionada);
+                valorizacionSupVO.setSupId(1);
+                valorizacionSupVO.setTvsEstado(1);
+                valorizacionSupServiceImpl.insert(valorizacionSupVO);
+                limpiarCampos();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                              "SE REGISTRO LA VALORIZACION DE SUPERVISIÓN CON EXITO"));
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void limpiarCampos() {
+        nrohr = "";
+        añohr = "";
+        freg = "";
+        asuntohr = "";
+        listaMoneda = new ArrayList<>();
+        montoTabla=new BigDecimal("0");
+        listaConcepto = new ArrayList<>();
+        listaValorizacion = new ArrayList<>();
+        tvsNeto=0;
+        tvsIgv=0;
+        tvsBruto=0;
+        t_concesion="";
+        t_tinfra=0;
+        t_modconc="";
+        listaInfraestructuras = new ArrayList<>();
+        listaInversiones = new ArrayList<>();
+        listaContratoCompromiso = new ArrayList<>();
+        plazo="";
+        total= new BigDecimal("0");
+        codigoMoneda=0;
+        nomSupervisor="";
+    }
 
     //--------- FIN DATOS VALORIZACION-------------//
 
@@ -585,14 +683,6 @@ public class RegistrarValorizacionSupervision {
     }
 
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
     public void setCodigoMoneda(int codigoMoneda) {
         this.codigoMoneda = codigoMoneda;
     }
@@ -659,12 +749,28 @@ public class RegistrarValorizacionSupervision {
     }
 
 
-    public void setListaConcepto(List<InversionDescripcionVO> listaConcepto) {
+    public void setListaConcepto(List<ContratoCompromisoVO> listaConcepto) {
         this.listaConcepto = listaConcepto;
     }
 
-    public List<InversionDescripcionVO> getListaConcepto() {
+    public List<ContratoCompromisoVO> getListaConcepto() {
         return listaConcepto;
+    }
+
+    public void setValorizacionSupVO(ValorizacionSupVO valorizacionSupVO) {
+        this.valorizacionSupVO = valorizacionSupVO;
+    }
+
+    public ValorizacionSupVO getValorizacionSupVO() {
+        return valorizacionSupVO;
+    }
+
+    public void setValorizacionSupServiceImpl(ValorizacionSupService valorizacionSupServiceImpl) {
+        this.valorizacionSupServiceImpl = valorizacionSupServiceImpl;
+    }
+
+    public ValorizacionSupService getValorizacionSupServiceImpl() {
+        return valorizacionSupServiceImpl;
     }
 
     public void setInversionDescripcionServicesImpl(InversionDescripcionServicesImpl inversionDescripcionServicesImpl) {
@@ -801,5 +907,63 @@ public class RegistrarValorizacionSupervision {
     public boolean isIgv() {
         return igv;
     }
-    
+
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+
+    public void setTtotal(double ttotal) {
+        this.ttotal = ttotal;
+    }
+
+    public double getTtotal() {
+        return ttotal;
+    }
+
+
+    public void setTvsNeto(double tvsNeto) {
+        this.tvsNeto = tvsNeto;
+    }
+
+    public double getTvsNeto() {
+        return tvsNeto;
+    }
+
+    public void setTvsBruto(double tvsBruto) {
+        this.tvsBruto = tvsBruto;
+    }
+
+    public double getTvsBruto() {
+        return tvsBruto;
+    }
+
+    public void setTvsIgv(double tvsIgv) {
+        this.tvsIgv = tvsIgv;
+    }
+
+    public double getTvsIgv() {
+        return tvsIgv;
+    }
+
+    public void setListaSupervisor(List<SupervisorInversionesVO> listaSupervisor) {
+        this.listaSupervisor = listaSupervisor;
+    }
+
+    public List<SupervisorInversionesVO> getListaSupervisor() {
+        return listaSupervisor;
+    }
+
+    public void setSupervisorInversionesServiceImpl(SupervisorInversionesServiceImpl supervisorInversionesServiceImpl) {
+        this.supervisorInversionesServiceImpl = supervisorInversionesServiceImpl;
+    }
+
+    public SupervisorInversionesServiceImpl getSupervisorInversionesServiceImpl() {
+        return supervisorInversionesServiceImpl;
+    }
 }
