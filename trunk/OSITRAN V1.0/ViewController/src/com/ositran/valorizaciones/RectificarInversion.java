@@ -207,7 +207,9 @@ public class RectificarInversion {
     }
     public void cargarInversionesInvxTiaNumero(int numeroInversion,int tianumero){
         try {
+            System.out.println("BEGIN cargarInversionesInvxTiaNumero");
             invVO=invServiceImpl.obtenerInversion(numeroInversion,tianumero);
+            System.out.println("FIN cargarInversionesInvxTiaNumero");
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
