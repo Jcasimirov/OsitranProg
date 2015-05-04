@@ -26,7 +26,7 @@
             
             <div align="center">
                 <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                    #{msg.tituloAS}
+                    ASIGNAR RESPONSABLE DE SUPERVISION
                 </h3>
             </div>
             <div align="center">
@@ -103,7 +103,7 @@
                                                                 <p:selectOneMenu id="listaCompromiso"  value="#{asignarResponsableMB.contratoCompromisoSeleccionado}" style="width:370px;text-transform:uppercase;">
                                                                     <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
                                                                     <f:selectItems  value="#{asignarResponsableMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}" itemValue="#{tip2.ccoId}"/>
-                                                                    <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
+                                                                    <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables :form:cbosupervisor" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
@@ -283,7 +283,7 @@
                         <p:column headerText="Elegir">
                             <p:commandButton actionListener="#{asignarResponsableMB.seleccionarContratoConcesion1}"
                                              icon="ui-search"
-                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion :form:cbosupervisor :form:listaCompromiso"
+                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion  :form:listaCompromiso"
                                              oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
                                 <f:attribute name="contrato" value="#{var2}"></f:attribute>
                             </p:commandButton>
