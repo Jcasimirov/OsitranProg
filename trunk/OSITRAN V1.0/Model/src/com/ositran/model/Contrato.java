@@ -90,8 +90,8 @@ public class Contrato implements Serializable {
     private Integer conMesoAnioPlazoconcesion;
     @Column(name = "CON_NOTA_PLAZOCONCESION", length = 4000)
     private String conNotaPlazoConcesion;
-    @Column(name = "CON_FECHA_FIN_CONTRATO", length = 4000)
-    private String conFechaFinContrato;
+    @Column(name = "CON_FECHA_FIN_CONTRATO")
+    private Date conFechaFinContrato;
     public Contrato() {
     }
 
@@ -372,11 +372,11 @@ public class Contrato implements Serializable {
         return conNotaPlazoConcesion;
     }
 
-    public void setConFechaFinContrato(String conFechaFinContrato) {
+    public void setConFechaFinContrato(Date conFechaFinContrato) {
         this.conFechaFinContrato = conFechaFinContrato;
     }
 
-    public String getConFechaFinContrato() {
+    public Date getConFechaFinContrato() {
         return conFechaFinContrato;
     }
 }
