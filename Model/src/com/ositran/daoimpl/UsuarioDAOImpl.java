@@ -76,9 +76,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public List query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list = session.createQuery("select o from Usuario o order by USU_ID asc").list();
+         List list = session.createQuery("From Usuario o order by o.usuId asc").list();
         System.out.println(list.size());
+        session.close();
         return list;
     }
 
