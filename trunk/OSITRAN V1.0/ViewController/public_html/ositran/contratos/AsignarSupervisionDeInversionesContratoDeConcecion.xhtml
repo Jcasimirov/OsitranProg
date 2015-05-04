@@ -26,7 +26,7 @@
                
                     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                     <div align="center">
-                        <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                        <h5 class="titulo5">
                            ASIGNAR SUPERVISION DE INVERSIONES A CONTRATO CONCESION
                         </h5>
                     </div>
@@ -175,14 +175,20 @@
                                     <p:column headerText="Supervisor" >
                                         <h:outputText value="#{supervicion1.nombreSupervicion}"/>
                                     </p:column>
-                                     <p:column headerText="Documento" >
+                                     <p:column headerText="Documento" style="width:60px" >
                                         <h:outputText value="#{supervicion1.sivUmero}"/>
                                     </p:column>
-                                        <p:column headerText="Estado" >
-                                        <h:outputText value="#{supervicion1.estadoNombre}"/>
+                                     <p:column headerText="Fec Inicio" style="width:60px">
+                                        <h:outputText value="#{supervicion1.sivFechaInicial}"/>
+                                    </p:column>
+                                     <p:column headerText="Fec Fin" style="width:60px">
+                                        <h:outputText value="#{supervicion1.sivFechaFinal}"/>
+                                    </p:column>
+                                        <p:column headerText="Estado" style="width:50px" >
+                                        <h:outputText  style="font-size:9px;font-weight:bold;" value="#{supervicion1.estadoNombre}"/>
                                     </p:column>                                      
-                                     <p:column headerText="Activar"    style="width:5%">
-                                     <div align="center">
+                                     <p:column headerText="Activar"    style="width:4%">
+                                     <div align="center"  >
                                         <p:commandButton update=":form:tablaSI"
                                         rendered="#{supervicion1.sivEstado eq 1}"
                                         actionListener="#{supervisorContratoConcesionMB.desabilitar(supervicion1.sivId)}"
