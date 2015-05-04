@@ -14,6 +14,7 @@ import java.util.List;
 public class ConcesionServiceImpl implements ConcesionService{
    
     private ConcesionDAOImpl concesionDAOImpl;
+    private ConcesionDAOImpl concesionDAOImpl1=new ConcesionDAOImpl();
 
     public void setConcesionDAOImpl(ConcesionDAOImpl concesionDAOImpl) {
         this.concesionDAOImpl = concesionDAOImpl;
@@ -152,7 +153,7 @@ public class ConcesionServiceImpl implements ConcesionService{
         }
 
     public List<ConcesionVO> listarConcesiones() throws SQLException{
-        List<Concesion> list=concesionDAOImpl.listarConcesiones();
+        List<Concesion> list=concesionDAOImpl1.query();
         List<ConcesionVO> listVO=toListConcesionVO(list);
         return listVO;            
     }
