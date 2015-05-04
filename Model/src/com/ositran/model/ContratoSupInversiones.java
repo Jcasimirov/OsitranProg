@@ -39,8 +39,8 @@ public class ContratoSupInversiones implements Serializable {
     private int sivId;
     @Column(name = "SIV_NOMBRE", length = 20)
     private String sivNombre;
-    @Column(name = "SIV_UMERO", length = 20)
-    private String sivUmero;
+    @Column(name = "SIV_NUMERO", length = 20)
+    private String sivNumero;
     @Column(name = "TDO_ID")
     private int tdoId;
     @Column(name = "TIN_ID")
@@ -53,7 +53,7 @@ public class ContratoSupInversiones implements Serializable {
 
     public ContratoSupInversiones(int conId, int csiId, int infId, int sivEstado,
                                    Date sivFechaFinal, Date sivFechaInicial, int sivId, String sivNombre,
-                                   String sivUmero, int tdoId, int tinId, int tsiId) {
+                                   String sivNumero, int tdoId, int tinId, int tsiId) {
         this.conId = conId;
         this.csiId = csiId;
         this.infId = infId;
@@ -62,7 +62,6 @@ public class ContratoSupInversiones implements Serializable {
         this.sivFechaInicial = sivFechaInicial;
         this.sivId = sivId;
         this.sivNombre = sivNombre;
-        this.sivUmero = sivUmero;
         this.tdoId = tdoId;
         this.tinId = tinId;
         this.tsiId = tsiId;
@@ -132,12 +131,13 @@ public class ContratoSupInversiones implements Serializable {
         this.sivNombre = sivNombre;
     }
 
-    public String getSivUmero() {
-        return sivUmero;
+
+    public void setSivNumero(String sivNumero) {
+        this.sivNumero = sivNumero;
     }
 
-    public void setSivUmero(String sivUmero) {
-        this.sivUmero = sivUmero;
+    public String getSivNumero() {
+        return sivNumero;
     }
 
     public int getTdoId() {
