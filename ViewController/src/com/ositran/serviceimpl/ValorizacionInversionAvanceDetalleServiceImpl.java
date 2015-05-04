@@ -1,17 +1,15 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionInversionAvanceDetalleDAOImpl;
-import com.ositran.model.InversionTipo;
-import com.ositran.model.ValorizacionInversionAvance;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
-import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
+
 import java.sql.SQLException;
+
 import java.text.ParseException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceDetalleServiceImpl implements ValorizacionInversionAvanceDetalleService{
@@ -47,7 +45,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         super();
     }
     
-    @Override
+
     public List<ValorizacionInversionAvanceDetalleVO> query1(int codigoValorizacion) throws SQLException, Exception {
         List<ValorizacionInversionAvanceDetalle> list=valorizacionInversionAvanceDetalleDAOImpl.query1(codigoValorizacion);
         List<ValorizacionInversionAvanceDetalleVO> listVO=toValorizacionInversionAvanceDetalleVO(list);
@@ -112,9 +110,10 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
        valorizacionInversionAvanceDetalleVO1.setDtiId(valorizacionInversionAvanceDetalle1.getDtiId());
        valorizacionInversionAvanceDetalleVO1.setIadPDF(valorizacionInversionAvanceDetalle1.getIadPDF());
        valorizacionInversionAvanceDetalleVO1.setTivId(valorizacionInversionAvanceDetalle1.getTivId());
-       valorizacionInversionAvanceDetalleVO1.setIadDescripcion(valorizacionInversionAvanceDetalle1.getIadDescripcion());
+        valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
+       /*        valorizacionInversionAvanceDetalleVO1.setIadDescripcion(valorizacionInversionAvanceDetalle1.getIadDescripcion());
        valorizacionInversionAvanceDetalleVO1.setIadFechaInicio(valorizacionInversionAvanceDetalle1.getIadFechaInicio());
-       valorizacionInversionAvanceDetalleVO1.setIadFechaFin(valorizacionInversionAvanceDetalle1.getIadFechaFin());
+       valorizacionInversionAvanceDetalleVO1.setIadFechaFin(valorizacionInversionAvanceDetalle1.getIadFechaFin()); */
        
        
        return valorizacionInversionAvanceDetalleVO1;
@@ -130,9 +129,10 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalle1.setDtiId(valorizacionInversionAvanceDetalleVO1.getDtiId());
         valorizacionInversionAvanceDetalle1.setIadPDF(valorizacionInversionAvanceDetalleVO1.getIadPDF());
         valorizacionInversionAvanceDetalle1.setTivId(valorizacionInversionAvanceDetalleVO1.getTivId());
-        valorizacionInversionAvanceDetalle1.setIadDescripcion(valorizacionInversionAvanceDetalleVO1.getIadDescripcion());
+        valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
+        /*  valorizacionInversionAvanceDetalle1.setIadDescripcion(valorizacionInversionAvanceDetalleVO1.getIadDescripcion());
         valorizacionInversionAvanceDetalle1.setIadFechaInicio(valorizacionInversionAvanceDetalleVO1.getIadFechaInicio());
-        valorizacionInversionAvanceDetalle1.setIadFechaFin(valorizacionInversionAvanceDetalleVO1.getIadFechaFin());
+        valorizacionInversionAvanceDetalle1.setIadFechaFin(valorizacionInversionAvanceDetalleVO1.getIadFechaFin()); */
        
        return valorizacionInversionAvanceDetalle1;
     }
