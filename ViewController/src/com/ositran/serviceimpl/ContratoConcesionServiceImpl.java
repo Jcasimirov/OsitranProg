@@ -119,7 +119,9 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contratoVO.setMcoId(contrato.getMcoId());
         contratoVO.setPerId(contrato.getPerId());
         contratoVO.setTinId(contrato.getTinId());
-        
+        contratoVO.setConDiaPlazoconcesion(contrato.getConDiaPlazoconcesion());
+        contratoVO.setConMesoAnioPlazoconcesion(contrato.getConMesoAnioPlazoconcesion());
+        contratoVO.setConNotaPlazoConcesion(contrato.getConNotaPlazoConcesion()); 
        
         return contratoVO;
     }
