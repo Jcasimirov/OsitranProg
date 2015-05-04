@@ -17,6 +17,7 @@ import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
+import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -28,11 +29,14 @@ import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
+import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ValorizacionSupVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
+
+import java.io.IOException;
 
 import java.math.BigDecimal;
 
@@ -75,7 +79,9 @@ public class RegistrarAvanceInversionPMB {
     private int codMoneda;
     private List<MonedaVO> listaMoneda= new ArrayList<>();
     private int codigoInfraValSelecionado;
+   
     private List<InversionDescripcionVO> listaDescripcionTipoInversion=new ArrayList<>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO=new ArrayList<>();
     private Date inicioPeriodo;
     private Date finPeriodo;
     private BigDecimal montoPrestado;
@@ -84,6 +90,14 @@ public class RegistrarAvanceInversionPMB {
     private BigDecimal totalMonto = new BigDecimal(0);
     private BigDecimal totalIgv = new BigDecimal(0);
     private BigDecimal totalTotal = new BigDecimal(0);
+    private int tipoComtratoCompromiso;
+    private String descripcionValorizacionDetalle;
+    
+    public  final int formulario=31;
+    private RolOpcionesVO rolOpcion;
+    public void validarSesion() throws IOException{
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        }
     
     
     //CALENDARIO
@@ -98,9 +112,6 @@ public class RegistrarAvanceInversionPMB {
     List<ValorizacionSupDetalleVO> listaValorizacionSup=new ArrayList<>();
     List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<>();
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService= new  ValorizacionInversionAvanceDetalleServiceImpl(); 
-
-    
-    
     List<InversionVO> listaInversiones=new ArrayList<>();
     List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
     List<ContratoVO> listaContratos=new ArrayList<>();
@@ -216,7 +227,7 @@ public class RegistrarAvanceInversionPMB {
     public void elegirContrato(ContratoVO contratoVO){
         try {
            codigoConcesion=contratoVO.getCncId();
-           concesionVO=concesionServiceImpl.get(codigoConcesion);
+           concesionVO=concesionServiceImpl.get(codigoConcesion);   
            idModalidadConcesion=contratoVO.getMcoId();
            idTipoInfraestructura=concesionVO.getTinId();
            codigoContrato=contratoVO.getConId();
@@ -227,7 +238,16 @@ public class RegistrarAvanceInversionPMB {
            nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();           
            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
            listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
-            listarInversionDescripcion(); 
+           listarInversionDescripcion(); 
+            
+            
+            
+            
+            
+            
+          
+            
+            
        } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso","La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
@@ -295,6 +315,7 @@ public class RegistrarAvanceInversionPMB {
     public void cargarDatosCompromiso(){
         try {
            contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+           tipoComtratoCompromiso= contratoCompromisoVO.getTccTipo();
            plazo=contratoCompromisoVO.getCcoPlazo();
            total=contratoCompromisoVO.getCcoTotal();
            codigoMoneda=contratoCompromisoVO.getMonId();  
@@ -336,9 +357,21 @@ public class RegistrarAvanceInversionPMB {
             else {
             BigDecimal igv1;
            ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1= new ValorizacionInversionAvanceDetalleVO();
+           
+           
+           
            valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
-            inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
+                valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
+                
+                inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
             valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
+            valorizacionInversionAvanceDetalleVO1.setTivId(inversionDescripcionVO.getTivId());
+                
+                valorizacionInversionAvanceDetalleVO1.setIadDescripcion(descripcionValorizacionDetalle);
+                 valorizacionInversionAvanceDetalleVO1.setIadFechaInicio(getInicioPeriodo());
+                 valorizacionInversionAvanceDetalleVO1.setIadFechaFin(getFinPeriodo());
+           
+                
             for (MonedaVO mon:listaMoneda){
                 if (mon.getMonId()==codMoneda){
                         valorizacionInversionAvanceDetalleVO1.setNombreMoneda(mon.getMonNombre()); 
@@ -377,13 +410,15 @@ public class RegistrarAvanceInversionPMB {
     
     public void guardar(){
         try {
-            
+        
+              
            valorizacionInversionAvanceVO.setConId(codigoContrato);
-           valorizacionInversionAvanceVO.setInvId(codigoInversion);
            valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
            valorizacionInversionAvanceVO.setMcoId(idModalidadConcesion);
-            valorizacionInversionAvanceVO.setTinId(idTipoInfraestructura);
-            
+           valorizacionInversionAvanceVO.setTinId(idTipoInfraestructura);
+            valorizacionInversionAvanceVO.setCcoId(contratoCompromisoSeleccionado);
+            valorizacionInversionAvanceVO.setMonId(codMoneda);
+            valorizacionInversionAvanceVO.setIaeId(1);
            valorizacionInversionAvanceVO.setTiaAnyo(anio);
            valorizacionInversionAvanceVO.setTiaAsunto(asunto);
            valorizacionInversionAvanceVO.setTiaDiasHabiles(5);
@@ -391,15 +426,15 @@ public class RegistrarAvanceInversionPMB {
            valorizacionInversionAvanceVO.setTiaFechaInicio(inicioPeriodo);
            valorizacionInversionAvanceVO.setTiaPlazoEnDias(Integer.parseInt(plazo));
            valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
-           
-           valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
+           valorizacionInversionAvanceVO.setTccTipo(tipoComtratoCompromiso);
+          // valorizacionInversionAvanceVO.setTiaMontoTotalPresentado(totalMonto);
+        //  valorizacionInversionAvanceVO.setTiaMontoTotalReajustado(totalTotal);
+         
            int idCabecera=valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
             
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3:  listValorizacionInversionAvanceDetalleVO){
                     valorizacionInversionAvanceDetalleVO3.setTiaNumero(idCabecera);
-                    valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);
-                
-                
+                    valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);               
                 }
             
             
@@ -408,7 +443,7 @@ public class RegistrarAvanceInversionPMB {
             
             
        } catch (Exception e) {
-            // TODO: Add catch code
+            
             e.printStackTrace();
         }
            
@@ -991,6 +1026,41 @@ public class RegistrarAvanceInversionPMB {
 
     public ValorizacionInversionAvanceVO getValorizacionInversionAvanceVO() {
         return valorizacionInversionAvanceVO;
+    }
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
+
+    public void setTipoComtratoCompromiso(int tipoComtratoCompromiso) {
+        this.tipoComtratoCompromiso = tipoComtratoCompromiso;
+    }
+
+    public int getTipoComtratoCompromiso() {
+        return tipoComtratoCompromiso;
+    }
+
+
+    public void setDescripcionValorizacionDetalle(String descripcionValorizacionDetalle) {
+        this.descripcionValorizacionDetalle = descripcionValorizacionDetalle;
+    }
+
+    public String getDescripcionValorizacionDetalle() {
+        return descripcionValorizacionDetalle;
+    }
+
+
+    public void setListValorizacionInversionAvanceVO(List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO) {
+        this.listValorizacionInversionAvanceVO = listValorizacionInversionAvanceVO;
+    }
+
+    public List<ValorizacionInversionAvanceVO> getListValorizacionInversionAvanceVO() {
+        return listValorizacionInversionAvanceVO;
     }
 }
 
