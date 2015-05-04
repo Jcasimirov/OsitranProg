@@ -167,7 +167,7 @@ public class NotificacionServiceImpl implements NotificacionService{
             invAvnVO.setTiaObservaciones(invAvn.getTiaObservaciones());
             return invAvnVO;
         }
-        private InvAvn toInvAvn(InvAvnVO invAvnVO){
+        public InvAvn toInvAvn(InvAvnVO invAvnVO){
             InvAvn invAvn=new InvAvn();            
             invAvn.setConId(invAvnVO.getConId());
             invAvn.setCcoId(invAvnVO.getCcoId());

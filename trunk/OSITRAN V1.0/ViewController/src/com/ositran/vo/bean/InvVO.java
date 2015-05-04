@@ -24,7 +24,12 @@ public class InvVO {
     private String invNota;
     private String invNroDocFormalizacion;
     private Date invFechaEmisionDocFomalizacion;
+
+    private BigDecimal invConIGV;
+    private BigDecimal invPorcentajeIGV;
+
     private Integer invIgv;
+
     public InvVO() {
         super();
     }
@@ -174,6 +179,23 @@ public class InvVO {
         return invFechaEmisionDocFomalizacion;
     }
 
+
+    public void setInvConIGV(BigDecimal invConIGV) {
+        this.invConIGV = invConIGV;
+    }
+
+    public BigDecimal getInvConIGV() {
+        return invConIGV;
+    }
+
+    public void setInvPorcentajeIGV(BigDecimal invPorcentajeIGV) {
+        this.invPorcentajeIGV = invPorcentajeIGV;
+    }
+
+    public BigDecimal getInvPorcentajeIGV() {
+        return invPorcentajeIGV;
+    }
+
     public Integer getInvIgv() {
         return invIgv;
     }
@@ -181,4 +203,5 @@ public class InvVO {
     public void setInvIgv(Integer invIgv) {
         this.invIgv = invIgv;
     }
+
 }
