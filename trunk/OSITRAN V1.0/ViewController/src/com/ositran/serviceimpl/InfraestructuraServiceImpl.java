@@ -63,6 +63,16 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         return infraestructuraVO;
     }
     
+    @Override
+    public InfraestructuraVO get(int codifoInfraestructura, int codigoConcesion,
+                                 int tipoInfraestructura) throws SQLException {
+        Infraestructura infraestructura=infraestructuraDAOImpl.get(codifoInfraestructura,codigoConcesion,tipoInfraestructura);
+        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(infraestructura.getCsiId());
+        System.out.println(infraestructura.getInfEstado());
+        InfraestructuraVO infraestructuraVO=toInfraestructuraVO(infraestructura);
+        return infraestructuraVO;
+    }
 
     
     //conversiones
@@ -125,7 +135,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
     }
 
 
-    
+
 }
 
 
