@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +12,7 @@ public class ValorizacionSupDetalleVO {
     private double igv;
     private Integer monId;
     private double neto;
-    private double total;
+    private double ttotal;
     private Integer tvsHr;
     
     private String aeropuertos;
@@ -29,13 +31,13 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer cvaId, Long igv, Integer monId, Long neto, Long total, Integer tvsHr, double totalAprobado, int fila) {
+    public ValorizacionSupDetalleVO(Integer cvaId, Long igv, Integer monId, Long neto, Long ttotal, Integer tvsHr, double totalAprobado, int fila) {
         super();
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
         this.neto = neto;
-        this.total = total;
+        this.ttotal = ttotal;
         this.tvsHr = tvsHr;
         this.totalAprobado = totalAprobado;
         this.fila = fila;
@@ -74,13 +76,15 @@ public class ValorizacionSupDetalleVO {
         return neto;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+
+    public void setTtotal(double ttotal) {
+        this.ttotal = ttotal;
     }
 
-    public double getTotal() {
-        return total;
+    public double getTtotal() {
+        return ttotal;
     }
+
 
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
