@@ -72,6 +72,8 @@ public class Concesionario {
     //********************EDITAR***********************************/
     
     public  final int formulario=2;
+    
+    
     private RolOpcionesVO rolOpcion;
     
     public void validarSesion() throws IOException{
