@@ -14,7 +14,7 @@ public class ContratoAlertaVO {
     
     private Integer calId;   
     private String calNombreconcesion;
-    private String calPlazo;  
+    
     private Integer conId;
     private Integer perId;
     private Integer calEstado;
@@ -28,6 +28,13 @@ public class ContratoAlertaVO {
     private String calUsuarioCambio;
     private String calTerminal;
     private Integer tinId;
+    private Date calFechaLimite;
+    private Integer calTipo;
+    private Integer aleDiaMes;
+    private String calPlazo;
+
+    
+    
     public ContratoAlertaVO() {
         super();
     }
@@ -207,5 +214,31 @@ public class ContratoAlertaVO {
 
     public Integer getTinId() {
         return tinId;
+    }
+
+    public void setCalFechaLimite(Date calFechaLimite) {
+        this.calFechaLimite = calFechaLimite;
+    }
+
+    public Date getCalFechaLimite() {
+        return calFechaLimite;
+    }
+
+    public void setCalTipo(Integer calTipo) {
+        this.calTipo = calTipo;
+    }
+
+    public Integer getCalTipo() {
+        return calTipo;
+    }
+
+  
+
+    public void setAleDiaMes(Integer aleDiaMes) {
+        this.aleDiaMes = aleDiaMes;
+    }
+
+    public Integer getAleDiaMes() {
+        return aleDiaMes;
     }
 }
