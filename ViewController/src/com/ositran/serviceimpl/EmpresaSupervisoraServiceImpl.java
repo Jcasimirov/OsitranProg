@@ -10,6 +10,7 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
@@ -148,6 +149,35 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         return empresaSupervisora;
         
     }
-
+    
+    @Override
+    public List<EmpresaSupervisoraVO> BuscarEmpresaPorContrato(Integer contratoConcesion, Integer etapaContrato, String nombreEmpresa) throws SQLException{
+        List<EmpresaSupervisoraVO> listVO = new ArrayList<EmpresaSupervisoraVO>();
+        List<Object[]> list=empresaSupervisoraDAOImpl.BuscarEmpresaPorContrato(contratoConcesion,etapaContrato,nombreEmpresa);
+        for(Object[] item:list){
+            EmpresaSupervisoraVO empresa = new EmpresaSupervisoraVO();
+            empresa.setSupCorreo(item[0]!=null?item[0].toString():null);
+            empresa.setSupDireccion(item[1]!=null?item[1].toString():null);
+            empresa.setSupEstado(item[2]!=null?Integer.parseInt(item[2].toString()):null);
+            empresa.setSupFechaAlta(item[3]!=null?(Date)item[3]:null);
+            empresa.setSupFechaBaja(item[4]!=null?(Date)item[4]:null);
+            empresa.setSupFechaCambio(item[5]!=null?(Date)item[5]:null);
+            empresa.setSupId(item[6]!=null?Integer.parseInt(item[6].toString()):null);
+            empresa.setSupJefeSupervision(item[7]!=null?item[7].toString():null);
+            empresa.setSupNombre(item[8]!=null?item[8].toString():null);
+            empresa.setSupNroDocumento(item[9]!=null?item[9].toString():null);
+            empresa.setSupObra(item[10]!=null?item[10].toString():null);
+            empresa.setSupRepresentanteLegal(item[11]!=null?item[11].toString():null);
+            empresa.setSupSiglas(item[12]!=null?item[12].toString():null);
+            empresa.setSupTelefono(item[13]!=null?item[13].toString():null);
+            empresa.setSupTerminal(item[14]!=null?item[14].toString():null);
+            empresa.setSupUsuarioAlta(item[15]!=null?item[15].toString():null);
+            empresa.setSupUsuarioBaja(item[16]!=null?item[16].toString():null);
+            empresa.setSupUsuarioCambio(item[17]!=null?item[17].toString():null);
+            empresa.setTdoId(item[18]!=null?Integer.parseInt(item[18].toString()):null);
+            listVO.add(empresa);
+        }
+        return listVO;        
+    }
     
 }
