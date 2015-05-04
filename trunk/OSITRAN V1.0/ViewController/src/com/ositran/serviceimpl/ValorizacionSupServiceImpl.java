@@ -1,6 +1,7 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionSupDAOImpl;
+import com.ositran.model.Usuario;
 import com.ositran.model.ValorizacionSup;
 import com.ositran.service.ValorizacionSupService;
 import com.ositran.vo.bean.ValorizacionSupVO;
@@ -16,9 +17,7 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         super();
     }
     
-    private ValorizacionSupDAOImpl valorizacionSupDAOImpl;
-
-    @Override
+    private ValorizacionSupDAOImpl valorizacionSupDAOImpl= new ValorizacionSupDAOImpl();
     public List<ValorizacionSupVO> query() throws SQLException, Exception {
         // TODO Implement this method
         return Collections.emptyList();
@@ -26,8 +25,12 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
 
     @Override
     public String insert(ValorizacionSupVO valorizacionSupVO) throws SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        System.out.println("Entro al metodo  INSERT service impl");
+        ValorizacionSup valorizacionSup = toValorizacionSup(valorizacionSupVO);
+        System.out.println("Entro al metodo  INSERT service impl 22");
+        String result = valorizacionSupDAOImpl.insert(valorizacionSup);
+        System.out.println("Entro al metodo  INSERT service impl 33");
+        return result;
     }
 
     @Override
@@ -73,7 +76,7 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
     
     private ValorizacionSupVO toValorizacionSupVO(ValorizacionSup valorizacionSup){
         ValorizacionSupVO valorizacionSupVO=new ValorizacionSupVO();
-        
+        valorizacionSupVO.setTvsId(valorizacionSup.getTvsId());        
         valorizacionSupVO.setMonId(valorizacionSup.getMonId());
         valorizacionSupVO.setTvsBruto(valorizacionSup.getTvsBruto());
         valorizacionSupVO.setTvsHr(valorizacionSup.getTvsHr());
@@ -100,7 +103,7 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
     
     private ValorizacionSup toValorizacionSup(ValorizacionSupVO valorizacionSupVO){
         ValorizacionSup valorizacionSup=new ValorizacionSup();
-        
+        valorizacionSup.setTvsId(valorizacionSupVO.getTvsId());
         valorizacionSup.setMonId(valorizacionSupVO.getMonId());
         valorizacionSup.setTvsBruto(valorizacionSupVO.getTvsBruto());
         valorizacionSup.setTvsHr(valorizacionSupVO.getTvsHr());
