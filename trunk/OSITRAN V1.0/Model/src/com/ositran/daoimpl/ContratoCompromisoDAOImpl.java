@@ -27,7 +27,6 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
 
     @Override
     public List<ContratoCompromiso> query1(int codigo) throws SQLException {
-        System.out.println("DAOOOOOOOOOOOOOOOOOOOOOO");
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
@@ -37,6 +36,8 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         session.getTransaction().commit();
         return list;        
     }
+    
+    
     public List<ContratoCompromiso> querySupervisado(Integer conId) throws SQLException {
         System.out.println("hola llega hasta aqui");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -82,6 +83,7 @@ public class ContratoCompromisoDAOImpl implements ContratoCompromisoDAO {
         try {
             session.beginTransaction();
             session.update(contratoCompromiso);
+            
             session.getTransaction().commit();            
         } catch (Exception e) {
             session.getTransaction().rollback();
