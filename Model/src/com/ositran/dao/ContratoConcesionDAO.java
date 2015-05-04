@@ -17,6 +17,7 @@ public interface ContratoConcesionDAO {
         public List<Contrato> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException;
         public List<Object[]> buscarxNombreConcesion(String nombreConcesion,int codTipoInfraestructura,int codConcesion,Date fechaIncioSuscripcion,Date fechafinSuscripcion) throws SQLException;
         public List<Contrato> buscarContratos1(int tinfraestructura) throws SQLException;
+   
 
     
 }
