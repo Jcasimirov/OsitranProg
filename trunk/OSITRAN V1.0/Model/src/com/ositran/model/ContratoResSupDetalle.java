@@ -43,13 +43,19 @@ public class ContratoResSupDetalle implements Serializable {
     @Column(name = "CCO_ID")
     private Integer ccoId;      
     @Column(name = "TIPO_SUPERVISOR")
-    private Integer tipoSup;
-
+    private Integer tipoSup;    
+    @Column(name = "INF_ID")
+    private Integer infId;
+    @Column(name = "INV_ID")
+    private Integer invId;
+    @Column(name = "CODIGO_SUP")
+    private Integer codigoSup;
+    
     public ContratoResSupDetalle() {
     }
 
     public ContratoResSupDetalle(Integer conId, Integer rsdEstado, Date rsdFechaAsignacion, Integer rsdId,
-                                 String rsdNroDocumento, Integer rsuId, Integer tccTipo, Integer tdoId, Integer tipoSup, Integer ccoId) {
+                                 String rsdNroDocumento, Integer rsuId, Integer tccTipo, Integer tdoId, Integer tipoSup, Integer ccoId, Integer infId, Integer invId, Integer codigoSup) {
         this.conId = conId;
         this.rsdEstado = rsdEstado;
         this.rsdFechaAsignacion = rsdFechaAsignacion;
@@ -60,6 +66,9 @@ public class ContratoResSupDetalle implements Serializable {
         this.tdoId = tdoId;
         this.tipoSup = tipoSup;
         this.ccoId = ccoId;
+        this.infId = infId;
+        this.invId = invId;
+        this.codigoSup = codigoSup;
     }
 
 
@@ -141,5 +150,29 @@ public class ContratoResSupDetalle implements Serializable {
 
     public Integer getCcoId() {
         return ccoId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setCodigoSup(Integer codigoSup) {
+        this.codigoSup = codigoSup;
+    }
+
+    public Integer getCodigoSup() {
+        return codigoSup;
     }
 }
