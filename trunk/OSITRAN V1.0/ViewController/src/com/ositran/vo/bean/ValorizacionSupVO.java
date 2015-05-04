@@ -13,12 +13,39 @@ public class ValorizacionSupVO {
            }
 
 
-    public ValorizacionSupVO(Integer monId, Long tvsBruto, Integer tvsHr, Long tvsIgv, Date tvsInfFechaEmision,
-                             String tvsInfNumero, String tvsInfRegSalida, Date tvsMemFechaEmision,
-                             String tvsMemNumero, String tvsMemRegSalida, Long tvsNeto, Date tvsOfiFechaEmision,
-                             String tvsOfiNumero, String tvsOfiRegSalida, Integer tvsEstado, Integer supId,
-                             Integer tvsAnyo, Date tvsFechaRegistro, String tvsAsunto, String nombreMoneda, String nombreEstado, Long tvsAprobado, String tvsObservacion) {
-        
+    private Integer monId;
+    private double tvsBruto;
+    private Integer tvsHr;
+    private double tvsIgv;
+    private Date tvsInfFechaEmision;
+    private String tvsInfNumero;
+    private String tvsInfRegSalida;
+    private Date tvsMemFechaEmision;
+    private String tvsMemNumero;
+    private String tvsMemRegSalida;
+    private double tvsNeto;
+    private Date tvsOfiFechaEmision;
+    private String tvsOfiNumero;
+    private String tvsOfiRegSalida;
+    private Integer tvsEstado;
+    private Integer supId;
+    private Integer tvsAnyo;    
+    private Date tvsFechaRegistro;
+    private String tvsAsunto;
+    private String nombreMoneda;
+    private String nombreEstado;
+    private long tvsAprobado;
+    private String tvsObservacion;
+    private Integer tvsId;
+
+
+    public ValorizacionSupVO(Integer monId, double tvsBruto, Integer tvsHr, double tvsIgv, Date tvsInfFechaEmision,
+                             String tvsInfNumero, String tvsInfRegSalida, Date tvsMemFechaEmision, String tvsMemNumero,
+                             String tvsMemRegSalida, double tvsNeto, Date tvsOfiFechaEmision, String tvsOfiNumero,
+                             String tvsOfiRegSalida, Integer tvsEstado, Integer supId, Integer tvsAnyo,
+                             Date tvsFechaRegistro, String tvsAsunto, String nombreMoneda, String nombreEstado,
+                             long tvsAprobado, String tvsObservacion, Integer tvsId) {
+        super();
         this.monId = monId;
         this.tvsBruto = tvsBruto;
         this.tvsHr = tvsHr;
@@ -42,50 +69,26 @@ public class ValorizacionSupVO {
         this.nombreEstado = nombreEstado;
         this.tvsAprobado = tvsAprobado;
         this.tvsObservacion = tvsObservacion;
+        this.tvsId = tvsId;
     }
-
-    private Integer monId;
-    private Long tvsBruto;
-    private Integer tvsHr;
-    private Long tvsIgv;
-    private Date tvsInfFechaEmision;
-    private String tvsInfNumero;
-    private String tvsInfRegSalida;
-    private Date tvsMemFechaEmision;
-    private String tvsMemNumero;
-    private String tvsMemRegSalida;
-    private Long tvsNeto;
-    private Date tvsOfiFechaEmision;
-    private String tvsOfiNumero;
-    private String tvsOfiRegSalida;
-    private Integer tvsEstado;
-    private Integer supId;
-    private Integer tvsAnyo;    
-    private Date tvsFechaRegistro;
-    private String tvsAsunto;
-    private String nombreMoneda;
-    private String nombreEstado;
-    private long tvsAprobado;
-    private String tvsObservacion;
-
-
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public void setTvsId(Integer tvsId) {
+        this.tvsId = tvsId;
+    }
+
+    public Integer getTvsId() {
+        return tvsId;
     }
 
     public Integer getMonId() {
         return monId;
     }
 
-    public void setTvsBruto(Long tvsBruto) {
-        this.tvsBruto = tvsBruto;
-    }
-
-    public Long getTvsBruto() {
-        return tvsBruto;
-    }
-
+  
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
     }
@@ -94,14 +97,7 @@ public class ValorizacionSupVO {
         return tvsHr;
     }
 
-    public void setTvsIgv(Long tvsIgv) {
-        this.tvsIgv = tvsIgv;
-    }
-
-    public Long getTvsIgv() {
-        return tvsIgv;
-    }
-
+   
     public void setTvsInfFechaEmision(Date tvsInfFechaEmision) {
         this.tvsInfFechaEmision = tvsInfFechaEmision;
     }
@@ -150,11 +146,28 @@ public class ValorizacionSupVO {
         return tvsMemRegSalida;
     }
 
-    public void setTvsNeto(Long tvsNeto) {
+
+    public void setTvsBruto(double tvsBruto) {
+        this.tvsBruto = tvsBruto;
+    }
+
+    public double getTvsBruto() {
+        return tvsBruto;
+    }
+
+    public void setTvsIgv(double tvsIgv) {
+        this.tvsIgv = tvsIgv;
+    }
+
+    public double getTvsIgv() {
+        return tvsIgv;
+    }
+
+    public void setTvsNeto(double tvsNeto) {
         this.tvsNeto = tvsNeto;
     }
 
-    public Long getTvsNeto() {
+    public double getTvsNeto() {
         return tvsNeto;
     }
 
