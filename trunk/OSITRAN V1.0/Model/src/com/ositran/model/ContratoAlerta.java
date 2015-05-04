@@ -66,6 +66,16 @@ public class ContratoAlerta implements Serializable {
     private String calUsuarioBaja;
     @Column(name = "CAL_USUARIO_CAMBIO", length = 20)
     private String calUsuarioCambio;
+    
+    @Column(name = "TIN_ID")
+    private Integer tinId; 
+    
+    @Column(name = "CAL_FECHA_LIMITE")
+    private Date calFechaLimite;
+    @Column(name = "CAL_TIPO")
+    private Integer calTipo;
+    
+
     public ContratoAlerta() {
     }
 
@@ -219,5 +229,29 @@ public class ContratoAlerta implements Serializable {
 
     public String getCalUsuarioCambio() {
         return calUsuarioCambio;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
+    public void setCalFechaLimite(Date calFechaLimite) {
+        this.calFechaLimite = calFechaLimite;
+    }
+
+    public Date getCalFechaLimite() {
+        return calFechaLimite;
+    }
+
+    public void setCalTipo(Integer calTipo) {
+        this.calTipo = calTipo;
+    }
+
+    public Integer getCalTipo() {
+        return calTipo;
     }
 }
