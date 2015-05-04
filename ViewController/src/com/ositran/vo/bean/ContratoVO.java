@@ -23,7 +23,6 @@ public class ContratoVO {
     private Integer conId;
     private Integer conNumero;
     private String conPdfcontrato;
-    private Date conPlazoconcesion;
     private Integer conPlazorevision;
     private String conTerminal;
     private Integer conTipodias;
@@ -43,6 +42,13 @@ public class ContratoVO {
     private InputStream inputStreamContratoPDF;
     private String conFechaSuscripcionDescripcion;
     private String conPlazoconcesionDescripcion;
+    
+    private Date conPlazoconcesion;
+
+    private Integer conDiaPlazoconcesion;
+    private Integer conMesoAnioPlazoconcesion;
+    private String conNotaPlazoConcesion;
+    
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
     }
@@ -329,5 +335,29 @@ public class ContratoVO {
 
     public String getConPlazoconcesionDescripcion() {
         return conPlazoconcesionDescripcion;
+    }
+
+    public void setConDiaPlazoconcesion(Integer conDiaPlazoconcesion) {
+        this.conDiaPlazoconcesion = conDiaPlazoconcesion;
+    }
+
+    public Integer getConDiaPlazoconcesion() {
+        return conDiaPlazoconcesion;
+    }
+
+    public void setConMesoAnioPlazoconcesion(Integer conMesoAnioPlazoconcesion) {
+        this.conMesoAnioPlazoconcesion = conMesoAnioPlazoconcesion;
+    }
+
+    public Integer getConMesoAnioPlazoconcesion() {
+        return conMesoAnioPlazoconcesion;
+    }
+
+    public void setConNotaPlazoConcesion(String conNotaPlazoConcesion) {
+        this.conNotaPlazoConcesion = conNotaPlazoConcesion;
+    }
+
+    public String getConNotaPlazoConcesion() {
+        return conNotaPlazoConcesion;
     }
 }
