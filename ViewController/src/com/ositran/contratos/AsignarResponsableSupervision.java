@@ -90,12 +90,6 @@ private int codigoContrato;
 
     Util util = new Util();
 
-// de  abel 
-  
-  
-  //Bean VO
-
-
     @ManagedProperty(value = "#{contratoCompromisoVO}")
       ContratoCompromisoVO contratoCompromisoVO;
 
@@ -881,16 +875,21 @@ private int codigoContrato;
                    nombreMoneda="Dolares Americanos";
                }
               listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
+
                System.out.println("Contrato compromiso seleccionado = "+contratoCompromisoSeleccionado);
               listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
                System.out.println("EL TAMAÑO DEL SIZE DE LA LISTA DE DETALLE DE ASIGNACION ES IGUAL A = "+listaDetalleAsignacion.size());
               listaResponsables=new ArrayList<HashMap<String, Object>>();
                
+
               for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
+
                     String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
+
                     HashMap<String, Object> record = new HashMap<String, Object>();
                     record.put("Etapa", "Falta");
-                    record.put("nombre", nombre);
+                   // record.put("nombre", nombre);
+                   record.put("nombre", "SUPERVISOR");
                     if (detalle.getTdoId() == 1){
                         record.put("tipoDocumento", "DNI");
                     }else{
