@@ -170,7 +170,7 @@
                                                                     legend="Plazo de Avance de Obra del Concesionario">
                                                             <table style="width:350px">
                                                             <tr>
-                                                            <td>Aplica Reporte Avance de Obra</td>
+                                                            <td align="left">Aplica Reporte Avance de Obra</td>
                                                              <td align="left" colspan="2">
                                                                         
                                                                         <p:selectBooleanCheckbox id="reporte"
@@ -181,15 +181,15 @@
                                                              </td>
                                                             </tr>
                                                                 <tr>
-                                                                    <td>Periodo</td>
-                                                                    <td>
+                                                                    <td align="left">Periodo</td>
+                                                                    <td align="left">
                                                                         <p:selectOneMenu id="periodo1"
                                                                                          value="#{actualizarContratoMB.periodoseleccionado}"
                                                                                          style="width:210px"
                                                                                          disabled="#{!actualizarContratoMB.aplicaAvancedeObra}">
                                                                         <p:ajax  update="diames"/>                                                                                                                  
-                                                                            <f:selectItem itemLabel="-Seleccionar-"
-                                                                                          itemValue="0"/>
+                                                                           <f:selectItem itemLabel="-Seleccionar-"
+                                                                                          itemValue="-1"/>
                                                                             <f:selectItems value="#{actualizarContratoMB.listarPeriodos}"
                                                                                            var="per"
                                                                                            itemLabel="#{per.perNombre}"
@@ -201,9 +201,9 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
-                                                                    <td>
+                                                                    <td align="left">
                                                                         <p:inputText value="#{actualizarContratoMB.contratoVO.conDiames}" id="diames"
-                                                                                     style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 6}"></p:inputText>
+                                                                                     style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -241,16 +241,16 @@
                                                         <p:fieldset styleClass="fielsetinterno" legend="Otros Datos">
                                                             <table>
                                                                 <tr>
-                                                                    <td>Fecha de Suscripcion:</td>
-                                                                    <td>
+                                                                    <td align="left">Fecha de Suscripcion:</td>
+                                                                    <td align="left">
                                                                         <p:calendar value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}"
                                                                                     locale="es" pattern="dd/MM/yyyy"/>
                                                                     </td>
                                                                 </tr>
                                                                  
                                                                 <tr>
-                                                                    <td>Plazo de Consesi&#243;n:</td>
-                                                                    <td>
+                                                                    <td align="left">Plazo de Consesi&#243;n:</td>
+                                                                    <td align="left">
                                                                         <p:calendar value="#{actualizarContratoMB.contratoVO.conPlazoconcesion}"
                                                                                     id="plazoConcesion"
                                                                                     pattern="dd/MM/yyyy"></p:calendar>
@@ -259,7 +259,7 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
-                                                                    <td>
+                                                                    <td align="left">
                                                                         <p:commandButton icon="ui-icon-arrowthick-1-n"
                                                                                          title="subir archivos"
                                                                                          onclick="dlgPDFContrato.show();"/>
@@ -271,7 +271,7 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Descargar Contrato:</td>
-                                                                    <td>
+                                                                    <td align="left">
                                                                         <p:commandButton title="descarga archivo"
                                                                                          icon="ui-icon-arrowthick-1-s"
                                                                                          ajax="false"
@@ -284,7 +284,7 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Adjuntar Ficha de Resumen:</td>
-                                                                    <td>
+                                                                    <td align="left">
                                                                         <p:commandButton icon="ui-icon-arrowthick-1-n"
                                                                                          title="subir archivos"
                                                                                          onclick="dlgFichaResumen.show();"/>
@@ -296,7 +296,7 @@
                                                                  
                                                                 <tr>
                                                                     <td align="left">Descargar Ficha de Resumen:</td>
-                                                                    <td>
+                                                                    <td align="left">
                                                                         <p:commandButton title="descarga archivo"
                                                                                          icon="ui-icon-arrowthick-1-s"
                                                                                          ajax="false"
@@ -2135,7 +2135,7 @@
                                                    </h:panelGrid>
                                                    </td>
                                                    <td>
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                               
                                             </td>
                                         </tr>
                                          
