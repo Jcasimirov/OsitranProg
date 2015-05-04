@@ -3,28 +3,25 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-
-        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-       <!-- <property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
-        <property name="connection.username">OSITRAN</property>
-        <property name="connection.password">OSITRAN</property>-->
-        
-       <!-- <property name="connection.url">jdbc:oracle:thin:@//192.168.2.23:1521/XE</property>
-        <property name="connection.username">SINV</property>
-        <property name="connection.password">SINV</property>-->
-        
-        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    <session-factory> 
+    <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
         <property name="connection.username">OSITRAN</property>
         <property name="connection.password">OSITRAN</property>
+    <!--<property name="connection.url">jdbc:oracle:thin:@//192.168.2.25:1521/orcl</property>
+        <property name="connection.username">OSITRAN</property>
+        <property name="connection.password">OSITRAN</property>-->
+        <!--<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.url">jdbc:oracle:thin:@//192.168.2.23:1521/XE</property>
+        <property name="connection.username">PRUEBAS</property>
+        <property name="connection.password">PRUEBAS</property>-->
         <property name="connection.pool_size">5</property>
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="show_sql">true</property>
         <property name="hibernate.jdbc.use_get_generated_keys">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        
+
         <!-- Use EHCache for cache-->
         
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
@@ -78,19 +75,20 @@
         <mapping class="com.ositran.model.ValorizacionNotificacion"/>
         <mapping class="com.ositran.model.InvTipoRevision"/>
         <mapping class="com.ositran.model.InvAvn"/>
-        
         <mapping class="com.ositran.model.ContratoResSupDetalle"/>
         <mapping class="com.ositran.model.ContratoRespSup"/>
         <mapping class="com.ositran.model.InvAvnDerivada"/>
-        
+        <mapping class="com.ositran.model.InvAvnSupervisada"/>
+        <mapping class="com.ositran.model.InvAvnSupervisadaDetalle"/>
         <mapping class="com.ositran.model.ValorizacionConcepto"/>
         <mapping class="com.ositran.model.InvAvnEstado"/>
         <mapping class="com.ositran.model.InvAvn"/>
         <mapping class="com.ositran.model.Inv"/>
         <mapping class="com.ositran.model.InvReconocimiento"/>
         <mapping class="com.ositran.model.InvReajuste"/>
+         <mapping class="com.ositran.model.TFeriado"/>
 		
-		   <mapping class="com.ositran.model.ValorizacionSup"/>
+    <mapping class="com.ositran.model.ValorizacionSup"/>
    <mapping class="com.ositran.model.ValorizacionSupDetalle"/>
         
     </session-factory>
