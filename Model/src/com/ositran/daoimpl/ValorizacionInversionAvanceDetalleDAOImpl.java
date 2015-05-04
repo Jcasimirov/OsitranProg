@@ -68,8 +68,18 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
     @Override
     public String update(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle) throws SQLException,
                                                                                                        Exception {
-        // TODO Implement this method
-        return null;
+
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(valorizacionInversionAvanceDetalle);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
