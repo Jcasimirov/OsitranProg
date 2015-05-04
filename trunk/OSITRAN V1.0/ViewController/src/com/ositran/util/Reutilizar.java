@@ -26,7 +26,10 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 
 public class Reutilizar {
-    public static Reutilizar newInstance=new Reutilizar();
+    private static Reutilizar newInstance;
+    private  Reutilizar(){
+        
+    }
     SimpleDateFormat fd=new SimpleDateFormat("dd/MM/yyyy");
     public void copiarArchivoenServidor(String rutadestino, InputStream in) {
         try {
@@ -88,6 +91,9 @@ public class Reutilizar {
     }
 
     public static Reutilizar getNewInstance() {
+        if(newInstance==null){
+            newInstance=new Reutilizar();
+        }
         return newInstance;
     }
     public BigDecimal sumaBigDecimal(BigDecimal monto1,BigDecimal monto2){
