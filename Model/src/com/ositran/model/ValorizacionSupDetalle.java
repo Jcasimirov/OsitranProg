@@ -31,8 +31,8 @@ public class ValorizacionSupDetalle implements Serializable {
     private Integer monId;
     @Column(name="VSD_NETO")
     private double neto;
-    @Column(name="VSD_TOTAL")
-    private double total;
+    @Column(name="VSD_TTOTAL")
+    private double ttotal;
     @Column(name = "TVS_HR")
     private Integer tvsHr;
     @Column(name="VSD_TOTAL_APROBADO")
@@ -41,13 +41,13 @@ public class ValorizacionSupDetalle implements Serializable {
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, Long igv, Integer monId, Long neto, Long total,
+    public ValorizacionSupDetalle(Integer cvaId, Long igv, Integer monId, Long neto, Long ttotal,
                                   Integer tvsHr, double totalAprobado) {
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
         this.neto = neto;
-        this.total = total;
+        this.ttotal = ttotal;
         this.tvsHr = tvsHr;
         this.totalAprobado = totalAprobado;
     }
@@ -84,12 +84,13 @@ public class ValorizacionSupDetalle implements Serializable {
         return neto;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+
+    public void setTtotal(double ttotal) {
+        this.ttotal = ttotal;
     }
 
-    public double getTotal() {
-        return total;
+    public double getTtotal() {
+        return ttotal;
     }
 
     public void setTvsHr(Integer tvsHr) {
