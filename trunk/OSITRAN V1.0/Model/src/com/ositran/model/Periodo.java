@@ -21,7 +21,7 @@ import org.hibernate.annotations.Parameter;
 public class Periodo implements Serializable {
     private static final long serialVersionUID = -6631118244370905156L;
     @Column(name = "PER_CANTIDADENDIAS", nullable = false)
-    private Integer perCantidadendías;
+    private Integer perCantidadendias;
     @Column(name = "PER_DESCRIPCION", nullable = false, length = 100)
     private String perDescripcion;
     @Id
@@ -34,19 +34,19 @@ public class Periodo implements Serializable {
     public Periodo() {
     }
 
-    public Periodo(Integer perCantidadendías, String perDescripcion, Integer perId, String perNombre) {
-        this.perCantidadendías = perCantidadendías;
+    public Periodo(Integer perCantidadendias, String perDescripcion, Integer perId, String perNombre) {
+        this.perCantidadendias = perCantidadendias;
         this.perDescripcion = perDescripcion;
         this.perId = perId;
         this.perNombre = perNombre;
     }
 
-    public Integer getPerCantidadendías() {
-        return perCantidadendías;
+    public Integer getPerCantidadendias() {
+        return perCantidadendias;
     }
 
-    public void setPerCantidadendías(Integer perCantidadendías) {
-        this.perCantidadendías = perCantidadendías;
+    public void setPerCantidadendías(Integer perCantidadendias) {
+        this.perCantidadendias = perCantidadendias;
     }
 
     public String getPerDescripcion() {
