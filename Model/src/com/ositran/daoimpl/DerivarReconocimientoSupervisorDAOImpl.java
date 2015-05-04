@@ -27,6 +27,8 @@ public class DerivarReconocimientoSupervisorDAOImpl implements DerivarReconocimi
 
     @Override
     public String insert(DerivarReconocimientoSupervisor derivarReconocimientoSupervisor) throws SQLException,Exception {
+        System.out.println("anio");
+        System.out.println(derivarReconocimientoSupervisor.getIadAnyo());
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
