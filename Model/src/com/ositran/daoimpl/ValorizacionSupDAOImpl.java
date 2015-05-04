@@ -27,7 +27,19 @@ public class ValorizacionSupDAOImpl implements ValorizacionSupDAO {
 
     @Override
     public String insert(ValorizacionSup valorizacionSup) throws SQLException, Exception {
-        return null;
+        String result = null;
+        System.out.println("Entro al metodo  INSERT dao implement");
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.persist(valorizacionSup);
+            session.getTransaction().commit();
+        } 
+        catch (Exception e) {
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
