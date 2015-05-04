@@ -5,6 +5,8 @@ import com.ositran.model.Infraestructura;
 import com.ositran.model.InfraestructuraTipo;
 import com.ositran.util.HibernateUtil;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -27,7 +29,6 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         query.setParameter("busqueda1",codigoC);
         List<Infraestructura> list = query.list();
         session.getTransaction().commit();
-        session.close();
         return list; 
     }
     
@@ -40,7 +41,6 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         query.setParameter("busqueda1",codigoC);
         List<Infraestructura> list = query.list();
         session.getTransaction().commit();
-        session.close();
         return list; 
     }
 
@@ -99,11 +99,6 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         return result;
     }
 
-    @Override
-    public InfraestructuraTipo get(Integer id) {
-        // TODO Implement this method
-        return null;
-    }
     
     @Override
     public Infraestructura get2(Integer id) {
@@ -113,6 +108,28 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         session.getTransaction().commit();
         return infraestructura;
     }
+    
+    @Override
+    public Infraestructura get(int codifoInfraestructura, int codigoConcesion,
+                               int tipoInfraestructura) throws SQLException {
+        
+        System.out.println("VALORES QUE LLEGAN AL DAO");
+        System.out.println("codigoInfra:"+codifoInfraestructura);
+            System.out.println("codigoConcesion:"+codigoConcesion);
+            System.out.println("tipoInfra:"+tipoInfraestructura);
+        Infraestructura infra=new Infraestructura();
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query;
+            query=session.createQuery("FROM Infraestructura  E WHERE E.infId=:codifoInfraestructura and E.csiId=:codigoConcesion and E.tinId=:tipoInfraestructura");
+            query.setParameter("codifoInfraestructura",codifoInfraestructura );
+            query.setParameter("codigoConcesion",codigoConcesion );
+            query.setParameter("tipoInfraestructura",tipoInfraestructura );
+            infra=(Infraestructura)query.uniqueResult();
+        session.getTransaction().commit();
+        return infra;
+        }
+    
     
     /*     @Override
     public Infraestructura eliminarInfraestructura(Integer id) {
@@ -138,10 +155,10 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         query.setParameter("busqueda1",codigoContrato);
         List<Infraestructura> list = query.list();
         
-        session.close();
+
         return list; 
     }
 
 
-  
+   
 }
