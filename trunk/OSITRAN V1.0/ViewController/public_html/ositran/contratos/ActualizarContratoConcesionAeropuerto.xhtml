@@ -251,10 +251,17 @@
                                                                 <tr>
                                                                     <td align="left">Plazo de Consesi&#243;n:</td>
                                                                     <td align="left">
-                                                                        <p:calendar value="#{actualizarContratoMB.contratoVO.conPlazoconcesion}"
-                                                                                    id="plazoConcesion"
-                                                                                    pattern="dd/MM/yyyy"></p:calendar>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conDiaPlazoconcesion}" />
+                                                                     
                                                                     </td>
+                                                                    <td align="left">
+                                                                    <p:selectOneMenu value="#{actualizarContratoMB.contratoVO.conMesoAnioPlazoconcesion}" style="width:120px !important;">
+                                                                    <f:selectItem itemLabel="MES(ES)" itemValue="30" />                                        
+                                                                    <f:selectItem itemLabel="AÑO(S)" itemValue="365" />
+                                                                    </p:selectOneMenu>  
+                                                                    </td>
+                                                                    <td><p:inputTextarea style="position:relative;top:10px !important;" value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}"/> </td>
+                                                                    
                                                                 </tr>
                                                                  
                                                                 <tr>
