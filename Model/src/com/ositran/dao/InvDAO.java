@@ -2,6 +2,7 @@ package com.ositran.dao;
 
 
 import com.ositran.model.Inv;
+import com.ositran.model.InvAvn;
 import com.ositran.model.InvReajuste;
 import com.ositran.model.InvReconocimiento;
 
@@ -16,6 +17,6 @@ public interface InvDAO {
     public String update(Inv inv) throws SQLException;
     public Inv get(Integer id) throws SQLException;
     public List<Inv> getInvsAvance(Integer tiaNumero) throws SQLException;
-    public String insertDeclaracion(Inv inv, List<InvReconocimiento> listInvReconocimiento,List<InvReajuste> listInvReajuste) throws SQLException;
+    public String insertDeclaracion(InvAvn invAvn,Inv inv, List<InvReconocimiento> listInvReconocimiento,List<InvReajuste> listInvReajuste) throws SQLException;
     public Inv obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException;
 }
