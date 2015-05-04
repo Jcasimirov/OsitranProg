@@ -122,7 +122,7 @@
                                                                 <p:selectOneMenu id="listaCompromiso"  value="#{asignarResponsable_AeropuertoMB.contratoCompromisoSeleccionado}" style="width:370px;text-transform:uppercase;">
                                                                     <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
                                                                     <f:selectItems  value="#{asignarResponsable_AeropuertoMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}" itemValue="#{tip2.ccoId}"/>
-                                                                    <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables" listener="#{asignarResponsable_AeropuertoMB.cargarDatosCompromiso()}"  />
+                                                                    <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables :form:cbosupervisor" listener="#{asignarResponsable_AeropuertoMB.cargarDatosCompromiso()}"  />
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
@@ -302,7 +302,7 @@
                         <p:column headerText="Elegir">
                             <p:commandButton actionListener="#{asignarResponsable_AeropuertoMB.seleccionarContratoConcesion1}"
                                              icon="ui-search"
-                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion :form:cbosupervisor :form:listaCompromiso :form:listaAeropuerto"
+                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion :form:listaCompromiso :form:listaAeropuerto"
                                              oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
                                 <f:attribute name="contrato" value="#{var2}"></f:attribute>
                             </p:commandButton>
