@@ -122,6 +122,7 @@ public class MenuMB {
             //quinto submenu
             Submenu quintoSubmenu = new Submenu();           
             quintoSubmenu.setLabel("VALORIZACIONES ");  
+
             for (int i=0;i<listaRolOpciones.size();i++){ 
                  menVO=menServiceImpl.get(listaRolOpciones.get(i).getMenId());
                 if (menVO.getMenPadre()==5)
@@ -131,7 +132,12 @@ public class MenuMB {
                 item.setUrl(menVO.getMenUrl());
                  quintoSubmenu.getChildren().add(item);
                  }
-                }
+                } 
+
+
+
+  
+            
             model.addSubmenu(primersubmenu);
             model.addSubmenu(segundoSubmenu);
             model.addSubmenu(tercerSubmenu);
