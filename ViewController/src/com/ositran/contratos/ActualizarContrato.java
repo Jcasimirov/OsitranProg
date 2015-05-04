@@ -438,7 +438,7 @@ public class ActualizarContrato {
 
        }
     public void resetAvanceObra(){
-        periodoseleccionado=0;
+        periodoseleccionado=-1;
         contratoVO.setConDiames(null);
     }
     public void elegirDiames(){
@@ -489,12 +489,10 @@ public class ActualizarContrato {
                             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAFICHASRESUMEN +
                                                                             contratoVO.getConFicharesumen(),
                                                                             contratoVO.getInputStreamFichaResumen());
-            System.out.println("ANTES ARCHIVO CREADO");
             if(contratoVO.getInputStreamContratoPDF()!=null){
                             Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTACONTRATOSPDF +
                                                                             contratoVO.getConPdfcontrato(),
                                                                             contratoVO.getInputStreamContratoPDF());
-                            System.out.println("ARCHIVO CREADO");
             }
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
@@ -1495,8 +1493,10 @@ public class ActualizarContrato {
             listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 for (InfraestructuraVO aux : listaInfraestructura) {
+                    System.out.println("========aux.getInfNombre():"+aux.getInfNombre());
                     if (aux.getInfId() == contratoInversionVO.getInfId() && aux.getTinId()==contratoInversionVO.getTinId() && aux.getCsiId()==contratoInversionVO.getCsiId()) {
                         contratoInversionVO.setInfNombre(aux.getInfNombre());
+                        System.out.println("========aux.getInfNombre():"+aux.getInfNombre()+"=====##############################");
                     }
                 }
             }
@@ -1575,11 +1575,6 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));            
-        } else if (plazoAlerta.equals("")) {
-            System.out.print("plazoAlerta: " + plazoAlerta);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Plazo"));  
         } else if (diaPresAlerta == null || diaPresAlerta < 1) {
             System.out.print("diaPresAlerta: " + diaPresAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
