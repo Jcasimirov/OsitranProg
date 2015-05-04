@@ -23,9 +23,6 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     
     public ValorizacionSupDetalleServiceImpl() {
     }
-    
-    
-
 
     @Override
     public List<ValorizacionSupDetalleVO> query() throws SQLException {
@@ -121,7 +118,6 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
         return valorizacionSupDetalleVO;
     }
     
-    //Ivan
     @Override
     public List<ValorizacionSupDetalleVO> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception {
         List<ValorizacionSupDetalle> Lista = valorizacionSupDetalleDAOImpl.ListaValorizacionesDetRegistradas(id);
