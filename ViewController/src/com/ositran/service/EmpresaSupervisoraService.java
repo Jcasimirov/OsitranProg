@@ -20,5 +20,6 @@ public interface EmpresaSupervisoraService {
         public int ValidaNombreMod(String atributo, String Nombre) throws SQLException;
         public int ValidaRuc(String atributo, int documento) throws SQLException;
         public int ValidarRucMod(String atributo, String Nombre, int documento) throws SQLException;
+        public List<EmpresaSupervisoraVO> BuscarEmpresaPorContrato(Integer contratoConcesion, Integer etapaContrato, String nombreEmpresa) throws SQLException;
 }
    
