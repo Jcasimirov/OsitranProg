@@ -7,12 +7,14 @@
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             </h:head>
     <h:body>    
-    <f:event listener="#{registrarAvanceInversionPMB.cargarMoneda()}" type="postAddToView"></f:event>  
+    <f:event listener="#{registrarAvanceInversionPMB.cargarMoneda()}" type="postAddToView"></f:event>
+         <f:event listener="#{registrarAvanceInversionPMB.validarSesion}" type="preRenderComponent"></f:event>
+
 	<h:form id="form">
             <p:growl id="mensaje" showDetail="true" life="10000"/>
             <p:layout fullPage="true" style="border:none">
             <p:layoutUnit position="center" style="border:0px">
-            <ui:include src="/ositran/util/menu.xhtml"/>
+            <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
             
                     <div align="center" ><h5 class="titulo5">REGISTRAR AVANCE INVERSIÓN</h5></div>
@@ -109,7 +111,7 @@
                                                                      update=":form:datosSDT :form:mensaje"/>  </td>
                                                        
                                                    <td> <h:outputText style="color:White" value="nn"/>
-                                                   Fecha Registro: <p:calendar value="#{registrarAvanceInversionPMB.fechaRegistroSDT}" locale="es" styleClass="calendario"  /></td>
+                                                   Fecha Registro: <p:calendar value="#{registrarAvanceInversionPMB.fechaRegistroSDT}" locale="es" styleClass="calendario1"  /></td>
                                             </tr>
                                              <tr>
                                                 <td class="negrita">Asunto:</td>
@@ -134,7 +136,7 @@
                                                             </tr>
                                                     </table>
                                                  </td>
-                                                <td >Vencimiento Plazo: <p:calendar locale="es" styleClass="calendario"   /></td>
+                                                <td >Vencimiento Plazo: <p:calendar locale="es" styleClass="calendario1"   /></td>
                                             </tr>
                                         </table>												
 					</p:fieldset>				 	
@@ -144,9 +146,9 @@
                                         <table>
                                             <tr>
                                                 <td>Periodo Ejecución(Inicio)</td> 
-                                                <td><p:calendar locale="es"  value="#{registrarAvanceInversionPMB.inicioPeriodo}" styleClass="calendario" /></td> 
+                                                <td><p:calendar locale="es"  value="#{registrarAvanceInversionPMB.inicioPeriodo}" styleClass="calendario1" /></td> 
                                                 <td>Periodo Ejecución(Fin)</td> 
-                                                <td><p:calendar locale="es" value="#{registrarAvanceInversionPMB.finPeriodo}"  styleClass="calendario"  /></td> 
+                                                <td><p:calendar locale="es" value="#{registrarAvanceInversionPMB.finPeriodo}"  styleClass="calendario1"  /></td> 
                                                 <td colspan="2">
                                                 <table>
                                                     <tr>
@@ -164,12 +166,14 @@
                                                 </td>
                                             </tr>
                                             </table>
+                                            <br>
+                                            </br>
                                             <table style="width:100%">
                                            
                                             <tr>
                                                  <td>Concepto:</td> 
                                                 <td>
-                                                          <p:selectOneMenu id="inversionDescripcion"  value="#{registrarAvanceInversionPMB.codigoInversionDescripcion}">
+                                                          <p:selectOneMenu style="width:110px" id="inversionDescripcion"  value="#{registrarAvanceInversionPMB.codigoInversionDescripcion}">
                                                                 <f:selectItem  itemLabel="-Seleccione-" itemValue="0" />
                                                                 <f:selectItems value="#{registrarAvanceInversionPMB.listaDescripcionTipoInversion}"  var="varInversion"
                                                                                 itemLabel="#{varInversion.itdNombre}" 
@@ -187,42 +191,19 @@
                                                 <p:commandButton value="Agregar"  update=":form:tablaVS :form:mensaje :form:montosTotales1 :form:montosTotales2 :form:montosTotales3" actionListener="#{registrarAvanceInversionPMB.agregar}"  image="ui-icon-circle-plus" />
                                                 </td>  
                                             </tr>
+                                              <tr>
+                                                <td>Descripción</td>
+                                                <td colspan="5">
+                                                <p:inputText style="width:345px" value="#{registrarAvanceInversionPMB.descripcionValorizacionDetalle}" />
+                                                </td>
+                                            
+                                            
+                                            </tr>
                                         </table>
-
-                                    <p:dataTable rowIndexVar="rowId"     paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                             style="font-size:9px;" id="tablaVS" var="valSup"
-                                             value="#{registrarAvanceInversionPMB.listValorizacionInversionAvanceDetalleVO}">
-						       				 
-						       			 <p:column headerText="Descripción del Concepto" style="width:25px">
-						          			 <h:outputText  value="#{valSup.descripcionInversion}"></h:outputText>
-						       			</p:column>	
-						       			 <p:column headerText="Moneda" style="width:15px">
-						          			 <h:outputText value="#{valSup.nombreMoneda}"></h:outputText>
-						       			</p:column>	
-						       			<p:column headerText="Neto" style="width:15px">
-						          			 <h:outputText  value="#{valSup.montoPresentado}"></h:outputText>
-						       			</p:column>	
-						       			<p:column headerText="Igv" style="width:15px">
-						          			 <h:outputText  value="#{valSup.igv}"></h:outputText>
-						       			</p:column>
-                                                                        <p:column headerText="Total" style="width:15px">
-						          			 <h:outputText  value="#{valSup.tiaTotal}"></h:outputText>
-						       			</p:column>
-                                                                        <p:column headerText="Eliminar" style="width:15px">
-                                                                        <div align="center">
-						          			 <p:commandButton styleClass="controles"  update=":form:tablaVS :form:montosTotales1 :form:montosTotales2 :form:montosTotales3" actionListener="#{registrarAvanceInversionPMB.quitarLista}" image="ui-icon-trash" >
-                                                                                                    <f:param id="indexLista" name="indexLista" value="#{rowId}"/>
-                                                                                 </p:commandButton>
-                                                                        </div>
-						       			</p:column>
-							</p:dataTable>
-							<div align="right" class="negrita">Total Neto: 
-                                                            <p:inputText id="montosTotales1"  value="#{registrarAvanceInversionPMB.totalMonto}"  style="width:75px" />
-                                                            Total Igv: 
-                                                             <p:inputText id="montosTotales2"  value="#{registrarAvanceInversionPMB.totalIgv}"    style="width:75px"/>
-                                                             Total : 
-                                                              <p:inputText  id="montosTotales3"  value="#{registrarAvanceInversionPMB.totalTotal}"  style="width:75px"/>
-                                                        </div>
+                              
+                                                        
+                                   
+							
 							</p:fieldset>
 							<br></br>
 				</p:fieldset>	
@@ -233,6 +214,61 @@
                                 
 				</td>
 			</tr>
+                        
+                        <tr>
+                        <td colspan="2">
+                           <p:dataTable rowIndexVar="rowId"   paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                             style="font-size:9px;" id="tablaVS" var="valSup1"
+                                             value="#{registrarAvanceInversionPMB.listValorizacionInversionAvanceDetalleVO}">
+						       			
+                                                                         <p:column headerText="Concepto"  >
+						          			 <h:outputText   value="#{valSup1.descripcionInversion}"></h:outputText>
+						       			</p:column>
+						       			 <p:column headerText="Descripción del Concepto" >
+						          			 <h:outputText  value="#{valSup1.iadDescripcion}"></h:outputText>
+						       			</p:column>	
+						       			 <p:column headerText="Moneda" >
+						          			 <h:outputText value="#{valSup1.nombreMoneda}"></h:outputText>
+						       			</p:column>	
+						       			<p:column headerText="Neto" >
+						          			 <h:outputText  value="#{valSup1.montoPresentado}"></h:outputText>
+						       			</p:column>	
+						       			<p:column headerText="Igv" style="width:15px">
+						          			 <h:outputText  value="#{valSup1.igv}"></h:outputText>
+						       			</p:column>
+                                                                        <p:column headerText="Inicio" >
+						          			 <p:calendar  pattern="dd/MM/yyyy" styleClass="calendario1" readonly="true" value="#{valSup1.iadFechaInicio}"></p:calendar>
+						       			</p:column>
+                                                                        <p:column headerText="Fin" >
+						          			 <p:calendar pattern="dd/MM/yyyy"  styleClass="calendario1" readonly="true"   value="#{valSup1.iadFechaFin}"></p:calendar>
+						       			</p:column>
+                                                                        <p:column headerText="Total">
+						          			 <h:outputText  value="#{valSup1.tiaTotal}"></h:outputText>
+						       			</p:column>
+                                                                        <p:column headerText="Eliminar" >
+                                                                        <div align="center">
+						          			 <p:commandButton styleClass="controles"  update=":form:tablaVS :form:montosTotales1 :form:montosTotales2 :form:montosTotales3" actionListener="#{registrarAvanceInversionMB.quitarLista}" image="ui-icon-trash" >
+                                                                                                    <f:param id="indexLista" name="indexLista" value="#{rowId}"/>
+                                                                                 </p:commandButton>
+                                                                        </div>
+						       			</p:column>
+							</p:dataTable>
+                                                        <br></br>
+                                                         <br></br>
+                                                        <div align="right" class="negrita">Total Neto: 
+                                                            <p:inputText id="montosTotales1"  value="#{registrarAvanceInversionPMB.totalMonto}"  style="width:75px" />
+                                                            Total Igv: 
+                                                             <p:inputText id="montosTotales2"  value="#{registrarAvanceInversionPMB.totalIgv}"    style="width:75px"/>
+                                                             Total : 
+                                                              <p:inputText  id="montosTotales3"  value="#{registrarAvanceInversionPMB.totalTotal}"  style="width:75px"/>
+                                                        </div>
+                           <br></br>
+                        </td>
+                       
+                                                        
+                        </tr>
+                        
+                        
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
