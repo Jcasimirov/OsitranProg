@@ -27,6 +27,7 @@ public class ContratoAlertaVO {
     private String calUsuarioBaja;
     private String calUsuarioCambio;
     private String calTerminal;
+    private Integer tinId;
     public ContratoAlertaVO() {
         super();
     }
@@ -198,5 +199,13 @@ public class ContratoAlertaVO {
 
     public String getCalFechaInicioDescripcion() {
         return calFechaInicioDescripcion;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
     }
 }
