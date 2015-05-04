@@ -90,6 +90,12 @@ private int codigoContrato;
 
     Util util = new Util();
 
+// de  abel 
+  
+  
+  //Bean VO
+
+
     @ManagedProperty(value = "#{contratoCompromisoVO}")
       ContratoCompromisoVO contratoCompromisoVO;
 
@@ -124,7 +130,8 @@ private int codigoContrato;
     List<TipoDocumentoVO> listaTipoDocumento;
     List<HashMap<String, Object>>  listaResponsables=new ArrayList<HashMap<String, Object>>();
     
-        List<ContratoResSupDetalleVO> listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
+    List<ContratoResSupDetalleVO> listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
+    List<ContratoResSupDetalleVO> listaBd = new ArrayList<ContratoResSupDetalleVO>();
      
      
      // service implement
@@ -151,8 +158,16 @@ private int codigoContrato;
 
 
 //get y set
-    
-        public void buscarContratoConcesion(){
+
+    public void setListaBd(List<ContratoResSupDetalleVO> listaBd) {
+        this.listaBd = listaBd;
+    }
+
+    public List<ContratoResSupDetalleVO> getListaBd() {
+        return listaBd;
+    }
+
+    public void buscarContratoConcesion(){
         
         
         }
@@ -552,9 +567,17 @@ private int codigoContrato;
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("rowId");
         Object str2 = requestMap.get("rowIdCod");
-        
+        int tipoSup = 0;
+        int codSup = 0;
         int idcodigo = Integer.valueOf(str.toString());
-        int idCodigoSup = Integer.valueOf(str2.toString());        
+        int idCodigoSup = Integer.valueOf(str2.toString());
+        tipoSup = Integer.parseInt(((HashMap<String, Object>)listaResponsables.get(idcodigo)).get("tipoSupervision").toString());
+        codSup = Integer.parseInt(((HashMap<String, Object>)listaResponsables.get(idcodigo)).get("codigoSupervisor").toString());
+        for(int i=0;i<listaDetalleAsignacion.size();i++){
+            if (listaDetalleAsignacion.get(i).getTipoSup() == tipoSup && listaDetalleAsignacion.get(i).getCodigoSup() == codSup){
+                listaDetalleAsignacion.remove(listaDetalleAsignacion.get(i));
+            }
+        }
         listaResponsables.remove(idcodigo);
         if(idCodigoSup > 0){
         for(ContratoResSupDetalleVO detalle : listaDetalleAsignacion){
@@ -584,12 +607,13 @@ private int codigoContrato;
 
 
     public void filtrarListaEmpSup(){
-        if(codigoContrato > 0){
+        if(codigoContrato > 0 && contratoCompromisoSeleccionado > 0){
         try {
             System.out.println("entro FiltrarListaEmpSup: " + listaEmpresasSup.size());
             System.out.println(nombreEmpresaSupervisora);
             System.out.println(rucEmpresaSupervisora);
-            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpresaSupervisora, rucEmpresaSupervisora);
+            listaEmpresasSup = empSupServiceImp.BuscarEmpresaPorContrato(codigoContrato, contratoCompromisoSeleccionado, nombreEmpresaSupervisora);
+            //listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpresaSupervisora, rucEmpresaSupervisora);
             listaTipoDocumento = tipoDocumentoServiceImp.query();
             for (int i = 0; i < listaEmpresasSup.size(); i++) {
                 for (int j = 0; j < listaTipoDocumento.size(); j++) {
@@ -607,7 +631,7 @@ private int codigoContrato;
             RequestContext.getCurrentInstance().execute("Dialog_ResultadoBusquedaEmpresa.show()");
         }else{
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un Contrato de Concesión");
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un Contrato de Concesión y una Etapa o Periodo");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
     }
@@ -678,17 +702,13 @@ private int codigoContrato;
             System.out.println(nameModalidadConcesion);
                 codigoContrato = contratoVO.getConId();
                 codigoTipoInfraestructurafiltro = contratoVO.getTinId();
-                listarSupervisoresxInfraestructura =
-                    supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
-                System.out.println(""+listarSupervisoresxInfraestructura.size());
                 
                 // LLeno el Bean de la Cabecera de la Asignación de Responsable de Supervisión
                 System.out.println("concesion = " + contratoVO.getCsiId());
                 contratoRespSupVO.setCsiId(contratoVO.getCsiId()); 
                 contratoRespSupVO.setTinId(contratoVO.getTinId());
                 contratoRespSupVO.setMcoId(contratoVO.getMcoId());                
-                cargarInversion();
-                
+                cargarInversion();   
             }
     
     
@@ -701,16 +721,23 @@ private int codigoContrato;
              }catch (Exception e){
                  System.out.println(e);
              }
+        for(int i=0; i<listaDetalleAsignacion.size();i++){
+            if(listaDetalleAsignacion.get(i).getTipoSup() == 2 && listaDetalleAsignacion.get(i).getCodigoSup() == empresa.getSupId()){
+                validaReg = 1;
+            }
+        }
         
         if(validaReg == 0){
-        
+            
         System.out.println(empresa.getSupNombre());
         HashMap<String, Object> record = new HashMap<String, Object>();
         record.put("Etapa", "Falta");
         record.put("nombre", empresa.getSupNombre());        
         record.put("tipoDocumento", empresa.getDescripcionDoc());
         record.put("numeroDocumento", empresa.getSupNroDocumento()); 
-        record.put("fechaAsignacion", dt1.format(new Date()));        
+        record.put("fechaAsignacion", dt1.format(new Date()));    
+        record.put("tipoSupervision", 2);
+        record.put("codigoSupervisor", empresa.getSupId());        
         if (empresa.getSupEstado() == 1){
             record.put("estado", "Activo");
             }else{
@@ -727,6 +754,7 @@ private int codigoContrato;
         contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());      
         contratoResSupDetalleVO.setConId(contratoRespSupVO.getCsiId());
         contratoResSupDetalleVO.setTipoSup(2);
+        contratoResSupDetalleVO.setCodigoSup(empresa.getSupId());
         listaDetalleAsignacion.add(contratoResSupDetalleVO);
         }else{
             FacesMessage mensaje =
@@ -737,6 +765,7 @@ private int codigoContrato;
     }
     
     public void seleccionarSupervisor() {
+        if(codigoContrato > 0 && contratoCompromisoSeleccionado > 0){
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
         contratoResSupDetalleVO = new ContratoResSupDetalleVO();
         System.out.println(listarSupervisoresxInfraestructura.size());
@@ -751,6 +780,11 @@ private int codigoContrato;
                      }catch (Exception e){
                          System.out.println(e);
                      }
+                for(int i=0; i<listaDetalleAsignacion.size();i++){
+                    if(listaDetalleAsignacion.get(i).getTipoSup() == 1 && listaDetalleAsignacion.get(i).getCodigoSup() == supervisor.getTsiId()){
+                        validaReg = 1;
+                    }
+                }
                 if(validaReg == 0){
                 
                 
@@ -763,6 +797,8 @@ private int codigoContrato;
                 }
                 record.put("nombre", supervisor.getTsiNombre());
                 record.put("fechaAsignacion", dt1.format(new Date()));
+                record.put("tipoSupervision", 1);
+                record.put("codigoSupervisor", supervisor.getTsiId());
                 if (supervisor.getTsiHabilitado() == 1){
                     record.put("estado", "Activo");
                     }else{
@@ -776,6 +812,7 @@ private int codigoContrato;
                 contratoResSupDetalleVO.setTccTipo(1);
                 contratoResSupDetalleVO.setRsdFechaAsignacion(util.getObtenerFechaHoy());   
                 contratoResSupDetalleVO.setTipoSup(1);
+                contratoResSupDetalleVO.setCodigoSup(supervisor.getTsiId());
                 listaResponsables.add(record);
                 listaDetalleAsignacion.add(contratoResSupDetalleVO);
                     }else{
@@ -784,6 +821,11 @@ private int codigoContrato;
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
                     }
             }            
+        }
+    }else{
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un Contrato de Concesión y una Etapa o Periodo");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
     }
 
@@ -875,21 +917,18 @@ private int codigoContrato;
                    nombreMoneda="Dolares Americanos";
                }
               listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
-
                System.out.println("Contrato compromiso seleccionado = "+contratoCompromisoSeleccionado);
               listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
                System.out.println("EL TAMAÑO DEL SIZE DE LA LISTA DE DETALLE DE ASIGNACION ES IGUAL A = "+listaDetalleAsignacion.size());
               listaResponsables=new ArrayList<HashMap<String, Object>>();
                
-
               for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
-
                     String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
-
                     HashMap<String, Object> record = new HashMap<String, Object>();
+                    record.put("tipoSupervision", detalle.getTipoSup());
+                    record.put("codigoSupervisor", detalle.getCodigoSup());  
                     record.put("Etapa", "Falta");
-                   // record.put("nombre", nombre);
-                   record.put("nombre", "SUPERVISOR");
+                    record.put("nombre", nombre);
                     if (detalle.getTdoId() == 1){
                         record.put("tipoDocumento", "DNI");
                     }else{
@@ -904,8 +943,11 @@ private int codigoContrato;
                         }
                     record.put("id",detalle.getRsdId());
                     record.put("codEstado",detalle.getRsdEstado());                 
-                    listaResponsables.add(record);                      
-                }     
+                    listaResponsables.add(record);    
+                    
+                } 
+              listarSupervisoresxInfraestructura =
+                  supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
                
                
           } catch (Exception e) {
@@ -926,6 +968,7 @@ private int codigoContrato;
      
      public void Guardar() throws Exception{
          ContratoRespSupVO contrato_Cab = new ContratoRespSupVO();
+         int eliminar=0;
          if(ValidarDatos() == 0){
              try{
                  contrato_Cab = asignarResponsableSupervisionServiceImpl.ValidaCab(contratoRespSupVO.getCsiId(),contratoCompromisoSeleccionado);
@@ -961,9 +1004,23 @@ private int codigoContrato;
                              
                              // Desactivación o Eliminación del Supervisor de Inversiones o Empresa Supervisora
                          }else{
+                             
                              asignarResponsableSupervisionServiceImpl.updateDet(listaDetalleAsignacion.get(i));
                              
                          }
+                     }
+                     listaBd = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+                     for(int i=0;i<listaBd.size();i++){
+                        for(int j=0;j<listaDetalleAsignacion.size();j++){
+                            if(listaBd.get(i).getTipoSup() == listaDetalleAsignacion.get(j).getTipoSup() && listaBd.get(i).getCodigoSup() == listaDetalleAsignacion.get(j).getCodigoSup()){
+                                eliminar = 1;
+                            }
+                        }
+                         if(eliminar == 0){
+                             listaBd.get(i).setRsdEstado(0);
+                             asignarResponsableSupervisionServiceImpl.updateDet(listaBd.get(i));
+                         }
+                         eliminar = 0;
                      }
                      FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
                                                                  FacesContext.getCurrentInstance().addMessage(null, mensaje);
