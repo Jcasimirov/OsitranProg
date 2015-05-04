@@ -17,7 +17,7 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         super();
     }
     
-    private EmpresaSupervisoraDAOImpl empresaSupervisoraDAOImpl;
+    private EmpresaSupervisoraDAOImpl empresaSupervisoraDAOImpl=new EmpresaSupervisoraDAOImpl();
 
     public void setEmpresaSupervisoraDAOImpl(EmpresaSupervisoraDAOImpl empresaSupervisoraDAOImpl) {
         this.empresaSupervisoraDAOImpl = empresaSupervisoraDAOImpl;
