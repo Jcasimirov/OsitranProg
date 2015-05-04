@@ -11,6 +11,7 @@ import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
+import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
@@ -115,7 +116,7 @@ public class SupervisorInversionesContratoConcecionMB {
             
             
             if (tipoInfraestructura!=0){
-                System.out.println(tipoInfraestructura);
+            
             listaSupervisor=supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(tipoInfraestructura); 
         
                
@@ -180,14 +181,13 @@ public class SupervisorInversionesContratoConcecionMB {
                 ConcesionVO concesion=new ConcesionVO();
                 concesion=concesionServiceImpl.get(contra.getCsiId());         
                 contra.setNombreConcesion(concesion.getCsiNombre()); 
+
                 codigoContrato = contra.getConId();
                 codigoContratoP=codigoContrato;
                 infraestructuraVO=infraestructuraServiceImpl.get2(concesion.getTinId());
                 tipoInfraestructuraF=infraestructuraVO.getTinId();
                 codigoConcesion=infraestructuraVO.getCsiId();
-                codigoInfraestructura=infraestructuraVO.getInfId();
-
-                
+                codigoInfraestructura=infraestructuraVO.getInfId();                
                 }
             }
        } catch (Exception e) {
@@ -247,7 +247,7 @@ public class SupervisorInversionesContratoConcecionMB {
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             else {
-                contratoSupInversionesVO.setSivUmero(numeroDocumento);
+            contratoSupInversionesVO.setSivUmero(numeroDocumento);
             contratoSupInversionesVO.setTinId(tipoInfraestructuraF);  
             contratoSupInversionesVO.setTsiId(codigoSupervisor);
             contratoSupInversionesVO.setConId(codigoContrato);
@@ -279,10 +279,17 @@ public class SupervisorInversionesContratoConcecionMB {
            int contador=1;
            listaContratoSupervisor=contratoSubInversionesServiceImpl.query1(codigoContratoP);
             System.out.println(listaContratoSupervisor.size());
+            
             for (ContratoSubInversionesVO contratoSubInversionesVO1:listaContratoSupervisor){
                 concesionVO=concesionServiceImpl.get(contratoSubInversionesVO1.getCsiId());
                 contratoSubInversionesVO1.setConcesionNombre(concesionVO.getCsiNombre());
-                contratoSubInversionesVO1.setNombreSupervicion("Supervisor");
+                SupervisorInversionesVO supervisorInversionesVO=new SupervisorInversionesVO();
+                SupervisorInversionesService supervisorInversionesService=new SupervisorInversionesServiceImpl();
+                
+                supervisorInversionesVO=supervisorInversionesService.getSupervisorInversiones(contratoSubInversionesVO1.getTsiId());
+                
+                
+                contratoSubInversionesVO1.setNombreSupervicion(supervisorInversionesVO.getTsiNombre());
                 contratoSubInversionesVO1.setContador(contador);
                 contratoSubInversionesVO1.setEstadoNombre(contratoSubInversionesVO1.getSivEstado()==1 ? "ACTIVO" : "INACTIVO");
             }
