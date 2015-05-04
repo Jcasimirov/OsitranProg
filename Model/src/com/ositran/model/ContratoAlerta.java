@@ -25,7 +25,7 @@ public class ContratoAlerta implements Serializable {
     private static final long serialVersionUID = 8920954827070543587L;
     @Column(name = "CAE_ID")
     private Integer caeId;
-    @Column(name = "CAL_AEROPUERTO", nullable = false, length = 4000)
+    @Column(name = "CAL_AEROPUERTO")
     private String calAeropuerto;    
     @Column(name = "CAL_DIA_PRESENTACION")
     private Integer calDiaPresentacion;
@@ -41,10 +41,10 @@ public class ContratoAlerta implements Serializable {
     private Integer calId;
     @Column(name = "CAL_NOMBRECONCESION", nullable = false, length = 4000)
     private String calNombreconcesion;
-    @Column(name = "CAL_PLAZO", nullable = false)
+    @Column(name = "CAL_PLAZO")
     private String calPlazo;
     //@Id
-    @Column(name = "CON_ID", nullable = false)
+    @Column(name = "CON_ID")
     private Integer conId;
     @Column(name = "PER_ID")
     private Integer perId;    
@@ -52,7 +52,7 @@ public class ContratoAlerta implements Serializable {
     private Integer calEstado;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "CAL_FECHA_ALTA", nullable = false)
+    @Column(name = "CAL_FECHA_ALTA")
     private Date calFechaAlta;
     @Temporal(TemporalType.DATE)
     @Column(name = "CAL_FECHA_BAJA")
