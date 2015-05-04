@@ -1,3 +1,4 @@
+
 .ui-dialog-titlebar {
     font-size: 13px;
     font-family: sans-serif;
@@ -6,12 +7,11 @@
 .ui-selectonemenu{
      font-family: Verdana, Arial, sans-serif;
      font-size: 9px !important;
-   
+
 }
 .ui-selectonemenu-list{
      font-family: Verdana, Arial, sans-serif;
      font-size: 9px !important;
-    
 }
 div.ui-datepicker{
 font-size:10px!important;
@@ -79,6 +79,12 @@ font-size:10px!important;
     color: Black;
     font-weight: bold;
 }
+.activo{
+    background-image: none;
+    background: #ffff94  !important;
+   
+}
+
 
 .ui-datatable .ui-datatable-data tr {
     height: 20px;
@@ -100,6 +106,7 @@ font-size:10px!important;
 }
 
 .ui-menubar .ui-menuitem {
+ 
 }
 
 .ui-menubar .ui-menuitem-text {
@@ -108,31 +115,52 @@ font-size:10px!important;
     font-weight: bold;
 }
 
+.ui-menubar .ui-menu-child{
+background-image: none;
+background-color: White;
+}
+
 .ui-menubar .ui-menu-child .ui-menuitem {
     background-image: none;
     border-bottom-color: blue;
-    background: #d6ffff !important;
+    background: #ffde63   !important; 
     font-size: 11px;
     color: #2121ff;
     font-weight: bold;
+    width: 300px;
+    
 }
 
 .ui-menubar .ui-menu-child .ui-menuitem .ui-menuitem-text {
     font-size: 10px;
 }
-
+.ui-menubar .ui-widget-content .ui-shadow{
+    background-image: none;
+    display:none;
+}
 .calendario input {
     vertical-align: middle;
     margin-right: 1px;
     width: 60px;
 }
 
-#desabilitado {
-    background-color: #848484;
+
+.calendario1 input {
+   vertical-align: middle;
+   margin-right: 1px;
+   width: 70px;
+       
+}
+#desabilitado{
+  background-color: #848484;
+
+
 }
 
 #habilitado {
 }
+
+
 /*ESTILOS CONTRATO-ADENDA*/
 .pnlEdicion tr {
     font-size: 11px;
@@ -167,3 +195,4 @@ font-size:10px!important;
     float: left !important;
 }
 /*FIN ESTILOS CONTRATO-ADENDA*/
+
