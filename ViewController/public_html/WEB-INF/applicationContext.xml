@@ -609,6 +609,7 @@
         <property name="invDAOImpl" ref="invDAOImpl"/>
         <property name="invReconocimientoServiceImpl" ref="invReconocimientoServiceImpl"/>
         <property name="invReajusteServiceImpl" ref="invReajusteServiceImpl"/>
+        <property name="notificacionServiceImpl" ref="notificacionServiceImpl"/>
     </bean>
     <bean id="valorizacionInversionAvance" class="com.ositran.model.ValorizacionInversionAvance" />
     <bean id="valorizacionInversionAvanceVO" class="com.ositran.model.ValorizacionInversionAvance" />
