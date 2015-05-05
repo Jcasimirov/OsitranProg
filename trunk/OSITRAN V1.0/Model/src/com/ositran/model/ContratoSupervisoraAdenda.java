@@ -43,7 +43,7 @@ public class ContratoSupervisoraAdenda implements Serializable {
     @Column(name = "CSA_MONTO", nullable = false)
     private Integer csaMonto;
     @Column(name = "CSA_PLAZO", nullable = false)
-    private Integer csaPlazo;
+    private String csaPlazo;
     @Column(name = "MON_ID")
     private Integer monId;
 
@@ -51,7 +51,7 @@ public class ContratoSupervisoraAdenda implements Serializable {
     }
 
     public ContratoSupervisoraAdenda(Integer cpsId, Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
-                                      Integer csaMonto, Integer csaPlazo, Integer monId) {
+                                      Integer csaMonto, String csaPlazo, Integer monId) {
         this.cpsId = cpsId;
         this.cpsNroDeContrato = cpsNroDeContrato;
         this.csaAdenda = csaAdenda;
@@ -97,12 +97,13 @@ public class ContratoSupervisoraAdenda implements Serializable {
         this.csaMonto = csaMonto;
     }
 
-    public Integer getCsaPlazo() {
-        return csaPlazo;
+
+    public void setCsaPlazo(String csaPlazo) {
+        this.csaPlazo = csaPlazo;
     }
 
-    public void setCsaPlazo(Integer csaPlazo) {
-        this.csaPlazo = csaPlazo;
+    public String getCsaPlazo() {
+        return csaPlazo;
     }
 
     public Integer getMonId() {
