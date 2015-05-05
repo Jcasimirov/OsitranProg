@@ -395,7 +395,10 @@ public class NotificarInversion {
                 if (listaValorizaciones.get(i).getIaeId() == 4) {
                     listaValorizaciones.get(i).setEstado("Declarado");
                     listaValorizaciones.get(i).setAprobadopor("Por Aprobar");
-                } else {
+                } else if (listaValorizaciones.get(i).getIaeId() == 5){
+                    listaValorizaciones.get(i).setEstado("Rectificado");
+                    listaValorizaciones.get(i).setAprobadopor("Por Aprobar");
+            }else {
                     listaValorizaciones.get(i).setEstado("Notificado");
                     for (int j = 0; j < listaAprobaciones.size(); j++) {
                         if (listaValorizaciones.get(i).getTiaAprobadoPor() == listaAprobaciones.get(j).getItrId()) {
@@ -671,7 +674,7 @@ public class NotificarInversion {
                 try {
 
 
-                    invAvnVO.setIaeId(5);
+                    invAvnVO.setIaeId(6);
 
                     valorizacionNotificacionVO.setVanFechaRegistro(fnotificacion);
                     invAvnVO.setTiaAprobadoPor(aprobadopor);
