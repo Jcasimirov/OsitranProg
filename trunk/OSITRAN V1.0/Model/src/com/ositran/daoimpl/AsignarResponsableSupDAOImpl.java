@@ -139,6 +139,27 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     }
     
     @Override
+    public String ObtieneCorreo(Integer tipoDoc, String nroDocumento,Integer tipoSup) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();    
+        Query query;
+        String nombre = "";
+        if(tipoSup != null && tipoSup>0){
+            if(tipoSup == 1){
+                query=session.createQuery("select s.tsiCorreo FROM SupervisorInversiones s WHERE s.tsiNroDocumento = :nro and s.tdoId = :tipo ");
+            }else {
+                query=session.createQuery("select e.supCorreo FROM EmpresaSupervisora e WHERE e.supNroDocumento = :nro and e.tdoId = :tipo ");
+            }    
+            query.setParameter("nro",nroDocumento);  
+            query.setParameter("tipo",tipoDoc);  
+            nombre = query.uniqueResult().toString();
+            session.getTransaction().commit();
+            session.close();
+        }        
+        return nombre; 
+    }
+    
+    @Override
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
