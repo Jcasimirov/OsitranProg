@@ -1255,11 +1255,14 @@ public class DeclararInversion {
                 invVO.setInvEstado(1);
                 invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
                 invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI);
-                if(invVO.getInvEstadoReconocimiento()==1)
+                if(invVO.getInvEstadoReconocimiento()==1){
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_DECLARADO);
-                if(invVO.getInvEstadoReconocimiento()==2)
-                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                     
+                }
+                if(invVO.getInvEstadoReconocimiento()==2){
+                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+                }
+                invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId());
                 invServiceImpl.insertDeclaracion(invAvnVO,invVO, listaInvReconocimientoVO, listaInvReajusteVO);
                
                 FacesContext.getCurrentInstance().addMessage(null,
