@@ -255,7 +255,7 @@
                                                                  paginatorPosition="bottom"
                                                                  rowsPerPageTemplate="5,10,15"
                                                                  emptyMessage="No se Encontraron Registros">
-                                                        <p:column headerText="Nro. Valorización" style="width:5%">
+                                                        <p:column headerText="Nro. Val" style="width:5%">
                                                             <h:outputText value="#{val.tiaNumero}"/>
                                                         </p:column>
                                                         <p:column headerText="Fecha Registro" style="width:10%">
@@ -376,12 +376,12 @@
                                                                                                  Reconocimiento</td>
                                                             <td align="left" >
                                                                 <p:selectOneMenu id="Dias" style="width:210px !important;"
-                                                                                 value="#{rectificarInversion.estadoReconocimiento}">
+                                                                                 value="#{rectificarInversion.invAvnVO.iaeId}">
                                                                                  <p:ajax listener="#{rectificarInversion.deshabilitarxObservado()}" update="form"></p:ajax>
                                                                     <f:selectItem itemLabel="--Seleccione--"
                                                                                   itemValue="0"/>
-                                                                    <f:selectItem itemLabel="Aprobado" itemValue="1"/>
-                                                                    <f:selectItem itemLabel="Observado" itemValue="2"/>
+                                                                    <f:selectItem itemLabel="Aprobado" itemValue="5"/>
+                                                                    <f:selectItem itemLabel="Observado" itemValue="0"/>
                                                                 </p:selectOneMenu>
                                                              
                                                             </td>
@@ -412,7 +412,7 @@
                                                                                              emptyMessage="No se Encontraron Registros"
                                                                                              rowIndexVar="rowIndex" >
                                                                                
-                                                                                    <p:column headerText="Nro. Valorización"
+                                                                                    <p:column headerText="Nro. Val"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
                                                                                             <h:outputText value="#{reconocimiento.tiaNumero}"/>
