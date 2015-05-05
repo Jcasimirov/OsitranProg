@@ -12,13 +12,13 @@ import javax.persistence.TemporalType;
 
 public class ContratoSupervisoraVO {
     
-    private int conId;
-    private int cpsAdelantoOtorgado;
-    private int cpsAnyo;
+    private Integer conId;
+    private Integer cpsAdelantoOtorgado;
+    private Integer cpsAnyo;
     private String cpsArchivoPdf;
     private String cpsAsunto;
     private String cpsCaducidad;
-    private int cpsEstado;
+    private Integer cpsEstado;
     private Date cpsFechaAdelanto;
     private Date cpsFechaAlta;
     private Date cpsFechaBaja;
@@ -27,20 +27,26 @@ public class ContratoSupervisoraVO {
     private Date cpsFechaRegistro;
     private Date cpsFechaSuscripcion;
     private String cpsGarantias;
-    private int cpsMontoContratado;
-    private int cpsNroDeContrato;
+    private Integer cpsMontoContratado;
+    private Integer cpsNroDeContrato;
     private String cpsPenalidades;
-    private int cpsPlazoContrato;
-    private int cpsStd;
+    private Integer cpsPlazoContrato;
+    private Integer cpsStd;
     private String cpsTerminal;
     private String cpsUsuarioAlta;
     private String cpsUsuarioBaja;
     private String cpsUsuarioCambio;
-    private int csiId;
-    private int infId;
-    private int supId;
-    private int tinId;
-    
+    private Integer csiId;
+    private Integer infId;
+    private Integer supId;
+    private Integer tinId;
+    private Integer monId;
+    private Integer ccoId;
+    private Integer tccTipo;    
+    private Integer mcoId;
+    private Integer invId;
+    private String ccoPlazo;
+    private Integer ccoTotal;
     
     private String cenDocumentoFisico;
     private String cenDocumentoFisicoA;
@@ -48,23 +54,31 @@ public class ContratoSupervisoraVO {
     private Integer cenEntrega;
     private InputStream inputStreamNuevaEntrega;
     private InputStream inputStreamNuevaEntregaA;
-    private int contador;
+    private Integer contador;
     private String nombreInfraestructura;
     private String nombreSupervisora;
-    
+    private String nombreMoneda;
+    private String nombreConcesion;
+    private String nombreInfraTipo;
     
     public ContratoSupervisoraVO(){
     }
 
 
-    public ContratoSupervisoraVO(int conId, int cpsAdelantoOtorgado, int cpsAnyo, String cpsArchivoPdf,
-                                 String cpsAsunto, String cpsCaducidad, int cpsEstado, Date cpsFechaAdelanto,
+    public ContratoSupervisoraVO(Integer conId, Integer cpsAdelantoOtorgado, Integer cpsAnyo, String cpsArchivoPdf,
+                                 String cpsAsunto, String cpsCaducidad, Integer cpsEstado, Date cpsFechaAdelanto,
                                  Date cpsFechaAlta, Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio,
                                  Date cpsFechaRegistro, Date cpsFechaSuscripcion, String cpsGarantias,
-                                 int cpsMontoContratado, int cpsNroDeContrato, String cpsPenalidades,
-                                 int cpsPlazoContrato, int cpsStd, String cpsTerminal, String cpsUsuarioAlta,
-                                 String cpsUsuarioBaja, String cpsUsuarioCambio, int csiId, int infId, int supId,
-                                 int tinId) {
+                                 Integer cpsMontoContratado, Integer cpsNroDeContrato, String cpsPenalidades,
+                                 Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
+                                 String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
+                                 Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
+                                 Integer mcoId, Integer invId, String ccoPlazo, Integer ccoTotal,
+                                 String cenDocumentoFisico, String cenDocumentoFisicoA, String cenFechaDescripcion,
+                                 Integer cenEntrega, InputStream inputStreamNuevaEntrega,
+                                 InputStream inputStreamNuevaEntregaA, Integer contador, String nombreInfraestructura,
+                                 String nombreSupervisora, String nombreMoneda, String nombreConcesion,
+                                 String nombreInfraTipo) {
         super();
         this.conId = conId;
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
@@ -94,30 +108,96 @@ public class ContratoSupervisoraVO {
         this.infId = infId;
         this.supId = supId;
         this.tinId = tinId;
+        this.monId = monId;
+        this.ccoId = ccoId;
+        this.tccTipo = tccTipo;
+        this.mcoId = mcoId;
+        this.invId = invId;
+        this.ccoPlazo = ccoPlazo;
+        this.ccoTotal = ccoTotal;
+        this.cenDocumentoFisico = cenDocumentoFisico;
+        this.cenDocumentoFisicoA = cenDocumentoFisicoA;
+        this.cenFechaDescripcion = cenFechaDescripcion;
+        this.cenEntrega = cenEntrega;
+        this.inputStreamNuevaEntrega = inputStreamNuevaEntrega;
+        this.inputStreamNuevaEntregaA = inputStreamNuevaEntregaA;
+        this.contador = contador;
+        this.nombreInfraestructura = nombreInfraestructura;
+        this.nombreSupervisora = nombreSupervisora;
+        this.nombreMoneda = nombreMoneda;
+        this.nombreConcesion = nombreConcesion;
+        this.nombreInfraTipo = nombreInfraTipo;
     }
 
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
 
-    public void setConId(int conId) {
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setCcoPlazo(String ccoPlazo) {
+        this.ccoPlazo = ccoPlazo;
+    }
+
+    public String getCcoPlazo() {
+        return ccoPlazo;
+    }
+
+    public void setCcoTotal(Integer ccoTotal) {
+        this.ccoTotal = ccoTotal;
+    }
+
+    public Integer getCcoTotal() {
+        return ccoTotal;
+    }
+
+    public void setMcoId(Integer mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public Integer getMcoId() {
+        return mcoId;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
+
+    public void setTccTipo(Integer tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public Integer getTccTipo() {
+        return tccTipo;
+    }
+
+    public void setConId(Integer conId) {
         this.conId = conId;
     }
 
-    public int getConId() {
+    public Integer getConId() {
         return conId;
     }
 
-    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
+    public void setCpsAdelantoOtorgado(Integer cpsAdelantoOtorgado) {
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
     }
 
-    public int getCpsAdelantoOtorgado() {
+    public Integer getCpsAdelantoOtorgado() {
         return cpsAdelantoOtorgado;
     }
 
-    public void setCpsAnyo(int cpsAnyo) {
+    public void setCpsAnyo(Integer cpsAnyo) {
         this.cpsAnyo = cpsAnyo;
     }
 
-    public int getCpsAnyo() {
+    public Integer getCpsAnyo() {
         return cpsAnyo;
     }
 
@@ -145,11 +225,11 @@ public class ContratoSupervisoraVO {
         return cpsCaducidad;
     }
 
-    public void setCpsEstado(int cpsEstado) {
+    public void setCpsEstado(Integer cpsEstado) {
         this.cpsEstado = cpsEstado;
     }
 
-    public int getCpsEstado() {
+    public Integer getCpsEstado() {
         return cpsEstado;
     }
 
@@ -217,19 +297,19 @@ public class ContratoSupervisoraVO {
         return cpsGarantias;
     }
 
-    public void setCpsMontoContratado(int cpsMontoContratado) {
+    public void setCpsMontoContratado(Integer cpsMontoContratado) {
         this.cpsMontoContratado = cpsMontoContratado;
     }
 
-    public int getCpsMontoContratado() {
+    public Integer getCpsMontoContratado() {
         return cpsMontoContratado;
     }
 
-    public void setCpsNroDeContrato(int cpsNroDeContrato) {
+    public void setCpsNroDeContrato(Integer cpsNroDeContrato) {
         this.cpsNroDeContrato = cpsNroDeContrato;
     }
 
-    public int getCpsNroDeContrato() {
+    public Integer getCpsNroDeContrato() {
         return cpsNroDeContrato;
     }
 
@@ -241,19 +321,19 @@ public class ContratoSupervisoraVO {
         return cpsPenalidades;
     }
 
-    public void setCpsPlazoContrato(int cpsPlazoContrato) {
+    public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
 
-    public int getCpsPlazoContrato() {
+    public Integer getCpsPlazoContrato() {
         return cpsPlazoContrato;
     }
 
-    public void setCpsStd(int cpsStd) {
+    public void setCpsStd(Integer cpsStd) {
         this.cpsStd = cpsStd;
     }
 
-    public int getCpsStd() {
+    public Integer getCpsStd() {
         return cpsStd;
     }
 
@@ -289,38 +369,45 @@ public class ContratoSupervisoraVO {
         return cpsUsuarioCambio;
     }
 
-    public void setCsiId(int csiId) {
+    public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
 
-    public int getCsiId() {
+    public Integer getCsiId() {
         return csiId;
     }
 
-    public void setInfId(int infId) {
+    public void setInfId(Integer infId) {
         this.infId = infId;
     }
 
-    public int getInfId() {
+    public Integer getInfId() {
         return infId;
     }
 
-    public void setSupId(int supId) {
+    public void setSupId(Integer supId) {
         this.supId = supId;
     }
 
-    public int getSupId() {
+    public Integer getSupId() {
         return supId;
     }
 
-    public void setTinId(int tinId) {
+    public void setTinId(Integer tinId) {
         this.tinId = tinId;
     }
 
-    public int getTinId() {
+    public Integer getTinId() {
         return tinId;
     }
 
+    public void setMonId(Integer monId) {
+        this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
 
     public void setCenDocumentoFisico(String cenDocumentoFisico) {
         this.cenDocumentoFisico = cenDocumentoFisico;
@@ -328,6 +415,14 @@ public class ContratoSupervisoraVO {
 
     public String getCenDocumentoFisico() {
         return cenDocumentoFisico;
+    }
+
+    public void setCenDocumentoFisicoA(String cenDocumentoFisicoA) {
+        this.cenDocumentoFisicoA = cenDocumentoFisicoA;
+    }
+
+    public String getCenDocumentoFisicoA() {
+        return cenDocumentoFisicoA;
     }
 
     public void setCenFechaDescripcion(String cenFechaDescripcion) {
@@ -354,28 +449,20 @@ public class ContratoSupervisoraVO {
         return inputStreamNuevaEntrega;
     }
 
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
-
-    public int getContador() {
-        return contador;
-    }
-
-    public void setCenDocumentoFisicoA(String cenDocumentoFisicoA) {
-        this.cenDocumentoFisicoA = cenDocumentoFisicoA;
-    }
-
-    public String getCenDocumentoFisicoA() {
-        return cenDocumentoFisicoA;
-    }
-
     public void setInputStreamNuevaEntregaA(InputStream inputStreamNuevaEntregaA) {
         this.inputStreamNuevaEntregaA = inputStreamNuevaEntregaA;
     }
 
     public InputStream getInputStreamNuevaEntregaA() {
         return inputStreamNuevaEntregaA;
+    }
+
+    public void setContador(Integer contador) {
+        this.contador = contador;
+    }
+
+    public Integer getContador() {
+        return contador;
     }
 
     public void setNombreInfraestructura(String nombreInfraestructura) {
@@ -393,4 +480,29 @@ public class ContratoSupervisoraVO {
     public String getNombreSupervisora() {
         return nombreSupervisora;
     }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+    public void setNombreConcesion(String nombreConcesion) {
+        this.nombreConcesion = nombreConcesion;
+    }
+
+    public String getNombreConcesion() {
+        return nombreConcesion;
+    }
+
+    public void setNombreInfraTipo(String nombreInfraTipo) {
+        this.nombreInfraTipo = nombreInfraTipo;
+    }
+
+    public String getNombreInfraTipo() {
+        return nombreInfraTipo;
+    }
+
 }
