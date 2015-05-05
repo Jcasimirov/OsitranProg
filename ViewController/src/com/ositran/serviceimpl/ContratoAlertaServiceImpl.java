@@ -63,7 +63,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         return listVO;
     }
     
-    private ContratoAlertaVO toContratoAlertaVO(ContratoAlerta contratoAlerta){
+    public ContratoAlertaVO toContratoAlertaVO(ContratoAlerta contratoAlerta){
         ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();            
         
         contratoAlertaVO.setCaeId(contratoAlerta.getCaeId());
@@ -91,7 +91,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         return contratoAlertaVO;
     }
     
-    private ContratoAlerta toContratoAlerta(ContratoAlertaVO contratoAlertaVO){
+    public ContratoAlerta toContratoAlerta(ContratoAlertaVO contratoAlertaVO){
         ContratoAlerta contratoAlerta=new ContratoAlerta();           
                 
         contratoAlerta.setCaeId(contratoAlertaVO.getCaeId());
