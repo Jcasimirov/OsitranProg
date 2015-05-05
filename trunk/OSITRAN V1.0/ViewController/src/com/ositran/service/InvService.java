@@ -16,6 +16,6 @@ public interface InvService {
     public String update(InvVO invVO) throws SQLException;
     public InvVO get(Integer tiaNumero) throws SQLException;
     public List<InvVO> getInvsAvance(Integer tiaNumero) throws SQLException;
-    public InvVO obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException;
+    public InvVO obtenerInversion(Integer tiaNumero) throws SQLException;
     public String insertDeclaracion(InvAvnVO invAvn,InvVO invVO, List<InvReconocimientoVO> listInvReconocimientoVO,List<InvReajusteVO> listInvReajusteVO) throws SQLException;
 }
