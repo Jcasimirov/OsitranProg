@@ -600,30 +600,30 @@
                                                         <td>
                                                         <table>
                                                         <tr>
-                                                        <td><h:outputText value="Nro Informe" /></td>
-                                                        <td><p:inputText value="#{rectificarInversion.invVO.invNumeroInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Nro Informe" /></td>
+                                                        <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNumeroInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
-                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
-                                                        <td><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
-                                                        <td><h:outputText value="Registro de Salida" /></td>
-                                                        <td><p:inputText value="#{rectificarInversion.invVO.invRegSalidaInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Registro de Salida" /></td>
+                                                        <td align="left"><p:inputText value="#{rectificarInversion.invVO.invRegSalidaInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         </tr>
                                                         
                                                         <tr>
-                                                        <td><h:outputText value="Nro Oficio" /></td>
-                                                        <td><p:inputText value="#{rectificarInversion.invVO.invNumeroOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Nro Oficio" /></td>
+                                                        <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNumeroOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
-                                                        <td><h:outputText value="Fecha de Emision" /></td>                                                      
-                                                        <td><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Fecha de Emision" /></td>                                                      
+                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
-                                                        <td><h:outputText value="Registro de Salida" /></td>
-                                                        <td><p:inputText value="#{rectificarInversion.invVO.invRegSalidaOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><h:outputText value="Registro de Salida" /></td>
+                                                        <td align="left"><p:inputText value="#{rectificarInversion.invVO.invRegSalidaOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         </tr>
                                                         
                                                         <tr>
-                                                        <td><h:outputText value="Tipo de Cambio" /></td>
-                                                        <td><p:selectOneMenu style="width:210px;" value="#{rectificarInversion.invVO.monId}" disabled="#{rectificarInversion.deshabilitadoxObservado}">
+                                                        <td align="left"><h:outputText value="Tipo de Cambio" /></td>
+                                                        <td align="left"><p:selectOneMenu style="width:210px;" value="#{rectificarInversion.invVO.monId}" disabled="#{rectificarInversion.deshabilitadoxObservado}">
                                                         <p:ajax listener="#{rectificarInversion.resetTipoCambio()}" update="montotipocambio"></p:ajax>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItems value="#{rectificarInversion.listarTipoMonedas}"
@@ -632,22 +632,22 @@
                                                             </p:selectOneMenu>
                                                         </td>
                                                         
-                                                        <td ><h:outputText value="Monto Tipo de Cambio" /></td>                                                      
-                                                        <td colspan="3"><p:inputText id="montotipocambio" value="#{rectificarInversion.invVO.invMontoTipoCambio}" readonly="#{rectificarInversion.readOnlyMontoTipoCambio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
+                                                        <td align="left"><h:outputText value="Monto Tipo de Cambio" /></td>                                                      
+                                                        <td colspan="3" align="left"><p:inputText id="montotipocambio" value="#{rectificarInversion.invVO.invMontoTipoCambio}" readonly="#{rectificarInversion.readOnlyMontoTipoCambio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
                                                        
                                                         </tr>
                                                         
                                                         <tr>
                                                        
                                                         
-                                                        <td ><h:outputText value="Nota" /></td>                                                      
-                                                        <td colspan="5"><p:inputTextarea style="width:100%;" value="#{rectificarInversion.invVO.invNota}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
+                                                        <td align="left"><h:outputText value="Nota" /></td>                                                      
+                                                        <td colspan="5" align="left"><p:inputTextarea style="width:100%;" value="#{rectificarInversion.invVO.invNota}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>                                                       
                                                        
                                                         </tr>
                                                         
                                                         <tr>
-                                                        <td><h:outputText value="Nro. Documento de Formalizacion" /></td>
-                                                        <td><p:inputText value="#{rectificarInversion.invVO.invNroDocFormalizacion}"/></td>
+                                                        <td align="left"><h:outputText value="Nro. Documento de Formalizacion" /></td>
+                                                        <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNroDocFormalizacion}"/></td>
                                                         
                                                         <td><h:outputText value="Fecha Emision" /></td>                                                      
                                                         <td colspan="3"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionDocFomalizacion}"/></td>                                                       
