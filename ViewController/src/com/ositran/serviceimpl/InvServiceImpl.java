@@ -156,9 +156,11 @@ public class InvServiceImpl implements InvService {
         String result = invDAOImpl.insertDeclaracion(invAvn,inv,listInvReconocimiento, listInvReajuste);
         return result;
     }
-    public InvVO obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException{
-        Inv inv = invDAOImpl.obtenerInversion(invId, tiaNumero);
-        InvVO invVO=toInvVO(inv);
+    public InvVO obtenerInversion( Integer tiaNumero) throws SQLException{
+        Inv inv = invDAOImpl.obtenerInversion(tiaNumero);
+        InvVO invVO=new InvVO();
+        if(inv!=null)
+            invVO=toInvVO(inv);
         return invVO;
     }
     public InvReconocimientoServiceImpl getInvReconocimientoServiceImpl() {
