@@ -208,9 +208,7 @@ public class RectificarInversion {
     /*EN LA TABLA T_INV EL CAMPO INV_ID ES UN SECUENCIAL Y NO ES FK DE T_INV_AVN*/
     public void cargarInversionesInvxTiaNumero(int tianumero){
         try {
-            System.out.println("BEGIN cargarInversionesInvxTiaNumero");
             invVO=invServiceImpl.obtenerInversion(tianumero);
-            System.out.println("FIN cargarInversionesInvxTiaNumero");
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
