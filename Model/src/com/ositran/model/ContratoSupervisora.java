@@ -23,11 +23,11 @@ import org.hibernate.annotations.Parameter;
 public class ContratoSupervisora implements Serializable {
     private static final long serialVersionUID = 3657750162709879454L;
     @Column(name = "CON_ID")
-    private int conId;
+    private Integer conId;
     @Column(name = "CPS_ADELANTO_OTORGADO")
-    private int cpsAdelantoOtorgado;
+    private Integer cpsAdelantoOtorgado;
     @Column(name = "CPS_ANYO")
-    private int cpsAnyo;
+    private Integer cpsAnyo;
     @Column(name = "CPS_ARCHIVO_PDF")
     private String cpsArchivoPdf;
     @Column(name = "CPS_ASUNTO",    length = 4000)
@@ -35,7 +35,7 @@ public class ContratoSupervisora implements Serializable {
     @Column(name = "CPS_CADUCIDAD", length = 4000)
     private String cpsCaducidad;
     @Column(name = "CPS_ESTADO")
-    private int cpsEstado;
+    private Integer cpsEstado;
     @Temporal(TemporalType.DATE)
     @Column(name = "CPS_FECHA_ADELANTO")
     private Date cpsFechaAdelanto;
@@ -60,16 +60,16 @@ public class ContratoSupervisora implements Serializable {
     @Column(name = "CPS_GARANTIAS", length = 4000)
     private String cpsGarantias;
     @Column(name = "CPS_MONTO_CONTRATADO")
-    private int cpsMontoContratado;
+    private Integer cpsMontoContratado;
     @Id
     @Column(name = "CPS_NRO_DE_CONTRATO" )
-    private int cpsNroDeContrato;
+    private Integer cpsNroDeContrato;
     @Column(name = "CPS_PENALIDADES" , length = 4000)
     private String cpsPenalidades;
     @Column(name = "CPS_PLAZO_CONTRATO" )
-    private int cpsPlazoContrato;
+    private Integer cpsPlazoContrato;
     @Column(name = "CPS_STD" )
-    private int cpsStd;
+    private Integer cpsStd;
     @Column(name = "CPS_TERMINAL", length = 20)
     private String cpsTerminal;
     @Column(name = "CPS_USUARIO_ALTA", length = 20)
@@ -79,25 +79,45 @@ public class ContratoSupervisora implements Serializable {
     @Column(name = "CPS_USUARIO_CAMBIO", length = 20)
     private String cpsUsuarioCambio;
     @Column(name = "CSI_ID")
-    private int csiId;
+    private Integer csiId;
     @Column(name = "INF_ID")
-    private int infId;
+    private Integer infId;
     @Column(name = "SUP_ID")
-    private int supId;
+    private Integer supId;
     @Column(name = "TIN_ID")
-    private int tinId;
-
+    private Integer tinId;
+    @Column(name = "MON_ID")
+    private Integer monId;
+    @Column(name = "CCO_ID")
+    private Integer ccoId;
+    @Column(name = "TCC_TIPO")
+    private Integer tccTipo;
+    @Column(name = "MCO_ID")
+    private Integer mcoId;
+    @Column(name = "INV_ID")
+    private Integer invId;
+    @Column(name = "CCO_PLAZO")
+    private String ccoPlazo;
+    @Column(name = "CCO_TOTAL")
+    private Integer ccoTotal;
+    
+    
+    
+        
     public ContratoSupervisora() {
     }
 
-    public ContratoSupervisora(int conId, int cpsAdelantoOtorgado, int cpsAnyo, String cpsArchivoPdf,
-                               String cpsAsunto, String cpsCaducidad, int cpsEstado, Date cpsFechaAdelanto,
+
+    public ContratoSupervisora(Integer conId, Integer cpsAdelantoOtorgado, Integer cpsAnyo, String cpsArchivoPdf,
+                               String cpsAsunto, String cpsCaducidad, Integer cpsEstado, Date cpsFechaAdelanto,
                                Date cpsFechaAlta, Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio,
                                Date cpsFechaRegistro, Date cpsFechaSuscripcion, String cpsGarantias,
-                               int cpsMontoContratado, int cpsNroDeContrato, String cpsPenalidades,
-                               int cpsPlazoContrato, int cpsStd, String cpsTerminal,
-                               String cpsUsuarioAlta, String cpsUsuarioBaja, String cpsUsuarioCambio, int csiId,
-                               int infId, int supId, int tinId) {
+                               Integer cpsMontoContratado, Integer cpsNroDeContrato, String cpsPenalidades,
+                               Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
+                               String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
+                               Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
+                               Integer mcoId, Integer invId, String ccoPlazo, Integer ccoTotal) {
+        super();
         this.conId = conId;
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
         this.cpsAnyo = cpsAnyo;
@@ -126,232 +146,294 @@ public class ContratoSupervisora implements Serializable {
         this.infId = infId;
         this.supId = supId;
         this.tinId = tinId;
+        this.monId = monId;
+        this.ccoId = ccoId;
+        this.tccTipo = tccTipo;
+        this.mcoId = mcoId;
+        this.invId = invId;
+        this.ccoPlazo = ccoPlazo;
+        this.ccoTotal = ccoTotal;
     }
 
-    public int getConId() {
-        return conId;
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
     }
 
-    public void setConId(int conId) {
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setCcoPlazo(String ccoPlazo) {
+        this.ccoPlazo = ccoPlazo;
+    }
+
+    public String getCcoPlazo() {
+        return ccoPlazo;
+    }
+
+    public void setCcoTotal(Integer ccoTotal) {
+        this.ccoTotal = ccoTotal;
+    }
+
+    public Integer getCcoTotal() {
+        return ccoTotal;
+    }
+
+    public void setMcoId(Integer mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public Integer getMcoId() {
+        return mcoId;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
+
+    public void setTccTipo(Integer tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public Integer getTccTipo() {
+        return tccTipo;
+    }
+
+    public void setConId(Integer conId) {
         this.conId = conId;
     }
 
-    public int getCpsAdelantoOtorgado() {
-        return cpsAdelantoOtorgado;
+    public Integer getConId() {
+        return conId;
     }
 
-    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
+    public void setCpsAdelantoOtorgado(Integer cpsAdelantoOtorgado) {
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
     }
 
-    public int getCpsAnyo() {
-        return cpsAnyo;
+    public Integer getCpsAdelantoOtorgado() {
+        return cpsAdelantoOtorgado;
     }
 
-    public void setCpsAnyo(int cpsAnyo) {
+    public void setCpsAnyo(Integer cpsAnyo) {
         this.cpsAnyo = cpsAnyo;
     }
 
-    public String getCpsArchivoPdf() {
-        return cpsArchivoPdf;
+    public Integer getCpsAnyo() {
+        return cpsAnyo;
     }
 
     public void setCpsArchivoPdf(String cpsArchivoPdf) {
         this.cpsArchivoPdf = cpsArchivoPdf;
     }
 
-    public String getCpsAsunto() {
-        return cpsAsunto;
+    public String getCpsArchivoPdf() {
+        return cpsArchivoPdf;
     }
 
     public void setCpsAsunto(String cpsAsunto) {
         this.cpsAsunto = cpsAsunto;
     }
 
-    public String getCpsCaducidad() {
-        return cpsCaducidad;
+    public String getCpsAsunto() {
+        return cpsAsunto;
     }
 
     public void setCpsCaducidad(String cpsCaducidad) {
         this.cpsCaducidad = cpsCaducidad;
     }
 
-    public int getCpsEstado() {
-        return cpsEstado;
+    public String getCpsCaducidad() {
+        return cpsCaducidad;
     }
 
-    public void setCpsEstado(int cpsEstado) {
+    public void setCpsEstado(Integer cpsEstado) {
         this.cpsEstado = cpsEstado;
     }
 
-    public Date getCpsFechaAdelanto() {
-        return cpsFechaAdelanto;
+    public Integer getCpsEstado() {
+        return cpsEstado;
     }
 
     public void setCpsFechaAdelanto(Date cpsFechaAdelanto) {
         this.cpsFechaAdelanto = cpsFechaAdelanto;
     }
 
-    public Date getCpsFechaAlta() {
-        return cpsFechaAlta;
+    public Date getCpsFechaAdelanto() {
+        return cpsFechaAdelanto;
     }
 
     public void setCpsFechaAlta(Date cpsFechaAlta) {
         this.cpsFechaAlta = cpsFechaAlta;
     }
 
-    public Date getCpsFechaBaja() {
-        return cpsFechaBaja;
+    public Date getCpsFechaAlta() {
+        return cpsFechaAlta;
     }
 
     public void setCpsFechaBaja(Date cpsFechaBaja) {
         this.cpsFechaBaja = cpsFechaBaja;
     }
 
-    public Date getCpsFechaCambio() {
-        return cpsFechaCambio;
+    public Date getCpsFechaBaja() {
+        return cpsFechaBaja;
     }
 
     public void setCpsFechaCambio(Date cpsFechaCambio) {
         this.cpsFechaCambio = cpsFechaCambio;
     }
 
-    public Date getCpsFechaInicio() {
-        return cpsFechaInicio;
+    public Date getCpsFechaCambio() {
+        return cpsFechaCambio;
     }
 
     public void setCpsFechaInicio(Date cpsFechaInicio) {
         this.cpsFechaInicio = cpsFechaInicio;
     }
 
-    public Date getCpsFechaRegistro() {
-        return cpsFechaRegistro;
+    public Date getCpsFechaInicio() {
+        return cpsFechaInicio;
     }
 
     public void setCpsFechaRegistro(Date cpsFechaRegistro) {
         this.cpsFechaRegistro = cpsFechaRegistro;
     }
 
-    public Date getCpsFechaSuscripcion() {
-        return cpsFechaSuscripcion;
+    public Date getCpsFechaRegistro() {
+        return cpsFechaRegistro;
     }
 
     public void setCpsFechaSuscripcion(Date cpsFechaSuscripcion) {
         this.cpsFechaSuscripcion = cpsFechaSuscripcion;
     }
 
-    public String getCpsGarantias() {
-        return cpsGarantias;
+    public Date getCpsFechaSuscripcion() {
+        return cpsFechaSuscripcion;
     }
 
     public void setCpsGarantias(String cpsGarantias) {
         this.cpsGarantias = cpsGarantias;
     }
 
-    public int getCpsMontoContratado() {
-        return cpsMontoContratado;
+    public String getCpsGarantias() {
+        return cpsGarantias;
     }
 
-    public void setCpsMontoContratado(int cpsMontoContratado) {
+    public void setCpsMontoContratado(Integer cpsMontoContratado) {
         this.cpsMontoContratado = cpsMontoContratado;
     }
 
-    public int getCpsNroDeContrato() {
-        return cpsNroDeContrato;
+    public Integer getCpsMontoContratado() {
+        return cpsMontoContratado;
     }
 
-    public String getCpsPenalidades() {
-        return cpsPenalidades;
+    public void setCpsNroDeContrato(Integer cpsNroDeContrato) {
+        this.cpsNroDeContrato = cpsNroDeContrato;
+    }
+
+    public Integer getCpsNroDeContrato() {
+        return cpsNroDeContrato;
     }
 
     public void setCpsPenalidades(String cpsPenalidades) {
         this.cpsPenalidades = cpsPenalidades;
     }
 
-    public int getCpsPlazoContrato() {
-        return cpsPlazoContrato;
+    public String getCpsPenalidades() {
+        return cpsPenalidades;
     }
 
-    public void setCpsPlazoContrato(int cpsPlazoContrato) {
+    public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
 
-    public int getCpsStd() {
-        return cpsStd;
+    public Integer getCpsPlazoContrato() {
+        return cpsPlazoContrato;
     }
 
-    public void setCpsStd(int cpsStd) {
+    public void setCpsStd(Integer cpsStd) {
         this.cpsStd = cpsStd;
     }
 
-    public String getCpsTerminal() {
-        return cpsTerminal;
+    public Integer getCpsStd() {
+        return cpsStd;
     }
 
     public void setCpsTerminal(String cpsTerminal) {
         this.cpsTerminal = cpsTerminal;
     }
 
-    public String getCpsUsuarioAlta() {
-        return cpsUsuarioAlta;
+    public String getCpsTerminal() {
+        return cpsTerminal;
     }
 
     public void setCpsUsuarioAlta(String cpsUsuarioAlta) {
         this.cpsUsuarioAlta = cpsUsuarioAlta;
     }
 
-    public String getCpsUsuarioBaja() {
-        return cpsUsuarioBaja;
+    public String getCpsUsuarioAlta() {
+        return cpsUsuarioAlta;
     }
 
     public void setCpsUsuarioBaja(String cpsUsuarioBaja) {
         this.cpsUsuarioBaja = cpsUsuarioBaja;
     }
 
-    public String getCpsUsuarioCambio() {
-        return cpsUsuarioCambio;
+    public String getCpsUsuarioBaja() {
+        return cpsUsuarioBaja;
     }
 
     public void setCpsUsuarioCambio(String cpsUsuarioCambio) {
         this.cpsUsuarioCambio = cpsUsuarioCambio;
     }
 
-
-
-    public void setCpsNroDeContrato(int cpsNroDeContrato) {
-        this.cpsNroDeContrato = cpsNroDeContrato;
+    public String getCpsUsuarioCambio() {
+        return cpsUsuarioCambio;
     }
 
-
-    public void setCsiId(int csiId) {
+    public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
 
-    public int getCsiId() {
+    public Integer getCsiId() {
         return csiId;
     }
 
-    public void setInfId(int infId) {
+    public void setInfId(Integer infId) {
         this.infId = infId;
     }
 
-    public int getInfId() {
+    public Integer getInfId() {
         return infId;
     }
 
-    public void setSupId(int supId) {
+    public void setSupId(Integer supId) {
         this.supId = supId;
     }
 
-    public int getSupId() {
+    public Integer getSupId() {
         return supId;
     }
 
-    public void setTinId(int tinId) {
+    public void setTinId(Integer tinId) {
         this.tinId = tinId;
     }
 
-    public int getTinId() {
+    public Integer getTinId() {
         return tinId;
     }
+
+    public void setMonId(Integer monId) {
+        this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
+
 }
