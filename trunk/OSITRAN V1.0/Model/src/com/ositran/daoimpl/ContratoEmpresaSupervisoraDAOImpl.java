@@ -4,6 +4,8 @@ import com.ositran.dao.ContratoEmpresaSupervisoraDAO;
 import com.ositran.model.ContratoSupervisora;
 import com.ositran.util.HibernateUtil;
 import java.sql.SQLException;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,11 +23,19 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
 
     @Override
     public List<ContratoSupervisora> query() throws SQLException {
-        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list= session.createQuery("select o from ContratoSupervisora o").list();
-        System.out.println(list.size());
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();        
+        List<ContratoSupervisora> list = null;        
+        try {
+            session.beginTransaction();
+            list = session.createQuery("from ContratoSupervisora c where c.cpsEstado <> 0").list();
+            System.out.println(list.size());
+            
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(e);
+        }
         return list;
+
     }
 
     @Override
@@ -41,6 +51,7 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            e.printStackTrace();
         }
         return result;
     }
