@@ -33,8 +33,8 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
     }
     
     @Override
-    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String nombre, String ruc) throws SQLException{
-        List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(nombre,ruc);
+    public List<EmpresaSupervisoraVO> FiltrarEmpSup(String nombre) throws SQLException{
+        List<EmpresaSupervisora> list=empresaSupervisoraDAOImpl.FiltrarEmpSup(nombre);
         List<EmpresaSupervisoraVO> listVO=toListEmpresaSupervisoraVO(list);
         return listVO;        
     }
