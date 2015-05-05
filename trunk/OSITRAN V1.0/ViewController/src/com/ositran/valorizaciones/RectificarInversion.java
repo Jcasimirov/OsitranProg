@@ -205,10 +205,11 @@ public class RectificarInversion {
         super();
 
     }
-    public void cargarInversionesInvxTiaNumero(int numeroInversion,int tianumero){
+    /*EN LA TABLA T_INV EL CAMPO INV_ID ES UN SECUENCIAL Y NO ES FK DE T_INV_AVN*/
+    public void cargarInversionesInvxTiaNumero(int tianumero){
         try {
             System.out.println("BEGIN cargarInversionesInvxTiaNumero");
-            invVO=invServiceImpl.obtenerInversion(numeroInversion,tianumero);
+            invVO=invServiceImpl.obtenerInversion(tianumero);
             System.out.println("FIN cargarInversionesInvxTiaNumero");
         } catch (SQLException sqle) {
             // TODO: Add catch code
@@ -408,8 +409,8 @@ public class RectificarInversion {
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-        cargarInversionesInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
+        System.out.println(invAvnVO.getTiaNumero());
+        cargarInversionesInvxTiaNumero(invAvnVO.getTiaNumero());
         obtenerDeatalleInversionAvanceInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
