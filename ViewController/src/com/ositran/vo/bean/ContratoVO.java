@@ -45,7 +45,7 @@ public class ContratoVO {
     
     private Date conPlazoconcesion;
 
-    private Integer conDiaPlazoconcesion;
+    private Integer conCantidadPlazoconcesion;
     private Integer conMesoAnioPlazoconcesion;
     private String conNotaPlazoConcesion;
     
@@ -337,12 +337,13 @@ public class ContratoVO {
         return conPlazoconcesionDescripcion;
     }
 
-    public void setConDiaPlazoconcesion(Integer conDiaPlazoconcesion) {
-        this.conDiaPlazoconcesion = conDiaPlazoconcesion;
+
+    public void setConCantidadPlazoconcesion(Integer conCantidadPlazoconcesion) {
+        this.conCantidadPlazoconcesion = conCantidadPlazoconcesion;
     }
 
-    public Integer getConDiaPlazoconcesion() {
-        return conDiaPlazoconcesion;
+    public Integer getConCantidadPlazoconcesion() {
+        return conCantidadPlazoconcesion;
     }
 
     public void setConMesoAnioPlazoconcesion(Integer conMesoAnioPlazoconcesion) {
