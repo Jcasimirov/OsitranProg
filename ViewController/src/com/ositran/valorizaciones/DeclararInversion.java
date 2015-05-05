@@ -1255,12 +1255,18 @@ public class DeclararInversion {
                 invVO.setInvEstado(1);
                 invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
                 invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI);
-                invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_DECLARADO);
+                if(invVO.getInvEstadoReconocimiento()==1)
+                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_DECLARADO);
+                if(invVO.getInvEstadoReconocimiento()==2)
+                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+                    
                 invServiceImpl.insertDeclaracion(invAvnVO,invVO, listaInvReconocimientoVO, listaInvReajusteVO);
                
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito",
                                                                               "Se Declaro la Inversión"));
+                listarInversionesSupervisadas(contratoCompromisoVO.getCcoId());
+                limpiarFormulario();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1271,8 +1277,8 @@ public class DeclararInversion {
     public void limpiarFormulario() {
         invAvnVO = new InvAvnVO();
         invVO = new InvVO();
-        listaInvReajusteVO = null;
-        listaInvReconocimientoVO = null;
+        listaInvReajusteVO = new ArrayList<InvReajusteVO>();
+        listaInvReconocimientoVO =  new ArrayList<InvReconocimientoVO>();
         totalMontoAprobado = new BigDecimal(0);
         totalivrMontoAprobadoI = new BigDecimal(0);
         totalMontoPresentado = new BigDecimal(0);
@@ -1280,8 +1286,8 @@ public class DeclararInversion {
         totalirjMontoReajusteI = new BigDecimal(0);
         contratoVO = null;
 
-        listaInvAvnVO = null;
-        listaContratoCompromiso = null;
+
+        listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
     }
 
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
