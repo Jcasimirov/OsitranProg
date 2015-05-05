@@ -433,20 +433,53 @@ public class RectificarInversion {
     }
     public void guardarRectificarReconocimiento(){
         try {     
-            if(estadoReconocimiento==0){
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                              "Debe Seleccionar El Estado del Reconocimiento"));
-            }else{
-                if(estadoReconocimiento==2){
-                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
-                    invVO.setInvEstadoReconocimiento(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
-                }else{
-                    invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
-                    invVO.setInvEstadoReconocimiento(Constantes.ESTADORECONOCIMIENTO_RECTIFICADO);
-                }
-                System.out.println("GUARDADO : invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-
+         if (invAvnVO.getIaeId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha seleccionado el Estado de Reconocimiento"));
+        } else if (invAvnVO.getTiaObservaciones()==null || invAvnVO.getTiaObservaciones().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado las Observaciones"));
+        } else if (invVO.getInvNumeroInforme()==null || invVO.getInvNumeroInforme().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Numero de Informe"));
+        } else if (invVO.getInvFechaEmisionInforme()==null || invVO.getInvFechaEmisionInforme().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha de Emisión del Informe"));
+        } else if (invVO.getInvRegSalidaInforme()==null || invVO.getInvRegSalidaInforme().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Registro de Salida del Informe"));
+        } else if (invVO.getInvNumeroOficio()==null || invVO.getInvNumeroOficio().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Numero de Oficio"));
+        } else if (invVO.getInvFechaEmisionOficio()==null || invVO.getInvFechaEmisionOficio().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Fecha del Oficio"));
+        } else if (invVO.getInvRegSalidaOficio()==null || invVO.getInvRegSalidaOficio().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Inversión"));
+        } else if (invVO.getMonId()==null || invVO.getMonId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ha seleccionado el Tipo de Cambio"));
+        } else if (invVO.getInvMontoTipoCambio()==null || invVO.getInvMontoTipoCambio().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Monto"));
+        } else if (invVO.getInvNota()==null || invVO.getInvNota().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado la Nota"));
+        }else{
+                invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId()==Constantes.ESTADORECONOCIMIENTO_DECLARADO?Constantes.ESTADORECONOCIMIENTO_RECTIFICADO:Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+                invAvnVO.setIaeId(invVO.getInvEstadoReconocimiento());
                 notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
                 listarDeclaraciones(contratoVO.getConId());
                 reseteaCampos();
