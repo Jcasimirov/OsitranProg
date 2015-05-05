@@ -2,8 +2,10 @@ package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ContratoConcesionDAOImpl;
 import com.ositran.model.Contrato;
+import com.ositran.model.ContratoAlerta;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.util.Reutilizar;
+import com.ositran.vo.bean.ContratoAlertaVO;
 import com.ositran.vo.bean.ContratoVO;
 
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class ContratoConcesionServiceImpl implements ContratoConcesionService{
     private ContratoConcesionDAOImpl contratoConcesionDAOImpl;
+    private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
 
     public void setContratoConcesionDAOImpl(ContratoConcesionDAOImpl contratoConcesionDAOImpl) {
         this.contratoConcesionDAOImpl = contratoConcesionDAOImpl;
@@ -122,7 +125,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contratoVO.setConDiaPlazoconcesion(contrato.getConDiaPlazoconcesion());
         contratoVO.setConMesoAnioPlazoconcesion(contrato.getConMesoAnioPlazoconcesion());
         contratoVO.setConNotaPlazoConcesion(contrato.getConNotaPlazoConcesion()); 
-        contratoVO.setConFechaFinContrato(contrato.getConFechaFinContrato()); 
+
         return contratoVO;
     }
     private Contrato toContrato(ContratoVO contratoVO){
@@ -158,7 +161,6 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contrato.setConDiaPlazoconcesion(contratoVO.getConDiaPlazoconcesion());
         contrato.setConMesoAnioPlazoconcesion(contratoVO.getConMesoAnioPlazoconcesion());
         contrato.setConNotaPlazoConcesion(contratoVO.getConNotaPlazoConcesion());        
-        contrato.setConFechaFinContrato(contratoVO.getConFechaFinContrato()); 
         return contrato;
         
     }
@@ -199,5 +201,19 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
        }
 
         return lstBusquedaxNombreConcesion;
+    }
+    public void updateContrato(ContratoVO contratoVO,ContratoAlertaVO contratoAlertaVO)throws Exception{
+        Contrato contrato=toContrato(contratoVO);
+        ContratoAlerta contratoAlerta=contratoAlertaServiceImpl.toContratoAlerta(contratoAlertaVO);
+        contratoConcesionDAOImpl.updateContrato(contrato,contratoAlerta);
+        
+    }
+
+    public void setContratoAlertaServiceImpl(ContratoAlertaServiceImpl contratoAlertaServiceImpl) {
+        this.contratoAlertaServiceImpl = contratoAlertaServiceImpl;
+    }
+
+    public ContratoAlertaServiceImpl getContratoAlertaServiceImpl() {
+        return contratoAlertaServiceImpl;
     }
 }
