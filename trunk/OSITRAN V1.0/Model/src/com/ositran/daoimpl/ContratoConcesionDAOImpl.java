@@ -2,11 +2,11 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoConcesionDAO;
 import com.ositran.model.Contrato;
+import com.ositran.model.ContratoAlerta;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -84,7 +84,28 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         session.close();
         return result;
     }
+    public void updateContrato(Contrato contrato,ContratoAlerta contratoAlerta){
+       
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+        session.beginTransaction();
+        Query query=session.createQuery(" Update ContratoAlerta set calEstado=0 " +
+                                        " where conId   =:idContrato " +
+                                        " and   calTipo =:tipoAlerta ");
+        query.setParameter("idContrato", contratoAlerta.getConId());
+        query.setParameter("tipoAlerta", contratoAlerta.getCalTipo());
+        query.executeUpdate();            
+        session.save(contratoAlerta);
+        session.update(contrato);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback(); 
+        }
+        session.flush();
+        session.close();
         
+    }
         @Override
         public Contrato get(Integer id) throws SQLException{
             Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
