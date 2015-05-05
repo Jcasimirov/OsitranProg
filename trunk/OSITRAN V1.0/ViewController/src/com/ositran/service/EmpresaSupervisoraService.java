@@ -15,7 +15,7 @@ public interface EmpresaSupervisoraService {
         public String delete(Integer id) throws SQLException;
         public String update(EmpresaSupervisoraVO empresaSupervisoraVO) throws SQLException;
         public EmpresaSupervisoraVO get(Integer id) throws SQLException;
-        public List<EmpresaSupervisoraVO> FiltrarEmpSup(String nombre, String ruc) throws SQLException;
+        public List<EmpresaSupervisoraVO> FiltrarEmpSup(String nombre) throws SQLException;
         public int ValidaNombre(String atributo) throws SQLException;
         public int ValidaNombreMod(String atributo, String Nombre) throws SQLException;
         public int ValidaRuc(String atributo, int documento) throws SQLException;
