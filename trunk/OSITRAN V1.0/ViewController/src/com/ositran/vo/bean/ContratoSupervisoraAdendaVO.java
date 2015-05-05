@@ -17,10 +17,11 @@ public class ContratoSupervisoraAdendaVO {
     private String csaAdenda;
     private Date csaFecha;
     private Integer csaMonto;
-    private Integer csaPlazo;
+    private String csaPlazo;
     private Integer monId;
     private String cenDocumentoFisicoA;
     private InputStream inputStreamNuevaEntregaA;
+    private String nombreMoneda;
     
     public ContratoSupervisoraAdendaVO() {
         super();
@@ -28,7 +29,7 @@ public class ContratoSupervisoraAdendaVO {
 
 
     public ContratoSupervisoraAdendaVO(Integer cpsId, Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
-                                       Integer csaMonto, Integer csaPlazo, Integer monId) {
+                                       Integer csaMonto, String csaPlazo, Integer monId) {
         super();
         this.cpsId = cpsId;
         this.cpsNroDeContrato = cpsNroDeContrato;
@@ -80,11 +81,12 @@ public class ContratoSupervisoraAdendaVO {
         return csaMonto;
     }
 
-    public void setCsaPlazo(Integer csaPlazo) {
+
+    public void setCsaPlazo(String csaPlazo) {
         this.csaPlazo = csaPlazo;
     }
 
-    public Integer getCsaPlazo() {
+    public String getCsaPlazo() {
         return csaPlazo;
     }
 
@@ -110,5 +112,13 @@ public class ContratoSupervisoraAdendaVO {
 
     public InputStream getInputStreamNuevaEntregaA() {
         return inputStreamNuevaEntregaA;
+    }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
     }
 }
