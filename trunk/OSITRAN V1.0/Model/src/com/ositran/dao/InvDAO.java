@@ -18,5 +18,5 @@ public interface InvDAO {
     public Inv get(Integer id) throws SQLException;
     public List<Inv> getInvsAvance(Integer tiaNumero) throws SQLException;
     public String insertDeclaracion(InvAvn invAvn,Inv inv, List<InvReconocimiento> listInvReconocimiento,List<InvReajuste> listInvReajuste) throws SQLException;
-    public Inv obtenerInversion(Integer invId, Integer tiaNumero) throws SQLException;
+    public Inv obtenerInversion(Integer tiaNumero) throws SQLException;
 }
