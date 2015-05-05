@@ -79,6 +79,7 @@
         <f:event listener="#{actualizarContratoMB.listarPenalidadEstado}" type="preRenderComponent" /> 
         
          <f:event listener="#{actualizarContratoMB.listarTiposAdendas}" type="preRenderComponent" /> 
+         <f:event listener="#{actualizarContratoMB.cargarInfraestructuras}" type="preRenderComponent" /> 
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
@@ -193,7 +194,7 @@
                                                                             <f:selectItems value="#{actualizarContratoMB.listarPeriodos}"
                                                                                            var="per"
                                                                                            itemLabel="#{per.perNombre}"
-                                                                                           itemValue="#{per.perCantidadendias}"/>
+                                                                                           itemValue="#{per.perId}"/>
                                                                         </p:selectOneMenu>
                                                                     </td>
                                                                    
@@ -266,7 +267,7 @@
                                                                 </tr>
                                                                  <tr>
                                                                  <td align="left">Nota para el Plazo</td>
-                                                                 <td align="left"> <p:inputText  value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}"/> </td>
+                                                                 <td align="left"> <p:inputText  value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;"/> </td>
                                                                  </tr>
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
