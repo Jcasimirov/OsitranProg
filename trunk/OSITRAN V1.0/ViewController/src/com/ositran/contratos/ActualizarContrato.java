@@ -503,7 +503,7 @@ public class ActualizarContrato {
             
             FechasUtil fu = new FechasUtil();
             Date conPlazoConcesionCalculado=
-                fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConDiaPlazoconcesion(), 0);
+                fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConCantidadPlazoconcesion(), 0);
             contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
