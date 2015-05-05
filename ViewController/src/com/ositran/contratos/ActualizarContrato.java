@@ -23,6 +23,7 @@ import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.Constantes;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.FechasUtil;
 import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AdendaTipoVO;
 import com.ositran.vo.bean.ConcesionVO;
@@ -57,6 +58,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -199,6 +201,7 @@ public class ActualizarContrato {
     List<ContratoPenalidadVO> listarContratoPenalidad = new ArrayList<ContratoPenalidadVO>();
     List<ContratoPenalidadEstadoVO> listarContratoPenalidadEstado = new ArrayList<ContratoPenalidadEstadoVO>();
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
+    HashMap<String,Integer> periodosCache= new HashMap<String,Integer>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
     List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
     List<ContratoCompromisoVO> listarContratoCompromisoSupervisado = new ArrayList<ContratoCompromisoVO>();
@@ -346,6 +349,9 @@ public class ActualizarContrato {
     public void listaPeriodos() {
         try {
             listarPeriodos = periodoServiceImpl.query();
+            for(PeriodoVO periodoVO : listarPeriodos){
+                periodosCache.put(periodoVO.getPerId().toString(), periodoVO.getPerCantidadendias());
+            }
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -453,7 +459,7 @@ public class ActualizarContrato {
         cargarListaAdendas(contratoVO.getConId());
         cargarListaContratoEntregas(contratoVO.getConId());
         cargarDatosAvanceReportedeObra();
-        cargarInfraestructurasContrato(contratoVO.getConId());
+        
         cargarListaInversiones(contratoVO.getConId());
         cargarListaAlertas(contratoVO.getConId());
         cargarListaCaos(contratoVO.getConId());
@@ -494,10 +500,17 @@ public class ActualizarContrato {
                                                                             contratoVO.getConPdfcontrato(),
                                                                             contratoVO.getInputStreamContratoPDF());
             }
+            
+            FechasUtil fu = new FechasUtil();
+            Date conPlazoConcesionCalculado=
+                fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConDiaPlazoconcesion(), 0);
+            contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
-            contratoVO.setConTerminal(usuario.getUsuTerminal());
-            contratoConcesionServiceImp.update(contratoVO);
+            contratoVO.setConTerminal(usuario.getUsuTerminal());          
+            /*             ContratoAlertaVO alertaVO= prepararAlerta();
+            contratoConcesionServiceImp.updateContrato(contratoVO,alertaVO); */
+            String string = contratoConcesionServiceImp.update(contratoVO);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.EXITOCONTRATOACTUALIZADO));
@@ -508,7 +521,45 @@ public class ActualizarContrato {
                                                                           Constantes.ERRORGUARDAR));
         }
     }
-
+    public ContratoAlertaVO prepararAlerta(){
+        try {
+                      
+            ContratoAlertaVO alerta=new ContratoAlertaVO();
+            alerta.setConId(contratoVO.getConId());
+            alerta.setTinId(contratoVO.getTinId());
+            alerta.setCalFechaLimite(contratoVO.getConPlazoconcesion());
+            if(contratoVO.getConAvanceobra()==1)
+                alerta.setCalTipo(contratoVO.getConAvanceobra());
+                      
+            alerta.setCalNombreconcesion(contratoVO.getNombreConcesionario());
+            alerta.setCalFechaInicio(contratoVO.getConFechaSuscripcion()!=null?contratoVO.getConFechaSuscripcion():null);
+           
+            /*seteando periodo en alerta*/  
+            Integer cantidadDeDias=0;
+            /*si escojio una opcion diferente de seleccionado ni especificar dias*/
+                if(periodoseleccionado!=-1 && periodoseleccionado!=0)
+                    cantidadDeDias=(Integer)periodosCache.get(periodoseleccionado);
+            /*Este valor solo se llena para el caso que el periodo escogido en el combobox sea ''DIA ESPECIFICO".*/
+                alerta.setAleDiaMes(contratoVO.getConDiames()); 
+                FechasUtil fu = new FechasUtil();
+                Date fechaCalculadaPorPeriodo=
+                    fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConDiames()!=null?contratoVO.getConDiames():cantidadDeDias, 0);
+                    
+                alerta.setCalFechaFin(fechaCalculadaPorPeriodo);
+                alerta.setCalFechaLimite(fechaCalculadaPorPeriodo);
+            
+            alerta.setCalDiaPresentacion(contratoVO.getConDiames());
+            alerta.setPerId(contratoVO.getPerId());
+            alerta.setCaeId(1);
+            alerta.setCalEstado(1);
+            return alerta;
+            
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+        return null;
+    }
     public void resetDialogoBuscarContrato() {
         tipoinfra = 0;
         concesion = 0;
@@ -1390,7 +1441,15 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
+    public void cargarInfraestructuras() {
+        try {
 
+            listaInfraestructura = infraestructuraServiceImpl.query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
     public InfraestructuraServiceImpl getInfraestructuraServiceImpl() {
         return infraestructuraServiceImpl;
     }
