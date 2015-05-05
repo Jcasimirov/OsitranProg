@@ -221,7 +221,14 @@ public class DeclararInversion {
 
 
     }
-
+    public void listarInfraEstructuras() throws SQLException {
+        try {
+            listaInfraestructura = infraestructuraServiceImpl.query();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
 
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos() {
