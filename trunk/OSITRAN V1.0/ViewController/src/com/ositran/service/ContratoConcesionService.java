@@ -1,6 +1,7 @@
 package com.ositran.service;
 
 
+import com.ositran.vo.bean.ContratoAlertaVO;
 import com.ositran.vo.bean.ContratoVO;
 
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public interface ContratoConcesionService {
         public List<ContratoVO> buscarContratos(int tinfraestructura, int concesion, int modalidadConcesion, Date fechaInicio, Date fechaFin) throws SQLException;
 
         public List<ContratoVO> buscarxNombreConcesion(String nombreConcesion,int codTipoInfraestructura,int codConcesion,Date fechaIncioSuscripcion,Date fechafinSuscripcion) throws SQLException;
+    public void updateContrato(ContratoVO contratoVO,ContratoAlertaVO contratoAlerta)throws Exception;
 
 }
    
