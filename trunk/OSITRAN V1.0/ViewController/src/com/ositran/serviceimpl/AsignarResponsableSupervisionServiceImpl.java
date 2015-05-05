@@ -182,6 +182,11 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         return nombre;
     }
     
+    public String ObtieneCorreo(Integer tipoDoc, String NroDocumento,Integer tipoSup) throws SQLException{
+        String correo = asignarResponsableSupDAOImpl.ObtieneCorreo(tipoDoc, NroDocumento, tipoSup );
+        return correo;
+    }
+    
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException{
         int validacion = asignarResponsableSupDAOImpl.ValidaAsignación(contrato, tipoInfra, compromiso, concesion, aeropuerto, inversion, tipoDoc, nroDoc, tipoQuery);
         return validacion;
@@ -193,7 +198,9 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         List<ContratoResSupDetalleVO> listVO=toListContratoResSupDetalleVO(list);
         for (int i =0 ; i< listVO.size() ; i++){
             String nombre = ObtieneNombre(listVO.get(i).getTdoId(), listVO.get(i).getRsdNroDocumento(),listVO.get(i).getTipoSup());
+            String correo = ObtieneCorreo(listVO.get(i).getTdoId(), listVO.get(i).getRsdNroDocumento(),listVO.get(i).getTipoSup());
             listVO.get(i).setNombresup(nombre);
+            listVO.get(i).setCorreoSupervisor(correo);
         }
         
         return listVO;
