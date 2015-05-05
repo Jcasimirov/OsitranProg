@@ -122,7 +122,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contratoVO.setMcoId(contrato.getMcoId());
         contratoVO.setPerId(contrato.getPerId());
         contratoVO.setTinId(contrato.getTinId());
-        contratoVO.setConDiaPlazoconcesion(contrato.getConDiaPlazoconcesion());
+        contratoVO.setConCantidadPlazoconcesion(contrato.getConCantidadPlazoconcesion());
         contratoVO.setConMesoAnioPlazoconcesion(contrato.getConMesoAnioPlazoconcesion());
         contratoVO.setConNotaPlazoConcesion(contrato.getConNotaPlazoConcesion()); 
 
@@ -158,7 +158,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contrato.setPerId(contratoVO.getPerId());
         contrato.setTinId(contratoVO.getTinId());
         
-        contrato.setConDiaPlazoconcesion(contratoVO.getConDiaPlazoconcesion());
+        contrato.setConCantidadPlazoconcesion(contratoVO.getConCantidadPlazoconcesion());
         contrato.setConMesoAnioPlazoconcesion(contratoVO.getConMesoAnioPlazoconcesion());
         contrato.setConNotaPlazoConcesion(contratoVO.getConNotaPlazoConcesion());        
         return contrato;
