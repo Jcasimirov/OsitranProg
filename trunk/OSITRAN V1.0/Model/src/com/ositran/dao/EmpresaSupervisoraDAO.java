@@ -12,7 +12,7 @@ public interface EmpresaSupervisoraDAO {
         public String delete(Integer id) throws SQLException;
         public String update(EmpresaSupervisora empresaSupervisora) throws SQLException;
         public EmpresaSupervisora get(Integer id) throws SQLException;
-        public List<EmpresaSupervisora> FiltrarEmpSup(String nombre, String ruc) throws SQLException;
+        public List<EmpresaSupervisora> FiltrarEmpSup(String nombre) throws SQLException;
         public int  ValidarNombre(String atributo) throws SQLException;
         public int ValidarRucMod(String atributo, String NombreRuc,int documento) throws SQLException;
         public int  ValidarRuc(String atributo,int documento) throws SQLException;
