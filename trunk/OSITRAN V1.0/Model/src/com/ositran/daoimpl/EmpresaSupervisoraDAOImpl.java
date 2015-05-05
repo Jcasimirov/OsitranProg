@@ -24,7 +24,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     public List<EmpresaSupervisora> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        list= session.createQuery("select o from EmpresaSupervisora o where o.supEstado<> 2").list();            
+        list= session.createQuery("select o from EmpresaSupervisora o where o.supEstado<> 0").list();            
         System.out.println("LISTA = "+list);
         session.getTransaction().commit();
         session.close();
@@ -32,14 +32,16 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
     }
     
     @Override
-    public List<EmpresaSupervisora> FiltrarEmpSup(String nombre, String ruc) throws SQLException {
+    public List<EmpresaSupervisora> FiltrarEmpSup(String nombre) throws SQLException {
         
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and E.supNroDocumento like :busqueda2 and supEstado<> 2");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE (upper(E.supNombre) like  upper(:busqueda) or \n" +
+            "upper(E.supSiglas) like upper(:busqueda) or \n" +
+            "upper(E.supRepresentanteLegal) like upper(:busqueda) ) and \n" +
+            "E.supEstado<> 0");
         query.setParameter("busqueda","%"+nombre+"%");
-        query.setParameter("busqueda2","%"+ruc+"%");
         list= query.list();
         session.getTransaction().commit();
         session.close();
@@ -53,7 +55,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and supEstado<> 2");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda) and supEstado<> 0");
         query.setParameter("busqueda",atributo);
         list= query.list();
         session.getTransaction().commit();
@@ -67,7 +69,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 2");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 0");
         query.setParameter("busqueda",atributo);
         query.setParameter("busqueda2",documento);
         list= query.list();
@@ -82,7 +84,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)  and supEstado<> 2");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNombre) like  upper(:busqueda)  and supEstado<> 0");
         query.setParameter("busqueda",atributo);        
         list= query.list();
         for (int i = 0 ; i<list.size();i++){
@@ -101,7 +103,7 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 2");
+        query=session.createQuery("FROM EmpresaSupervisora  E WHERE upper(E.supNroDocumento) like  upper(:busqueda) and E.tdoId like :busqueda2 and supEstado<> 0");
         query.setParameter("busqueda",atributo);
         query.setParameter("busqueda2",documento);
         list= query.list();
