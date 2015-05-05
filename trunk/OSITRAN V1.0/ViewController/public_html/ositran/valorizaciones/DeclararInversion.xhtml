@@ -422,7 +422,7 @@
                                                                          id="resumenMonRea"
                                                                          style="text-align:right"></p:inputText>
                                                         </td>
-                                                        <td>Montos con IGV </td>
+                                                        <td>Montos con IGV? </td>
                                                                             <td>
                                                                                 <p:selectBooleanCheckbox value="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.deshabilitadoxObservado}">
                                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}" update=":form:datosResumen"/>
@@ -516,7 +516,7 @@
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px" value="Guardar"
                             actionListener="#{declararInversionMB.guardarDeclaracion()}"
-                            update=":form:datosDeclaracion :form:mensaje"/>
+                            update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje"/>
 
                              
                             <p:commandButton style="width:80px" value="Limpiar"/>
