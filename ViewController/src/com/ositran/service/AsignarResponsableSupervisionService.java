@@ -17,5 +17,5 @@ public interface AsignarResponsableSupervisionService {
     public String ObtieneNombre(Integer tipoDoc, String nroDocumento, Integer tipoSup) throws SQLException;
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException;
     public List<ContratoResSupDetalleVO> BuscarAsignacion(Integer contrato, Integer etapa, Integer aeropuerto, Integer inversion, Integer tipoSupervision) throws SQLException;
-  
+    public String ObtieneCorreo(Integer tipoDoc, String NroDocumento,Integer tipoSup) throws SQLException;
 }
