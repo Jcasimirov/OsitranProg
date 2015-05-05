@@ -18,15 +18,35 @@ import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.Constantes;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
+import com.ositran.util.Util;
+import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.ContratoCompromisoVO;
+import com.ositran.vo.bean.ContratoVO;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InvAvnVO;
+import com.ositran.vo.bean.InvReajusteVO;
+import com.ositran.vo.bean.InvReconocimientoVO;
 import com.ositran.vo.bean.InvTipoRevisionVO;
+import com.ositran.vo.bean.InvVO;
+import com.ositran.vo.bean.InversionDescripcionVO;
+import com.ositran.vo.bean.ModalidadConcesionVO;
+import com.ositran.vo.bean.MonedaVO;
+import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionNotificacionVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.math.BigDecimal;
 
 import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,30 +57,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import com.ositran.util.Util;
-
-import com.ositran.vo.bean.ConcesionVO;
-import com.ositran.vo.bean.ContratoCompromisoVO;
-import com.ositran.vo.bean.ContratoVO;
-import com.ositran.vo.bean.InfraestructuraTipoVO;
-import com.ositran.vo.bean.InfraestructuraVO;
-import com.ositran.vo.bean.InvReajusteVO;
-import com.ositran.vo.bean.InvReconocimientoVO;
-import com.ositran.vo.bean.InvVO;
-import com.ositran.vo.bean.InversionDescripcionVO;
-import com.ositran.vo.bean.ModalidadConcesionVO;
-import com.ositran.vo.bean.MonedaVO;
-import com.ositran.vo.bean.RolOpcionesVO;
-
-import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -1108,7 +1104,7 @@ public class NotificarInversion {
     
     public void cargarInvxTiaNumero(int numeroInversion,int tianumero){
         try {
-            invVO=invServiceImpl.obtenerInversion(numeroInversion,tianumero);
+            invVO=invServiceImpl.obtenerInversion(tianumero);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
