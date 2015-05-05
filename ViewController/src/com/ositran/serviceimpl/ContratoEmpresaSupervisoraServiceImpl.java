@@ -147,6 +147,12 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisoraVO.setInfId(contratoSupervisora.getInfId());
         contratoSupervisoraVO.setSupId(contratoSupervisora.getSupId());
         contratoSupervisoraVO.setTinId(contratoSupervisora.getTinId());
+        contratoSupervisoraVO.setCcoId(contratoSupervisora.getCcoId());
+        contratoSupervisoraVO.setTccTipo(contratoSupervisora.getTccTipo());
+        contratoSupervisoraVO.setMcoId(contratoSupervisora.getMcoId());
+        contratoSupervisoraVO.setInvId(contratoSupervisora.getInvId());
+        contratoSupervisoraVO.setCcoPlazo(contratoSupervisora.getCcoPlazo());
+        contratoSupervisoraVO.setCcoTotal(contratoSupervisora.getCcoTotal());
         return contratoSupervisoraVO;
     }
         
@@ -180,6 +186,12 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         contratoSupervisora.setInfId(contratoSupervisoraVO.getInfId());
         contratoSupervisora.setSupId(contratoSupervisoraVO.getSupId());
         contratoSupervisora.setTinId(contratoSupervisoraVO.getTinId());
+        contratoSupervisora.setCcoId(contratoSupervisoraVO.getCcoId());
+        contratoSupervisora.setTccTipo(contratoSupervisoraVO.getTccTipo());
+        contratoSupervisora.setMcoId(contratoSupervisoraVO.getMcoId());
+        contratoSupervisora.setInvId(contratoSupervisoraVO.getInvId());
+        contratoSupervisora.setCcoPlazo(contratoSupervisoraVO.getCcoPlazo());
+        contratoSupervisora.setCcoTotal(contratoSupervisoraVO.getCcoTotal());
         return contratoSupervisora;
     }
 
