@@ -125,7 +125,7 @@ public class DeclararInversion {
     @ManagedProperty(value = "#{notificacionServiceImpl}")
     private NotificacionServiceImpl notificacionServiceImpl;
     private List<InvAvnVO> listaInvAvnVO = new ArrayList<>();
-    //@ManagedProperty(value = "#{invAvnVO}")
+    @ManagedProperty(value = "#{invAvnVO}")
     private InvAvnVO invAvnVO;
 
     @ManagedProperty(value = "#{inversionAvanceEstadoServiceImpl}")
@@ -1401,5 +1401,13 @@ public class DeclararInversion {
 
     public InvReajusteVO getInvReajusteVO() {
         return invReajusteVO;
+    }
+
+    public void setInvAvnVO(InvAvnVO invAvnVO) {
+        this.invAvnVO = invAvnVO;
+    }
+
+    public InvAvnVO getInvAvnVO() {
+        return invAvnVO;
     }
 }
