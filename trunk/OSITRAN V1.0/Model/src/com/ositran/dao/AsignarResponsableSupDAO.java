@@ -18,6 +18,6 @@ public interface AsignarResponsableSupDAO {
     public String ObtieneNombre(Integer tipoDoc, String nroDocumento,Integer tipoSup) throws SQLException;
     public int ValidaAsignación(Integer contrato, Integer tipoInfra, Integer compromiso, Integer concesion, Integer aeropuerto, Integer inversion, Integer tipoDoc, String nroDoc, Integer tipoQuery) throws SQLException;
     public  List<ContratoResSupDetalle> BuscarAsignacion (Integer contrato, Integer etapa, Integer aeropuerto, Integer inversion, Integer tipoSupervision) throws SQLException;
-
+    public String ObtieneCorreo(Integer tipoDoc, String nroDocumento,Integer tipoSup) throws SQLException;
 
 }
