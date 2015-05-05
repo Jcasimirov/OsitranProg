@@ -87,7 +87,7 @@
                 </div>
                 <div align="center" style="font-size: 11px;">
                     <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
-                              resizable="false" appendToBody="true" closable="true" width="900" height="400">
+                              resizable="false" appendToBody="true" closable="true" width="1370" height="500">
                         <h:form id="frmBuscarContratoDlg">
                             <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                          columnClasses="etiquetas,cajas,validadores">
@@ -121,7 +121,7 @@
                                             pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                 <p:message for="fechaFinBC" display="icon"/>
                             </p:panelGrid>
-                            <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1">
+                            <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
                                 <p:commandButton value="Buscar Contrato"
                                                  actionListener="#{rectificarInversion.buscarContratos()}"
                                                  update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
