@@ -565,7 +565,7 @@
         <property name="valorizacionInversionAvanceDetalleVO" ref="valorizacionInversionAvanceDetalleVO"/>        
         <property name="invVO" ref="invVO"/>
         <property name="invServiceImpl" ref="invServiceImpl"/>
-        
+        <property name="invAvnVO" ref="invAvnVO"/>
         
     </bean>
     <!--temporal de Ivan-->
