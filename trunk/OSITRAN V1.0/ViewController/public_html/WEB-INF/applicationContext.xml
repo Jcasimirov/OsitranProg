@@ -283,6 +283,7 @@
     <bean id="contratoConcesionDAOImpl" class="com.ositran.daoimpl.ContratoConcesionDAOImpl"/>
     <bean id="contratoConcesionServiceImp" class="com.ositran.serviceimpl.ContratoConcesionServiceImpl">
         <property name="contratoConcesionDAOImpl" ref="contratoConcesionDAOImpl"/>
+        <property name="contratoAlertaServiceImpl" ref="contratoAlertaServiceImpl"/>
     </bean>
     <bean id="infraestructuraDAOImpl" class="com.ositran.daoimpl.InfraestructuraDAOImpl"/>
     <bean id="infraestructuraServiceImpl" class="com.ositran.serviceimpl.InfraestructuraServiceImpl">
