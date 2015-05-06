@@ -1,18 +1,21 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.daoimpl.ValorizacionConceptoDAOImpl;
+import com.ositran.model.ContratoCompromiso;
 import com.ositran.model.InvReajuste;
 import com.ositran.model.ValorizacionConcepto;
 import com.ositran.service.ValorizacionConceptoService;
+import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ValorizacionConceptoVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionConceptoServiceImpl implements ValorizacionConceptoService{
-private ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
+    ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
 
     public void setValorizacionConceptoDAOImpl(ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl) {
         this.valorizacionConceptoDAOImpl = valorizacionConceptoDAOImpl;
@@ -30,7 +33,7 @@ private ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
     }
 
     @Override
-    public String insert(InvReajuste invReajuste) throws SQLException {
+    public String insert(ValorizacionConceptoVO valorizacionConceptoVO) throws SQLException {
         // TODO Implement this method
         return null;
     }
@@ -42,18 +45,20 @@ private ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
     }
 
     @Override
-    public String update(InvReajuste invReajuste) throws SQLException {
+    public String update(ValorizacionConceptoVO valorizacionConceptoVO) throws SQLException {
         // TODO Implement this method
         return null;
     }
 
     @Override
-    public InvReajuste get(Integer id) throws SQLException {
-        // TODO Implement this method
-        return null;
+    public ValorizacionConceptoVO get(Integer id) throws SQLException {
+        ValorizacionConcepto valorizacionConcepto=this.valorizacionConceptoDAOImpl.get(id);
+        ValorizacionConceptoVO valorizacionConceptoVO=toValorizacionConceptoVO(valorizacionConcepto);
+        return valorizacionConceptoVO;
     }
-
-
+    
+    
+    
     //conversiones
     private List<ValorizacionConceptoVO> toListValorizacionConceptoVO(List<ValorizacionConcepto> list){
         List<ValorizacionConceptoVO> listVO=new ArrayList<ValorizacionConceptoVO>();
@@ -82,8 +87,5 @@ private ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
         return valorizacionConcepto1;
         
     }
-
-    
-
     
 }
