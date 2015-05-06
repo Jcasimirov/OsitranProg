@@ -30,7 +30,7 @@ public class ValorizacionSupDetalle implements Serializable {
     @Column(name = "MON_ID")
     private Integer monId;
     @Column(name="VSD_NETO")
-    private double neto;
+    private BigDecimal neto;
     @Column(name="VSD_TTOTAL")
     private BigDecimal ttotal;
     @Column(name = "TVS_HR")
@@ -41,7 +41,7 @@ public class ValorizacionSupDetalle implements Serializable {
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, double neto, BigDecimal ttotal,
+    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto, BigDecimal ttotal,
                                   Integer tvsHr, BigDecimal totalAprobado) {
         super();
         this.cvaId = cvaId;
@@ -78,11 +78,12 @@ public class ValorizacionSupDetalle implements Serializable {
         return monId;
     }
 
-    public void setNeto(double neto) {
+
+    public void setNeto(BigDecimal neto) {
         this.neto = neto;
     }
 
-    public double getNeto() {
+    public BigDecimal getNeto() {
         return neto;
     }
 
