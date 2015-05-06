@@ -11,12 +11,23 @@ public class ContratoAlertaVO {
     private Date calFechaInicio;
     private String calFechaFinDescripcion;
     private String calFechaInicioDescripcion;
+    private String calFechaLimiteDescripcion;
     
-    private Integer calId;   
-    private String calNombreconcesion;
-    
+    private Integer calId; 
     private Integer conId;
     private Integer perId;
+    private Integer tinId;
+    private Integer csiId;
+    private Integer infId;
+    private Integer invId;
+    private Integer tccTipo;
+    private Integer ccoId;
+    private Integer mcoId;
+    
+    
+    private String calNombreconcesion;
+    
+
     private Integer calEstado;
     private String caeNombre;
 
@@ -27,11 +38,12 @@ public class ContratoAlertaVO {
     private String calUsuarioBaja;
     private String calUsuarioCambio;
     private String calTerminal;
-    private Integer tinId;
+
     private Date calFechaLimite;
     private Integer calTipo;
     private Integer aleDiaMes;
     private String calPlazo;
+    private String calCorreo;
 
     
     
@@ -240,5 +252,70 @@ public class ContratoAlertaVO {
 
     public Integer getAleDiaMes() {
         return aleDiaMes;
+    }
+
+
+    public void setCalCorreo(String calCorreo) {
+        this.calCorreo = calCorreo;
+    }
+
+    public String getCalCorreo() {
+        return calCorreo;
+    }
+
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setTccTipo(Integer tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public Integer getTccTipo() {
+        return tccTipo;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
+
+    public void setMcoId(Integer mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public Integer getMcoId() {
+        return mcoId;
+    }
+
+    public void setCalFechaLimiteDescripcion(String calFechaLimiteDescripcion) {
+        this.calFechaLimiteDescripcion = calFechaLimiteDescripcion;
+    }
+
+    public String getCalFechaLimiteDescripcion() {
+        return calFechaLimiteDescripcion;
     }
 }
