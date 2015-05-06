@@ -115,13 +115,13 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalPlazo(contratoAlertaVO.getCalPlazo());
         contratoAlerta.setConId(contratoAlertaVO.getConId());
         contratoAlerta.setPerId(contratoAlertaVO.getPerId());
-        contratoAlertaVO.setTinId(contratoAlerta.getTinId());
-        contratoAlertaVO.setCsiId(contratoAlerta.getCsiId());
-        contratoAlertaVO.setInfId(contratoAlerta.getInfId());
-        contratoAlertaVO.setInvId(contratoAlerta.getInvId());
-        contratoAlertaVO.setTccTipo(contratoAlerta.getTccTipo());
-        contratoAlertaVO.setCcoId(contratoAlerta.getCcoId());
-        contratoAlertaVO.setMcoId(contratoAlerta.getMcoId());
+        contratoAlerta.setTinId(contratoAlertaVO.getTinId());
+        contratoAlerta.setCsiId(contratoAlertaVO.getCsiId());
+        contratoAlerta.setInfId(contratoAlertaVO.getInfId());
+        contratoAlerta.setInvId(contratoAlertaVO.getInvId());
+        contratoAlerta.setTccTipo(contratoAlertaVO.getTccTipo());
+        contratoAlerta.setCcoId(contratoAlertaVO.getCcoId());
+        contratoAlerta.setMcoId(contratoAlertaVO.getMcoId());
         
         contratoAlerta.setCalFechaAlta(contratoAlertaVO.getCalFechaAlta());
         contratoAlerta.setCalUsuarioAlta(contratoAlertaVO.getCalUsuarioAlta());
@@ -129,7 +129,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalUsuarioCambio(contratoAlertaVO.getCalUsuarioCambio());
         contratoAlerta.setCalFechaBaja(contratoAlertaVO.getCalFechaBaja());
         contratoAlerta.setCalUsuarioBaja(contratoAlertaVO.getCalUsuarioBaja());
-        contratoAlertaVO.setCalTerminal(contratoAlerta.getCalTerminal());
+        contratoAlerta.setCalTerminal(contratoAlertaVO.getCalTerminal());
         contratoAlerta.setCalCorreo(contratoAlertaVO.getCalCorreo());
 
         
