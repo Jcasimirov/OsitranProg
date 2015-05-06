@@ -41,8 +41,9 @@
                                                                            readonly="false" id="inputContrato"
                                                                            style="width:300px"/>
                                                              
-                                                            <p:commandButton id="searchContratos" image="ui-icon-search"
-                                                                             update=":form:pListaContratos"
+                                                            <p:commandButton id="searchContratos"
+                                                                            image="ui-icon-search"
+                                                                             update=":form:pListaContratos :form:datosCompromiso"
                                                                              oncomplete="pListaContratos.show()"
                                                                              actionListener="#{regValorizacionSupervisionMB.cargarListaContratos()}"/>
                                                              
@@ -60,7 +61,7 @@
                                                         <td align="left">Concesion</td>
                                                         <td>
                                                             <p:inputText readonly="true"
-                                                                         value="#{regValorizacionSupervisionMB.t_concesion}"></p:inputText>
+                                                                         value="#{regValorizacionSupervisionMB.t_conce}"></p:inputText>
                                                         </td>
                                                     </tr>
                                                      
@@ -80,7 +81,7 @@
                                                         </td>
                                                     </tr>
                                                      
-                                                    <tr>
+                                                    <tr  rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" >
                                                         <td align="left">Aeropuerto</td>
                                                         <td>
                                                             <p:selectOneMenu id="listaInfraestructura"
@@ -90,13 +91,13 @@
                                                                                var="tip" itemLabel="#{tip.infNombre}"
                                                                                itemValue="#{tip.infId}"/>
                                                                 <p:ajax event="valueChange"
-                                                                        update=":form:listaInversiones :form:datosCompromiso"
+                                                                        update=":form:listaInversiones"
                                                                         listener="#{regValorizacionSupervisionMB.cargarInversion()}"/>
                                                             </p:selectOneMenu>
                                                         </td>
                                                     </tr>
                                                      
-                                                    <tr>
+                                                    <tr rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <td align="left">Inversion</td>
                                                         <td>
                                                             <p:selectOneMenu id="listaInversiones"
@@ -127,7 +128,7 @@
                                                                                var="tip2" itemLabel="#{tip2.ccoPeriodo}"
                                                                                itemValue="#{tip2.ccoId}"/>
                                                                 <p:ajax event="valueChange"
-                                                                        update=":form:datosCompromiso :form:plazo :form:total :form:moneda"
+                                                                        update=":form:datosCompromiso"
                                                                         listener="#{regValorizacionSupervisionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
                                                         </td>
@@ -137,7 +138,7 @@
                                                         <td align="left">Plazo:</td>
                                                         <td align="left" colspan="3">
                                                             <p:inputText value="#{regValorizacionSupervisionMB.plazo}"
-                                                                         readonly="true" size="10" id="plazo"/>
+                                                                         readonly="true" size="10"/>
                                                         </td>
                                                     </tr>
                                                      
@@ -145,12 +146,12 @@
                                                         <td align="left">Total:</td>
                                                         <td align="left">
                                                             <p:inputText value="#{regValorizacionSupervisionMB.total}"
-                                                                         readonly="true" size="10" id="total"/>
+                                                                         readonly="true" size="10"/>
                                                         </td>
                                                         <td align="left">Moneda:</td>
                                                         <td align="left">
                                                             <p:inputText value="#{regValorizacionSupervisionMB.codigoMoneda}"
-                                                                         readonly="true" size="10" id="moneda"/>
+                                                                         readonly="true" size="10"/>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -235,8 +236,8 @@
                                                             <p:selectOneMenu value="#{regValorizacionSupervisionMB.conceptoSeleccionada}">
                                                                 <f:selectItem itemLabel="-Seleccione-" itemValue="0"/>
                                                                 <f:selectItems value="#{regValorizacionSupervisionMB.listaConcepto}"
-                                                                               var="conc" itemLabel="#{conc.ccoPeriodo}"
-                                                                               itemValue="#{conc.ccoId}"/>
+                                                                               var="conc" itemLabel="#{conc.cvaNombre}"
+                                                                               itemValue="#{conc.cvaId}"/>
                                                             </p:selectOneMenu>
                                                         </td>
                                                         <td>Monto Presentado</td>
