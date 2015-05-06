@@ -1,5 +1,7 @@
 package com.ositran.vo.bean;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,40 +16,46 @@ public class ValorizacionSupVO {
 
 
     private Integer monId;
-    private double tvsBruto;
+    private Integer supId;
+    private Integer tvsAnyo;
+    private String tvsAsunto;
+    private BigDecimal tvsBruto;
+    private Integer tvsEstado;
+    private Date tvsFechaRegistro;
+    private Integer tvsId;
     private Integer tvsHr;
-    private double tvsIgv;
+    private BigDecimal tvsIgv;
     private Date tvsInfFechaEmision;
     private String tvsInfNumero;
     private String tvsInfRegSalida;
     private Date tvsMemFechaEmision;
     private String tvsMemNumero;
     private String tvsMemRegSalida;
-    private double tvsNeto;
+    private BigDecimal tvsNeto;
     private Date tvsOfiFechaEmision;
     private String tvsOfiNumero;
     private String tvsOfiRegSalida;
-    private Integer tvsEstado;
-    private Integer supId;
-    private Integer tvsAnyo;    
-    private Date tvsFechaRegistro;
-    private String tvsAsunto;
+    private BigDecimal tvsAprobado;
+    private String tvsObservacion;
     private String nombreMoneda;
     private String nombreEstado;
-    private long tvsAprobado;
-    private String tvsObservacion;
-    private Integer tvsId;
 
 
-    public ValorizacionSupVO(Integer monId, double tvsBruto, Integer tvsHr, double tvsIgv, Date tvsInfFechaEmision,
-                             String tvsInfNumero, String tvsInfRegSalida, Date tvsMemFechaEmision, String tvsMemNumero,
-                             String tvsMemRegSalida, double tvsNeto, Date tvsOfiFechaEmision, String tvsOfiNumero,
-                             String tvsOfiRegSalida, Integer tvsEstado, Integer supId, Integer tvsAnyo,
-                             Date tvsFechaRegistro, String tvsAsunto, String nombreMoneda, String nombreEstado,
-                             long tvsAprobado, String tvsObservacion, Integer tvsId) {
+    public ValorizacionSupVO(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, BigDecimal tvsBruto,
+                             Integer tvsEstado, Date tvsFechaRegistro, Integer tvsId, Integer tvsHr, BigDecimal tvsIgv,
+                             Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
+                             Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, BigDecimal tvsNeto,
+                             Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida,
+                             BigDecimal tvsAprobado, String tvsObservacion, String nombreMoneda, String nombreEstado) {
         super();
         this.monId = monId;
+        this.supId = supId;
+        this.tvsAnyo = tvsAnyo;
+        this.tvsAsunto = tvsAsunto;
         this.tvsBruto = tvsBruto;
+        this.tvsEstado = tvsEstado;
+        this.tvsFechaRegistro = tvsFechaRegistro;
+        this.tvsId = tvsId;
         this.tvsHr = tvsHr;
         this.tvsIgv = tvsIgv;
         this.tvsInfFechaEmision = tvsInfFechaEmision;
@@ -60,20 +68,85 @@ public class ValorizacionSupVO {
         this.tvsOfiFechaEmision = tvsOfiFechaEmision;
         this.tvsOfiNumero = tvsOfiNumero;
         this.tvsOfiRegSalida = tvsOfiRegSalida;
-        this.tvsEstado = tvsEstado;
-        this.supId = supId;
-        this.tvsAnyo = tvsAnyo;
-        this.tvsFechaRegistro = tvsFechaRegistro;
-        this.tvsAsunto = tvsAsunto;
-        this.nombreMoneda = nombreMoneda;
-        this.nombreEstado = nombreEstado;
         this.tvsAprobado = tvsAprobado;
         this.tvsObservacion = tvsObservacion;
-        this.tvsId = tvsId;
+        this.nombreMoneda = nombreMoneda;
+        this.nombreEstado = nombreEstado;
     }
+
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
 
     public void setMonId(Integer monId) {
         this.monId = monId;
+    }
+
+    public Integer getMonId() {
+        return monId;
+    }
+
+    public void setSupId(Integer supId) {
+        this.supId = supId;
+    }
+
+    public Integer getSupId() {
+        return supId;
+    }
+
+    public void setTvsAnyo(Integer tvsAnyo) {
+        this.tvsAnyo = tvsAnyo;
+    }
+
+    public Integer getTvsAnyo() {
+        return tvsAnyo;
+    }
+
+    public void setTvsAsunto(String tvsAsunto) {
+        this.tvsAsunto = tvsAsunto;
+    }
+
+    public String getTvsAsunto() {
+        return tvsAsunto;
+    }
+
+
+    public void setTvsBruto(BigDecimal tvsBruto) {
+        this.tvsBruto = tvsBruto;
+    }
+
+    public BigDecimal getTvsBruto() {
+        return tvsBruto;
+    }
+
+    public void setTvsEstado(Integer tvsEstado) {
+        this.tvsEstado = tvsEstado;
+    }
+
+    public Integer getTvsEstado() {
+        return tvsEstado;
+    }
+
+    public void setTvsFechaRegistro(Date tvsFechaRegistro) {
+        this.tvsFechaRegistro = tvsFechaRegistro;
+    }
+
+    public Date getTvsFechaRegistro() {
+        return tvsFechaRegistro;
     }
 
     public void setTvsId(Integer tvsId) {
@@ -84,11 +157,6 @@ public class ValorizacionSupVO {
         return tvsId;
     }
 
-    public Integer getMonId() {
-        return monId;
-    }
-
-  
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
     }
@@ -97,7 +165,14 @@ public class ValorizacionSupVO {
         return tvsHr;
     }
 
-   
+    public void setTvsIgv(BigDecimal tvsIgv) {
+        this.tvsIgv = tvsIgv;
+    }
+
+    public BigDecimal getTvsIgv() {
+        return tvsIgv;
+    }
+
     public void setTvsInfFechaEmision(Date tvsInfFechaEmision) {
         this.tvsInfFechaEmision = tvsInfFechaEmision;
     }
@@ -146,28 +221,11 @@ public class ValorizacionSupVO {
         return tvsMemRegSalida;
     }
 
-
-    public void setTvsBruto(double tvsBruto) {
-        this.tvsBruto = tvsBruto;
-    }
-
-    public double getTvsBruto() {
-        return tvsBruto;
-    }
-
-    public void setTvsIgv(double tvsIgv) {
-        this.tvsIgv = tvsIgv;
-    }
-
-    public double getTvsIgv() {
-        return tvsIgv;
-    }
-
-    public void setTvsNeto(double tvsNeto) {
+    public void setTvsNeto(BigDecimal tvsNeto) {
         this.tvsNeto = tvsNeto;
     }
 
-    public double getTvsNeto() {
+    public BigDecimal getTvsNeto() {
         return tvsNeto;
     }
 
@@ -195,67 +253,11 @@ public class ValorizacionSupVO {
         return tvsOfiRegSalida;
     }
 
-    public void setTvsEstado(Integer tvsEstado) {
-        this.tvsEstado = tvsEstado;
-    }
-
-    public Integer getTvsEstado() {
-        return tvsEstado;
-    }
-
-    public void setSupId(Integer supId) {
-        this.supId = supId;
-    }
-
-    public Integer getSupId() {
-        return supId;
-    }
-
-    public void setTvsAnyo(Integer tvsAnyo) {
-        this.tvsAnyo = tvsAnyo;
-    }
-
-    public Integer getTvsAnyo() {
-        return tvsAnyo;
-    }
-
-    public void setTvsFechaRegistro(Date tvsFechaRegistro) {
-        this.tvsFechaRegistro = tvsFechaRegistro;
-    }
-
-    public Date getTvsFechaRegistro() {
-        return tvsFechaRegistro;
-    }
-
-    public void setTvsAsunto(String tvsAsunto) {
-        this.tvsAsunto = tvsAsunto;
-    }
-
-    public String getTvsAsunto() {
-        return tvsAsunto;
-    }
-
-    public void setNombreMoneda(String nombreMoneda) {
-        this.nombreMoneda = nombreMoneda;
-    }
-
-    public String getNombreMoneda() {
-        return nombreMoneda;
-    }
-
-    public void setNombreEstado(String nombreEstado) {
-        this.nombreEstado = nombreEstado;
-    }
-
-    public String getNombreEstado() {
-        return nombreEstado;
-    }
-
-    public void setTvsAprobado(long tvsAprobado) {
+    public void setTvsAprobado(BigDecimal tvsAprobado) {
         this.tvsAprobado = tvsAprobado;
     }
 
-    public long getTvsAprobado() {
+    public BigDecimal getTvsAprobado() {
         return tvsAprobado;
     }
 
