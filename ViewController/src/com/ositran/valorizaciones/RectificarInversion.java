@@ -508,6 +508,8 @@ public class RectificarInversion {
         totalivrMontoPresentado=BigDecimal.ZERO;
         renderMostrarIGV=false;
         estadoReconocimiento=0;
+        if(listaValorizaciones.size()==0)
+            deshabilitadoxDeclaracionNoCargada=true;
     }
     public void cargarDatosCompromiso(int ccoId) {
         try {
