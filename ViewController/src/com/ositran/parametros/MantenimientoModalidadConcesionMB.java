@@ -29,6 +29,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.ExternalContext;
@@ -42,9 +43,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "backing_mantenimientoModalidadConcesion")
-@RequestScoped
-@Generated(value = "1ositran/parametros/mantenimientoModalidadConcesion.jsf",
-           comments = "oracle-jdev-comment:managed-bean-jsp-link")
+@ViewScoped
+
 public class MantenimientoModalidadConcesionMB {
     
     
@@ -119,6 +119,7 @@ public class MantenimientoModalidadConcesionMB {
 
     public void getQuery() throws SQLException {
         listaMod = this.modalidadServiceImp.query();
+        nombremodbuscar = "";
     }
 
 
@@ -237,7 +238,7 @@ public class MantenimientoModalidadConcesionMB {
         try {
             
             modalidadVO = this.modalidadServiceImp.get(idEliminar);
-            modalidadVO.setMcoEstado(2);
+            modalidadVO.setMcoEstado(0);
             //this.modalidadServiceImp.delete(idModalidad);
             modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
             modalidadVO.setMcoTerminal(util.obtenerIpCliente());
@@ -245,6 +246,7 @@ public class MantenimientoModalidadConcesionMB {
             getQuery();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            modalidadVO.setMcoId(null);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             FacesMessage mensaje =
