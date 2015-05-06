@@ -159,6 +159,7 @@ public class MantenimientoEmpSup {
                 }
             }
         }
+        nomEmpSupBus = "";
         //limpiarCampos ();
         return listaEmpSup; 
         
@@ -320,7 +321,7 @@ public class MantenimientoEmpSup {
     public String EmpSupDel() throws SQLException{
         try{            
             empSupVO=this.empSupServiceImp.get(idEliminar);
-            empSupVO.setSupEstado(2);
+            empSupVO.setSupEstado(0);
             empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
             empSupVO.setSupTerminal(util.obtenerIpCliente());
             this.empSupServiceImp.update(empSupVO);
@@ -369,7 +370,10 @@ public class MantenimientoEmpSup {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!telefono.trim().equals("") && !telefono.matches("[0-9]*")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Teléfono Inválido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (telefono.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Teléfono");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento>0 && !nroDoc.matches("[0-9]*") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
@@ -630,6 +634,9 @@ public class MantenimientoEmpSup {
         }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else if (telefonoMod.trim().equals("")) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Teléfono");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -829,7 +836,7 @@ public class MantenimientoEmpSup {
     public List<EmpresaSupervisoraVO> FiltrarListaEmpSup() throws SQLException{
         System.out.println(nomEmpSupBus);
         System.out.println(rucbus);
-        listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus,rucbus);
+        listaEmpSup=this.empSupServiceImp.FiltrarEmpSup(nomEmpSupBus);
         listaTipoDocumento = this.tipoDocumentoServiceImp.query();
         for (int i = 0 ; i< listaEmpSup.size();i++){
             for(int j=0; j<listaTipoDocumento.size();j++){
