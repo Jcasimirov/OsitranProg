@@ -1,11 +1,15 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.ValorizacionSupDetalleDAO;
+import com.ositran.daoimpl.ValorizacionInversionAvanceDetalleDAOImpl;
+import com.ositran.daoimpl.ValorizacionSupDetalleDAOImpl;
 import com.ositran.model.InfraestructuraTipo;
+import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.model.ValorizacionSup;
 import com.ositran.model.ValorizacionSupDetalle;
 import com.ositran.service.ValorizacionSupDetalleService;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ValorizacionSupVO;
 
@@ -17,9 +21,10 @@ import java.util.List;
 
 public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalleService{
     
-    ValorizacionSupDetalleDAO valorizacionSupDetalleDAOImpl;
-    ValorizacionSupDetalle valorizacionSupDetalle;
-    ValorizacionSupDetalleVO valorizacionSupDetalleVO;
+    ValorizacionSupDetalleDAOImpl valorizacionSupDetalleDAOImpl = new ValorizacionSupDetalleDAOImpl();
+    ValorizacionSupDetalle valorizacionSupDetalle = new ValorizacionSupDetalle();
+    ValorizacionSupDetalleVO valorizacionSupDetalleVO = new ValorizacionSupDetalleVO();
+    
     
     public ValorizacionSupDetalleServiceImpl() {
     }
@@ -74,6 +79,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     }
     private ValorizacionSupDetalleVO toValorizacionSupDetalleVO(ValorizacionSupDetalle valorizacionSupDetalle){
         ValorizacionSupDetalleVO valorizacionSupDetalleVO=new ValorizacionSupDetalleVO();
+        valorizacionSupDetalleVO.setVsdId(valorizacionSupDetalle.getVsdId());
         valorizacionSupDetalleVO.setCvaId(valorizacionSupDetalle.getCvaId()); 
         valorizacionSupDetalleVO.setIgv(valorizacionSupDetalle.getIgv());
         valorizacionSupDetalleVO.setMonId(valorizacionSupDetalle.getMonId());
@@ -85,6 +91,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     }
     private ValorizacionSupDetalle toValorizacionSupDetalle(ValorizacionSupDetalleVO valorizacionSupDetalleVO){
         ValorizacionSupDetalle valorizacionSupDetalle=new ValorizacionSupDetalle();
+        valorizacionSupDetalle.setVsdId(valorizacionSupDetalleVO.getVsdId());
         valorizacionSupDetalle.setCvaId(valorizacionSupDetalleVO.getCvaId());
         valorizacionSupDetalle.setIgv(valorizacionSupDetalleVO.getIgv());
         valorizacionSupDetalle.setMonId(valorizacionSupDetalleVO.getMonId());
@@ -97,11 +104,11 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     }
 
 
-    public void setValorizacionSupDetalleDAOImpl(ValorizacionSupDetalleDAO valorizacionSupDetalleDAOImpl) {
+    public void setValorizacionSupDetalleDAOImpl(ValorizacionSupDetalleDAOImpl valorizacionSupDetalleDAOImpl) {
         this.valorizacionSupDetalleDAOImpl = valorizacionSupDetalleDAOImpl;
     }
 
-    public ValorizacionSupDetalleDAO getValorizacionSupDetalleDAOImpl() {
+    public ValorizacionSupDetalleDAOImpl getValorizacionSupDetalleDAOImpl() {
         return valorizacionSupDetalleDAOImpl;
     }
 
@@ -120,7 +127,8 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     public ValorizacionSupDetalleVO getValorizacionSupDetalleVO() {
         return valorizacionSupDetalleVO;
     }
-    
+
+
     //Ivan
     @Override
     public List<ValorizacionSupDetalleVO> ListaValorizacionesDetRegistradas(Integer id) throws SQLException, Exception {
