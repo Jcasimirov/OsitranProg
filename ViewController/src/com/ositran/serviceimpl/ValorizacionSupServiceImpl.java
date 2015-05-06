@@ -24,12 +24,9 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
     }
 
     @Override
-    public String insert(ValorizacionSupVO valorizacionSupVO) throws SQLException, Exception {
-        System.out.println("Entro al metodo  INSERT service impl");
+    public int insert(ValorizacionSupVO valorizacionSupVO) throws SQLException, Exception {
         ValorizacionSup valorizacionSup = toValorizacionSup(valorizacionSupVO);
-        System.out.println("Entro al metodo  INSERT service impl 22");
-        String result = valorizacionSupDAOImpl.insert(valorizacionSup);
-        System.out.println("Entro al metodo  INSERT service impl 33");
+        int result = valorizacionSupDAOImpl.insert(valorizacionSup);
         return result;
     }
 
