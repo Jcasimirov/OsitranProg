@@ -1,6 +1,9 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
+import java.math.BigDecimal;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +38,7 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_ASUNTO", length = 100)
     private String tvsAsunto;
     @Column(name = "TVS_BRUTO", nullable = false)
-    private double tvsBruto;
+    private BigDecimal tvsBruto;
     @Column(name = "TVS_ESTADO")
     private Integer tvsEstado;
     @Temporal(TemporalType.DATE)
@@ -48,7 +51,7 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_HR", nullable = false)
     private Integer tvsHr;
     @Column(name = "TVS_IGV", nullable = false)
-    private double tvsIgv;
+    private BigDecimal tvsIgv;
     @Temporal(TemporalType.DATE)
     @Column(name = "TVS_INF_FECHA_EMISION")
     private Date tvsInfFechaEmision;
@@ -64,7 +67,7 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_MEM_REG_SALIDA", length = 100)
     private String tvsMemRegSalida;
     @Column(name = "TVS_NETO", nullable = false)
-    private double tvsNeto;
+    private BigDecimal tvsNeto;
     @Temporal(TemporalType.DATE)
     @Column(name = "TVS_OFI_FECHA_EMISION")
     private Date tvsOfiFechaEmision;
@@ -73,7 +76,7 @@ public class ValorizacionSup implements Serializable {
     @Column(name = "TVS_OFI_REG_SALIDA", length = 100)
     private String tvsOfiRegSalida;
     @Column(name = "TVS_APROBADO")
-    private Long tvsAprobado;
+    private BigDecimal tvsAprobado;
     @Column(name = "TVS_OBSERVACION", length = 4000)
     private String tvsObservacion;
 
@@ -81,11 +84,11 @@ public class ValorizacionSup implements Serializable {
     }
 
 
-    public ValorizacionSup(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, double tvsBruto,
-                           Integer tvsEstado, Date tvsFechaRegistro, Integer tvsId, Integer tvsHr, double tvsIgv,
+    public ValorizacionSup(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, BigDecimal tvsBruto,
+                           Integer tvsEstado, Date tvsFechaRegistro, Integer tvsId, Integer tvsHr, BigDecimal tvsIgv,
                            Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
-                           Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, double tvsNeto,
-                           Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, Long tvsAprobado,
+                           Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, BigDecimal tvsNeto,
+                           Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, BigDecimal tvsAprobado,
                            String tvsObservacion) {
         super();
         this.monId = monId;
@@ -112,20 +115,13 @@ public class ValorizacionSup implements Serializable {
         this.tvsObservacion = tvsObservacion;
     }
 
+
     public void setMonId(Integer monId) {
         this.monId = monId;
     }
 
     public Integer getMonId() {
         return monId;
-    }
-
-    public void setTvsId(Integer tvsId) {
-        this.tvsId = tvsId;
-    }
-
-    public Integer getTvsId() {
-        return tvsId;
     }
 
     public void setSupId(Integer supId) {
@@ -153,6 +149,13 @@ public class ValorizacionSup implements Serializable {
     }
 
 
+    public void setTvsBruto(BigDecimal tvsBruto) {
+        this.tvsBruto = tvsBruto;
+    }
+
+    public BigDecimal getTvsBruto() {
+        return tvsBruto;
+    }
 
     public void setTvsEstado(Integer tvsEstado) {
         this.tvsEstado = tvsEstado;
@@ -170,6 +173,14 @@ public class ValorizacionSup implements Serializable {
         return tvsFechaRegistro;
     }
 
+    public void setTvsId(Integer tvsId) {
+        this.tvsId = tvsId;
+    }
+
+    public Integer getTvsId() {
+        return tvsId;
+    }
+
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
     }
@@ -178,7 +189,13 @@ public class ValorizacionSup implements Serializable {
         return tvsHr;
     }
 
-  
+    public void setTvsIgv(BigDecimal tvsIgv) {
+        this.tvsIgv = tvsIgv;
+    }
+
+    public BigDecimal getTvsIgv() {
+        return tvsIgv;
+    }
 
     public void setTvsInfFechaEmision(Date tvsInfFechaEmision) {
         this.tvsInfFechaEmision = tvsInfFechaEmision;
@@ -228,28 +245,11 @@ public class ValorizacionSup implements Serializable {
         return tvsMemRegSalida;
     }
 
-
-    public void setTvsBruto(double tvsBruto) {
-        this.tvsBruto = tvsBruto;
-    }
-
-    public double getTvsBruto() {
-        return tvsBruto;
-    }
-
-    public void setTvsIgv(double tvsIgv) {
-        this.tvsIgv = tvsIgv;
-    }
-
-    public double getTvsIgv() {
-        return tvsIgv;
-    }
-
-    public void setTvsNeto(double tvsNeto) {
+    public void setTvsNeto(BigDecimal tvsNeto) {
         this.tvsNeto = tvsNeto;
     }
 
-    public double getTvsNeto() {
+    public BigDecimal getTvsNeto() {
         return tvsNeto;
     }
 
@@ -277,12 +277,11 @@ public class ValorizacionSup implements Serializable {
         return tvsOfiRegSalida;
     }
 
-
-    public void setTvsAprobado(Long tvsAprobado) {
+    public void setTvsAprobado(BigDecimal tvsAprobado) {
         this.tvsAprobado = tvsAprobado;
     }
 
-    public Long getTvsAprobado() {
+    public BigDecimal getTvsAprobado() {
         return tvsAprobado;
     }
 
@@ -293,4 +292,5 @@ public class ValorizacionSup implements Serializable {
     public String getTvsObservacion() {
         return tvsObservacion;
     }
+
 }
