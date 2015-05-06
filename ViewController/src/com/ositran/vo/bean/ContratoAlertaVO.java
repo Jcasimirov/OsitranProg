@@ -42,7 +42,7 @@ public class ContratoAlertaVO {
     private Date calFechaLimite;
     private Integer calTipo;
     private Integer aleDiaMes;
-    private String calPlazo;
+    private Date calPlazo;
     private String calCorreo;
 
     
@@ -108,11 +108,11 @@ public class ContratoAlertaVO {
         this.calNombreconcesion = calNombreconcesion; 
     }
 
-    public String getCalPlazo() {
+    public Date getCalPlazo() {
         return calPlazo;
     }
 
-    public void setCalPlazo(String calPlazo) {
+    public void setCalPlazo(Date calPlazo) {
         this.calPlazo = calPlazo;
     }
 
