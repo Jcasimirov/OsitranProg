@@ -11,7 +11,7 @@ public class ValorizacionSupDetalleVO {
     private Integer cvaId;
     private BigDecimal igv;
     private Integer monId;
-    private double neto;
+    private BigDecimal neto;
     private BigDecimal ttotal;
     private Integer tvsHr;
     private BigDecimal totalAprobado;
@@ -30,7 +30,7 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer cvaId, BigDecimal igv, Integer monId, double neto, BigDecimal ttotal,
+    public ValorizacionSupDetalleVO(Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto, BigDecimal ttotal,
                                     Integer tvsHr, BigDecimal totalAprobado, String aeropuertos,
                                     String descripcionInversion, String nombreMoneda, int contador, int fila) {
         super();
@@ -73,11 +73,12 @@ public class ValorizacionSupDetalleVO {
         return monId;
     }
 
-    public void setNeto(double neto) {
+
+    public void setNeto(BigDecimal neto) {
         this.neto = neto;
     }
 
-    public double getNeto() {
+    public BigDecimal getNeto() {
         return neto;
     }
 
