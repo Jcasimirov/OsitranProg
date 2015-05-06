@@ -196,6 +196,9 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
             con.setConEstado(columna[21]!=null?new Integer(columna[21].toString()):null);
             con.setConFechaAlta((Date)columna[22]);
             con.setConAsunto(columna[23]!=null?columna[23].toString():null);
+            con.setConCantidadPlazoconcesion(columna[24]!=null?new Integer(columna[24].toString()):null);
+            con.setConMesoAnioPlazoconcesion(columna[25]!=null?new Integer(columna[25].toString()):null);
+            con.setConNotaPlazoConcesion(columna[26]!=null?columna[26].toString():null);
             lstBusquedaxNombreConcesion.add(con);
            // System.out.println("*********SERVICE*******buscarContratoxNombreConcesion():"+((Date)columna[0])+"-"+columna[1].toString()+"-"+columna[2].toString()+"-"+columna[3].toString()+"-"+columna[4].toString()+"-"+columna[5].toString()+"-"+columna[6].toString());
        }
