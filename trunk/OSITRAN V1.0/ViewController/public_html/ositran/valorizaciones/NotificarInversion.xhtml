@@ -35,12 +35,15 @@
                         </h3>
                     </div>
                     <div align="center" >
-                <div style="width:100%" >
-                    <p:dataTable value="#{bk_NotificarInversion.listaValorizaciones}" id="tablaValorizaciones" var="val"
-                                 rows="10" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="5,10,15"
-                                 emptyMessage="No se Encontraron Registros" rowIndexVar="rowIndex">
+                <div style="width:90%" >
+                <p:dataTable paginatorPosition="bottom"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,20" 
+                                              id="tablaValorizaciones" var="val" style="font-size:10px"
+                                             value="#{bk_NotificarInversion.listaValorizaciones}"
+                                             rowIndexVar="rowIndex"> 
+                
                         <p:column headerText="N°" style="font-size: 9px">
                             <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase; font-size: 9px"/>
                         </p:column>
@@ -54,18 +57,18 @@
                             <h:outputText value="#{val.tiaNumero}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
                         <p:column headerText="Fecha Reg." style="font-size: 9px">
-                            <h:outputText value="#{val.tiaFechaRegistro}" style="text-transform:uppercase; font-size: 9px;"/>
+                            <h:outputText value="#{val.tiaFechaRegistroDescripcion}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
                         <p:column headerText="Moneda" style="font-size: 9px">
                             <h:outputText value="#{val.nombreMoneda}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="T.Presentado" style="font-size: 9px">
+                        <p:column headerText="Total Presentado" style="font-size: 9px">
                             <h:outputText value="#{val.tiaMontoTotalPresentado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="T.Reconocido" style="font-size: 9px">
+                        <p:column headerText="Total Reconocido" style="font-size: 9px">
                             <h:outputText value="#{val.tiaMontoTotalAprobado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
-                        <p:column headerText="T.Reajustado" style="font-size: 9px">
+                        <p:column headerText="Total Reajustado" style="font-size: 9px">
                             <h:outputText value="#{val.tiaMontoTotalReajustado}" style="text-transform:uppercase; font-size: 9px;"/>
                         </p:column>
                         <p:column headerText="Estado" style="font-size: 9px">
