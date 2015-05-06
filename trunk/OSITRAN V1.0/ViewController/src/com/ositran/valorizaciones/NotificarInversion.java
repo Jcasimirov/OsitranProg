@@ -387,7 +387,7 @@ public class NotificarInversion {
 
                 //Cambiar el formato de fecha de notificacion y de registro
                 //freghrnot = dt1.format(viewTdInternosVO.getFechaRegistro());
-
+                listaValorizaciones.get(i).setTiaFechaRegistroDescripcion(dt1.format(listaValorizaciones.get(i).getTiaFechaRegistro()));
                 if (listaValorizaciones.get(i).getIaeId() == 4) {
                     listaValorizaciones.get(i).setEstado("Declarado");
                     listaValorizaciones.get(i).setAprobadopor("Por Aprobar");
