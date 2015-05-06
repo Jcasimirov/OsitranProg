@@ -671,7 +671,8 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupObra(dirObraMod);
                 empSupVO.setSupFechaAlta(this.empSupServiceImp.get(idMod).getSupFechaAlta());
                 empSupVO.setSupTerminal(terminalMod);
-                this.empSupServiceImp.update(empSupVO);        
+                this.empSupServiceImp.update(empSupVO);
+                empSupVO.setSupId(null);
                 getQuery();
                 limpiarCampos();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Actualizo con Exito");
