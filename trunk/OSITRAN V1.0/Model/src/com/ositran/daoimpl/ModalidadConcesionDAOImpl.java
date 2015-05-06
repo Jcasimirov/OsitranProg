@@ -27,7 +27,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
     public List<ModalidadConcesion> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
 
-        List<ModalidadConcesion> list= session.createQuery("From ModalidadConcesion o where o.mcoEstado<> 2").list();            
+        List<ModalidadConcesion> list= session.createQuery("From ModalidadConcesion o where o.mcoEstado<> 0").list();            
         System.out.println("LISTA = "+list);
 
         session.close();
@@ -39,7 +39,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda) and mcoEstado<> 2");
+        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda) and mcoEstado<> 0");
         query.setParameter("busqueda",atributo);
         list= query.list();
         session.getTransaction().commit();
@@ -52,7 +52,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda) and mcoEstado<> 2");
+        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda) and mcoEstado<> 0");
         query.setParameter("busqueda",atributo);
         list= query.list();
         list= query.list();
@@ -72,7 +72,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM ModalidadConcesion m WHERE upper(m.mcoNombre) like  upper(:busqueda) and mcoEstado<> 2");
+        query=session.createQuery("FROM ModalidadConcesion m WHERE (upper(m.mcoNombre) like  upper(:busqueda) or upper(m.mcoDescripcion) like  upper(:busqueda)) and mcoEstado<> 0");
         query.setParameter("busqueda","%"+atributo+"%");
         list= query.list();
         session.getTransaction().commit();
