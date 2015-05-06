@@ -9,20 +9,19 @@ import javax.persistence.Id;
 public class ValorizacionSupDetalleVO {
     
     private Integer cvaId;
-    private double igv;
+    private BigDecimal igv;
     private Integer monId;
     private double neto;
-    private double ttotal;
+    private BigDecimal ttotal;
     private Integer tvsHr;
+    private BigDecimal totalAprobado;
+    
+    
     
     private String aeropuertos;
     private String descripcionInversion;
     private String nombreMoneda;
-    
     private int contador;
-    
-    private double totalAprobado;
-    
     private int fila;
     
     
@@ -31,7 +30,9 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer cvaId, Long igv, Integer monId, Long neto, Long ttotal, Integer tvsHr, double totalAprobado, int fila) {
+    public ValorizacionSupDetalleVO(Integer cvaId, BigDecimal igv, Integer monId, double neto, BigDecimal ttotal,
+                                    Integer tvsHr, BigDecimal totalAprobado, String aeropuertos,
+                                    String descripcionInversion, String nombreMoneda, int contador, int fila) {
         super();
         this.cvaId = cvaId;
         this.igv = igv;
@@ -40,6 +41,10 @@ public class ValorizacionSupDetalleVO {
         this.ttotal = ttotal;
         this.tvsHr = tvsHr;
         this.totalAprobado = totalAprobado;
+        this.aeropuertos = aeropuertos;
+        this.descripcionInversion = descripcionInversion;
+        this.nombreMoneda = nombreMoneda;
+        this.contador = contador;
         this.fila = fila;
     }
 
@@ -52,11 +57,11 @@ public class ValorizacionSupDetalleVO {
         return cvaId;
     }
 
-    public void setIgv(double igv) {
+    public void setIgv(BigDecimal igv) {
         this.igv = igv;
     }
 
-    public double getIgv() {
+    public BigDecimal getIgv() {
         return igv;
     }
 
@@ -76,15 +81,13 @@ public class ValorizacionSupDetalleVO {
         return neto;
     }
 
-
-    public void setTtotal(double ttotal) {
+    public void setTtotal(BigDecimal ttotal) {
         this.ttotal = ttotal;
     }
 
-    public double getTtotal() {
+    public BigDecimal getTtotal() {
         return ttotal;
     }
-
 
     public void setTvsHr(Integer tvsHr) {
         this.tvsHr = tvsHr;
@@ -92,6 +95,14 @@ public class ValorizacionSupDetalleVO {
 
     public Integer getTvsHr() {
         return tvsHr;
+    }
+
+    public void setTotalAprobado(BigDecimal totalAprobado) {
+        this.totalAprobado = totalAprobado;
+    }
+
+    public BigDecimal getTotalAprobado() {
+        return totalAprobado;
     }
 
     public void setAeropuertos(String aeropuertos) {
@@ -118,21 +129,12 @@ public class ValorizacionSupDetalleVO {
         return nombreMoneda;
     }
 
-
     public void setContador(int contador) {
         this.contador = contador;
     }
 
     public int getContador() {
         return contador;
-    }
-
-    public void setTotalAprobado(double totalAprobado) {
-        this.totalAprobado = totalAprobado;
-    }
-
-    public double getTotalAprobado() {
-        return totalAprobado;
     }
 
     public void setFila(int fila) {
