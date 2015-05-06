@@ -89,21 +89,17 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
         session.beginTransaction();
-        Query query=session.createSQLQuery(" Update T_CONTRATO_ALERTA set CAL_ESTADO = 0 " +
-                                        " where CON_ID   = '"+contratoAlerta.getConId()+"' " +
-                                        " and   CAL_TIPO = '1' ");
-        query.executeUpdate();  
-        session.flush();
-        /* ContratoAlerta    alertaInit=new ContratoAlerta();
-        alertaInit=    contratoAlerta;
-        alertaInit.setCalId(null);
-        alertaInit.setCalTipo(1);
-        alertaInit.setConId(2);    
-        alertaInit.setCalEstado(0);  
-        session.update(alertaInit); */
-        session.persist(contratoAlerta);
-        session.update(contrato);
 
+        if(contrato.getConAvanceobra()==1){
+            Query query=session.createSQLQuery(" Update T_CONTRATO_ALERTA set CAL_ESTADO = 0 " +
+                                            " where CON_ID   = '"+contratoAlerta.getConId()+"' " +
+                                            " and   CAL_TIPO = '1' ");
+            query.executeUpdate();                
+            session.save(contratoAlerta);           
+        }
+        session.update(contrato);
+        session.flush();   
+        session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback(); 
@@ -201,7 +197,10 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                     querysql.append("C.CON_NUMERO, " );
                                     querysql.append("C.CON_ESTADO, " );
                                     querysql.append("C.CON_FECHA_ALTA," );
-                                    querysql.append("C.CON_ASUNTO " );                                                          
+                                    querysql.append("C.CON_ASUNTO, " );                                                          
+                                    querysql.append("C.CON_CANTIDAD_PLAZOCONCESION, " ); 
+                                    querysql.append("C.CON_MESOANIO_PLAZOCONCESION, " ); 
+                                    querysql.append("C.CON_NOTA_PLAZOCONCESION " ); 
                                     querysql.append("From T_CONTRATO c " );
                                     querysql.append("left join T_CONCESION csi on c.CSI_ID=csi.CSI_ID " );
                                     querysql.append("left join T_MODALIDAD_CONCESION  mco on c.MCO_ID=mco.MCO_ID " );
