@@ -374,7 +374,7 @@ public class ReconocimientoValSupervision {
         
         try {
             System.out.println("entro FiltrarListaEmpSup: " + listaEmpresasSup.size());
-            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpSup, "");
+            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpSup);
             listaTipoDocumento = tipoDocumentoServiceImp.query();
             for (int i = 0; i < listaEmpresasSup.size(); i++) {
                 for (int j = 0; j < listaTipoDocumento.size(); j++) {
@@ -415,8 +415,9 @@ public class ReconocimientoValSupervision {
         valorizacionSupVO = (ValorizacionSupVO) actionEvent.getComponent().getAttributes().get("valorizacion");
         listaValorizaciondetalle = valorizacionSupDetalleServiceImpl.ListaValorizacionesDetRegistradas(valorizacionSupVO.getTvsHr());
         for (int i=0 ;i<listaValorizaciondetalle.size();i++){
-            listaValorizaciondetalle.get(i).setTotalAprobado(listaValorizaciondetalle.get(i).getTotal());
-            totalpresentado = totalpresentado + listaValorizaciondetalle.get(i).getTotal(); 
+            
+            listaValorizaciondetalle.get(i).setTotalAprobado(listaValorizaciondetalle.get(i).getTtotal());
+            totalpresentado = totalpresentado + listaValorizaciondetalle.get(i).getTtotal(); 
             listaValorizaciondetalle.get(i).setFila(i);
             if(listaValorizaciondetalle.get(i).getMonId() == 1){
                 listaValorizaciondetalle.get(i).setNombreMoneda("Nuevos Soles");
@@ -429,7 +430,7 @@ public class ReconocimientoValSupervision {
     
     public void seleccionarValorizaciondet(ActionEvent actionEvent) throws Exception{
         valorizacionSupDetalleVO = (ValorizacionSupDetalleVO) actionEvent.getComponent().getAttributes().get("valorizaciodet");
-        montoTotal = valorizacionSupDetalleVO.getTotal();
+        montoTotal = valorizacionSupDetalleVO.getTtotal();
         montoIngresado = ""+montoTotal;
         filaSeleccionada = valorizacionSupDetalleVO.getFila();
     }
