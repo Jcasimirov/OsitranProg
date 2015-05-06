@@ -66,16 +66,31 @@ public class ContratoAlerta implements Serializable {
     private String calUsuarioBaja;
     @Column(name = "CAL_USUARIO_CAMBIO", length = 20)
     private String calUsuarioCambio;
-    
-    @Column(name = "TIN_ID")
-    private Integer tinId; 
+    @Column(name = "CAL_TERMINAL", length = 20)
+    private String calTerminal;
+ 
     
     @Column(name = "CAL_FECHA_LIMITE")
     private Date calFechaLimite;
     @Column(name = "CAL_TIPO")
     private Integer calTipo;
+    @Column(name = "CAL_CORREO")
+    private String calCorreo;   
     
-
+    @Column(name = "TIN_ID")
+    private Integer tinId;
+    @Column(name = "CSI_ID")
+    private Integer csiId;
+    @Column(name = "INF_ID")
+    private Integer infId;
+    @Column(name = "INV_ID")
+    private Integer invId;
+    @Column(name = "TCC_TIPO")
+    private Integer tccTipo;
+    @Column(name = "CCO_ID")
+    private Integer ccoId;
+    @Column(name = "MCO_ID")
+    private Integer mcoId;
     public ContratoAlerta() {
     }
 
@@ -253,5 +268,69 @@ public class ContratoAlerta implements Serializable {
 
     public Integer getCalTipo() {
         return calTipo;
+    }
+
+    public void setCalCorreo(String calCorreo) {
+        this.calCorreo = calCorreo;
+    }
+
+    public String getCalCorreo() {
+        return calCorreo;
+    }
+
+    public void setCsiId(Integer csiId) {
+        this.csiId = csiId;
+    }
+
+    public Integer getCsiId() {
+        return csiId;
+    }
+
+    public void setInfId(Integer infId) {
+        this.infId = infId;
+    }
+
+    public Integer getInfId() {
+        return infId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setTccTipo(Integer tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public Integer getTccTipo() {
+        return tccTipo;
+    }
+
+    public void setCcoId(Integer ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public Integer getCcoId() {
+        return ccoId;
+    }
+
+    public void setMcoId(Integer mcoId) {
+        this.mcoId = mcoId;
+    }
+
+    public Integer getMcoId() {
+        return mcoId;
+    }
+
+    public void setCalTerminal(String calTerminal) {
+        this.calTerminal = calTerminal;
+    }
+
+    public String getCalTerminal() {
+        return calTerminal;
     }
 }
