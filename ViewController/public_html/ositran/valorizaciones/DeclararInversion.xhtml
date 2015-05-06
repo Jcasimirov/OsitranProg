@@ -186,7 +186,7 @@
                                                                                var="tip2" itemLabel="#{tip2.ccoPeriodo}"
                                                                                itemValue="#{tip2.ccoId}"/>
                                                                 <p:ajax event="valueChange"
-                                                                        update=":form:datosCompromiso :form:tablaAvanceInversion"
+                                                                        update=":form"
                                                                         listener="#{declararInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
                                                         </td>
@@ -260,7 +260,7 @@
                                         </p:fieldset>
                                     </td>
                                     <td valign="top">
-                                        <p:fieldset legend="Datos de Reconocimiento" id="datosDeclaracion">
+                                        <p:fieldset legend="Datos de Reconocimiento" id="datosDeclaracion" rendered="#{declararInversionMB.mostrarxDeclaracionCargada}">
                                             <table>
                                                 <tr>
                                                     <td align="left">Estado del Reconomiento:</td>
@@ -516,7 +516,7 @@
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px" value="Guardar"
                             actionListener="#{declararInversionMB.guardarDeclaracion()}"
-                            update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje"/>
+                            update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje" disabled="#{declararInversionMB.deshabilitadoxDeclaracionNoCargada}"/>
 
                              
                             <p:commandButton style="width:80px" value="Limpiar"/>
