@@ -181,7 +181,8 @@ public class ActualizarContrato {
     @ManagedProperty(value = "#{contratoPpoServiceImpl}")
     private ContratoPpoServiceImpl contratoPpoServiceImpl;
     private List<ContratoPpoVO> listContratoPpoVO;
-
+    @ManagedProperty(value = "#{fechasUtil}")
+    private FechasUtil fu;
     // Lista Bean VO
 
     List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<InfraestructuraTipoVO>();
@@ -201,7 +202,8 @@ public class ActualizarContrato {
     List<ContratoPenalidadVO> listarContratoPenalidad = new ArrayList<ContratoPenalidadVO>();
     List<ContratoPenalidadEstadoVO> listarContratoPenalidadEstado = new ArrayList<ContratoPenalidadEstadoVO>();
     List<PeriodoVO> listarPeriodos = new ArrayList<PeriodoVO>();
-    HashMap<String,Integer> periodosCache= new HashMap<String,Integer>();
+    HashMap<Integer,Integer> periodosCache= new HashMap<Integer,Integer>();
+    HashMap<String,Object> infraestructurasCache= new HashMap<String,Object>();
     List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
     List<ContratoCompromisoVO> listarContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
     List<ContratoCompromisoVO> listarContratoCompromisoSupervisado = new ArrayList<ContratoCompromisoVO>();
@@ -269,11 +271,11 @@ public class ActualizarContrato {
     private Integer codigoInversion;
 
     //alertas
-    private String nombAeropuerto;
+    private String infId;
     private String descAlerta;
     private Date fechaIniAlerta;
     private Date fechaFinAlerta;
-    private String plazoAlerta;
+    private int plazoAlerta;
     private Integer diaPresAlerta;
     private String nombreAlerta;
     private Integer codigoAlerta;
@@ -300,7 +302,7 @@ public class ActualizarContrato {
     
     private String plazoCompromisoIndicado;
     private String plazoCompromisoSupervisado;
-    private String unidadTiempo;
+    private Integer unidadTiempo;
     
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
@@ -350,7 +352,7 @@ public class ActualizarContrato {
         try {
             listarPeriodos = periodoServiceImpl.query();
             for(PeriodoVO periodoVO : listarPeriodos){
-                periodosCache.put(periodoVO.getPerId().toString(), periodoVO.getPerCantidadendias());
+                periodosCache.put(periodoVO.getPerId(), periodoVO.getPerCantidadendias());
             }
         } catch (SQLException sqle) {
             // TODO: Add catch code
@@ -501,16 +503,18 @@ public class ActualizarContrato {
                                                                             contratoVO.getInputStreamContratoPDF());
             }
             
-            FechasUtil fu = new FechasUtil();
+            int cantidadDeDias=contratoVO.getConCantidadPlazoconcesion()*contratoVO.getConMesoAnioPlazoconcesion();
             Date conPlazoConcesionCalculado=
-                fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConCantidadPlazoconcesion(), 0);
+                fu.adicionaDias(contratoVO.getConFechaSuscripcion(),cantidadDeDias, 0);
             contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
             contratoVO.setConFechaCambio(new Date());
             contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
-            contratoVO.setConTerminal(usuario.getUsuTerminal());          
-            /*             ContratoAlertaVO alertaVO= prepararAlerta();
-            contratoConcesionServiceImp.updateContrato(contratoVO,alertaVO); */
-            String string = contratoConcesionServiceImp.update(contratoVO);
+            contratoVO.setConTerminal(usuario.getUsuTerminal()); 
+            if(periodoseleccionado!=0){
+                contratoVO.setConDiames(null);
+            }
+            ContratoAlertaVO alertaVO= prepararAlerta();
+            contratoConcesionServiceImp.updateContrato(contratoVO,alertaVO); 
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
                                                                           Constantes.EXITOCONTRATOACTUALIZADO));
@@ -523,35 +527,53 @@ public class ActualizarContrato {
     }
     public ContratoAlertaVO prepararAlerta(){
         try {
-                      
             ContratoAlertaVO alerta=new ContratoAlertaVO();
-            alerta.setConId(contratoVO.getConId());
-            alerta.setTinId(contratoVO.getTinId());
-            alerta.setCalFechaLimite(contratoVO.getConPlazoconcesion());
-            if(contratoVO.getConAvanceobra()==1)
-                alerta.setCalTipo(contratoVO.getConAvanceobra());
-                      
-            alerta.setCalNombreconcesion(contratoVO.getNombreConcesionario());
-            alerta.setCalFechaInicio(contratoVO.getConFechaSuscripcion()!=null?contratoVO.getConFechaSuscripcion():null);
-           
-            /*seteando periodo en alerta*/  
+            /*fecha de inicio es igual a la fecha de suscripcion*/
+            alerta.setCalFechaInicio(contratoVO.getConFechaSuscripcion());
+            /*tipo de alerta por defecto 1*/
+            alerta.setCalTipo(1);  
             Integer cantidadDeDias=0;
-            /*si escojio una opcion diferente de seleccionado ni especificar dias*/
-                if(periodoseleccionado!=-1 && periodoseleccionado!=0)
+            /**Si NO escojo especificar dia**/
+            if(periodoseleccionado!=0 && periodoseleccionado!=-1){
+                /*si escojo una opcion diferente de Especificar dias ni --Seleccione-- 
+                 * obtengo la cantidad de dias del periodo selccionado*/
                     cantidadDeDias=(Integer)periodosCache.get(periodoseleccionado);
-            /*Este valor solo se llena para el caso que el periodo escogido en el combobox sea ''DIA ESPECIFICO".*/
-                alerta.setAleDiaMes(contratoVO.getConDiames()); 
-                FechasUtil fu = new FechasUtil();
-                Date fechaCalculadaPorPeriodo=
-                    fu.adicionaDias(contratoVO.getConFechaSuscripcion(),contratoVO.getConDiames()!=null?contratoVO.getConDiames():cantidadDeDias, 0);
-                    
-                alerta.setCalFechaFin(fechaCalculadaPorPeriodo);
-                alerta.setCalFechaLimite(fechaCalculadaPorPeriodo);
-            
-            alerta.setCalDiaPresentacion(contratoVO.getConDiames());
-            alerta.setPerId(contratoVO.getPerId());
+                /*Solo se calculara la fecha  solo cuando la opcion sea diferente de Especificar dias y --Seleccione--*/
+                    System.out.println("contratoVO.getConFechaSuscripcion():"+contratoVO.getConFechaSuscripcion()+" cantidadDeDias:"+cantidadDeDias);
+                Date fechaCalculada=fu.adicionaDias(contratoVO.getConFechaSuscripcion(),cantidadDeDias, 0);
+                alerta.setCalFechaLimite(fechaCalculada);
+                alerta.setCalFechaFin(fechaCalculada);
+                alerta.setCalDiaPresentacion(null);
+                alerta.setPerId(contratoVO.getPerId());
+            }
+            /**si escojo Especificar dia**/
+            if(periodoseleccionado==0){
+                alerta.setCalDiaPresentacion(contratoVO.getConDiames());
+                alerta.setAleDiaMes(contratoVO.getConDiames());
+                /** para este caso se calcula la fecha de fin y fecha limite 
+                 * a partir de la fecha calculada con_plazoconcesion y se cambia el dia por dia especifico**/
+                Date fechaplazoConcesionconDiaCambiado=Reutilizar.getNewInstance().cambiarDiaenFecha(contratoVO.getConPlazoconcesion(),contratoVO.getConDiames());                
+                alerta.setCalFechaFin(fechaplazoConcesionconDiaCambiado);
+                alerta.setCalFechaLimite(fechaplazoConcesionconDiaCambiado);
+                /*si escojo Especificar Dias el id del periodo sera cero*/
+                contratoAlertaVO.setPerId(0);
+            }
+            alerta.setConId(contratoVO.getConId());
+            alerta.setTinId(contratoVO.getTinId());     
+            alerta.setCsiId(contratoVO.getCsiId());   
+            /* alerta.setInfId(contratoVO.getInfId());   */ 
+            /* alerta.setInvId(contratoVO.getInvId());    */            
+            /* alerta.setTccTipo(contratoVO.getTccTipo());  */  
+            /* alerta.setCcoId(contratoVO.getCcoId());  */ 
+            alerta.setMcoId(contratoVO.getMcoId());
+            alerta.setCalNombreconcesion(contratoVO.getNombreConcesionario());
             alerta.setCaeId(1);
             alerta.setCalEstado(1);
+            alerta.setCalUsuarioAlta(usuario.getUsuNombre());
+            alerta.setCalFechaAlta(new Date());
+            alerta.setCalTerminal(usuario.getUsuTerminal());
+            alerta.setCalCorreo(usuario.getUsuCorreo());
+            alerta.setCalPlazo(contratoVO.getConPlazoconcesion()); 
             return alerta;
             
         } catch (Exception e) {
@@ -1445,6 +1467,9 @@ public class ActualizarContrato {
         try {
 
             listaInfraestructura = infraestructuraServiceImpl.query();
+            for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
+               infraestructurasCache.put(""+infraestructuraVO.getInfId(), infraestructuraVO);
+           }
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -1572,12 +1597,12 @@ public class ActualizarContrato {
         this.listarInfraestructura = listarInfraestructura;
     }
 
-    public String getNombAeropuerto() {
-        return nombAeropuerto;
+    public String getInfId() {
+        return infId;
     }
 
-    public void setNombAeropuerto(String nombAeropuerto) {
-        this.nombAeropuerto = nombAeropuerto;
+    public void setInfId(String InfId) {
+        this.infId = InfId;
     }
 
     public String getDescAlerta() {
@@ -1611,11 +1636,24 @@ public class ActualizarContrato {
     public void setDiaPresAlerta(Integer diaPresAlerta) {
         this.diaPresAlerta = diaPresAlerta;
     }
-
+    public void calcularFechaFin(){
+        try {
+         
+            Integer cantidadDias = plazoAlerta * unidadTiempo;
+            System.out.println("cantidadDias:"+cantidadDias);
+            fechaFinAlerta = fu.adicionaDias(fechaIniAlerta, cantidadDias, 0);
+           
+            contratoAlertaVO.setCalFechaFin(fechaFinAlerta);
+            contratoAlertaVO.setCalPlazo(fechaFinAlerta);
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+    }
     public void guardarAlerta() {
 
-        if (nombAeropuerto.equals("")) {
-            System.out.print("nombAeropuerto" + nombAeropuerto);
+        if (infId ==null || infId.equals("")) {
+            System.out.print("nombAeropuerto" + infId);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Aeropuerto")); 
@@ -1634,26 +1672,33 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));            
-        } else if (diaPresAlerta == null || diaPresAlerta < 1) {
+        } else if (!(diaPresAlerta >0 && diaPresAlerta <31)) {
             System.out.print("diaPresAlerta: " + diaPresAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Dia de Presentación")); 
+                                                                          "Ingrese Numero mayor a cero y menor a 31")); 
         } else {
             try {
                 System.out.print("diaPresAlerta: " + diaPresAlerta);
                 contratoAlertaVO.setConId(contratoVO.getConId());
                 contratoAlertaVO.setCaeId(1); // valor inicial de la Alerta relacionado a la tabla EstadoAlerta
                 contratoAlertaVO.setPerId(1); // para el cas ode aerupuerto se setea 1 por default y no se muestra para otros casos revisar tabla Periodo
-                contratoAlertaVO.setCalAeropuerto(nombAeropuerto);
+                InfraestructuraVO inf=((InfraestructuraVO)(infraestructurasCache.get(""+infId)));
+                System.out.println("infId"+infId+" inf.getInfNombre():"+inf.getInfNombre());
+                contratoAlertaVO.setCalAeropuerto(inf.getInfNombre());
+                contratoAlertaVO.setInfId(inf.getInfId());
+                contratoAlertaVO.setCsiId(inf.getCsiId());
+                contratoAlertaVO.setTinId(inf.getTinId());
                 contratoAlertaVO.setCalDiaPresentacion(diaPresAlerta);
                 contratoAlertaVO.setCalEstado(1);
 
                 contratoAlertaVO.setCalFechaInicio(fechaIniAlerta);
-                contratoAlertaVO.setCalFechaFin(fechaFinAlerta);
+
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
-                String concatenado=plazoAlerta+unidadTiempo;
-                contratoAlertaVO.setCalPlazo(concatenado);
+                contratoAlertaVO.setCalCantidadPlazo(plazoAlerta);
+                contratoAlertaVO.setCalMesoanioPlazo(unidadTiempo);
+                contratoAlertaVO.setCalTipo(4);
+                contratoAlertaVO.setCalPlazoDescripcion(plazoAlerta+" "+(unidadTiempo==30?"MES(ES)":"AÑO(S)"));
                 /*AUDITORIA*/
                 Date fechaActual=new Date();
                 contratoAlertaVO.setCalFechaAlta(fechaActual);
@@ -1665,7 +1710,9 @@ public class ActualizarContrato {
                 cargarListaAlertas(contratoVO.getConId());
                 limpiarCamposAlerta();
                 RequestContext.getCurrentInstance().execute("popupAgregarAlerta.hide()");
-
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -1675,25 +1722,26 @@ public class ActualizarContrato {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Alerta "));
+                e.printStackTrace();
             }
 
         }
     }
     public void limpiarCamposAlerta(){
-        nombAeropuerto = null;
+        infId = null;
         diaPresAlerta = null;
-        plazoAlerta = null;
-        fechaIniAlerta = null;
-        fechaFinAlerta = null;
+        plazoAlerta = 0;
+        fechaIniAlerta = new Date();
+        fechaFinAlerta = new Date();
         descAlerta = null;
-        unidadTiempo="DIAS(S)";
+        unidadTiempo=0;
     }
 
-    public String getPlazoAlerta() {
+    public int getPlazoAlerta() {
         return plazoAlerta;
     }
 
-    public void setPlazoAlerta(String plazoAlerta) {
+    public void setPlazoAlerta(int plazoAlerta) {
         this.plazoAlerta = plazoAlerta;
     }
 
@@ -1769,7 +1817,7 @@ public class ActualizarContrato {
                 s.printStackTrace();
             }
         }
-
+/**jose**/
     public void cargarListaAlertas(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
@@ -3420,11 +3468,19 @@ public class ActualizarContrato {
     }
 
 
-    public void setUnidadTiempo(String unidadTiempo) {
+    public void setUnidadTiempo(Integer unidadTiempo) {
         this.unidadTiempo = unidadTiempo;
     }
 
-    public String getUnidadTiempo() {
+    public Integer getUnidadTiempo() {
         return unidadTiempo;
+    }
+
+    public void setFu(FechasUtil fu) {
+        this.fu = fu;
+    }
+
+    public FechasUtil getFu() {
+        return fu;
     }
 }
