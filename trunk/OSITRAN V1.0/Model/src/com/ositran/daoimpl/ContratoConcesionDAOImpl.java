@@ -7,6 +7,8 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -89,14 +91,18 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
         session.beginTransaction();
-
-        if(contrato.getConAvanceobra()==1){
-            Query query=session.createSQLQuery(" Update T_CONTRATO_ALERTA set CAL_ESTADO = 0 " +
-                                            " where CON_ID   = '"+contratoAlerta.getConId()+"' " +
-                                            " and   CAL_TIPO = '1' ");
-            query.executeUpdate();                
-            session.save(contratoAlerta);           
-        }
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        String fcambio=sdf.format(contrato.getConFechaCambio());
+        Query query=session.createSQLQuery(" UPDATE T_CONTRATO_ALERTA " +
+                                            "   SET CAL_ESTADO = 0," +
+                                            "       CAE_ID     = 0," +
+                                            "       CAL_USUARIO_CAMBIO = '"+contrato.getConUsuarioCambio()+"', "+
+                                            "       CAL_FECHA_CAMBIO   = TO_DATE('"+fcambio+"','dd/MM/yyyy') "+
+                                            " WHERE CON_ID     = "+contratoAlerta.getConId()+
+                                            "   AND CAL_TIPO   = 1 ");
+                   query.executeUpdate();      
+        if(contrato.getConAvanceobra()==1)
+           session.save(contratoAlerta);
         session.update(contrato);
         session.flush();   
         session.getTransaction().commit();
