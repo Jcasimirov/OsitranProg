@@ -43,6 +43,7 @@ public class ContratoAlertaVO {
     private Integer calTipo;
     private Integer aleDiaMes;
     private Date calPlazo;
+    private String calPlazoDescripcion;
     private String calCorreo;
 
     private Integer calCantidadPlazo;
@@ -336,4 +337,11 @@ public class ContratoAlertaVO {
         return calMesoanioPlazo;
     }
 
+    public void setCalPlazoDescripcion(String calPlazoDescripcion) {
+        this.calPlazoDescripcion = calPlazoDescripcion;
+    }
+
+    public String getCalPlazoDescripcion() {
+        return calPlazoDescripcion;
+    }
 }
