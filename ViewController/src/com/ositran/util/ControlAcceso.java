@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class ControlAcceso {
-    public static ControlAcceso newInstance = new ControlAcceso();   
+    public static ControlAcceso newInstance;   
     private HttpServletRequest httpServletRequest = null;
     private FacesContext faceContext = null;
     private List<RolOpcionesVO> listaRolOpciones = new ArrayList<>();
