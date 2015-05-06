@@ -37,6 +37,7 @@ public class ContratoVO {
     private String nombreConcesion;
     private String nombreConcesionario;
     private String nombreModalidad;
+    private String nombreInfraTipo;
     private int codigoConcesion;
     private InputStream inputStreamFichaResumen;
     private InputStream inputStreamContratoPDF;
@@ -362,4 +363,11 @@ public class ContratoVO {
         return conNotaPlazoConcesion;
     }
 
+    public void setNombreInfraTipo(String nombreInfraTipo) {
+        this.nombreInfraTipo = nombreInfraTipo;
+    }
+
+    public String getNombreInfraTipo() {
+        return nombreInfraTipo;
+    }
 }
