@@ -111,7 +111,7 @@ public class DescripcionTipoInversion {
                 cargarListaInversionDescripcion();
                 limpiarCampos();
                 RequestContext.getCurrentInstance().execute("insertarDesc.hide()");
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registró con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -269,7 +269,7 @@ public class DescripcionTipoInversion {
             getInversionDescripcionServicesImpl().update(inversionDescripcionVO);
             cargarListaInversionDescripcion();
             RequestContext.getCurrentInstance().execute("editarPanel.hide()");
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo con Exito");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se actualizó con éxito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
