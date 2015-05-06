@@ -85,9 +85,9 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
        valorizacionInversionAvanceDetalleVO1.setIadPDF(valorizacionInversionAvanceDetalle1.getIadPDF());
        valorizacionInversionAvanceDetalleVO1.setTivId(valorizacionInversionAvanceDetalle1.getTivId());
         valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
-       /*        valorizacionInversionAvanceDetalleVO1.setIadDescripcion(valorizacionInversionAvanceDetalle1.getIadDescripcion());
+             valorizacionInversionAvanceDetalleVO1.setIadDescripcion(valorizacionInversionAvanceDetalle1.getIadDescripcion());
        valorizacionInversionAvanceDetalleVO1.setIadFechaInicio(valorizacionInversionAvanceDetalle1.getIadFechaInicio());
-       valorizacionInversionAvanceDetalleVO1.setIadFechaFin(valorizacionInversionAvanceDetalle1.getIadFechaFin()); */
+       valorizacionInversionAvanceDetalleVO1.setIadFechaFin(valorizacionInversionAvanceDetalle1.getIadFechaFin()); 
         valorizacionInversionAvanceDetalleVO1.setCsiId(valorizacionInversionAvanceDetalle1.getCsiId());
         valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
         valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
@@ -107,9 +107,9 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalle1.setIadPDF(valorizacionInversionAvanceDetalleVO1.getIadPDF());
         valorizacionInversionAvanceDetalle1.setTivId(valorizacionInversionAvanceDetalleVO1.getTivId());
         valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
-        /*  valorizacionInversionAvanceDetalle1.setIadDescripcion(valorizacionInversionAvanceDetalleVO1.getIadDescripcion());
+        valorizacionInversionAvanceDetalle1.setIadDescripcion(valorizacionInversionAvanceDetalleVO1.getIadDescripcion());
         valorizacionInversionAvanceDetalle1.setIadFechaInicio(valorizacionInversionAvanceDetalleVO1.getIadFechaInicio());
-        valorizacionInversionAvanceDetalle1.setIadFechaFin(valorizacionInversionAvanceDetalleVO1.getIadFechaFin()); */
+        valorizacionInversionAvanceDetalle1.setIadFechaFin(valorizacionInversionAvanceDetalleVO1.getIadFechaFin()); 
         valorizacionInversionAvanceDetalle1.setCsiId(valorizacionInversionAvanceDetalleVO1.getCsiId());
         valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
         valorizacionInversionAvanceDetalle1.setTinId(valorizacionInversionAvanceDetalleVO1.getTinId());
