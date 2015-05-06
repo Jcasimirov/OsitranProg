@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.context.ExternalContext;
@@ -85,6 +86,12 @@ public class Reutilizar {
         if(fecha!=null)
             dateacadena =fd.format(fecha);
         return dateacadena;
+    }
+    public Date cambiarDiaenFecha(Date fecha,int dia){
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(fecha);
+        cal.set(Calendar.DAY_OF_MONTH,dia);
+        return cal.getTime();
     }
     public static void setNewInstance(Reutilizar newInstance) {
         Reutilizar.newInstance = newInstance;
