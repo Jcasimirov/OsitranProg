@@ -95,6 +95,8 @@ public class ContratoAlerta implements Serializable {
     private Integer calCantidadPlazo;
     @Column(name = "CAL_MESOANIO_PLAZO")
     private Integer calMesoanioPlazo;
+    @Column(name = "CAL_PLAZODESCRIPCION")
+    private String calPlazoDescripcion;
     public ContratoAlerta() {
     }
 
@@ -354,4 +356,12 @@ public class ContratoAlerta implements Serializable {
         return calMesoanioPlazo;
     }
 
+
+    public void setCalPlazoDescripcion(String calPlazoDescripcion) {
+        this.calPlazoDescripcion = calPlazoDescripcion;
+    }
+
+    public String getCalPlazoDescripcion() {
+        return calPlazoDescripcion;
+    }
 }
