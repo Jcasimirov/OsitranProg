@@ -175,16 +175,16 @@
                                         <table style="width:100% ;font-size:11px;">
                                             <tr>
                                                 <td align="left">
-                                                    #{cam.numCargo}
+                                                    Número de Cargo: 
                                                      
                                                     <p:inputMask style="width:100px" id="nrocargo"
                                                                  value="#{bk_NotificarInversion.nrocargo}" maxlength="4"
                                                                  mask="9?999"/>
                                                      
-                                                    <p:watermark for="nrocargo" value="#{cam.numCargo}"/>
+                                                    <p:watermark for="nrocargo" value="Ingrese Número"/>
                                                 </td>
                                                 <td align="left">
-                                                    #{cam.apor}
+                                                    Aprobado Por:
                                                      
                                                     <p:selectOneMenu id="aprobadopor"
                                                                      value="#{bk_NotificarInversion.aprobadopor}">
@@ -199,12 +199,12 @@
                                              
                                             <tr>
                                                 <td align="left">
-                                                    #{cam.FNot}<p:calendar locale="es" pattern="dd/MM/yyyy"
+                                                    Fecha Notificación: <p:calendar locale="es" pattern="dd/MM/yyyy"
                                                                            id="fnotificacion"
                                                                            value="#{bk_NotificarInversion.fnotificacion}"/>
                                                 </td>
                                                 <td align="left">
-                                                    #{cam.apdf}
+                                                    Adjuntar Archivo: 
                                                      
                                                    
                                                                  
