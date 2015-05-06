@@ -31,7 +31,7 @@
                                                 <p:commandButton id="buscar" actionListener="#{descripcionInversionMB.busqueda}"
                                                                  update=":form:tabla :form:buscarT"
                                                                  image="ui-icon-search"/><h:outputText />
-                                                <p:tooltip styleClass="tool"  id="toolTipFade2" for="buscar" value="Busqueda por nombre y descripción" />
+                                                <p:tooltip styleClass="tool"  id="toolTipFade2" for="buscar" value="Búsqueda por nombre y descripción" />
                                                  
                                                 <p:commandButton  id="listarTodos" actionListener="#{descripcionInversionMB.cargarListaInversionDescripcion}"
                                                                  update=":form:tabla" image="ui-icon-arrowreturnthick-1-s"></p:commandButton>
@@ -48,7 +48,7 @@
                                                                  update=":form:registrar"
                                                                  id="nuevo"
                                              />
-                                              <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Registrar nueva descripcion de tipo inversion" />
+                                              <p:tooltip styleClass="tool"  id="toolTipFade1" for="nuevo" value="Agregar nueva descripción del tipo de inversión" />
                                             </td>
                                             
                                         </tr>
@@ -100,8 +100,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
-                                                                                       AsisTP-2015</div>
+                        <div align="center" style="font-size: 10px;font-weight: bold;">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
                     </p:layoutUnit>
                     <h:inputHidden value="#{descripcionInversionMB.codigoInversionDescripcion}" id="codEliminar"/>
                         <h:inputHidden value="#{descripcionInversionMB.nombreAntiguo}" id="nombreAntiguo"/>
@@ -112,7 +111,7 @@
                           <h5 class="titulo5" >REGISTRAR DESCRIPCIÓN TIPO DE INVERSIÓN</h5>
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="left">Selecione tipo Inversion:</td>
+                            <td align="left">Tipo de Inversión:</td>
                             <td align="left">
                                 <p:selectOneMenu value="#{descripcionInversionMB.codigoInversion}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
@@ -179,7 +178,7 @@
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
-                            <td colspan="2">Esta Seguro que desea eliminar la descripción tipo de inversión ? </td>
+                            <td colspan="2">Confirme eliminación de la descripción del tipo de inversión</td>
                         </tr>
                          
                         <tr>
@@ -263,7 +262,7 @@
                             <td align="right">
                                 <p:commandButton update=":form:tabla :form:mensaje"
                                                  actionListener="#{descripcionInversionMB.editar}" style="width:70px"
-                                                 value="Editar"/>
+                                                 value="Guardar"/>
                             </td>
                             <td align="left">
                                 <p:commandButton style="width:70px" value="Salir" onclick="editarPanel.hide ()"/>
