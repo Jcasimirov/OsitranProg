@@ -1204,7 +1204,7 @@ public class DeclararInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Estado de Reconocimiento"));
-        } else if (invVO.getInvObservaciones()==null || invVO.getInvObservaciones().equals("")) {
+        } else if (invAvnVO.getTiaObservaciones()==null || invAvnVO.getTiaObservaciones().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado las Observaciones"));
