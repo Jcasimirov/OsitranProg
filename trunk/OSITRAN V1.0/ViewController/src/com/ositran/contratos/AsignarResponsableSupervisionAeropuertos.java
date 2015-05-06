@@ -692,7 +692,8 @@ private int codigoInversion;
             System.out.println("entro FiltrarListaEmpSup: " + listaEmpresasSup.size());
             System.out.println(nombreEmpresaSupervisora);
             System.out.println(rucEmpresaSupervisora);
-            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpresaSupervisora, rucEmpresaSupervisora);
+            listaEmpresasSup = empSupServiceImp.BuscarEmpresaPorContrato(codigoContrato, contratoCompromisoSeleccionado, nombreEmpresaSupervisora);
+            //listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpresaSupervisora);
             listaTipoDocumento = tipoDocumentoServiceImp.query();
             for (int i = 0; i < listaEmpresasSup.size(); i++) {
                 for (int j = 0; j < listaTipoDocumento.size(); j++) {
