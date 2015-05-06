@@ -22,8 +22,10 @@ import org.hibernate.annotations.Parameter;
 public class ValorizacionSupDetalle implements Serializable {
     private static final long serialVersionUID = -6895999228460826945L;
     @Id
-    @Column(name = "CVA_ID", nullable = false)
-    @GeneratedValue(generator = "generator")    
+    @Column(name = "VSD_ID", nullable = false)
+    private Integer vsdId;
+    @GeneratedValue(generator = "generator")            
+    @Column(name = "CVA_ID")    
     private Integer cvaId;
     @Column(name="VSD_IGV")
     private BigDecimal igv;
@@ -41,9 +43,10 @@ public class ValorizacionSupDetalle implements Serializable {
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto, BigDecimal ttotal,
-                                  Integer tvsHr, BigDecimal totalAprobado) {
+    public ValorizacionSupDetalle(Integer vsdId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
+                                  BigDecimal ttotal, Integer tvsHr, BigDecimal totalAprobado) {
         super();
+        this.vsdId = vsdId;
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
@@ -53,6 +56,13 @@ public class ValorizacionSupDetalle implements Serializable {
         this.totalAprobado = totalAprobado;
     }
 
+    public void setVsdId(Integer vsdId) {
+        this.vsdId = vsdId;
+    }
+
+    public Integer getVsdId() {
+        return vsdId;
+    }
 
     public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
@@ -77,7 +87,6 @@ public class ValorizacionSupDetalle implements Serializable {
     public Integer getMonId() {
         return monId;
     }
-
 
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
