@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class ValorizacionSupDetalleVO {
-    
+    private Integer vsdId;
     private Integer cvaId;
     private BigDecimal igv;
     private Integer monId;
@@ -30,10 +30,11 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto, BigDecimal ttotal,
-                                    Integer tvsHr, BigDecimal totalAprobado, String aeropuertos,
+    public ValorizacionSupDetalleVO(Integer vsdId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
+                                    BigDecimal ttotal, Integer tvsHr, BigDecimal totalAprobado, String aeropuertos,
                                     String descripcionInversion, String nombreMoneda, int contador, int fila) {
         super();
+        this.vsdId = vsdId;
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
@@ -48,6 +49,14 @@ public class ValorizacionSupDetalleVO {
         this.fila = fila;
     }
 
+
+    public void setVsdId(Integer vsdId) {
+        this.vsdId = vsdId;
+    }
+
+    public Integer getVsdId() {
+        return vsdId;
+    }
 
     public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
@@ -72,7 +81,6 @@ public class ValorizacionSupDetalleVO {
     public Integer getMonId() {
         return monId;
     }
-
 
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
