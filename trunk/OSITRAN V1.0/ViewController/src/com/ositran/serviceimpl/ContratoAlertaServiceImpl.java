@@ -72,9 +72,10 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlertaVO.setCalEstado(contratoAlerta.getCalEstado());
         contratoAlertaVO.setCalFechaFin(contratoAlerta.getCalFechaFin());
         contratoAlertaVO.setCalFechaInicio(contratoAlerta.getCalFechaInicio());
-        
+        contratoAlertaVO.setCalFechaLimite(contratoAlerta.getCalFechaLimite());
         contratoAlertaVO.setCalFechaFinDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAlerta.getCalFechaFin()));
         contratoAlertaVO.setCalFechaInicioDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAlerta.getCalFechaInicio()));
+        contratoAlertaVO.setCalFechaLimiteDescripcion(Reutilizar.getNewInstance().convertirFechaenCadena(contratoAlerta.getCalFechaLimite()));
         
         contratoAlertaVO.setCalId(contratoAlerta.getCalId());
         contratoAlertaVO.setCalNombreconcesion(contratoAlerta.getCalNombreconcesion());
@@ -108,6 +109,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalEstado(contratoAlertaVO.getCalEstado());
         contratoAlerta.setCalFechaFin(contratoAlertaVO.getCalFechaFin());
         contratoAlerta.setCalFechaInicio(contratoAlertaVO.getCalFechaInicio());
+        contratoAlerta.setCalFechaLimite(contratoAlertaVO.getCalFechaLimite());
         contratoAlerta.setCalId(contratoAlertaVO.getCalId());
         contratoAlerta.setCalNombreconcesion(contratoAlertaVO.getCalNombreconcesion());
         contratoAlerta.setCalPlazo(contratoAlertaVO.getCalPlazo());
@@ -129,7 +131,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalUsuarioBaja(contratoAlertaVO.getCalUsuarioBaja());
         contratoAlertaVO.setCalTerminal(contratoAlerta.getCalTerminal());
         contratoAlerta.setCalCorreo(contratoAlertaVO.getCalCorreo());
-        contratoAlerta.setCalFechaLimite(contratoAlertaVO.getCalFechaLimite());
+
         
         contratoAlerta.setCalTipo(contratoAlertaVO.getCalTipo());
 
