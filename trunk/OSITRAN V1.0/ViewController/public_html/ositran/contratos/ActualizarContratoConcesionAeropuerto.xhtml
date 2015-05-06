@@ -83,7 +83,7 @@
          
         <p:layout fullPage="true" style="border:none">
             <p:layoutUnit  position="center" style="border:0px">
-                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <ui:include src="/ositran/util/menu.xhtml"/>
                 <div align="center">
                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO
                                                                                       CONCESI&#211;N - AEROPUERTO</h5>
@@ -2037,7 +2037,7 @@
                                                         <h:outputText value="#{tAlerta.calFechaFinDescripcion}"/>
                                                     </p:column>
                                                     <p:column headerText="Plazo" style="width:4%">
-                                                        <h:outputText value="#{tAlerta.calPlazo}"/>
+                                                        <h:outputText value="#{tAlerta.calPlazoDescripcion}"/>
                                                     </p:column>
                                                     <p:column headerText="Dia de Presentación" style="width:11%">
                                                         <h:outputText value="#{tAlerta.calDiaPresentacion}"/>
@@ -2090,10 +2090,13 @@
                                         <tr>
                                             <td align="left">Aeropuerto</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.nombAeropuerto}"
-                                                             style="width:300px;"
-                                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
-                                                 
+                                                  <p:selectOneMenu value="#{actualizarContratoMB.infId}">
+                                                    
+                                                    <f:selectItem itemLabel="--Seleccione-" itemValue="0"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}"
+                                                    var="inf" itemLabel="#{inf.infNombre}" itemValue="#{inf.infId}" />
+                                                    </p:selectOneMenu> 
+                                                    
                                                 <img src="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
@@ -2123,7 +2126,7 @@
                                         <tr>
                                             <td align="left">Fecha de Fin</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd/MM/yyyy"
+                                                <p:calendar id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true"
                                                             value="#{actualizarContratoMB.fechaFinAlerta}"/>
                                                  
                                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -2133,16 +2136,16 @@
                                         <tr>
                                             <td align="left">Plazo</td>
                                             <td align="left">
-                                                 <h:panelGrid border="1" columns="2" style="padding:0px !important;">
-                                                    <p:inputText  style="width:90px;"
+                                                 <h:panelGrid  columns="2" style="padding:0px !important;">
+                                                    <p:inputText id="plazoAlerta"  style="width:90px;"
                                                                  value="#{actualizarContratoMB.plazoAlerta}"
                                                                  onkeypress="return validarNum(event);" />
                                                     
-                                                    <p:selectOneMenu value="#{actualizarContratoMB.unidadTiempo}">
-                                                    <f:selectItem itemLabel="Dia(s)" itemValue="DIA(S)" />
-                                                    <f:selectItem itemLabel="Semana(s)" itemValue="SEMANA(S)" />
-                                                    <f:selectItem itemLabel="Mes(es)" itemValue="MES(ES)" />                                        
-                                                    <f:selectItem itemLabel="Año(s)" itemValue="AÑO(S)" />
+                                                    <p:selectOneMenu value="#{actualizarContratoMB.unidadTiempo}">                                                   
+                                                    <p:ajax listener="#{actualizarContratoMB.calcularFechaFin()}" process="@this plazoAlerta" update="aleCalFin"/>
+                                                    <f:selectItem itemLabel="--Seelccione--" itemValue="0" />
+                                                    <f:selectItem itemLabel="Mes(es)" itemValue="30" />                                        
+                                                    <f:selectItem itemLabel="Año(s)" itemValue="365" />
                                                     </p:selectOneMenu>              
                                                    </h:panelGrid>
                                                    </td>
