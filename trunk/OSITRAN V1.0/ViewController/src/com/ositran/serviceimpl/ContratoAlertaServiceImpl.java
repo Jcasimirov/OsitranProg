@@ -134,6 +134,8 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
 
         
         contratoAlerta.setCalTipo(contratoAlertaVO.getCalTipo());
+        contratoAlerta.setCalCantidadPlazo(contratoAlertaVO.getCalCantidadPlazo());
+        contratoAlerta.setCalMesoanioPlazo(contratoAlertaVO.getCalMesoanioPlazo());
 
         return contratoAlerta;
         
