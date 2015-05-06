@@ -45,7 +45,8 @@ public class ContratoAlertaVO {
     private Date calPlazo;
     private String calCorreo;
 
-    
+    private Integer calCantidadPlazo;
+    private Integer calMesoanioPlazo;
     
     public ContratoAlertaVO() {
         super();
@@ -318,4 +319,21 @@ public class ContratoAlertaVO {
     public String getCalFechaLimiteDescripcion() {
         return calFechaLimiteDescripcion;
     }
+
+    public void setCalCantidadPlazo(Integer calCantidadPlazo) {
+        this.calCantidadPlazo = calCantidadPlazo;
+    }
+
+    public Integer getCalCantidadPlazo() {
+        return calCantidadPlazo;
+    }
+
+    public void setCalMesoanioPlazo(Integer calMesoanioPlazo) {
+        this.calMesoanioPlazo = calMesoanioPlazo;
+    }
+
+    public Integer getCalMesoanioPlazo() {
+        return calMesoanioPlazo;
+    }
+
 }
