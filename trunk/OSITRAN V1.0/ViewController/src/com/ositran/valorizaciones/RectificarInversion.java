@@ -478,6 +478,7 @@ public class RectificarInversion {
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Nota"));
         }else{
+
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId()==Constantes.ESTADORECONOCIMIENTO_DECLARADO?Constantes.ESTADORECONOCIMIENTO_RECTIFICADO:Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 invAvnVO.setIaeId(invVO.getInvEstadoReconocimiento());
                 notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
