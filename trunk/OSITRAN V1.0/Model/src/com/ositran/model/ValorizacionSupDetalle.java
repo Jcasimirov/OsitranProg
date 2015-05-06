@@ -26,23 +26,24 @@ public class ValorizacionSupDetalle implements Serializable {
     @GeneratedValue(generator = "generator")    
     private Integer cvaId;
     @Column(name="VSD_IGV")
-    private double igv;
+    private BigDecimal igv;
     @Column(name = "MON_ID")
     private Integer monId;
     @Column(name="VSD_NETO")
     private double neto;
     @Column(name="VSD_TTOTAL")
-    private double ttotal;
+    private BigDecimal ttotal;
     @Column(name = "TVS_HR")
     private Integer tvsHr;
     @Column(name="VSD_TOTAL_APROBADO")
-    private double totalAprobado;
+    private BigDecimal totalAprobado;
 
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer cvaId, Long igv, Integer monId, Long neto, Long ttotal,
-                                  Integer tvsHr, double totalAprobado) {
+    public ValorizacionSupDetalle(Integer cvaId, BigDecimal igv, Integer monId, double neto, BigDecimal ttotal,
+                                  Integer tvsHr, BigDecimal totalAprobado) {
+        super();
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
@@ -52,6 +53,7 @@ public class ValorizacionSupDetalle implements Serializable {
         this.totalAprobado = totalAprobado;
     }
 
+
     public void setCvaId(Integer cvaId) {
         this.cvaId = cvaId;
     }
@@ -60,11 +62,11 @@ public class ValorizacionSupDetalle implements Serializable {
         return cvaId;
     }
 
-    public void setIgv(double igv) {
+    public void setIgv(BigDecimal igv) {
         this.igv = igv;
     }
 
-    public double getIgv() {
+    public BigDecimal getIgv() {
         return igv;
     }
 
@@ -84,12 +86,11 @@ public class ValorizacionSupDetalle implements Serializable {
         return neto;
     }
 
-
-    public void setTtotal(double ttotal) {
+    public void setTtotal(BigDecimal ttotal) {
         this.ttotal = ttotal;
     }
 
-    public double getTtotal() {
+    public BigDecimal getTtotal() {
         return ttotal;
     }
 
@@ -101,11 +102,12 @@ public class ValorizacionSupDetalle implements Serializable {
         return tvsHr;
     }
 
-    public void setTotalAprobado(double totalAprobado) {
+    public void setTotalAprobado(BigDecimal totalAprobado) {
         this.totalAprobado = totalAprobado;
     }
 
-    public double getTotalAprobado() {
+    public BigDecimal getTotalAprobado() {
         return totalAprobado;
     }
+
 }
