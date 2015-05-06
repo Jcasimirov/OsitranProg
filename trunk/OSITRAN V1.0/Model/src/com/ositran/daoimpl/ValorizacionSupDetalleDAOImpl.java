@@ -30,12 +30,14 @@ public class ValorizacionSupDetalleDAOImpl implements ValorizacionSupDetalleDAO{
 
     @Override
     public String insert(ValorizacionSupDetalle valorizacionSupDetalle) throws SQLException {
+        
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.save(valorizacionSupDetalle);
             session.getTransaction().commit();
+            
         } catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
