@@ -202,6 +202,8 @@ public class DeclararInversion {
     private BigDecimal totalirjMontoReajusteI = BigDecimal.ZERO;
     private InvReconocimientoVO invReconocimientoVO;
     private InvReajusteVO invReajusteVO;
+    private boolean mostrarxDeclaracionCargada=false;
+    private boolean deshabilitadoxDeclaracionNoCargada=true;
     public DeclararInversion() {
         super();
 
@@ -282,6 +284,7 @@ public class DeclararInversion {
         resetDialogoBuscarContrato();
         System.out.println("--------------------------------");
         System.out.println("tipoInfraestructura: " + tipoInfraestructura);
+        
     }
 
     // Metodo Para Listar Infraestructuras
@@ -756,7 +759,10 @@ public class DeclararInversion {
             monedaVO = monedaServiceImpl.get(contratoCompromisoVO.getMonId());
             contratoCompromisoVO.setMonNombre(monedaVO.getMonNombre());
             listarInversionesSupervisadas(contratoCompromisoVO.getCcoId());
-
+            if(listaInvAvnVO.size()>0){
+                deshabilitadoxDeclaracionNoCargada=false;
+                mostrarxDeclaracionCargada=true;
+            }
 
         } catch (Exception e) {
 
@@ -1287,10 +1293,11 @@ public class DeclararInversion {
         totalMontoPresentado = new BigDecimal(0);
         totalMontoReajustado = new BigDecimal(0);
         totalirjMontoReajusteI = new BigDecimal(0);
-        contratoVO = null;
+        if(listaInvAvnVO.size()==0)
+            deshabilitadoxDeclaracionNoCargada=true;
 
-
-        listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+       
+       
     }
 
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
@@ -1410,4 +1417,21 @@ public class DeclararInversion {
     public InvAvnVO getInvAvnVO() {
         return invAvnVO;
     }
+
+    public void setMostrarxDeclaracionCargada(boolean mostrarxDeclaracionCargada) {
+        this.mostrarxDeclaracionCargada = mostrarxDeclaracionCargada;
+    }
+
+    public boolean isMostrarxDeclaracionCargada() {
+        return mostrarxDeclaracionCargada;
+    }
+
+    public void setDeshabilitadoxDeclaracionNoCargada(boolean deshabilitadoxDeclaracionNoCargada) {
+        this.deshabilitadoxDeclaracionNoCargada = deshabilitadoxDeclaracionNoCargada;
+    }
+
+    public boolean isDeshabilitadoxDeclaracionNoCargada() {
+        return deshabilitadoxDeclaracionNoCargada;
+    }
+
 }
