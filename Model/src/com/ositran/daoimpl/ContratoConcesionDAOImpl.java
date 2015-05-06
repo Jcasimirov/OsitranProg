@@ -89,20 +89,26 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
         session.beginTransaction();
-        Query query=session.createQuery(" Update ContratoAlerta set calEstado=0 " +
-                                        " where conId   =:idContrato " +
-                                        " and   calTipo =:tipoAlerta ");
-        query.setParameter("idContrato", contratoAlerta.getConId());
-        query.setParameter("tipoAlerta", contratoAlerta.getCalTipo());
-        query.executeUpdate();            
-        session.save(contratoAlerta);
+        Query query=session.createSQLQuery(" Update T_CONTRATO_ALERTA set CAL_ESTADO = 0 " +
+                                        " where CON_ID   = '"+contratoAlerta.getConId()+"' " +
+                                        " and   CAL_TIPO = '1' ");
+        query.executeUpdate();  
+        session.flush();
+        /* ContratoAlerta    alertaInit=new ContratoAlerta();
+        alertaInit=    contratoAlerta;
+        alertaInit.setCalId(null);
+        alertaInit.setCalTipo(1);
+        alertaInit.setConId(2);    
+        alertaInit.setCalEstado(0);  
+        session.update(alertaInit); */
+        session.persist(contratoAlerta);
         session.update(contrato);
-            
+
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback(); 
         }
-        session.flush();
+
         session.close();
         
     }
