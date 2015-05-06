@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ValorizacionConceptoDAO {
     public List<ValorizacionConcepto> query() throws SQLException;
-    public String insert(InvReajuste invReajuste) throws SQLException;
+    public String insert(ValorizacionConcepto valorizacionConcepto) throws SQLException;
     public String delete(Integer id) throws SQLException;
-    public String update(InvReajuste invReajuste) throws SQLException;
-    public InvReajuste get(Integer id) throws SQLException;
-    public List<ValorizacionConcepto> getInvReajustesAvance(Integer tiaNumero) throws SQLException;
+    public String update(ValorizacionConcepto valorizacionConcepto) throws SQLException;
+    public ValorizacionConcepto get(Integer id) throws SQLException;
+    public List<ValorizacionConcepto> getValorizacionConcepto(Integer cvaId) throws SQLException;
 }
