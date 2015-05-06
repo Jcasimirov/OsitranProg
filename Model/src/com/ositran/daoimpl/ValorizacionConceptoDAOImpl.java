@@ -1,6 +1,7 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.ValorizacionConceptoDAO;
+import com.ositran.model.ContratoCompromiso;
 import com.ositran.model.InvReajuste;
 import com.ositran.model.ValorizacionConcepto;
 import com.ositran.util.HibernateUtil;
@@ -20,6 +21,7 @@ public class ValorizacionConceptoDAOImpl implements ValorizacionConceptoDAO{
         super();
     }
 
+
     @Override
     public List<ValorizacionConcepto> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -28,29 +30,38 @@ public class ValorizacionConceptoDAOImpl implements ValorizacionConceptoDAO{
     }
 
     @Override
-    public String insert(InvReajuste invReajuste) throws SQLException {
+    public String insert(ValorizacionConcepto valorizacionConcepto) throws SQLException {
+        // TODO Implement this method
         return null;
     }
 
     @Override
     public String delete(Integer id) throws SQLException {
-
+        // TODO Implement this method
         return null;
     }
 
     @Override
-    public String update(InvReajuste invReajuste) throws SQLException {
-         return null;
-    }
-
-    @Override
-    public InvReajuste get(Integer id) throws SQLException {
+    public String update(ValorizacionConcepto valorizacionConcepto) throws SQLException {
+        // TODO Implement this method
         return null;
     }
 
     @Override
-    public List<ValorizacionConcepto> getInvReajustesAvance(Integer tiaNumero) throws SQLException {
+    public ValorizacionConcepto get(Integer id) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+                    session.beginTransaction();
+                    ValorizacionConcepto valorizacionConcepto=(ValorizacionConcepto)session.get(ValorizacionConcepto.class, id);
+                    session.getTransaction().commit();
+                    session.close();
+                    return valorizacionConcepto;
+    }
+
+    @Override
+    public List<ValorizacionConcepto> getValorizacionConcepto(Integer cvaId) throws SQLException {
         // TODO Implement this method
         return Collections.emptyList();
     }
 }
+
+
