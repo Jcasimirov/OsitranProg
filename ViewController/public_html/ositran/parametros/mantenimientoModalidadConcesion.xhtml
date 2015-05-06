@@ -1,100 +1,80 @@
-<?xml version='1.0' encoding='windows-1252'?>
+
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <style type="text/css">
-                .ui-dialog-titlebar {
-                    font-size: 13px;
-                    font-family: sans-serif;
-                }
-            </style>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
         </h:head>
-        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
-        <f:event listener="#{backing_mantenimientoModalidadConcesion.validarSesion()}" type="postAddToView"></f:event>
-        <f:event listener="#{backing_mantenimientoModalidadConcesion.getQuery}" type="postAddToView"/>
-        <h:form binding="#{backing_mantenimientoModalidadConcesion.form1}" id="form1">
-         <p:growl id="mensaje" showDetail="true"  life="3000" /> 
-                         <p:layout style="min-width:400px;min-height:500px;">
-                 
-                    <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
-                     <div align="center">
-                <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">MANTENIMIENTO DE MODALIDAD DE CONCESION</h5>
-               </div>
-                
-                        <div align="center" style="font-size: 11px">
-                            <div align="center" style="width:100%">
-                            <div align="left" style="width:60%">
-                           <table>
-                           <tr>
-                           <td>
-                                <p:fieldset legend="Criterio de Busqueda" style="width:10%;margin-bottom:5px;">
-                                
-                                <table style="margin-bottom:5px;font-size: 11px;margin-right: 35%;">
-                                    <tr>
-                                        <td>
-                                            #{etq.etq_nombre}
-                                        </td>
-                                        <td>
-                                        <p:inputText style="width:200px;text-transform:uppercase;" id="nombremodbuscar"
-                                             value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"></p:inputText>
-                                            
-                                        </td>
-                                        
-                                        <td>
-                                        <p:commandButton image="ui-icon-search" action="#{backing_mantenimientoModalidadConcesion.FiltrarListaModalidad}"
-                                                              
-                                                             update=":form1:tablamodalidad" id="btnbuscar">
-                                                             
-                                            </p:commandButton>   
-                                            <p:tooltip id="toolTipTrackBus" for="btnbuscar" value="Buscar Por Nombre de Modalidad de Concesión" trackMouse="true" />
-                                        </td>
-                                   
-                                        <td>
-                                            <p:commandButton value="#{btn.btn_limpiar}" action="#{backing_mantenimientoModalidadConcesion.LimpiarFiltro}" update=":form1:nombremodbuscar"
-                                            id="btnLimpiar"/>
-                                        </td>
-                                        <p:tooltip id="toolTipTrackLimpiar" for="btnLimpiar" value="Limpiar Criterio de Busqueda" trackMouse="true" />
-                                                                       
-                                        
-                                    </tr>
-
-                                </table>
-                                </p:fieldset>
-                                </td>
-                                <td style="width:100%">
-                                <div align="right" style="width:100%">
-                                <table>
-                                    <tr>
-                                        <td align="right">    
-                                            <p:commandButton rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troAgregar eq 1}" value="Nueva Modalidad de Concesión" actionListener="#{backing_mantenimientoModalidadConcesion.limpiarCampos}" update=":form1:regModalidad"  oncomplete="regModalidad.show()"></p:commandButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                              </div>
-                              </td>
-                              </tr>
-                              </table>
+       
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
+        <f:event listener="#{backing_mantenimientoModalidadConcesion.validarSesion()}" type="preRenderComponent"></f:event>
+        <f:event listener="#{backing_mantenimientoModalidadConcesion.getQuery}" type="preRenderComponent"/>
+          
+            <h:form id="form1">
+                <p:growl id="mensaje" showDetail="true" life="2000"/>
+                <p:messages autoUpdate="true"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px">
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <div align="center">
+                            <h5 class="titulo5">MANTENIMIENTO DE MODALIDAD DE CONCESION</h5>
+                            <div style="width:80%">
+                                <div  width="100%"  align="left" class="letra11" >
+                                    <table width="100%">
+                                        <tr>
+                                             <td align="left" style="width:35%">
+                                                Buscar: 
+                                                <p:inputText id="buscarT"   onkeyup="pasarMayuscula(this.value,this.id)" value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"/><h:outputText value="Â "/>
+                                                 
+                                                <p:commandButton id="buscar" actionListener="#{backing_mantenimientoModalidadConcesion.FiltrarListaModalidad}"
+                                                                 update=":form1:tablamodalidad :form1:mensaje"   image="ui-icon-search"/><h:outputText value="Â "/>
+                                                 <p:tooltip styleClass="tool"  id="toolTipFade"   for="buscar" value="BÃºsqueda por Nombre y/o DescripciÃ³n" />
+                                                
+                                                <p:commandButton image="ui-icon-arrowreturnthick-1-s" actionListener="#{backing_mantenimientoModalidadConcesion.getQuery}"
+                                                              update=":form1:tablamodalidad :form1:buscarT"  id="buscarTodos" ></p:commandButton>
+                                                <p:tooltip styleClass="tool"  id="toolTipFade1" for="buscarTodos" value="Ver la lista completa de Modalidad de ConcesiÃ³n" />
+                                             </td>
+                                             <td>
+                                             </td>
+                                                   
+                                            <td align="left" >
+                                             
+                                            </td>
+                                           <td aling="left">
+                                            </td>
+                                            <td align="right">
+                                                <p:commandButton id="nuevo" styleClass="botones"
+                                                rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troAgregar eq 1}"
+                                                actionListener="#{backing_mantenimientoModalidadConcesion.limpiarCampos}"
+                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="regModalidad.show()"
+                                                                 value=" Nuevo"
+                                                                 update=":form1:regModalidad"
+                                                                 />
+                                        <p:tooltip styleClass="tool"  id="toolTipFade2" for="nuevo" value="Agregar una Nueva Modalidad de ConcesiÃ³n" />
+                                            </td>                                          
+                                        </tr>
+                                    </table>
                                 </div>
-                                <div style="width:60%">
-                                <p:dataTable value="#{backing_mantenimientoModalidadConcesion.listaMod}" id="tablamodalidad"
-                                                 var="modalidad" selectionMode="single" style="font-size:11px;"
-                                                 rowKey="#{modalidad.mcoId}" rows="10" paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 paginatorPosition="bottom"
-                                                 rowsPerPageTemplate="5,10,15"
-                                                 emptyMessage="No se Encontraron Registros"
-                                                 rowIndexVar="rowIndex">
-                                        <p:column headerText="N°" style="width:3%">
+                                <br></br>   
+                                <p:dataTable paginatorPosition="bottom"
+                                emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,20" 
+                                              id="tablamodalidad" var="modalidad" style="font-size:10px"
+                                             value="#{backing_mantenimientoModalidadConcesion.listaMod}"
+                                             rowIndexVar="rowIndex"> 
+                                                                        
+                                    <p:column headerText="NÂ°" style="width:3%">
                                             <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
                                         </p:column>         
                                         <p:column headerText="Nombre" style="width:30%">
                                             <h:outputText value="#{modalidad.mcoNombre}" style="text-transform:uppercase;"/>
                                         </p:column>
-                                        <p:column headerText="Descripción" style="width:50%">
+                                        <p:column headerText="DescripciÃ³n" style="width:50%">
                                             <h:outputText value="#{modalidad.mcoDescripcion}" style="text-transform:uppercase;"/>
                                         </p:column>
                                         <p:column headerText="Modificar" style="width:7%" rendered="#{backing_mantenimientoModalidadConcesion.rolOpcion.troModificar eq 1}">
@@ -117,41 +97,17 @@
                                             <h:outputText value=""/>
                                         </div>
                                         </p:column>
-                                    </p:dataTable>
-                                    
-                                </div>
-                                
-                                
+                                </p:dataTable>
                             </div>
                         </div>
-                        
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div class="piePagina">Sistema de InformaciÃ³n del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
                     </p:layoutUnit>
                 </p:layout>
-         <p:dialog header="Registrar Modalidad de Concesion" id="regModalidad" widgetVar="regModalidad" modal="true"
-                          resizable="false" height="250px" width="760px">
-         
-         <div align="center" style="width: 100%">
-	 	<table  style="margin-bottom:5px;font-size: 11px;text-align:center">
-	 		
-	 		<tr>
-	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText></td>
-	 		</tr>
-	 		<tr>
-	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea></td>
-	 		</tr>
-	 		<tr>
-	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" actionListener="#{backing_mantenimientoModalidadConcesion.guardar}"                                                 
-                                               update=":form1:mensaje :form1:tablamodalidad"   ></p:commandButton>
-                                <p:commandButton onclick="regModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
-	 		</tr>
-	 	</table>
-	 	</div>
-         
-         </p:dialog>
-                         <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
-                <table style="font-size: 11px">
+                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                     <table style="font-size: 11px">
                 <tr>
                  <td>
                                 <h:inputHidden value="#{backing_mantenimientoModalidadConcesion.idEliminar}"/>
@@ -162,15 +118,15 @@
                                             <td colspan="2"> Eliminar Empresa Supervisora: "#{backing_mantenimientoModalidadConcesion.nombreEliminar}" </td>
                                     </tr>
                                     <tr>
-                                            <td align="right"><p:commandButton   value="Eliminar" actionListener="#{backing_mantenimientoModalidadConcesion.EliminarModalidad}" update=":form1 :form1:mensaje" oncomplete="confirEliminar.hide()"></p:commandButton></td>
+                                            <td align="right"><p:commandButton   value="Eliminar" actionListener="#{backing_mantenimientoModalidadConcesion.EliminarModalidad}" update=":form1:tablamodalidad :form1:mensaje" oncomplete="confirEliminar.hide()"></p:commandButton></td>
                                             <td align="left"><p:commandButton value="Cancelar"  onclick="confirEliminar.hide()"></p:commandButton></td>
                                     </tr>
                 </table>
-            </p:dialog>
-         <p:dialog header="Modificar Modalidad de Concesion" id="modModalidad" widgetVar="modModalidad" modal="true"
-                          resizable="false" height="250px" width="760px">
-         
-         <div align="center" style="width: 100%">
+                </p:dialog>
+                <p:dialog header="Editar" widgetVar="modModalidad" id="modModalidad" modal="true"
+                          style="text-align:center;">
+                          <h5 class="titulo5">MODIFICAR MODALIDAD DE CONCESION</h5>
+                    <div align="center" style="width: 100%">
 	 	<table  style="margin-bottom:5px;font-size: 11px;text-align:center">
                 <tr>
                             <td>
@@ -199,15 +155,35 @@
 	 		</tr>
 	 	</table>
 	 	</div>
-         
-         </p:dialog>
-        
-        
-        </h:form>
-        <script>
-        
-        </script>
+                </p:dialog>
+
+            
+                <p:dialog id="regModalidad" header="Registrar" widgetVar="regModalidad" modal="true"
+                          style="text-align:center;">
+                           <h5 class="titulo5">REGISTRAR MODALIDAD DE CONCESION</h5>
+                   <div align="center" style="width: 100%">
+	 	<table  style="margin-bottom:5px;font-size: 11px;text-align:center">
+	 		
+	 		<tr>
+	 			<td align="left">#{etq.etq_nmcon}</td>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText></td>
+	 		</tr>
+	 		<tr>
+	 			<td align="left">#{etq.etq_dmcon}</td>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea></td>
+	 		</tr>
+	 		<tr>
+	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" actionListener="#{backing_mantenimientoModalidadConcesion.guardar}"                                                 
+                                               update=":form1:mensaje :form1:tablamodalidad"   ></p:commandButton>
+                                <p:commandButton onclick="regModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
+	 		</tr>
+	 	</table>
+	 	</div>
+                </p:dialog>
+            </h:form>
         </h:body>
     </html>
-    
 </f:view>
+
+
+
