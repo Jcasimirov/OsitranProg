@@ -222,7 +222,11 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         Query query;
         String nombre = "";
         if(aeropuerto != null && aeropuerto != 0){
-                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1 and c.infId = :aeropuerto c.invId = :inversion");
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1 and c.infId = :aeropuerto");
+                query.setParameter("aeropuerto",aeropuerto);  
+            
+            if(inversion != null && inversion != 0)
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
                 query.setParameter("aeropuerto",aeropuerto);  
                 query.setParameter("inversion",inversion); 
             }else {
