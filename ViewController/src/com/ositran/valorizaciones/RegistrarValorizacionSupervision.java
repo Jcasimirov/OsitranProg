@@ -7,6 +7,7 @@ import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.DatosStdService;
 import com.ositran.service.InversionService;
+import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.service.ValorizacionSupService;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
@@ -17,7 +18,9 @@ import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.serviceimpl.ValorizacionConceptoServiceImpl;
+import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
+import com.ositran.serviceimpl.ValorizacionSupDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.vo.bean.ConcesionVO;
@@ -73,7 +76,8 @@ public class RegistrarValorizacionSupervision {
     private int codigoConcesion;
     private int codigoTipoInfra;
     private int codigoModalidadConcesion;
-    
+    private int ccoId;
+    private int tccTipo;
     private String nombreConcesion;
     private String contratoConcesion;
     private String nombreTipoInfraestructura;
@@ -108,7 +112,9 @@ public class RegistrarValorizacionSupervision {
     private BigDecimal tvsNeto=BigDecimal.ZERO;;
     private BigDecimal tvsBruto=BigDecimal.ZERO;;
     private BigDecimal tvsIgv=BigDecimal.ZERO; ;
-
+    
+    ValorizacionSupDetalleServiceImpl valorizacionSupDetalleServiceImpl= new ValorizacionSupDetalleServiceImpl(); 
+        
     private List<ContratoVO> listaContratos = new ArrayList<>();
     private List<MonedaVO> listaMoneda = new ArrayList<>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
@@ -252,7 +258,8 @@ public class RegistrarValorizacionSupervision {
            plazo=contratoCompromisoVO.getCcoPlazo();
            total=contratoCompromisoVO.getCcoTotal();
            codigoMoneda=contratoCompromisoVO.getMonId();
-           
+           ccoId=contratoCompromisoVO.getCcoId();
+           tccTipo=contratoCompromisoVO.getTccTipo();
             
         } catch (Exception e) {
            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
@@ -281,7 +288,6 @@ public class RegistrarValorizacionSupervision {
 
     }
     //----------------------//
-
     //---------DATOS VALORIZACION-------------//
     public void cargarListaMoneda() {
         try {
@@ -291,7 +297,6 @@ public class RegistrarValorizacionSupervision {
             System.out.println(ex);
         }
     }
-
     public void cargarListaconcepto() {
         try {
             listaConcepto = valorizacionConceptoServiceImpl.query();
@@ -300,7 +305,6 @@ public class RegistrarValorizacionSupervision {
         }
     }
     //--quitar lista---//
-    
     public void quitarLista(){
         
             FacesContext context=FacesContext.getCurrentInstance();
@@ -312,7 +316,6 @@ public class RegistrarValorizacionSupervision {
                 tvsBruto=tvsBruto.subtract(listaValorizacion.get(idcodigo).getTtotal());
             listaValorizacion.remove(idcodigo);
         }
-    
     //--fin quitar lista--//
     public void guardarTabla() {
         try {
@@ -350,7 +353,6 @@ public class RegistrarValorizacionSupervision {
 
 
     }
-
     public void guardar() {
         if (nrohr=="" || nrohr.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -387,16 +389,25 @@ public class RegistrarValorizacionSupervision {
                 valorizacionSupVO.setMonId(monedaSeleccionada);
                 valorizacionSupVO.setSupId(1);
                 valorizacionSupVO.setTvsEstado(1);
+                valorizacionSupVO.setTvsTinId(codigoTipoInfra);
+                valorizacionSupVO.setTvsCsiId(codigoConcesion);
+                valorizacionSupVO.setTvsCcoId(ccoId);
+                valorizacionSupVO.setTvsTccTipo(tccTipo);
+                valorizacionSupVO.setTvsMcoId(codigoModalidadConcesion);
+                //valorizacionSupVO.setTvsInfId(codigoInfraestructura);
+                //valorizacionSupVO.setInvId(codigoInversion);
+                valorizacionSupVO.setTvsCcoPlazo(plazo);
+                valorizacionSupVO.setTvsCcoTotal(total);
                 
                 
                 
-                valorizacionSupServiceImpl.insert(valorizacionSupVO);
+                
+                int idCabecera=valorizacionSupServiceImpl.insert(valorizacionSupVO);
 
-                /* for (ValorizacionSupDetalleVO valorizacionSupDetalleVO : listaValorizacion) {
-                    valorizacionSupDetalleVO.setCvaId(idCabecera);
+                for (ValorizacionSupDetalleVO valorizacionSupDetalleVO : listaValorizacion) {
+                    valorizacionSupDetalleVO.setTvsId(idCabecera);
                     valorizacionSupDetalleServiceImpl.insert(valorizacionSupDetalleVO);
-                } */
-                
+                }
                 limpiarCampos();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
@@ -1056,6 +1067,30 @@ public class RegistrarValorizacionSupervision {
 
     public ValorizacionConceptoVO getValorizacionConceptoVO() {
         return valorizacionConceptoVO;
+    }
+
+    public void setValorizacionSupDetalleServiceImpl(ValorizacionSupDetalleServiceImpl valorizacionSupDetalleServiceImpl) {
+        this.valorizacionSupDetalleServiceImpl = valorizacionSupDetalleServiceImpl;
+    }
+
+    public ValorizacionSupDetalleServiceImpl getValorizacionSupDetalleServiceImpl() {
+        return valorizacionSupDetalleServiceImpl;
+    }
+
+    public void setCcoId(int ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public int getCcoId() {
+        return ccoId;
+    }
+
+    public void setTccTipo(int tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public int getTccTipo() {
+        return tccTipo;
     }
 
 }
