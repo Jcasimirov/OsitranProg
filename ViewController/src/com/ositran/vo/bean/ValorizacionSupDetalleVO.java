@@ -7,13 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class ValorizacionSupDetalleVO {
-    private Integer vsdId;
+    private Integer tvsId;
     private Integer cvaId;
     private BigDecimal igv;
     private Integer monId;
     private BigDecimal neto;
     private BigDecimal ttotal;
-    private Integer tvsHr;
     private BigDecimal totalAprobado;
     
     
@@ -30,17 +29,16 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public ValorizacionSupDetalleVO(Integer vsdId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
-                                    BigDecimal ttotal, Integer tvsHr, BigDecimal totalAprobado, String aeropuertos,
+    public ValorizacionSupDetalleVO(Integer tvsId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
+                                    BigDecimal ttotal, BigDecimal totalAprobado, String aeropuertos,
                                     String descripcionInversion, String nombreMoneda, int contador, int fila) {
         super();
-        this.vsdId = vsdId;
+        this.tvsId = tvsId;
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
         this.neto = neto;
         this.ttotal = ttotal;
-        this.tvsHr = tvsHr;
         this.totalAprobado = totalAprobado;
         this.aeropuertos = aeropuertos;
         this.descripcionInversion = descripcionInversion;
@@ -50,12 +48,12 @@ public class ValorizacionSupDetalleVO {
     }
 
 
-    public void setVsdId(Integer vsdId) {
-        this.vsdId = vsdId;
+    public void setTvsId(Integer tvsId) {
+        this.tvsId = tvsId;
     }
 
-    public Integer getVsdId() {
-        return vsdId;
+    public Integer getTvsId() {
+        return tvsId;
     }
 
     public void setCvaId(Integer cvaId) {
@@ -96,14 +94,6 @@ public class ValorizacionSupDetalleVO {
 
     public BigDecimal getTtotal() {
         return ttotal;
-    }
-
-    public void setTvsHr(Integer tvsHr) {
-        this.tvsHr = tvsHr;
-    }
-
-    public Integer getTvsHr() {
-        return tvsHr;
     }
 
     public void setTotalAprobado(BigDecimal totalAprobado) {
