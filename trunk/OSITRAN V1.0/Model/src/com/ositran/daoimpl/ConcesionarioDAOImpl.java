@@ -46,7 +46,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     public List<Concesionario> query() throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
-        List list = session.createQuery("From Concesionario o where o.cncEstado <> 0").list();
+        List list = session.createQuery("From Concesionario o where o.cncEstado <> 0 ORDER BY o.cncId DESC").list();
         session.getTransaction().commit();
         return  list;
     }
