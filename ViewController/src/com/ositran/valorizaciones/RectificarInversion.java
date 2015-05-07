@@ -733,8 +733,8 @@ public class RectificarInversion {
     public void grabarReconocimiento(ActionEvent e) {
         InvReconocimientoVO rec = (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
         Integer idreconocimiento=rec.getIreId();
-        BigDecimal montoAprobado = rec.getIvrMontoAprobado();
-        BigDecimal montoPresentado = rec.getIvrMontoPresentado();
+        BigDecimal montoAprobado =Reutilizar.getNewInstance().redondearBigDecimal(rec.getIvrMontoAprobado());
+        BigDecimal montoPresentado = Reutilizar.getNewInstance().redondearBigDecimal(rec.getIvrMontoPresentado());
         if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
@@ -784,8 +784,8 @@ public class RectificarInversion {
         
         InvReajusteVO rea = (InvReajusteVO) e.getComponent().getAttributes().get("reajuste");
         Integer idreajuste=rea.getIrjId();
-        BigDecimal montoReajuste = rea.getIrjMontoReajuste();
-        BigDecimal montoAprobado = rea.getIrjMontoAprobado();
+        BigDecimal montoReajuste = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoReajuste());
+        BigDecimal montoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoAprobado());
         if (montoReajuste.compareTo(BigDecimal.ZERO) == 0 || montoReajuste.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
