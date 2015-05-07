@@ -364,7 +364,7 @@
                                               onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
                                               onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
                                               value="#{concesionarioMB.numeroDocumento}"
-                                            
+                                              maxlength="11"    
                                              />
                                              <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -374,7 +374,7 @@
                             <td align="left">Dirección:</td>
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" onkeyup="pasarMayuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.direccion}"/>
+                                             value="#{concesionarioMB.direccion}" maxlength="50"/>
                             </td>
                         </tr>
                          
@@ -395,7 +395,7 @@
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%"    id="email"
                                              onkeyup="pasarMayuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.correo}">
+                                             value="#{concesionarioMB.correo}" maxlength="50">
                                     
                                 </p:inputText>
                             </td>
