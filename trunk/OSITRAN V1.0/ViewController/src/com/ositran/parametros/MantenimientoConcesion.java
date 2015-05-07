@@ -347,7 +347,7 @@ public class MantenimientoConcesion {
         concesionServicesImpl.update(concesionVO);
         
         ListarConcesiones();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se eliminó correctamente");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
