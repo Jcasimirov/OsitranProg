@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.InvReconocimientoDAOImpl;
 import com.ositran.model.InvReconocimiento;
 import com.ositran.service.InvReconocimientoService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InvReconocimientoVO;
 
 import java.sql.SQLException;
@@ -91,8 +92,8 @@ public class InvReconocimientoServiceImpl implements InvReconocimientoService{
         InvReconocimientoVO1.setInfId(InvReconocimiento1.getInfId());
         InvReconocimientoVO1.setIadId(InvReconocimiento1.getIadId());
         InvReconocimientoVO1.setMonId(InvReconocimiento1.getMonId());
-        InvReconocimientoVO1.setIvrMontoAprobado(InvReconocimiento1.getIvrMontoAprobado()); 
-        InvReconocimientoVO1.setIvrMontoPresentado(InvReconocimiento1.getIvrMontoPresentado()); 
+        InvReconocimientoVO1.setIvrMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(InvReconocimiento1.getIvrMontoAprobado())); 
+        InvReconocimientoVO1.setIvrMontoPresentado(Reutilizar.getNewInstance().redondearBigDecimal(InvReconocimiento1.getIvrMontoPresentado())); 
         InvReconocimientoVO1.setIreEstado(InvReconocimiento1.getIreEstado());
         return InvReconocimientoVO1;
     }
