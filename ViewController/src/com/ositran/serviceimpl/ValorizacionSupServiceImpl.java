@@ -94,7 +94,20 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSupVO.setTvsFechaRegistro(valorizacionSup.getTvsFechaRegistro());
         valorizacionSupVO.setTvsAsunto(valorizacionSup.getTvsAsunto());
         valorizacionSupVO.setTvsAprobado(valorizacionSup.getTvsAprobado());
-        valorizacionSupVO.setTvsObservacion(valorizacionSup.getTvsObservacion());
+        valorizacionSupVO.setTvsObservacion(valorizacionSup.getTvsObservacion());        
+        valorizacionSupVO.setTvsFechaAprob(valorizacionSup.getTvsFechaAprob());        
+        valorizacionSupVO.setTvsMontoTotalAprob(valorizacionSup.getTvsMontoTotalAprob());        
+        valorizacionSupVO.setTvsUsuarioAprob(valorizacionSup.getTvsUsuarioAprob());        
+        valorizacionSupVO.setTvsTinId(valorizacionSup.getTvsTinId());        
+        valorizacionSupVO.setTvsCsiId(valorizacionSup.getTvsCsiId());        
+        valorizacionSupVO.setTvsCcoId(valorizacionSup.getTvsCcoId());        
+        valorizacionSupVO.setTvsTccTipo(valorizacionSup.getTvsTccTipo());        
+        valorizacionSupVO.setTvsMcoId(valorizacionSup.getTvsMcoId());        
+        valorizacionSupVO.setTvsInfId(valorizacionSup.getTvsInfId());        
+        valorizacionSupVO.setTvsInvId(valorizacionSup.getTvsInvId());        
+        valorizacionSupVO.setTvsCcoTotal(valorizacionSup.getTvsCcoTotal());        
+        valorizacionSupVO.setTvsCcoPlazo(valorizacionSup.getTvsCcoPlazo());
+        
         return valorizacionSupVO;
     }
     
@@ -121,7 +134,19 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSup.setTvsFechaRegistro(valorizacionSupVO.getTvsFechaRegistro());
         valorizacionSup.setTvsAsunto(valorizacionSupVO.getTvsAsunto()); 
         valorizacionSup.setTvsAprobado(valorizacionSupVO.getTvsAprobado());
-        valorizacionSup.setTvsObservacion(valorizacionSupVO.getTvsObservacion());
+        valorizacionSup.setTvsObservacion(valorizacionSupVO.getTvsObservacion());        
+        valorizacionSup.setTvsFechaAprob(valorizacionSupVO.getTvsFechaAprob());        
+        valorizacionSup.setTvsMontoTotalAprob(valorizacionSupVO.getTvsMontoTotalAprob());        
+        valorizacionSup.setTvsUsuarioAprob(valorizacionSupVO.getTvsUsuarioAprob());        
+        valorizacionSup.setTvsTinId(valorizacionSupVO.getTvsTinId());        
+        valorizacionSup.setTvsCsiId(valorizacionSupVO.getTvsCsiId());        
+        valorizacionSup.setTvsCcoId(valorizacionSupVO.getTvsCcoId());        
+        valorizacionSup.setTvsTccTipo(valorizacionSupVO.getTvsTccTipo());        
+        valorizacionSup.setTvsMcoId(valorizacionSupVO.getTvsMcoId());        
+        valorizacionSup.setTvsInfId(valorizacionSupVO.getTvsInfId());        
+        valorizacionSup.setTvsInvId(valorizacionSupVO.getTvsInvId());        
+        valorizacionSup.setTvsCcoTotal(valorizacionSupVO.getTvsCcoTotal());        
+        valorizacionSup.setTvsCcoPlazo(valorizacionSupVO.getTvsCcoPlazo());
         
         return valorizacionSup;
         
