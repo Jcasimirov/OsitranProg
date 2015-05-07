@@ -308,7 +308,6 @@ public class ActualizarContrato {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
-        System.out.println("tipoInfraestructura:"+tipoInfraestructura);
     }
 
     public ActualizarContrato() {
