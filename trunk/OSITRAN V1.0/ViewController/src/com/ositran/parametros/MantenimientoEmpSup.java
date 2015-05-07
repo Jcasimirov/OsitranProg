@@ -327,6 +327,7 @@ public class MantenimientoEmpSup {
             this.empSupServiceImp.update(empSupVO);
             //this.empSupServiceImp.delete(idEmpSup);
             getQuery();
+            empSupVO.setSupId(null);
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
                                                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
            
