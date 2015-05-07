@@ -165,7 +165,7 @@ public class Concesionario {
                RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                FacesContext.getCurrentInstance().addMessage(null,
                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                             "Se agregó el concesionario con éxito"));
+                                                                             "Se registró con éxito"));
            } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
