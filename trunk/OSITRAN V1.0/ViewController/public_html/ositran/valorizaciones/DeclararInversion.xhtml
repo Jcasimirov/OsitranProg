@@ -81,7 +81,6 @@
              
             <f:event listener="#{declararInversionMB.listarTipoInversion}" type="preRenderComponent"/>
             
-            <f:event listener="#{declararInversionMB.listarInfraEstructuras}" type="preRenderComponent"/>
                <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
@@ -530,14 +529,7 @@
                 <h:form id="frmBuscarContratoDlg">
                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
                                  columnClasses="etiquetas,cajas,validadores">
-                        <p:outputLabel for="tipoinfra" value="#{cam.ti}"/>
-                        <p:selectOneMenu id="tipoinfra" value="#{declararInversionMB.tipoinfra}" style="width:280px;">
-                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                            <f:selectItems value="#{declararInversionMB.listaTipoInfraestructura}" var="lisinfra"
-                                           itemLabel="#{lisinfra.tinNombre}" itemValue="#{lisinfra.tinId}"/>
-                            <p:ajax listener="#{declararInversionMB.filtrarConcesion}" update="concesion"/>
-                        </p:selectOneMenu>
-                        <p:message for="tipoinfra" display="icon"/>
+                       
                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
                         <p:selectOneMenu id="concesion" value="#{declararInversionMB.concesion}" style="width:280px;">
                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
