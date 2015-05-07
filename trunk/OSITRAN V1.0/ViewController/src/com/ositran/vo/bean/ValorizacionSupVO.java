@@ -39,6 +39,19 @@ public class ValorizacionSupVO {
     private String tvsObservacion;
     private String nombreMoneda;
     private String nombreEstado;
+    
+    private Date tvsFechaAprob;     
+    private BigDecimal tvsMontoTotalAprob;
+    private Integer tvsUsuarioAprob;
+    private Integer tvsTinId;
+    private Integer tvsCsiId;
+    private Integer tvsCcoId; 
+    private Integer tvsTccTipo;
+    private Integer tvsMcoId; 
+    private Integer tvsInfId;    
+    private Integer tvsInvId;
+    private BigDecimal tvsCcoTotal;
+    private String tvsCcoPlazo;
 
 
     public ValorizacionSupVO(Integer monId, Integer supId, Integer tvsAnyo, String tvsAsunto, BigDecimal tvsBruto,
@@ -46,7 +59,9 @@ public class ValorizacionSupVO {
                              Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
                              Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, BigDecimal tvsNeto,
                              Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida,
-                             BigDecimal tvsAprobado, String tvsObservacion, String nombreMoneda, String nombreEstado) {
+                             BigDecimal tvsAprobado, String tvsObservacion, String nombreMoneda, String nombreEstado,
+                             Date tvsFechaAprob, BigDecimal tvsMontoTotalAprob, Integer tvsUsuarioAprob, Integer tvsTinId, Integer tvsCsiId,
+                                                        Integer tvsCcoId, Integer tvsTccTipo, Integer tvsMcoId, Integer tvsInfId, Integer tvsInvId, BigDecimal tvsCcoTotal, String tvsCcoPlazo) {
         super();
         this.monId = monId;
         this.supId = supId;
@@ -72,6 +87,18 @@ public class ValorizacionSupVO {
         this.tvsObservacion = tvsObservacion;
         this.nombreMoneda = nombreMoneda;
         this.nombreEstado = nombreEstado;
+        this.tvsFechaAprob = tvsFechaAprob;
+        this.tvsMontoTotalAprob = tvsMontoTotalAprob; 
+        this.tvsUsuarioAprob = tvsUsuarioAprob; 
+        this.tvsTinId = tvsTinId; 
+        this.tvsCsiId = tvsCsiId;
+        this.tvsCcoId = tvsCcoId;
+        this.tvsTccTipo = tvsTccTipo;
+        this.tvsMcoId = tvsMcoId;
+        this.tvsInfId = tvsInfId;
+        this.tvsInvId = tvsInvId;
+        this.tvsCcoTotal = tvsCcoTotal;                                                               
+        this.tvsCcoPlazo = tvsCcoPlazo;
     }
 
 
@@ -267,5 +294,101 @@ public class ValorizacionSupVO {
 
     public String getTvsObservacion() {
         return tvsObservacion;
+    }
+
+    public void setTvsFechaAprob(Date tvsFechaAprob) {
+        this.tvsFechaAprob = tvsFechaAprob;
+    }
+
+    public Date getTvsFechaAprob() {
+        return tvsFechaAprob;
+    }
+
+    public void setTvsMontoTotalAprob(BigDecimal tvsMontoTotalAprob) {
+        this.tvsMontoTotalAprob = tvsMontoTotalAprob;
+    }
+
+    public BigDecimal getTvsMontoTotalAprob() {
+        return tvsMontoTotalAprob;
+    }
+
+    public void setTvsUsuarioAprob(Integer tvsUsuarioAprob) {
+        this.tvsUsuarioAprob = tvsUsuarioAprob;
+    }
+
+    public Integer getTvsUsuarioAprob() {
+        return tvsUsuarioAprob;
+    }
+
+    public void setTvsTinId(Integer tvsTinId) {
+        this.tvsTinId = tvsTinId;
+    }
+
+    public Integer getTvsTinId() {
+        return tvsTinId;
+    }
+
+    public void setTvsCsiId(Integer tvsCsiId) {
+        this.tvsCsiId = tvsCsiId;
+    }
+
+    public Integer getTvsCsiId() {
+        return tvsCsiId;
+    }
+
+    public void setTvsCcoId(Integer tvsCcoId) {
+        this.tvsCcoId = tvsCcoId;
+    }
+
+    public Integer getTvsCcoId() {
+        return tvsCcoId;
+    }
+
+    public void setTvsTccTipo(Integer tvsTccTipo) {
+        this.tvsTccTipo = tvsTccTipo;
+    }
+
+    public Integer getTvsTccTipo() {
+        return tvsTccTipo;
+    }
+
+    public void setTvsMcoId(Integer tvsMcoId) {
+        this.tvsMcoId = tvsMcoId;
+    }
+
+    public Integer getTvsMcoId() {
+        return tvsMcoId;
+    }
+
+    public void setTvsInfId(Integer tvsInfId) {
+        this.tvsInfId = tvsInfId;
+    }
+
+    public Integer getTvsInfId() {
+        return tvsInfId;
+    }
+
+    public void setTvsInvId(Integer tvsInvId) {
+        this.tvsInvId = tvsInvId;
+    }
+
+    public Integer getTvsInvId() {
+        return tvsInvId;
+    }
+
+    public void setTvsCcoTotal(BigDecimal tvsCcoTotal) {
+        this.tvsCcoTotal = tvsCcoTotal;
+    }
+
+    public BigDecimal getTvsCcoTotal() {
+        return tvsCcoTotal;
+    }
+
+    public void setTvsCcoPlazo(String tvsCcoPlazo) {
+        this.tvsCcoPlazo = tvsCcoPlazo;
+    }
+
+    public String getTvsCcoPlazo() {
+        return tvsCcoPlazo;
     }
 }
