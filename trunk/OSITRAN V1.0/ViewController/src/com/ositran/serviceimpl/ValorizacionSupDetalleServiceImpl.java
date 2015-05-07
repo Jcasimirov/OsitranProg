@@ -79,25 +79,23 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
     }
     private ValorizacionSupDetalleVO toValorizacionSupDetalleVO(ValorizacionSupDetalle valorizacionSupDetalle){
         ValorizacionSupDetalleVO valorizacionSupDetalleVO=new ValorizacionSupDetalleVO();
-        valorizacionSupDetalleVO.setVsdId(valorizacionSupDetalle.getVsdId());
+        valorizacionSupDetalleVO.setTvsId(valorizacionSupDetalle.getTvsId());
         valorizacionSupDetalleVO.setCvaId(valorizacionSupDetalle.getCvaId()); 
         valorizacionSupDetalleVO.setIgv(valorizacionSupDetalle.getIgv());
         valorizacionSupDetalleVO.setMonId(valorizacionSupDetalle.getMonId());
         valorizacionSupDetalleVO.setNeto(valorizacionSupDetalle.getNeto());
         valorizacionSupDetalleVO.setTtotal(valorizacionSupDetalle.getTtotal());
-        valorizacionSupDetalleVO.setTvsHr(valorizacionSupDetalle.getTvsHr());
         valorizacionSupDetalleVO.setTotalAprobado(valorizacionSupDetalle.getTotalAprobado());
         return valorizacionSupDetalleVO;
     }
     private ValorizacionSupDetalle toValorizacionSupDetalle(ValorizacionSupDetalleVO valorizacionSupDetalleVO){
         ValorizacionSupDetalle valorizacionSupDetalle=new ValorizacionSupDetalle();
-        valorizacionSupDetalle.setVsdId(valorizacionSupDetalleVO.getVsdId());
+        valorizacionSupDetalle.setTvsId(valorizacionSupDetalleVO.getTvsId());
         valorizacionSupDetalle.setCvaId(valorizacionSupDetalleVO.getCvaId());
         valorizacionSupDetalle.setIgv(valorizacionSupDetalleVO.getIgv());
         valorizacionSupDetalle.setMonId(valorizacionSupDetalleVO.getMonId());
         valorizacionSupDetalle.setNeto(valorizacionSupDetalleVO.getNeto());
         valorizacionSupDetalle.setTtotal(valorizacionSupDetalleVO.getTtotal());
-        valorizacionSupDetalle.setTvsHr(valorizacionSupDetalleVO.getTvsHr());
         valorizacionSupDetalle.setTotalAprobado(valorizacionSupDetalleVO.getTotalAprobado());
         return valorizacionSupDetalle;
         
