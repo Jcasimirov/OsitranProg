@@ -79,6 +79,32 @@ public class ValorizacionSup implements Serializable {
     private BigDecimal tvsAprobado;
     @Column(name = "TVS_OBSERVACION", length = 4000)
     private String tvsObservacion;
+    
+    @Column(name = "TVS_FECHA_APROB")
+    private Date tvsFechaAprob;
+    @Column(name = "TVS_MONTO_TOTAL_APROB")
+    private BigDecimal tvsMontoTotalAprob;    
+    @Column(name = "TVS_USUARIO_APROB")
+    private Integer tvsUsuarioAprob;    
+    @Column(name = "TVS_TIN_ID")
+    private Integer tvsTinId;    
+    @Column(name = "TVS_CSI_ID")
+    private Integer tvsCsiId;    
+    @Column(name = "TVS_CCO_ID")
+    private Integer tvsCcoId;    
+    @Column(name = "TVS_TCC_TIPO")
+    private Integer tvsTccTipo;    
+    @Column(name = "TVS_MCO_ID")
+    private Integer tvsMcoId;    
+    @Column(name = "TVS_INF_ID")
+    private Integer tvsInfId;    
+    @Column(name = "TVS_INV_ID")
+    private Integer tvsInvId;    
+    @Column(name = "TVS_CCO_TOTAL")
+    private BigDecimal tvsCcoTotal;     
+    @Column(name = "TVS_CCO_PLAZO", length = 100)
+    private String tvsCcoPlazo;
+    
 
     public ValorizacionSup() {
     }
@@ -89,7 +115,8 @@ public class ValorizacionSup implements Serializable {
                            Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
                            Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, BigDecimal tvsNeto,
                            Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, BigDecimal tvsAprobado,
-                           String tvsObservacion) {
+                           String tvsObservacion, Date tvsFechaAprob, BigDecimal tvsMontoTotalAprob, Integer tvsUsuarioAprob, Integer tvsTinId, Integer tvsCsiId,
+                           Integer tvsCcoId, Integer tvsTccTipo, Integer tvsMcoId, Integer tvsInfId, Integer tvsInvId, BigDecimal tvsCcoTotal, String tvsCcoPlazo) {
         super();
         this.monId = monId;
         this.supId = supId;
@@ -113,6 +140,18 @@ public class ValorizacionSup implements Serializable {
         this.tvsOfiRegSalida = tvsOfiRegSalida;
         this.tvsAprobado = tvsAprobado;
         this.tvsObservacion = tvsObservacion;
+        this.tvsFechaAprob = tvsFechaAprob;
+        this.tvsMontoTotalAprob = tvsMontoTotalAprob; 
+        this.tvsUsuarioAprob = tvsUsuarioAprob; 
+        this.tvsTinId = tvsTinId; 
+        this.tvsCsiId = tvsCsiId;
+        this.tvsCcoId = tvsCcoId;
+        this.tvsTccTipo = tvsTccTipo;
+        this.tvsMcoId = tvsMcoId;
+        this.tvsInfId = tvsInfId;
+        this.tvsInvId = tvsInvId;
+        this.tvsCcoTotal = tvsCcoTotal;                                                               
+        this.tvsCcoPlazo = tvsCcoPlazo;
     }
 
 
@@ -291,6 +330,103 @@ public class ValorizacionSup implements Serializable {
 
     public String getTvsObservacion() {
         return tvsObservacion;
+    }
+
+
+    public void setTvsFechaAprob(Date tvsFechaAprob) {
+        this.tvsFechaAprob = tvsFechaAprob;
+    }
+
+    public Date getTvsFechaAprob() {
+        return tvsFechaAprob;
+    }
+
+    public void setTvsMontoTotalAprob(BigDecimal tvsMontoTotalAprob) {
+        this.tvsMontoTotalAprob = tvsMontoTotalAprob;
+    }
+
+    public BigDecimal getTvsMontoTotalAprob() {
+        return tvsMontoTotalAprob;
+    }
+
+    public void setTvsUsuarioAprob(Integer tvsUsuarioAprob) {
+        this.tvsUsuarioAprob = tvsUsuarioAprob;
+    }
+
+    public Integer getTvsUsuarioAprob() {
+        return tvsUsuarioAprob;
+    }
+
+    public void setTvsTinId(Integer tvsTinId) {
+        this.tvsTinId = tvsTinId;
+    }
+
+    public Integer getTvsTinId() {
+        return tvsTinId;
+    }
+
+    public void setTvsCsiId(Integer tvsCsiId) {
+        this.tvsCsiId = tvsCsiId;
+    }
+
+    public Integer getTvsCsiId() {
+        return tvsCsiId;
+    }
+
+    public void setTvsCcoId(Integer tvsCcoId) {
+        this.tvsCcoId = tvsCcoId;
+    }
+
+    public Integer getTvsCcoId() {
+        return tvsCcoId;
+    }
+
+    public void setTvsTccTipo(Integer tvsTccTipo) {
+        this.tvsTccTipo = tvsTccTipo;
+    }
+
+    public Integer getTvsTccTipo() {
+        return tvsTccTipo;
+    }
+
+    public void setTvsMcoId(Integer tvsMcoId) {
+        this.tvsMcoId = tvsMcoId;
+    }
+
+    public Integer getTvsMcoId() {
+        return tvsMcoId;
+    }
+
+    public void setTvsInfId(Integer tvsInfId) {
+        this.tvsInfId = tvsInfId;
+    }
+
+    public Integer getTvsInfId() {
+        return tvsInfId;
+    }
+
+    public void setTvsInvId(Integer tvsInvId) {
+        this.tvsInvId = tvsInvId;
+    }
+
+    public Integer getTvsInvId() {
+        return tvsInvId;
+    }
+
+    public void setTvsCcoTotal(BigDecimal tvsCcoTotal) {
+        this.tvsCcoTotal = tvsCcoTotal;
+    }
+
+    public BigDecimal getTvsCcoTotal() {
+        return tvsCcoTotal;
+    }
+
+    public void setTvsCcoPlazo(String tvsCcoPlazo) {
+        this.tvsCcoPlazo = tvsCcoPlazo;
+    }
+
+    public String getTvsCcoPlazo() {
+        return tvsCcoPlazo;
     }
 
 }
