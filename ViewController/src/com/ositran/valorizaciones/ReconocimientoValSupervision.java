@@ -4,6 +4,7 @@ import com.ositran.service.EmpresaSupervisoraService;
 import com.ositran.service.InversionService;
 import com.ositran.service.TipoDocumentoService;
 import com.ositran.service.ValorizacionSupService;
+import com.ositran.serviceimpl.ValorizacionConceptoServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupServiceImpl;
 import com.ositran.util.ControlAcceso;
@@ -11,6 +12,7 @@ import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 
+import com.ositran.vo.bean.ValorizacionConceptoVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 
 import com.ositran.vo.bean.ValorizacionSupVO;
@@ -92,12 +94,16 @@ public class ReconocimientoValSupervision {
     @ManagedProperty(value="#{valorizacionSupDetalleVO}")
     private ValorizacionSupDetalleVO valorizacionSupDetalleVO;
     
+    @ManagedProperty(value = "#{valorizacionConceptoVO}")
+    private ValorizacionConceptoVO valorizacionConceptoVO;
+    
     //Listas
     
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     List<TipoDocumentoVO> listaTipoDocumento = new ArrayList<TipoDocumentoVO>();
     List<ValorizacionSupDetalleVO> listaValorizaciondetalle=new ArrayList<ValorizacionSupDetalleVO>();
     List<ValorizacionSupVO> listaValorizacion=new ArrayList<ValorizacionSupVO>();
+    List<ValorizacionConceptoVO> listaConcepto = new ArrayList<>();
     
     
     
@@ -115,6 +121,8 @@ public class ReconocimientoValSupervision {
     @ManagedProperty(value="#{valorizacionSupDetalleServiceImpl}")
     private ValorizacionSupDetalleServiceImpl valorizacionSupDetalleServiceImpl;
     
+    @ManagedProperty(value = "#{valorizacionConceptoServiceImpl}")
+    private ValorizacionConceptoServiceImpl valorizacionConceptoServiceImpl;
    
     
     //Metodos Get y Set
@@ -368,13 +376,38 @@ public class ReconocimientoValSupervision {
         return montoIngresado;
     }
 
+    public void setValorizacionConceptoVO(ValorizacionConceptoVO valorizacionConceptoVO) {
+        this.valorizacionConceptoVO = valorizacionConceptoVO;
+    }
+
+    public ValorizacionConceptoVO getValorizacionConceptoVO() {
+        return valorizacionConceptoVO;
+    }
+
+    public void setValorizacionConceptoServiceImpl(ValorizacionConceptoServiceImpl valorizacionConceptoServiceImpl) {
+        this.valorizacionConceptoServiceImpl = valorizacionConceptoServiceImpl;
+    }
+
+    public ValorizacionConceptoServiceImpl getValorizacionConceptoServiceImpl() {
+        return valorizacionConceptoServiceImpl;
+    }
+
+    public void setListaConcepto(List<ValorizacionConceptoVO> listaConcepto) {
+        this.listaConcepto = listaConcepto;
+    }
+
+    public List<ValorizacionConceptoVO> getListaConcepto() {
+        return listaConcepto;
+    }
+    
+
     //Buscar Empresa Supervisora
     
     public void filtrarListaEmpSup(){
         
         try {
             System.out.println("entro FiltrarListaEmpSup: " + listaEmpresasSup.size());
-            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpSup, "");
+            listaEmpresasSup = empSupServiceImp.FiltrarEmpSup(nombreEmpSup);
             listaTipoDocumento = tipoDocumentoServiceImp.query();
             for (int i = 0; i < listaEmpresasSup.size(); i++) {
                 for (int j = 0; j < listaTipoDocumento.size(); j++) {
@@ -413,10 +446,14 @@ public class ReconocimientoValSupervision {
     public void seleccionarValorizacion(ActionEvent actionEvent) throws Exception{
         System.out.println("Entro");
         valorizacionSupVO = (ValorizacionSupVO) actionEvent.getComponent().getAttributes().get("valorizacion");
+        try{
         listaValorizaciondetalle = valorizacionSupDetalleServiceImpl.ListaValorizacionesDetRegistradas(valorizacionSupVO.getTvsHr());
         for (int i=0 ;i<listaValorizaciondetalle.size();i++){
+            valorizacionConceptoVO = valorizacionConceptoServiceImpl.get(listaValorizaciondetalle.get(i).getCvaId());
+            listaValorizaciondetalle.get(i).setDescripcionInversion(valorizacionConceptoVO.getCvaNombre());
             listaValorizaciondetalle.get(i).setTotalAprobado(listaValorizaciondetalle.get(i).getTtotal());
             totalpresentado = totalpresentado + listaValorizaciondetalle.get(i).getTtotal().doubleValue(); 
+
             listaValorizaciondetalle.get(i).setFila(i);
             if(listaValorizaciondetalle.get(i).getMonId() == 1){
                 listaValorizaciondetalle.get(i).setNombreMoneda("Nuevos Soles");
@@ -425,6 +462,9 @@ public class ReconocimientoValSupervision {
             }
         }
         totalAprobado = totalpresentado;
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
     
     public void seleccionarValorizaciondet(ActionEvent actionEvent) throws Exception{
@@ -516,6 +556,12 @@ public class ReconocimientoValSupervision {
         }
     }
     
-   
+    public void cargarListaconcepto() {
+        try {
+            listaConcepto = valorizacionConceptoServiceImpl.query();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 
 }
