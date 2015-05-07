@@ -89,16 +89,16 @@ public class DescripcionTipoInversion {
             }
         else  if (codigoInversion == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
-                                                                          "Debe de Selecionar un tipo de Inversión"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
+                                                                          "Debe ingresar Tipo de Inversión"));
         } else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Advertencia",
-                                                                          "Debe de Ingresar el nombre"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "Debe ingresar el nombre\""));
         } else if (descripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Advertencia",
-                                                                          "Debe  de ingresar la descripción"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "Debe ingresar la descripción"));
         } else {
             try {
                 inversionDescripcionVO.setTivId(codigoInversion);
