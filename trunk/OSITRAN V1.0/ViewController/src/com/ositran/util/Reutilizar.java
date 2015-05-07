@@ -119,4 +119,8 @@ public class Reutilizar {
         monto1=monto1.divide(monto2);
         return monto1;
     }
+    public BigDecimal redondearBigDecimal(BigDecimal d) {
+        System.out.println("d.setScale(2, BigDecimal.ROUND_HALF_EVEN)"+d.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+      return d.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+    }
 }
