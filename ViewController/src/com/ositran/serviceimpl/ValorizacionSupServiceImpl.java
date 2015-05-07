@@ -107,7 +107,6 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSupVO.setTvsInvId(valorizacionSup.getTvsInvId());        
         valorizacionSupVO.setTvsCcoTotal(valorizacionSup.getTvsCcoTotal());        
         valorizacionSupVO.setTvsCcoPlazo(valorizacionSup.getTvsCcoPlazo());
-        
         return valorizacionSupVO;
     }
     
@@ -147,7 +146,6 @@ public class ValorizacionSupServiceImpl implements ValorizacionSupService {
         valorizacionSup.setTvsInvId(valorizacionSupVO.getTvsInvId());        
         valorizacionSup.setTvsCcoTotal(valorizacionSupVO.getTvsCcoTotal());        
         valorizacionSup.setTvsCcoPlazo(valorizacionSupVO.getTvsCcoPlazo());
-        
         return valorizacionSup;
         
     }
