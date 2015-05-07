@@ -25,6 +25,7 @@ import org.hibernate.annotations.Parameter;
  * CREATE SEQUENCE "T_VALORIZACION_SUP_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
  */
 @Entity
+
 @Table(name = "T_VALORIZACION_SUP")
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_VALORIZACION_SUP"))
 public class ValorizacionSup implements Serializable {
@@ -79,7 +80,6 @@ public class ValorizacionSup implements Serializable {
     private BigDecimal tvsAprobado;
     @Column(name = "TVS_OBSERVACION", length = 4000)
     private String tvsObservacion;
-    
     @Column(name = "TVS_FECHA_APROB")
     private Date tvsFechaAprob;
     @Column(name = "TVS_MONTO_TOTAL_APROB")
@@ -106,6 +106,7 @@ public class ValorizacionSup implements Serializable {
     private String tvsCcoPlazo;
     
 
+
     public ValorizacionSup() {
     }
 
@@ -115,8 +116,10 @@ public class ValorizacionSup implements Serializable {
                            Date tvsInfFechaEmision, String tvsInfNumero, String tvsInfRegSalida,
                            Date tvsMemFechaEmision, String tvsMemNumero, String tvsMemRegSalida, BigDecimal tvsNeto,
                            Date tvsOfiFechaEmision, String tvsOfiNumero, String tvsOfiRegSalida, BigDecimal tvsAprobado,
-                           String tvsObservacion, Date tvsFechaAprob, BigDecimal tvsMontoTotalAprob, Integer tvsUsuarioAprob, Integer tvsTinId, Integer tvsCsiId,
-                           Integer tvsCcoId, Integer tvsTccTipo, Integer tvsMcoId, Integer tvsInfId, Integer tvsInvId, BigDecimal tvsCcoTotal, String tvsCcoPlazo) {
+                           String tvsObservacion, Date tvsFechaAprob, BigDecimal tvsMontoTotalAprob,
+                           Integer tvsUsuarioAprob, Integer tvsTinId, Integer tvsCsiId, Integer tvsCcoId,
+                           Integer tvsTccTipo, Integer tvsMcoId, Integer tvsInfId, Integer tvsInvId,
+                           BigDecimal tvsCcoTotal, String tvsCcoPlazo) {
         super();
         this.monId = monId;
         this.supId = supId;
@@ -141,19 +144,18 @@ public class ValorizacionSup implements Serializable {
         this.tvsAprobado = tvsAprobado;
         this.tvsObservacion = tvsObservacion;
         this.tvsFechaAprob = tvsFechaAprob;
-        this.tvsMontoTotalAprob = tvsMontoTotalAprob; 
-        this.tvsUsuarioAprob = tvsUsuarioAprob; 
-        this.tvsTinId = tvsTinId; 
+        this.tvsMontoTotalAprob = tvsMontoTotalAprob;
+        this.tvsUsuarioAprob = tvsUsuarioAprob;
+        this.tvsTinId = tvsTinId;
         this.tvsCsiId = tvsCsiId;
         this.tvsCcoId = tvsCcoId;
         this.tvsTccTipo = tvsTccTipo;
         this.tvsMcoId = tvsMcoId;
         this.tvsInfId = tvsInfId;
         this.tvsInvId = tvsInvId;
-        this.tvsCcoTotal = tvsCcoTotal;                                                               
+        this.tvsCcoTotal = tvsCcoTotal;
         this.tvsCcoPlazo = tvsCcoPlazo;
     }
-
 
     public void setMonId(Integer monId) {
         this.monId = monId;
@@ -186,7 +188,6 @@ public class ValorizacionSup implements Serializable {
     public String getTvsAsunto() {
         return tvsAsunto;
     }
-
 
     public void setTvsBruto(BigDecimal tvsBruto) {
         this.tvsBruto = tvsBruto;
@@ -332,7 +333,6 @@ public class ValorizacionSup implements Serializable {
         return tvsObservacion;
     }
 
-
     public void setTvsFechaAprob(Date tvsFechaAprob) {
         this.tvsFechaAprob = tvsFechaAprob;
     }
@@ -428,5 +428,4 @@ public class ValorizacionSup implements Serializable {
     public String getTvsCcoPlazo() {
         return tvsCcoPlazo;
     }
-
 }
