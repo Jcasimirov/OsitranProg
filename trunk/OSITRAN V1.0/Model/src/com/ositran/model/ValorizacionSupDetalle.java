@@ -22,9 +22,9 @@ import org.hibernate.annotations.Parameter;
 public class ValorizacionSupDetalle implements Serializable {
     private static final long serialVersionUID = -6895999228460826945L;
     @Id
-    @Column(name = "VSD_ID", nullable = false)
-    private Integer vsdId;
-    @GeneratedValue(generator = "generator")            
+    @GeneratedValue(generator = "generator")
+    @Column(name = "TVS_ID", nullable = false)
+    private Integer tvsId;     
     @Column(name = "CVA_ID")    
     private Integer cvaId;
     @Column(name="VSD_IGV")
@@ -35,33 +35,31 @@ public class ValorizacionSupDetalle implements Serializable {
     private BigDecimal neto;
     @Column(name="VSD_TTOTAL")
     private BigDecimal ttotal;
-    @Column(name = "TVS_HR")
-    private Integer tvsHr;
     @Column(name="VSD_TOTAL_APROBADO")
     private BigDecimal totalAprobado;
 
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer vsdId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
-                                  BigDecimal ttotal, Integer tvsHr, BigDecimal totalAprobado) {
+    public ValorizacionSupDetalle(Integer tvsId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
+                                  BigDecimal ttotal, BigDecimal totalAprobado) {
         super();
-        this.vsdId = vsdId;
+        this.tvsId = tvsId;
         this.cvaId = cvaId;
         this.igv = igv;
         this.monId = monId;
         this.neto = neto;
         this.ttotal = ttotal;
-        this.tvsHr = tvsHr;
         this.totalAprobado = totalAprobado;
     }
 
-    public void setVsdId(Integer vsdId) {
-        this.vsdId = vsdId;
+
+    public void setTvsId(Integer tvsId) {
+        this.tvsId = tvsId;
     }
 
-    public Integer getVsdId() {
-        return vsdId;
+    public Integer getTvsId() {
+        return tvsId;
     }
 
     public void setCvaId(Integer cvaId) {
@@ -102,14 +100,6 @@ public class ValorizacionSupDetalle implements Serializable {
 
     public BigDecimal getTtotal() {
         return ttotal;
-    }
-
-    public void setTvsHr(Integer tvsHr) {
-        this.tvsHr = tvsHr;
-    }
-
-    public Integer getTvsHr() {
-        return tvsHr;
     }
 
     public void setTotalAprobado(BigDecimal totalAprobado) {
