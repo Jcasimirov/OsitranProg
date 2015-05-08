@@ -1,6 +1,7 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.ValorizacionInversionAvanceDetalleDAO;
+import com.ositran.model.InversionTipo;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.util.HibernateUtil;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +67,19 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
 
     @Override
     public String delete(Integer id) throws SQLException, Exception {
-        // TODO Implement this method
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle = (ValorizacionInversionAvanceDetalle) session.get(ValorizacionInversionAvanceDetalle.class, id);
+            session.delete(valorizacionInversionAvanceDetalle);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
