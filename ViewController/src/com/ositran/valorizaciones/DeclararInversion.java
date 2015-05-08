@@ -232,8 +232,6 @@ public class DeclararInversion {
      * con el tipo de infraestructura del usuario que se logueo**/
     public void filtrarConcesion() {
         try {
-            System.out.println("listaConcesiones");
-            System.out.println("tipoinfra: " + tipoinfra);
             listaConcesiones = getConcesionServiceImpl().filtrarConcesion(tipoInfraestructura);
         } catch (Exception e) {
             System.out.println("listaConcesiones e");
