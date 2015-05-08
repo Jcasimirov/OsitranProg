@@ -18,7 +18,7 @@
                                 <h:form binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.form1}"
                                         id="formReconocimientoContratos">
                                     <primefaces-p:panelGrid binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.pnlgReconocimientoContratos}"
-                                                            id="pnlgReconocimientoContratos" columns="7">
+                                                            id="pnlgReconocimientoContratos" columns="6">
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.lblAnnio}"
                                                                   id="lblAnnio" value="Año"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectAnnio}"
@@ -27,21 +27,13 @@
                                             <f:selectItems value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.annioSelectItems}"/>
                                             <f:ajax render="selectedItem" event="change" execute="selectAnnio"/>
                                         </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.lblTipoReporte}"
-                                                                  id="lblTipoReporte" value="Tipo de reporte"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectTipoReporte}"
-                                                                    id="selectTipoReporte" value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.tipoReporte}">
-                                            <f:selectItems value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.tipoReporteSelectItems}"/>
-                                            <f:ajax render="selectedItemTipoReporte" event="change" execute="selectTipoReporte"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:commandButton binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.cmbGenerar}"
-                                                                    id="cmbGenerar" value="Generar"/>
-                                        <h:commandLink>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
-                                        </h:commandLink>
-                                        <h:commandLink>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
-                                        </h:commandLink>
+                                        <primefaces-p:outputLabel 
+                                                                  id="lblTrimestre" value="Trimestre"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectTrimestre}"
+                                                                    id="selectTrimestre" value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.trimestre}">
+                                                                    <f:selectItems value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.trimestreSelectItems}"/>
+                                                                   
+                                        </primefaces-p:selectOneMenu>                                        
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.lblTipoInfraestructura}"
                                                                   id="lblTipoInfraestructura"
                                                                   value="Tipo de infraestructura"/>
@@ -70,25 +62,36 @@
                                             <f:ajax render="selectedItemModalidadConcesion" event="change"
                                                     execute="selectModalidad"/>
                                         </primefaces-p:selectOneMenu>
-                                        <h:inputHidden id="selectedItem"
+                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
+                                            <f:attribute name="nomentidad" value="invReconocimContratosConcesionResumen" />
+                                            <f:attribute name="tiporeporte" value="excel" />
+                                            <primefaces-p:outputLabel value="Generar"/>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                        </h:commandLink>
+                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                            <f:attribute name="nomentidad" value="invReconocimContratosConcesionResumen" />
+                                            <f:attribute name="tiporeporte" value="pdf" />
+                                            <primefaces-p:outputLabel value="Generar"/>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                        </h:commandLink>
+                                        <h:inputHidden rendered="false" id="selectedItem"
                                                        value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedAnnio}"/>
-                                        <h:inputHidden id="selectedItemTipoInfraestructura"
+                                        <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura"
                                                        value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedTipoInfraestructura}"/>
-                                        <h:inputHidden id="selectedItemConcesion"
+                                        <h:inputHidden rendered="false" id="selectedItemConcesion"
                                                        value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedConcesion}"/>
-                                        <h:inputHidden id="selectedItemModalidadConcesion"
+                                        <h:inputHidden rendered="false" id="selectedItemModalidadConcesion"
                                                        value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedModalidad}"/>
-                                        <h:inputHidden id="selectedItemTipoReporte"
-                                                       value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedTipoReporte}"/>
+                                       
                                     </primefaces-p:panelGrid>
                                 </h:form>
                             </div>
                         </div>
                         <br/>
                     </div>
-                    <iframe id="iframeCenter"
+                    <!--iframe id="iframeCenter"
                             src="./../../images/reportes/inversionesreconocidasenloscontratosdeconcesionrango.jpg"
-                            width="100%" height="100%"></iframe>
+                            width="100%" height="100%"></iframe-->
                 </primefaces-p:layoutUnit>
             </primefaces-p:layout>
         </h:body>

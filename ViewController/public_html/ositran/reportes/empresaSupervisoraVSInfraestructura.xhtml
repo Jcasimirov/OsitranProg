@@ -15,13 +15,11 @@
                         </h4>
                         <div style="width:80%">
                             <div align="center" style="font-size: 11px">
-                                <h:form binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.form1}"
-                                        id="formSupervisoraInfraestructura">
-                                    <primefaces-p:panelGrid binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.pnlgSupervisoraInfraestructura}"
-                                                            id="pnlgSupervisoraInfraestructura" columns="9">
+                                <h:form id="formSupervisoraInfraestructura">
+                                    <primefaces-p:panelGrid id="pnlgSupervisoraInfraestructura" columns="4">
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.lblTipoInfraestructura}"
                                                                   id="lblTipoInfraestructura"
-                                                                  value="Tipo infraestructura"/>
+                                                                  value="Tipo infraestructura" />
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.selectTipoInfraestructura}"
                                                                     id="selectTipoInfraestructura"
                                                                     value="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.tipoInfraestructura}">
@@ -47,20 +45,24 @@
                                             <f:selectItems value="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.empresaSupervisoraSelectItems}"/>
                                             <f:ajax render="selectedItemEmpresaSupervisora" event="change"
                                                     execute="selectEmpresaSupervisora"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:commandButton binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.cmbGenerar}"
-                                                                    id="cmbGenerar" value="Generar"/>
-                                        <h:commandLink>
+                                        </primefaces-p:selectOneMenu>                      
+                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
+                                            <f:attribute name="nomentidad" value="empresaSupervisoraVSInfraestructura" />
+                                            <f:attribute name="tiporeporte" value="excel" />
+                                            <primefaces-p:outputLabel value="Generar"/>
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
                                         </h:commandLink>
-                                        <h:commandLink>
+                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                            <f:attribute name="nomentidad" value="empresaSupervisoraVSInfraestructura" />
+                                            <f:attribute name="tiporeporte" value="pdf" />
+                                            <primefaces-p:outputLabel value="Generar"/>
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
-                                        <h:inputHidden id="selectedItemTipoInfraestructura"
+                                        <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura"
                                                        value="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.selectedTipoInfraestructura}"/>
-                                        <h:inputHidden id="selectedItemConcesion"
+                                        <h:inputHidden rendered="false" id="selectedItemConcesion"
                                                        value="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.selectedConcesion}"/>
-                                        <h:inputHidden id="selectedItemEmpresaSupervisora"
+                                        <h:inputHidden rendered="false" id="selectedItemEmpresaSupervisora"
                                                        value="#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.selectedEmpresaSupervisora}"/>
                                     </primefaces-p:panelGrid>
                                 </h:form>
@@ -68,8 +70,8 @@
                         </div>
                         <br/>
                     </div>
-                    <iframe id="iframeCenter" src="./../../images/reportes/empresasupervisoravsinfraestructura.jpg"
-                            width="100%" height="100%"></iframe>
+                    <!--iframe id="iframeCenter" src="./../../images/reportes/empresasupervisoravsinfraestructura.jpg"
+                            width="100%" height="100%"></iframe-->
                 </primefaces-p:layoutUnit>
             </primefaces-p:layout>
         </h:body>

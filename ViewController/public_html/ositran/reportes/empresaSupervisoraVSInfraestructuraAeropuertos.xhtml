@@ -50,10 +50,14 @@
                                         </primefaces-p:selectOneMenu>
                                         <primefaces-p:commandButton binding="#{backing_ositran_reports_empresaSupervisoraVSInfraestructuraAeropuertos.cmbGenerar}"
                                                                     id="cmbGenerar" value="Generar"/>
-                                        <h:commandLink>
+                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
+                                            <f:attribute name="nomentidad" value="empresaSupervisoraVSInfraestructuraAeropuertos" />
+                                            <f:attribute name="tiporeporte" value="excel" />
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
                                         </h:commandLink>
-                                        <h:commandLink>
+                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                        <f:attribute name="modulo" value="empresaSupervisoraVSInfraestructuraAeropuertos" />
+                                        <f:attribute name="tiporeporte" value="pdf" />
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
                                         <h:inputHidden id="selectedItemTipoInfraestructura"

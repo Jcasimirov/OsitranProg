@@ -18,7 +18,7 @@
                                 <h:form binding="#{backing_ositran_reports_trazabilidadPrincipalesEventos.form1}"
                                         id="formTrazabilidad">
                                     <primefaces-p:panelGrid binding="#{backing_ositran_reports_trazabilidadPrincipalesEventos.pnlgTrazabilidad}"
-                                                            id="pnlgTrazabilidad" columns="9">
+                                                            id="pnlgTrazabilidad" columns="8">
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_trazabilidadPrincipalesEventos.lblTipoInfraestructura}"
                                                                   id="lblTipoInfraestructura"
                                                                   value="Tipo infraestructura"/>
@@ -45,28 +45,29 @@
                                             <f:selectItems value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.mesesSelectItems}"/>
                                             <f:ajax render="selectedItemMes" event="change" execute="selectMes"/>
                                         </primefaces-p:selectOneMenu>
-                                        <primefaces-p:commandButton binding="#{backing_ositran_reports_trazabilidadPrincipalesEventos.cmbGenerar}"
-                                                                    id="cmbGenerar" value="Generar"/>
-                                        <h:commandLink>
+                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
+                                            <f:attribute name="nomentidad" value="trazabilidadPrincipalesEventos" />
+                                            <f:attribute name="tiporeporte" value="excel" />
+                                            <primefaces-p:outputLabel value="Generar"/>
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
                                         </h:commandLink>
-                                        <h:commandLink>
+                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                            <f:attribute name="nomentidad" value="trazabilidadPrincipalesEventos" />
+                                            <f:attribute name="tiporeporte" value="pdf" />
+                                            <primefaces-p:outputLabel value="Generar"/>
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
-                                        <h:inputHidden id="selectedItem"
-                                                       value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedAnnio}"/>
-                                        <h:inputHidden id="selectedItemMes"
-                                                       value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedMes}"/>
-                                        <h:inputHidden id="selectedItemTipoInfraestructura"
-                                                     value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedTipoInfraestructura}"/>
+                                        <h:inputHidden rendered="false" id="selectedItem" value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedAnnio}"/>
+                                        <h:inputHidden rendered="false" id="selectedItemMes" value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedMes}"/>
+                                        <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_trazabilidadPrincipalesEventos.selectedTipoInfraestructura}"/>
                                     </primefaces-p:panelGrid>
                                 </h:form>
                             </div>
                         </div>
                         <br/>
                     </div>
-                    <iframe id="iframeCenter" src="./../../images/reportes/trazabilidaddeprincipaleseventos.jpg"
-                            width="100%" height="100%"></iframe>
+                    <!--iframe id="iframeCenter" src="./../../images/reportes/trazabilidaddeprincipaleseventos.jpg"
+                            width="100%" height="100%"></iframe-->
                 </primefaces-p:layoutUnit>
             </primefaces-p:layout>
         </h:body>
