@@ -2,13 +2,19 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.ContratoEmpresaSupervisoraAdendaDAO;
 import com.ositran.dao.InfraestructuraTipoDAO;
+import com.ositran.daoimpl.ContratoEmpresaSupervisoraAdendaDAOImpl;
+import com.ositran.daoimpl.ValorizacionSupDetalleDAOImpl;
 import com.ositran.model.ContratoSupervisoraAdenda;
 import com.ositran.model.InfraestructuraTipo;
+import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.model.ValorizacionSup;
+import com.ositran.model.ValorizacionSupDetalle;
 import com.ositran.service.ContratoEmpresaSupervisoraAdendaService;
 import com.ositran.vo.bean.ContratoSupervisoraAdendaVO;
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
+import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ValorizacionSupVO;
 
 import java.sql.SQLException;
@@ -19,10 +25,11 @@ import java.util.List;
 
 public class ContratoEmpresaSupervisoraAdendaServiceImpl implements ContratoEmpresaSupervisoraAdendaService {
     
-    ContratoEmpresaSupervisoraAdendaDAO contratoEmpresaSupervisoraAdendaDAOImpl;
-    ContratoSupervisoraAdenda contratoSupervisoraAdenda;
-    ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO;
-    
+    ContratoEmpresaSupervisoraAdendaDAOImpl contratoEmpresaSupervisoraAdendaDAOImpl = new ContratoEmpresaSupervisoraAdendaDAOImpl();
+    ContratoSupervisoraAdenda contratoSupervisoraAdenda = new ContratoSupervisoraAdenda();
+    ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO = new ContratoSupervisoraAdendaVO();
+
+
     public ContratoEmpresaSupervisoraAdendaServiceImpl() {
         super();
     }
@@ -61,7 +68,6 @@ public class ContratoEmpresaSupervisoraAdendaServiceImpl implements ContratoEmpr
     
     private ContratoSupervisoraAdendaVO toContratoSupervisoraAdendaVO(ContratoSupervisoraAdenda contratoSupervisoraAdenda){
         ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO=new ContratoSupervisoraAdendaVO();
-        contratoSupervisoraAdendaVO.setCpsId(contratoSupervisoraAdenda.getCpsId());
         contratoSupervisoraAdendaVO.setCpsNroDeContrato(contratoSupervisoraAdenda.getCpsNroDeContrato());
         contratoSupervisoraAdendaVO.setCsaAdenda(contratoSupervisoraAdenda.getCsaAdenda());
         contratoSupervisoraAdendaVO.setCsaFecha(contratoSupervisoraAdenda.getCsaFecha());
@@ -72,7 +78,6 @@ public class ContratoEmpresaSupervisoraAdendaServiceImpl implements ContratoEmpr
     }
     private ContratoSupervisoraAdenda toContratoSupervisoraAdenda(ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO){
         ContratoSupervisoraAdenda contratoSupervisoraAdenda=new ContratoSupervisoraAdenda();
-        contratoSupervisoraAdenda.setCpsId(contratoSupervisoraAdendaVO.getCpsId());
         contratoSupervisoraAdenda.setCpsNroDeContrato(contratoSupervisoraAdendaVO.getCpsNroDeContrato());
         contratoSupervisoraAdenda.setCsaAdenda(contratoSupervisoraAdendaVO.getCsaAdenda());
         contratoSupervisoraAdenda.setCsaFecha(contratoSupervisoraAdendaVO.getCsaFecha());
@@ -80,16 +85,14 @@ public class ContratoEmpresaSupervisoraAdendaServiceImpl implements ContratoEmpr
         contratoSupervisoraAdenda.setCsaPlazo(contratoSupervisoraAdendaVO.getCsaPlazo());
         contratoSupervisoraAdenda.setMonId(contratoSupervisoraAdendaVO.getMonId());
         return contratoSupervisoraAdenda;
-        
     }
-    
-    
-    
-    public void setContratoEmpresaSupervisoraAdendaDAOImpl(ContratoEmpresaSupervisoraAdendaDAO contratoEmpresaSupervisoraAdendaDAOImpl) {
+
+
+    public void setContratoEmpresaSupervisoraAdendaDAOImpl(ContratoEmpresaSupervisoraAdendaDAOImpl contratoEmpresaSupervisoraAdendaDAOImpl) {
         this.contratoEmpresaSupervisoraAdendaDAOImpl = contratoEmpresaSupervisoraAdendaDAOImpl;
     }
 
-    public ContratoEmpresaSupervisoraAdendaDAO getContratoEmpresaSupervisoraAdendaDAOImpl() {
+    public ContratoEmpresaSupervisoraAdendaDAOImpl getContratoEmpresaSupervisoraAdendaDAOImpl() {
         return contratoEmpresaSupervisoraAdendaDAOImpl;
     }
 
@@ -110,4 +113,12 @@ public class ContratoEmpresaSupervisoraAdendaServiceImpl implements ContratoEmpr
     }
 
 
+    @Override
+    public List<ContratoSupervisoraAdendaVO> getContratoSupervisoraAdenda(Integer cpsNroDeContrato) throws SQLException,
+                                                                                                           Exception {
+        
+        List<ContratoSupervisoraAdenda> list=contratoEmpresaSupervisoraAdendaDAOImpl.getContratoSupervisoraAdenda(cpsNroDeContrato);
+        List<ContratoSupervisoraAdendaVO> listVO=toListContratoSupervisoraAdendaVO(list);
+        return listVO;
+    }
 }
