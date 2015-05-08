@@ -1,17 +1,20 @@
 package com.ositran.util;
 
+import java.io.File;
+
 
 public class Constantes {
-   
-
-    public static String RUTACONTRATOSPDF="D:/filesositran/temp/contratos/";
-    public static String RUTAFICHASRESUMEN="D:/filesositran/temp/resumen/";
-    public static String RUTAADENDA="D:/filesositran/temp/adendas/";
-    public static String RUTAADENDAENTREGA="D:/filesositran/temp/entrega/";
-    public static String RUTACAO="D:/filesositran/temp/cao/";
-    public static String RUTAHITO="D:/filesositran/temp/hito/";
-    public static String RUTAPPO="D:/filesositran/temp/ppo/";
-    public static String RUTAPENALIDADES="D:/filesositran/temp/penalidades/";
+    public static String SO = System.getProperty("os.name");
+    public static String UNIDAD="D:";
+    public static String RUTA=SO.toUpperCase().startsWith("W")?UNIDAD+File.separator :File.separator +"usr"+File.separator ;
+    public static String RUTACONTRATOSPDF=RUTA+ File.separator +"filesositran"+File.separator+"temp"+File.separator+"contratos"+File.separator;
+    public static String RUTAFICHASRESUMEN=RUTA+File.separator +"filesositran"+File.separator+"temp"+File.separator +"resumen"+File.separator;
+    public static String RUTAADENDA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"adendas"+File.separator;
+    public static String RUTAADENDAENTREGA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"entrega"+File.separator;
+    public static String RUTACAO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"cao"+File.separator;
+    public static String RUTAHITO=File.separator +"filesositran"+File.separator +"temp"+File.separator +"hito"+File.separator;
+    public static String RUTAPPO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"ppo"+File.separator;
+    public static String RUTAPENALIDADES=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"penalidades"+File.separator;
 
     public static String ARCHIVONOENCONTRADO = "Archivo no encontrado.";
     public static String EXITOCONTRATOACTUALIZADO = "Contrato Actualizado Satisfactoriamente.";
