@@ -27,7 +27,7 @@ public class InvAvnSupervisada implements Serializable {
     private static final long serialVersionUID = 780569910639441937L;
     @Column(name = "CSI_ID")
     private BigDecimal csiId;
-    @Column(name = "IAS_ANYO", nullable = false)
+    @Column(name = "IAS_ANYO")
     private Integer iasAnyo;
     @Column(name = "IAS_ASUNTO", length = 20)
     private String iasAsunto;
@@ -45,7 +45,7 @@ public class InvAvnSupervisada implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "IAS_FECHA_RESPUESTA")
     private Date iasFechaRespuesta;
-    @Column(name = "IAS_HR", nullable = false)
+    @Column(name = "IAS_HR")
     private BigDecimal iasHr;
     @Column(name = "IAS_NRO_CARTA", length = 50)
     private String iasNroCarta;
