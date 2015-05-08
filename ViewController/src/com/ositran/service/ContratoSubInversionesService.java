@@ -12,6 +12,7 @@ public interface ContratoSubInversionesService {
     public String delete(Integer id) throws SQLException ,Exception;
     public String update(ContratoSubInversionesVO contratoSubInversionesVO) throws ParseException,SQLException ,Exception;
     public ContratoSubInversionesVO get(Integer id) throws SQLException ,Exception ;
+    public ContratoSubInversionesVO get1(Integer id) throws SQLException ,Exception ;
     public List<ContratoSubInversionesVO> query1(int filtro) throws SQLException ,Exception;
      public int getCanNombres(String nombre)  throws SQLException ,Exception;
     
