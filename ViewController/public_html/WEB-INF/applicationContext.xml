@@ -640,6 +640,7 @@
         <property name="invVO" ref="invVO"/>
         <property name="inversionDescripcionServicesImpl" ref="inversionDescripcionServicesImpl"/>
         <property name="valorizacionInversionAvanceDetalleServiceImpl" ref="valorizacionInversionAvanceDetalleServiceImpl"/>
+        <property name="contratoInversionServiceImpl" ref="contratoInversionServiceImpl"/>
     </bean>
 
 
