@@ -5,12 +5,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-
-
-
-
-import javax.persistence.Column;
-
 public class ValorizacionInversionAvanceDetalleVO {
     public ValorizacionInversionAvanceDetalleVO() {
         super();
@@ -37,7 +31,7 @@ public class ValorizacionInversionAvanceDetalleVO {
     private String nombreMoneda;
    private BigDecimal iasMontoRevisado;
    private BigDecimal montoRevisado;
-
+    private String nombreInversion;
 
     public void setIgv(BigDecimal igv) {
         this.igv = igv;
@@ -212,6 +206,13 @@ public class ValorizacionInversionAvanceDetalleVO {
         this.invId = invId;
     }
 
+    public void setNombreInversion(String nombreInversion) {
+        this.nombreInversion = nombreInversion;
+    }
+
+    public String getNombreInversion() {
+        return nombreInversion;
+    }
 }
 
 
