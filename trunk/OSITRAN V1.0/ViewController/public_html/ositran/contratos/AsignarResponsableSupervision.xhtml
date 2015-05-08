@@ -82,7 +82,29 @@
                                                             </td>
                                                         </tr>
                                                          
+                                                        <tr >
+                                                           
+                                                           <td  align="left"><h:outputText value="Aeropuerto" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/></td>
+                                                            <td  align="left">
+                                                                <p:selectOneMenu id="listaAeropuerto"  value="#{asignarResponsableMB.codigoAeropuerto}" style="width:300px;text-transform:uppercase;" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" >
+                                                                    <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+                                                                    <f:selectItems  value="#{asignarResponsableMB.listaAeropuerto}" var="aero" itemLabel="#{aero.infNombre}" itemValue="#{aero.infId}" />
+                                                                    <p:ajax event="valueChange" update=":form:listaInversiones :form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarInversiones()}"  />
+                                                                </p:selectOneMenu>
+                                                            </td>
+                                                        </tr>
                                                         
+                                                        <tr>
+                                                           
+                                                           <td  align="left"><h:outputText value="Inversión" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/></td>
+                                                            <td  align="left">
+                                                                <p:selectOneMenu id="listaInversiones"  value="#{asignarResponsableMB.codigoInversion}" style="width:300px;text-transform:uppercase;" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                                    <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
+                                                                    <f:selectItems  value="#{asignarResponsable_AeropuertoMB.listaInversiones}" var="inversion" itemLabel="#{inversion.invDescripcion}" itemValue="#{inversion.invId}" />
+                                                                    <p:ajax event="valueChange" update=":form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarCompromiso()}"  />
+                                                                </p:selectOneMenu>
+                                                            </td>
+                                                        </tr>
                                                          
                                                         
                                                          
@@ -279,8 +301,8 @@
                         </p:column>
                         <p:column headerText="Elegir">
                             <p:commandButton actionListener="#{asignarResponsableMB.seleccionarContratoConcesion1}"
-                                             icon="ui-search"
-                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion  :form:listaCompromiso :form:listaResponsables :form:idNombreEmpresaSupervisora :form:cbosupervisor :form:datosCompromiso"
+                                             icon="ui-search"                                             
+                                             update=":form:idNameConcesion :form:idNameTipoInfraestructura :form:idNameModalidadConcecion  :form:listaCompromiso :form:listaResponsables :form:idNombreEmpresaSupervisora :form:cbosupervisor :form:datosCompromiso :form:listaAeropuerto  :form:listaInversiones"
                                              oncomplete="Dialog_ResultadoBusquedaContratoConcesion.hide();">
                                 <f:attribute name="contrato" value="#{var2}"></f:attribute>
                             </p:commandButton>
