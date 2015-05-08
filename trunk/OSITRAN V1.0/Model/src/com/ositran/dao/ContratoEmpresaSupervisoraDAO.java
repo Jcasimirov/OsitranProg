@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ContratoEmpresaSupervisoraDAO {
         public List<ContratoSupervisora> query() throws SQLException;
-        public String insert(ContratoSupervisora contratoSupervisora) throws SQLException;
+        public int insert(ContratoSupervisora contratoSupervisora) throws SQLException;
         public String delete(Integer id) throws SQLException;
         public String update(ContratoSupervisora contratoSupervisora) throws SQLException;
         public ContratoSupervisora get(Integer id) throws SQLException;
