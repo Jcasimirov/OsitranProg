@@ -24,6 +24,18 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
     }
 
     @Override
+    public ContratoSupInversiones get1(Integer id) throws SQLException, Exception {
+        ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM ContratoSupInversiones  E WHERE E.conId=:id and E.sivEstado=1");
+        query.setParameter("id",id );
+        contratoSupInversiones=(ContratoSupInversiones)query.uniqueResult();  
+        return contratoSupInversiones;
+    }
+    
+    @Override
     public List<ContratoSupInversiones> query1(int filtro) throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
@@ -77,6 +89,7 @@ public class ContratoSubInversionesDAOImpl implements ContratoSubInversionesDAO 
         ContratoSupInversiones contratoSupInversiones = (ContratoSupInversiones) session.get(ContratoSupInversiones.class, id);
         return contratoSupInversiones;
     }
+
 
   
 }
