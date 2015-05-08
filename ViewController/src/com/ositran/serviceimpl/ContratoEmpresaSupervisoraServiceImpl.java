@@ -28,35 +28,10 @@ import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSupervisoraService{
 
-    ContratoEmpresaSupervisoraDAO contratoEmpresaSupervisoraDAOImpl;
-    ContratoSupervisora contratoSupervisora;
-    ContratoSupervisoraVO contratoSupervisoraVO;
-
-
-    public void setContratoEmpresaSupervisoraDAOImpl(ContratoEmpresaSupervisoraDAO contratoEmpresaSupervisoraDAOImpl) {
-        this.contratoEmpresaSupervisoraDAOImpl = contratoEmpresaSupervisoraDAOImpl;
-    }
-
-    public ContratoEmpresaSupervisoraDAO getContratoEmpresaSupervisoraDAOImpl() {
-        return contratoEmpresaSupervisoraDAOImpl;
-    }
-
-    public void setContratoSupervisora(ContratoSupervisora contratoSupervisora) {
-        this.contratoSupervisora = contratoSupervisora;
-    }
-
-    public ContratoSupervisora getContratoSupervisora() {
-        return contratoSupervisora;
-    }
-
-    public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
-        this.contratoSupervisoraVO = contratoSupervisoraVO;
-    }
-
-    public ContratoSupervisoraVO getContratoSupervisoraVO() {
-        return contratoSupervisoraVO;
-    }
-
+    ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl = new ContratoEmpresaSupervisoraDAOImpl();
+    ContratoSupervisora contratoSupervisora = new ContratoSupervisora();
+    ContratoSupervisoraVO contratoSupervisoraVO = new ContratoSupervisoraVO();
+    
 
     @Override
     public List<ContratoSupervisoraVO> query() throws SQLException {
@@ -66,9 +41,9 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
     }
 
     @Override
-    public String insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException {
+    public int insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException {
         ContratoSupervisora contratoSupervisora=toContratoSupervisora(contratoSupervisoraVO);
-        String result=contratoEmpresaSupervisoraDAOImpl.insert(contratoSupervisora);
+        int result=contratoEmpresaSupervisoraDAOImpl.insert(contratoSupervisora);
         return result;
     }
 
@@ -105,6 +80,12 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         return listVO;        
     }   
     
+    @Override
+    public List<ContratoSupervisoraVO> queryTD(int filtro) throws SQLException {
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.queryTD(filtro);
+        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
+        return listVO;
+    }
     
     //conversiones
     private List<ContratoSupervisoraVO> toListContratoSupervisoraVO(List<ContratoSupervisora> list)throws SQLException{
@@ -195,13 +176,31 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         return contratoSupervisora;
     }
 
-    @Override
-    public List<ContratoSupervisoraVO> queryTD(int filtro) throws SQLException {
-        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.queryTD(filtro);
-        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
-        return listVO;
+   
+
+
+    public void setContratoEmpresaSupervisoraDAOImpl(ContratoEmpresaSupervisoraDAOImpl contratoEmpresaSupervisoraDAOImpl) {
+        this.contratoEmpresaSupervisoraDAOImpl = contratoEmpresaSupervisoraDAOImpl;
     }
 
+    public ContratoEmpresaSupervisoraDAOImpl getContratoEmpresaSupervisoraDAOImpl() {
+        return contratoEmpresaSupervisoraDAOImpl;
+    }
 
+    public void setContratoSupervisora(ContratoSupervisora contratoSupervisora) {
+        this.contratoSupervisora = contratoSupervisora;
+    }
+
+    public ContratoSupervisora getContratoSupervisora() {
+        return contratoSupervisora;
+    }
+
+    public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
+        this.contratoSupervisoraVO = contratoSupervisoraVO;
+    }
+
+    public ContratoSupervisoraVO getContratoSupervisoraVO() {
+        return contratoSupervisoraVO;
+    }
 
 }
