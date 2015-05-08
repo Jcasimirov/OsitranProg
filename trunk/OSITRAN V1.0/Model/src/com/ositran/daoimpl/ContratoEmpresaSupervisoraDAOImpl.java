@@ -39,21 +39,22 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
     }
 
     @Override
-    public String insert(ContratoSupervisora contratoSupervisora) throws SQLException {
+    public int insert(ContratoSupervisora contratoSupervisora) throws SQLException {
         String result=null;
         System.out.println("Entro al metodo  INSERT");
+        int codigoGenerado=0;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.persist(contratoSupervisora);
             session.getTransaction().commit();
-            
+            codigoGenerado=contratoSupervisora.getCpsNroDeContrato();
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
             e.printStackTrace();
         }
-        return result;
+        return codigoGenerado;
     }
 
     @Override
@@ -83,6 +84,7 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
         } catch (Exception e) {
             session.getTransaction().rollback();
             result=e.getMessage();
+            e.printStackTrace();
         }
         return result;
     }
@@ -106,7 +108,7 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
     public List<ContratoSupervisora> filtrarContraEmpSup(String empresaSupervisora) throws SQLException {
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        query =session.createQuery("FROM ContratoSupervisora u WHERE lower(u.cpsNroDeContrato) like lower(:busqueda) or lower(u.supId) like lower(:busqueda)");
+        query =session.createQuery("FROM ContratoSupervisora u WHERE lower(u.cpsNroDeContrato) like lower(:busqueda)");
         query.setParameter("busqueda", "%" + empresaSupervisora + "%");
         return query.list();
     }
