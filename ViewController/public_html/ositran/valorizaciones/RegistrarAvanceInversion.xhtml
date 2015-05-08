@@ -197,7 +197,7 @@
                                                 </table>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset styleClass="fielsetinterno" legend="Datos Valorización">
+                                            <p:fieldset styleClass="fielsetinterno" id="datosValor" legend="Datos Valorización">
                                                 <table>
                                                     <tr>
                                                         <td>Periodo Ejecuci&#243;n(Inicio)</td>
@@ -383,7 +383,21 @@
                         </div>
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px"
-                                             update=":form:mensaje :form:todoIzquierdo :form:todoDerecho"
+                                             update=":form:mensaje :form:todoIzquierdo 
+                                             :form:todoDerecho 
+                                             :form:datosCompromiso 
+                                             :form:tablaVS 
+                                              :form:fechaVencimiento
+                                                 :form:diasCalendario
+                                                 :form:diasHabiles
+                                                 :form:montosTotales1
+                                                 :form:montosTotales2
+                                                 :form:montosTotales3
+                                                 :form:datosCompromiso 
+                                                 :form:aeropuerto 
+                                                 :form:plazoContrato 
+                                                 :form:diasHabiles 
+                                                 :form:diasCalendario" 
                                              actionListener="#{registrarAvanceInversionMB.guardar()}" value="Guardar"/>
                              
                             <p:commandButton update=":form:mensaje :form:todoIzquierdo :form:todoDerecho"
