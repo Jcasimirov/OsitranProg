@@ -15,4 +15,5 @@ public interface ContratoSubInversionesDAO {
     public String delete(Integer id)throws SQLException ,Exception;
     public String update(ContratoSupInversiones contratoSupInversiones)throws SQLException ,Exception;
     public ContratoSupInversiones get(Integer id)throws SQLException ,Exception;
+    public ContratoSupInversiones get1(Integer id)throws SQLException ,Exception;
 }
