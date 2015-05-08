@@ -6,6 +6,8 @@ import com.ositran.model.SupervisorInversiones;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 
+import com.ositran.vo.bean.TipoInversionVO;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -19,12 +21,13 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
     private SupervisorInversiones supervisorInversiones = new SupervisorInversiones();
     List<SupervisorInversionesVO> listVO;
 
-
     public List<SupervisorInversionesVO> buscarSupervisoresxInfraestructura(int codTipoInfraestructura) throws SQLException {
         List<SupervisorInversiones> list=supervisorInversionesDAOImpl.buscarCoordinador(codTipoInfraestructura);
         List<SupervisorInversionesVO> listVO=toListV_BuscarEmpresaSupervisoraVO(list);
         return listVO;
     }
+    
+   
     
     private List<SupervisorInversionesVO> toListV_BuscarEmpresaSupervisoraVO(List<SupervisorInversiones> list) throws SQLException {
         listVO = new ArrayList<SupervisorInversionesVO>();
@@ -39,7 +42,14 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
         }
         return listVO;
     }
-
+    
+    
+    @Override
+    public SupervisorInversionesVO get(Integer id) throws SQLException ,Exception{
+        supervisorInversiones=supervisorInversionesDAOImpl.get(id);
+        supervisorInversionesVO=toV_VO(supervisorInversiones);
+        return supervisorInversionesVO;
+    }
 
     private SupervisorInversionesVO toV_VO(SupervisorInversiones supinv) throws SQLException {
         SupervisorInversionesVO supinvVO = new SupervisorInversionesVO();
@@ -141,5 +151,7 @@ public class SupervisorInversionesServiceImpl implements SupervisorInversionesSe
         SupervisorInversionesVO supinvVO=toV_VO(supinv);
         return supinvVO;
     }
+
+ 
 }
 
