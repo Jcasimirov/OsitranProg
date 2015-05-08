@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-05-06T12:00:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptInvTipConcepto_detalle_excel" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bfbb27c6-a60d-4c58-9097-c7d83c8c1e7f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<style name="celda" vTextAlign="Middle" isBlankWhenNull="true" fontSize="13">
+		<pen lineColor="#000000"/>
+		<box leftPadding="0">
+			<topPen lineWidth="1.5" lineStyle="Solid" lineColor="#DBDBDB"/>
+			<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#DBDBDB"/>
+			<bottomPen lineWidth="1.5" lineStyle="Solid" lineColor="#DBDBDB"/>
+			<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#DBDBDB"/>
+		</box>
+	</style>
+	<style name="cabecera" style="celda" mode="Opaque" forecolor="#FFFFFF" backcolor="#CB2027" hTextAlign="Center" pattern="" isBold="true"/>
+	<style name="campos" style="celda" forecolor="#000000" hTextAlign="Left">
+		<box leftPadding="5"/>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 1]]></conditionExpression>
+			<style backcolor="#FFFFFF"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#EF5B62"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="anio" class="java.lang.String">
+		<fieldDescription><![CDATA[anio]]></fieldDescription>
+	</field>
+	<field name="nomConcepto" class="java.lang.String">
+		<fieldDescription><![CDATA[nomConcepto]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.lang.String">
+		<fieldDescription><![CDATA[mes]]></fieldDescription>
+	</field>
+	<field name="montoReconocido" class="java.lang.String">
+		<fieldDescription><![CDATA[montoReconocido]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement style="cabecera" x="0" y="0" width="110" height="30" forecolor="#FFFFFF" uuid="5ce0690b-d015-4dfe-aa91-d0edefce9c14">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="cabecera" x="220" y="0" width="462" height="30" forecolor="#FFFFFF" uuid="f28c49d4-2bfd-4730-9c8a-e0ed164cf62f">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="cabecera" x="110" y="0" width="110" height="30" forecolor="#FFFFFF" uuid="3ce26b50-e4ad-4f21-8d71-8d770486d44a">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="cabecera" x="682" y="0" width="160" height="30" forecolor="#FFFFFF" uuid="b8e8ff60-225d-480e-a2d2-206d5d9ea654">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Reconocido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="campos" x="0" y="0" width="110" height="30" uuid="a91c60a2-559f-42ab-bad0-127a31b08f88">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="campos" x="220" y="0" width="462" height="30" uuid="e0511d4a-34bb-449c-a4b9-59a8a524640a">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nomConcepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="campos" x="110" y="0" width="110" height="30" uuid="2c7cdeec-6ddc-421e-8be5-b32171824c89">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="campos" x="682" y="0" width="160" height="30" uuid="c60caafb-c771-47ce-a7ee-ca805488af50">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{montoReconocido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
