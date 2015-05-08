@@ -52,7 +52,7 @@ public class MenDAOImpl implements MenDAO{
     @SuppressWarnings("unchecked")
     public List<Men> query() {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(Men.class).addOrder(Order.asc("menNombre")).list();
+        return session.createCriteria(Men.class).addOrder(Order.asc("menNombre")).add(Restrictions.eq("menEstado", 1)  )    .list();
     }
 
     @Override
@@ -63,7 +63,18 @@ public class MenDAOImpl implements MenDAO{
 
     @Override
     public String insert(Men men) {
-        return null;
+        String result = null;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(men);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            result = e.getMessage();
+        }
+        return result;
     }
 
     @Override
