@@ -14,6 +14,7 @@ public interface InvAvnDerivadaService {
     public String delete(Integer id) throws SQLException ,Exception;
     public String update(InvAvnDerivadaVO invAvnDerivadaVO) throws ParseException,SQLException ,Exception;
     public InvAvnDerivadaVO get(Integer id) throws SQLException ,Exception ;
+    public InvAvnDerivadaVO get1(Integer id) throws SQLException ,Exception ;
     public InvAvnDerivadaVO getAvanceInversion(int id) throws SQLException ,Exception ;
     
     
