@@ -2,6 +2,7 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.SupervisorInversionesDAO;
+import com.ositran.model.InversionTipo;
 import com.ositran.model.SupervisorInversiones;
 import com.ositran.util.HibernateUtil;
 
@@ -13,7 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
-
+    SupervisorInversiones supervisorInversiones=new SupervisorInversiones();
     @Override
     public List<SupervisorInversiones> buscarCoordinador(int codtipoInfraestructura) throws SQLException {
         List<SupervisorInversiones> list =null;
@@ -45,8 +46,6 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
     }
     @Override
     public SupervisorInversiones buscarSupervisor(int tsiId) throws SQLException {
-
-      
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;  
         query = session.createQuery("From SupervisorInversiones c WHERE c.tsiId = :tsiId");   
@@ -56,5 +55,24 @@ public class SupervisorInversionesDAOImpl implements SupervisorInversionesDAO{
         session.close();
       
         return sup;   
+    }
+
+    @Override
+    public SupervisorInversiones get(Integer id) throws SQLException, Exception {
+        System.out.println("SUPERVISORRRRRRRRRRRRRRRR");
+        System.out.println(id);
+        
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        supervisorInversiones= (SupervisorInversiones) session.get(SupervisorInversiones.class, id);
+        return supervisorInversiones;
+    }
+
+
+    public void setSupervisorInversiones(SupervisorInversiones supervisorInversiones) {
+        this.supervisorInversiones = supervisorInversiones;
+    }
+
+    public SupervisorInversiones getSupervisorInversiones() {
+        return supervisorInversiones;
     }
 }
