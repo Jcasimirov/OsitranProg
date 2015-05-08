@@ -1,6 +1,9 @@
 package com.ositran.model;
 
 import java.io.Serializable;
+
+import java.math.BigDecimal;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,7 +102,7 @@ public class ContratoSupervisora implements Serializable {
     @Column(name = "CCO_PLAZO")
     private String ccoPlazo;
     @Column(name = "CCO_TOTAL")
-    private Integer ccoTotal;
+    private BigDecimal ccoTotal;
     
     
     
@@ -116,7 +119,7 @@ public class ContratoSupervisora implements Serializable {
                                Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
                                String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
                                Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
-                               Integer mcoId, Integer invId, String ccoPlazo, Integer ccoTotal) {
+                               Integer mcoId, Integer invId, String ccoPlazo, BigDecimal ccoTotal) {
         super();
         this.conId = conId;
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
@@ -172,11 +175,12 @@ public class ContratoSupervisora implements Serializable {
         return ccoPlazo;
     }
 
-    public void setCcoTotal(Integer ccoTotal) {
+
+    public void setCcoTotal(BigDecimal ccoTotal) {
         this.ccoTotal = ccoTotal;
     }
 
-    public Integer getCcoTotal() {
+    public BigDecimal getCcoTotal() {
         return ccoTotal;
     }
 
