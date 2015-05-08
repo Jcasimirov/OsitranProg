@@ -21,6 +21,9 @@ public class InvReajusteVO {
     private String desConcepto;
     private String nombreMoneda;
     private Integer iadId;
+    
+    private String nombreInversion;
+    
     public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
@@ -116,5 +119,13 @@ public class InvReajusteVO {
 
     public Integer getIadId() {
         return iadId;
+    }
+
+    public void setNombreInversion(String nombreInversion) {
+        this.nombreInversion = nombreInversion;
+    }
+
+    public String getNombreInversion() {
+        return nombreInversion;
     }
 }
