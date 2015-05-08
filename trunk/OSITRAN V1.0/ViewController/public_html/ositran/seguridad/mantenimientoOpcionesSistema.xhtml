@@ -44,8 +44,15 @@
                                                            value="Ver la lista completa de opciones de sistema"/>
                                                 
                                             </td>
-                                            <td align="right">
-                                               
+                                              <td align="right">
+                                                <p:commandButton actionListener="#{opcionesSistemasMB.cargarRegistrar()}"
+                                                                 image="ui-icon-circle-plus"
+                                                                 oncomplete="insertarPanel.show()"
+                                                                 value="Nuevo" update=":form:registrar"
+                                                                 id="nuevo"/>
+                                                 
+                                                <p:tooltip styleClass="tool" id="tool3" for="nuevo"
+                                                           value="Registrar nuevo opción del sistema"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -84,7 +91,19 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-            
+                                     <p:column headerText="Eliminar" style="width:4%">
+                                        <div align="center">
+                                            <p:commandButton oncomplete="confirEliminar.show()"
+                                                             actionListener="#{opcionesSistemasMB.cargarEliminar()}"
+                                                             image="ui-icon-trash"
+                                                             styleClass="controles">
+                                                <f:param id="idEliminar" name="idEliminar"
+                                                         value="#{opcSistema.menId}"/>
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                    
+                                    
                                 </p:dataTable>
                             </div>
                         </div>
@@ -167,6 +186,152 @@
                         </tr>
                     </table>
                 </p:dialog>
+                
+                
+                
+                 <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                          style="text-align:center;">
+                        <h5 class="titulo5">
+                               REGISTRAR OPCIONES DE SISTEMAS
+                            </h5>
+                    <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                     <tr>
+                            <td colspan="2" style="color:#2121ff;font-style: italic;font-weight: bold;">
+                                ¡Cuidado los cambios que realisen desde aqui podrian dañar la aplicación.!
+                            </td>
+                           
+                        </tr>
+                    
+                        <tr>
+                            <td align="left">
+                                Nombre:
+                            </td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
+                                             value="#{opcionesSistemasMB.nombre}" label="Nombre" id="nombre"
+                                             style="width:300px"/>                                
+                                <h:outputText value=" "/>                                 
+                                <img src="../../images/obligatorio.gif"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="left">
+                                Descripción:
+                            </td>
+                            <td align="left">
+                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                                 value="#{opcionesSistemasMB.descripcion}" style="width:300px"/>                                
+                                <h:outputText value=" "/>                                
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                            </td>
+                            
+                         
+                            
+                                   
+                        </tr>
+                        <tr>
+                        <td>
+                        
+                        Selecionar Modulo:
+                        </td>
+                        
+                               <td align="left">
+                                <p:selectOneMenu id="listaModulos" style="width:60.5%"
+                                 value="#{opcionesSistemasMB.padre}">
+                                            <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                            <f:selectItem itemLabel="PARAMETROS" itemValue="1"/>
+                                            <f:selectItem itemLabel="SEGURIDAD" itemValue="2"/>
+                                            <f:selectItem itemLabel="CONTRATO" itemValue="3"/>
+                                            <f:selectItem itemLabel="REPORTES" itemValue="4"/>
+                                            <f:selectItem itemLabel="VALORIZACIONES" itemValue="5"/>
+                                                            </p:selectOneMenu>                              
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                            </td>
+                        
+                        </tr>
+                          <tr>
+                            <td align="left">
+                                Ingresar Url:
+                            </td>
+                            <td align="left">
+                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" id="url" maxlength="99"
+                                                 value="#{opcionesSistemasMB.url}" style="width:300px"/>        
+                                                 <p:watermark for="url" value="Ejm: /faces/ositran/contratos/ModuloNuevo.xhtml" />
+                                <h:outputText value=" "/>   
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                            </td>
+                            
+                         
+                            
+                                   
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>                         
+                        <tr>
+                            <td align="right" colspan="2">
+                                <h:outputText value="#{l10n.no_of_sessions}" escape="false"
+                                              style="white-space:pre-line;"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios( 
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <p:commandButton update=":form:tablaOpcionesSistema :form:mensaje"
+                                                 actionListener="#{opcionesSistemasMB.guardar}" styleClass="botones"
+                                                 value="#{btn.btn_guardar}"/>
+                                                 
+                                 <h:outputText style="color:White" value="n"/>
+                                <p:commandButton styleClass="botones" value="Salir" onclick="insertarPanel.hide ()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td colspan="2">
+                                Esta seguro que desea eliminar una opcione del  sistema
+                                <br></br>
+                                <div style="color:red;font-weight: bold">
+                                "Ojo no podra usar esta opción del sistema"
+                                </div>
+                                 <br></br>
+                                ¿Desea continuar?
+                                  <br></br>
+                               
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td align="right">
+                                <p:commandButton update=":form:tablaOpcionesSistema :form:mensaje" value="Eliminar"
+                                                 actionListener="#{opcionesSistemasMB.eliminar()}"
+                                                 oncomplete="confirEliminar.hide()"></p:commandButton>
+                            </td>
+                            <td align="left">
+                                <p:commandButton value="Cancelar" onclick="confirEliminar.hide()"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </p:dialog>
+                
+                
+                
+                
+                
+                
             </h:form>
         </h:body>
     </html>
