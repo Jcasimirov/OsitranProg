@@ -9,7 +9,7 @@
             </h:head>
     <h:body>    
       <f:event listener="#{derivarReconocimientoSupervisorMB.validarSesion}" type="preRenderComponent"></f:event>
-    <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}"  type="postAddToView"></f:event>  
+        <f:event listener="#{derivarReconocimientoSupervisorMB.cargarMoneda()}"  type="postAddToView"></f:event>  
      <f:event listener="#{derivarReconocimientoSupervisorMB.listarTipoRevision()}"  type="postAddToView"></f:event> 
 	<h:form id="form">
        
@@ -25,7 +25,6 @@
                             <td valign="top">
 				<p:fieldset id="principalIzquierdo" legend="Datos Contrato Concesión"> 
 				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
-                               
                                         <h:outputText value="Buscar Contratos Concesión"></h:outputText>
                                         <h:outputText style="color:White" value="n"></h:outputText>
 					<p:commandButton image="ui-icon-search"
@@ -33,10 +32,7 @@
                                                                 id="cargarContrato12" 
                                                                 update=":form:panelListaContratos :form:tablaLC"
                                                                 actionListener="#{derivarReconocimientoSupervisorMB.cargarListaContratos}"
-                                                                
-                                                                />
-                                        
-                                                               
+                                                                />                   
 				</p:fieldset>
 					<br></br>
 				<p:fieldset styleClass="fielsetinterno" id="datosConcesion1" legend="Datos Concesión">
@@ -60,7 +56,7 @@
 										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
                                                                                                 <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInfraestructuras}" var="tip"
                                                                                                         itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
-                                                                                                        <p:ajax event="valueChange" update=":form:lista" listener="#{derivarReconocimientoSupervisorMB.cargarInversion()}"  />                
+                                                                                                        <p:ajax event="valueChange" update=":form:lista1" listener="#{derivarReconocimientoSupervisorMB.cargarInversion()}"  />                
 
                                                                                         <f:selectItem  itemLabel="-Otros-" itemValue="111" />
         
@@ -121,8 +117,9 @@
 										<td>
                                                                                      <p:selectOneMenu id="lista"  value="#{derivarReconocimientoSupervisorMB.codigoTipoRevision}">
 										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
-										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaTipoRevision}" var="tip1"
-                                                                                                        itemLabel="#{tip1.itrDescripcion}" itemValue="#{tip1.itrId}"/>
+                                                                                        <f:selectItem   itemLabel="CORDINADOR INSITU" itemValue="1" />
+                                                                                        <f:selectItem   itemLabel="EMPRESA SUPERVISORA" itemValue="2" />
+										        
                                                                                   <f:ajax  listener="#{derivarReconocimientoSupervisorMB.cambiarDatos}" render="panel panelNombres " event="valueChange"/>
 					    						</p:selectOneMenu>
                                                                                 </td>
@@ -143,7 +140,7 @@
                                                                 oncomplete="panelListaSupervisorInversines.show()" 
                                                                 id="cargarContrato" 
                                                                 update=":form:panelListaSupervisorInversines :form:tablaESuper :form:mensaje"
-                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores}"
+                                                                actionListener="#{derivarReconocimientoSupervisorMB.cargarListaSupervisores()}"
                                                                 render="panelSupervisor"
                                                                 />
                                      
@@ -198,17 +195,12 @@
                                                 actionListener="#{derivarReconocimientoSupervisorMB.cargarListaValorizacionDetalle(inversionAvance.tiaNumero)}"
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarValorizacion"
-                                               
                                                 update=":form:tablaDV :form:total"
-                                                styleClass="controles"
-                                                >
-                                            </p:commandButton>
-                                            
+                                                styleClass="controles" >
+                                            </p:commandButton>                                          
                                         </div>
                                     </p:column>
-                                </p:dataTable>                   
-                                        
-                                                               
+                                </p:dataTable>                                              
 				</p:fieldset>
                                 
                                 
