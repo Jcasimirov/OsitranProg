@@ -7,7 +7,7 @@ import java.util.List;
 public interface MenService {
     public List<MenVO> query();
     public List<MenVO> query1(String filtro);
-    public String insert(Men men);
+    public String insert(MenVO men);
     public String delete(Integer id);
     public String update(MenVO menVO);
     public MenVO get(Integer id);
