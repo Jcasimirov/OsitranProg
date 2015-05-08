@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AsignarResponsableSupervisionService {
     
-    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException;
+    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso, int codigoAeropuerto, int codigoInversion) throws SQLException;
     public ContratoRespSupVO insertCab(ContratoRespSupVO contratoRespSupVO) throws SQLException;
     public String insertDet(ContratoResSupDetalleVO contratoResSupDetalleVO) throws SQLException;
     public String updateDet(ContratoResSupDetalleVO contratoResSupDetalleVO) throws SQLException;
