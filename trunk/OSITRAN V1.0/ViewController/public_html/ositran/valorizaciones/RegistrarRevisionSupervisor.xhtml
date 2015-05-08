@@ -168,8 +168,7 @@
                                       <td><p:inputText style="width:300px" id="nombreSupervisor" value="#{registrarRevisionSupervisorMB.nombreRevisor}"></p:inputText></td>
                                    
                                    </tr>
-                                   </table>
-                                                               
+                                   </table>                                                              
 				</p:fieldset>
                                 <br></br>
                                 <p:fieldset styleClass="fielsetinterno" legend="Resultado Supervición">
@@ -260,7 +259,7 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                                 <p:commandButton  style="width:80px"  update=":form:mensaje" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
+                                 <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
                                     <p:commandButton style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
