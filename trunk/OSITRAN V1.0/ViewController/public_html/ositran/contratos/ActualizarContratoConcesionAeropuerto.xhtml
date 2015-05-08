@@ -245,7 +245,7 @@
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
                                                                     <td align="left">
-                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" onclick="dlgPDFContrato.show();"/>
+                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" update=":tab:formPdfcontrato" onclick="dlgPDFContrato.show();"/>
                                                                          
                                                                         <h:outputText id="conPdfcontrato" value="#{actualizarContratoMB.contratoVO.conPdfcontrato}"/>
                                                                     </td>
@@ -263,7 +263,7 @@
                                                                 <tr>
                                                                     <td align="left">Adjuntar Ficha de Resumen:</td>
                                                                     <td align="left">
-                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" onclick="dlgFichaResumen.show();"/>
+                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" update=":tab:formfichaResumen" onclick="dlgFichaResumen.show();"/>
                                                                          
                                                                         <h:outputText id="conFicharesumen" value="#{actualizarContratoMB.contratoVO.conFicharesumen}"/>
                                                                     </td>
