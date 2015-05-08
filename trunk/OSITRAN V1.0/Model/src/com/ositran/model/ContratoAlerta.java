@@ -60,11 +60,11 @@ public class ContratoAlerta implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "CAL_FECHA_CAMBIO")
     private Date calFechaCambio;
-    @Column(name = "CAL_USUARIO_ALTA", length = 20)
+    @Column(name = "CAL_USUARIO_ALTA", length = 100)
     private String calUsuarioAlta;
-    @Column(name = "CAL_USUARIO_BAJA", length = 20)
+    @Column(name = "CAL_USUARIO_BAJA", length = 100)
     private String calUsuarioBaja;
-    @Column(name = "CAL_USUARIO_CAMBIO", length = 20)
+    @Column(name = "CAL_USUARIO_CAMBIO", length = 100)
     private String calUsuarioCambio;
     @Column(name = "CAL_TERMINAL", length = 20)
     private String calTerminal;
@@ -97,6 +97,10 @@ public class ContratoAlerta implements Serializable {
     private Integer calMesoanioPlazo;
     @Column(name = "CAL_PLAZODESCRIPCION")
     private String calPlazoDescripcion;
+    @Column(name = "ALE_NOMBRE")
+    private String aleNombre;
+    @Column(name = "ALE_DIAMES")
+    private Integer aleDiaMes;
     public ContratoAlerta() {
     }
 
@@ -364,4 +368,22 @@ public class ContratoAlerta implements Serializable {
     public String getCalPlazoDescripcion() {
         return calPlazoDescripcion;
     }
+
+    public void setAleNombre(String aleNombre) {
+        this.aleNombre = aleNombre;
+    }
+
+    public String getAleNombre() {
+        return aleNombre;
+    }
+
+
+    public void setAleDiaMes(Integer aleDiaMes) {
+        this.aleDiaMes = aleDiaMes;
+    }
+
+    public Integer getAleDiaMes() {
+        return aleDiaMes;
+    }
+
 }
