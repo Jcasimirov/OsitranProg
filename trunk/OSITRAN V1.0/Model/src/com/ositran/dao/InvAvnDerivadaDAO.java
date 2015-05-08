@@ -14,7 +14,8 @@ public interface InvAvnDerivadaDAO {
        public String delete(Integer id)throws SQLException ,Exception;
        public String update(InvAvnDerivada invAvnDerivada)throws SQLException ,Exception;
        public InvAvnDerivada get(Integer id)throws SQLException ,Exception;
-    public InvAvnDerivada getAvanceInversion(Integer id) throws SQLException ,Exception ;
+        public InvAvnDerivada get1(Integer id)throws SQLException ,Exception;
+        public InvAvnDerivada getAvanceInversion(Integer id) throws SQLException ,Exception ;
       
     
 }
