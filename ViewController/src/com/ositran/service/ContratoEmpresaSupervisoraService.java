@@ -12,7 +12,7 @@ import java.util.List;
 public interface ContratoEmpresaSupervisoraService {
     public List<ContratoSupervisoraVO> query() throws SQLException;
 
-    public String insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException;
+    public int insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException;
 
     public String delete(Integer id) throws SQLException;
 
