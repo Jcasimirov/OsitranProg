@@ -99,6 +99,8 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlertaVO.setCalFechaBaja(contratoAlerta.getCalFechaBaja());
         contratoAlertaVO.setCalUsuarioBaja(contratoAlerta.getCalUsuarioBaja());
         contratoAlertaVO.setCalTerminal(contratoAlerta.getCalTerminal());
+        contratoAlertaVO.setAleNombre(contratoAlerta.getAleNombre());
+        contratoAlertaVO.setAleDiaMes(contratoAlerta.getAleDiaMes()!=null?contratoAlerta.getAleDiaMes():0);
         return contratoAlertaVO;
     }
     
@@ -139,6 +141,8 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalCantidadPlazo(contratoAlertaVO.getCalCantidadPlazo());
         contratoAlerta.setCalMesoanioPlazo(contratoAlertaVO.getCalMesoanioPlazo());
         contratoAlerta.setCalPlazoDescripcion(contratoAlertaVO.getCalPlazoDescripcion());
+        contratoAlerta.setAleNombre(contratoAlertaVO.getAleNombre());
+        contratoAlerta.setAleDiaMes(contratoAlertaVO.getAleDiaMes());
         return contratoAlerta;
         
     }
