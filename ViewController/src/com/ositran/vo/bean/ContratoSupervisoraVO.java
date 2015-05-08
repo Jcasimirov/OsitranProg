@@ -2,6 +2,8 @@ package com.ositran.vo.bean;
 
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -46,7 +48,7 @@ public class ContratoSupervisoraVO {
     private Integer mcoId;
     private Integer invId;
     private String ccoPlazo;
-    private Integer ccoTotal;
+    private BigDecimal ccoTotal;
     
     private String cenDocumentoFisico;
     private String cenDocumentoFisicoA;
@@ -73,7 +75,7 @@ public class ContratoSupervisoraVO {
                                  Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
                                  String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
                                  Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
-                                 Integer mcoId, Integer invId, String ccoPlazo, Integer ccoTotal,
+                                 Integer mcoId, Integer invId, String ccoPlazo, BigDecimal ccoTotal,
                                  String cenDocumentoFisico, String cenDocumentoFisicoA, String cenFechaDescripcion,
                                  Integer cenEntrega, InputStream inputStreamNuevaEntrega,
                                  InputStream inputStreamNuevaEntregaA, Integer contador, String nombreInfraestructura,
@@ -145,11 +147,12 @@ public class ContratoSupervisoraVO {
         return ccoPlazo;
     }
 
-    public void setCcoTotal(Integer ccoTotal) {
+
+    public void setCcoTotal(BigDecimal ccoTotal) {
         this.ccoTotal = ccoTotal;
     }
 
-    public Integer getCcoTotal() {
+    public BigDecimal getCcoTotal() {
         return ccoTotal;
     }
 
