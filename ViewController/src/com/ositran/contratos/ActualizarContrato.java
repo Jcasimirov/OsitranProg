@@ -477,6 +477,7 @@ public class ActualizarContrato {
      * contratoVO.conPdfcontrato
      * contratoVO.conFicharesumen*/
     public void guardarContrato() {
+
         if(aplicaAvancedeObra && periodoseleccionado == -1){
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
