@@ -11,9 +11,12 @@ import java.util.List;
 
 
 public interface SupervisorInversionesService {
+    
     public List<SupervisorInversionesVO> buscarCoordinadorInSitu(int codTipoInfraestructura) throws SQLException;
     public List<SupervisorInversionesVO> buscarSupervisoresxInfraestructura(int codTipoInfraestructura) throws SQLException; 
     public SupervisorInversionesVO getSupervisorInversiones(int idsupinv)throws SQLException;
+    public SupervisorInversionesVO get(Integer id) throws SQLException ,Exception;
+   
     
     
   
