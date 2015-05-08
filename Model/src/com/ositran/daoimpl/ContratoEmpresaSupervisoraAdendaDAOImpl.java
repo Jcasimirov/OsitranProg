@@ -5,6 +5,7 @@ import com.ositran.model.ContratoSupervisora;
 import com.ositran.model.ContratoSupervisoraAdenda;
 import com.ositran.model.EmpresaSupervisora;
 
+import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.model.ValorizacionSupDetalle;
 import com.ositran.util.HibernateUtil;
 
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaSupervisoraAdendaDAO{
@@ -49,6 +51,7 @@ public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaS
         } catch (Exception e) {
             session.getTransaction().rollback();
             result = e.getMessage();
+            e.printStackTrace();
         }
         return result;
     }
@@ -69,4 +72,16 @@ public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaS
         return result;
     }
 
+    @Override
+    public List<ContratoSupervisoraAdenda> getContratoSupervisoraAdenda(Integer cpsNroDeContrato) throws SQLException,
+                                                                                                         Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query; 
+        query = session.createQuery("FROM ContratoSupervisoraAdenda cs where cs.cpsNroDeContrato = :cpsNroDeContrato");
+        query.setParameter("cpsNroDeContrato",cpsNroDeContrato);            
+
+        List<ContratoSupervisoraAdenda> list = query.list();
+        session.close();
+        return list; 
+    }
 }
