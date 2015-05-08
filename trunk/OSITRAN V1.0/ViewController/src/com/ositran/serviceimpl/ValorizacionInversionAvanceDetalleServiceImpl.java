@@ -91,6 +91,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalleVO1.setCsiId(valorizacionInversionAvanceDetalle1.getCsiId());
         valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
         valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
+        valorizacionInversionAvanceDetalleVO1.setInvId(valorizacionInversionAvanceDetalle1.getInvId());
        
        
        return valorizacionInversionAvanceDetalleVO1;
@@ -113,7 +114,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalle1.setCsiId(valorizacionInversionAvanceDetalleVO1.getCsiId());
         valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
         valorizacionInversionAvanceDetalle1.setTinId(valorizacionInversionAvanceDetalleVO1.getTinId());
-        
+        valorizacionInversionAvanceDetalle1.setInvId(valorizacionInversionAvanceDetalleVO1.getInvId());
        
        return valorizacionInversionAvanceDetalle1;
     }
