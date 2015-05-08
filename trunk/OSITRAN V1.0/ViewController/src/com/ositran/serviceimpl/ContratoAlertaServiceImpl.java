@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContratoAlertaServiceImpl implements ContratoAlertaService {
-    private ContratoAlertaDAOImpl contratoAlertaDAOImpl;
+    private ContratoAlertaDAOImpl contratoAlertaDAOImpl=new ContratoAlertaDAOImpl();
     
     public ContratoAlertaServiceImpl() {
         super();
@@ -65,7 +65,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
     
     public ContratoAlertaVO toContratoAlertaVO(ContratoAlerta contratoAlerta){
         ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();            
-        
+          
         contratoAlertaVO.setCaeId(contratoAlerta.getCaeId());
         contratoAlertaVO.setCalAeropuerto(contratoAlerta.getCalAeropuerto());
         contratoAlertaVO.setCalDiaPresentacion(contratoAlerta.getCalDiaPresentacion());
@@ -98,15 +98,19 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlertaVO.setCalUsuarioCambio(contratoAlerta.getCalUsuarioCambio());
         contratoAlertaVO.setCalFechaBaja(contratoAlerta.getCalFechaBaja());
         contratoAlertaVO.setCalUsuarioBaja(contratoAlerta.getCalUsuarioBaja());
+        contratoAlertaVO.setAleDiaMes(contratoAlerta.getAleDiaMes());
+        contratoAlertaVO.setCalNombreSupervisor(contratoAlerta.getCalNombreSupervisor());
+
         contratoAlertaVO.setCalTerminal(contratoAlerta.getCalTerminal());
+
         contratoAlertaVO.setAleNombre(contratoAlerta.getAleNombre());
         contratoAlertaVO.setAleDiaMes(contratoAlerta.getAleDiaMes()!=null?contratoAlerta.getAleDiaMes():0);
+
         return contratoAlertaVO;
     }
     
     public ContratoAlerta toContratoAlerta(ContratoAlertaVO contratoAlertaVO){
-        ContratoAlerta contratoAlerta=new ContratoAlerta();           
-                
+        ContratoAlerta contratoAlerta=new ContratoAlerta();                 
         contratoAlerta.setCaeId(contratoAlertaVO.getCaeId());
         contratoAlerta.setCalAeropuerto(contratoAlertaVO.getCalAeropuerto());
         contratoAlerta.setCalDiaPresentacion(contratoAlertaVO.getCalDiaPresentacion());
@@ -126,13 +130,16 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setTccTipo(contratoAlertaVO.getTccTipo());
         contratoAlerta.setCcoId(contratoAlertaVO.getCcoId());
         contratoAlerta.setMcoId(contratoAlertaVO.getMcoId());
-        
+        contratoAlerta.setAleDiaMes(contratoAlertaVO.getAleDiaMes());
         contratoAlerta.setCalFechaAlta(contratoAlertaVO.getCalFechaAlta());
         contratoAlerta.setCalUsuarioAlta(contratoAlertaVO.getCalUsuarioAlta());
         contratoAlerta.setCalFechaCambio(contratoAlertaVO.getCalFechaCambio());
         contratoAlerta.setCalUsuarioCambio(contratoAlertaVO.getCalUsuarioCambio());
         contratoAlerta.setCalFechaBaja(contratoAlertaVO.getCalFechaBaja());
         contratoAlerta.setCalUsuarioBaja(contratoAlertaVO.getCalUsuarioBaja());
+        
+        contratoAlerta.setCalNombreSupervisor(contratoAlertaVO.getCalNombreSupervisor());
+
         contratoAlerta.setCalTerminal(contratoAlertaVO.getCalTerminal());
         contratoAlerta.setCalCorreo(contratoAlertaVO.getCalCorreo());
 
@@ -141,8 +148,10 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         contratoAlerta.setCalCantidadPlazo(contratoAlertaVO.getCalCantidadPlazo());
         contratoAlerta.setCalMesoanioPlazo(contratoAlertaVO.getCalMesoanioPlazo());
         contratoAlerta.setCalPlazoDescripcion(contratoAlertaVO.getCalPlazoDescripcion());
+
         contratoAlerta.setAleNombre(contratoAlertaVO.getAleNombre());
         contratoAlerta.setAleDiaMes(contratoAlertaVO.getAleDiaMes());
+
         return contratoAlerta;
         
     }
