@@ -92,6 +92,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
         valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
         valorizacionInversionAvanceDetalleVO1.setInvId(valorizacionInversionAvanceDetalle1.getInvId()!=null?valorizacionInversionAvanceDetalle1.getInvId():0);
+        valorizacionInversionAvanceDetalleVO1.setNombreInversion(valorizacionInversionAvanceDetalle1.getNombreInversion()!=null?valorizacionInversionAvanceDetalle1.getNombreInversion():"");
        
        
        return valorizacionInversionAvanceDetalleVO1;
