@@ -1008,7 +1008,7 @@ private int codigoInversion;
                }
               
               listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
-              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,0,0);
               listaResponsables=new ArrayList<HashMap<String, Object>>();
               for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {      
                     String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
@@ -1091,7 +1091,7 @@ private int codigoInversion;
                              asignarResponsableSupervisionServiceImpl.updateDet(listaDetalleAsignacion.get(i));
                          }
                      }
-                     listaBd = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+                     listaBd = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,0,0);
                      for(int i=0;i<listaBd.size();i++){
                         for(int j=0;j<listaDetalleAsignacion.size();j++){
                             if(listaBd.get(i).getTipoSup() == listaDetalleAsignacion.get(j).getTipoSup() && listaBd.get(i).getCodigoSup() == listaDetalleAsignacion.get(j).getCodigoSup()){
