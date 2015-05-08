@@ -269,15 +269,7 @@ public class RectificarInversion {
     // Metodo para Filtrar  el combo la Concesión de buscar contrato
     public void filtrarConcesion() {
         try {
-            listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoinfra);
-            System.out.println("listaConcesiones:" + listaConcesiones.size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void ListarConcesiones() {
-        try {
-            listaConcesiones = concesionServiceImpl.query();
+            listaConcesiones = concesionServiceImpl.filtrarConcesion(tipoInfraestructura);
             System.out.println("listaConcesiones:" + listaConcesiones.size());
         } catch (Exception e) {
             e.printStackTrace();
@@ -371,7 +363,7 @@ public class RectificarInversion {
  
         try {
             listaContrato =
-                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoinfra,
+                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoInfraestructura,
                                                                    concesion, fechaInicioSuscripcion,
                                                                    fechaFinSuscripcion);
         } catch (Exception e) {
