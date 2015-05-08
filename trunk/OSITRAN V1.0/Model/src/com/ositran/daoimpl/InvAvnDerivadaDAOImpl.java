@@ -78,5 +78,16 @@ public class InvAvnDerivadaDAOImpl implements InvAvnDerivadaDAO{
     }
 
 
-
+    @Override
+    public InvAvnDerivada get1(Integer id) throws SQLException, Exception {
+        
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM InvAvnDerivada  E WHERE E.tiaNumero =:codigoValorizacion");
+        query.setParameter("codigoValorizacion",id );
+        invAvnDerivada=(InvAvnDerivada)query.uniqueResult();
+        return invAvnDerivada;
+        
+    }
 }
