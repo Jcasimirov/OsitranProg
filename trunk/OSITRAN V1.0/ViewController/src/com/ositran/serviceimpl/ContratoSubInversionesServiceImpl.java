@@ -2,25 +2,18 @@ package com.ositran.serviceimpl;
 
 import com.ositran.dao.ContratoSubInversionesDAO;
 import com.ositran.daoimpl.ContratoSubInversionesDAOImpl;
-import com.ositran.model.ContratoJefeArea;
 import com.ositran.model.ContratoSupInversiones;
-import com.ositran.model.InversionTipo;
 import com.ositran.service.ContratoSubInversionesService;
-import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
-import com.ositran.vo.bean.TipoInversionVO;
-
 import java.sql.SQLException;
 import java.text.ParseException;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversionesService{
-    ContratoSupInversiones contratoSupInversiones;
-    ContratoSubInversionesVO contratoSupInversionesVO;
-    ContratoSubInversionesDAO contratoSubInversionesDAOImpl;
+    ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
+    ContratoSubInversionesVO contratoSupInversionesVO= new ContratoSubInversionesVO();
+    ContratoSubInversionesDAO contratoSubInversionesDAOImpl= new ContratoSubInversionesDAOImpl();
     
     
 
@@ -52,6 +45,13 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
 
     @Override
     public ContratoSubInversionesVO get(Integer id) throws SQLException, Exception {
+        contratoSupInversiones =contratoSubInversionesDAOImpl.get(id);
+        contratoSupInversionesVO=toContratoSubInversionesVO(contratoSupInversiones);
+        return contratoSupInversionesVO;
+    }
+    
+    @Override
+    public ContratoSubInversionesVO get1(Integer id) throws SQLException, Exception {
         contratoSupInversiones =contratoSubInversionesDAOImpl.get(id);
         contratoSupInversionesVO=toContratoSubInversionesVO(contratoSupInversiones);
         return contratoSupInversionesVO;
@@ -149,4 +149,6 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
     public ContratoSubInversionesDAO getContratoSubInversionesDAOImpl() {
         return contratoSubInversionesDAOImpl;
     }
+
+  
 }
