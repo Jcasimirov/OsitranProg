@@ -101,6 +101,14 @@ public class ContratoAlerta implements Serializable {
     private String aleNombre;
     @Column(name = "ALE_DIAMES")
     private Integer aleDiaMes;
+    
+    @Column(name = "CAL_NOMBRE_SUPERVISOR")
+    private String calNombreSupervisor;
+
+    
+    
+    
+    
     public ContratoAlerta() {
     }
 
@@ -385,5 +393,15 @@ public class ContratoAlerta implements Serializable {
     public Integer getAleDiaMes() {
         return aleDiaMes;
     }
+
+
+    public void setCalNombreSupervisor(String calNombreSupervisor) {
+        this.calNombreSupervisor = calNombreSupervisor;
+    }
+
+    public String getCalNombreSupervisor() {
+        return calNombreSupervisor;
+    }
+
 
 }
