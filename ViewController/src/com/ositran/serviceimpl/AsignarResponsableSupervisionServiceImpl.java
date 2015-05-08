@@ -28,8 +28,8 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
     }
 
     @Override
-    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException{
-        List<ContratoResSupDetalle> list=asignarResponsableSupDAOImpl.ListarDetalle(codigoContrato,compromiso);
+    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso, int codigoAeropuerto, int codigoInversion) throws SQLException{
+        List<ContratoResSupDetalle> list=asignarResponsableSupDAOImpl.ListarDetalle(codigoContrato,compromiso,codigoAeropuerto,codigoInversion);
         List<ContratoResSupDetalleVO> listVO=toListContratoResSupDetalleVO(list);
         return listVO;
     }
