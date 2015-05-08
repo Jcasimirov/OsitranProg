@@ -897,6 +897,8 @@ public class DeclararInversion {
                         invReajusteVO.setDesConcepto(inversionDescripcionVO.getItdNombre());
                     }
                 }
+                invReconocimientoVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion()); 
+                invReajusteVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion()); 
                 listaInvReconocimientoVO.add(invReconocimientoVO);
                 listaInvReajusteVO.add(invReajusteVO);
             }
