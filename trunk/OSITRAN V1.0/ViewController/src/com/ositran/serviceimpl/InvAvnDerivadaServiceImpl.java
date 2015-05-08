@@ -65,6 +65,16 @@ public class InvAvnDerivadaServiceImpl implements InvAvnDerivadaService{
         return invAvnDerivadaVO;
     }
     
+    @Override
+    public InvAvnDerivadaVO get1(Integer id) throws SQLException, Exception {
+        System.out.println("LLEGO ACA");
+        invAvnDerivada =invAvnDerivadaDAOImpl.get1(id);
+        System.out.println("LLEGO ACAAAAAAAAAAAAA");
+        System.out.println(invAvnDerivada.getIadTipoSup() );
+        invAvnDerivadaVO=toInvAvnDerivadaVO(invAvnDerivada);
+        return invAvnDerivadaVO;
+    }
+    
     //conversiones
     private List<InvAvnDerivadaVO> toListInvAvnDerivadaVO(List<InvAvnDerivada> list)  {
        List<InvAvnDerivadaVO> listVO=new ArrayList<InvAvnDerivadaVO>();
@@ -76,7 +86,6 @@ public class InvAvnDerivadaServiceImpl implements InvAvnDerivadaService{
        return listVO;
     }
     private InvAvnDerivadaVO toInvAvnDerivadaVO(InvAvnDerivada invAvnDerivada1)  {
-        
        InvAvnDerivadaVO invAvnDerivadaVO1=new InvAvnDerivadaVO();
        invAvnDerivadaVO1.setCsiId(invAvnDerivada1.getCsiId());
        invAvnDerivadaVO1.setIadAnyo(invAvnDerivada1.getIadAnyo());
