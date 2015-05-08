@@ -45,11 +45,7 @@ public class MenServiceImpl implements  MenService{
         return nombre;
     }
 
-    @Override
-    public String insert(Men men) {
-        // TODO Implement this method
-        return null;
-    }
+  
 
     @Override
     public String delete(Integer id) {
@@ -70,6 +66,13 @@ public class MenServiceImpl implements  MenService{
         menVO=toMenVO(men);
         return menVO;
        
+    }
+    
+    @Override
+    public String insert(MenVO menVO) {
+        men=toTipoInversion(menVO);
+        String result=menDAOImpl.insert(men);
+        return result;
     }
     
     //Convesiones *********************************************
@@ -144,5 +147,5 @@ public class MenServiceImpl implements  MenService{
     }
 
 
-   
+  
 }
