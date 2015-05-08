@@ -8,6 +8,8 @@ import com.ositran.vo.bean.InfraestructuraTipoVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -54,6 +56,11 @@ public class AvanceInvContratosConcesion {
     private String tipoInfraestructura;
     List<SelectItem> tipoInfraestructuraSelectItems=new ArrayList<SelectItem>();    
     
+    //EAPR: metodo agregado para inicializar los combos con valores actuales
+    public AvanceInvContratosConcesion(){
+        this.setAnnio(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+        this.setMes(String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1));
+    }
 
     public void setFormAvanceInversion(HtmlForm formAvanceInversion) {
         this.formAvanceInversion = formAvanceInversion;
@@ -238,6 +245,8 @@ public class AvanceInvContratosConcesion {
      * @return tipo de infraestructura para que se renderize en el combo
      */
     public List<SelectItem> getTipoInfraestructuraSelectItems() throws SQLException {
+        //EAPR: Metodo modificado para que el listado siempre se inicialice vacio y evitar duplicados
+        tipoInfraestructuraSelectItems = new ArrayList<SelectItem>();
         tipoInfraestructuraSelectItems.add(new SelectItem("-1","Seleccione"));
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
@@ -263,11 +272,14 @@ public class AvanceInvContratosConcesion {
      * @author Paul Rivera
      * @return lista de años para que se renderize en el combo
      */
-    public List<SelectItem> getAnnioSelectItems() {
-        annioSelectItems.add(new SelectItem("-1","Seleccione"));
-        for (int i = 1990; i < 2016; i++) {
+    public List<SelectItem> getAnnioSelectItems() {        
+        //annioSelectItems.add(new SelectItem("-1","Seleccione"));
+        //EAPR: Metodo modificado para evitar que el año maximo este hardcoded y siempre se inicialice
+        annioSelectItems = new ArrayList<SelectItem>();
+        int annioLim = Calendar.getInstance().get(Calendar.YEAR) + 1;     
+        for (int i = 1990; i < annioLim; i++) {
             annioSelectItems.add(new SelectItem(i, String.valueOf(i)));
-        }
+        }        
         return annioSelectItems;
     }
 
@@ -288,22 +300,25 @@ public class AvanceInvContratosConcesion {
      * @return lista de meses para que se renderize en el combo
      */
     public List<SelectItem> getMesesSelectItems() {
-        mesSelectItems.add(new SelectItem("-1","Seleccione"));
+        //mesSelectItems.add(new SelectItem("-1","Seleccione"));
+        //EAPR: Metodo modificado para que el listado siempre se inicialice vacio 
+        //(evitar duplicados) y el indice de la lista empiece en 1 (Enero)
+        mesSelectItems = new ArrayList<SelectItem>();
         String[] mes=new String[12];
-        mes[0]="enero";
-        mes[1]="febrero";
-        mes[2]="marzo";
-        mes[3]="abril";
-        mes[4]="mayo";
-        mes[5]="junio";
-        mes[6]="julio";
-        mes[7]="agosto";
-        mes[8]="septiembre";
-        mes[9]="octubre";
-        mes[10]="noviembre";
-        mes[11]="diciembre";
+        mes[0]="Enero";
+        mes[1]="Febrero";
+        mes[2]="Marzo";
+        mes[3]="Abril";
+        mes[4]="Mayo";
+        mes[5]="Junio";
+        mes[6]="Julio";
+        mes[7]="Agosto";
+        mes[8]="Septiembre";
+        mes[9]="Octubre";
+        mes[10]="Noviembre";
+        mes[11]="Diciembre";
         for (int i = 0; i < mes.length; i++) {
-            mesSelectItems.add(new SelectItem(i, String.valueOf(mes[i])));
+            mesSelectItems.add(new SelectItem(i + 1, String.valueOf(mes[i])));
         }
         return mesSelectItems;
     }
@@ -353,6 +368,8 @@ public class AvanceInvContratosConcesion {
      * @return concesion para que se renderize en el combo
      */
     public List<SelectItem> getConcesionSelectItems() throws SQLException {
+        //EAPR: Metodo modificado para que el listado siempre se inicialice vacio y evitar duplicados
+        concesionSelectItems = new ArrayList<SelectItem>();
         concesionSelectItems.add(new SelectItem("-1","Seleccione"));
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
@@ -380,6 +397,8 @@ public class AvanceInvContratosConcesion {
      * @return lista de modalidades para que se renderize en el combo
      */
     public List<SelectItem> getModalidadesSelectItems() {
+        //EAPR: Metodo modificado para que el listado siempre se inicialice vacio y evitar duplicados
+        modalidadesSelectItems = new ArrayList<SelectItem>();
         modalidadesSelectItems.add(new SelectItem("-1","Seleccione"));
         String[] modalidad=new String[2];
         modalidad[0]="honerosa";
