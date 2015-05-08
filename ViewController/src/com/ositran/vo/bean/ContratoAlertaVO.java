@@ -48,7 +48,10 @@ public class ContratoAlertaVO {
 
     private Integer calCantidadPlazo;
     private Integer calMesoanioPlazo;
+    private int diaMes;
     private String aleNombre;
+
+    private String calNombreSupervisor;
     public ContratoAlertaVO() {
         super();
     }
@@ -345,6 +348,24 @@ public class ContratoAlertaVO {
         return calPlazoDescripcion;
     }
 
+
+
+    public void setCalNombreSupervisor(String calNombreSupervisor) {
+        this.calNombreSupervisor = calNombreSupervisor;
+    }
+
+    public String getCalNombreSupervisor() {
+        return calNombreSupervisor;
+    }
+
+    public void setDiaMes(int diaMes) {
+        this.diaMes = diaMes;
+    }
+
+    public int getDiaMes() {
+        return diaMes;
+    }
+
     public void setAleNombre(String aleNombre) {
         this.aleNombre = aleNombre;
     }
@@ -352,4 +373,5 @@ public class ContratoAlertaVO {
     public String getAleNombre() {
         return aleNombre;
     }
+
 }
