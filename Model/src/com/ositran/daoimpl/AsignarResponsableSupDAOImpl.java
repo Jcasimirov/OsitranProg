@@ -18,13 +18,23 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         super();
     }
     @Override
-    public List<ContratoResSupDetalle> ListarDetalle(int codigoContrato, int compromiso) throws SQLException{
+    public List<ContratoResSupDetalle> ListarDetalle(int codigoContrato, int compromiso, int codigoAeropuerto, int codigoInversion) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
-        query = session.createQuery("From ContratoResSupDetalle c where c.conId = :contrato and c.rsdEstado <> 0 and c.ccoId = :compromiso");
+        if((codigoAeropuerto != 0) && ( codigoInversion == 0)){
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto");
+                query.setParameter("aeropuerto",codigoAeropuerto);  
+            
+        }else if(codigoAeropuerto != 0  && codigoInversion != 0){
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
+                query.setParameter("aeropuerto",codigoAeropuerto);  
+                query.setParameter("inversion",codigoInversion); 
+        }else {
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado =1");                
+        }    
         query.setParameter("contrato",codigoContrato);
-        query.setParameter("compromiso",compromiso);
+        query.setParameter("etapa",compromiso);
         List<ContratoResSupDetalle> list = query.list();
         session.getTransaction().commit();
         session.close();
