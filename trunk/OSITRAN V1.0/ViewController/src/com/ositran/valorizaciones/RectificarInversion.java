@@ -15,6 +15,7 @@ import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoInversionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
@@ -51,6 +52,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -93,6 +95,10 @@ public class RectificarInversion {
     @ManagedProperty(value = "#{infraestructuraServiceImpl}")
     private InfraestructuraServiceImpl infraestructuraServiceImpl;
 
+
+    @ManagedProperty(value = "#{contratoInversionServiceImpl}")
+    private ContratoInversionServiceImpl contratoInversionServiceImpl;
+    
     @ManagedProperty(value = "#{contratoVO}")
     private ContratoVO contratoVO;
     @ManagedProperty(value = "#{concesionarioVO}")
@@ -106,6 +112,8 @@ public class RectificarInversion {
     private PeriodoVO periodoVO;
     @ManagedProperty(value = "#{contratoInversionVO}")
     private ContratoInversionVO contratoInversionVO;
+    List<ContratoInversionVO> listContratoInversion;
+    HashMap<String,Object> nombreinversion=new HashMap<String,Object>();
     @ManagedProperty(value = "#{invAvnVO}")
     private InvAvnVO invAvnVO;
     @ManagedProperty(value = "#{invVO}")
@@ -193,6 +201,7 @@ public class RectificarInversion {
     private boolean deshabilitadoxDeclaracionNoCargada=true;
     private boolean mostrarxDeclaracionCargada=false;
     private boolean readOnlyMontoTipoCambio=false;
+
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
        
@@ -295,10 +304,6 @@ public class RectificarInversion {
     public void obtenerDeatalleInversionAvanceInvAvn(int tiaNumero){
         try {
             listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
-            System.out.println("####################listaValorizacionInversionAvanceDetalleVO:"+listaValorizacionInversionAvanceDetalleVO.size());
-        } catch (SQLException sqle) {
-            // TODO: Add catch code
-            sqle.printStackTrace();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -382,10 +387,7 @@ public class RectificarInversion {
         cargarInfraestructurasContrato(contratoVO.getConId());
         resetDialogoBuscarContrato();
         listarDeclaraciones(contratoVO.getConId());
-        if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
-            /*  RequestContext.getCurrentInstance().update("frmInversion:tablaContratoInversion");
-            RequestContext.getCurrentInstance().update("frmAgregarInversion:AeropuertoInversion"); */
-        }
+        cargarListaInversiones(contratoVO.getConId());
     }
 
 
@@ -407,11 +409,9 @@ public class RectificarInversion {
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println(invAvnVO.getTiaNumero());
         cargarInversionesInvxTiaNumero(invAvnVO.getTiaNumero());
         obtenerDeatalleInversionAvanceInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
-        System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
         deshabilitadoxDeclaracionNoCargada=false;
@@ -660,7 +660,7 @@ public class RectificarInversion {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
                     if (aux.getInfId() == infraestructuraVO.getInfId()) {
-                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
+                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());                       
                     }
                 }
                 if (item instanceof InvReajusteVO) {
@@ -678,7 +678,6 @@ public class RectificarInversion {
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
-                    System.out.println("aux.getMonId()+aux.getNombreMoneda()&&&&&&"+aux.getMonId()+aux.getNombreMoneda());
                     if (aux.getMonId() == moneda.getMonId()) {                        
                         aux.setNombreMoneda(moneda.getMonNombre());
                     }
@@ -692,36 +691,47 @@ public class RectificarInversion {
 
         }
     }
-
+    public void cargarListaInversiones(int idcontrato) {
+        try {
+            listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
+            for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
+                nombreinversion.put(contratoInversionVO.getInvId().toString(), contratoInversionVO.getInvDescripcion());
+           }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public void cargarDescripcionesConcepto(List<?> lista) {
         for (Object item : lista) {
-
             if (item instanceof InvReconocimientoVO) {
                 InvReconocimientoVO aux = ((InvReconocimientoVO) item);
-                for (ValorizacionInversionAvanceDetalleVO val : listaValorizacionInversionAvanceDetalleVO) {
-                    if (val.getTiaNumero() == aux.getTiaNumero() && val.getIad_Id() == aux.getIadId()) {
+                for (ValorizacionInversionAvanceDetalleVO invAvnDetalle : listaValorizacionInversionAvanceDetalleVO) {
+                    System.out.println("invAvnDetalle.getInvId();"+invAvnDetalle.getInvId());
+                    if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() && invAvnDetalle.getIad_Id() == aux.getIadId()) {
                         for (InversionDescripcionVO concepto : listaConceptos) {
-                            if (val.getTivId() == concepto.getTivId()&&val.getDtiId()==concepto.getItdId()) {
-                                aux.setDesConcepto(concepto.getItdNombre());
+                            if (invAvnDetalle.getTivId() == concepto.getTivId()&&invAvnDetalle.getDtiId()==concepto.getItdId()) {
+                                aux.setDesConcepto(concepto.getItdNombre());                               
                             }
                         }
+                        aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)? (nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
                     }
                 }
             }
             if (item instanceof InvReajusteVO) {
                 InvReajusteVO aux = ((InvReajusteVO) item);
-
-                    for (ValorizacionInversionAvanceDetalleVO val : listaValorizacionInversionAvanceDetalleVO) {
-                        if (val.getTiaNumero() == aux.getTiaNumero() && val.getIad_Id() == aux.getIadId()) {
+                    for (ValorizacionInversionAvanceDetalleVO invAvnDetalle : listaValorizacionInversionAvanceDetalleVO) {
+                        System.out.println("invAvnDetalle.getInvId();"+invAvnDetalle.getInvId());
+                        if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() && invAvnDetalle.getIad_Id() == aux.getIadId()) {
                             for (InversionDescripcionVO concepto : listaConceptos) {
-                                if (val.getTivId() == concepto.getTivId()&&val.getDtiId()==concepto.getItdId()) {
+                                if (invAvnDetalle.getTivId() == concepto.getTivId()&&invAvnDetalle.getDtiId()==concepto.getItdId()) {
                                     aux.setDesConcepto(concepto.getItdNombre());
+                                    
                                 }
                             }
+                            aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)?(nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
                         }
                     }
             }
-
         }
     }
 
@@ -818,9 +828,6 @@ public class RectificarInversion {
             }
         }
     }
-
-   
-
     public void setContratoId(Integer contratoId) {
         this.contratoId = contratoId;
     }
@@ -1395,5 +1402,12 @@ public class RectificarInversion {
     public boolean isReadOnlyMontoTipoCambio() {
         return readOnlyMontoTipoCambio;
     }
-    
+
+    public void setContratoInversionServiceImpl(ContratoInversionServiceImpl contratoInversionServiceImpl) {
+        this.contratoInversionServiceImpl = contratoInversionServiceImpl;
+    }
+
+    public ContratoInversionServiceImpl getContratoInversionServiceImpl() {
+        return contratoInversionServiceImpl;
+    }
 }
