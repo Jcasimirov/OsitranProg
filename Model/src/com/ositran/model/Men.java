@@ -21,7 +21,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 @Entity
 @Table(name = "T_OPCIONES",uniqueConstraints = @UniqueConstraint(columnNames = {"OPC_ID"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SEQ_OPCIONTIPO"))
+@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_OPCIONES"))
 public class Men implements Serializable {
     private static final long serialVersionUID = 7895582654359795714L;
 
