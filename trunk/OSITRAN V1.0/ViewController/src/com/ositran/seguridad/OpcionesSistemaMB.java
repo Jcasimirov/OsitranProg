@@ -13,12 +13,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "opcionesSistemasMB")
-@RequestScoped
+@ViewScoped
 public class OpcionesSistemaMB {
     private String buscar;
     private int contador;
@@ -28,6 +29,13 @@ public class OpcionesSistemaMB {
     private int codigoMenu;
     private List<MenVO> listaOpcionesSistema= new ArrayList<>();
     
+    private String nombre;
+    private String descripcion;
+    private String formularioO;
+    private int padre;
+    private int estado;
+    private String url;
+    
     @ManagedProperty(value = "#{menServiceImpl}")
     MenServiceImpl menServiceImpl;
     
@@ -35,9 +43,40 @@ public class OpcionesSistemaMB {
     MenVO menVO;
    
     
+    
+    public void cargarRegistrar(){
+              nombre="";
+              descripcion="";
+             formularioO="";
+              padre=1;
+              url="";
+        
+        
+        }
+    
     public OpcionesSistemaMB() {
         super();
     }
+    
+    
+    
+    public void guardar(){
+       menVO=new MenVO();
+       menVO.setMenNombre(nombre);
+       menVO.setDescripcion(descripcion);
+       menVO.setMenEstado(1);
+       menVO.setMenPadre(padre);
+       menVO.setMenFormulario("1");
+       menVO.setMenUrl(url);
+       menVO.setMenFechaAlta(new Date());
+       
+       menServiceImpl.insert(menVO);
+            RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
+            FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+            "Se Registro Exitosamente la opcion del sistema"));
+            listarOpcionesSistema();
+        }
     
     public void busqueda(){
         if (buscar.equals("")){
@@ -50,7 +89,6 @@ public class OpcionesSistemaMB {
             contador++;
         }
     }
-        
         }
     
     public void listarOpcionesSistema(){
@@ -64,6 +102,28 @@ public class OpcionesSistemaMB {
     public void limpiar(){
         
         }
+    public void cargarEliminar(){
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map requestMap = context.getExternalContext().getRequestParameterMap();
+            Object str = requestMap.get("idEliminar");
+            codigoMenu = Integer.parseInt(str.toString());
+            menVO=menServiceImpl.get(codigoMenu);
+            menVO.setMenEstado(0);   
+            System.out.println("NOMbre");
+            System.out.println(menVO.getMenNombre());
+        }
+    
+    
+    public  void eliminar(){
+        menServiceImpl.update(menVO);
+        System.out.println("Llego a eliminar");
+        
+            FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+            "Se elimino la Opcion del Sistema"));
+        
+        }
+
     public void cargarEditar(){
             FacesContext context = FacesContext.getCurrentInstance();
             Map requestMap = context.getExternalContext().getRequestParameterMap();
@@ -74,6 +134,8 @@ public class OpcionesSistemaMB {
             descripcionE=menVO.getDescripcion();       
         }
     
+    
+   
     public void editar(){
         menVO=getMenServiceImpl().get(codigoMenu);
             if (nombreE.equals("")) {
@@ -101,6 +163,8 @@ public class OpcionesSistemaMB {
             }
         
         }
+    
+    
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
@@ -175,4 +239,53 @@ public class OpcionesSistemaMB {
         return codigoMenu;
     }
 
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setFormularioO(String formularioO) {
+        this.formularioO = formularioO;
+    }
+
+    public String getFormularioO() {
+        return formularioO;
+    }
+
+    public void setPadre(int padre) {
+        this.padre = padre;
+    }
+
+    public int getPadre() {
+        return padre;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }
