@@ -303,7 +303,8 @@ public class ActualizarContrato {
     private String plazoCompromisoIndicado;
     private String plazoCompromisoSupervisado;
     private Integer unidadTiempo;
-
+    private int periodoseleccionadoAlerta;
+    private String conDiamesAlerta;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -526,7 +527,18 @@ public class ActualizarContrato {
                 if (periodoseleccionado != 0) {
                     contratoVO.setConDiames(null);
                 }
-                ContratoAlertaVO alertaVO = prepararAlerta();
+                int calTipo=1;
+                ContratoAlertaVO alertaVO = prepararAlerta(contratoVO.getConFechaSuscripcion(), 
+                                                           periodoseleccionado, 
+                                                            
+                                                           contratoVO.getConDiames()!=null?contratoVO.getConDiames():0, 
+                                                           contratoVO.getConPlazoconcesion(), 
+                                                           contratoVO.getConId(), 
+                                                           contratoVO.getTinId(), 
+                                                           contratoVO.getCsiId(), 
+                                                           contratoVO.getMcoId(), 
+                                                           contratoVO.getNombreConcesionario(),
+                                                           calTipo);
                 contratoConcesionServiceImp.updateContrato(contratoVO, alertaVO);
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -542,13 +554,23 @@ public class ActualizarContrato {
         }
     }
 
-    public ContratoAlertaVO prepararAlerta() {
+    public ContratoAlertaVO prepararAlerta(Date fechaSuscripcion,
+                                           int periodoseleccionado,
+                                           
+                                           int diames,
+                                           Date plazoconcesion,
+                                           int conId,
+                                           int tinId,
+                                           int csiId,
+                                           int mcoId,
+                                           String nombreConcesionario,
+                                           int calTipo)throws Exception {
         try {
             ContratoAlertaVO alerta = new ContratoAlertaVO();
             /*fecha de inicio es igual a la fecha de suscripcion*/
             alerta.setCalFechaInicio(contratoVO.getConFechaSuscripcion());
             /*tipo de alerta por defecto 1*/
-            alerta.setCalTipo(1);
+            alerta.setCalTipo(calTipo);
             Integer cantidadDeDias = 0;
             /**Si NO escojo especificar dia**/
             if (periodoseleccionado != 0 && periodoseleccionado != -1) {
@@ -556,44 +578,46 @@ public class ActualizarContrato {
                  * obtengo la cantidad de dias del periodo selccionado*/
                 cantidadDeDias = (Integer) periodosCache.get(periodoseleccionado);
                 /*Solo se calculara la fecha  solo cuando la opcion sea diferente de Especificar dias y --Seleccione--*/
-                System.out.println("contratoVO.getConFechaSuscripcion():" + contratoVO.getConFechaSuscripcion() +
+                System.out.println("contratoVO.getConFechaSuscripcion():" + fechaSuscripcion +
                                    " cantidadDeDias:" + cantidadDeDias);
-                Date fechaCalculada = fu.adicionaDias(contratoVO.getConFechaSuscripcion(), cantidadDeDias, 0);
+                Date fechaCalculada = fu.adicionaDias(fechaSuscripcion, cantidadDeDias, 0);
                 alerta.setCalFechaLimite(fechaCalculada);
                 alerta.setCalFechaFin(fechaCalculada);
                 alerta.setCalDiaPresentacion(null);
-                alerta.setPerId(contratoVO.getPerId());
+                alerta.setPerId(periodoseleccionado);
             }
             /**si escojo Especificar dia**/
             if (periodoseleccionado == 0) {
-                alerta.setCalDiaPresentacion(contratoVO.getConDiames());
-                alerta.setAleDiaMes(contratoVO.getConDiames());
+                alerta.setCalDiaPresentacion(diames);
+                alerta.setAleDiaMes(diames);
                 /** para este caso se calcula la fecha de fin y fecha limite
                  * a partir de la fecha calculada con_plazoconcesion y se cambia el dia por dia especifico**/
                 Date fechaplazoConcesionconDiaCambiado =
-                    Reutilizar.getNewInstance().cambiarDiaenFecha(contratoVO.getConPlazoconcesion(),
-                                                                  contratoVO.getConDiames());
+                    Reutilizar.getNewInstance().cambiarDiaenFecha(fechaSuscripcion,
+                                                                  diames);
                 alerta.setCalFechaFin(fechaplazoConcesionconDiaCambiado);
                 alerta.setCalFechaLimite(fechaplazoConcesionconDiaCambiado);
                 /*si escojo Especificar Dias el id del periodo sera cero*/
-                contratoAlertaVO.setPerId(0);
+                alerta.setPerId(0);
             }
-            alerta.setConId(contratoVO.getConId());
-            alerta.setTinId(contratoVO.getTinId());
-            alerta.setCsiId(contratoVO.getCsiId());
+            alerta.setConId(conId);
+            alerta.setTinId(tinId);
+            alerta.setCsiId(csiId);
             /* alerta.setInfId(contratoVO.getInfId());   */
             /* alerta.setInvId(contratoVO.getInvId());    */
             /* alerta.setTccTipo(contratoVO.getTccTipo());  */
             /* alerta.setCcoId(contratoVO.getCcoId());  */
-            alerta.setMcoId(contratoVO.getMcoId());
-            alerta.setCalNombreconcesion(contratoVO.getNombreConcesionario());
+            alerta.setMcoId(mcoId);
+            alerta.setCalNombreconcesion(nombreConcesionario);
+
+            alerta.setCalPlazo(plazoconcesion);
             alerta.setCaeId(1);
             alerta.setCalEstado(1);
+            
             alerta.setCalUsuarioAlta(usuario.getUsuNombre());
             alerta.setCalFechaAlta(new Date());
             alerta.setCalTerminal(usuario.getUsuTerminal());
             alerta.setCalCorreo(usuario.getUsuCorreo());
-            alerta.setCalPlazo(contratoVO.getConPlazoconcesion());
             return alerta;
 
         } catch (Exception e) {
@@ -1663,7 +1687,7 @@ public class ActualizarContrato {
     }
 
     public void guardarAlerta() {
-
+        int conDiames=conDiamesAlerta!=null?Integer.parseInt(conDiamesAlerta):0;
         if (infId == null || infId.length()==0) {
             System.out.print("nombAeropuerto" + infId);
             FacesContext.getCurrentInstance().addMessage(null,
@@ -1684,40 +1708,37 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));
-        } else if (!(diaPresAlerta > 0 && diaPresAlerta < 31)) {
-            System.out.print("diaPresAlerta: " + diaPresAlerta);
+        }else if (periodoseleccionadoAlerta==0 &&  conDiamesAlerta==null) {
+            System.out.print("diaPresAlerta: " + conDiamesAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "Ingrese Numero mayor a cero y menor a 31"));
         } else {
             try {
-                System.out.print("diaPresAlerta: " + diaPresAlerta);
-                contratoAlertaVO.setConId(contratoVO.getConId());
-                contratoAlertaVO.setCaeId(1); // valor inicial de la Alerta relacionado a la tabla EstadoAlerta
-                contratoAlertaVO.setPerId(1); // para el cas ode aerupuerto se setea 1 por default y no se muestra para otros casos revisar tabla Periodo
-                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId)));
-                System.out.println("infId" + infId + " inf.getInfNombre():" + inf.getInfNombre());
+                int calTipo=4;
+                contratoAlertaVO=prepararAlerta(fechaIniAlerta, 
+                                                periodoseleccionadoAlerta, 
+                                                
+                                                conDiames, 
+                                                fechaFinAlerta, 
+                                                contratoVO.getConId(), 
+                                                contratoVO.getTinId(), 
+                                                contratoVO.getCsiId(), 
+                                                contratoVO.getMcoId(), 
+                                                contratoVO.getNombreConcesionario(),
+                                                calTipo);
+                               
+                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId)));                
                 contratoAlertaVO.setCalAeropuerto(inf.getInfNombre());
                 contratoAlertaVO.setInfId(inf.getInfId());
                 contratoAlertaVO.setCsiId(inf.getCsiId());
                 contratoAlertaVO.setTinId(inf.getTinId());
-                contratoAlertaVO.setCalDiaPresentacion(diaPresAlerta);
-                contratoAlertaVO.setCalEstado(1);
-
-                contratoAlertaVO.setCalFechaInicio(fechaIniAlerta);
-
+                contratoAlertaVO.setAleNombre(descAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
                 contratoAlertaVO.setCalCantidadPlazo(plazoAlerta);
                 contratoAlertaVO.setCalMesoanioPlazo(unidadTiempo);
-                contratoAlertaVO.setCalTipo(4);
                 contratoAlertaVO.setCalPlazoDescripcion(plazoAlerta + " " +
                                                         (unidadTiempo == 30 ? "MES(ES)" : "AÑO(S)"));
-                /*AUDITORIA*/
-                Date fechaActual = new Date();
-                contratoAlertaVO.setCalFechaAlta(fechaActual);
-                contratoAlertaVO.setCalUsuarioAlta(usuario.getUsuAlias());
-                contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
-                /*FIN AUDITORIA*/
                 contratoAlertaServiceImpl.insert(contratoAlertaVO);
 
                 cargarListaAlertas(contratoVO.getConId());
@@ -3482,5 +3503,21 @@ public class ActualizarContrato {
 
     public FechasUtil getFu() {
         return fu;
+    }
+
+    public void setPeriodoseleccionadoAlerta(int periodoseleccionadoAlerta) {
+        this.periodoseleccionadoAlerta = periodoseleccionadoAlerta;
+    }
+
+    public int getPeriodoseleccionadoAlerta() {
+        return periodoseleccionadoAlerta;
+    }
+
+    public void setConDiamesAlerta(String conDiamesAlerta) {
+        this.conDiamesAlerta = conDiamesAlerta;
+    }
+
+    public String getConDiamesAlerta() {
+        return conDiamesAlerta;
     }
 }
