@@ -116,13 +116,10 @@ font-size:10px!important;
 }
 
 .ui-menubar .ui-menu-child{
-background: none;
+
 
 }
 
-.ui-menubar .ui-menu-child .ui-shadow{
-
-}
 
 .ui-menubar .ui-menu-child .ui-menuitem {
     background-image: none;
@@ -140,7 +137,8 @@ background: none;
 }
 .ui-menubar .ui-widget-content .ui-shadow{
     background-image: none;
-    display:none;
+   
+    background-color: transparent;
 }
 .calendario input {
     vertical-align: middle;
