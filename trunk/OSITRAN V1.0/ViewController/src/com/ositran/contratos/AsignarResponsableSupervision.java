@@ -51,8 +51,9 @@ public class AsignarResponsableSupervision {
     public  final int formulario=24;
     private RolOpcionesVO rolOpcion;
 
-    public void validarSesion() throws IOException{              
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+    public void validarSesion() throws IOException{
+      
+        rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
         }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
@@ -708,7 +709,15 @@ private int codigoContrato;
                 contratoRespSupVO.setCsiId(contratoVO.getCsiId()); 
                 contratoRespSupVO.setTinId(contratoVO.getTinId());
                 contratoRespSupVO.setMcoId(contratoVO.getMcoId());                
-                cargarInversion();   
+                cargarInversion();  
+                listaResponsables=new ArrayList<HashMap<String, Object>>();
+                listarSupervisoresxInfraestructura =
+                    supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
+                
+                plazo="";
+                total="";
+                nombreMoneda = "";           
+                nombreEmpresaSupervisora = "";
             }
     
     
@@ -946,8 +955,7 @@ private int codigoContrato;
                     listaResponsables.add(record);    
                     
                 } 
-              listarSupervisoresxInfraestructura =
-                  supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoTipoInfraestructurafiltro);
+              
                
                
           } catch (Exception e) {
@@ -1037,10 +1045,6 @@ private int codigoContrato;
          }
          
      }
-   
-
-   
-    
     
     
 
