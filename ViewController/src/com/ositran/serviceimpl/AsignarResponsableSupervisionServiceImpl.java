@@ -8,10 +8,11 @@ import com.ositran.vo.bean.ContratoResSupDetalleVO;
 import com.ositran.vo.bean.ContratoRespSupVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsableSupervisionService{
-    private AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl;
+    private AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl=new AsignarResponsableSupDAOImpl();
 
 
     public void setAsignarResponsableSupDAOImpl(AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl) {
@@ -206,5 +207,10 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
         return listVO;
     }
 
-   
+
+    @Override
+    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException {
+        // TODO Implement this method
+        return Collections.emptyList();
+    }
 }
