@@ -2,15 +2,16 @@ package com.ositran.model;
 
 import java.io.Serializable;
 
-import java.util.Date;
 import java.math.BigDecimal;
 
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -22,7 +23,6 @@ import org.hibernate.annotations.Parameter;
 public class ValorizacionInversionAvanceDetalle implements Serializable {
     private static final double serialVersionUID = -8422886764978732689L;
     @Column(name = "IAD_IGV")
-
     private BigDecimal igv;
     @Id
     @GeneratedValue(generator = "generator")
@@ -57,7 +57,8 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
     @Column(name = "INV_ID")
     private Integer invId;    
     
-    
+    @Transient
+    private String nombreInversion;
     
 
         
@@ -213,4 +214,11 @@ public class ValorizacionInversionAvanceDetalle implements Serializable {
         return invId;
     }
 
+    public void setNombreInversion(String nombreInversion) {
+        this.nombreInversion = nombreInversion;
+    }
+    @Transient
+    public String getNombreInversion() {
+        return nombreInversion;
+    }
 }
