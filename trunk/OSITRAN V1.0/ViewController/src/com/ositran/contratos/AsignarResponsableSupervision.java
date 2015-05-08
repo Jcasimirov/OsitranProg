@@ -4,12 +4,15 @@ import com.ositran.service.AsignarResponsableSupervisionService;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
+import com.ositran.service.ContratoInversionService;
 import com.ositran.service.EmpresaSupervisoraService;
+import com.ositran.service.InfraestructuraService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoResSupDetalleVO;
@@ -36,6 +39,10 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.event.ActionEvent;
 import com.ositran.util.Util;
 
+import com.ositran.vo.bean.ContratoInversionVO;
+import com.ositran.vo.bean.InfraestructuraVO;
+import com.ositran.vo.bean.UsuarioVO;
+
 import java.text.SimpleDateFormat;
 
 import javax.faces.application.FacesMessage;
@@ -50,10 +57,14 @@ public class AsignarResponsableSupervision {
     //-----------------SESSION-----------------------//
     public  final int formulario=24;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
 
     public void validarSesion() throws IOException{
       
         rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
+        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
         }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
@@ -62,6 +73,23 @@ public class AsignarResponsableSupervision {
 
     public RolOpcionesVO getRolOpcion() {
         return rolOpcion;
+    }
+
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
     }
     //---------------------------------------------//
 
@@ -88,6 +116,8 @@ private String nombreContratoConcesion;
 private int codigoTipoInfraestructurafiltro;
 private int codigoSupervisor;
 private int codigoContrato;
+private int codigoAeropuerto;
+private int codigoInversion;
 
     Util util = new Util();
 
@@ -133,6 +163,8 @@ private int codigoContrato;
     
     List<ContratoResSupDetalleVO> listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
     List<ContratoResSupDetalleVO> listaBd = new ArrayList<ContratoResSupDetalleVO>();
+    private List<InfraestructuraVO> listaAeropuerto = new ArrayList<>();
+    private List<ContratoInversionVO> listaInversiones = new ArrayList<>();
      
      
      // service implement
@@ -155,6 +187,12 @@ private int codigoContrato;
     
     @ManagedProperty(value = "#{asignarResponsableSupervisionServiceImpl}")
     private AsignarResponsableSupervisionService asignarResponsableSupervisionServiceImpl;
+    
+    @ManagedProperty(value = "#{infraestructuraServiceImpl}")
+    private InfraestructuraService infraestructuraServiceImpl;
+    
+    @ManagedProperty(value = "#{contratoInversionServiceImpl}")
+    private ContratoInversionService contratoInversionServiceImpl;
 
 
 
@@ -563,6 +601,54 @@ private int codigoContrato;
         return nombreMoneda;
     }
 
+    public void setCodigoAeropuerto(int codigoAeropuerto) {
+        this.codigoAeropuerto = codigoAeropuerto;
+    }
+
+    public int getCodigoAeropuerto() {
+        return codigoAeropuerto;
+    }
+
+    public void setCodigoInversion(int codigoInversion) {
+        this.codigoInversion = codigoInversion;
+    }
+
+    public int getCodigoInversion() {
+        return codigoInversion;
+    }
+
+    public void setListaAeropuerto(List<InfraestructuraVO> listaAeropuerto) {
+        this.listaAeropuerto = listaAeropuerto;
+    }
+
+    public List<InfraestructuraVO> getListaAeropuerto() {
+        return listaAeropuerto;
+    }
+
+    public void setListaInversiones(List<ContratoInversionVO> listaInversiones) {
+        this.listaInversiones = listaInversiones;
+    }
+
+    public List<ContratoInversionVO> getListaInversiones() {
+        return listaInversiones;
+    }
+
+    public void setInfraestructuraServiceImpl(InfraestructuraService infraestructuraServiceImpl) {
+        this.infraestructuraServiceImpl = infraestructuraServiceImpl;
+    }
+
+    public InfraestructuraService getInfraestructuraServiceImpl() {
+        return infraestructuraServiceImpl;
+    }
+
+    public void setContratoInversionServiceImpl(ContratoInversionService contratoInversionServiceImpl) {
+        this.contratoInversionServiceImpl = contratoInversionServiceImpl;
+    }
+
+    public ContratoInversionService getContratoInversionServiceImpl() {
+        return contratoInversionServiceImpl;
+    }
+
     public void eliminacionConfirmadaResponsable() throws SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestMap = context.getExternalContext().getRequestParameterMap();
@@ -694,7 +780,7 @@ private int codigoContrato;
     
     public void seleccionarContratoConcesion1(ActionEvent actionEvent) throws Exception{      
             contratoVO = (ContratoVO) actionEvent.getComponent().getAttributes().get("contrato");
-         
+                SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
             nameTipoInfraestructura=contratoVO.getNombreTipoInfraestructura();
             System.out.println(nameTipoInfraestructura);
                 nameContrato=contratoVO.getNombreConcesion();
@@ -718,6 +804,37 @@ private int codigoContrato;
                 total="";
                 nombreMoneda = "";           
                 nombreEmpresaSupervisora = "";
+                listaAeropuerto = new ArrayList<>();
+                listaInversiones = new ArrayList<>();
+                listaAeropuerto = infraestructuraServiceImpl.query1(contratoVO.getTinId());
+                listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
+                listaResponsables=new ArrayList<HashMap<String, Object>>();
+                 
+                for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
+                      String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
+                      HashMap<String, Object> record = new HashMap<String, Object>();
+                      record.put("tipoSupervision", detalle.getTipoSup());
+                      record.put("codigoSupervisor", detalle.getCodigoSup());  
+                      record.put("Etapa", "Falta");
+                      record.put("nombre", nombre);
+                      if (detalle.getTdoId() == 1){
+                          record.put("tipoDocumento", "DNI");
+                      }else{
+                          record.put("tipoDocumento", "RUC");
+                      }
+                      record.put("numeroDocumento", detalle.getRsdNroDocumento()); 
+                      record.put("fechaAsignacion", dt1.format(detalle.getRsdFechaAsignacion()));        
+                      if (detalle.getRsdEstado() == 1){
+                          record.put("estado", "Activo");
+                          }else{
+                              record.put("estado", "Inactivo");
+                          }
+                      record.put("id",detalle.getRsdId());
+                      record.put("codEstado",detalle.getRsdEstado());                 
+                      listaResponsables.add(record);    
+                      
+                  } 
+            
             }
     
     
@@ -875,7 +992,7 @@ private int codigoContrato;
 
     public void cargarListaContratos() {
         try {
-            listaContratosConcesion = contratoConcesionServiceImp.query();
+            listaContratosConcesion = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
             listaInfraestructuraTipos = infraestructuraTipoServiceImpl.query();
             for (ContratoVO contra : listaContratosConcesion) {
                 ConcesionVO concesion = new ConcesionVO();
@@ -902,10 +1019,76 @@ private int codigoContrato;
     }
     
     
+    public void cargarInversiones() throws Exception{
+        try{
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+            listaInversiones = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getCncId(), contratoVO.getTinId(), contratoVO.getCsiId(), codigoAeropuerto);
+            contratoRespSupVO.setInfId(codigoAeropuerto);
+            listaContratoCompromiso=contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
+            listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
+            listaResponsables=new ArrayList<HashMap<String, Object>>();
+             
+            for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
+                  String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
+                  HashMap<String, Object> record = new HashMap<String, Object>();
+                  record.put("tipoSupervision", detalle.getTipoSup());
+                  record.put("codigoSupervisor", detalle.getCodigoSup());  
+                  record.put("Etapa", "Falta");
+                  record.put("nombre", nombre);
+                  if (detalle.getTdoId() == 1){
+                      record.put("tipoDocumento", "DNI");
+                  }else{
+                      record.put("tipoDocumento", "RUC");
+                  }
+                  record.put("numeroDocumento", detalle.getRsdNroDocumento()); 
+                  record.put("fechaAsignacion", dt1.format(detalle.getRsdFechaAsignacion()));        
+                  if (detalle.getRsdEstado() == 1){
+                      record.put("estado", "Activo");
+                      }else{
+                          record.put("estado", "Inactivo");
+                      }
+                  record.put("id",detalle.getRsdId());
+                  record.put("codEstado",detalle.getRsdEstado());                 
+                  listaResponsables.add(record);    
+                  
+              } 
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
     
     public void cargarInversion(){
            try {
+              SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
         listaContratoCompromiso=contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
+              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
+              listaResponsables=new ArrayList<HashMap<String, Object>>();
+               
+              for (ContratoResSupDetalleVO detalle : listaDetalleAsignacion) {         
+                    String nombre = asignarResponsableSupervisionServiceImpl.ObtieneNombre(detalle.getTdoId(), detalle.getRsdNroDocumento(),detalle.getTipoSup());
+                    HashMap<String, Object> record = new HashMap<String, Object>();
+                    record.put("tipoSupervision", detalle.getTipoSup());
+                    record.put("codigoSupervisor", detalle.getCodigoSup());  
+                    record.put("Etapa", "Falta");
+                    record.put("nombre", nombre);
+                    if (detalle.getTdoId() == 1){
+                        record.put("tipoDocumento", "DNI");
+                    }else{
+                        record.put("tipoDocumento", "RUC");
+                    }
+                    record.put("numeroDocumento", detalle.getRsdNroDocumento()); 
+                    record.put("fechaAsignacion", dt1.format(detalle.getRsdFechaAsignacion()));        
+                    if (detalle.getRsdEstado() == 1){
+                        record.put("estado", "Activo");
+                        }else{
+                            record.put("estado", "Inactivo");
+                        }
+                    record.put("id",detalle.getRsdId());
+                    record.put("codEstado",detalle.getRsdEstado());                 
+                    listaResponsables.add(record);    
+                    
+                } 
+          
           } catch (Exception e) {
                e.printStackTrace();
            }   
@@ -927,7 +1110,7 @@ private int codigoContrato;
                }
               listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
                System.out.println("Contrato compromiso seleccionado = "+contratoCompromisoSeleccionado);
-              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+              listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
                System.out.println("EL TAMAÑO DEL SIZE DE LA LISTA DE DETALLE DE ASIGNACION ES IGUAL A = "+listaDetalleAsignacion.size());
               listaResponsables=new ArrayList<HashMap<String, Object>>();
                
@@ -972,7 +1155,6 @@ private int codigoContrato;
         return 0;
         
     }
-    
      
      public void Guardar() throws Exception{
          ContratoRespSupVO contrato_Cab = new ContratoRespSupVO();
@@ -986,19 +1168,42 @@ private int codigoContrato;
                      contratoRespSupVO.setConId(contratoVO.getConId());
                      contratoRespSupVO.setCcoId(contratoCompromisoSeleccionado);
                      contratoRespSupVO.setTccTipo(1);
+                     if(codigoAeropuerto ==0){
+                         contratoRespSupVO.setInfId(null);
+                     }else{
+                         contratoRespSupVO.setInfId(codigoAeropuerto);
+                     }
+                     
+                     if(codigoInversion ==0){
+                         contratoRespSupVO.setInvId(null);;
+                     }else{
+                         contratoRespSupVO.setInvId(codigoInversion);;
+                     }
+                     
+                     
                      contratoRespSupVO = asignarResponsableSupervisionServiceImpl.insertCab(contratoRespSupVO);
                      for (int i = 0; i<listaDetalleAsignacion.size(); i++){
                          listaDetalleAsignacion.get(i).setRsuId(contratoRespSupVO.getRsuId());
-                         listaDetalleAsignacion.get(i).setCcoId(contratoCompromisoSeleccionado);
+                         listaDetalleAsignacion.get(i).setCcoId(contratoCompromisoSeleccionado);                           
+                         
+                         if(codigoAeropuerto ==0){
+                             listaDetalleAsignacion.get(i).setInfId(null);
+                         }else{
+                             listaDetalleAsignacion.get(i).setInfId(codigoAeropuerto);
+                         }
+                         
+                         if(codigoInversion ==0){
+                             listaDetalleAsignacion.get(i).setInvId(null);
+                         }else{
+                             listaDetalleAsignacion.get(i).setInvId(codigoInversion);
+                         }
                          asignarResponsableSupervisionServiceImpl.insertDet(listaDetalleAsignacion.get(i));
                          
                      }
                      FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Registro con Exito");
                                                                  FacesContext.getCurrentInstance().addMessage(null, mensaje);
-                     contratoRespSupVO.setRsuId(null);                     
-                     contratoRespSupVO.setInfId(null);
-                     contratoRespSupVO.setInvId(null);                    
-                     contratoRespSupVO.setTsiId(null);
+                     contratoRespSupVO.setRsuId(null);
+
                      
                  }else{
                      for (int i = 0; i<listaDetalleAsignacion.size(); i++){
@@ -1007,6 +1212,17 @@ private int codigoContrato;
                              listaDetalleAsignacion.get(i).setRsuId(contrato_Cab.getRsuId());
                              listaDetalleAsignacion.get(i).setRsdFechaAsignacion(util.getObtenerFechaHoy());
                              listaDetalleAsignacion.get(i).setCcoId(contratoCompromisoSeleccionado);
+                             if(codigoAeropuerto ==0){
+                                 listaDetalleAsignacion.get(i).setInfId(null);
+                             }else{
+                                 listaDetalleAsignacion.get(i).setInfId(codigoAeropuerto);
+                             }
+                             
+                             if(codigoInversion ==0){
+                                 listaDetalleAsignacion.get(i).setInvId(null);
+                             }else{
+                                 listaDetalleAsignacion.get(i).setInvId(codigoInversion);
+                             }
                              asignarResponsableSupervisionServiceImpl.insertDet(listaDetalleAsignacion.get(i));
                              
                              
@@ -1017,7 +1233,7 @@ private int codigoContrato;
                              
                          }
                      }
-                     listaBd = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado);
+                     listaBd = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
                      for(int i=0;i<listaBd.size();i++){
                         for(int j=0;j<listaDetalleAsignacion.size();j++){
                             if(listaBd.get(i).getTipoSup() == listaDetalleAsignacion.get(j).getTipoSup() && listaBd.get(i).getCodigoSup() == listaDetalleAsignacion.get(j).getCodigoSup()){
