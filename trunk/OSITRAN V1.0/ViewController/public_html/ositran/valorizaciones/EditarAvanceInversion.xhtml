@@ -54,7 +54,7 @@
                                                 <p:commandButton id="btnmodificar"
                                                          image="ui-icon-pencil"   styleClass="controles"
                                                          oncomplete="editarPanel.show()"
-                                                         update=":form:editarPanel"
+                                                         update=":form:editarPanel :form:tablaC"
                                                          actionListener="#{editarAvanceInversionMB.cargarEditar()}">
                                                          
                                                           <f:param id="idModificar" name="idModificar" value="#{avance.tiaNumero}"/>
@@ -444,7 +444,8 @@
                         </div> 
                       <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px"
-                                             
+                                             update=":form:mensaje :form:tablaC"
+                                             oncomplete="editarPanel.hide()" 
                                              actionListener="#{editarAvanceInversionMB.guardar()}" value="Modificar"/>
                              
                             <p:commandButton 
