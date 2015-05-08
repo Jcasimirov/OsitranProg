@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
     private String usuAlias;
     @Column(name = "USU_CONTRASENYA", nullable = false, length = 4000)
     private String usuContrasenya;
-    @Column(name = "USU_CORREO", length = 20)
+    @Column(name = "USU_CORREO", length = 100)
     private String usuCorreo;
     @Column(name = "USU_DESCRIPCION", length = 100)
     private String usuDescripcion;
@@ -55,11 +55,11 @@ public class Usuario implements Serializable {
     private String usuNombre;
     @Column(name = "USU_TERMINAL", length = 20)
     private String usuTerminal;
-    @Column(name = "USU_USUARIO_ALTA", length = 20)
+    @Column(name = "USU_USUARIO_ALTA", length = 100)
     private String usuUsuarioAlta;
-    @Column(name = "USU_USUARIO_BAJA", length = 20)
+    @Column(name = "USU_USUARIO_BAJA", length = 100)
     private String usuUsuarioBaja;
-    @Column(name = "USU_USUARIO_CAMBIO", length = 20)
+    @Column(name = "USU_USUARIO_CAMBIO", length = 100)
     private String usuUsuarioCambio;
     @Column(name = "TSI_ID")
     private Integer supInvID;
