@@ -591,7 +591,7 @@ public class ActualizarContrato {
                 alerta.setCalDiaPresentacion(diames);
                 alerta.setAleDiaMes(diames);
                 /** para este caso se calcula la fecha de fin y fecha limite
-                 * a partir de la fecha calculada con_plazoconcesion y se cambia el dia por dia especifico**/
+                 * a partir de la fecha suscripcion y se cambia el dia por dia especifico**/
                 Date fechaplazoConcesionconDiaCambiado =
                     Reutilizar.getNewInstance().cambiarDiaenFecha(fechaSuscripcion,
                                                                   diames);
