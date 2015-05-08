@@ -12,6 +12,7 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -59,6 +60,17 @@ public class InvReconocimContratosConcesionResumen {
     List<SelectItem> modalidadConcesionSelectItems=new ArrayList<SelectItem>();
     private String tipoReporte;
     List<SelectItem> tipoReporteSelectItems=new ArrayList<SelectItem>();
+    ///
+    private OutputLabel lblTrimestre;
+    private SelectOneMenu selectTrimestre;
+    private String trimestre;
+    private List<SelectItem> trimestreSelectItems = new ArrayList<SelectItem>();
+
+    //EAPR: metodo agregado para inicializar los combos con valores actuales
+    public InvReconocimContratosConcesionResumen(){
+        this.setAnnio(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+        this.setMes(String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1));
+    }
 
     public void setTipoReporte(String tipoReporte) {
         this.tipoReporte = tipoReporte;
@@ -278,6 +290,7 @@ public class InvReconocimContratosConcesionResumen {
      * @return concesion para que se renderize en el combo
      */
     public List<SelectItem> getConcesionSelectItems() throws SQLException {
+        concesionSelectItems = new ArrayList<SelectItem>();
         concesionSelectItems.add(new SelectItem("-1","Seleccione"));
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
@@ -303,6 +316,7 @@ public class InvReconocimContratosConcesionResumen {
      * @return tipo de infraestructura para que se renderize en el combo
      */
     public List<SelectItem> getTipoInfraestructuraSelectItems() throws SQLException {
+        tipoInfraestructuraSelectItems = new ArrayList<SelectItem>();
         tipoInfraestructuraSelectItems.add(new SelectItem("-1","Seleccione"));
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
@@ -328,8 +342,10 @@ public class InvReconocimContratosConcesionResumen {
      * @return lista de años para que se renderize en el combo
      */
     public List<SelectItem> getAnnioSelectItems() {
-        annioSelectItems.add(new SelectItem("-1","Seleccione"));
-        for (int i = 1990; i < 2016; i++) {
+        annioSelectItems = new ArrayList<SelectItem>();
+        int annioLim = Calendar.getInstance().get(Calendar.YEAR) + 1;  
+        //annioSelectItems.add(new SelectItem("-1","Seleccione"));
+        for (int i = 1990; i < annioLim; i++) {
             annioSelectItems.add(new SelectItem(i, String.valueOf(i)));
         }
         return annioSelectItems;
@@ -373,6 +389,7 @@ public class InvReconocimContratosConcesionResumen {
      * @return modalidad para que se renderize en el combo
      */
     public List<SelectItem> getModalidadConcesionSelectItems() throws SQLException {
+        modalidadConcesionSelectItems = new ArrayList<SelectItem>();
         modalidadConcesionSelectItems.add(new SelectItem("-1","Seleccione"));
         List<ModalidadConcesionVO> lista=listarModalidadConcesion();
         int i=0;
@@ -398,6 +415,7 @@ public class InvReconocimContratosConcesionResumen {
      * @return lista de tipoReporte para que se renderize en el combo
      */
     public List<SelectItem> getTipoReporteSelectItems() {
+        tipoReporteSelectItems = new ArrayList<SelectItem>();
         tipoReporteSelectItems.add(new SelectItem("-1","Seleccione"));
         String[] reporte=new String[2];
         reporte[0]="bimestral";
@@ -407,6 +425,15 @@ public class InvReconocimContratosConcesionResumen {
         }
         return tipoReporteSelectItems;
     }
+
+     public List<SelectItem> getTrimestreSelectItems() {
+         trimestreSelectItems = new ArrayList<SelectItem>();
+         trimestreSelectItems.add(new SelectItem("1","Primero"));
+         trimestreSelectItems.add(new SelectItem("2","Segundo"));
+         trimestreSelectItems.add(new SelectItem("3","Trecero"));
+         trimestreSelectItems.add(new SelectItem("4","Cuarto"));
+         return trimestreSelectItems;
+     }
 
     /**
      * @author Paul Rivera
@@ -419,6 +446,34 @@ public class InvReconocimContratosConcesionResumen {
             return getTipoReporte();
         }
     }   
+    public OutputLabel getLblTrimestre() {
+        return lblTrimestre;
+    }
+
+    public void setLblTrimestre(OutputLabel lblTrimestre) {
+        this.lblTrimestre = lblTrimestre;
+    }
+
+    public SelectOneMenu getSelectTrimestre() {
+        return selectTrimestre;
+    }
+
+    public void setSelectTrimestre(SelectOneMenu selectTrimestre) {
+        this.selectTrimestre = selectTrimestre;
+    }
+
+    public String getTrimestre() {
+        return trimestre;
+    }
+
+    public void setTrimestre(String trimestre) {
+        this.trimestre = trimestre;
+    }
+
     
+
+    public void setTrimestreSelectItems(List<SelectItem> trimestreSelectItems) {
+        this.trimestreSelectItems = trimestreSelectItems;
+    }
     
 }
