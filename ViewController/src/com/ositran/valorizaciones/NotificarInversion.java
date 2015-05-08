@@ -33,6 +33,7 @@ import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionNotificacionVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
@@ -65,15 +66,17 @@ import org.primefaces.model.DefaultStreamedContent;
 @ManagedBean(name = "bk_NotificarInversion")
 @ViewScoped
 public class NotificarInversion {
-    
-    
-    //-----------------SESSION-----------------------//
-    public  final int formulario=33;
-    private RolOpcionesVO rolOpcion;
 
-    public void validarSesion() throws IOException{              
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        }
+
+    //-----------------SESSION-----------------------//
+    public final int formulario = 33;
+    private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+    }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
         this.rolOpcion = rolOpcion;
@@ -82,9 +85,25 @@ public class NotificarInversion {
     public RolOpcionesVO getRolOpcion() {
         return rolOpcion;
     }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
     //---------------------------------------------//
-    
-    
+
+
     private HtmlForm form;
 
     // Services
@@ -100,53 +119,53 @@ public class NotificarInversion {
 
     @ManagedProperty(value = "#{invTipoRevisionServiceImpl}")
     private InvTipoRevisionService invTipoRevisionServiceImpl;
-    
+
     @ManagedProperty(value = "#{contratoConcesionServiceImp}")
     private ContratoConcesionService contratoConcesionServiceImp;
-    
+
     @ManagedProperty(value = "#{concesionServicesImpl}")
     ConcesionService concesionServicesImpl;
-    
+
     @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
     ContratoCompromisoService contratoCompromisoServiceImpl;
-    
+
     @ManagedProperty(value = "#{modalidadServiceImp}")
     ModalidadConcesionServiceImpl modalidadServiceImp;
-    
+
     @ManagedProperty(value = "#{invReconocimientoServiceImpl}")
     InvReconocimientoService invReconocimientoServiceImpl;
-    
+
     @ManagedProperty(value = "#{invReajusteServiceImpl}")
     InvReajusteService invReajusteServiceImpl;
-    
+
     @ManagedProperty(value = "#{invServiceImpl}")
     InvService invServiceImpl;
-    
+
     @ManagedProperty(value = "#{valorizacionInversionAvanceDetalleServiceImpl}")
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServiceImpl;
-    
+
     @ManagedProperty(value = "#{monedaServiceImpl}")
     MonedaService monedaServiceImpl;
-    
+
     @ManagedProperty(value = "#{inversionDescripcionServicesImpl}")
     InversionDescripcionServices inversionDescripcionServicesImpl;
-    
+
     // Listas
     List<InvAvnVO> listaValorizaciones;
 
     List<InvTipoRevisionVO> listaAprobaciones;
-    
+
     private List<InvReconocimientoVO> listaReconocimiento = new ArrayList<InvReconocimientoVO>();
-    
+
     private List<InvReajusteVO> listaReajuste = new ArrayList<InvReajusteVO>();
-    
+
     private List<InfraestructuraVO> listarInfraestructura = new ArrayList<InfraestructuraVO>();
-    
+
     List<MonedaVO> listarTipoMonedas = new ArrayList<MonedaVO>();
-    
+
     private List<ValorizacionInversionAvanceDetalleVO> listaValorizacionInversionAvanceDetalleVO =
         new ArrayList<ValorizacionInversionAvanceDetalleVO>();
-    
+
     private List<InversionDescripcionVO> listaConceptos = new ArrayList<InversionDescripcionVO>();
 
     //Bean VO
@@ -158,22 +177,22 @@ public class NotificarInversion {
 
     @ManagedProperty(value = "#{valorizacionNotificacionVO}")
     ValorizacionNotificacionVO valorizacionNotificacionVO;
-    
+
     @ManagedProperty(value = "#{concesionVO}")
     ConcesionVO concesionVO;
-    
+
     @ManagedProperty(value = "#{contratoVO}")
     private ContratoVO contratoVO;
-    
+
     @ManagedProperty(value = "#{contratoCompromisoVO}")
     ContratoCompromisoVO contratoCompromisoVO;
-    
+
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     InfraestructuraTipoVO infraestructuraTipoVO;
-    
+
     @ManagedProperty(value = "#{modalidadConcesionVO}")
     ModalidadConcesionVO modalidadConcesionVO;
-    
+
     @ManagedProperty(value = "#{invVO}")
     private InvVO invVO;
 
@@ -391,10 +410,10 @@ public class NotificarInversion {
                 if (listaValorizaciones.get(i).getIaeId() == 4) {
                     listaValorizaciones.get(i).setEstado("Declarado");
                     listaValorizaciones.get(i).setAprobadopor("Por Aprobar");
-                } else if (listaValorizaciones.get(i).getIaeId() == 5){
+                } else if (listaValorizaciones.get(i).getIaeId() == 5) {
                     listaValorizaciones.get(i).setEstado("Rectificado");
                     listaValorizaciones.get(i).setAprobadopor("Por Aprobar");
-            }else {
+                } else {
                     listaValorizaciones.get(i).setEstado("Notificado");
                     for (int j = 0; j < listaAprobaciones.size(); j++) {
                         if (listaValorizaciones.get(i).getTiaAprobadoPor() == listaAprobaciones.get(j).getItrId()) {
@@ -623,7 +642,8 @@ public class NotificarInversion {
                 } else {
                     freghrnot = "";
                     asuntohrnot = "";
-                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
 
@@ -635,14 +655,16 @@ public class NotificarInversion {
 
     //Guardar Notificación
     public void GrabarNotificacion() throws Exception {
-        
-        if (freghrnot == null || freghrnot.trim().equals("") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+
+        if (freghrnot == null || freghrnot.trim().equals("")) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (!freghrnot.trim().equals("") && asuntohrnot.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Asunto del Hoja de Ruta");
+        } else if (!freghrnot.trim().equals("") && asuntohrnot.trim().equals("")) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Asunto del Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (nrocargo == null || nrocargo.trim().equals("")) {
+        } else if (nrocargo == null || nrocargo.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro. de Cargo");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (aprobadopor == 0) {
@@ -683,11 +705,12 @@ public class NotificarInversion {
                     valorizacionNotificacionVO.setVanEstado(1);
                     valorizacionNotificacionVO.setVanTotalPresentado(invAvnVO.getTiaMontoTotalPresentado());
                     valorizacionNotificacionVO.setVanTotalReconocido(invAvnVO.getTiaMontoTotalReajustado());
+                    valorizacionNotificacionVO.setVanUsuarioAlta(usuario.getUsuNombre());
                     //Para Gaurdar Documento
                     Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTANOTIFICACION + rutapdf,
                                                                         invAvnVO.getNombreFile());
                     invAvnVO.setTiaRutaNot(rutapdf);
-   
+
                     notificacionServiceImpl.NotificarInversion(invAvnVO, valorizacionNotificacionVO);
                     FacesMessage mensaje =
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Notifico con Exito");
@@ -715,7 +738,7 @@ public class NotificarInversion {
         invAvnVO.setNombreFile(event.getFile().getInputstream());
         System.out.println("rutapdf: " + rutapdf);
     }
-    
+
     private DefaultStreamedContent downloadNotificacion;
 
     public void setDownloadNotificacion(DefaultStreamedContent downloadNotificacion) {
@@ -727,18 +750,17 @@ public class NotificarInversion {
     }
 
     public void preDownloadNotificacion(String nombreArchivo) {
-            try {
-                downloadNotificacion =
-                    Reutilizar.getNewInstance().preDownload(Constantes.RUTANOTIFICACION + nombreArchivo);
-            } catch (FileNotFoundException fnfe) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
-                                                                              Constantes.ARCHIVONOENCONTRADO));
-            }
+        try {
+            downloadNotificacion = Reutilizar.getNewInstance().preDownload(Constantes.RUTANOTIFICACION + nombreArchivo);
+        } catch (FileNotFoundException fnfe) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                                          Constantes.ARCHIVONOENCONTRADO));
         }
+    }
 
     // VER DECLARACIÓN
-    
+
     private String nombreConcesion;
     private String nombreTipoInfraestructura;
     private String nombreModalidad;
@@ -748,7 +770,7 @@ public class NotificarInversion {
     private String monNombre;
     private String estadoReconocimiento;
     private String observacionReconocimiento;
-    
+
     private BigDecimal totalivrMontoPresentado = BigDecimal.ZERO;
     private BigDecimal totalivrMontoAprobado = BigDecimal.ZERO;
     private BigDecimal totalirjMontoAprobado = BigDecimal.ZERO;
@@ -756,9 +778,9 @@ public class NotificarInversion {
     private BigDecimal igv = BigDecimal.ZERO;
     private BigDecimal totalivrMontoAprobadoI = BigDecimal.ZERO;
     private BigDecimal totalirjMontoReajusteI = BigDecimal.ZERO;
-    
-    private boolean deshabilitadoxDeclaracionNoCargada=true;
-    private boolean mostrarxDeclaracionCargada=false;
+
+    private boolean deshabilitadoxDeclaracionNoCargada = true;
+    private boolean mostrarxDeclaracionCargada = false;
     private boolean renderMostrarIGV = false;
 
 
@@ -925,7 +947,7 @@ public class NotificarInversion {
 
     public void verDeclaracion(ActionEvent event) throws Exception {
         invAvnVO = (InvAvnVO) event.getComponent().getAttributes().get("valorizacionDec");
-        try{
+        try {
             contratoVO = contratoConcesionServiceImp.get(invAvnVO.getConId());
             concesionVO = concesionServicesImpl.get(contratoVO.getCsiId());
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contratoVO.getTinId());
@@ -933,50 +955,51 @@ public class NotificarInversion {
             nombreConcesion = concesionVO.getCsiNombre();
             nombreTipoInfraestructura = infraestructuraTipoVO.getTinNombre();
             nombreModalidad = modalidadConcesionVO.getMcoNombre();
-            contratoCompromisoVO=contratoCompromisoServiceImpl.get(invAvnVO.getCcoId());
+            contratoCompromisoVO = contratoCompromisoServiceImpl.get(invAvnVO.getCcoId());
             nombreEtapa = contratoCompromisoVO.getCcoPeriodo();
             desPlazo = contratoCompromisoVO.getCcoPlazo();
-            etapaTotal = ""+contratoCompromisoVO.getCcoTotal();
-            if (contratoCompromisoVO.getMonId() == 1 ){
+            etapaTotal = "" + contratoCompromisoVO.getCcoTotal();
+            if (contratoCompromisoVO.getMonId() == 1) {
                 monNombre = "Nuevos Soles";
-            }else{
+            } else {
                 monNombre = "Nuevos Soles";
             }
-            
+
             invAvnVO.setNombreConcesion(nombreConcesion);
             invAvnVO.setNombreTipoInfraestructura(nombreTipoInfraestructura);
             invAvnVO.setNombreModalidad(nombreModalidad);
-            System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-            cargarInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
+            System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():" + invAvnVO.getInvId() + " Y " +
+                               invAvnVO.getTiaNumero());
+            cargarInvxTiaNumero(invAvnVO.getInvId(), invAvnVO.getTiaNumero());
             obtenerDeatalleInvAvn(invAvnVO.getTiaNumero());
             cargarDatosCompromiso(invAvnVO.getCcoId());
-            System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
+            System.out.println("invAvnVO.getTiaNumero():" + invAvnVO.getTiaNumero());
             cargarReconocimiento(invAvnVO.getTiaNumero());
             cargarReajuste(invAvnVO.getTiaNumero());
-            deshabilitadoxDeclaracionNoCargada=false;
-            mostrarxDeclaracionCargada=true;
+            deshabilitadoxDeclaracionNoCargada = false;
+            mostrarxDeclaracionCargada = true;
             resetCamposIGV();
-            
-            if(invAvnVO.getIaeId() == 0){
+
+            if (invAvnVO.getIaeId() == 0) {
                 estadoReconocimiento = "Observado";
-            }else if(invAvnVO.getIaeId() == 4){
+            } else if (invAvnVO.getIaeId() == 4) {
                 estadoReconocimiento = "Declarado";
-            }else if(invAvnVO.getIaeId() == 5){
+            } else if (invAvnVO.getIaeId() == 5) {
                 estadoReconocimiento = "Rectificado";
-            }else if(invAvnVO.getIaeId() == 6){
+            } else if (invAvnVO.getIaeId() == 6) {
                 estadoReconocimiento = "Notificado";
             }
-                
-           
-        }catch(Exception e){
+
+
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public void cargarReconocimiento(int tiaNumero) {
         try {
             listaReconocimiento = invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
-            System.out.println("listaReconocimiento.size():"+listaReconocimiento.size());
+            System.out.println("listaReconocimiento.size():" + listaReconocimiento.size());
             calcularTotalesReconocimiento(listaReconocimiento);
             cargarDescripcionesInfraestructura(listaReconocimiento);
             cargarDescripcionesMonedas(listaReconocimiento);
@@ -986,7 +1009,7 @@ public class NotificarInversion {
             sqle.printStackTrace();
         }
     }
-    
+
     public void calcularTotalesReconocimiento(List<InvReconocimientoVO> listaReconocimiento) {
         setTotalivrMontoAprobado(BigDecimal.ZERO);
         setTotalivrMontoPresentado(BigDecimal.ZERO);
@@ -997,7 +1020,7 @@ public class NotificarInversion {
                 totalivrMontoPresentado = totalivrMontoPresentado.add(invReconocimiento.getIvrMontoPresentado());
         }
     }
-    
+
     public void cargarReajuste(int tiaNumero) {
         try {
 
@@ -1012,7 +1035,7 @@ public class NotificarInversion {
             sqle.printStackTrace();
         }
     }
-    
+
     public void calcularTotalesReajuste(List<InvReajusteVO> listaReajuste) {
         setTotalirjMontoAprobado(BigDecimal.ZERO);
         setTotalirjMontoReajuste(BigDecimal.ZERO);
@@ -1030,7 +1053,7 @@ public class NotificarInversion {
         setTotalivrMontoAprobadoI(totalirjMontoAprobado);
         setTotalirjMontoReajusteI(totalirjMontoReajuste);
     }
-    
+
     public void cargarDescripcionesInfraestructura(List<?> lista) {
         for (Object item : lista) {
             for (InfraestructuraVO infraestructuraVO : listarInfraestructura) {
@@ -1049,14 +1072,15 @@ public class NotificarInversion {
 
         }
     }
-    
+
     public void cargarDescripcionesMonedas(List<?> lista) {
         for (Object item : lista) {
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
-                    System.out.println("aux.getMonId()+aux.getNombreMoneda()&&&&&&"+aux.getMonId()+aux.getNombreMoneda());
-                    if (aux.getMonId() == moneda.getMonId()) {                        
+                    System.out.println("aux.getMonId()+aux.getNombreMoneda()&&&&&&" + aux.getMonId() +
+                                       aux.getNombreMoneda());
+                    if (aux.getMonId() == moneda.getMonId()) {
                         aux.setNombreMoneda(moneda.getMonNombre());
                     }
                 }
@@ -1069,7 +1093,7 @@ public class NotificarInversion {
 
         }
     }
-    
+
     public void cargarDescripcionesConcepto(List<?> lista) {
         for (Object item : lista) {
 
@@ -1078,7 +1102,7 @@ public class NotificarInversion {
                 for (ValorizacionInversionAvanceDetalleVO val : listaValorizacionInversionAvanceDetalleVO) {
                     if (val.getTiaNumero() == aux.getTiaNumero() && val.getIad_Id() == aux.getIadId()) {
                         for (InversionDescripcionVO concepto : listaConceptos) {
-                            if (val.getTivId() == concepto.getTivId()&&val.getDtiId()==concepto.getItdId()) {
+                            if (val.getTivId() == concepto.getTivId() && val.getDtiId() == concepto.getItdId()) {
                                 aux.setDesConcepto(concepto.getItdNombre());
                             }
                         }
@@ -1088,51 +1112,54 @@ public class NotificarInversion {
             if (item instanceof InvReajusteVO) {
                 InvReajusteVO aux = ((InvReajusteVO) item);
 
-                    for (ValorizacionInversionAvanceDetalleVO val : listaValorizacionInversionAvanceDetalleVO) {
-                        if (val.getTiaNumero() == aux.getTiaNumero() && val.getIad_Id() == aux.getIadId()) {
-                            for (InversionDescripcionVO concepto : listaConceptos) {
-                                if (val.getTivId() == concepto.getTivId()&&val.getDtiId()==concepto.getItdId()) {
-                                    aux.setDesConcepto(concepto.getItdNombre());
-                                }
+                for (ValorizacionInversionAvanceDetalleVO val : listaValorizacionInversionAvanceDetalleVO) {
+                    if (val.getTiaNumero() == aux.getTiaNumero() && val.getIad_Id() == aux.getIadId()) {
+                        for (InversionDescripcionVO concepto : listaConceptos) {
+                            if (val.getTivId() == concepto.getTivId() && val.getDtiId() == concepto.getItdId()) {
+                                aux.setDesConcepto(concepto.getItdNombre());
                             }
                         }
                     }
+                }
             }
 
         }
     }
-    
-    public void cargarInvxTiaNumero(int numeroInversion,int tianumero){
+
+    public void cargarInvxTiaNumero(int numeroInversion, int tianumero) {
         try {
-            invVO=invServiceImpl.obtenerInversion(tianumero);
+            invVO = invServiceImpl.obtenerInversion(tianumero);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
-    
+
 
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
         invAvnVO.setNombreTipoInfraestructura(contratoVO.getNombreTipoInfraestructura());
         invAvnVO.setNombreModalidad(contratoVO.getNombreModalidad());
-        System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():"+invAvnVO.getInvId()+" Y "+invAvnVO.getTiaNumero());
-        cargarInvxTiaNumero(invAvnVO.getInvId(),invAvnVO.getTiaNumero());
+        System.out.println("invAvnVO.getInvId(),invAvnVO.getTiaNumero():" + invAvnVO.getInvId() + " Y " +
+                           invAvnVO.getTiaNumero());
+        cargarInvxTiaNumero(invAvnVO.getInvId(), invAvnVO.getTiaNumero());
         obtenerDeatalleInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
-        System.out.println("invAvnVO.getTiaNumero():"+invAvnVO.getTiaNumero());
+        System.out.println("invAvnVO.getTiaNumero():" + invAvnVO.getTiaNumero());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
-        deshabilitadoxDeclaracionNoCargada=false;
-        mostrarxDeclaracionCargada=true;
+        deshabilitadoxDeclaracionNoCargada = false;
+        mostrarxDeclaracionCargada = true;
         resetCamposIGV();
     }
-    
-    public void obtenerDeatalleInvAvn(int tiaNumero){
+
+    public void obtenerDeatalleInvAvn(int tiaNumero) {
         try {
-            listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
-            System.out.println("####################listaValorizacionInversionAvanceDetalleVO:"+listaValorizacionInversionAvanceDetalleVO.size());
+            listaValorizacionInversionAvanceDetalleVO =
+                valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+            System.out.println("####################listaValorizacionInversionAvanceDetalleVO:" +
+                               listaValorizacionInversionAvanceDetalleVO.size());
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -1141,7 +1168,7 @@ public class NotificarInversion {
             e.printStackTrace();
         }
     }
-    
+
     public void cargarDatosCompromiso(int ccoId) {
         try {
             ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
@@ -1160,13 +1187,13 @@ public class NotificarInversion {
         }
 
     }
-    
-    public void resetCamposIGV(){
-        renderMostrarIGV=false;
-        igv=BigDecimal.ZERO;
-        
+
+    public void resetCamposIGV() {
+        renderMostrarIGV = false;
+        igv = BigDecimal.ZERO;
+
     }
-    
+
     public void listarTiposMoneda() {
         try {
             List<MonedaVO> lista = new ArrayList<MonedaVO>();
@@ -1181,7 +1208,7 @@ public class NotificarInversion {
             e.printStackTrace();
         }
     }
-    
+
     public void cargarConceptos() {
         try {
             listaConceptos = inversionDescripcionServicesImpl.query();
