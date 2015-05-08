@@ -48,7 +48,7 @@ public class ContratoAlertaVO {
 
     private Integer calCantidadPlazo;
     private Integer calMesoanioPlazo;
-    
+    private String aleNombre;
     public ContratoAlertaVO() {
         super();
     }
@@ -343,5 +343,13 @@ public class ContratoAlertaVO {
 
     public String getCalPlazoDescripcion() {
         return calPlazoDescripcion;
+    }
+
+    public void setAleNombre(String aleNombre) {
+        this.aleNombre = aleNombre;
+    }
+
+    public String getAleNombre() {
+        return aleNombre;
     }
 }
