@@ -25,24 +25,19 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "T_CONTRATO_SUPERVISORA_ADENDA")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_SUPERVISORA_ADEN"))
 public class ContratoSupervisoraAdenda implements Serializable {
     private static final long serialVersionUID = 2222782168772073439L;
     @Id
-    @Column(name = "CPS_ID", nullable = false)
-    @GeneratedValue(generator = "generator")
-    private Integer cpsId;
-    @Column(name = "CPS_NRO_DE_CONTRATO", nullable = false)
+    @Column(name = "CPS_NRO_DE_CONTRATO")
     private Integer cpsNroDeContrato;
     @Column(name = "CSA_ADENDA")
     private String csaAdenda;
     @Temporal(TemporalType.DATE)
     @Column(name = "CSA_FECHA")
     private Date csaFecha;
-    @Column(name = "CSA_MONTO", nullable = false)
+    @Column(name = "CSA_MONTO")
     private Integer csaMonto;
-    @Column(name = "CSA_PLAZO", nullable = false)
+    @Column(name = "CSA_PLAZO")
     private String csaPlazo;
     @Column(name = "MON_ID")
     private Integer monId;
@@ -50,9 +45,8 @@ public class ContratoSupervisoraAdenda implements Serializable {
     public ContratoSupervisoraAdenda() {
     }
 
-    public ContratoSupervisoraAdenda(Integer cpsId, Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
+    public ContratoSupervisoraAdenda(Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
                                       Integer csaMonto, String csaPlazo, Integer monId) {
-        this.cpsId = cpsId;
         this.cpsNroDeContrato = cpsNroDeContrato;
         this.csaAdenda = csaAdenda;
         this.csaFecha = csaFecha;
@@ -61,9 +55,7 @@ public class ContratoSupervisoraAdenda implements Serializable {
         this.monId = monId;
     }
 
-    public Integer getCpsId() {
-        return cpsId;
-    }
+   
 
     public Integer getCpsNroDeContrato() {
         return cpsNroDeContrato;
@@ -114,7 +106,5 @@ public class ContratoSupervisoraAdenda implements Serializable {
         this.monId = monId;
     }
 
-    public void setCpsId(Integer cpsId) {
-        this.cpsId = cpsId;
-    }
+   
 }
