@@ -116,9 +116,9 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
         "ia.INV_ID, " + 
         "ia.IAD_DESCRIPCION, " + 
         "ia.IAD_FEC_INICIO, " + 
-        "ia.IAD_FEC_FIN,inv.INV_DESCRIPCION FROM  T_INV_AVN_DETALLE ia,T_CONTRATO_INVERSION inv " +
-                                    " WHERE ia.INV_ID=inv.INV_ID \n" + 
-                                    "        and ia.tia_Numero = :tianumero order by ia.iad_Id DESC");
+        "ia.IAD_FEC_FIN,inv.INV_DESCRIPCION FROM  T_INV_AVN_DETALLE ia left join T_CONTRATO_INVERSION inv " +
+                                    " on ia.INV_ID=inv.INV_ID \n" + 
+                                    " where  ia.tia_Numero = :tianumero order by ia.iad_Id DESC");
         query.setParameter("tianumero",tiaNumero);          
         List<Object[]> list = (List<Object[]>)query.list();
         List<ValorizacionInversionAvanceDetalle> lista=new ArrayList<ValorizacionInversionAvanceDetalle>();
