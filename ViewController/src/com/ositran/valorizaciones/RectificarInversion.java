@@ -686,6 +686,7 @@ public class RectificarInversion {
     public void cargarListaInversiones(int idcontrato) {
         try {
             listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
+            nombreinversion.put("0", "");
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 nombreinversion.put(contratoInversionVO.getInvId().toString(), contratoInversionVO.getInvDescripcion());
            }
