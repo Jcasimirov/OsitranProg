@@ -28,7 +28,7 @@ public class InvReconocimientoVO {
     private String nombreInfraestructura;
     private String desConcepto;
     private String nombreMoneda;
-
+    private String nombreInversion;
 
     public void setIreFechaRegistro(Date ireFechaRegistro) {
         this.ireFechaRegistro = ireFechaRegistro;
@@ -146,5 +146,13 @@ public class InvReconocimientoVO {
 
     public Integer getIadId() {
         return iadId;
+    }
+
+    public void setNombreInversion(String nombreInversion) {
+        this.nombreInversion = nombreInversion;
+    }
+
+    public String getNombreInversion() {
+        return nombreInversion;
     }
 }
