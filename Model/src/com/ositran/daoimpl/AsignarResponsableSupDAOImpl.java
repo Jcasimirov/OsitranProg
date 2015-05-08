@@ -13,12 +13,10 @@ import com.ositran.model.ContratoRespSup;
 
 
 public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
-    
 
     public AsignarResponsableSupDAOImpl() {
         super();
     }
-    
     @Override
     public List<ContratoResSupDetalle> ListarDetalle(int codigoContrato, int compromiso) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -88,7 +86,6 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         session.getTransaction().commit();
         return ccntratoRespSup;
     }
-    
     
     @Override
     public ContratoResSupDetalle getDet(Integer id) throws SQLException{
@@ -180,8 +177,6 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
             "      det.tdoId = :tipodocumento and \n" + 
             "      det.rsdEstado = 1 and \n" + 
             "      det.rsdNroDocumento = :nrodocumento " );
-            
-            
             query.setParameter("inversion",inversion); 
             query.setParameter("aeropuerto",aeropuerto); 
             
@@ -221,16 +216,17 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         session.beginTransaction();    
         Query query;
         String nombre = "";
-        if(aeropuerto != null && aeropuerto != 0){
+        if((aeropuerto != null && aeropuerto != 0) && (inversion == null || inversion == 0)){
+
                 query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1 and c.infId = :aeropuerto");
                 query.setParameter("aeropuerto",aeropuerto);  
             
-            if(inversion != null && inversion != 0)
+        }else if((aeropuerto != null && aeropuerto != 0) && inversion != null && inversion != 0){
                 query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
                 query.setParameter("aeropuerto",aeropuerto);  
                 query.setParameter("inversion",inversion); 
             }else {
-                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado = 1");                
+                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa and c.tipoSup = :tipoSupervision and c.rsdEstado =1");                
             }    
             query.setParameter("contrato",contrato);  
             query.setParameter("etapa",etapa); 
