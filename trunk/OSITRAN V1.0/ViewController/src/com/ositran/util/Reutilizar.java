@@ -120,7 +120,6 @@ public class Reutilizar {
         return monto1;
     }
     public BigDecimal redondearBigDecimal(BigDecimal d) {
-        System.out.println("d.setScale(2, BigDecimal.ROUND_HALF_EVEN)"+d.setScale(2, BigDecimal.ROUND_HALF_EVEN));
       return d.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 }
