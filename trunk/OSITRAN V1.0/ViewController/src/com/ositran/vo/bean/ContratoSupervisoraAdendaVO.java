@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 
 public class ContratoSupervisoraAdendaVO {
     
-    private Integer cpsId;
     private Integer cpsNroDeContrato;
     private String csaAdenda;
     private Date csaFecha;
@@ -28,10 +27,9 @@ public class ContratoSupervisoraAdendaVO {
     }
 
 
-    public ContratoSupervisoraAdendaVO(Integer cpsId, Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
+    public ContratoSupervisoraAdendaVO(Integer cpsNroDeContrato, String csaAdenda, Date csaFecha,
                                        Integer csaMonto, String csaPlazo, Integer monId) {
         super();
-        this.cpsId = cpsId;
         this.cpsNroDeContrato = cpsNroDeContrato;
         this.csaAdenda = csaAdenda;
         this.csaFecha = csaFecha;
@@ -40,14 +38,6 @@ public class ContratoSupervisoraAdendaVO {
         this.monId = monId;
     }
 
-
-    public void setCpsId(Integer cpsId) {
-        this.cpsId = cpsId;
-    }
-
-    public Integer getCpsId() {
-        return cpsId;
-    }
 
     public void setCpsNroDeContrato(Integer cpsNroDeContrato) {
         this.cpsNroDeContrato = cpsNroDeContrato;
