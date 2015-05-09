@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
-<!-- 2015-05-07T15:14:04 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAvanceInvContConc_excel" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bfbb27c6-a60d-4c58-9097-c7d83c8c1e7f">
+<!-- 2015-05-08T18:17:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAvanceInvContConc_excel" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bfbb27c6-a60d-4c58-9097-c7d83c8c1e7f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -100,27 +100,27 @@
 		<variableExpression><![CDATA[$F{inversionAcumuladaAnnio}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalComInversion" class="java.lang.Integer" resetType="None" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
+	<variable name="totalComInversion" class="java.lang.Integer" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalCompromisoInv}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalInvEjecAcumAnnio" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Sum">
+	<variable name="totalInvEjecAcumAnnio" class="java.lang.Integer" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
 		<variableExpression><![CDATA[$F{inversionEjecutadaAcumAnnio}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalInvReconMes" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Sum">
+	<variable name="totalInvReconMes" class="java.lang.Integer" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
 		<variableExpression><![CDATA[$F{inversionReconocidaMes}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalInvReconAnnio" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Sum">
+	<variable name="totalInvReconAnnio" class="java.lang.Integer" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
 		<variableExpression><![CDATA[$F{inversionReconocidaAnnio}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalInvAcumAnnio" class="java.lang.Integer" resetType="None" incrementType="Report" calculation="Sum">
+	<variable name="totalInvAcumAnnio" class="java.lang.Integer" incrementType="Group" incrementGroup="grpTipoInfraestructura" calculation="Sum">
 		<variableExpression><![CDATA[$F{inversionAcumuladaAnnio}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<group name="grpTipoInfraestructura">
+	<group name="grpTipoInfraestructura" keepTogether="true">
 		<groupExpression><![CDATA[$F{tipoInfraestructura}]]></groupExpression>
 		<groupHeader>
 			<band height="30" splitType="Stretch">
@@ -565,8 +565,10 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
+	<summary>
 		<band height="40" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement style="cabecera" x="757" y="0" width="85" height="40" forecolor="#FFFFFF" uuid="e5a8958f-481d-4d00-83c9-ce90ba69fa23">
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -659,5 +661,5 @@
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 		</band>
-	</columnFooter>
+	</summary>
 </jasperReport>
