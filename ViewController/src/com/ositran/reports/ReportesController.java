@@ -9,7 +9,7 @@ package com.ositran.reports;
 import javax.faces.event.ActionEvent;
 import com.ositran.model.reportes.*;
 import com.ositran.service.reportes.ReportesService;
-import com.ositran.serviceimpl.reportes.ReportesServiceImpl;
+import com.ositran.serviceimpl.ReportesServiceImpl;
 import com.ositran.util.reportes.AvaInvConConcDataSource;
 import com.ositran.util.reportes.AvaInvRecConConcDataSource;
 import com.ositran.util.reportes.ControlPlazosFlujoValorizacionesEmpresaSupervisoraDataSource;
@@ -21,6 +21,8 @@ import com.ositran.util.reportes.InversionesTipoConceptoDataSource;
 
 import com.ositran.util.reportes.InversionesTipoConceptoDetalleDataSource;
 
+import com.ositran.util.reportes.ReporteAlertaAeropuertoDataSource;
+import com.ositran.util.reportes.ReporteAlertaDataSource;
 import com.ositran.util.reportes.TrazabilidadPrincipalesEventosDataSource;
 
 import java.io.File;
@@ -150,17 +152,51 @@ public class ReportesController {
                     Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_invReconocimContratosConcesionResumen.concesion}")),
                     Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_invReconocimContratosConcesionResumen.modalidadConcesion}"))));
                    return dataSource;
-               }  
+               }   else if (nomEntidad.equals("reporteAlerta")) {
+            String tipoReporteAlerta = getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}");
+            
+            if (tipoReporteAlerta!=null && tipoReporteAlerta.equals("2") ){
+                ReporteAlertaAeropuertoDataSource dataSource = new ReporteAlertaAeropuertoDataSource();
+                dataSource.setDatos(reportesSrv.getReporteAlertaAeropuerto(
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoAlerta}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.concesion}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.modalidad}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.etapa}")),
+                Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.aeropuerto}")),
+                Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.inversion}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.estado}"))));
+                return dataSource;
+                
+            }else{
+                ReporteAlertaDataSource dataSource = new ReporteAlertaDataSource();
+                dataSource.setDatos(reportesSrv.getReporteAlerta(
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoAlerta}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.concesion}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.modalidad}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.etapa}")),
+                 Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.estado}"))));
+                return dataSource;
+            }
+                  
+        } 
         return null;
     }
-
+    
+   
+    
+    
     public void generarReporte(ActionEvent event) throws Exception {
+        System.out.println("generarReporte");
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExternalContext ectx = ctx.getExternalContext();
         HttpServletResponse res = (HttpServletResponse) ectx.getResponse();
         
         String nomEntidad=(String)event.getComponent().getAttributes().get("nomentidad");
         String tipoReporte=(String)event.getComponent().getAttributes().get("tiporeporte");
+        
+        System.out.println("valor entidad = "+nomEntidad);
         
         Map parameterMap = new HashMap();      
         String path = ectx.getRealPath("\\reportes\\");
@@ -189,7 +225,7 @@ public class ReportesController {
             nomJasper = "\\rptControlPlazosFlujoValInv_" + tipoReporte + ".jasper";
         } else if (nomEntidad.equals("empresaSupervisoraVSInfraestructura")) {
             int idTipoInfraestructura = Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.tipoInfraestructura}"));
-            if(idTipoInfraestructura==1){
+            if(idTipoInfraestructura==2){
                 //Si es solo Aeropuertos, usar el otro formato
                 nomEntidad = "empresaSupervisoraVSInfraestructuraAeropuertos";
                 nomReporte = "reporte_empresaSupervisoraVSInfraestructuraAeropuertos" + extension;
@@ -198,7 +234,11 @@ public class ReportesController {
                 nomReporte = "reporte_empresaSupervisoraVsInfraestructura" + extension;
                 nomJasper = "\\rptEmpSupInf_" + tipoReporte + ".jasper";
             }            
-        } else if (nomEntidad.equals("invPorTipoConcepto")) {
+        } else if (nomEntidad.equals("empresaSupervisoraVSInfraestructuraAeropuertos")) {
+            nomEntidad = "empresaSupervisoraVSInfraestructuraAeropuertos";
+            nomReporte = "reporte_empresaSupervisoraVsInfraestructura" + extension;
+            nomJasper = "\\rptEmpSupInf_" + tipoReporte + ".jasper";
+        }else if (nomEntidad.equals("invPorTipoConcepto")) {
             nomReporte = "reporte_inversionPorTipoConcepto" + extension;
             nomJasper = "\\rptInvTipConcepto_" + tipoReporte + ".jasper";
             nomSubReporte = "\\rptInvTipConcepto_detalle_" + tipoReporte + ".jasper";
@@ -213,15 +253,18 @@ public class ReportesController {
         } else if (nomEntidad.equals("trazabilidadPrincipalesEventos")){
             nomReporte = "reporte_trazabilidadPrincipalesEventos" + extension;
             nomJasper = "\\rptTrazabilidadEventos_" + tipoReporte + ".jasper";
-        } else if (nomEntidad.equals("alertas")){
-            //TODO: agregar vista que invoca a este reporte - EAPR
-            nomReporte = "reporte_alertas" + extension;
-            nomJasper = "\\rptAlertas_" + tipoReporte + ".jasper";
-        } else if (nomEntidad.equals("alertasAeropuertos")){
-            //TODO: agregar vista que invoca a este reporte - EAPR
-            nomReporte = "reporte_alertasAeropuertos" + extension;
-            nomJasper = "\\rptAlertasAeropuertos_" + tipoReporte + ".jasper";
-        }
+        } else if (nomEntidad.equals("reporteAlerta")){
+            String tipoReporteAlerta = getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}");
+            if (tipoReporteAlerta!=null && tipoReporteAlerta.equals("2") ){
+                nomReporte = "reporte_alertasAeropuertos" + extension;
+                nomJasper = "\\rptAlertasAeropuertos_" + tipoReporte + ".jasper";
+                
+            }else{
+                nomReporte = "reporte_alertas" + extension;
+                nomJasper = "\\rptAlertas_" + tipoReporte + ".jasper";
+            }
+            
+        } 
         //avanceInvContratosConcesion
         //contratoConcesion - NO, hecho por equipo
         //controlPlazosFlujoValorizacionesSupervision

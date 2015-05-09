@@ -8,7 +8,8 @@ import com.ositran.model.reportes.EmpSupInf;
 
 import com.ositran.model.reportes.EmpSupInfAeropuerto;
 import com.ositran.model.reportes.InversionesTipoConcepto;
-
+import com.ositran.model.reportes.ReportAlerta;
+import com.ositran.model.reportes.ReportAlertaAeropuerto;
 import com.ositran.model.reportes.InversionesTipoConceptoDetalle;
 
 import com.ositran.model.reportes.TrazabilidadPrincipalesEventos;
@@ -28,4 +29,7 @@ public interface ReportesDAO {
     public List<ControlPlazosFlujoValorizacionesInversiones> getControlPlazosFlujoValorizacionesInversiones(int idTipoInfraestructura, int anio, int mes) throws SQLException;
     public List<ControlPlazosFlujoValorizacionesEmpresaSupervisora> getControlPlazosFlujoValorizacionesEmpresaSupervisora(int idTipoInfraestructura, int anio, int mes) throws SQLException;
     public List<AvaInvRecConConc> getAvaInvRecConConc(int anio,int trimestre,int idTipoEstructura, int idConcesion,int idModalidad) throws SQLException;
+    
+    public List<ReportAlerta> getReporteAlerta(int idTipoAlerta,int idTipoInfraestructura,int idConcesion,int idModalidad, int idEtapaPeriodo,int idEstado) throws SQLException;
+        public List<ReportAlertaAeropuerto> getReporteAlertaAeropuerto(int idTipoAlerta,int idTipoInfraestructura,int idConcesion,int idModalidad, int idEtapaPeriodo,int idAeropuerto,int idInversion,int idEstado) throws SQLException;
 }

@@ -1,4 +1,4 @@
-package com.ositran.serviceimpl.reportes;
+package com.ositran.serviceimpl;
 
 /*
  * Clase: ReportesServiceImpl
@@ -20,6 +20,10 @@ import com.ositran.model.reportes.ControlPlazosFlujoValorizacionesInversiones;
 import com.ositran.model.reportes.ControlPlazosFlujoValorizacionesEmpresaSupervisora;
 import com.ositran.model.reportes.AvaInvRecConConc;
 
+import com.ositran.model.reportes.ReportAlerta;
+
+import com.ositran.model.reportes.ReportAlertaAeropuerto;
+
 import java.sql.SQLException;
 
 import java.util.Collections;
@@ -29,12 +33,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReportesServiceImpl implements ReportesService {
-
-    ReportesDAOImpl reportesDao = new ReportesDAOImpl();
+    
     //private ReportesDAO reportesDao;
 
     @Override
     public List<EmpSupInf> getEmpresaSupervisoraVsInfraestructura(int idTipoEstructura, int idConcesion, int idEmpSupervisora) throws SQLException  {        
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getEmpresaSupervisoraVsInfraestructura(idTipoEstructura, idConcesion, idEmpSupervisora);
     }
 
@@ -42,6 +46,7 @@ public class ReportesServiceImpl implements ReportesService {
     public List<AvaInvConConc> getAvanceInversionesContratosConcesion(int anio, int mes, int idTipoEstructura,
                                                                       int idConcesion,
                                                                       int idEmpSupervisora) throws SQLException {
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getAvanceInversionesContratosConcesion(anio,mes,idTipoEstructura, idConcesion, idEmpSupervisora);
     }
 
@@ -49,7 +54,7 @@ public class ReportesServiceImpl implements ReportesService {
     public List<InversionesTipoConcepto> getInversionesTipoConcepto(int anio, int mes, int idTipoInfraestructura,
                                                                     int idConcesion,
                                                                     int idConcepto) throws SQLException {
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getInversionesTipoConcepto(anio,mes,idTipoInfraestructura, idConcesion, idConcepto);
     }
 
@@ -59,8 +64,7 @@ public class ReportesServiceImpl implements ReportesService {
     public List<EmpSupInfAeropuerto> getEmpresaSupervisoraVsInfraestructuraAeropuerto(int idTipoEstructura,
                                                                                       int idConcesion,
                                                                                       int idEmpSupervisora) throws SQLException {
-        
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getEmpresaSupervisoraVsInfraestructuraAeropuerto(idTipoEstructura, idConcesion, idEmpSupervisora);
         
     }
@@ -68,7 +72,7 @@ public class ReportesServiceImpl implements ReportesService {
     @Override
     public List<TrazabilidadPrincipalesEventos> getTrazabilidadPrincipalesEventos(int idTipoEstructura, int anio,
                                                                                   int mes) throws SQLException {
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getTrazabilidadPrincipalesEventos(idTipoEstructura, anio, mes);
     }
     
@@ -76,7 +80,7 @@ public class ReportesServiceImpl implements ReportesService {
     public List<ControlPlazosFlujoValorizacionesInversiones> getControlPlazosFlujoValorizacionesInversiones(int idTipoIngraestructura,
                                                                                                           int anio,
                                                                                                           int mes) throws SQLException {
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getControlPlazosFlujoValorizacionesInversiones(idTipoIngraestructura, anio, mes);
     }
 
@@ -84,16 +88,35 @@ public class ReportesServiceImpl implements ReportesService {
     public List<ControlPlazosFlujoValorizacionesEmpresaSupervisora> getControlPlazosFlujoValorizacionesEmpresaSupervisora(int idTipoIngraestructura,
                                                                                                                           int anio,
                                                                                                                           int mes) throws SQLException {
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getControlPlazosFlujoValorizacionesEmpresaSupervisora(idTipoIngraestructura, anio, mes);
     }
 
     @Override
     public List<AvaInvRecConConc> getAvaInvRecConConc(int anio, int trimestre, int idTipoEstructura, int idConcesion,
                                                       int idModalidad) throws SQLException {
-        // TODO Implement this method
+        ReportesDAOImpl reportesDao = new ReportesDAOImpl();
         return reportesDao.getAvaInvRecConConc(anio,  trimestre,  idTipoEstructura,  idConcesion,
                                                        idModalidad);
     }
+    @Override
+        public List<ReportAlerta> getReporteAlerta(int idTipoAlerta, int idTipoInfraestructura, int idConcesion,
+                                                   int idModalidad, int idEtapaPeriodo, int idEstado) throws SQLException {
+            ReportesDAOImpl reportesDao = new ReportesDAOImpl();
+            return reportesDao.getReporteAlerta( idTipoAlerta,  idTipoInfraestructura,  idConcesion,
+                                                    idModalidad,  idEtapaPeriodo,  idEstado);
+        }
+
+        @Override
+        public List<ReportAlertaAeropuerto> getReporteAlertaAeropuerto(int idTipoAlerta, int idTipoInfraestructura,
+                                                                       int idConcesion, int idModalidad, int idEtapaPeriodo,
+                                                                       int idAeropuerto, int idInversion,
+                                                                       int idEstado) throws SQLException {
+            ReportesDAOImpl reportesDao = new ReportesDAOImpl();
+            return reportesDao.getReporteAlertaAeropuerto( idTipoAlerta,  idTipoInfraestructura,
+                                                                        idConcesion,  idModalidad,  idEtapaPeriodo,
+                                                                        idAeropuerto,  idInversion,
+                                                                        idEstado);
+        }
     
 }

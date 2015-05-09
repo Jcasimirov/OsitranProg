@@ -186,7 +186,7 @@ public class ControlPlazosFlujoValorizacionesInversiones {
         mes[10]="noviembre";
         mes[11]="diciembre";
         for (int i = 0; i < mes.length; i++) {
-            mesSelectItems.add(new SelectItem(i, String.valueOf(mes[i])));
+            mesSelectItems.add(new SelectItem(i+1, String.valueOf(mes[i])));
         }
         return mesSelectItems;
     }
@@ -246,7 +246,7 @@ public class ControlPlazosFlujoValorizacionesInversiones {
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
         for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
+            tipoInfraestructuraSelectItems.add(new SelectItem(ivo.getTinId()+"", String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
@@ -292,7 +292,7 @@ public class ControlPlazosFlujoValorizacionesInversiones {
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
         for(ConcesionVO cvo:lista){
-            concesionSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getCsiNombre())));
+            concesionSelectItems.add(new SelectItem(cvo.getCsiId()+"", String.valueOf(cvo.getCsiNombre())));
         }
         return concesionSelectItems;
     }    

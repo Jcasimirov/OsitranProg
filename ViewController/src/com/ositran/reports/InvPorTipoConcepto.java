@@ -1,5 +1,6 @@
 package com.ositran.reports;
 
+import com.ositran.service.InversionDescripcionServices;
 import com.ositran.serviceimpl.ConceptoInversionServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
@@ -8,9 +9,12 @@ import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
+import com.ositran.vo.bean.InversionDescripcionVO;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -243,7 +247,7 @@ public class InvPorTipoConcepto {
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
         for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
+            tipoInfraestructuraSelectItems.add(new SelectItem(ivo.getTinId(), String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
@@ -290,7 +294,7 @@ public class InvPorTipoConcepto {
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
         for(ConcesionVO cvo:lista){
-            concesionSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getCsiNombre())));
+            concesionSelectItems.add(new SelectItem(cvo.getCsiId()+"", String.valueOf(cvo.getCsiNombre())));
         }
         return concesionSelectItems;
     }    
@@ -311,8 +315,10 @@ public class InvPorTipoConcepto {
      * @return lista de años para que se renderize en el combo
      */
     public List<SelectItem> getAnnioSelectItems() {
-        annioSelectItems.add(new SelectItem("-1","Seleccione"));
-        for (int i = 1990; i < 2016; i++) {
+        annioSelectItems = new ArrayList<SelectItem>();
+        int annioLim = Calendar.getInstance().get(Calendar.YEAR) + 1;  
+        //annioSelectItems.add(new SelectItem("-1","Seleccione"));
+        for (int i = 1990; i < annioLim; i++) {
             annioSelectItems.add(new SelectItem(i, String.valueOf(i)));
         }
         return annioSelectItems;
@@ -350,7 +356,7 @@ public class InvPorTipoConcepto {
         mes[10]="noviembre";
         mes[11]="diciembre";
         for (int i = 0; i < mes.length; i++) {
-            mesSelectItems.add(new SelectItem(i, String.valueOf(mes[i])));
+            mesSelectItems.add(new SelectItem(i+1, String.valueOf(mes[i])));
         }
         return mesSelectItems;
     }
@@ -370,6 +376,9 @@ public class InvPorTipoConcepto {
     @ManagedProperty(value="#{conceptoInversionVO}")
     ConceptoInversionVO conceptoInversionVO;
         
+    @ManagedProperty(value = "#{inversionDescripcionServicesImpl}")
+    private InversionDescripcionServices inversionDescripcionServicesImpl;    
+        
     @ManagedProperty(value="#{conceptoInversionServiceImpl}")
     private ConceptoInversionServiceImpl conceptoInversionServiceImpl;
     public void setConceptoInversionServiceImpl(ConceptoInversionServiceImpl conceptoInversionServiceImpl) {
@@ -387,17 +396,27 @@ public class InvPorTipoConcepto {
         List<ConceptoInversionVO> list=this.conceptoInversionServiceImpl.query();
         return list;
     }
-    
+    public List<InversionDescripcionVO> listarInversionDescripcion() {
+        List<InversionDescripcionVO> listaDescripcionTipoInversion=new ArrayList<InversionDescripcionVO>();
+        try {
+            listaDescripcionTipoInversion = inversionDescripcionServicesImpl.query();
+
+        } catch (Exception e) {
+            System.out.println("   PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
+            e.printStackTrace();
+        }
+return listaDescripcionTipoInversion;
+    }
     /**
      * @author Paul Rivera
      * @return concepto para que se renderize en el combo
      */
     public List<SelectItem> getConceptoInversionSelectItems() throws SQLException {
         conceptoInversionSelectItems.add(new SelectItem("-1","Seleccione"));
-        List<ConceptoInversionVO> lista=listarConceptoInversion();
+        List<InversionDescripcionVO> lista=listarInversionDescripcion();
         int i=0;
-        for(ConceptoInversionVO cvo:lista){
-            conceptoInversionSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getCnvNombre())));
+        for(InversionDescripcionVO cvo:lista){
+            conceptoInversionSelectItems.add(new SelectItem(cvo.getItdId()+"", String.valueOf(cvo.getItdDescripcion())));
         }
         return conceptoInversionSelectItems;
     }    
@@ -411,5 +430,13 @@ public class InvPorTipoConcepto {
         }else{
             return getConceptoInversion();
         }
+    }
+
+    public InversionDescripcionServices getInversionDescripcionServicesImpl() {
+        return inversionDescripcionServicesImpl;
+    }
+
+    public void setInversionDescripcionServicesImpl(InversionDescripcionServices inversionDescripcionServicesImpl) {
+        this.inversionDescripcionServicesImpl = inversionDescripcionServicesImpl;
     }
 }
