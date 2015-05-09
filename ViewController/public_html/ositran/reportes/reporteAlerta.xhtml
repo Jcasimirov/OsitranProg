@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:primefaces-p="http://primefaces.org/ui" >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>reporteAlerta</title>
+        </h:head>
+        <h:body>
+            <primefaces-p:layout fullPage="true" style="border:none">
+                <primefaces-p:layoutUnit position="center" style="border:0px">
+                    <div align="center">
+                        <h4 class="titulo"></h4>
+                        <div style="width:80%">
+                        <primefaces-p:messages />
+                            <div align="center" style="font-size: 11px">
+                                <h:form id="formAlertas" binding="#{backing_ositran_reports_reporte_alerta.form1}">
+                                    <primefaces-p:panelGrid id="pnlgAlerta" columns="6">
+                                        <primefaces-p:outputLabel id="lblTipoAlerta" value="Tipo Alerta"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectTipoAlerta}" validatorMessage="Error"
+                                                                    id="selectTipoAlerta"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.tipoAlerta}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.tipoAlertaSelectItems}"/>
+                                           
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel id="lblTipoInfraestructura"
+                                                                  value="Tipo Infraestructura"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectTipoInfraestructura}"
+                                                                    id="selectTipoInfraestructura"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.tipoInfraestructuraSelectItems}"/>
+                                            <!--<f:ajax  render="selectedItemTipoInfraestructura selectAeropuerto selectInversion" event="change"  execute="selectTipoInfraestructura"/>-->
+                                            <primefaces-p:ajax update="pnlgAlerta" event="change"
+                                                               listener="#{backing_ositran_reports_reporte_alerta.validarHabilitarFiltrosAeropuertos}"/>
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel id="lblConcesion" value="Concesion"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectConcesion}"
+                                                                    id="selectConcesion"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.concesion}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.concesionSelectItems}"/>
+                                            
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel id="lblModalidad" value="Modalidad"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectModalidad}"
+                                                                    id="selectModalidad"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.modalidad}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.modalidadSelectItems}"/>
+                                            
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel id="lblEtapa" value="Etapa/Periodo"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectEtapa}"
+                                                                    id="selectEtapa"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.etapa}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.etapaSelectItems}"/>
+                                            
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel rendered="#{backing_ositran_reports_reporte_alerta.habilitarFiltrosDemas}"
+                                                                  id="lblAeropuerto" value="Aeropuerto"/>
+                                        <primefaces-p:selectOneMenu rendered="#{backing_ositran_reports_reporte_alerta.habilitarFiltrosDemas}"
+                                                                    id="selectAeropuerto"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.aeropuerto}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.aeropuertoSelectItems}"/>
+                                            
+                                        </primefaces-p:selectOneMenu>
+                                        <primefaces-p:outputLabel rendered="#{backing_ositran_reports_reporte_alerta.habilitarFiltrosDemas}"
+                                                                  id="lblInversion" value="Inversion"/>
+                                        <primefaces-p:selectOneMenu rendered="#{backing_ositran_reports_reporte_alerta.habilitarFiltrosDemas}"
+                                                                    id="selectInversion"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.inversion}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.inversionSelectItems}"/>
+                                           
+                                        </primefaces-p:selectOneMenu>
+                                       
+                                        <primefaces-p:outputLabel id="lblEstado" value="Estado"/>
+                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectEstado}"
+                                                                    id="selectEstado"
+                                                                    value="#{backing_ositran_reports_reporte_alerta.estado}">
+                                            <f:selectItems value="#{backing_ositran_reports_reporte_alerta.estadoSelectItems}"/>
+                                            
+                                        </primefaces-p:selectOneMenu>
+                                        <h:commandLink id="cmdLink_exportExcel"
+                                                       actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                            <f:attribute name="nomentidad" value="reporteAlerta"/>
+                                            <f:attribute name="tiporeporte" value="excel"/>
+                                            <primefaces-p:outputLabel value="Generar"/>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                        </h:commandLink>
+                                        <h:commandLink id="cmdLink_exportPdf"
+                                                       actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                            <f:attribute name="nomentidad" value="reporteAlerta"/>
+                                            <f:attribute name="tiporeporte" value="pdf"/>
+                                            <primefaces-p:outputLabel value="Generar"/>
+                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                        </h:commandLink>
+                                       </primefaces-p:panelGrid>
+                                </h:form>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </primefaces-p:layoutUnit>
+            </primefaces-p:layout>
+        </h:body>
+    </html>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_trazabilidadPrincipalesEventos-->
+</f:view>
