@@ -220,7 +220,7 @@ public class TrazabilidadPrincipalesEventos {
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
         for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
+            tipoInfraestructuraSelectItems.add(new SelectItem(ivo.getTinId()+"", String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
@@ -282,7 +282,7 @@ public class TrazabilidadPrincipalesEventos {
         mes[10]="noviembre";
         mes[11]="diciembre";
         for (int i = 0; i < mes.length; i++) {
-            mesSelectItems.add(new SelectItem(i, String.valueOf(mes[i])));
+            mesSelectItems.add(new SelectItem(i+1, String.valueOf(mes[i])));
         }
         return mesSelectItems;
     }

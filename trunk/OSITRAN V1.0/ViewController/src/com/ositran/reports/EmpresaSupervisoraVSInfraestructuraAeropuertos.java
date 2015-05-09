@@ -192,7 +192,7 @@ public class EmpresaSupervisoraVSInfraestructuraAeropuertos {
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
         for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
+            tipoInfraestructuraSelectItems.add(new SelectItem(ivo.getTinId()+"", String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
@@ -239,7 +239,7 @@ public class EmpresaSupervisoraVSInfraestructuraAeropuertos {
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
         for(ConcesionVO cvo:lista){
-            concesionSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getCsiNombre())));
+            concesionSelectItems.add(new SelectItem(cvo.getCsiId()+"", String.valueOf(cvo.getCsiNombre())));
         }
         return concesionSelectItems;
     }    
@@ -287,7 +287,7 @@ public class EmpresaSupervisoraVSInfraestructuraAeropuertos {
         List<EmpresaSupervisoraVO> lista=listarEmpresaSupervisora();
         int i=0;
         for(EmpresaSupervisoraVO cvo:lista){
-            empresaSupervisoraSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getSupNombre())));
+            empresaSupervisoraSelectItems.add(new SelectItem(cvo.getSupId()+"", String.valueOf(cvo.getSupNombre())));
         }
         return empresaSupervisoraSelectItems;
     }    

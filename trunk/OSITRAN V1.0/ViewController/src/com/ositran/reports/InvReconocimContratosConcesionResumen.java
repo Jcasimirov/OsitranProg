@@ -295,7 +295,7 @@ public class InvReconocimContratosConcesionResumen {
         List<ConcesionVO> lista=listarConcesion();
         int i=0;
         for(ConcesionVO cvo:lista){
-            concesionSelectItems.add(new SelectItem(i++, String.valueOf(cvo.getCsiNombre())));
+            concesionSelectItems.add(new SelectItem(cvo.getCsiId()+"", String.valueOf(cvo.getCsiNombre())));
         }
         return concesionSelectItems;
     }    
@@ -321,7 +321,7 @@ public class InvReconocimContratosConcesionResumen {
         List<InfraestructuraTipoVO> lista=listarInfraestructura();
         int i=0;
         for(InfraestructuraTipoVO ivo:lista){
-            tipoInfraestructuraSelectItems.add(new SelectItem(i++, String.valueOf(ivo.getTinNombre())));
+            tipoInfraestructuraSelectItems.add(new SelectItem(ivo.getTinId()+"", String.valueOf(ivo.getTinNombre())));
         }
         return tipoInfraestructuraSelectItems;
     }
@@ -394,7 +394,7 @@ public class InvReconocimContratosConcesionResumen {
         List<ModalidadConcesionVO> lista=listarModalidadConcesion();
         int i=0;
         for(ModalidadConcesionVO mcvo:lista){
-            modalidadConcesionSelectItems.add(new SelectItem(i++, String.valueOf(mcvo.getMcoNombre())));
+            modalidadConcesionSelectItems.add(new SelectItem(mcvo.getMcoId()+"", String.valueOf(mcvo.getMcoNombre())));
         }
         return modalidadConcesionSelectItems;
     }    

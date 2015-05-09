@@ -12,6 +12,8 @@ import com.ositran.model.reportes.InversionesTipoConcepto;
 
 import com.ositran.model.reportes.InversionesTipoConceptoDetalle;
 
+import com.ositran.model.reportes.ReportAlerta;
+import com.ositran.model.reportes.ReportAlertaAeropuerto;
 import com.ositran.model.reportes.TrazabilidadPrincipalesEventos;
 
 import java.util.ArrayList;
@@ -46,12 +48,20 @@ public class ReportesDAOImpl implements ReportesDAO {
     static private List<ControlPlazosFlujoValorizacionesInversiones> resultControlPlazoFlujoValorizacionesInversiones = new ArrayList<ControlPlazosFlujoValorizacionesInversiones>();
     static private List<ControlPlazosFlujoValorizacionesEmpresaSupervisora> resultControlPlazosFlujoValorizacionesEmpresaSupervisora = new ArrayList<ControlPlazosFlujoValorizacionesEmpresaSupervisora>();
     static private List<AvaInvRecConConc> resultAvaInvRecConConc= new ArrayList<AvaInvRecConConc>();
+    static private List<ReportAlerta> resultReporteAlerta=new ArrayList<ReportAlerta>();
+    static private List<ReportAlertaAeropuerto> resultReporteAlertaAeropuerto=new ArrayList<ReportAlertaAeropuerto>();
     
     static private Object param1 = new Object();
     static private Object param2 = new Object();
     static private Object param3 = new Object();
     static private Object param4 = new Object();
     static private Object param5 = new Object();
+
+    static private Object param6 = new Object();
+    static private Object param7 = new Object();
+    static private Object param8 = new Object();
+    
+    static int contCond=0;
     
     boolean existeWhere=false;
     
@@ -90,11 +100,11 @@ public class ReportesDAOImpl implements ReportesDAO {
                     "      FROM t_contrato con, t_contrato_supervisora cps, t_concesion csi\n" +
                     "     WHERE con.con_id = cps.con_id\n" + "       AND cps.csi_id = csi.csi_id\n" +
                     "       AND con.con_estado = 1\n" + "       AND cps.cps_estado = 1\n" +
-                    "       AND csi.csi_estado = 1\n" + "      AND cps.tin_id != 2";
+                    "       AND csi.csi_estado = 1\n" + "      AND cps.tin_id != 2 AND con.tin_id != 2";
 
                 String filtros = "";
                 if (param1 != null) {
-                    filtros = filtros + " AND cps.tin_id = " + param1.toString();
+                    filtros = filtros + " AND cps.tin_id = " + param1.toString() + " AND con.tin_id = " + param1.toString();
                 }
                 if (param2 != null) {
                     filtros = filtros + " AND con.mco_id = " + param2.toString();
@@ -105,6 +115,9 @@ public class ReportesDAOImpl implements ReportesDAO {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(query + filtros);
                 ResultSet rs = preparedStatement.executeQuery(query + filtros);
+                
+                result = new ArrayList<EmpSupInf>();
+                
                 while (rs.next()) {
                     EmpSupInf bean = new EmpSupInf();
                     bean.setNomTipInfraestructura(rs.getString("nomTipInfraestructura"));
@@ -199,12 +212,15 @@ public class ReportesDAOImpl implements ReportesDAO {
                     " WHERE con.csi_id = csi.csi_id\n" + 
                     "   AND con.con_estado = 1\n" + 
                     "   AND csi.csi_estado = 1\n" + 
-                    "   AND con.con_fecha_suscripcion is not null\n" + filtros +
+                    "   AND con.con_fecha_suscripcion is not null\n " + filtros +
                     "   ) tbl";
                 
                 System.out.println(query);
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet rs = preparedStatement.executeQuery(query);
+                
+                resultAvaInvConConc = new ArrayList<AvaInvConConc>();
+                
                 while (rs.next()) {
                     //
                     AvaInvConConc bean = new AvaInvConConc();
@@ -282,12 +298,12 @@ public class ReportesDAOImpl implements ReportesDAO {
                     "inner join t_modalidad_concesion tmccs on tc.mco_id = tmccs.mco_id";
 
                 if(existeWhere){                    
-                    query+= " where ";              
+                    query+= " where 1=1 ";              
                     if (param1 != null) {
-                        query+=  " EXTRACT(year from tiad.iad_fec_inicio) = " + param1.toString();
+                        query+=  " AND EXTRACT(year from tiadd.tia_fecha_inicio) = " + param1.toString();
                     }
                     if (param2 != null) {
-                        query+= " AND EXTRACT(month from tiad.iad_fec_inicio) = " + param2.toString();
+                        query+= " AND EXTRACT(month from tiadd.tia_fecha_inicio) = " + param2.toString();
                     }
                     if (param3 != null) {
                         query+= " AND tit.tin_id = " + param3.toString();
@@ -299,6 +315,9 @@ public class ReportesDAOImpl implements ReportesDAO {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet rs = preparedStatement.executeQuery(query);
+                
+                resultInvTipoConcep = new ArrayList<InversionesTipoConcepto>();
+                
                 while (rs.next()) {
                     InversionesTipoConcepto bean = new InversionesTipoConcepto();
                     bean.setNomTipoInfraestructura(rs.getString("nomTipInfraestructura"));
@@ -307,7 +326,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                     bean.setNomConcesionario(rs.getString("nomConcesionario"));
                     bean.setIdDetalle(rs.getString("codigoInversion"));
                     
-                    getResultInvTipoConcep().add(bean);
+                    resultInvTipoConcep.add(bean);
                 }
             }
         });
@@ -336,8 +355,8 @@ public class ReportesDAOImpl implements ReportesDAO {
             public void execute(Connection connection) throws SQLException {
                 String query =
                     "select \n" + 
-                    "  EXTRACT(year from tiad.iad_fec_inicio) as \"anio\",\n" + 
-                    "  EXTRACT(month from tiad.iad_fec_inicio) as \"mes\",\n" + 
+                    "  EXTRACT(year from tia.tia_fecha_inicio) as \"anio\",\n" + 
+                    "  EXTRACT(month from tia.tia_fecha_inicio) as \"mes\",\n" + 
                     "  titd.dti_descripcion as \"nomConcepto\",\n" + 
                     "  tir.ivr_monto_aprobado as \"montoReconocido\"\n" + 
                     "from t_inv_reconocimiento tir \n" + 
@@ -351,6 +370,9 @@ public class ReportesDAOImpl implements ReportesDAO {
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet rs = preparedStatement.executeQuery(query);
+                
+                resultInvTipoConcepDet = new ArrayList<InversionesTipoConceptoDetalle>();
+                
                 while (rs.next()) {
                     InversionesTipoConceptoDetalle bean = new InversionesTipoConceptoDetalle();
                     bean.setAnio(rs.getString("anio"));
@@ -358,7 +380,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                     bean.setNomConcepto(rs.getString("nomConcepto"));
                     bean.setMontoReconocido(rs.getString("montoReconocido"));
 
-                    getResultInvTipoConcepDet().add(bean);
+                    resultInvTipoConcepDet.add(bean);
                 }
             }
         });
@@ -428,21 +450,28 @@ public class ReportesDAOImpl implements ReportesDAO {
                 "left join T_INV ti on ti.tia_numero = tia.tia_numero";
 
             if(existeWhere){                
-                query+= " where ";
+                query+= " where 1=1 ";
                 
                 if (param1 != null) {
-                    query+= " tit.tin_id = " + param1.toString();                
+                    contCond++;
+                    query+= " AND tit.tin_id = " + param1.toString();                
                 }
                 if (param2 != null) {
+                    contCond++;
+                    
                     query+= " AND EXTRACT(year from tia.tia_fecha_registro) = " + param2.toString();
                 }
                 if (param3 != null) {
+                    contCond++;
                     query+=  " AND EXTRACT(month from tia.tia_fecha_registro) = " + param3.toString();
                 }
             }
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery(query);
+            
+            resultTrazaPrinEventos = new ArrayList<TrazabilidadPrincipalesEventos>();
+            
             while (rs.next()) {
                 TrazabilidadPrincipalesEventos bean = new TrazabilidadPrincipalesEventos();
                 bean.setNomConcesion(rs.getString("nomConcesion"));
@@ -472,7 +501,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                 bean.setRecsupinv_totalreconocido(rs.getString("recsupinv_totalreconocido"));
                 bean.setRecsupinv_totalconreajuste(rs.getString("recsupinv_totalconreajuste"));
                
-                getResultTrazaPrinEventos().add(bean);
+                resultTrazaPrinEventos.add(bean);
             }
         }
         });
@@ -526,6 +555,9 @@ public class ReportesDAOImpl implements ReportesDAO {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet rs = preparedStatement.executeQuery(query);
+                
+                resultEmpSupInfAeropuerto = new ArrayList<EmpSupInfAeropuerto>();
+                
                 while (rs.next()) {
                     EmpSupInfAeropuerto bean = new EmpSupInfAeropuerto();
                     bean.setNomConcesion(rs.getString("nomConcesion"));
@@ -534,7 +566,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                     bean.setNomInversion(rs.getString("nomInversion"));
                     bean.setNomEmpresaSupervisora(rs.getString("nomEmpresaSupervisora"));
 
-                    getResultEmpSupInfAeropuerto().add(bean);
+                    resultEmpSupInfAeropuerto.add(bean);
                 }
             }
         });
@@ -638,6 +670,9 @@ public class ReportesDAOImpl implements ReportesDAO {
     
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery(query);
+            
+            resultControlPlazoFlujoValorizacionesInversiones = new ArrayList<ControlPlazosFlujoValorizacionesInversiones>();
+            
             while (rs.next()) {
                 ControlPlazosFlujoValorizacionesInversiones bean = new ControlPlazosFlujoValorizacionesInversiones();
                 bean.setNomConcesion(rs.getString("nomConcesion"));
@@ -655,7 +690,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                 bean.setRecsupinv_est("recsupinv_est");
                 bean.setRecsupinv_v("recsupinv_v");
                
-                getResultControlPlazoFlujoValorizacionesInversiones().add(bean);
+                resultControlPlazoFlujoValorizacionesInversiones.add(bean);
             }
         }
         });
@@ -744,18 +779,21 @@ public class ReportesDAOImpl implements ReportesDAO {
     
             if(existeWhere){                
                 if (param1 != null) {
-                    query+= " AND TIF.TIN_ID = = " + param1.toString();                
+                    query+= " AND tia.TIN_ID = " + param1.toString();                
                 }
                 if (param2 != null) {
-                    query+= " AND EXTRACT(year from TVS.TVS_FECHA_REGISTRO) = " + param2.toString();
+                    query+= " AND EXTRACT(year from tia.tia_FECHA_REGISTRO) = " + param2.toString();
                 }
                 if (param3 != null) {
-                    query+=  " AND EXTRACT(month from TVS.TVS_FECHA_REGISTRO) = " + param3.toString();
+                    query+=  " AND EXTRACT(month from tia.tia_FECHA_REGISTRO) = " + param3.toString();
                 }            
             }
     
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery(query);
+            
+            resultControlPlazosFlujoValorizacionesEmpresaSupervisora = new ArrayList<ControlPlazosFlujoValorizacionesEmpresaSupervisora>();
+            
             while (rs.next()) {
                 ControlPlazosFlujoValorizacionesEmpresaSupervisora bean = new ControlPlazosFlujoValorizacionesEmpresaSupervisora();
                 bean.setNomEmpresaSupervisora(rs.getString("nomEmpresaSupervisora"));
@@ -767,7 +805,7 @@ public class ReportesDAOImpl implements ReportesDAO {
                 bean.setApro_fecharegistro("apro_fecharegistro");
                 bean.setApro_montototalaprob("apro_montototalaprob");
                
-                getResultControlPlazosFlujoValorizacionesEmpresaSupervisora().add(bean);
+                resultControlPlazosFlujoValorizacionesEmpresaSupervisora.add(bean);
             }
         }
         });
@@ -780,15 +818,9 @@ public class ReportesDAOImpl implements ReportesDAO {
             
             existeWhere=true;            
             
-            /*
-            if (anio != -1) {
-                existeWhere=true;
-                param1 = anio;
-            }
-            if (trimestre != -1) {
-                
-                param2 = trimestre;
-            }*/
+            param1 = anio;
+            param2 = trimestre;
+            
             if (idTipoEstructura != -1) {
                 existeWhere=true;
                 param3 = idTipoEstructura;
@@ -903,6 +935,9 @@ public class ReportesDAOImpl implements ReportesDAO {
                 query+="   ) tbl";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet rs = preparedStatement.executeQuery(query);
+                
+                resultAvaInvRecConConc = new ArrayList<AvaInvRecConConc>();
+                
                 while (rs.next()) {
                     AvaInvRecConConc bean = new AvaInvRecConConc();
                     bean.setTipoInfraestructura(rs.getString("tipoInfraestructura"));
@@ -921,18 +956,272 @@ public class ReportesDAOImpl implements ReportesDAO {
                     bean.setInversionAcumuladaAnnio(rs.getInt("inversionAcumuladaAnnio"));
                     bean.setPorcentajeCumplimiento(rs.getInt("porcentajeCumplimiento"));
                    
-                    getResultAvaInvRecConConc().add(bean);
+                    resultAvaInvRecConConc.add(bean);
                 }
             }
             });
             return getResultAvaInvRecConConc();
         }
+    @Override
+        public List<ReportAlerta> getReporteAlerta(int idTipoAlerta, int idTipoInfraestructura, int idConcesion,
+                                                       int idModalidad, int idEtapaPeriodo,
+                                                       int idEstado) throws SQLException {
 
+            existeWhere = false;
+
+            if (idTipoAlerta == -1) {
+                existeWhere = true;
+                param1 = idTipoAlerta;
+            }else{
+                param1 = null;
+            }
+            if (idTipoInfraestructura == -1) {
+                existeWhere = true;
+                param2 = idTipoInfraestructura;
+            }else{
+                param2 = null;
+            }
+            if (idConcesion == -1) {
+                existeWhere = true;
+                param3 = idConcesion;
+            }else{
+                param3 = null;
+            }
+            if (idModalidad  == -1) {
+                existeWhere = true;
+                param4 = idModalidad;
+            }else{
+                param4 = null;
+            }
+            if (idEtapaPeriodo  == -1) {
+                existeWhere = true;
+                param5 = idEtapaPeriodo;
+            }else{
+                param5 = null;
+            }
+            if (idEstado  == -1) {
+                existeWhere = true;
+                param6 = idEstado;
+            }else{
+                param6 = null;
+            }
+
+            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    String query =
+                        "select \n" + 
+                        "tca.cal_tipo as nomTipoAlerta,\n" + 
+                        "tit.tin_nombre as nomTipoInfraestructura,\n" + 
+                        "tmc.mco_nombre as nomModalidad,\n" + 
+                        "tcc.csi_nombre as nomConcesion,\n" + 
+                        "tca.cal_fecha_limite as fechaLimite,\n" + 
+                        "case\n" + 
+                        "when tca.cal_tipo in (1,4) and tca.per_id = 0 then tca.ale_diames\n" + 
+                        "when tca.cal_tipo in (2,3) then tca.ale_diames\n" + 
+                        "else (select t_periodo.per_cantidadendias from t_periodo where t_periodo.per_id = tca.per_id)\n" + 
+                        "end as cantEtapa,\n" + 
+                        "tcad.cad_dias_restantes as diasRestantes,\n" + 
+                        "tcad.cad_dias_exceso as diasExceso,\n" + 
+                        "tcae.cae_nombre as nomEstado\n" + 
+                        "from \n" + 
+                        "t_contrato_alerta_detalle tcad\n" + 
+                        "left join t_contrato_alerta tca on tca.cal_id = tcad.cal_id\n" + 
+                        "left join t_infraestructura_tipo tit on tit.tin_id=tca.tin_id\n" + 
+                        "left join t_modalidad_concesion tmc on tmc.mco_id = tca.mco_id\n" + 
+                        "left join t_concesion tcc on tcc.csi_id = tca.csi_id\n" + 
+                        "left join t_contrato_alerta_estado tcae on tcae.cae_id = tcad.cae_id";
+
+
+                    if (existeWhere) {
+                        query += " where 1=1 ";
+                        if (param1 != null) {
+                            query += " AND tca.cal_tipo =" + param1.toString() ;
+                        }
+                        if (param2 != null) {
+                            query += " AND  tca.tin_id = " + param2.toString()  ;
+                        }
+                        if (param3 != null) {
+                            query += " AND  tca.csi_id = " + param3.toString() ;
+                        }
+                        if (param4 != null) {
+                            query += " AND  tca.mco_id = " + param4.toString() ;
+                        }
+                        if (param5 != null) {
+                            query += " AND  tca.per_id = " + param5.toString() ;
+                        }
+                        if (param6 != null) {
+                            query += " AND tca.cal_estado = " + param6.toString();
+                        }
+
+                    }
+                    System.out.println(query);
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    ResultSet rs = preparedStatement.executeQuery(query);
+                    while (rs.next()) {
+                        ReportAlerta bean = new ReportAlerta();
+                        bean.setNomTipoAlerta(rs.getString("nomTipoAlerta"));
+                        bean.setNomTipoInfraestructura(rs.getString("nomTipoInfraestructura"));
+                        bean.setNomModalidad(rs.getString("nomModalidad"));
+                        bean.setNomConcesion(rs.getString("nomConcesion"));
+                        bean.setFechaLimite(rs.getString("fechaLimite"));
+                        bean.setCantEtapa(rs.getString("cantEtapa"));
+                        bean.setDiasRestantes(rs.getString("diasRestantes"));
+                        bean.setDiasExceso(rs.getString("diasExceso"));
+                        bean.setNomEstado(rs.getString("nomEstado"));
+
+                        getResultReporteAlerta().add(bean);
+                    }
+                }
+            });
+            return getResultReporteAlerta();
+        }
+
+        @Override
+        public List<ReportAlertaAeropuerto> getReporteAlertaAeropuerto(int idTipoAlerta, int idTipoInfraestructura, int idConcesion,
+                                                       int idModalidad, int idEtapaPeriodo, int idAeropuerto,
+                                                       int idInversion, int idEstado) throws SQLException {
+            existeWhere = false;
+
+            if (idTipoAlerta != -1) {
+                existeWhere = true;
+                param1 = idTipoAlerta;
+            }else{
+                param1 = null;
+            }
+            if (idTipoInfraestructura != -1) {
+                existeWhere = true;
+                param2 = idTipoInfraestructura;
+            }else{
+                param2 = null;
+            }
+            if (idConcesion != -1) {
+                existeWhere = true;
+                param3 = idConcesion;
+            }else{
+                param3 = null;
+            }
+            if (idModalidad != -1) {
+                existeWhere = true;
+                param4 = idModalidad;
+            }else{
+                param4 = null;
+            }
+            if (idEtapaPeriodo != -1) {
+                existeWhere = true;
+                param5 = idEtapaPeriodo;
+            }else{
+                param5 = null;
+            }
+            if (idAeropuerto!= -1) {
+                existeWhere = true;
+                param6 = idAeropuerto;
+            }else{
+                param6 = null;
+            }
+            if (idInversion != -1) {
+                existeWhere = true;
+                param7 = idInversion;
+            }else{
+                param7 = null;
+            }
+            if (idEstado != -1) {
+                existeWhere = true;
+                param8 = idEstado;
+            }else{
+            param8 = null;
+        }
+
+            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+            session.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    String query =
+                        "select \n" + 
+                        "tca.cal_tipo as \"nomTipoAlerta\",\n" + 
+                        "tit.tin_nombre as \"nomTipoInfraestructura\",\n" + 
+                        "tmc.mco_nombre as \"nomModalidad\",\n" + 
+                        "INFRA.INF_NOMBRE AS \"nomAeropuerto\"\n" + 
+                        ",NVL(tci.INV_DESCRIPCION,'') AS \"nomInversion\"\n" + 
+                        ",tcc.csi_nombre as \"nomConcesion\",\n" + 
+                        "tca.cal_fecha_limite as \"fechaLimite\",\n" + 
+                        "case\n" + 
+                        "when tca.cal_tipo in (1,4) and tca.per_id = 0 then tca.ale_diames\n" + 
+                        "when tca.cal_tipo in (2,3) then tca.ale_diames\n" + 
+                        "else (select t_periodo.per_cantidadendias from t_periodo where t_periodo.per_id = tca.per_id)\n" + 
+                        "end as \"cantEtapa\",\n" + 
+                        "tcad.cad_dias_restantes as \"diasRestantes\",\n" + 
+                        "tcad.cad_dias_exceso as \"diasExceso\",\n" + 
+                        "tcae.cae_nombre as \"nomEstado\"\n" + 
+                        "from \n" + 
+                        "t_contrato_alerta_detalle tcad\n" + 
+                        "left join t_contrato_alerta tca on tca.cal_id = tcad.cal_id\n" + 
+                        "left join t_infraestructura_tipo tit on tit.tin_id=tca.tin_id\n" + 
+                        "left join t_modalidad_concesion tmc on tmc.mco_id = tca.mco_id\n" + 
+                        "left join t_concesion tcc on tcc.csi_id = tca.csi_id\n" + 
+                        "left join t_contrato_alerta_estado tcae on tcae.cae_id = tcad.cae_id\n" + 
+                        "left join T_CONTRATO_INVERSION tci on tci.con_id = tca.con_id\n" + 
+                        "left join T_INFRAESTRUCTURA INFRA on infra.inf_id = tci.inf_id";
+
+
+                    if (existeWhere) {
+                        query += " where 1=1 ";
+                        if (param1 != null) {
+                            query += " AND tca.cal_tipo =" + param1.toString() ;
+                        }
+                        if (param2 != null) {
+                            query += " AND  tca.tin_id = " + param2.toString()  ;
+                        }
+                        if (param3 != null) {
+                            query += " AND  tca.csi_id = " + param3.toString() ;
+                        }
+                        if (param4 != null) {
+                            query += " AND  tca.mco_id = " + param4.toString() ;
+                        }
+                        if (param5 != null) {
+                            query += " AND  tca.per_id = " + param5.toString() ;
+                        }
+                        if (param6 != null) {
+                            query += " AND  INFRA.Inf_Id = " + param6.toString() ;
+                        }
+                        if (param7 != null) {
+                            query += " AND  tci.inv_id = " + param7.toString() ;
+                        }
+                        if (param8 != null) {
+                            query += " AND tca.cal_estado = " + param8.toString();
+                        }
+
+                    }
+System.out.println(query);
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    ResultSet rs = preparedStatement.executeQuery(query);
+                    while (rs.next()) {
+                        ReportAlertaAeropuerto bean = new ReportAlertaAeropuerto();
+                        bean.setNomTipoAlerta(rs.getString("nomTipoAlerta"));
+                        bean.setNomTipoInfraestructura(rs.getString("nomTipoInfraestructura"));
+                        bean.setNomModalidad(rs.getString("nomModalidad"));
+                        bean.setNomAeropuerto(rs.getString("nomAeropuerto"));
+                        bean.setNomInversion(rs.getString("nomInversion"));
+                        bean.setNomConcesion(rs.getString("nomConcesion"));
+                        bean.setFechaLimite(rs.getString("fechaLimite"));
+                        bean.setCantEtapa(rs.getString("cantEtapa"));
+                        bean.setDiasRestantes(rs.getString("diasRestantes"));
+                        bean.setDiasExceso(rs.getString("diasExceso"));
+                        bean.setNomEstado(rs.getString("nomEstado"));
+
+                        getResultReporteAlertaAeropuerto().add(bean);
+                    }
+                }
+            });
+            return getResultReporteAlertaAeropuerto();
+        }
         public String obtenerNumeroMesTrimestre(int numeroTrimestre,int numeroMesObtener){
             int mesPreInicialDelTrimestre=(3*numeroTrimestre)-3;
             
             return ""+(mesPreInicialDelTrimestre+numeroMesObtener);
         }    
+        
 
     public static List<EmpSupInf> getResult() {
         return result;
@@ -1007,5 +1296,21 @@ public class ReportesDAOImpl implements ReportesDAO {
 
     public static void setResultAvaInvRecConConc(List<AvaInvRecConConc> resultAvaInvRecConConc) {
         ReportesDAOImpl.resultAvaInvRecConConc = resultAvaInvRecConConc;
+    }
+
+    public static List<ReportAlerta> getResultReporteAlerta() {
+        return resultReporteAlerta;
+    }
+
+    public static void setResultReporteAlerta(List<ReportAlerta> resultReporteAlerta) {
+        ReportesDAOImpl.resultReporteAlerta = resultReporteAlerta;
+    }
+
+    public static List<ReportAlertaAeropuerto> getResultReporteAlertaAeropuerto() {
+        return resultReporteAlertaAeropuerto;
+    }
+
+    public static void setResultReporteAlertaAeropuerto(List<ReportAlertaAeropuerto> resultReporteAlertaAeropuerto) {
+        ReportesDAOImpl.resultReporteAlertaAeropuerto = resultReporteAlertaAeropuerto;
     }
 }
