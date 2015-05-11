@@ -24,12 +24,14 @@
             <h:form id="form">
            
             <p:growl id="mensaje" showDetail="true" life="3000"/>
-                <p:layout style="min-width:400px;min-height:500px;">
-                    <p:layoutUnit position="center" style="border:0px">
+               <p:layout style="min-width:400px;min-height:500px;">
+                <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
                         <div align="center">
                             <div align="center">
-                                <h4 style="color: #003194;">RECONOCIMIENTO DE VALORIZACION DE SUPERVISION</h4>
+                             <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                                RECONOCIMIENTO DE VALORIZACION DE SUPERVISION</h3>
                             </div>
+                             <div style="width:80%" >
                             <table style="font-size: 11px">
                                 <tr>
                                     <td valign="top">
@@ -113,7 +115,7 @@
                                             <p:fieldset styleClass="fielsetinterno" legend="Datos STD">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2" align="left">Estado de Valorizaci&#243;n:</td>
+                                                        <td colspan="2" align="left">Estado de Valorización:</td>
                                                         <td colspan="2" align="left">
                                                             <p:selectOneMenu id="estadoReconocimiento"
                                                                              value="#{ReconocimientoValSupervisionMB.estadoReconocimiento}">
@@ -125,7 +127,7 @@
                                                     </tr>
                                                      
                                                     <tr>
-                                                        <td class="negrita">Observaci&#243;n:</td>
+                                                        <td class="negrita">Observación:</td>
                                                         <td colspan="3">
                                                             <p:inputTextarea style="width:97%;height:35px;"
                                                                              id="observacion"
@@ -238,8 +240,9 @@
                                 </tr>
                             </table>
                         </div>
+                        </div>
                         <div style="text-align:center;font-size: 11px">
-                            <p:commandButton style="width:80px" value="Guardar" rendered="#{ReconocimientoValSupervisionMB.rolOpcion.troAgregar eq 1}" actionListener="#{ReconocimientoValSupervisionMB.reconocerValorizacion}" update=":form:mensaje" />
+                            <p:commandButton style="width:80px" value="Guardar" rendered="#{ReconocimientoValSupervisionMB.rolOpcion.troAgregar eq 1}" actionListener="#{ReconocimientoValSupervisionMB.reconocerValorizacion}" update=":form:mensaje :form:dValorizacionesEmpresaSup" />
                         </div>
                     </p:layoutUnit>
                 </p:layout>
