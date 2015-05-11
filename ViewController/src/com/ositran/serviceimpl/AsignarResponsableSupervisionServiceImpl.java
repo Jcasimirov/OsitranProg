@@ -208,9 +208,4 @@ public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsa
     }
 
 
-    @Override
-    public List<ContratoResSupDetalleVO> ListarDetalle(int codigoContrato, int compromiso) throws SQLException {
-        // TODO Implement this method
-        return Collections.emptyList();
-    }
 }
