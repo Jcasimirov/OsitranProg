@@ -23,15 +23,15 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         session.beginTransaction();
         Query query;
         if((codigoAeropuerto != 0) && ( codigoInversion == 0)){
-                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto");
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto");
                 query.setParameter("aeropuerto",codigoAeropuerto);  
             
         }else if(codigoAeropuerto != 0  && codigoInversion != 0){
-                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
                 query.setParameter("aeropuerto",codigoAeropuerto);  
                 query.setParameter("inversion",codigoInversion); 
         }else {
-                query=session.createQuery("FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado =1");                
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado =1");                
         }    
         query.setParameter("contrato",codigoContrato);
         query.setParameter("etapa",compromiso);
