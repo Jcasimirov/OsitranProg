@@ -20,6 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @NamedQueries({ @NamedQuery(name = "ContratoAlerta.findAll", query = "select o from ContratoAlerta o") })
 @Table(name = "T_CONTRATO_ALERTA")
+
 @GenericGenerator(name = "generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "SQ_T_CONTRATO_ALERTA"))
 public class ContratoAlerta implements Serializable {
     private static final long serialVersionUID = 8920954827070543587L;
@@ -385,7 +386,6 @@ public class ContratoAlerta implements Serializable {
         return aleNombre;
     }
 
-
     public void setAleDiaMes(Integer aleDiaMes) {
         this.aleDiaMes = aleDiaMes;
     }
@@ -394,11 +394,9 @@ public class ContratoAlerta implements Serializable {
         return aleDiaMes;
     }
 
-
     public void setCalNombreSupervisor(String calNombreSupervisor) {
         this.calNombreSupervisor = calNombreSupervisor;
     }
-
     public String getCalNombreSupervisor() {
         return calNombreSupervisor;
     }
