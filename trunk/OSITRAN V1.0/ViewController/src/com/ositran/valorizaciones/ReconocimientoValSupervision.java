@@ -106,8 +106,8 @@ public class ReconocimientoValSupervision {
     private String nroMemo;
     private Date fechaMemo;
     private String regMemo;
-    private double totalpresentado;
-    private double totalAprobado;
+    private BigDecimal totalpresentado;
+    private BigDecimal totalAprobado;
     private BigDecimal montoAprobado = BigDecimal.ZERO;
     private String montoIngresado;
     private BigDecimal montoTotal = BigDecimal.ZERO;
@@ -122,6 +122,10 @@ public class ReconocimientoValSupervision {
 
     @ManagedProperty(value = "#{valorizacionConceptoVO}")
     private ValorizacionConceptoVO valorizacionConceptoVO;
+    
+    @ManagedProperty(value = "#{empSupVO}")
+    private EmpresaSupervisoraVO empSupVO;
+    
 
     //Listas
 
@@ -337,19 +341,19 @@ public class ReconocimientoValSupervision {
         return valorizacionSupDetalleServiceImpl;
     }
 
-    public void setTotalpresentado(double totalpresentado) {
+    public void setTotalpresentado(BigDecimal totalpresentado) {
         this.totalpresentado = totalpresentado;
     }
 
-    public double getTotalpresentado() {
+    public BigDecimal getTotalpresentado() {
         return totalpresentado;
     }
 
-    public void setTotalAprobado(double totalAprobado) {
+    public void setTotalAprobado(BigDecimal totalAprobado) {
         this.totalAprobado = totalAprobado;
     }
 
-    public double getTotalAprobado() {
+    public BigDecimal getTotalAprobado() {
         return totalAprobado;
     }
 
@@ -427,6 +431,13 @@ public class ReconocimientoValSupervision {
         return listaConcepto;
     }
 
+    public void setEmpSupVO(EmpresaSupervisoraVO empSupVO) {
+        this.empSupVO = empSupVO;
+    }
+
+    public EmpresaSupervisoraVO getEmpSupVO() {
+        return empSupVO;
+    }
 
     //Buscar Empresa Supervisora
 
@@ -456,9 +467,9 @@ public class ReconocimientoValSupervision {
     public void seleccionarEmpresa(ActionEvent actionEvent) throws Exception {
         System.out.println("Entro");
         SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-        EmpresaSupervisoraVO empresa = (EmpresaSupervisoraVO) actionEvent.getComponent().getAttributes().get("empresa");
-        nombreEmpSupEncontrada = empresa.getSupNombre();
-        listaValorizacion = valorizacionSupServiceImpl.ListaValorizacionesRegistradas(empresa.getSupId());
+        empSupVO = (EmpresaSupervisoraVO) actionEvent.getComponent().getAttributes().get("empresa");
+        nombreEmpSupEncontrada = empSupVO.getSupNombre();
+        listaValorizacion = valorizacionSupServiceImpl.ListaValorizacionesRegistradas(empSupVO.getSupId());
         for (ValorizacionSupVO val : listaValorizacion) {
             if (val.getMonId() == 1) {
                 val.setNombreMoneda("Nuevos Soles");
@@ -467,11 +478,13 @@ public class ReconocimientoValSupervision {
             }
             val.setNombreEstado("Registrado");
         }
-        System.out.println(empresa.getSupNombre());
+        System.out.println(empSupVO.getSupNombre());
     }
 
     public void seleccionarValorizacion(ActionEvent actionEvent) throws Exception {
         System.out.println("Entro");
+        totalpresentado = BigDecimal.ZERO;
+        totalpresentado = BigDecimal.ZERO;
         valorizacionSupVO = (ValorizacionSupVO) actionEvent.getComponent().getAttributes().get("valorizacion");
         try {
             listaValorizaciondetalle =
@@ -481,7 +494,7 @@ public class ReconocimientoValSupervision {
                     valorizacionConceptoServiceImpl.get(listaValorizaciondetalle.get(i).getCvaId());
                 listaValorizaciondetalle.get(i).setDescripcionInversion(valorizacionConceptoVO.getCvaNombre());
                 listaValorizaciondetalle.get(i).setTotalAprobado(listaValorizaciondetalle.get(i).getTtotal());
-                totalpresentado = totalpresentado + listaValorizaciondetalle.get(i).getTtotal().doubleValue();
+                totalpresentado = totalpresentado.add(listaValorizaciondetalle.get(i).getTtotal());
 
                 listaValorizaciondetalle.get(i).setFila(i);
                 if (listaValorizaciondetalle.get(i).getMonId() == 1) {
@@ -491,6 +504,7 @@ public class ReconocimientoValSupervision {
                 }
             }
             totalAprobado = totalpresentado;
+            validarGuardar = 0;
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -505,7 +519,7 @@ public class ReconocimientoValSupervision {
     }
 
     public void aprobarMontoIngresado() {
-        double totalcalculado = 0;
+        BigDecimal totalcalculado = BigDecimal.ZERO;
         System.out.println("entrooo");
         if (montoIngresado == null || montoIngresado.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Monto");
@@ -526,7 +540,7 @@ public class ReconocimientoValSupervision {
                     if (filaSeleccionada == listaValorizaciondetalle.get(i).getFila()) {
                         listaValorizaciondetalle.get(i).setTotalAprobado(montoAprobado);
                     }
-                    totalcalculado = totalcalculado + listaValorizaciondetalle.get(i).getTotalAprobado().doubleValue();
+                   totalcalculado =  totalcalculado.add(listaValorizaciondetalle.get(i).getTotalAprobado());
                 }
                 totalAprobado = totalcalculado;
                 RequestContext.getCurrentInstance().execute("Dialog_AprobarMonto.hide()");
@@ -534,8 +548,18 @@ public class ReconocimientoValSupervision {
 
         }
     }
+    int validarGuardar = 0;
+
+    public void setValidarGuardar(int validarGuardar) {
+        this.validarGuardar = validarGuardar;
+    }
+
+    public int getValidarGuardar() {
+        return validarGuardar;
+    }
 
     public void reconocerValorizacion() {
+        
         if (nroOficio == null || nroOficio.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Oficio");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -545,7 +569,10 @@ public class ReconocimientoValSupervision {
         } else if (regOficio == null || regOficio.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Registro");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        } else {
+        } else if (validarGuardar == 1){
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Esta Valorización ya fue Reconocida");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }else {
             long fechaInicialMs = fechaOficio.getTime();
             long fechaFinalMs = util.getObtenerFechaHoy().getTime();
             long diferencia = fechaFinalMs - fechaInicialMs;
@@ -582,15 +609,19 @@ public class ReconocimientoValSupervision {
                             valorizacionSupVO.setTvsObservacion(observacion);
                             valorizacionSupVO.setTvsFechaAprob(util.getObtenerFechaHoy());
                             valorizacionSupVO.setTvsUsuarioAprob(usuario.getUsuId());
+
+                            
                             for (ValorizacionSupDetalleVO detalle : listaValorizaciondetalle) {
                                 valorizacionSupDetalleServiceImpl.update(detalle);
-                                totalSum.add(detalle.getTotalAprobado());
+                                totalSum = totalSum.add(detalle.getTotalAprobado());
                             }
                             valorizacionSupVO.setTvsMontoTotalAprob(totalSum);
+                            valorizacionSupVO.setTvsAprobado(totalSum);
                             valorizacionSupServiceImpl.update(valorizacionSupVO);
                             FacesMessage mensaje =
                                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Reconocio con Exito");
                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                            validarGuardar = 1;
                         } else {
                             valorizacionSupVO.setTvsEstado(0);
                             valorizacionSupVO.setTvsObservacion(observacion);
@@ -598,7 +629,10 @@ public class ReconocimientoValSupervision {
                             FacesMessage mensaje =
                                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Reconocio con Exito");
                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                            validarGuardar = 1;
                         }
+                        listaValorizacion = valorizacionSupServiceImpl.ListaValorizacionesRegistradas(empSupVO.getSupId());
+                        validarGuardar = 1;
 
                     } catch (Exception e) {
                         System.out.println(e);
@@ -606,6 +640,7 @@ public class ReconocimientoValSupervision {
                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                              "No se Pudo Reconocer la Valorización");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                        validarGuardar = 0;
                     }
                 }
             }
