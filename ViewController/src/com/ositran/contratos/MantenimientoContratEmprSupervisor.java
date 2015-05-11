@@ -371,7 +371,7 @@ public class MantenimientoContratEmprSupervisor {
             //listanombrerol();
             codigoContrato = contrato1.getConId();
 
-            concesionVO = concesionServiceImpl.get(contrato1.getCncId());
+             concesionVO = concesionServiceImpl.get(contrato1.getCsiId());
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
             listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
 
