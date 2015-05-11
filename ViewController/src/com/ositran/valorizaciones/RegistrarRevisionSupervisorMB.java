@@ -249,6 +249,36 @@ public class RegistrarRevisionSupervisorMB {
     EmpresaSupervisoraVO empresaSupervisoraVO = new EmpresaSupervisoraVO();
     EmpresaSupervisoraService empresaSupervisoraService = new EmpresaSupervisoraServiceImpl();
 
+    public void limpiarTodo() {
+        fichaRegistro = 0;
+        codigoInfraestructura = 0;
+        nombreConcecion = "";
+        nombreTipoInfraestructura = "";
+        nombreModalidadConceción = "";
+        idModalidadConcesion = 0;
+        codigoConcesion = 0;
+        codigoInversion = 0;
+        idTipoInfraestructura = 0;
+        codigoContrato = 0;
+        numero = "";
+        anio = 0;
+        fechaRegistroSDT = null;
+        asunto = "";
+        contratoCompromisoSeleccionado = 1;
+        plazo = "";
+        codigoMoneda = 0;
+        codigoInversionDescripcion = 0;
+        codMoneda = 0;
+        codigoInfraValSelecionado = 0;
+        inicioPeriodo = null;
+        finPeriodo = null;
+        montoPrestado = new BigDecimal("0");
+        contador = 0;
+        totalTotal = new BigDecimal("0");
+        nombreRevisor = "";
+        listValorizacionInversionAvanceDetalleVO = new ArrayList();
+        listValorizacionInversionAvanceVO = new ArrayList();
+    }
 
     public void desDiasHabiles() {
         diasHabiles = false;
@@ -278,7 +308,7 @@ public class RegistrarRevisionSupervisorMB {
 
     public void elegirContrato(ContratoVO contratoVO) {
         try {
-            codigoConcesion = contratoVO.getCncId();
+            codigoConcesion = contratoVO.getCsiId();
             concesionVO = concesionServiceImpl.get(codigoConcesion);
             idModalidadConcesion = contratoVO.getMcoId();
             idTipoInfraestructura = concesionVO.getTinId();
@@ -313,7 +343,19 @@ public class RegistrarRevisionSupervisorMB {
 
     public void cargarListaValorizacionDetalle(int detalle) {
         try {
-            nombreRevisor = "JULIAN VELIZ SAN MARTIN";
+            valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
+            invAvnDerivadaVO=invAvnDerivadaServiceImpl.get1(valorizacionInversionAvanceVO.getTiaNumero());
+            if (invAvnDerivadaVO.getIadTipoSup()==1){
+             supervisorInversionesVO=supervisorInversionesServiceImpl.get(invAvnDerivadaVO.getSupID());   
+             nombreRevisor=supervisorInversionesVO.getTsiNombre();
+                }
+            
+            if (invAvnDerivadaVO.getIadTipoSup()==2){
+                    empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getSupID());   
+                    nombreRevisor=empresaSupervisoraVO.getSupNombre();
+                }
+            
+           
             /*
             invAvnDerivadaVO=invAvnDerivadaServiceImpl.getAvanceInversion(detalle);
             System.out.println(invAvnDerivadaVO.getIadTipoSup());
@@ -328,7 +370,7 @@ public class RegistrarRevisionSupervisorMB {
                 }
             */
           
-            valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
+            
             anio = valorizacionInversionAvanceVO.getTiaAnyo();
             listValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.query1(detalle);
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 : listValorizacionInversionAvanceDetalleVO) {
@@ -560,6 +602,8 @@ public class RegistrarRevisionSupervisorMB {
                     invAvnSupervisadaServiceDetalleImpl.insert(invAvnSupervisadaDetalleVO3);
                 }
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO","SE REGISTRO CON EXITO LA REVISIÓN DE SUPERVISOR"));
+       limpiarTodo();
+       
         } catch (Exception e) {
             e.printStackTrace();
         }
