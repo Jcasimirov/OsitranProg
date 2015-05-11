@@ -1,8 +1,10 @@
 package com.ositran.valorizaciones;
 
+import com.ositran.model.ContratoAlerta;
 import com.ositran.model.Infraestructura;
 import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
+import com.ositran.service.ContratoAlertaService;
 import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.DatosStdService;
@@ -13,15 +15,21 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.MonedaService;
+import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
+import com.ositran.serviceimpl.ContratoAlertaServiceImpl;
+import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
+import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.FechasUtil;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.ContratoAlertaVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
+import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.IgvVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
@@ -31,6 +39,7 @@ import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
@@ -97,13 +106,24 @@ public class RegistrarAvanceInversionMB {
     public final int formulario = 32;
     private RolOpcionesVO rolOpcion;
     private Date fechaVencimiento;
-
+    
+    
+    ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();
+    ContratoAlertaService contratoAlertaServiceImpl=new ContratoAlertaServiceImpl();
+    
+    
+   ContratoSubInversionesServiceImpl contratoSubInversionesService=new ContratoSubInversionesServiceImpl();
+   ContratoSubInversionesVO contratoSubInversionesVO=new  ContratoSubInversionesVO();
+   SupervisorInversionesVO supervisorInversionesVO=new SupervisorInversionesVO();
+    SupervisorInversionesService supervisorInversionesServiceImpl= new SupervisorInversionesServiceImpl();
+    
     //CALENDARIO
     private boolean diasCalendario=false;
     private boolean diasHabiles=false;
     MonedaVO monedaVO = new MonedaVO();
     ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl =
         new ValorizacionInversionAvanceServiceImpl();
+    List<ContratoSubInversionesVO> listaContratoSupervisor =new ArrayList<>();
     List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
     List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<>();
     List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<>();
@@ -174,10 +194,7 @@ public class RegistrarAvanceInversionMB {
 
     @ManagedProperty(value = "#{datosStdServiceImpl}")
     DatosStdService datosStdServiceImpl;
-    
-    
-  
-    
+
     @ManagedProperty(value = "#{viewTdInternosVO}")
     ViewTdInternosVO viewTdInternosVO;
 
@@ -213,7 +230,6 @@ public class RegistrarAvanceInversionMB {
     public void cargarListaContratos() {
         try {
             listaContratos = contratoConcesionServiceImp.query();
-
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
                 concesion = concesionServiceImpl.get(contra.getCsiId());
@@ -221,7 +237,6 @@ public class RegistrarAvanceInversionMB {
                 contra.setCodigoConcesion(concesion.getCsiId());
             }
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
@@ -257,13 +272,14 @@ public class RegistrarAvanceInversionMB {
         totalPresentado = new BigDecimal("0");
         codigoTipoInversion = 0;
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
-        listValorizacionInversionAvanceDetalleVO = new ArrayList();
+        
+        
     }
 
     public void elegirContrato(ContratoVO contratoVO) {
         try {
             plazoContrato = contratoVO.getConPlazorevision();
-            codigoConcesion = contratoVO.getCncId();
+            codigoConcesion = contratoVO.getCsiId();
             concesionVO = concesionServiceImpl.get(codigoConcesion);
             idModalidadConcesion = contratoVO.getMcoId();
             idTipoInfraestructura = concesionVO.getTinId();
@@ -281,8 +297,6 @@ public class RegistrarAvanceInversionMB {
             if (contratoVO.getConTipodias() == 1) {
                 diasHabiles = true;
             }
-
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
@@ -374,8 +388,16 @@ public class RegistrarAvanceInversionMB {
             asunto = viewTdInternosVO.getAsunto();
             FechasUtil fechasUtil=new FechasUtil();
             Date fechacalculada;
-            fechacalculada= fechasUtil.adicionaDias(fechaRegistroSDT,plazoContrato,0);
-            fechaVencimiento=fechacalculada;
+            if (diasHabiles){
+                    fechacalculada= fechasUtil.adicionaDias(fechaRegistroSDT,plazoContrato,0);
+                    fechaVencimiento=fechacalculada;
+                }
+            else {
+                    fechacalculada= fechasUtil.adicionaDias(fechaRegistroSDT,plazoContrato,1);
+                    fechaVencimiento=fechacalculada;
+                }
+            
+           
         } catch (Exception e) {
             asunto = "";
             System.out.println("PROBLEMAS AL TRAER LOS DATOS INTERNOS");
@@ -388,6 +410,7 @@ public class RegistrarAvanceInversionMB {
     }
 
     public void agregar() {
+        
         try {
             boolean validarMonto = String.valueOf(montoPrestado).matches("^(\\d|-)?(\\d|,)*\\.?\\d*$");
             if (validarMonto == false) {
@@ -412,8 +435,7 @@ public class RegistrarAvanceInversionMB {
                                                                               "DEBE SELECIONAR AEROPUERTO"));
             } else {
 
-                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
-                    new ValorizacionInversionAvanceDetalleVO();
+                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 = new ValorizacionInversionAvanceDetalleVO();
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
                 infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
                 valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());
@@ -459,22 +481,44 @@ public class RegistrarAvanceInversionMB {
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("indexLista");
         int idcodigo = Integer.valueOf(str.toString());
-        
-        
         totalPresentado = totalPresentado.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado()).setScale(2,
                                                                                                                BigDecimal.ROUND_UP);
         totalMonto = totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal()).setScale(2,
                                                                                                                       BigDecimal.ROUND_UP);
         totalIgv =totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv()).setScale(2,
                                                                                                         BigDecimal.ROUND_UP);
-        
         listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
     }
 
 
+    public void obtenerSupervisorInversiones(){
+        try {
+           contratoSubInversionesVO=contratoSubInversionesService.get1(codigoContrato);
+           supervisorInversionesVO=supervisorInversionesServiceImpl.get(contratoSubInversionesVO.getSivId());   
+           contratoAlertaVO.setCalTipo(2);
+            contratoAlertaVO.setConId(codigoContrato);
+            contratoAlertaVO.setCalFechaInicio(fechaRegistroSDT);
+            contratoAlertaVO.setCalFechaFin(fechaVencimiento);
+            contratoAlertaVO.setCalFechaLimite(fechaVencimiento);
+            contratoAlertaVO.setDiaMes(plazoContrato);
+            contratoAlertaVO.setCalPlazo(fechaVencimiento);
+            contratoAlertaVO.setCalEstado(1);
+            contratoAlertaVO.setCaeId(1);
+            contratoAlertaVO.setCalFechaAlta(new Date());
+            contratoAlertaVO.setCalUsuarioAlta("Abel Huarca");
+            contratoAlertaVO.setCalCorreo(supervisorInversionesVO.getTsiCorreo());
+           contratoAlertaVO.setCalNombreSupervisor(supervisorInversionesVO.getTsiNombre()); 
+        contratoAlertaServiceImpl.insert(contratoAlertaVO);
+
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        }
     public void guardar() {
         try {
-            
+            obtenerSupervisorInversiones();
             valorizacionInversionAvanceVO.setConId(codigoContrato);
             valorizacionInversionAvanceVO.setInvId(codigoInversion);
             valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
@@ -497,23 +541,16 @@ public class RegistrarAvanceInversionMB {
             valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
             valorizacionInversionAvanceVO.setTccTipo(tipoComtratoCompromiso);
             valorizacionInversionAvanceVO.setTiaMontoTotalPresentado(totalPresentado);
-
             int idCabecera = valorizacionInversionAvanceServiceImpl.insert(valorizacionInversionAvanceVO);
-
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3 :
                  listValorizacionInversionAvanceDetalleVO) {
                 valorizacionInversionAvanceDetalleVO3.setTiaNumero(idCabecera);
                 valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);
             }
-
-
-            
-        
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "SE REGISTRO EL AVANCE CON EXITO"));
             limpiarTodo();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1160,6 +1197,65 @@ public class RegistrarAvanceInversionMB {
 
     public Date getFechaVencimiento() {
         return fechaVencimiento;
+    }
+
+
+    public void setContratoSubInversionesService(ContratoSubInversionesServiceImpl contratoSubInversionesService) {
+        this.contratoSubInversionesService = contratoSubInversionesService;
+    }
+
+    public ContratoSubInversionesServiceImpl getContratoSubInversionesService() {
+        return contratoSubInversionesService;
+    }
+
+    public void setContratoSubInversionesVO(ContratoSubInversionesVO contratoSubInversionesVO) {
+        this.contratoSubInversionesVO = contratoSubInversionesVO;
+    }
+
+    public ContratoSubInversionesVO getContratoSubInversionesVO() {
+        return contratoSubInversionesVO;
+    }
+
+
+    public void setListaContratoSupervisor(List<ContratoSubInversionesVO> listaContratoSupervisor) {
+        this.listaContratoSupervisor = listaContratoSupervisor;
+    }
+
+    public List<ContratoSubInversionesVO> getListaContratoSupervisor() {
+        return listaContratoSupervisor;
+    }
+
+
+    public void setContratoAlertaVO(ContratoAlertaVO contratoAlertaVO) {
+        this.contratoAlertaVO = contratoAlertaVO;
+    }
+
+    public ContratoAlertaVO getContratoAlertaVO() {
+        return contratoAlertaVO;
+    }
+
+    public void setContratoAlertaServiceImpl(ContratoAlertaService contratoAlertaServiceImpl) {
+        this.contratoAlertaServiceImpl = contratoAlertaServiceImpl;
+    }
+
+    public ContratoAlertaService getContratoAlertaServiceImpl() {
+        return contratoAlertaServiceImpl;
+    }
+
+    public void setSupervisorInversionesVO(SupervisorInversionesVO supervisorInversionesVO) {
+        this.supervisorInversionesVO = supervisorInversionesVO;
+    }
+
+    public SupervisorInversionesVO getSupervisorInversionesVO() {
+        return supervisorInversionesVO;
+    }
+
+    public void setSupervisorInversionesServiceImpl(SupervisorInversionesService supervisorInversionesServiceImpl) {
+        this.supervisorInversionesServiceImpl = supervisorInversionesServiceImpl;
+    }
+
+    public SupervisorInversionesService getSupervisorInversionesServiceImpl() {
+        return supervisorInversionesServiceImpl;
     }
 }
 
