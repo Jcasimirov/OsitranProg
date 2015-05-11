@@ -559,8 +559,11 @@ public class ReconocimientoValSupervision {
     }
 
     public void reconocerValorizacion() {
-        
-        if (nroOficio == null || nroOficio.trim().equals("")) {
+        if(listaValorizaciondetalle.size() ==0 ){
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No Existe Detalle de Valorización");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+        else if (nroOficio == null || nroOficio.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Oficio");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (fechaOficio == null) {
