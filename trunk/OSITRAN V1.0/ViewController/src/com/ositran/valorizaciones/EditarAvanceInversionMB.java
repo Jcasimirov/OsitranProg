@@ -111,6 +111,7 @@ public class EditarAvanceInversionMB {
     List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<>();
     List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<>();
     List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<>();
+    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVOA = new ArrayList<>();
     List<InversionVO> listaInversiones = new ArrayList<>();
     List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
     List<ContratoVO> listaContratos = new ArrayList<>();
@@ -258,6 +259,7 @@ public class EditarAvanceInversionMB {
             nombreMoneda=monedaVO.getMonNombre();
             contratoCompromisoSeleccionado=valorizacionInversionAvanceVO.getCcoId();
            idTipoInfraestructura=valorizacionInversionAvanceVO.getTinId();
+           codigoInversion=valorizacionInversionAvanceVO.getInvId();
             numero=String.valueOf(valorizacionInversionAvanceVO.getTiaHr());
             anio=valorizacionInversionAvanceVO.getTiaAnyo();
             fechaRegistroSDT=valorizacionInversionAvanceVO.getTiaFechaRegistro();
@@ -271,10 +273,10 @@ public class EditarAvanceInversionMB {
                         diasCalendario=true;
                     }
             listValorizacionInversionAvanceDetalleVO=valorizacionInversionAvanceDetalleService.getInvAvanceDetallesInvAvance(valorizacionInversionAvanceVO.getTiaNumero());
+            listValorizacionInversionAvanceDetalleVOA=valorizacionInversionAvanceDetalleService.getInvAvanceDetallesInvAvance(valorizacionInversionAvanceVO.getTiaNumero());
+            
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO8:listValorizacionInversionAvanceDetalleVO){
-                
                     infraestructuraVO = infraestructuraServiceImpl.get(valorizacionInversionAvanceDetalleVO8.getInfId(),valorizacionInversionAvanceDetalleVO8.getCsiId(),valorizacionInversionAvanceDetalleVO8.getTinId());
-                
                     valorizacionInversionAvanceDetalleVO8.setAeropuertos(infraestructuraVO.getInfNombre());
                     inversionDescripcionVO = inversionDescripcionServicesImpl.get(valorizacionInversionAvanceDetalleVO8.getTivId());
                     valorizacionInversionAvanceDetalleVO8.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
@@ -325,6 +327,13 @@ public class EditarAvanceInversionMB {
     }
 
     public void limpiarTodo() {
+        contratoCompromisoSeleccionado=0;
+        total=new BigDecimal("0");
+        codMoneda=0;
+        diasCalendario=false;
+        diasHabiles=false;
+        descripcionValorizacionDetalle="";
+        fechaVencimiento=null;
         fichaRegistro = 0;
         codigoInfraestructura = 0;
         nombreConcecion = "";
@@ -355,7 +364,10 @@ public class EditarAvanceInversionMB {
         totalPresentado = new BigDecimal("0");
         codigoTipoInversion = 0;
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
-        listValorizacionInversionAvanceDetalleVO = new ArrayList();
+        totalPresentado=new BigDecimal("0");
+        totalIgv=new BigDecimal("0");
+        totalMonto=new BigDecimal("0");
+       igv=false;
     }
 
     public void elegirContrato(ContratoVO contratoVO) {
@@ -455,11 +467,9 @@ public class EditarAvanceInversionMB {
 
     public void listarInversionDescripcion(int tipoInversion) {
         try {
-
             listaDescripcionTipoInversion = inversionDescripcionServicesImpl.query1(tipoInversion);
-
         } catch (Exception e) {
-            System.out.println("   PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
+            System.out.println("PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
             e.printStackTrace();
         }
     }
@@ -503,15 +513,15 @@ public class EditarAvanceInversionMB {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
                                                                               "DEBE SELECIONAR CONCEPTO"));
-            } else if (codigoInfraestructura == 0) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
-                                                                              "DEBE SELECIONAR AEROPUERTO"));
-            } else {
+            } 
+             else {
 
                 ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
                     new ValorizacionInversionAvanceDetalleVO();
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
+                valorizacionInversionAvanceDetalleVO1.setCsiId(codigoConcesion);
+                valorizacionInversionAvanceDetalleVO1.setInfId(codigoInfraestructura);
+                valorizacionInversionAvanceDetalleVO1.setTinId(idTipoInfraestructura);
                 infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
                 valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());
                 valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
@@ -536,12 +546,13 @@ public class EditarAvanceInversionMB {
                 }
                 valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado.subtract(valorizacionInversionAvanceDetalleVO1.getIgv()));
                 valorizacionInversionAvanceDetalleVO1.setMontoPresentado(montoPrestado);
-                
              listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO1);   
-                
              totalPresentado= totalPresentado.add(montoPrestado).setScale(2, BigDecimal.ROUND_UP);
              totalIgv =totalIgv.add(valorizacionInversionAvanceDetalleVO1.getIgv().setScale(2, BigDecimal.ROUND_UP));
              totalMonto= totalMonto.add(valorizacionInversionAvanceDetalleVO1.getTiaTotal()).setScale(2,BigDecimal.ROUND_UP);
+                
+                System.out.println("tamaño de lista ANtigua   "+listValorizacionInversionAvanceDetalleVOA.size());
+                System.out.println("tamaño de lista actual     "+listValorizacionInversionAvanceDetalleVO.size());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -553,8 +564,6 @@ public class EditarAvanceInversionMB {
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("indexLista");
         int idcodigo = Integer.valueOf(str.toString());
-        
-        
         totalPresentado = totalPresentado.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado()).setScale(2,
                                                                                                                BigDecimal.ROUND_UP);
         totalMonto = totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal()).setScale(2,
@@ -562,32 +571,25 @@ public class EditarAvanceInversionMB {
         totalIgv =totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv()).setScale(2,
                                                                                                         BigDecimal.ROUND_UP);
         listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
+        
+        System.out.println("tamaño de lista ANtigua   "+listValorizacionInversionAvanceDetalleVOA.size());
+        System.out.println("tamaño de lista actual     "+listValorizacionInversionAvanceDetalleVO.size());
     }
 
 
     public void guardar() {
         try {
-           System.out.println("HOLAAA!");
+            codigoInversion=valorizacionInversionAvanceVO.getInvId();
             valorizacionInversionAvanceVO.setConId(codigoContrato);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setInvId(codigoInversion);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
-                 System.out.println("HOLAAA!");;
             valorizacionInversionAvanceVO.setMcoId(idModalidadConcesion);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setTinId(idTipoInfraestructura);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setCcoId(contratoCompromisoSeleccionado);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setMonId(codigoMoneda);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setIaeId(1);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setTiaAnyo(anio);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setTiaAsunto(asunto);
-            System.out.println("HOLAAA!");
             if (diasCalendario){
                     valorizacionInversionAvanceVO.setTiaDiasHabiles(0); 
                 }
@@ -595,35 +597,49 @@ public class EditarAvanceInversionMB {
                     valorizacionInversionAvanceVO.setTiaDiasHabiles(1); 
                 }
             valorizacionInversionAvanceVO.setTiaFechaRegistro(fechaRegistroSDT);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setTiaFechaVencimientoPlazo(fechaVencimiento);
-            System.out.println("HOLAAA!");
             valorizacionInversionAvanceVO.setTiaPlazoEnDias(plazoContrato);
-            System.out.println("numerpoppppp");
-            System.out.println(numero);
             valorizacionInversionAvanceVO.setTiaHr(Integer.parseInt(numero));
             valorizacionInversionAvanceVO.setTccTipo(tipoComtratoCompromiso);
             valorizacionInversionAvanceVO.setTiaMontoTotalPresentado(totalPresentado);
-
-
-            valorizacionInversionAvanceServiceImpl.update(valorizacionInversionAvanceVO);
+            valorizacionInversionAvanceServiceImpl.update(valorizacionInversionAvanceVO);  
             
-            /*
-            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3 :
-                listValorizacionInversionAvanceDetalleVO) {
-                valorizacionInversionAvanceDetalleVO3.setTiaNumero(idCabecera);
-                valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3);
+            System.out.println("tamaño de lista ANtigua   "+listValorizacionInversionAvanceDetalleVOA.size());
+            System.out.println("tamaño de lista actual     "+listValorizacionInversionAvanceDetalleVO.size());
+            
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO3 : listValorizacionInversionAvanceDetalleVO) {       
+                if (valorizacionInversionAvanceDetalleVO3.getIad_Id()==0){
+                    System.out.println("CUANDO SE INSERTA");
+                        valorizacionInversionAvanceDetalleVO3.setTiaNumero(valorizacionInversionAvanceVO.getTiaNumero());
+                        valorizacionInversionAvanceDetalleService.insert(valorizacionInversionAvanceDetalleVO3); 
+                }  
             }
-*/
+               
+            
+            
+                for (ValorizacionInversionAvanceDetalleVO  valorizacionInversionAvanceDetalleVO3A :listValorizacionInversionAvanceDetalleVOA){
+                    boolean encuentra=false;   
+                    for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVo : listValorizacionInversionAvanceDetalleVO) { 
+                        if (valorizacionInversionAvanceDetalleVO3A.getIad_Id()==valorizacionInversionAvanceDetalleVo.getIad_Id()){
+                                    encuentra=true;
+                                }                             
+                            } 
+                        
+                     if (encuentra==false) {
+                        System.out.println("CUANDO SE ELIMINA");
+                        valorizacionInversionAvanceDetalleService.delete(valorizacionInversionAvanceDetalleVO3A.getIad_Id());    
+                        }  
+                }
+           
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "SE REGISTRO EL AVANCE CON EXITO"));
+                                                                      "SE REGISTRO EL AVANCE CON EXITO"));
             limpiarTodo();
-
+            
+            listarAvanceInversion();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void setFichaRegistro(int fichaRegistro) {
@@ -1267,6 +1283,14 @@ public class EditarAvanceInversionMB {
     public Date getFechaVencimiento() {
         return fechaVencimiento;
     }
-    
-    
+
+
+    public void setListValorizacionInversionAvanceDetalleVOA(List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVOA) {
+        this.listValorizacionInversionAvanceDetalleVOA = listValorizacionInversionAvanceDetalleVOA;
+    }
+
+    public List<ValorizacionInversionAvanceDetalleVO> getListValorizacionInversionAvanceDetalleVOA() {
+        return listValorizacionInversionAvanceDetalleVOA;
+    }
+
 }
