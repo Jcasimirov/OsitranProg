@@ -2,18 +2,17 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ContratoHitoDAO;
 import com.ositran.model.ContratoHito;
-
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class ContratoHitoDAOImpl implements ContratoHitoDAO {
     public ContratoHitoDAOImpl() {
@@ -36,7 +35,7 @@ public class ContratoHitoDAOImpl implements ContratoHitoDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
-            session.persist(contratoHito);
+            session.save(contratoHito);
             session.getTransaction().commit();
             System.out.println("guardo DAOHito");
         } catch (Exception e) {
@@ -45,7 +44,8 @@ public class ContratoHitoDAOImpl implements ContratoHitoDAO {
             e.printStackTrace();
             System.out.println("rollback DAOHito");
         }
-        
+        session.flush();
+        session.close();
         System.out.println("FIN DAOHito");
         return result;
     }
