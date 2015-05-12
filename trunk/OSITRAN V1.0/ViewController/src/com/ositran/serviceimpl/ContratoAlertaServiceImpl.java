@@ -41,6 +41,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
     @Override
     public String update(ContratoAlertaVO contratoAlertaVO) throws SQLException {
         ContratoAlerta contratoAlerta=toContratoAlerta(contratoAlertaVO);
+        System.out.println("contratoAlerta.getCalTipo();"+contratoAlerta.getCalTipo());
         String result = contratoAlertaDAOImpl.update(contratoAlerta);
         return result;
     }
@@ -105,7 +106,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
 
         contratoAlertaVO.setAleNombre(contratoAlerta.getAleNombre());
         contratoAlertaVO.setAleDiaMes(contratoAlerta.getAleDiaMes()!=null?contratoAlerta.getAleDiaMes():0);
-
+        contratoAlertaVO.setCalTipo(contratoAlerta.getCalTipo());
         return contratoAlertaVO;
     }
     
