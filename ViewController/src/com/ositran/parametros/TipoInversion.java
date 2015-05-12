@@ -47,16 +47,16 @@ public class TipoInversion {
         cantidad=validarNombre(nombre);
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "El nombre que quiere ingresar ya existe"));
             }
         else   if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe de Ingresar el Nombre"));
         } else if (descripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe de Ingresar la Descripcion"));
         } else {
             try {
@@ -137,17 +137,17 @@ public class TipoInversion {
             cantidad=validarNombre(nombreE);        
             if (cantidad>0 && !nombreAntiguo.equals(nombreE)){
                     FacesContext.getCurrentInstance().addMessage(null,
-                                                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "El nombre que quiere ingresar ya existe"));
                 }
             else 
             if (nombreE.equals("")) {
                 FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe ingresar el campo nombre");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe ingresar el campo nombre");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else if (descripcionE.equals("")) {
                 FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe Ingresar la Descripcion");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe Ingresar la Descripcion");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else {
                 tipoInversionVO.setTivId(codigoE);
@@ -191,7 +191,7 @@ public class TipoInversion {
     public void busqueda() {
         if (buscar.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           " Debe ingresar criterio de busqueda"));
         } else {   
             try {
