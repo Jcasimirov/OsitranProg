@@ -517,6 +517,14 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "Ingrese el Plazo de concesion"));
+        }else if (contratoVO.getConPdfcontrato() == null || contratoVO.getConPdfcontrato().length()==0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "Adjunte un Contrato"));
+        }else if (contratoVO.getConFicharesumen() == null || contratoVO.getConFicharesumen().length()==0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                                          "Adjunte una Ficha Resumen"));
         }else {
             try {
                 contratoVO.setPerId(periodoseleccionado);
