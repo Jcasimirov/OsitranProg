@@ -320,7 +320,11 @@
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
                                         <p:commandButton value="Buscar Contrato" actionListener="#{actualizarContratoMB.buscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
-                                        <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" style="font-size:11px" emptyMessage="No se Encontraron Registros">
+                                        <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" 
+                                        style="font-size:11px" emptyMessage="No se Encontraron Registros"
+                                        paginator="true" paginatorPosition="bottom" rows="10"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="5,10,20" resizableColumns="true">
                                             <p:column headerText="Fecha Suscripción" style="width:7%">
                                                 <div style="text-align: center;">
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
@@ -400,7 +404,7 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaAdenda" var="tAdenda" value="#{actualizarContratoMB.listContratoAdenda}">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaAdenda" var="tAdenda" value="#{actualizarContratoMB.listContratoAdenda}">
                                                 <p:column headerText="Adenda">
                                                     <h:outputText value="#{tAdenda.cadNombre}"/>
                                                 </p:column>
@@ -446,7 +450,7 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaEngrega" value="#{actualizarContratoMB.listarEntregas}" var="entrega">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaEngrega" value="#{actualizarContratoMB.listarEntregas}" var="entrega">
                                                 <p:column headerText="Entrega">
                                                     <h:outputText value="#{entrega.cenNombre}"/>
                                                 </p:column>
@@ -606,7 +610,7 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;width:100%;" id="tablaCompromisoIndicado" value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;width:100%;" id="tablaCompromisoIndicado" value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
                                                 <p:column headerText="Periodo/Etapa" style="width:4%">
                                                     <h:outputText value="#{compromiso.ccoPeriodo}"/>
                                                 </p:column>
@@ -702,8 +706,6 @@
                                         <h:panelGrid columns="2" style="padding:0px !important;">
                                             <p:inputText id="plazocom" style="width:90px;margin:0px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPlazo}" onkeypress="return validarNum(event);"/>
                                             <p:selectOneMenu value="#{actualizarContratoMB.plazoCompromisoIndicado}" style="margin:0px;padding:0px;">
-                                                <f:selectItem itemLabel="DIA(S)" itemValue="DIA(S)"/>
-                                                <f:selectItem itemLabel="SEMANA(S)" itemValue="SEMANA(S)"/>
                                                 <f:selectItem itemLabel="MES(ES)" itemValue="MES(ES)"/>
                                                 <f:selectItem itemLabel="AÑO(S)" itemValue="AÑO(S)"/>
                                             </p:selectOneMenu>
@@ -736,7 +738,7 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="4,6,8" resizableColumns="true" style="font-size:11px;width:100% !important;" id="tablaComprmisoSupervisado" value="#{actualizarContratoMB.listarContratoCompromisoSupervisado}" var="comsup">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;width:100% !important;" id="tablaComprmisoSupervisado" value="#{actualizarContratoMB.listarContratoCompromisoSupervisado}" var="comsup">
                                                 <p:column headerText="Periodo/Etapa" style="width:7%">
                                                     <h:outputText value="#{comsup.ccoPeriodo}"/>
                                                 </p:column>
@@ -829,8 +831,6 @@
                                         <h:panelGrid columns="2" style="padding:0px !important;">
                                             <p:inputText id="plazocomsup" style="width:90px;" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPlazo}" onkeypress="return validarNum(event);"/>
                                             <p:selectOneMenu value="#{actualizarContratoMB.plazoCompromisoSupervisado}">
-                                                <f:selectItem itemLabel="Dia(s)" itemValue="DIA(S)"/>
-                                                <f:selectItem itemLabel="Semana(s)" itemValue="SEMANA(S)"/>
                                                 <f:selectItem itemLabel="Mes(es)" itemValue="MES(ES)"/>
                                                 <f:selectItem itemLabel="Año(s)" itemValue="AÑO(S)"/>
                                             </p:selectOneMenu>
@@ -864,7 +864,7 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="4,6,8" resizableColumns="true" style="font-size:11px;width:100% !important;" id="tablaComprmisoPenalidad" value="#{actualizarContratoMB.listarContratoPenalidad}" var="penalidad">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;width:100% !important;" id="tablaComprmisoPenalidad" value="#{actualizarContratoMB.listarContratoPenalidad}" var="penalidad">
                                                 <p:column headerText="Motivo" style="width:7%">
                                                     <h:outputText value="#{penalidad.tcpMotivo}"/>
                                                 </p:column>
@@ -954,7 +954,7 @@
                                 </h:form>
                             </p:dialog>
                         </p:tab>
-                        <p:tab id="tab3" title="CAO - Hito - POO" disabled="#{actualizarContratoMB.tabDeshabilitado}">
+                        <p:tab id="tab3" title="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos?'CAO - Hito - POO':'Hito'}" disabled="#{actualizarContratoMB.tabDeshabilitado}">
                             <h:form id="frmCHP">
                                 <table>
                                     <tr>
@@ -971,7 +971,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaCAO" var="tCao" value="#{actualizarContratoMB.listContratoCaoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaCAO" var="tCao" value="#{actualizarContratoMB.listContratoCaoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Inversión">
                                                         <h:outputText value="#{tCao.caoNombre}"/>
                                                     </p:column>
@@ -1026,8 +1026,8 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaHito" var="tHito" value="#{actualizarContratoMB.listContratoHitoVO}">
-                                                    <p:column headerText="Aeropuerto">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaHito" var="tHito" value="#{actualizarContratoMB.listContratoHitoVO}">
+                                                    <p:column headerText="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tHito.htoNombre}"/>
                                                     </p:column>
                                                     <p:column headerText="Nro" style="width:12%">
@@ -1088,7 +1088,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaPPO" var="tPpo" value="#{actualizarContratoMB.listContratoPpoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaPPO" var="tPpo" value="#{actualizarContratoMB.listContratoPpoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Aeropuerto">
                                                         <h:outputText value="#{tPpo.ppoNombre}"/>
                                                     </p:column>
@@ -1129,16 +1129,16 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombreCAO}" style="width:300px;" id="nombreCAO" onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
-                                                <img src="../../images/obligatorio.gif"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1147,7 +1147,7 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.montoCAO}" style="width:200px;" id="montoCAO" onkeypress="return ValidarNumFloat(event,this);"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1159,7 +1159,7 @@
                                                     <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="mon" itemLabel="#{mon.monNombre}" itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1170,14 +1170,14 @@
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}" update="docCao" label="Adjuntar" auto="true"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                                 Campos obligatorios ( 
-                                                <img src="../../images/obligatorio.gif"/>)
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>)
                                             </td>
                                         </tr>
                                          
@@ -1196,7 +1196,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El CAO ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Eliminar El CAO ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreCao2}" style="align:left; text-align:left"></h:outputText>
@@ -1214,20 +1214,20 @@
                                     <p:growl id="msjHito" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
-                                            <td align="left">Aeropuerto</td>
+                                            <td align="left"><h:outputText value="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/></td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.nombreHito}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                <p:inputText value="#{actualizarContratoMB.nombreHito}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaHito}"/>
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1236,7 +1236,7 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.montoHito}" style="width:200px;" onkeypress="return ValidarNumFloat(event,this);"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1248,7 +1248,7 @@
                                                     <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="mon" itemLabel="#{mon.monNombre}" itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1259,14 +1259,14 @@
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHito" label="Adjuntar" auto="true"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                                 Campos obligatorios ( 
-                                                <img src="../../images/obligatorio.gif"/>)
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>)
                                             </td>
                                         </tr>
                                          
@@ -1285,20 +1285,21 @@
                                     <p:growl id="msjHito" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
-                                            <td align="left">Aeropuerto</td>
+                                            <td align="left"><h:outputText value="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/> </td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoNombre}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoNombre}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"
+                                                rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1307,7 +1308,7 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoMonto}" style="width:200px;" onkeypress="return ValidarNumFloat(event,this);"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1319,7 +1320,7 @@
                                                     <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="mon" itemLabel="#{mon.monNombre}" itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1330,14 +1331,14 @@
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHitoM" label="Adjuntar" auto="true"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                                 Campos obligatorios ( 
-                                                <img src="../../images/obligatorio.gif"/>)
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>)
                                             </td>
                                         </tr>
                                          
@@ -1356,7 +1357,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El Hito ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Eliminar El Hito ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreHito2}" style="align:left; text-align:left"></h:outputText>
@@ -1378,16 +1379,16 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.nombrePpo}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
-                                                <img src="../../images/obligatorio.gif"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar locale="es" pattern="dd-MM-yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
+                                                <p:calendar locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1396,7 +1397,7 @@
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.montoPpo}" style="width:200px;" onkeypress="return ValidarNumFloat(event,this);"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1408,7 +1409,7 @@
                                                     <f:selectItems value="#{actualizarContratoMB.listarTipoMonedas}" var="mon" itemLabel="#{mon.monNombre}" itemValue="#{mon.monId}"/>
                                                 </p:selectOneMenu>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1419,14 +1420,14 @@
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPpo}" update="docPpo" label="Adjuntar" auto="true"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
                                         <tr>
                                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                                 Campos obligatorios ( 
-                                                <img src="../../images/obligatorio.gif"/>)
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>)
                                             </td>
                                         </tr>
                                          
@@ -1445,7 +1446,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar El PPO ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Eliminar El PPO ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombrePpo2}" style="align:left; text-align:left"></h:outputText>
@@ -1474,7 +1475,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
                                                     <p:column headerText="Aeropuerto" style="width:14%">
                                                         <h:outputText value="#{tAlerta.calAeropuerto}"/>
                                                     </p:column>
@@ -1538,7 +1539,7 @@
                                             <td align="left">
                                                 <p:inputTextarea style="width:300px; height:40px" value="#{actualizarContratoMB.descAlerta}" queryDelay="750" minQueryLength="4" onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1547,7 +1548,7 @@
                                             <td align="left">
                                                 <p:calendar locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaIniAlerta}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1556,7 +1557,7 @@
                                             <td align="left">
                                                 <p:calendar id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true" value="#{actualizarContratoMB.fechaFinAlerta}"/>
                                                  
-                                                <img src="../../images/obligatorio.gif" style="top: 10px"/>
+                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1599,7 +1600,7 @@
                                         <tr>
                                             <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
                                                 Campos obligatorios ( 
-                                                <img src="../../images/obligatorio.gif"/>)
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>)
                                             </td>
                                         </tr>
                                          
@@ -1618,7 +1619,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Activar la Alerta ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Activar la Alerta ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreAlerta}" style="align:left; text-align:left"></h:outputText>
@@ -1636,7 +1637,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Desactivar la Alerta ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Desactivar la Alerta ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreAlerta}" style="align:left; text-align:left"></h:outputText>
@@ -1654,7 +1655,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar la Alerta ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Eliminar la Alerta ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreAlerta}" style="align:left; text-align:left"></h:outputText>
@@ -1685,7 +1686,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="3,4,10" resizableColumns="true" style="font-size:11px;" id="tablaContratoInversion" value="#{actualizarContratoMB.listContratoInversion}" var="tInversion">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaContratoInversion" value="#{actualizarContratoMB.listContratoInversion}" var="tInversion">
                                                     <p:column headerText="Aeropuerto" style="width:20%">
                                                         <h:outputText value="#{tInversion.infNombre}"/>
                                                     </p:column>
@@ -1741,7 +1742,7 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <img src="../../images/obligatorio.gif"/>Desea Eliminar la Inversion ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Eliminar la Inversion ????? :
                                             </td>
                                             <td align="left">
                                                 <h:outputText value="#{actualizarContratoMB.nombreInversion}" style="align:left; text-align:left"></h:outputText>
