@@ -90,10 +90,10 @@ public class MantenimientoConcesion {
 
         if (codigoTipoInfraestructuraInsert == 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Debe ingresar el Tipo de Infraestructura");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe ingresar el Tipo de Infraestructura");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (nombre.equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Debe ingrear nombre de concesión");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe ingrear nombre de concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
             try {
@@ -132,7 +132,7 @@ public class MantenimientoConcesion {
             catch (Exception e) {
                 System.out.println(e.getMessage());
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR" + e.getMessage());
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "HA HABIADO UN ERROR" + e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
             }
@@ -472,7 +472,7 @@ public class MantenimientoConcesion {
 
     public void createNew() {
         if (infraestructuras.contains(infraestructura)) {
-            FacesMessage mensaje2 = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "A HABIADO UN ERROR");
+            FacesMessage mensaje2 = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "HA HABIADO UN ERROR");
             FacesContext.getCurrentInstance().addMessage(null, mensaje2);
         } else {
             infraestructuras.add(infraestructura);
