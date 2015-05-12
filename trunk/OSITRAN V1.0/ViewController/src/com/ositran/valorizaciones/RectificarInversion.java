@@ -296,6 +296,9 @@ public class RectificarInversion {
     public void obtenerDeatalleInversionAvanceInvAvn(int tiaNumero){
         try {
             listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listaValorizacionInversionAvanceDetalleVO) {
+                System.out.println("cargando detalle inversion===="+valorizacionInversionAvanceDetalleVO.getInvId());
+           }
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -685,7 +688,7 @@ public class RectificarInversion {
     }
     public void cargarListaInversiones(int idcontrato) {
         try {
-            listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
+            listContratoInversion = contratoInversionServiceImpl.getInversionesContratoenRectificacion(idcontrato);
             nombreinversion.put("0", "");
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 nombreinversion.put(contratoInversionVO.getInvId().toString(), contratoInversionVO.getInvDescripcion());
@@ -706,6 +709,7 @@ public class RectificarInversion {
                                 aux.setDesConcepto(concepto.getItdNombre());                               
                             }
                         }
+                        System.out.println("InvReconocimientoVO--invAvnDetalle.getInvId()========##"+invAvnDetalle.getInvId());
                         aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)? (nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
                     }
                 }
@@ -721,6 +725,7 @@ public class RectificarInversion {
                                     
                                 }
                             }
+                            System.out.println("InvReajusteVO--invAvnDetalle.getInvId()========##"+invAvnDetalle.getInvId());
                             aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)?(nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
                         }
                     }
