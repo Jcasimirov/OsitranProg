@@ -88,7 +88,7 @@
             <p:layoutUnit position="center" style="border:0px">
                 <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                 <div align="center">
-                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N - AEROPUERTO</h5>
+                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N  #{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos?'- AEROPUERTO':''}</h5>
                 </div>
                 <div align="center" style="font-size: 11px">
                     <p:tabView style="width: 80%" id="tab" rendered="#{actualizarContratoMB.rolOpcion.troConsultar eq 1}">
@@ -1476,7 +1476,7 @@
                                         <td colspan="2">
                                             <div style="text-align: center;">
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
-                                                    <p:column headerText="Aeropuerto" style="width:14%">
+                                                    <p:column headerText="Aeropuerto" style="width:14%" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tAlerta.calAeropuerto}"/>
                                                     </p:column>
                                                     <p:column headerText="Descripcion">
