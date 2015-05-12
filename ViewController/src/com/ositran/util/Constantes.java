@@ -12,7 +12,7 @@ public class Constantes {
     public static String RUTAADENDA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"adendas"+File.separator;
     public static String RUTAADENDAENTREGA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"entrega"+File.separator;
     public static String RUTACAO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"cao"+File.separator;
-    public static String RUTAHITO=File.separator +"filesositran"+File.separator +"temp"+File.separator +"hito"+File.separator;
+    public static String RUTAHITO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"hito"+File.separator;
     public static String RUTAPPO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"ppo"+File.separator;
     public static String RUTAPENALIDADES=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"penalidades"+File.separator;
 
@@ -29,7 +29,7 @@ public class Constantes {
     public static Integer SUPERVISADOXINDICACION=0;
     public static Integer TIPINFAEROPUERTOS=2;
     
-    public static String RUTANOTIFICACION="D:/filesositran/temp/notificacion/";
+    public static String RUTANOTIFICACION=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"notificacion"+File.separator ;
     
     public static Integer ESTADORECONOCIMIENTO_OBSERVADO=0;
     public static Integer ESTADORECONOCIMIENTO_DECLARADO=4;
