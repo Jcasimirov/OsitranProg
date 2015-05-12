@@ -242,7 +242,7 @@ public class DerivarReconocimientoSupervisorMB {
     
     ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();
     ContratoAlertaService contratoAlertaService = new ContratoAlertaServiceImpl();
-
+    
     public void limpiarTodo() {
         fichaRegistro = 0;
         codigoInfraestructura = 0;
@@ -283,113 +283,119 @@ public class DerivarReconocimientoSupervisorMB {
     }
 
     public void cambiarDatos() {
-       }
+    }
 
-       public void cargarListaSupervisores() {
-           try {
-              
-                   listaSupervisor =
-                       supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(codigoInfraestructura);
-                   listaEmpresaSupervisora = empresaSupervisoraService.query();
-               
-               
-               
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-       }
+    public void cargarListaSupervisores() {
+        try {
+            
+            System.out.println("ID TIPO INFRAAAAAA");
+            System.out.println(idTipoInfraestructura);
+                listaSupervisor =
+                    supervisorInversionesServiceImpl.buscarSupervisoresxInfraestructura(idTipoInfraestructura);
+                listaEmpresaSupervisora = empresaSupervisoraService.query();
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
-       public void elegirEmpresaSup(EmpresaSupervisoraVO empresaSupervisoraVO) {
-           this.empresaSupervisoraVO=empresaSupervisoraVO;
-           codigoSupervisor = empresaSupervisoraVO.getSupId();
-           nombreSupervisor = empresaSupervisoraVO.getSupNombre();
-       }
+    public void elegirEmpresaSup(EmpresaSupervisoraVO empresaSupervisoraVO) {
+        codigoSupervisor = empresaSupervisoraVO.getSupId();
+        nombreSupervisor = empresaSupervisoraVO.getSupNombre();
+    }
 
-       public void elegirSupervisor(SupervisorInversionesVO supervisorInversionesSVO) {
-           this.supervisorInversionesVO=supervisorInversionesSVO;
-           codigoSupervisor = supervisorInversionesSVO.getTsiId();
-           nombreSupervisor = supervisorInversionesSVO.getTsiNombre();
+    public void elegirSupervisor(SupervisorInversionesVO supervisorInversionesSVO) {
+        codigoSupervisor = supervisorInversionesSVO.getTsiId();
+        nombreSupervisor = supervisorInversionesSVO.getTsiNombre();
 
-       }
+    }
 
-       public void listarTipoRevision() {
-           try {
-               listaTipoRevision = tipoRevisionService.query();
-               listarInfraestructura();
+    public void listarTipoRevision() {
+        try {
+            listaTipoRevision = tipoRevisionService.query();
+            listarInfraestructura();
 
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-       public void listarInfraestructura() {
-           try {
-               listaInfraestructuras = infraestructuraServiceImpl.query();
+    public void listarInfraestructura() {
+        try {
+            listaInfraestructuras = infraestructuraServiceImpl.query();
 
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-       }
+    }
 
-       public void desDiasHabiles() {
-           try { 
-              diasHabiles = false;
+    public void desDiasHabiles() {
+        try { 
+           diasHabiles = false;
 
-          } catch (Exception e) {
-               e.printStackTrace();
-           }
-         
-       }
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
+      
+    }
 
-       public void desDiasCalendario() {
-           try {
-              diasCalendario = false;
-          } catch (Exception e) {
-               e.printStackTrace();
-           }
-           
-       }
+    public void desDiasCalendario() {
+        try {
+           diasCalendario = false;
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
 
-       public void obtenerFechaLimite(){
-           try {
-              FechasUtil fechasUtil=new FechasUtil();
-              Date fechacalculada;
-               if (isDiasHabiles()){
-                       
-                       fechacalculada= fechasUtil.adicionaDias(fechaEmisionDS,plazoOtorgado,1);
-                       fechaLimiteDS=fechacalculada; 
-                   }
-               if (isDiasCalendario())
-               {
-             
-              fechacalculada= fechasUtil.adicionaDias(fechaEmisionDS,plazoOtorgado,0);
-              fechaLimiteDS=fechacalculada;
-               }
-          } catch (Exception e) {
-               e.printStackTrace();
-           }
-             
-           
-           }
+    public void obtenerFechaLimite(){
+        try {
+           FechasUtil fechasUtil=new FechasUtil();
+           Date fechacalculada;
+            if (isDiasHabiles()){
+                    
+                    fechacalculada= fechasUtil.adicionaDias(fechaEmisionDS,plazoOtorgado,1);
+                    fechaLimiteDS=fechacalculada; 
+                }
+            if (isDiasCalendario())
+            {
+          
+           fechacalculada= fechasUtil.adicionaDias(fechaEmisionDS,plazoOtorgado,0);
+           fechaLimiteDS=fechacalculada;
+            }
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
+          
+        
+        }
+
     public void cargarListaContratos() {
         try {
             listaContratos = contratoConcesionServiceImp.query();
+            System.out.println("tamaño de la lista");
+
+
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
+
                 concesion = concesionServiceImpl.get(contra.getCsiId());
                 contra.setNombreConcesion(concesion.getCsiNombre());
                 contra.setCodigoConcesion(concesion.getCsiId());
             }
         } catch (Exception e) {
+
             e.printStackTrace();
         }
     }
 
     public void elegirContrato(ContratoVO contratoVO) {
         try {
-            codigoConcesion = contratoVO.getCsiId();
+            codigoConcesion = contratoVO.getCncId();
             concesionVO = concesionServiceImpl.get(codigoConcesion);
             codigoTipoInversion = concesionVO.getTinId();
             idModalidadConcesion = contratoVO.getMcoId();
@@ -403,8 +409,9 @@ public class DerivarReconocimientoSupervisorMB {
             nombreTipoInfraestructura = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
             listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+
             listarInversionDescripcion();
-            
+
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
@@ -442,6 +449,7 @@ public class DerivarReconocimientoSupervisorMB {
 
     public void cargarListaValorizacionDetalle(int detalle) {
         try {
+            
             BigDecimal  totalTemporal = new BigDecimal("0");
             valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
             anio = valorizacionInversionAvanceVO.getTiaAnyo();
@@ -485,7 +493,7 @@ public class DerivarReconocimientoSupervisorMB {
             listaDescripcionTipoInversion = inversionDescripcionServicesImpl.query();
 
         } catch (Exception e) {
-            System.out.println("   PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
+            System.out.println("PROBLEMAS CON EL LISTADO DE INVERSION DESCRIPCION");
             e.printStackTrace();
         }
 
@@ -541,7 +549,7 @@ public class DerivarReconocimientoSupervisorMB {
             e.printStackTrace();
         }
     }
-
+    
     public void registrarAlerta3(){
         try {
            contratoAlertaVO.setCalFechaAlta(new Date());
@@ -571,6 +579,7 @@ public class DerivarReconocimientoSupervisorMB {
         
         
         }
+
     public void guardar() {
         try {
             registrarAlerta3();
@@ -588,9 +597,7 @@ public class DerivarReconocimientoSupervisorMB {
             invAvnDerivadaVO.setIasEstado(new java.math.BigDecimal(String.valueOf(1)));
             invAvnDerivadaVO.setIasFechaAlta(new Date());
             invAvnDerivadaVO.setNroOficio(numeroOficio);
-            System.out.println("HOLA");
             invAvnDerivadaVO.setIadTipoSup(codigoTipoRevision);
-            System.out.println("HOLA2");
                 
             if (isDiasCalendario()){
                     invAvnDerivadaVO.setIadTipoDias(new BigDecimal("0"));
@@ -598,17 +605,11 @@ public class DerivarReconocimientoSupervisorMB {
             if (isDiasHabiles()){
                     invAvnDerivadaVO.setIadTipoDias(new BigDecimal("1"));
                 }
-            
-            
-            
             if (codigoTipoRevision==1){
-                    invAvnDerivadaVO.setSupID(supervisorInversionesVO.getTsiId());
+                    invAvnDerivadaVO.setSupID(codigoSupervisor);
                 }
-            
             if (codigoTipoRevision==2){
-                
                     invAvnDerivadaVO.setTsiID(codigoSupervisor);
-                   
                 }
             valorizacionInversionAvanceVO.setIaeId(2);
             valorizacionInversionAvanceServiceImpl.update(valorizacionInversionAvanceVO);
@@ -617,16 +618,11 @@ public class DerivarReconocimientoSupervisorMB {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "SE REGISTRO EL AVANCE CON EXITO"));
-
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("PROBLEMAS AL GUARDAR AQUI");
         }
-
-
     }
-
 
     public void setFichaRegistro(int fichaRegistro) {
         this.fichaRegistro = fichaRegistro;
@@ -663,6 +659,7 @@ public class DerivarReconocimientoSupervisorMB {
     public void setNombreModalidadConceción(String nombreModalidadConceción) {
         this.nombreModalidadConceción = nombreModalidadConceción;
     }
+
     public String getNombreModalidadConceción() {
         return nombreModalidadConceción;
     }
