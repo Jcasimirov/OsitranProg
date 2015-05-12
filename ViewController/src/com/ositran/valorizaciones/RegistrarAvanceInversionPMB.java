@@ -362,7 +362,7 @@ public class RegistrarAvanceInversionPMB {
            
            valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
                 valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
-                
+                valorizacionInversionAvanceDetalleVO1.setInvId(codigoInversion);
                 inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
             valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
             valorizacionInversionAvanceDetalleVO1.setTivId(inversionDescripcionVO.getTivId());
