@@ -91,7 +91,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalleVO1.setCsiId(valorizacionInversionAvanceDetalle1.getCsiId());
         valorizacionInversionAvanceDetalleVO1.setInfId(valorizacionInversionAvanceDetalle1.getInfId());
         valorizacionInversionAvanceDetalleVO1.setTinId(valorizacionInversionAvanceDetalle1.getTinId());
-        valorizacionInversionAvanceDetalleVO1.setInvId(valorizacionInversionAvanceDetalle1.getInvId()!=null?valorizacionInversionAvanceDetalle1.getInvId():0);
+        valorizacionInversionAvanceDetalleVO1.setInvId(valorizacionInversionAvanceDetalle1.getInvId());
         valorizacionInversionAvanceDetalleVO1.setNombreInversion(valorizacionInversionAvanceDetalle1.getNombreInversion()!=null?valorizacionInversionAvanceDetalle1.getNombreInversion():"");
        
        
@@ -115,7 +115,7 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
         valorizacionInversionAvanceDetalle1.setCsiId(valorizacionInversionAvanceDetalleVO1.getCsiId());
         valorizacionInversionAvanceDetalle1.setInfId(valorizacionInversionAvanceDetalleVO1.getInfId());
         valorizacionInversionAvanceDetalle1.setTinId(valorizacionInversionAvanceDetalleVO1.getTinId());
-        valorizacionInversionAvanceDetalle1.setInvId(valorizacionInversionAvanceDetalleVO1.getInvId()!=0?valorizacionInversionAvanceDetalleVO1.getInvId():0);
+        valorizacionInversionAvanceDetalle1.setInvId(valorizacionInversionAvanceDetalleVO1.getInvId());
        
        return valorizacionInversionAvanceDetalle1;
     }
