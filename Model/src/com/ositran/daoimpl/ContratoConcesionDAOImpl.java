@@ -246,7 +246,7 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("FROM Contrato c WHERE c.csiId like :busqueda1 ");
+        query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1 and c.conEstado =1");
         query.setParameter("busqueda1",tinfraestructura);
         list= query.list();
         session.getTransaction().commit();
