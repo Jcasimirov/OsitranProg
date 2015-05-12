@@ -11,6 +11,7 @@
                 }
             </style>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
          <f:event listener="#{mantenimientoconcesionMB.validarSesion}" type="postAddToView"></f:event>
@@ -74,7 +75,7 @@
                                              rowKey="#{var1.csiId}" value="#{mantenimientoconcesionMB.listaConcesiones}"
                                              rows="10" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15">
+                                             rowsPerPageTemplate="5,10,20">
                                     <p:column headerText="Nro" style="width:2%">
                                         <h:outputText value="#{var1.correla}"
                                                       style="width:300px;text-transform:uppercase;"/>
@@ -112,8 +113,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px" resizable="true" closable="true"
                                   collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">PROYECTO OSITRAN
-                                                                                       Ositran-Developer Por AsisTP-2015</div>
+                        <div align="center" style="font-size: 10px;font-weight: bold;">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
@@ -159,7 +159,7 @@
                                  
                                 <p:outputPanel id="books">
                                     <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list"
-                                                 id="booksTable" emptyMessage="No se encontraron filas">
+                                                 id="booksTable" emptyMessage="NO SE ENCONTRARON DATOS">
                                         <p:column headerText="Title">
                                             <h:outputText value="#{list.infNombre}"
                                                           style="width:300px;text-transform:uppercase; "/>
@@ -262,7 +262,7 @@
                     </table>
                     <!--Mantenimiento de Infraestructuras-->
                     <p:dataTable rowIndexVar="rowId" style="font-size:11px;" id="tablaES2" var="var2"
-                                 value="#{mantenimientoconcesionMB.listaInfraestructuras}" emptyMessage="No se encontraron filas">
+                                 value="#{mantenimientoconcesionMB.listaInfraestructuras}" emptyMessage="NO SE ENCONTRARON DATOS">
                         <!--p:column headerText="ID">
                             <h:outputText value="#{var2.infId}"/>
                         </p:column-->
