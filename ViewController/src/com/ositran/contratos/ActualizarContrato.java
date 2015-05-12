@@ -1710,10 +1710,16 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
-
+    public void refrescarDiaMesAlerta(){
+        if(periodoseleccionadoAlerta!=0 && periodoseleccionadoAlerta!=-1)
+            conDiamesAlerta=null;
+    }
     public void guardarAlerta() {
-        int conDiames=conDiamesAlerta!=null?Integer.parseInt(conDiamesAlerta):0;
-        if (infId == null || infId.length()==0) {
+        int conDiames=0;
+        if(conDiamesAlerta!=null && conDiamesAlerta.length()!=0){
+            conDiames=Integer.parseInt(conDiamesAlerta);
+        }
+        if (infId != null && infId.length()==0) {
             System.out.print("nombAeropuerto" + infId);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -1733,7 +1739,11 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));
-        }else if (periodoseleccionadoAlerta==0 &&  conDiamesAlerta==null) {
+        }else if (periodoseleccionadoAlerta==-1) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha seleccionado el Periodo"));
+        }else if (periodoseleccionadoAlerta==0 &&  (conDiamesAlerta==null || conDiamesAlerta.length()==0)) {
             System.out.print("diaPresAlerta: " + conDiamesAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -1753,11 +1763,15 @@ public class ActualizarContrato {
                                                 contratoVO.getNombreConcesionario(),
                                                 calTipo);
                                
-                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId)));                
-                contratoAlertaVO.setCalAeropuerto(inf.getInfNombre());
-                contratoAlertaVO.setInfId(inf.getInfId());
-                contratoAlertaVO.setCsiId(inf.getCsiId());
-                contratoAlertaVO.setTinId(inf.getTinId());
+                
+                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
+                    InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId))); 
+                    contratoAlertaVO.setCalAeropuerto(inf.getInfNombre());
+                    contratoAlertaVO.setInfId(inf.getInfId());
+                    contratoAlertaVO.setCsiId(inf.getCsiId());
+                    contratoAlertaVO.setTinId(inf.getTinId());
+                }
+                   
                 contratoAlertaVO.setAleNombre(descAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
                 contratoAlertaVO.setCalCantidadPlazo(plazoAlerta);
@@ -1796,6 +1810,7 @@ public class ActualizarContrato {
         fechaFinAlerta = new Date();
         descAlerta = null;
         unidadTiempo = 0;
+        periodoseleccionadoAlerta=-1;
     }
 
     public int getPlazoAlerta() {
@@ -1914,30 +1929,38 @@ public class ActualizarContrato {
     }
 
     public void activarAlerta(ActionEvent event) throws SQLException {
-        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlerta");
-        contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("alerta");       
         contratoAlertaVO.setCalEstado(1);
+        /* AUDITORIA*/
+        Date fechaActual = new Date();
+        contratoAlertaVO.setCalFechaCambio(fechaActual);
+        contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
+        contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
+        /*FIN AUDITORIA*/
         contratoAlertaServiceImpl.update(contratoAlertaVO);
-
         cargarListaAlertas(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
     public void desactivarAlerta(ActionEvent event) throws SQLException {
-        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlertaD");
-        contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("codigoAlertaD");
         contratoAlertaVO.setCalEstado(2);
+        /* AUDITORIA*/
+        Date fechaActual = new Date();
+        contratoAlertaVO.setCalFechaCambio(fechaActual);
+        contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
+        contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
+        /*FIN AUDITORIA*/
+        
         contratoAlertaServiceImpl.update(contratoAlertaVO);
-
         cargarListaAlertas(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
     public void eliminarAlerta(ActionEvent event) throws SQLException {
-        int codigo = (Integer) event.getComponent().getAttributes().get("codigoAlertaE");
-        contratoAlertaVO = contratoAlertaServiceImpl.get(codigo);
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("codigoAlertaE");
         contratoAlertaVO.setCalEstado(0);
         /*AUDITORIA*/
         Date fechaActual = new Date();
@@ -2026,51 +2049,17 @@ public class ActualizarContrato {
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
-    public void cargarActivarAlerta() throws SQLException {
-
-        //inicio de captura de codigo a modificar
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("idContratoAlerta");
-        Integer idcodigo = Integer.valueOf(str.toString());
-        contratoAlertaVO = contratoAlertaServiceImpl.get(idcodigo);
-        //fin de de captura de codigo a modificar
-        codigoAlerta = contratoAlertaVO.getCalId();
-        nombreAlerta = contratoAlertaVO.getCalAeropuerto();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
-
-
+    public void cargarActivarAlerta(ActionEvent event) throws SQLException {
+        contratoAlertaVO = (ContratoAlertaVO)event.getComponent().getAttributes().get("contratoAlertaA");
     }
 
-    public void cargarDesactivarAlerta() throws SQLException {
-
-        //inicio de captura de codigo a modificar
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("idContratoAlertaD");
-        Integer idcodigo = Integer.valueOf(str.toString());
-        contratoAlertaVO = contratoAlertaServiceImpl.get(idcodigo);
-        //fin de de captura de codigo a modificar
-        codigoAlerta = contratoAlertaVO.getCalId();
-        nombreAlerta = contratoAlertaVO.getCalAeropuerto();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Desactivo con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    public void cargarDesactivarAlerta(ActionEvent event) throws SQLException {
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("contratoAlertaD");
     }
 
-    public void cargarEliminarAlerta() throws SQLException {
+    public void cargarEliminarAlerta(ActionEvent event) throws SQLException {
 
-        //inicio de captura de codigo a modificar
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("idContratoAlertaE");
-        Integer idcodigo = Integer.valueOf(str.toString());
-        contratoAlertaVO = contratoAlertaServiceImpl.get(idcodigo);
-        //fin de de captura de codigo a modificar
-        codigoAlerta = contratoAlertaVO.getCalId();
-        nombreAlerta = contratoAlertaVO.getCalAeropuerto();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("contratoAlertaE");
 
 
     }
@@ -2384,7 +2373,11 @@ public class ActualizarContrato {
                 getContratoPpoVO().setPpoMonto(montoPpo);
                 getContratoPpoVO().setMonId(monedaPpoId);
                 getContratoPpoVO().setPpoFecha(fechaPpo);
-                getContratoPpoVO().setPpoNombre(nombrePpo);
+                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
+                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombrePpo))); 
+                    getContratoPpoVO().setPpoNombre(inf.getInfNombre());
+                }
+                
                 getContratoPpoVO().setPpoArchivoPdf(documentoPpo);
                 /*AUDITORIA*/
                 Date fechaActual = new Date();
@@ -2456,7 +2449,10 @@ public class ActualizarContrato {
                 contratoHitoVO.setHtoMonto(montoHito);
                 contratoHitoVO.setMonId(monedaHitoId);
                 contratoHitoVO.setHtoFecha(fechaHito);
-                contratoHitoVO.setHtoNombre(nombreHito);
+                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
+                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombreHito))); 
+                contratoHitoVO.setHtoNombre(inf.getInfNombre());
+                }
                 contratoHitoVO.setHtoPdf(documentoHito);
                 /*AUDITORIA*/
                 Date fechaActual = new Date();
