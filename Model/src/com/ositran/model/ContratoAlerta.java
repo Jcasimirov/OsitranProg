@@ -40,7 +40,7 @@ public class ContratoAlerta implements Serializable {
     @GeneratedValue(generator = "generator")
     @Column(name = "CAL_ID", nullable = false)
     private Integer calId;
-    @Column(name = "CAL_NOMBRECONCESION", nullable = false, length = 4000)
+    @Column(name = "CAL_NOMBRECONCESION", length = 4000)
     private String calNombreconcesion;
     @Column(name = "CAL_PLAZO")
     private Date calPlazo;
