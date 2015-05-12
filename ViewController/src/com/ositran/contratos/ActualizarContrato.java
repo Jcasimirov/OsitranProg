@@ -313,7 +313,8 @@ public class ActualizarContrato {
 
     public ActualizarContrato() {
         super();
-
+        resetearCamposBuscarContratos();
+        
     }
 
     public void listarTiposAdendas() {
@@ -397,6 +398,18 @@ public class ActualizarContrato {
         concesion = 0;
         fechaInicioSuscripcion = null;
         fechaFinSuscripcion = null;
+        concesionarioVO=new ConcesionarioVO();
+        contratoVO=new ContratoVO();
+        aplicaAvancedeObra=false;
+        periodoseleccionado=-1;
+        contratoAdendaVO=new ContratoAdendaVO();
+        contratoEntregaVO=new ContratoEntregaVO();
+        contratoCompromisoVO=new ContratoCompromisoVO();
+        contratoCaoVO=new ContratoCaoVO();
+        contratoHitoVO=new ContratoHitoVO();
+        contratoPpoVO=new ContratoPpoVO();
+        contratoAlertaVO=new ContratoAlertaVO();
+        contratoInversionVO=new ContratoInversionVO();
     }
    
     // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
@@ -411,15 +424,16 @@ public class ActualizarContrato {
         }
     }
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
-    public void abrirBuscarContratos() {
-        if (nombreConcesion.length() != 0) {
-            resetearCamposBuscarContratos();
+    public void abrirBuscarContratos() {    
+        /**validacion para pintar la tabla del dialogo buscar 
+         * contrato siempre y cuendo se haya escrito en la caja de buscar contrato-concesion**/
+        if (nombreConcesion.length() != 0) {           
             buscarContratos();
         }
     }
 
     public void buscarContratos() {
-        System.out.println("actualizarContratoMB.buscarContratos");
+        resetearCamposBuscarContratos();
         try {
             listaContrato =
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoInfraestructura,
@@ -669,8 +683,10 @@ public class ActualizarContrato {
     }
 
     public void cargarDatosAvanceReportedeObra() {
+        if(contratoVO.getConAvanceobra()!=null){
         aplicaAvancedeObra = contratoVO.getConAvanceobra() == 1 ? true : false;
         cargarPeriodo();
+        }
     }
 
     public void cargarPeriodo() {
