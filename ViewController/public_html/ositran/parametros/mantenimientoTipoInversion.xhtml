@@ -6,6 +6,7 @@
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
         <f:event listener="#{tipoInversionMB.validarSesion}" type="preRenderComponent"></f:event>
@@ -63,7 +64,7 @@
                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:10px;" id="tablaES" var="inversion1"
                                              value="#{tipoInversionMB.listaInversiones}">
                                  <p:column headerText="N°ro" style="width:2%">
@@ -106,8 +107,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
-                                                                                       AsisTP-2015</div>
+                        <div align="center" style="font-size: 10px;font-weight: bold;">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                     <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar"/>
                     <h:inputHidden value="#{tipoInversionMB.nombreAntiguo}" id="nombreAntiguo"/>
