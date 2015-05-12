@@ -500,7 +500,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Día mes no puede ser vacio"));
-        } else if (contratoVO.getConDiames()!=null && !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31))) {
+        } else if ((aplicaAvancedeObra && periodoseleccionado == 0)  && (contratoVO.getConDiames()!=null && !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Día mes debe ser un numero mayor a cero y menor a 31"));
