@@ -302,7 +302,7 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true" resizable="false" appendToBody="true" closable="true" width="1370" height="500">
+                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true" resizable="false" appendToBody="true" closable="true" width="1340" height="500">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
@@ -330,19 +330,19 @@
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Tipo de Infraestructura" style="width:7%">
+                                            <p:column headerText="Tipo de Infraestructura" style="width:10%">
                                                 <div style="text-align: center;">
                                                     <h:outputText value="#{contrato11.nombreTipoInfraestructura}" style="text-transform:uppercase;"/>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Concesión" style="width:10%">
+                                            <p:column headerText="Concesión" style="width:20%">
                                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
                                             </p:column>
-                                            <p:column headerText="Modalidad" style="width:35%">
+                                            <p:column headerText="Modalidad" style="width:10%">
                                                 <h:outputText value="#{contrato11.nombreModalidad}"/>
                                             </p:column>
-                                            <p:column headerText="Concesionario" style="width:35%">
-                                                <h:outputText value="#{contrato11.nombreConcesion}" style="text-transform:uppercase;"/>
+                                            <p:column headerText="Concesionario" style="width:10%">
+                                                <h:outputText value="#{contrato11.nombreConcesionario}" style="text-transform:uppercase;"/>
                                             </p:column>
                                             <p:column headerText="Ver Contrato" style="width:5%">
                                                 <div align="center">
@@ -1096,7 +1096,7 @@
                                                         <h:outputText value="#{tPpo.ppoId}"/>
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:10%">
-                                                        <h:outputText value="#{tPpo.ppoFecha}"/>
+                                                        <h:outputText value="#{tPpo.ppoFechaDescripcion}"/>
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:4%">
                                                         <h:outputText value="#{tPpo.ppoMonto}"/>
@@ -1216,8 +1216,10 @@
                                         <tr>
                                             <td align="left"><h:outputText value="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/></td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.nombreHito}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
-                                                 
+                                                 <p:selectOneMenu value="#{actualizarContratoMB.nombreHito}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                    <f:selectItem itemLabel="--Seleccione-" itemValue="0"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}" var="inf" itemLabel="#{inf.infNombre}" itemValue="#{inf.infId}"/>
+                                                </p:selectOneMenu>
                                                 <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                             </td>
                                         </tr>
@@ -1287,8 +1289,10 @@
                                         <tr>
                                             <td align="left"><h:outputText value="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/> </td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.contratoHitoVO.htoNombre}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"
-                                                rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
+                                                <p:selectOneMenu value="#{actualizarContratoMB.contratoHitoVO.htoNombre}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                    <f:selectItem itemLabel="--Seleccione-" itemValue="0"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}" var="inf" itemLabel="#{inf.infNombre}" itemValue="#{inf.infId}"/>
+                                                </p:selectOneMenu>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                             </td>
@@ -1377,7 +1381,11 @@
                                         <tr>
                                             <td align="left">Aeropuerto</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.nombrePpo}" style="width:300px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                              <p:selectOneMenu value="#{actualizarContratoMB.nombrePpo}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                    <f:selectItem itemLabel="--Seleccione-" itemValue="0"/>
+                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}" var="inf" itemLabel="#{inf.infNombre}" itemValue="#{inf.infId}"/>
+                                                </p:selectOneMenu>
+                                                
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif"/>
                                             </td>
@@ -1498,18 +1506,18 @@
                                                         <h:outputText value="#{tAlerta.caeNombre}"/>
                                                     </p:column>
                                                     <p:column headerText="Activar" style="width:4%">
-                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarActivarAlerta()}" oncomplete="popupActivarAlerta.show()" image="ui-icon-play" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formActivarAlerta" rendered="#{tAlerta.calEstado eq 2}">
-                                                            <f:param id="idContratoAlerta" name="idContratoAlerta" value="#{tAlerta.calId}"/>
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarActivarAlerta}" oncomplete="popupActivarAlerta.show()" image="ui-icon-play" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formActivarAlerta" rendered="#{tAlerta.calEstado eq 2}">
+                                                            <f:attribute  name="contratoAlertaA" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
                                                     <p:column headerText="Desactivar" style="width:5%">
-                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarDesactivarAlerta()}" oncomplete="popupDesactivarAlerta.show()" image="ui-icon-stop" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formDesactivarAlerta" rendered="#{tAlerta.calEstado eq 1}">
-                                                            <f:param id="idContratoAlertaD" name="idContratoAlertaD" value="#{tAlerta.calId}"/>
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarDesactivarAlerta}" oncomplete="popupDesactivarAlerta.show()" image="ui-icon-stop" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formDesactivarAlerta" rendered="#{tAlerta.calEstado eq 1}">
+                                                            <f:attribute  name="contratoAlertaD" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
                                                     <p:column headerText="Eliminar" style="width:4%">
-                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarAlerta()}" oncomplete="popupEliminarAlerta.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formEliminarAlerta">
-                                                            <f:param id="idContratoAlertaE" name="idContratoAlertaE" value="#{tAlerta.calId}"/>
+                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarAlerta}" oncomplete="popupEliminarAlerta.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formEliminarAlerta">
+                                                            <f:attribute  name="contratoAlertaE" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
                                                 </p:dataTable>
@@ -1565,12 +1573,14 @@
                                             <td align="left">Plazo</td>
                                             <td align="left">
                                                 <h:panelGrid columns="2" style="padding:0px !important;">
-                                                    <p:inputText id="plazoAlerta" style="width:90px;" value="#{actualizarContratoMB.plazoAlerta}" onkeypress="return validarNum(event);"/>
-                                                    <p:selectOneMenu value="#{actualizarContratoMB.unidadTiempo}">
+                                                    <p:inputText id="plazoAlerta" style="width:90px;" value="#{actualizarContratoMB.plazoAlerta}" onkeypress="return validarNum(event);">
+                                                    
+                                                    </p:inputText>
+                                                    <p:selectOneMenu id="cbounidad" value="#{actualizarContratoMB.unidadTiempo}">
                                                         <p:ajax listener="#{actualizarContratoMB.calcularFechaFin()}" process="@this plazoAlerta" update="aleCalFin"/>
                                                         <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
-                                                        <f:selectItem itemLabel="Mes(es)" itemValue="30"/>
-                                                        <f:selectItem itemLabel="Año(s)" itemValue="365"/>
+                                                        <f:selectItem itemLabel="MES(es)" itemValue="30"/>
+                                                        <f:selectItem itemLabel="AÑO(s)" itemValue="365"/>
                                                     </p:selectOneMenu>
                                                 </h:panelGrid>
                                             </td>
@@ -1583,7 +1593,7 @@
                                             <td align="left">Periodo</td>
                                             <td align="left">
                                                 <p:selectOneMenu id="periodoAlerta" value="#{actualizarContratoMB.periodoseleccionadoAlerta}" style="width:210px" >
-                                                    <p:ajax update="diamesAlerta"/>
+                                                    <p:ajax listener="#{actualizarContratoMB.refrescarDiaMesAlerta()}" update="diamesAlerta"/>
                                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="-1"/>
                                                     <f:selectItems value="#{actualizarContratoMB.listarPeriodos}" var="per" itemLabel="#{per.perNombre}" itemValue="#{per.perId}"/>
                                                 </p:selectOneMenu>
@@ -1593,7 +1603,7 @@
                                         <tr>
                                             <td align="left">Dia de Presentaci&#243;n</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0?null:actualizarContratoMB.conDiamesAlerta}" id="diamesAlerta" disabled="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0}" ></p:inputText>
+                                                <p:inputText value="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0?'':actualizarContratoMB.conDiamesAlerta}" id="diamesAlerta" disabled="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0}" ></p:inputText>
                                             </td>
                                         </tr>
                                          
@@ -1619,21 +1629,21 @@
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
-                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Activar la Alerta ????? :
+                                                <p:graphicImage url="../../images/obligatorio.gif"/>Desea Activar la Alerta ?
                                             </td>
                                             <td align="left">
-                                                <h:outputText value="#{actualizarContratoMB.nombreAlerta}" style="align:left; text-align:left"></h:outputText>
+                                                <h:outputText value="#{actualizarContratoMB.contratoAlertaVO.aleNombre}" style="align:left; text-align:left"></h:outputText>
                                             </td>
                                             <td align="left"></td>
                                         </tr>
                                     </table>
                                     <p:commandButton update=":tab:frmAlerta:tablaAlerta" oncomplete="popupActivarAlerta.hide()" actionListener="#{actualizarContratoMB.activarAlerta}" value="Activar">
-                                        <f:attribute value="#{actualizarContratoMB.codigoAlerta}" name="codigoAlerta"/>
+                                        <f:attribute value="#{actualizarContratoMB.contratoAlertaVO}" name="alerta"/>
                                     </p:commandButton>
                                 </h:form>
                             </p:dialog>
                             <p:dialog appendToBody="true" header="Desactivar Alerta" widgetVar="popupDesactivarAlerta" modal="true" style="text-align:center; font-size:11px;">
-                                <h:form id="formDesactivarAlerta" enctype="multipart/form-data">
+                                <h:form id="formDesactivarAlerta">
                                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                         <tr>
                                             <td align="left">
@@ -1646,7 +1656,7 @@
                                         </tr>
                                     </table>
                                     <p:commandButton update=":tab:frmAlerta:tablaAlerta" oncomplete="popupDesactivarAlerta.hide()" actionListener="#{actualizarContratoMB.desactivarAlerta}" value="Desactivar">
-                                        <f:attribute value="#{actualizarContratoMB.codigoAlerta}" name="codigoAlertaD"/>
+                                        <f:attribute name="codigoAlertaD" value="#{actualizarContratoMB.contratoAlertaVO}" />
                                     </p:commandButton>
                                 </h:form>
                             </p:dialog>
