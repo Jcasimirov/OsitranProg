@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ConcesionServiceImpl implements ConcesionService{
    
-    private ConcesionDAOImpl concesionDAOImpl;
+    private ConcesionDAOImpl concesionDAOImpl= new ConcesionDAOImpl();
     private ConcesionDAOImpl concesionDAOImpl1=new ConcesionDAOImpl();
 
     public void setConcesionDAOImpl(ConcesionDAOImpl concesionDAOImpl) {
@@ -85,6 +85,11 @@ public class ConcesionServiceImpl implements ConcesionService{
     public ConcesionVO get(Integer id) throws SQLException{
         System.out.println("llego al services");
         Concesion concesion=this.concesionDAOImpl.get(id);
+        System.out.println("DATOS DE LA CONCESION");
+        System.out.println(concesion.getCsiFechaAlta());
+        System.out.println(concesion.getCsiId());
+        
+        
         ConcesionVO concesionVO=toConcesionVO(concesion);
         return concesionVO;
     }
@@ -103,7 +108,7 @@ public class ConcesionServiceImpl implements ConcesionService{
     }
     private ConcesionVO toConcesionVO(Concesion concesion) throws SQLException{
         ConcesionVO concesionVO=new ConcesionVO();
-       
+        concesionVO.setCsiEstado(concesion.getCsiEstado());
          concesionVO.setCsiFechaAlta(concesion.getCsiFechaAlta());
         concesionVO.setCsiFechaBaja(concesion.getCsiFechaBaja());
         concesionVO.setCsiFechaCambio(concesion.getCsiFechaCambio());
