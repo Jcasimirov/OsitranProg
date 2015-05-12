@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface AsignarResponsableSupDAO {
-    public List<ContratoResSupDetalle> ListarDetalle(int codigoContrato, int compromiso, int codigoAeropuerto, int codigoInversion) throws SQLException;
+    public List<ContratoResSupDetalle> ListarDetalle(Integer codigoContrato, Integer compromiso, Integer codigoAeropuerto, Integer codigoInversion) throws SQLException;
     public ContratoRespSup insertCab(ContratoRespSup contratoRespSup) throws SQLException;
     public String insertDet(ContratoResSupDetalle contratoResSupDetalle) throws SQLException;
     public String updateDet(ContratoResSupDetalle contratoResSupDetalle) throws SQLException;
