@@ -6,6 +6,7 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
        
@@ -131,7 +132,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
