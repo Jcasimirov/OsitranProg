@@ -7,6 +7,7 @@
     <h:head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
         <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         <title>conf_reporte_avance_inver</title>
         <script type="text/javascript">
 		PrimeFaces.locales['es'] = {
@@ -48,23 +49,26 @@
                         CONFIGURACIÓN DE REPORTE DE AVANCE DE INVERSIÓN
                     </h3>
                     <h:form id="formulario_principal">
-                        <div style="width:80%">
-                            <p:dataTable id="reporteInversion" var="unidadReporteInversion" value="#{configReporteAvanceInversionMB.reporteInversion}" scrollable="true" scrollHeight="200" emptyMessage="No hay datos.">
+                            <p:dataTable id="reporteInversion" var="unidadReporteInversion" value="#{configReporteAvanceInversionMB.reporteInversion}"
+                                            rows="10" paginator="true" rowsPerPageTemplate="5,10,20" paginatorPosition="bottom"
+                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                            style="font-size:10px; width:850px" emptyMessage="NO SE ENCONTRARON DATOS" rowIndexVar="indice">
+                                <p:column headerText="Nro" style="width:30px;text-align: center">
+                                    <h:outputText value="#{indice+1}" style="text-align: right"/>
+                                </p:column>
                                 <p:column headerText="Concesión">
                                     <h:outputText value="#{unidadReporteInversion.concesionNombre}" />
                                 </p:column>
-                                <p:column headerText="Tipo de infraestructura">
+                                <p:column headerText="Tipo de infraestructura" style="width:140px">
                                     <h:outputText value="#{unidadReporteInversion.infraestructuraTipo}" />
                                 </p:column>
-                                <p:column headerText="Montos totales">
-                                    <p:selectOneMenu value="#{unidadReporteInversion.tipoMontoTotal}" style="width:125px">
+                                <p:column headerText="Montos totales" style="width:110px">
+                                    <p:selectOneMenu value="#{unidadReporteInversion.tipoMontoTotal}" style="width:100px">
                                         <f:selectItem itemLabel="Sin ajuste" itemValue="sinAjuste" />
                                         <f:selectItem itemLabel="Con reajuste" itemValue="conReajuste" />
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:dataTable>
-                            <p:message for="reporteInversion" showDetail="true" showSummary="true" display="both"/>
-                        </div>
                         
                         <table width="70%">
                         <tr>
@@ -73,22 +77,19 @@
                                     <tr>
                                         <td align="left" style="width:35%">
                                             <p:outputLabel for="numeroDocumento" value="Nro. Documento: " />
-                                            <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" validator="#{configReporteAvanceInversionMB.verificaDiferenteNroDocumento}"/>
-                                            <p:message for="numeroDocumento" showDetail="true" showSummary="true" display="both"/>
+                                            <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Nro. Documento&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteNroDocumento}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="left" style="width:35%">
                                             <p:outputLabel for="referencia" value="Referencia: " />
-                                            <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" validator="#{configReporteAvanceInversionMB.verificaDiferenteReferencia}"/>
-                                            <p:message for="referencia" showDetail="true" showSummary="true" display="both"/>
+                                            <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Referencia&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteReferencia}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="left" style="width:35%">
                                             <p:outputLabel for="fechaEmision" value="Fecha de Emisión: " />
-                                            <p:calendar id="fechaEmision" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiFechaEmision}" pattern="dd-MM-yyyy" navigator="true" locale="es" readonlyInput="false" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Campo obligarotio" converterMessage="Fecha no valida" validator="#{configReporteAvanceInversionMB.verificaDiferenteFechaEmision}"/>
-                                            <p:message for="fechaEmision" showDetail="true" showSummary="true" display="both"/>
+                                            <p:calendar id="fechaEmision" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiFechaEmision}" pattern="dd/MM/yyyy" navigator="true" locale="es" readonlyInput="false" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Fecha de Emisión&quot;." converterMessage="La &quot;Fecha de Emisión&quot; ingresada no es valida." validator="#{configReporteAvanceInversionMB.verificaDiferenteFechaEmision}"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -108,7 +109,7 @@
                 </div>
             </p:layoutUnit>
             <p:layoutUnit position="south" style="border:0px;width:98%" resizable="false" closable="false" collapsible="false">
-                        <div class="piePagina">Proyecto Ositran-Developer Por AsisTP-2015</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
             </p:layoutUnit>
         </p:layout>
     </h:body>
