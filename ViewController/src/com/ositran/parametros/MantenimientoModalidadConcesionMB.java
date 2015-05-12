@@ -158,17 +158,17 @@ public class MantenimientoModalidadConcesionMB {
     public void guardar() throws SQLException {
         if (nombremod.equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "No ha Ingresado el Nombre de la Modalidad de Concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (descripcionmod.equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "No ha Ingresado Descripción de la Modalidad de Concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (validarNombre(nombremod) > 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "El Nombre Ingresado ya existe");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
@@ -325,17 +325,17 @@ public class MantenimientoModalidadConcesionMB {
     public void Modificar() throws SQLException {
         if (nombremodAct.equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "No ha Ingresado el Nombre de la Modalidad de Concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (descripcionmodAct.equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "No ha Ingresado Descripción de la Modalidad de Concesión");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (validarNombreMod(nombremodAct,nommod) > 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                  "El Nombre Ingresado ya existe");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
