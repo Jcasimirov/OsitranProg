@@ -2421,7 +2421,7 @@ public class ActualizarContrato {
     }
 
     public void guardarHito() {
-        if (nombreHito.length()==0) {
+        if (nombreHito!=null && nombreHito.length()==0) {
             System.out.println("nombreHito: " + nombreHito);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2488,7 +2488,7 @@ public class ActualizarContrato {
 
 
     public void actualizarHito() {
-        if (contratoHitoVO.getHtoNombre().length()==0) {
+        if (contratoHitoVO.getHtoNombre()!=null && contratoHitoVO.getHtoNombre().length()==0) {
              FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Aeropuerto"));
