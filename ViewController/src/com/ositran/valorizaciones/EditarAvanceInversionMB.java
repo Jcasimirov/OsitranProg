@@ -518,6 +518,7 @@ public class EditarAvanceInversionMB {
 
                 ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
                     new ValorizacionInversionAvanceDetalleVO();
+                valorizacionInversionAvanceDetalleVO1.setInvId(codigoInversion);
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
                 valorizacionInversionAvanceDetalleVO1.setCsiId(codigoConcesion);
                 valorizacionInversionAvanceDetalleVO1.setInfId(codigoInfraestructura);
