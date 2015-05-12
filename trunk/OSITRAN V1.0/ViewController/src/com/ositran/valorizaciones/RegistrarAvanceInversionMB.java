@@ -438,6 +438,7 @@ public class RegistrarAvanceInversionMB {
                 ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 = new ValorizacionInversionAvanceDetalleVO();
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
                 infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
+                valorizacionInversionAvanceDetalleVO1.setInvId(codigoInversion);
                 valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());
                 valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
                 inversionDescripcionVO = inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
@@ -518,7 +519,7 @@ public class RegistrarAvanceInversionMB {
         }
     public void guardar() {
         try {
-            obtenerSupervisorInversiones();
+            obtenerSupervisorInversiones(); // para registrar el alrma
             valorizacionInversionAvanceVO.setConId(codigoContrato);
             valorizacionInversionAvanceVO.setInvId(codigoInversion);
             valorizacionInversionAvanceVO.setCsiId(codigoConcesion);
