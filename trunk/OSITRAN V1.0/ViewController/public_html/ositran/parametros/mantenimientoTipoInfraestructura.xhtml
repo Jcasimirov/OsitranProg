@@ -5,6 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
             <style type="text/css">
                 .ui-dialog-titlebar {
                     font-size: 13px;
@@ -131,7 +132,7 @@
                     <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar"/>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <!-- pdialog para boton eliminar -->
