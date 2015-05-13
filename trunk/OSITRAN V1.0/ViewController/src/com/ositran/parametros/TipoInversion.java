@@ -2,8 +2,11 @@ package com.ositran.parametros;
 
 import com.ositran.service.TipoInversionServices;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
+import com.ositran.vo.bean.UsuarioVO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -36,10 +39,13 @@ public class TipoInversion {
     @ManagedProperty(value = "#{tipoInversionServicesImpl}")
     TipoInversionServices tipoInversionServicesImpl;
 
+    UsuarioVO usuario=new UsuarioVO();
+
     public  final int formulario=1;
     private RolOpcionesVO rolOpcion;
     public void validarSesion() throws IOException{
             rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+            usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         }
     
     public void guardar() {
@@ -64,7 +70,8 @@ public class TipoInversion {
                 tipoInversionVO.setTivDescripcion(descripcion);
                 tipoInversionVO.setTivEstado(1);
                 tipoInversionVO.setTivFechaAlta(new Date());
-                tipoInversionVO.setTivUsuarioAlta("Abel Huarca");
+                tipoInversionVO.setTivUsuarioAlta(usuario.getUsuAlias());
+                tipoInversionVO.setTivTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 getTipoInversionServicesImpl().insert(tipoInversionVO);
                 limpiarcamposInsertar();
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
@@ -154,7 +161,8 @@ public class TipoInversion {
                 tipoInversionVO.setTivNombre(nombreE);
                 tipoInversionVO.setTivDescripcion(descripcionE);
                 tipoInversionVO.setTivFechaCambio(new Date());
-                tipoInversionVO.setTivUsuarioCambio("Editor");
+                tipoInversionVO.setTivUsuarioCambio(usuario.getUsuAlias());
+                tipoInversionVO.setTivTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 getTipoInversionServicesImpl().update(tipoInversionVO);
                 ListarInversiones();
                 RequestContext.getCurrentInstance().execute("editarPanel.hide()");
@@ -179,13 +187,15 @@ public class TipoInversion {
            Object str=requestMap.get("idEliminar");
            Integer idcodigo=Integer.valueOf(str.toString());
            tipoInversionVO=tipoInversionServicesImpl.get(idcodigo);
+           tipoInversionVO.setTivEstado(0);
+           tipoInversionVO.setTivUsuarioCambio(usuario.getUsuAlias());
+            tipoInversionVO.setTivTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+            tipoInversionVO.setTivFechaCambio(new Date());
            nombreEliminar = tipoInversionVO.getTivNombre();
            codigoEliminar = tipoInversionVO.getTivId();
        } catch (Exception e) {
-            
             e.printStackTrace();
-        }
-        
+        } 
     }
 
     public void busqueda() {
@@ -220,7 +230,7 @@ public class TipoInversion {
 
     public void eliminar() {
         try {
-            getTipoInversionServicesImpl().delete(codigoEliminar);
+            tipoInversionServicesImpl.update(tipoInversionVO);
             ListarInversiones();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
@@ -228,13 +238,11 @@ public class TipoInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo registrar el tipo de inversion "));
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           " No se pudo registrar el tipo de inversion "));
         }
-
     }
 
     public void limpiarcamposInsertar() {
