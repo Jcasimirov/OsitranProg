@@ -106,6 +106,7 @@ public class ContratoPenalidadServiceImpl implements ContratoPenalidadService {
         contratoPenalidad.setTcpUsuarioCambio(contratoPenalidadVO.getTcpUsuarioCambio());
         contratoPenalidad.setTcpFechaBaja(contratoPenalidadVO.getTcpFechaBaja());
         contratoPenalidad.setTcpUsuarioBaja(contratoPenalidadVO.getTcpUsuarioBaja());
+        contratoPenalidad.setTcpTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoPenalidad;
         
     }
