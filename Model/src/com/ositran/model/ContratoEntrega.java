@@ -66,7 +66,8 @@ public class ContratoEntrega implements Serializable {
     private Date cenFechaCambio;
     @Column(name = "CEN_USUARIO_CAMBIO", length = 20)
     private String cenUsuarioCambio;
-    
+    @Column(name = "CEN_TERMINAL", length = 20)
+    private String cenTerminal;    
     public ContratoEntrega(String cenDescripcion, String cenDocumentoFisico, Date cenFecha, Integer cenId,
                            Long cenMonto, Integer conId, Integer monId, Integer cenEstado, String cenNombre) {
         this.cenDescripcion = cenDescripcion;
@@ -198,5 +199,13 @@ public class ContratoEntrega implements Serializable {
 
     public String getCenUsuarioCambio() {
         return cenUsuarioCambio;
+    }
+
+    public void setCenTerminal(String cenTerminal) {
+        this.cenTerminal = cenTerminal;
+    }
+
+    public String getCenTerminal() {
+        return cenTerminal;
     }
 }
