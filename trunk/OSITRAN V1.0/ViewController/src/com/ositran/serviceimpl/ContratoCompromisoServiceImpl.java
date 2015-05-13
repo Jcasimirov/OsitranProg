@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoCompromisoDAOImpl;
 import com.ositran.model.ContratoCompromiso;
 import com.ositran.service.ContratoCompromisoService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 
 import java.sql.SQLException;
@@ -134,6 +135,7 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         contratoCompromiso1.setCcoUsuarioCambio(contratoCompromisoVO1.getCcoUsuarioCambio());
         contratoCompromiso1.setCcoFechaBaja(contratoCompromisoVO1.getCcoFechaBaja());
         contratoCompromiso1.setCcoUsuarioBaja(contratoCompromisoVO1.getCcoUsuarioBaja());
+        contratoCompromiso1.setCcoTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoCompromiso1;
         
     }
