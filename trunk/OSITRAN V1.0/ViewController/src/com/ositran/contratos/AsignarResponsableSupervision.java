@@ -907,7 +907,7 @@ private int codigoInversion;
                          System.out.println(e);
                      }
                 for(int i=0; i<listaDetalleAsignacion.size();i++){
-                    if(listaDetalleAsignacion.get(i).getTipoSup() == 1 && listaDetalleAsignacion.get(i).getCodigoSup() == supervisor.getTsiId()){
+                    if(listaDetalleAsignacion.get(i).getTipoSup() == 1 && listaDetalleAsignacion.get(i).getCodigoSup() == supervisor.getTsiId() && listaDetalleAsignacion.get(i).getRsdEstado() == 1){
                         validaReg = 1;
                     }
                 }
