@@ -229,7 +229,10 @@
                                                         <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px">
-                                                                         <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}" update="form"/>
+                                                                         <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}" update=":form:tablaReconocimiento 
+                                                                                                                                                      :form:tablaReajuste
+                                                                                                                                                      :form:resumenMonPre
+                                                                                                                                                      :form:resumenMonRea"/>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
