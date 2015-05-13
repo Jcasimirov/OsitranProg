@@ -103,6 +103,8 @@ public class ContratoCaoServiceImpl implements ContratoCaoService {
         contratoCao.setCaoUsuarioCambio(contratoCaoVO.getCaoUsuarioCambio());
         contratoCao.setCaoFechaBaja(contratoCaoVO.getCaoFechaBaja());
         contratoCao.setCaoUsuarioBaja(contratoCaoVO.getCaoUsuarioBaja());
+        contratoCao.setCaoTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+        
         return contratoCao;
         
     }
