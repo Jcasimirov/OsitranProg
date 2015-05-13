@@ -60,7 +60,7 @@
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="6,8,10" rows="10" 
                                              style="font-size:10px;" id="tabla" var="inversionDes"
-                                             value="#{descripcionInversionMB.listaInversionDescripcion}">
+                                             value="#{descripcionInversionMB.listaInversionDescripcion}" emptyMessage="NO SE ENCONTRARON DATOS">
                                      <p:column headerText="N°ro" style="width:2%">
                                         <h:outputText value="#{inversionDes.contador}"/>
                                     </p:column>
