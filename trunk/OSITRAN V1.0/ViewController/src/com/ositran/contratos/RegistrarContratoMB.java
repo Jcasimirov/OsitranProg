@@ -8,6 +8,8 @@ import com.ositran.serviceimpl.DatosStdServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
+import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ConcesionarioVO;
@@ -51,76 +53,50 @@ public class RegistrarContratoMB {
     
     //-----------------SESSION-----------------------//
     public  final int formulario=1;
-    private  HttpServletRequest httpServletRequest=null;
-    private  FacesContext faceContext=null;
-     private   int leerSesion;
-    private   int ingresarSesion;
-    private  int eliminarSesion;
-    private   int actualizarSesion;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
-    private String parametroValidacion;
-    
-    
-    public void validarSesion() throws IOException{
-        
-        try {
-           faceContext=FacesContext.getCurrentInstance();
-           httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-           HttpSession session = httpServletRequest.getSession();
-           listaUsuarios=(List<UsuarioVO>)session.getAttribute("listaUsuario");
-           listaRolOpciones=(List<RolOpcionesVO>)session.getAttribute("listaPermisos");
-          
-            for (RolOpcionesVO rolO:listaRolOpciones){
-                if (rolO.getMenId()==formulario){
-                    parametroValidacion="true";
-                    }
-                }
-           
-            if (!"true".equals(parametroValidacion)) {
-                    
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    ExternalContext externalContext = context.getExternalContext();
-                    ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-                    faceContext=FacesContext.getCurrentInstance();
-                    httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-                     String redirectPath = "/faces/ositran/logueo.xhtml";
-                     externalContext.redirect(servletContext.getContextPath() + redirectPath);
-                }
-            else {
-                
-                for (RolOpcionesVO rolOpcion:listaRolOpciones){
-                    if (rolOpcion.getMenId()==formulario){
-                        leerSesion=rolOpcion.getTroConsultar();
-                        ingresarSesion=rolOpcion.getTroAgregar();
-                        actualizarSesion=rolOpcion.getTroModificar();
-                        eliminarSesion=rolOpcion.getTroEliminar();
+    private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    private String ipcliente;
 
-                        }
-                    }
-                
-                
-                }
-          
-           
-       } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-            faceContext=FacesContext.getCurrentInstance();
-            httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-             String redirectPath = "/faces/ositran/logueo.xhtml";
-             externalContext.redirect(servletContext.getContextPath() + redirectPath);
-        }
-            
-            
-        
-        
-        
-        
-        }
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
+        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
+    }
     //---------------------------------------------//
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+    public void setIpcliente(String ipcliente) {
+        this.ipcliente = ipcliente;
+    }
+
+    public String getIpcliente() {
+        return ipcliente;
+    }
 
     private HtmlForm form;
     Util util = new Util();
@@ -646,7 +622,7 @@ public class RegistrarContratoMB {
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else{
         try{
-            contratoVO.setConTerminal(util.obtenerIpCliente());
+            contratoVO.setConTerminal(ipcliente);
             contratoVO.setConFechaAlta(util.getObtenerFechaHoy());
             contratoVO.setMcoId(modalidad);
             contratoVO.setTinId(tipoinfra);
