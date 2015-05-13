@@ -551,7 +551,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docAdenda" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText id="docAdenda" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaAdendaVO.inputStreamNuevaAdenda}" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDocumentoFisico}"/>
+                                        <p:inputText id="docAdenda" style="width:100% !important;" onblur="if (this.value != '') this.value='';" readonly="#{not empty actualizarContratoMB.contratoNuevaAdendaVO.inputStreamNuevaAdenda}" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDocumentoFisico}"/>
                                         <p:message id="filemess" for="docAdenda" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload id="adenda" style="width:100% !important;" fileUploadListener="#{actualizarContratoMB.subirAdenda}" auto="true" update="docAdenda" showButtons="false" label="Adjuntar" dragDropSupport="false"></p:fileUpload>
@@ -592,7 +592,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docEntrega" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText id="docEntrega" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaEntregaVO.inputStreamNuevaEntrega}" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
+                                        <p:inputText id="docEntrega" style="width:100% !important;" onblur="if (this.value != '') this.value='';" readonly="#{not empty actualizarContratoMB.contratoNuevaEntregaVO.inputStreamNuevaEntrega}" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
                                         <p:message for="docEntrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoEntrega}" update="docEntrega" label="Adjuntar" auto="true"/>
@@ -961,7 +961,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docPenalidad" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText id="docPenalidad" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
+                                        <p:inputText id="docPenalidad" style="width:100% !important;" onblur="if (this.value != '') this.value='';" readonly="#{not empty actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}" update="docPenalidad" label="Adjuntar" auto="true"/>
                                         
