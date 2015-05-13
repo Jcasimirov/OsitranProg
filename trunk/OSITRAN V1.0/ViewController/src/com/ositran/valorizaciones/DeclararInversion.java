@@ -207,7 +207,7 @@ public class DeclararInversion {
 
     public DeclararInversion() {
         super();
-
+     
     }
 
 
@@ -220,6 +220,7 @@ public class DeclararInversion {
         } else {
             setCantFilas(4);
         }
+        invVO.setInvEstadoReconocimiento(-1);
     }
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos() {
