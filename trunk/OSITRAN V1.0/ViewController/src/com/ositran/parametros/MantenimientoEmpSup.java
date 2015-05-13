@@ -353,43 +353,43 @@ public class MantenimientoEmpSup {
     public void guardar() throws SQLException{
         if (nomEmpSup.trim().equals("")) {
             FacesMessage mensaje =
-                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (dirEmpSup.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (repLegal.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!correo.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Correo de la Empresa Supervisora Invalido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (siglasNom.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (validarNombre(nomEmpSup.trim())>0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!telefono.trim().equals("") && !telefono.matches("[0-9]*")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Teléfono Inválido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Teléfono Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (telefono.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Teléfono");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Teléfono");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento>0 && !nroDoc.matches("[0-9]*") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento == 0 && !nroDoc.trim().equals("") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Seleccione Tipo de Documento");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento==1 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 8 ||nroDoc.trim().length() < 8)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento debe tener 8 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 11 ||nroDoc.trim().length() < 11)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento debe tener 11 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (nroDoc.trim().length() >0 && validarRuc(nroDoc.trim(),tipoDocumento) > 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "El Nro de Documento Ingresado, ya fue registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
         
@@ -620,43 +620,43 @@ public class MantenimientoEmpSup {
     public void Modificar() throws SQLException{
         if (nomEmpSupMod.trim().equals("")) {
             FacesMessage mensaje =
-                            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado el Nombre de la Empresa Supervisora");
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado el Nombre de la Empresa Supervisora");
                         FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (dirEmpSupMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado la Dirección de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado la Dirección de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (repLegalMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado al Representante Legal de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!correoMod.matches("^[a-zA-Z0-9_\\-\\.~]{2,}@[a-zA-Z0-9_\\-\\.~]{2,}\\.[a-zA-Z]{2,4}$")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo de la Empresa Supervisora Invalido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Correo de la Empresa Supervisora Invalido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (siglasNomMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (validarNombreMod(nomEmpSupMod.trim(),nommod.trim())>0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nombre de Empresa Supervisora ya Registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Telefono Inválido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Telefono Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (telefonoMod.trim().equals("")) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Teléfono");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Teléfono");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod>0 && !nroDocMod.matches("[0-9]*") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento Inválido");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento Inválido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod == 0 && !nroDocMod.trim().equals("") ) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione Tipo de Documento");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Seleccione Tipo de Documento");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod==1 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 8 ||nroDocMod.trim().length() < 8)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 8 caracteres");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento debe tener 8 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (tipoDocumentoMod==2 && nroDocMod.matches("[0-9]*") && (nroDocMod.trim().length() > 11 ||nroDocMod.trim().length() < 11)) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nro de Documento debe tener 11 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (validarRucMod(nroDocMod.trim(),nroRuc,tipoDocumentoMod) > 0) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "El Nro de Documento Ingresado, ya fue registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
         else{
