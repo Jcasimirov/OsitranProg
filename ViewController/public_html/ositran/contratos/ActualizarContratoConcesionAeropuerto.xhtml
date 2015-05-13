@@ -183,7 +183,7 @@
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
                                                                     <td align="left">
-                                                                        <p:inputText value="#{actualizarContratoMB.periodoseleccionado ne 0?null:actualizarContratoMB.contratoVO.conDiames}" id="diames" style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}"></p:inputText>
+                                                                        <p:inputText value="#{actualizarContratoMB.periodoseleccionado ne 0?null:actualizarContratoMB.contratoVO.conDiames}" id="diames" style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}" onkeypress="return validarNum(event);"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -393,13 +393,13 @@
                                     <p:fileUpload id="file1" fileUploadListener="#{actualizarContratoMB.subirContratoPDF}" 
                                     update=":tab:form:conPdfcontrato" auto="true" showButtons="false" mode="advanced" 
                                     oncomplete="dlgPDFContrato.hide();"
-                                    label="Elegir"></p:fileUpload>
+                                    label="Adjuntar"></p:fileUpload>
                                 </h:form>
                             </p:dialog>
                             <p:dialog widgetVar="dlgFichaResumen" appendToBody="true" modal="true" header="Subir Ficha Resumen" position="center">
                                 <h:form id="formfichaResumen" enctype="multipart/form-data">
                                     <p:fileUpload id="file2" fileUploadListener="#{actualizarContratoMB.subirFichaResumen}" mode="advanced" update=":tab:form:conFicharesumen" 
-                                    auto="true" showButtons="false" oncomplete="dlgFichaResumen.hide();" label="Elegir"/>
+                                    auto="true" showButtons="false" oncomplete="dlgFichaResumen.hide();" label="Adjuntar"/>
                                 </h:form>
                             </p:dialog>
                         </p:tab>
