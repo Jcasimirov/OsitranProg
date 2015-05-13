@@ -52,7 +52,7 @@ import javax.servlet.http.HttpSession;
 public class RegistrarContratoMB {
     
     //-----------------SESSION-----------------------//
-    public  final int formulario=1;
+    public  final int formulario=26;
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
