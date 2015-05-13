@@ -1165,7 +1165,11 @@ public class DeclararInversion {
     public BigDecimal getTotalMontoReajustado() {
         return totalMontoReajustado;
     }
-
+    public void prepararMontosObservados(){
+    invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);  
+    invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);  
+    invVO.setInvIgv(0);
+    }
     public void guardarDeclaracion() {
 
         if (invVO.getInvEstadoReconocimiento() == 0) {
@@ -1231,6 +1235,8 @@ public class DeclararInversion {
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 }
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId());
+                invAvnVO.setTiaMontoTotalAprobado(totalivrMontoAprobadoI);  
+                invAvnVO.setTiaMontoTotalReajustado(totalirjMontoReajusteI); 
                 invServiceImpl.insertDeclaracion(invAvnVO,invVO, listaInvReconocimientoVO, listaInvReajusteVO);
                
                 FacesContext.getCurrentInstance().addMessage(null,
