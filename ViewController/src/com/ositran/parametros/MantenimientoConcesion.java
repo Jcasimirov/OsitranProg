@@ -3,11 +3,14 @@ import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.UsuarioVO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -81,10 +84,13 @@ public class MantenimientoConcesion {
 
     @ManagedProperty(value = "#{infraestructuraVO}")
     InfraestructuraVO infraestructuraVO;
+    UsuarioVO usuario=new UsuarioVO();
 
     public void validarSesion() throws IOException{
       rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
     }
+    
 
     public void guardar() {
 
@@ -102,6 +108,7 @@ public class MantenimientoConcesion {
                 concesionVO.setTinId(codigoTipoInfraestructuraInsert);
                 concesionVO.setCsiNombre(nombre);
                 concesionVO.setCsiEstado(1);
+                concesionVO.setCsiUsuarioAlta(usuario.getUsuAlias());
                 concesionVO.setCsiFechaAlta(util.getObtenerFechaHoy());
                 concesionVO.setCsiUsuarioAlta(util.obtenerIpCliente());
                 codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
@@ -300,6 +307,9 @@ public class MantenimientoConcesion {
             infraestructuraVO.setInfEstado(0);
             infraestructuraVO.setInfNombre(nombreInfraestructura);
             infraestructuraVO.setInfId(codigoInfraestructura);
+            infraestructuraVO.setInfUsuarioBaja(usuario.getUsuAlias());
+            infraestructuraVO.setInfFechaBaja(new Date());
+            infraestructuraVO.setInfTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
             infraestructuraServiceImpl.update(infraestructuraVO);
 
             listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
@@ -384,7 +394,7 @@ public class MantenimientoConcesion {
         concesionVO.setCsiNombre(nombreE);
         concesionVO.setTinId(codigoTipoInfraestructura);
         concesionVO.setCsiFechaCambio(util.getObtenerFechaHoy());
-        concesionVO.setCsiUsuarioCambio("charles");
+        concesionVO.setCsiUsuarioCambio(usuario.getUsuAlias());
         concesionVO.setCsiTerminal(util.obtenerIpCliente());
         getConcesionServicesImpl().update(concesionVO);
 
