@@ -122,4 +122,8 @@ public class Reutilizar {
     public BigDecimal redondearBigDecimal(BigDecimal d) {
       return d.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
+    public String obtenerIpCliente(){
+        String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr(); 
+        return remoteAddr;
+    }
 }
