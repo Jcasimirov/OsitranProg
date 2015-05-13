@@ -229,7 +229,7 @@
                                                         <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px">
-                                                                         <p:ajax update="form"/>
+                                                                         <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}" update="form"/>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
@@ -373,14 +373,14 @@
                                                         <td>Monto Total Aprobado</td>
                                                         <td>
                                                             <p:inputText value="#{declararInversionMB.totalivrMontoAprobadoI}"
-                                                                         size="10" readonly="true"
+                                                                         size="10" readonly="true" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"
                                                                          id="resumenMonPre" 
                                                                          style="text-align:right"></p:inputText>
                                                         </td>
                                                         <td>Monto Total con Reajuste</td>
                                                         <td>
                                                             <p:inputText value="#{declararInversionMB.totalirjMontoReajusteI}"
-                                                                         size="10" readonly="true"
+                                                                         size="10" readonly="true" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"
                                                                          id="resumenMonRea"
                                                                          style="text-align:right"></p:inputText>
                                                         </td>
