@@ -61,25 +61,6 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
             result = e.getMessage();
         }
         return result;
-
-    }
-
-    @Override
-    public String delete(Integer id) throws SQLException, Exception {
-        String result = null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        try {
-            session.beginTransaction();
-            InversionTipo inversionTipo = (InversionTipo) session.get(InversionTipo.class, id);
-            inversionTipo.setTivFechaBaja(new Date());
-            inversionTipo.setTivEstado(0);
-            session.update(inversionTipo);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            result = e.getMessage();
-        }
-        return result;
     }
 
     @Override
