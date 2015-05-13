@@ -108,6 +108,8 @@ public class ContratoAdendaServiceImpl implements ContratoAdendaService {
         contratoAdenda.setCadUsuarioCambio(contratoAdendaVO.getCadUsuarioCambio());
         contratoAdenda.setCadFechaBaja(contratoAdendaVO.getCadFechaBaja());
         contratoAdenda.setCadUsuarioBaja(contratoAdendaVO.getCadUsuarioBaja());
+        contratoAdenda.setCadTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+        
         return contratoAdenda;
         
     }
