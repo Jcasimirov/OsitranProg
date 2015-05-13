@@ -4,6 +4,7 @@ import com.ositran.service.InversionDescripcionServices;
 import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.TipoInversionServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
@@ -58,16 +59,13 @@ public class DescripcionTipoInversion {
     private String descripcionE;
     //--------EDITAR-------------//
     int cantidad;
-    
+    UsuarioVO usuario=new UsuarioVO();
     public  final int formulario=21;
     private RolOpcionesVO rolOpcion;
     public void validarSesion() throws IOException{
             rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+            usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         }
-    
-  
-    
-    
     @ManagedProperty(value = "#{inversionDescripcionVO}")
     InversionDescripcionVO inversionDescripcionVO;
 
@@ -78,10 +76,7 @@ public class DescripcionTipoInversion {
     TipoInversionServices tipoInversionServicesImpl;
 
     public void guardar() {
-       
         cantidad=validarNombre(nombre);
-        
-        
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
@@ -106,7 +101,8 @@ public class DescripcionTipoInversion {
                 inversionDescripcionVO.setItdDescripcion(descripcion);
                 inversionDescripcionVO.setItdEstado(1);
                 inversionDescripcionVO.setItdFechaAlta(new Date());
-                inversionDescripcionVO.setItdUsuarioAlta("Abel Huarca");
+                inversionDescripcionVO.setItdUsuarioAlta(usuario.getUsuAlias());
+                inversionDescripcionVO.setItdTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 inversionDescripcionServicesImpl.insert(inversionDescripcionVO);
                 cargarListaInversionDescripcion();
                 limpiarCampos();
@@ -145,13 +141,16 @@ public class DescripcionTipoInversion {
                                                                           "Error",
                                                                                 " Problemas al intentar Eliminar "));
         }
-      
     }
 
     public void eliminar() {
         try {
-            getInversionDescripcionServicesImpl().delete(codigoInversionDescripcion);
-            cargarListaInversionDescripcion();
+            inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
+            inversionDescripcionVO.setItdFechaBaja(new Date());
+            inversionDescripcionVO.setItdUsuarioBaja(usuario.getUsuAlias());
+            inversionDescripcionVO.setItdEstado(0);
+            inversionDescripcionServicesImpl.update(inversionDescripcionVO);
+            busqueda();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } catch (SQLException s) {
@@ -264,7 +263,8 @@ public class DescripcionTipoInversion {
             inversionDescripcionVO.setItdId(codigoInversionE);
             inversionDescripcionVO.setItdNombre(nombreE);
             inversionDescripcionVO.setItdDescripcion(descripcionE);
-            inversionDescripcionVO.setItdUsuarioCambio("Abel Huarca");
+            inversionDescripcionVO.setItdUsuarioCambio(usuario.getUsuAlias());
+            inversionDescripcionVO.setItdTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
             inversionDescripcionVO.setItdFechaCambio(new Date());
             getInversionDescripcionServicesImpl().update(inversionDescripcionVO);
             cargarListaInversionDescripcion();
