@@ -19,20 +19,19 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     }
     @Override
     public List<ContratoResSupDetalle> ListarDetalle(Integer codigoContrato, Integer compromiso, Integer codigoAeropuerto, Integer codigoInversion) throws SQLException{
-        System.out.println("codigo del contrato es "+ codigoContrato + "   codigo de etapa = "+compromiso);
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
         if((codigoAeropuerto != null && codigoAeropuerto != 0) && (codigoInversion!=null && codigoInversion == 0)){
-                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto");
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado > 0 and c.infId = :aeropuerto");
                 query.setParameter("aeropuerto",codigoAeropuerto);  
             
         }else if(codigoAeropuerto != null && codigoAeropuerto != 0  && codigoInversion !=null && codigoInversion != 0){
-                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado = 1 and c.infId = :aeropuerto and c.invId = :inversion");
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado > 0 and c.infId = :aeropuerto and c.invId = :inversion");
                 query.setParameter("aeropuerto",codigoAeropuerto);  
                 query.setParameter("inversion",codigoInversion); 
         }else {
-                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado =1");                
+                query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado > 0 ");                
         }    
         query.setParameter("contrato",codigoContrato);
         query.setParameter("etapa",compromiso);
