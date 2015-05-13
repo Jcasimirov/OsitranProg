@@ -3,9 +3,12 @@ package com.ositran.daoimpl;
 import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
+
 import java.util.Date;
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -20,7 +23,13 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
         session.getTransaction().commit();
         return list;
     }
-    
+    public List<InversionTipoDescripcion> queryAllIdtEstado()  throws SQLException ,Exception{
+        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        session.beginTransaction();
+        List list=session.createQuery("from InversionTipoDescripcion E ").list();
+        session.getTransaction().commit();
+        return list;
+    }   
     @Override
     public int getCanNombres(String filtro) throws SQLException, Exception {
         int cantidad=0;

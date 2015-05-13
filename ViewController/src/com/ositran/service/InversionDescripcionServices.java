@@ -15,5 +15,5 @@ public interface InversionDescripcionServices {
     public InversionDescripcionVO get(Integer id) throws SQLException ,Exception;
     public List<InversionDescripcionVO> query1(String buscar) throws SQLException ,Exception;
     public int getCanNombres(String nombre)  throws SQLException ,Exception;
-
+    public List<InversionDescripcionVO> queryAllIdtEstado()  throws SQLException ,Exception;
 }

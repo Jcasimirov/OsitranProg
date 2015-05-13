@@ -1,11 +1,13 @@
 package com.ositran.serviceimpl;
+
 import com.ositran.dao.InversionDescripcionDAO;
 import com.ositran.model.InversionTipoDescripcion;
 import com.ositran.service.InversionDescripcionServices;
 import com.ositran.vo.bean.InversionDescripcionVO;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InversionDescripcionServicesImpl implements InversionDescripcionServices {
@@ -24,6 +26,11 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
     @Override
     public List<InversionDescripcionVO> query()  throws SQLException ,Exception{
         List<InversionTipoDescripcion> list=inversionDescripcionDAOimpl.query();
+        List<InversionDescripcionVO> listVO=toListInversionDescripcionVO(list);
+        return listVO;
+    }
+    public List<InversionDescripcionVO> queryAllIdtEstado()  throws SQLException ,Exception{
+        List<InversionTipoDescripcion> list=inversionDescripcionDAOimpl.queryAllIdtEstado();
         List<InversionDescripcionVO> listVO=toListInversionDescripcionVO(list);
         return listVO;
     }
