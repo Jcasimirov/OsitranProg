@@ -5,45 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <style type="text/css">
-                .ui-dialog-titlebar {
-                    font-size: 13px;
-                    font-family: sans-serif;
-                }
-
-                .pnlEdicion tr {
-                    font-size: 11px;
-                    border: none !important;
-                    font-weight: bold;
-                    margin: 3px !important;
-                }
-
-                .pnlEdicion td {
-                    border: none !important;
-                    margin: 5px !important;
-                }
-
-                .etiquetas {
-                    text-align: left !important;
-                    width: 50px !important;
-                }
-
-                .cajas {
-                    float: left !important;
-                    width: 250px !important;
-                    margin: 10px !important;
-                }
-
-                .validadores {
-                    float: left !important;
-                    width: 10px !important;
-                    margin: 10px !important;
-                }
-
-                .nomarchivo {
-                    float: left !important;
-                }
-            </style>
+          
             <script type="text/javascript">
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
@@ -126,7 +88,7 @@
               
                         <div align="center">
                             <div align="center">
-                                <h4 style="color: #003194;">DECLARAR INVERSION</h4>
+                                <h5 >DECLARAR INVERSION</h5>
                             </div>
                             <table style="font-size: 11px;">
                                 <tr>
@@ -243,7 +205,7 @@
                                                         <h:outputText value="#{tInversion.tiaNumero}"/>
                                                     </p:column>
                                                     <p:column headerText="Fcha de Reg." style="width:16%">
-                                                        <h:outputText value="#{tInversion.tiaFechaRegistro}"/>
+                                                        <h:outputText value="#{tInversion.tiaFechaRegistroDescripcion}"/>
                                                     </p:column>
                                                     <p:column headerText="Moneda" style="width:16%">
                                                         <h:outputText value="#{tInversion.nombreMoneda}"/>
@@ -267,6 +229,7 @@
                                                         <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px">
+                                                                         <p:ajax update="form" />
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
@@ -323,7 +286,7 @@
 
                                                     </p:column>
                                                      <p:column style="width:32px">
-                                                        <p:commandButton icon="ui-icon-pencil" actionListener="#{declararInversionMB.editarReconocimiento}" update=":frmEditarMontoRec" oncomplete="_dlgEditarReconocimiento.show();">
+                                                        <p:commandButton icon="ui-icon-pencil" actionListener="#{declararInversionMB.editarReconocimiento}" update=":frmEditarMontoRec" oncomplete="_dlgEditarReconocimiento.show();" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                         <f:attribute name="reconocimiento" value="#{tReconocimiento}" />
                                                         </p:commandButton>
                                                     </p:column>
@@ -383,7 +346,7 @@
                                                         <p:commandButton icon="ui-icon-pencil" rendered="#{tReajuste.irjMontoAprobado ne null}"
                                                         actionListener="#{declararInversionMB.editarReajuste}" 
                                                         update=":frmEditarMontoRea" 
-                                                        oncomplete="_dlgEditarReajuste.show();">
+                                                        oncomplete="_dlgEditarReajuste.show();" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                         <f:attribute name="reajuste" value="#{tReajuste}" />
                                                         </p:commandButton>
 
@@ -423,16 +386,16 @@
                                                         </td>
                                                         <td>Montos con IGV? </td>
                                                                             <td>
-                                                                                <p:selectBooleanCheckbox value="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.deshabilitadoxObservado}">
+                                                                                <p:selectBooleanCheckbox value="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}" update=":form:datosResumen"/>
                                                                                 </p:selectBooleanCheckbox>                                                                              
                                                                             </td>
                                                                              <td><h:outputText value="IGV" rendered="#{declararInversionMB.renderMostrarIGV}"/></td>
                                                                             <td>
-                                                                              <p:inputMask id="igv" value="#{declararInversionMB.igv}"  mask="0.99" size="3" rendered="#{declararInversionMB.renderMostrarIGV}" >
+                                                                              <p:inputMask id="igv" value="#{declararInversionMB.igv}"  mask="0.99" size="3" rendered="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                               
                                                                              </p:inputMask>
-                                                                             <p:commandButton id="dd" icon="ui-icon-refresh"  actionListener="#{declararInversionMB.calularMontosconIGV()}" update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen" rendered="#{declararInversionMB.renderMostrarIGV}"/>
+                                                                             <p:commandButton id="dd" icon="ui-icon-refresh"  actionListener="#{declararInversionMB.calularMontosconIGV()}" update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen" rendered="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"/>
                                                                             </td>
                                                     </tr>
                                                 </table>
@@ -484,6 +447,7 @@
                                                     <td  align="left">
                                                         <p:selectOneMenu  id="tipoCambio"
                                                                          value="#{declararInversionMB.invVO.monId}">
+                                                                         <p:ajax update="montodeclaracion"/>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItems value="#{declararInversionMB.listaTipoMonedas}"
                                                                            var="mon" itemLabel="#{mon.monNombre}"
@@ -492,9 +456,9 @@
                                                     </td>
                                                     <td  align="left">Monto Tipo de Cambio</td>
                                                     <td  align="left">
-                                                        <p:inputMask value="#{declararInversionMB.invVO.invMontoTipoCambio}"
+                                                        <p:inputMask id="montodeclaracion" value="#{declararInversionMB.invVO.invMontoTipoCambio}"
                                                                      onkeypress="return ValidarNumFloat(event,this);" mask="9.99"
-                                                                     size="10" maxlength="4" />
+                                                                     size="10" maxlength="4" disabled="#{declararInversionMB.invVO.monId eq 2}"/>
                                                     </td>
                                                 </tr>
                                                  
