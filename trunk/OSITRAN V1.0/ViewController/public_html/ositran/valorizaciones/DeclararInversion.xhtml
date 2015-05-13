@@ -232,7 +232,8 @@
                                                                          <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}" update=":form:tablaReconocimiento 
                                                                                                                                                       :form:tablaReajuste
                                                                                                                                                       :form:resumenMonPre
-                                                                                                                                                      :form:resumenMonRea"/>
+                                                                                                                                                      :form:resumenMonRea
+                                                                                                                                                      :form:igvResumen"/>
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
@@ -389,7 +390,7 @@
                                                         </td>
                                                         <td>Montos con IGV? </td>
                                                                             <td>
-                                                                                <p:selectBooleanCheckbox value="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
+                                                                                <p:selectBooleanCheckbox id="igvResumen" value="#{declararInversionMB.renderMostrarIGV}" disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}" update=":form:datosResumen"/>
                                                                                 </p:selectBooleanCheckbox>                                                                              
                                                                             </td>

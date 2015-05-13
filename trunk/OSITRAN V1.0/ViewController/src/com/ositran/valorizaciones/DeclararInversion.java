@@ -202,8 +202,9 @@ public class DeclararInversion {
     private BigDecimal totalirjMontoReajusteI = BigDecimal.ZERO;
     private InvReconocimientoVO invReconocimientoVO;
     private InvReajusteVO invReajusteVO;
-    private boolean mostrarxDeclaracionCargada=false;
-    private boolean deshabilitadoxDeclaracionNoCargada=true;
+    private boolean mostrarxDeclaracionCargada = false;
+    private boolean deshabilitadoxDeclaracionNoCargada = true;
+
     public DeclararInversion() {
         super();
 
@@ -228,7 +229,8 @@ public class DeclararInversion {
         System.out.println("abrirBuscarContratos()");
     }
     // Metodo para Filtrar la Lista de Concesión
-    /**Se filtrara siemrpre para tener solamente las concesiones 
+
+    /**Se filtrara siemrpre para tener solamente las concesiones
      * con el tipo de infraestructura del usuario que se logueo**/
     public void filtrarConcesion() {
         try {
@@ -238,10 +240,12 @@ public class DeclararInversion {
             e.printStackTrace();
         }
     }
+
     public void buscarContratos() {
         try {
             setListaContrato(getContratoConcesionServiceImp().buscarxNombreConcesion(getNombreConcesion().toUpperCase().trim(),
-                                                                                     tipoInfraestructura, getConcesion(),
+                                                                                     tipoInfraestructura,
+                                                                                     getConcesion(),
                                                                                      getFechaInicioSuscripcion(),
                                                                                      getFechaFinSuscripcion()));
         } catch (Exception e) {
@@ -406,7 +410,7 @@ public class DeclararInversion {
     public void listarTiposMoneda() {
         try {
             listaTipoMonedas = getMonedaServiceImpl().query();
-            System.out.println("##############listaTipoMonedas.size();"+listaTipoMonedas.size());
+            System.out.println("##############listaTipoMonedas.size();" + listaTipoMonedas.size());
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -719,14 +723,14 @@ public class DeclararInversion {
     public void cargarDatosCompromiso() {
 
         try {
-            System.out.println("contratoCompromisoId"+contratoCompromisoId);
+            System.out.println("contratoCompromisoId" + contratoCompromisoId);
             contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoId);
             monedaVO = monedaServiceImpl.get(contratoCompromisoVO.getMonId());
             contratoCompromisoVO.setMonNombre(monedaVO.getMonNombre());
             listarInversionesSupervisadas(contratoCompromisoVO.getCcoId());
-            if(listaInvAvnVO.size()>0){
-                deshabilitadoxDeclaracionNoCargada=false;
-                mostrarxDeclaracionCargada=true;
+            if (listaInvAvnVO.size() > 0) {
+                deshabilitadoxDeclaracionNoCargada = false;
+                mostrarxDeclaracionCargada = true;
             }
 
         } catch (Exception e) {
@@ -843,7 +847,7 @@ public class DeclararInversion {
             InvReajusteVO invReajusteVO = new InvReajusteVO();
             listaInvAvanceDetalleVO =
                 valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(((InvAvnVO) event.getObject()).getTiaNumero());
-            ListaInversionDescripcionVO = inversionDescripcionServicesImpl.query();
+            ListaInversionDescripcionVO = inversionDescripcionServicesImpl.queryAllIdtEstado();
 
             for (ValorizacionInversionAvanceDetalleVO invAvanceDetalleVO : listaInvAvanceDetalleVO) {
                 invReconocimientoVO = new InvReconocimientoVO();
@@ -856,13 +860,13 @@ public class DeclararInversion {
 
                 invReconocimientoVO.setIadId(invAvanceDetalleVO.getIad_Id());
                 invReconocimientoVO.setIreEstado(1);
-                
+
                 invReconocimientoVO.setIvrMontoPresentado(invAvanceDetalleVO.getMontoPresentado());
-                invReconocimientoVO.setIvrMontoAprobado(invAvanceDetalleVO.getMontoPresentado());                
+                invReconocimientoVO.setIvrMontoAprobado(invAvanceDetalleVO.getMontoPresentado());
                 invReajusteVO.setIrjMontoAprobado(invAvanceDetalleVO.getMontoPresentado());
                 invReajusteVO.setIrjMontoReajuste(invAvanceDetalleVO.getMontoPresentado());
                 /**Redondea**/
-                invReconocimientoVO.setIvrMontoPresentado( Reutilizar.getNewInstance().redondearBigDecimal(invReconocimientoVO.getIvrMontoPresentado()));
+                invReconocimientoVO.setIvrMontoPresentado(Reutilizar.getNewInstance().redondearBigDecimal(invReconocimientoVO.getIvrMontoPresentado()));
                 invReconocimientoVO.setIvrMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(invReconocimientoVO.getIvrMontoAprobado()));
                 invReajusteVO.setIrjMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(invReajusteVO.getIrjMontoAprobado()));
                 invReajusteVO.setIrjMontoReajuste(Reutilizar.getNewInstance().redondearBigDecimal(invReajusteVO.getIrjMontoReajuste()));
@@ -870,7 +874,7 @@ public class DeclararInversion {
                 totalMontoPresentado = totalMontoPresentado.add(invReconocimientoVO.getIvrMontoPresentado());
                 totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
                 totalMontoReajustado = totalMontoReajustado.add(invReajusteVO.getIrjMontoReajuste());
-               
+
                 invReajusteVO.setCsiId(invAvanceDetalleVO.getCsiId());
                 invReajusteVO.setInfId(invAvanceDetalleVO.getInfId());
                 invReajusteVO.setTinId(invAvanceDetalleVO.getTinId());
@@ -884,7 +888,8 @@ public class DeclararInversion {
                     }
                 }
                 for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
-                    System.out.println("infraestructuraVO.getInfId();"+infraestructuraVO.getInfId()+";invAvanceDetalleVO.getInfId();"+invAvanceDetalleVO.getInfId());
+                    System.out.println("infraestructuraVO.getInfId();" + infraestructuraVO.getInfId() +
+                                       ";invAvanceDetalleVO.getInfId();" + invAvanceDetalleVO.getInfId());
                     if (infraestructuraVO.getInfId() == invAvanceDetalleVO.getInfId()) {
                         invReconocimientoVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                         invReajusteVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
@@ -897,59 +902,64 @@ public class DeclararInversion {
                         invReajusteVO.setDesConcepto(inversionDescripcionVO.getItdNombre());
                     }
                 }
-                invReconocimientoVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion()); 
-                invReajusteVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion()); 
+                invReconocimientoVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion());
+                invReajusteVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion());
                 listaInvReconocimientoVO.add(invReconocimientoVO);
                 listaInvReajusteVO.add(invReajusteVO);
             }
-            totalivrMontoAprobadoI=totalivrMontoAprobadoI.add(totalMontoAprobado);
-            totalirjMontoReajusteI=totalirjMontoReajusteI.add(totalMontoReajustado);
+            totalivrMontoAprobadoI = totalivrMontoAprobadoI.add(totalMontoAprobado);
+            totalirjMontoReajusteI = totalirjMontoReajusteI.add(totalMontoReajustado);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        totalMontoPresentado    =   Reutilizar.getNewInstance().redondearBigDecimal(totalMontoPresentado);
-        totalMontoAprobado      =   Reutilizar.getNewInstance().redondearBigDecimal(totalMontoAprobado);
-        totalMontoReajustado    =   Reutilizar.getNewInstance().redondearBigDecimal(totalMontoReajustado);
-        totalivrMontoAprobadoI  =   Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
-        totalirjMontoReajusteI  =   Reutilizar.getNewInstance().redondearBigDecimal(totalirjMontoReajusteI);
+        totalMontoPresentado = Reutilizar.getNewInstance().redondearBigDecimal(totalMontoPresentado);
+        totalMontoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(totalMontoAprobado);
+        totalMontoReajustado = Reutilizar.getNewInstance().redondearBigDecimal(totalMontoReajustado);
+        totalivrMontoAprobadoI = Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
+        totalirjMontoReajusteI = Reutilizar.getNewInstance().redondearBigDecimal(totalirjMontoReajusteI);
     }
+
     public void resetIGV() {
         if (!renderMostrarIGV) {
             setTotalivrMontoAprobadoI(totalMontoAprobado);
-            setTotalirjMontoReajusteI(totalMontoReajustado);            
+            setTotalirjMontoReajusteI(totalMontoReajustado);
             setIgv(BigDecimal.ZERO);
         }
     }
-    public void editarReconocimiento(ActionEvent event){
-        invReconocimientoVO = (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");        
+
+    public void editarReconocimiento(ActionEvent event) {
+        invReconocimientoVO = (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");
     }
-    public void editarReajuste(ActionEvent event){
-        invReajusteVO = (InvReajusteVO) event.getComponent().getAttributes().get("reajuste");        
+
+    public void editarReajuste(ActionEvent event) {
+        invReajusteVO = (InvReajusteVO) event.getComponent().getAttributes().get("reajuste");
     }
+
     public void grabarReconocimiento(ActionEvent event) {
-        InvReconocimientoVO reconocimiento = (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");
-        if(reconocimiento.getIvrMontoAprobado() == null ){
+        InvReconocimientoVO reconocimiento =
+            (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");
+        if (reconocimiento.getIvrMontoAprobado() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El Monto no Puede ser vacio"));
             RequestContext.getCurrentInstance().update("form:mensaje");
-        }else if (reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
+        } else if (reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El Monto Presentado no puede ser mayor al Monto Aprobado"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else {
             totalMontoAprobado = BigDecimal.ZERO;
-            totalivrMontoAprobadoI = BigDecimal.ZERO;          
-            for (InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO) {  
+            totalivrMontoAprobadoI = BigDecimal.ZERO;
+            for (InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO) {
                 invReconocimientoVO.setIvrMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(invReconocimientoVO.getIvrMontoAprobado()));
-                if(invReconocimientoVO.getIvrMontoAprobado()!=null){
-                        totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado()); 
-                        
+                if (invReconocimientoVO.getIvrMontoAprobado() != null) {
+                    totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
+
                 }
                 for (InvReajusteVO invReajuste : listaInvReajusteVO) {
                     if (invReajuste.getIadId() == reconocimiento.getIadId()) {
-                        invReajuste.setIrjMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(reconocimiento.getIvrMontoAprobado()));                                             
+                        invReajuste.setIrjMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(reconocimiento.getIvrMontoAprobado()));
                     }
                 }
             }
@@ -960,14 +970,15 @@ public class DeclararInversion {
             RequestContext.getCurrentInstance().execute("_dlgEditarReconocimiento.hide();");
         }
     }
+
     public void grabarReajuste(ActionEvent event) {
         InvReajusteVO reajuste = (InvReajusteVO) event.getComponent().getAttributes().get("reajuste");
-        if (reajuste.getIrjMontoReajuste() == null){
+        if (reajuste.getIrjMontoReajuste() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El Monto no puede ser vacio"));
             RequestContext.getCurrentInstance().update("form:mensaje");
-        }else if (reajuste != null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste()) < 0) {
+        } else if (reajuste != null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El monto Aprobado no puede ser mayor al Monto Reajustado"));
@@ -975,64 +986,65 @@ public class DeclararInversion {
         } else {
             totalMontoReajustado = BigDecimal.ZERO;
             totalirjMontoReajusteI = BigDecimal.ZERO;
-                for (InvReajusteVO invReajuste : listaInvReajusteVO) {                    
-                    if (invReajuste.getIadId() == reajuste.getIadId()) 
-                        invReajuste.setIrjMontoReajuste(Reutilizar.getNewInstance().redondearBigDecimal(reajuste.getIrjMontoReajuste()));
-                    if(invReajuste.getIrjMontoReajuste()!=null)
-                        totalMontoReajustado = totalMontoReajustado.add(invReajuste.getIrjMontoReajuste());
-                }
+            for (InvReajusteVO invReajuste : listaInvReajusteVO) {
+                if (invReajuste.getIadId() == reajuste.getIadId())
+                    invReajuste.setIrjMontoReajuste(Reutilizar.getNewInstance().redondearBigDecimal(reajuste.getIrjMontoReajuste()));
+                if (invReajuste.getIrjMontoReajuste() != null)
+                    totalMontoReajustado = totalMontoReajustado.add(invReajuste.getIrjMontoReajuste());
+            }
             totalirjMontoReajusteI = totalirjMontoReajusteI.add(totalMontoReajustado);
             RequestContext.getCurrentInstance().update("form:tablaReajuste");
             RequestContext.getCurrentInstance().update("form");
-            RequestContext.getCurrentInstance().execute("_dlgEditarReajuste.hide();"); 
+            RequestContext.getCurrentInstance().execute("_dlgEditarReajuste.hide();");
         }
     }
-    public void cargarReajuste(RowEditEvent event) {   
-        InvReconocimientoVO reconocimiento=null;
-        InvReajusteVO reajuste=null;
-        Object obj=event.getObject();
-        if(obj instanceof InvReconocimientoVO){
-            reconocimiento=(InvReconocimientoVO)obj;
-        }else if(obj instanceof InvReajusteVO){
-            reajuste=(InvReajusteVO)obj;
+
+    public void cargarReajuste(RowEditEvent event) {
+        InvReconocimientoVO reconocimiento = null;
+        InvReajusteVO reajuste = null;
+        Object obj = event.getObject();
+        if (obj instanceof InvReconocimientoVO) {
+            reconocimiento = (InvReconocimientoVO) obj;
+        } else if (obj instanceof InvReajusteVO) {
+            reajuste = (InvReajusteVO) obj;
         }
 
-        if(reconocimiento!=null && reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado())<0){
+        if (reconocimiento != null &&
+            reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El monto Aprobado no puede ser mayor al Monto Presentado"));
-        }else if(reajuste!=null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste())<0){
+        } else if (reajuste != null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El monto Reajuste no puede ser mayor al Monto Aprobado"));
-        }else{
-        totalMontoAprobado =  BigDecimal.ZERO;
-        totalivrMontoAprobadoI = BigDecimal.ZERO;
-        totalMontoReajustado =  BigDecimal.ZERO;
-        totalirjMontoReajusteI = BigDecimal.ZERO;
-        
-      
+        } else {
+            totalMontoAprobado = BigDecimal.ZERO;
+            totalivrMontoAprobadoI = BigDecimal.ZERO;
+            totalMontoReajustado = BigDecimal.ZERO;
+            totalirjMontoReajusteI = BigDecimal.ZERO;
 
-         for (InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO) {
-            if (invReconocimientoVO.getIvrMontoAprobado() != null) {
-                totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
-                System.out.println("InvReconocimientoVOtotalMontoAprobado:"+totalMontoAprobado);
-            }
-            for (InvReajusteVO invReajusteVO : listaInvReajusteVO) {
 
-                if (invReconocimientoVO.getIadId() == invReajusteVO.getIadId()) {
-                    invReajusteVO.setIrjMontoAprobado(invReconocimientoVO.getIvrMontoAprobado());
-                    if (invReajusteVO.getIrjMontoReajuste() != null) {
-                        totalMontoReajustado = totalMontoReajustado.add(invReajusteVO.getIrjMontoReajuste());
+            for (InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO) {
+                if (invReconocimientoVO.getIvrMontoAprobado() != null) {
+                    totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
+                    System.out.println("InvReconocimientoVOtotalMontoAprobado:" + totalMontoAprobado);
+                }
+                for (InvReajusteVO invReajusteVO : listaInvReajusteVO) {
+
+                    if (invReconocimientoVO.getIadId() == invReajusteVO.getIadId()) {
+                        invReajusteVO.setIrjMontoAprobado(invReconocimientoVO.getIvrMontoAprobado());
+                        if (invReajusteVO.getIrjMontoReajuste() != null) {
+                            totalMontoReajustado = totalMontoReajustado.add(invReajusteVO.getIrjMontoReajuste());
+                        }
                     }
                 }
-            }
 
+            }
+            totalivrMontoAprobadoI = totalMontoAprobado.add(igv.multiply(totalMontoAprobado));
+            totalirjMontoReajusteI = totalMontoReajustado.add(igv.multiply(totalMontoReajustado));
         }
-        totalivrMontoAprobadoI = totalMontoAprobado.add(igv.multiply(totalMontoAprobado));
-        totalirjMontoReajusteI = totalMontoReajustado.add(igv.multiply(totalMontoReajustado)); 
-        }
-        totalivrMontoAprobadoI   = Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
+        totalivrMontoAprobadoI = Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
         totalirjMontoReajusteI = Reutilizar.getNewInstance().redondearBigDecimal(totalirjMontoReajusteI);
         totalMontoReajustado = Reutilizar.getNewInstance().redondearBigDecimal(totalMontoReajustado);
         totalMontoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(totalMontoAprobado);
@@ -1165,60 +1177,71 @@ public class DeclararInversion {
     public BigDecimal getTotalMontoReajustado() {
         return totalMontoReajustado;
     }
-    
-    public void prepararMontosObservados(){
-    resetCamposIGV();
-    invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);  
-    invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);  
-    invVO.setInvIgv(0);
+
+    public void prepararMontosObservados() {
+        if (invVO.getInvEstadoReconocimiento() == 2) {
+            resetCamposIGV();
+            setTotalivrMontoAprobadoI(BigDecimal.ZERO);
+            setTotalirjMontoReajusteI(BigDecimal.ZERO);
+            invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);
+            invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);
+            invVO.setInvIgv(0);
+        } else {
+
+            invAvnVO.setTiaMontoTotalAprobado(totalMontoAprobado);
+            invAvnVO.setTiaMontoTotalReajustado(totalMontoReajustado);
+            setTotalivrMontoAprobadoI(totalMontoAprobado);
+            setTotalirjMontoReajusteI(totalMontoReajustado);
+        }
     }
+
     public void guardarDeclaracion() {
 
         if (invVO.getInvEstadoReconocimiento() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Estado de Reconocimiento"));
-        } else if (invAvnVO.getTiaObservaciones()==null || invAvnVO.getTiaObservaciones().length()==0) {
+        } else if (invAvnVO.getTiaObservaciones() == null || invAvnVO.getTiaObservaciones().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado las Observaciones"));
-        } else if (invVO.getInvNumeroInforme()==null || invVO.getInvNumeroInforme().length()==0) {
+        } else if (invVO.getInvNumeroInforme() == null || invVO.getInvNumeroInforme().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Numero de Informe"));
-        } else if (invVO.getInvFechaEmisionInforme()==null) {
+        } else if (invVO.getInvFechaEmisionInforme() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha de Emisión del Informe"));
-        } else if (invVO.getInvRegSalidaInforme()==null || invVO.getInvRegSalidaInforme().length()==0) {
+        } else if (invVO.getInvRegSalidaInforme() == null || invVO.getInvRegSalidaInforme().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Registro de Salida del Informe"));
-        } else if (invVO.getInvNumeroOficio()==null || invVO.getInvNumeroOficio().length()==0) {
+        } else if (invVO.getInvNumeroOficio() == null || invVO.getInvNumeroOficio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Numero de Oficio"));
-        } else if (invVO.getInvFechaEmisionOficio()==null) {
+        } else if (invVO.getInvFechaEmisionOficio() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha del Oficio"));
-        } else if (invVO.getInvRegSalidaOficio()==null || invVO.getInvRegSalidaOficio().length()==0) {
+        } else if (invVO.getInvRegSalidaOficio() == null || invVO.getInvRegSalidaOficio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Inversión"));
-        } else if (invVO.getMonId()==null || invVO.getMonId() == 0) {
+        } else if (invVO.getMonId() == null || invVO.getMonId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ha seleccionado el Tipo de Cambio"));
-        } else if (invVO.getInvMontoTipoCambio()==null) {
+        } else if (invVO.getInvMontoTipoCambio() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Monto"));
-        } else if (invVO.getInvNota()==null || invVO.getInvNota().length()==0) {
+        } else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Nota"));
-        }else{
+        } else {
             try {
                 if (renderMostrarIGV) {
                     invVO.setInvIgv(1);
@@ -1229,18 +1252,18 @@ public class DeclararInversion {
                 invVO.setInvEstado(1);
                 invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
                 invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI);
-                if(invVO.getInvEstadoReconocimiento()==1){
+                if (invVO.getInvEstadoReconocimiento() == 1) {
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_DECLARADO);
-                    
+
                 }
-                if(invVO.getInvEstadoReconocimiento()==2){
+                if (invVO.getInvEstadoReconocimiento() == 2) {
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 }
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId());
-                invAvnVO.setTiaMontoTotalAprobado(totalivrMontoAprobadoI);  
-                invAvnVO.setTiaMontoTotalReajustado(totalirjMontoReajusteI); 
-                invServiceImpl.insertDeclaracion(invAvnVO,invVO, listaInvReconocimientoVO, listaInvReajusteVO);
-               
+                invAvnVO.setTiaMontoTotalAprobado(totalivrMontoAprobadoI);
+                invAvnVO.setTiaMontoTotalReajustado(totalirjMontoReajusteI);
+                invServiceImpl.insertDeclaracion(invAvnVO, invVO, listaInvReconocimientoVO, listaInvReajusteVO);
+
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito",
                                                                               "Se Declaro la Inversión"));
@@ -1250,24 +1273,23 @@ public class DeclararInversion {
                 e.printStackTrace();
             }
         }
-        
+
     }
 
     public void limpiarFormulario() {
         invAvnVO = new InvAvnVO();
         invVO = new InvVO();
         listaInvReajusteVO = new ArrayList<InvReajusteVO>();
-        listaInvReconocimientoVO =  new ArrayList<InvReconocimientoVO>();
+        listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>();
         totalMontoAprobado = new BigDecimal(0);
         totalivrMontoAprobadoI = new BigDecimal(0);
         totalMontoPresentado = new BigDecimal(0);
         totalMontoReajustado = new BigDecimal(0);
         totalirjMontoReajusteI = new BigDecimal(0);
-        if(listaInvAvnVO.size()==0)
-            deshabilitadoxDeclaracionNoCargada=true;
+        if (listaInvAvnVO.size() == 0)
+            deshabilitadoxDeclaracionNoCargada = true;
 
-       
-       
+
     }
 
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
@@ -1320,7 +1342,6 @@ public class DeclararInversion {
         this.deshabilitadoxObservado = deshabilitadoxObservado;
     }
 
-  
 
     public BigDecimal getTotalivrMontoAprobadoI() {
         return totalivrMontoAprobadoI;
@@ -1359,8 +1380,8 @@ public class DeclararInversion {
         totalirjMontoReajusteI = totalMontoReajustado;
         totalivrMontoAprobadoI = totalivrMontoAprobadoI.add(igv.multiply(totalivrMontoAprobadoI));
         totalirjMontoReajusteI = totalirjMontoReajusteI.add(igv.multiply(totalirjMontoReajusteI));
-        
-        totalivrMontoAprobadoI   = Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
+
+        totalivrMontoAprobadoI = Reutilizar.getNewInstance().redondearBigDecimal(totalivrMontoAprobadoI);
         totalirjMontoReajusteI = Reutilizar.getNewInstance().redondearBigDecimal(totalirjMontoReajusteI);
     }
 
