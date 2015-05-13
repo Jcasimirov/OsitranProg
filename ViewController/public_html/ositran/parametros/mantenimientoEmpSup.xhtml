@@ -166,39 +166,44 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Nombre de la Empresa Supervisora(*):</td>
+                            <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width:400px;text-transform:uppercase;" id="nomEmpSupMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSupMod}" maxlength="100"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion(*):</td>
+                            <td colspan="2" align="left">Direccion:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSupMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupMod}" maxlength="20"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal(*):</td>
+                            <td colspan="2" align="left">Representante Legal:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegalMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegalMod}" maxlength="20"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="left">Siglas de Nombre(*):</td>
+                            <td align="left">Siglas de Nombre:</td>
                             <td align="left">
                                 <p:inputText id="siglasNomMod" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
-                            <td align="left">Telefono(*):</td>
+                            <td align="left">Telefono:</td>
                             <td align="left">
                                 <p:inputText id="telefonoMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.telefonoMod}" maxlength="15"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
@@ -228,10 +233,11 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Correo(*):</td>
+                            <td colspan="2" align="left">Correo:</td>
                             <td colspan="2" align="left">
                                 <p:inputText id="correoMod" style="width: 400px;text-transform:uppercase;"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.correoMod}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.correoMod}" maxlength="100"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                             
                         </tr>
@@ -248,6 +254,12 @@
                                                update=":form1:tablaempsup :form1:mensaje :form1:regEmpSup" ></p:commandButton>
                                 <p:commandButton onclick="ModEmpSup.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
+                        <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
                         
                     </table>
                 </p:dialog>
@@ -258,42 +270,46 @@
                            <h5 class="titulo5">REGISTRAR EMPRESA SUPERVISORA</h5>
                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;">
                         <tr>
-                            <td colspan="2" align="left">Nombre de la Empresa Supervisora(*):</td>
+                            <td colspan="2" align="left">Nombre de la Empresa Supervisora:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width:400px;text-transform:uppercase;" id="nomEmpSup" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSup}" maxlength="100"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion(*):</td>
+                            <td colspan="2" align="left">Direccion:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSup"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="100"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Representante Legal(*):</td>
+                            <td colspan="2" align="left">Representante Legal:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegal"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegal}" maxlength="100"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
                         <tr>
-                        <td align="left">Siglas de Nombre(*):</td>
+                        <td align="left">Siglas de Nombre:</td>
                             <td align="left">
                                 <p:inputText id="siglasNom" style="text-transform:uppercase;"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="15"></p:inputText>
+                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                             
-                            <td align="left">Telefono(*):</td>
+                            <td align="left">Telefono:</td>
                             <td align="left">
                                 <p:inputText id="telefono" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.telefono}" maxlength="15">
                                             
                                              </p:inputText>
-                                            
+                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>               
                             </td>
                         </tr>                  
                              
@@ -324,10 +340,11 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Correo(*):</td>
+                            <td colspan="2" align="left">Correo:</td>
                             <td colspan="2" align="left">
                                 <p:inputText id="correo" style="width: 400px;text-transform:uppercase;"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.correo}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.correo}" maxlength="100"></p:inputText>
+                           <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>                            
                         </tr>
                         
@@ -344,7 +361,12 @@
                                                update=":form1:tablaempsup :form1:mensaje" ></p:commandButton>
                                 <p:commandButton onclick="regEmpSup.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
-                         
+                         <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
                         
                     </table>
                 </p:dialog>
