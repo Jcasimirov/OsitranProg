@@ -9,5 +9,6 @@
         <package-name>org.hibernate.*</package-name>
         <package-name>javax.persistence.*</package-name>
       </prefer-application-packages>
+      <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
    </container-descriptor>
 </weblogic-web-app>
