@@ -1718,6 +1718,12 @@ public class ActualizarContrato {
         int conDiames=0;
         if(conDiamesAlerta!=null && conDiamesAlerta.length()!=0){
             conDiames=Integer.parseInt(conDiamesAlerta);
+            if(!(conDiames>0 && conDiames<31)){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "El Dia mes debe ser un numero mayor que 0 y menor a 31"));
+                return;
+            }
         }
         if (infId != null && infId.length()==0) {
             System.out.print("nombAeropuerto" + infId);
@@ -1739,6 +1745,14 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));
+        }else if (plazoAlerta==0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "El Plazo no puede ser cero"));
+        }else if (unidadTiempo==0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha seleccionado Mes o Año"));
         }else if (periodoseleccionadoAlerta==-1) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
