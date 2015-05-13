@@ -13,10 +13,11 @@
         
     </h:head>
         <h:body>    
-            <f:event listener="#{bk_registrarContrato.ListarInfraestructura}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.filtrarConcesion}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.ListarTipoDocumento}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.ListarModalidad}" type="postAddToView"/>
+            <f:event listener="#{bk_registrarContrato.validarSesion()}" type="preRenderComponent"></f:event>
+            <f:event listener="#{bk_registrarContrato.ListarInfraestructura}" type="preRenderComponent"/>
+            <f:event listener="#{bk_registrarContrato.filtrarConcesion}" type="preRenderComponent"/>
+            <f:event listener="#{bk_registrarContrato.ListarTipoDocumento}" type="preRenderComponent"/>
+            <f:event listener="#{bk_registrarContrato.ListarModalidad}" type="preRenderComponent"/>
             <h:form binding="#{bk_registrarContrato.form}" id = "form">
             <p:growl id="mensaje" showDetail="true"  life="3000" /> 
             <p:layout fullPage="true" style="border:none">
@@ -154,7 +155,7 @@
                             <tr>
                                
                                     <td align="center">
-                                        <p:commandButton value="#{btn.btn_guardar}" actionListener="#{bk_registrarContrato.GrabarContratoConcesion}" update=":form:mensaje :form:nrohr :form:añohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:busqueda :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
+                                        <p:commandButton rendered="#{bk_registrarContrato.rolOpcion.troAgregar eq 1}" value="#{btn.btn_guardar}" actionListener="#{bk_registrarContrato.GrabarContratoConcesion}" update=":form:mensaje :form:nrohr :form:añohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:busqueda :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
                                         <p:commandButton value="#{btn.btn_salir}"/>
                                  
                                
