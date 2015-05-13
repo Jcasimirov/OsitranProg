@@ -639,7 +639,7 @@ public class ActualizarContrato {
             
             alerta.setCalUsuarioAlta(usuario.getUsuNombre());
             alerta.setCalFechaAlta(new Date());
-            alerta.setCalTerminal(usuario.getUsuTerminal());
+            
             alerta.setCalCorreo(usuario.getUsuCorreo());
             return alerta;
 
@@ -1576,7 +1576,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoInversionVO.setInvFechaAlta(fechaActual);
                 contratoInversionVO.setInvUsuarioAlta(usuario.getUsuAlias());
-                contratoInversionVO.setInvTerminal(usuario.getUsuTerminal());
+                
                 /*FIN AUDITORIA*/
                 contratoInversionServiceImpl.insert(contratoInversionVO);
 
@@ -1935,7 +1935,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaCambio(fechaActual);
         contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
-        contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         contratoAlertaServiceImpl.update(contratoAlertaVO);
         cargarListaAlertas(contratoVO.getConId());
@@ -1950,7 +1950,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaCambio(fechaActual);
         contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
-        contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         
         contratoAlertaServiceImpl.update(contratoAlertaVO);
@@ -1966,7 +1966,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaBaja(fechaActual);
         contratoAlertaVO.setCalUsuarioBaja(usuario.getUsuAlias());
-        contratoAlertaVO.setCalTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         contratoAlertaServiceImpl.update(contratoAlertaVO);
 
@@ -2003,7 +2003,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoCaoVO.setCaoFechaBaja(fechaActual);
         contratoCaoVO.setCaoUsuarioBaja(usuario.getUsuAlias());
-        contratoCaoVO.setCaoTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         contratoCaoServiceImpl.update(contratoCaoVO);
         System.out.println("### FIN ELIMINAR CAO");
@@ -2021,7 +2021,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoHitoVO.setHtoFechaBaja(fechaActual);
         contratoHitoVO.setHtoUsuarioBaja(usuario.getUsuAlias());
-        contratoHitoVO.setHtoTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         getContratoHitoServiceImpl().update(getContratoHitoVO());
         System.out.println("### FIN ELIMINAR HITO");
@@ -2040,7 +2040,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoPpoVO.setPpoFechaBaja(fechaActual);
         contratoPpoVO.setPpoUsuarioBaja(usuario.getUsuAlias());
-        contratoPpoVO.setPpoTerminal(usuario.getUsuTerminal());
+        
         /*FIN AUDITORIA*/
         getContratoPpoServiceImpl().update(getContratoPpoVO());
         System.out.println("### FIN ELIMINAR PPO");
@@ -2301,7 +2301,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoCaoVO.setCaoFechaAlta(fechaActual);
                 contratoCaoVO.setCaoUsuarioAlta(usuario.getUsuAlias());
-                contratoCaoVO.setCaoTerminal(usuario.getUsuTerminal());
+                
                 /*FIN AUDITORIA*/
                 contratoCaoServiceImpl.insert(contratoCaoVO);
                 System.out.println("guardo ok");
@@ -2383,7 +2383,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoPpoVO.setPpoFechaAlta(fechaActual);
                 contratoPpoVO.setPpoUsuarioAlta(usuario.getUsuAlias());
-                contratoPpoVO.setPpoTerminal(usuario.getUsuTerminal());
+                
                 /*FIN AUDITORIA*/
                 getContratoPpoServiceImpl().insert(getContratoPpoVO());
                 cargarListaPpos(contratoVO.getConId());
@@ -2458,7 +2458,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoHitoVO.setHtoFechaAlta(fechaActual);
                 contratoHitoVO.setHtoUsuarioAlta(usuario.getUsuAlias());
-                contratoHitoVO.setHtoTerminal(usuario.getUsuTerminal());
+
                 /*FIN AUDITORIA*/
                 contratoHitoServiceImpl.insert(contratoHitoVO);
                 System.out.println("guardo ok");
@@ -2517,7 +2517,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoHitoVO.setHtoFechaCambio(fechaActual);
                 contratoHitoVO.setHtoUsuarioCambio(usuario.getUsuAlias());
-                contratoHitoVO.setHtoTerminal(usuario.getUsuTerminal());
+                
                 /*FIN AUDITORIA*/
                 getContratoHitoServiceImpl().update(getContratoHitoVO());
                 cargarListaHitos(contratoVO.getConId());
@@ -3087,7 +3087,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             contratoNuevoCompromisoSupervisadoVO.setCcoFechaAlta(fechaActual);
             contratoNuevoCompromisoSupervisadoVO.setCcoUsuarioAlta(usuario.getUsuAlias());
-            contratoNuevoCompromisoSupervisadoVO.setCcoTerminal(usuario.getUsuTerminal());
+
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoSupervisadoVO);
             listarContratoCompromisoSupervisado.add(contratoNuevoCompromisoSupervisadoVO);
@@ -3118,7 +3118,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idCompromisoEliminarS.setCcoFechaBaja(fechaActual);
             idCompromisoEliminarS.setCcoUsuarioBaja(usuario.getUsuAlias());
-            idCompromisoEliminarS.setCcoTerminal(usuario.getUsuTerminal());
+            
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.update(idCompromisoEliminarS);
             listarContratoCompromisoSupervisado.remove(idCompromisoEliminarS);
@@ -3315,7 +3315,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoNuevaPenalidadVO.setTcpFechaAlta(fechaActual);
                 contratoNuevaPenalidadVO.setTcpUsuarioAlta(usuario.getUsuAlias());
-                contratoNuevaPenalidadVO.setTcpTerminal(usuario.getUsuTerminal());
+                
                 /*FIN AUDITORIA*/
                 contratoPenalidadServiceImpl.insert(contratoNuevaPenalidadVO);
                 listarContratoPenalidad.add(contratoNuevaPenalidadVO);
@@ -3352,7 +3352,6 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idPenalidadEliminar.setTcpFechaBaja(fechaActual);
             idPenalidadEliminar.setTcpUsuarioBaja(usuario.getUsuAlias());
-            idPenalidadEliminar.setTcpTerminal(usuario.getUsuTerminal());
             /*FIN AUDITORIA*/
             contratoPenalidadServiceImpl.update(idPenalidadEliminar);
             listarContratoPenalidad.remove(idPenalidadEliminar);
