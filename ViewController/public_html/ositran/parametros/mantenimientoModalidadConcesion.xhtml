@@ -6,7 +6,6 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
        
@@ -104,7 +103,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
@@ -143,17 +142,27 @@
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremodAct" value="#{backing_mantenimientoModalidadConcesion.nombremodAct}"></p:inputText></td>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremodAct" value="#{backing_mantenimientoModalidadConcesion.nombremodAct}"></p:inputText>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                                </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmodAct" value="#{backing_mantenimientoModalidadConcesion.descripcionmodAct}"></p:inputTextarea></td>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmodAct" value="#{backing_mantenimientoModalidadConcesion.descripcionmodAct}"></p:inputTextarea>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                                </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" action="#{backing_mantenimientoModalidadConcesion.Modificar}"                                                 
                                                   update=":form1:mensaje :form1:tablamodalidad"></p:commandButton>
                                 <p:commandButton onclick="modModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
+                        <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
 	 	</table>
 	 	</div>
                 </p:dialog>
@@ -167,17 +176,27 @@
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText></td>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                                </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea></td>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
+                                </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="center" colspan="2"><p:commandButton value="#{btn.btn_guardar}" actionListener="#{backing_mantenimientoModalidadConcesion.guardar}"                                                 
                                                update=":form1:mensaje :form1:tablamodalidad"   ></p:commandButton>
                                 <p:commandButton onclick="regModalidad.hide()" value="#{btn.btn_salir}"></p:commandButton></td>
 	 		</tr>
+                        <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
 	 	</table>
 	 	</div>
                 </p:dialog>
