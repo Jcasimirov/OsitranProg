@@ -844,7 +844,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idAdendaEliminar.setCadFechaBaja(fechaActual);
             idAdendaEliminar.setCadUsuarioBaja(usuario.getUsuAlias());
-            idAdendaEliminar.setCadTerminal(usuario.getUsuTerminal());
+
             /*FIN AUDITORIA*/
             contratoAdendaServiceImpl.update(idAdendaEliminar);
             listContratoAdenda.remove(idAdendaEliminar);
@@ -1044,7 +1044,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idEntregaEliminar.setCenFechaBaja(fechaActual);
             idEntregaEliminar.setCenUsuarioBaja(usuario.getUsuAlias());
-            idEntregaEliminar.setCenTerminal(usuario.getUsuTerminal());
+            
             /*FIN AUDITORIA*/
             contratoEntregaServiceImpl.update(idEntregaEliminar);
             listarEntregas.remove(idEntregaEliminar);
