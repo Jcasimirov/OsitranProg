@@ -10,7 +10,6 @@ import java.util.List;
 public interface TipoInversionDAO {
      public List<InversionTipo> query()throws SQLException ,Exception;
      public String insert(InversionTipo inversionTipo)throws SQLException ,Exception;
-        public String delete(Integer id)throws SQLException ,Exception;
         public String update(InversionTipo inversionTipo)throws SQLException ,Exception;
         public InversionTipo get(Integer id)throws SQLException ,Exception;
         public List<InversionTipo> query1(String buscar)throws SQLException ,Exception;
