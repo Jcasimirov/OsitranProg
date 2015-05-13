@@ -61,6 +61,8 @@ public class ContratoPpo implements Serializable {
     private String ppoUsuarioBaja;
     @Column(name = "PPO_USUARIO_CAMBIO", length = 20)
     private String ppoUsuarioCambio;
+    @Column(name = "PPO_TERMINAL", length = 20)
+    private String ppoTerminal;
 
     public ContratoPpo() {
     }
@@ -187,5 +189,13 @@ public class ContratoPpo implements Serializable {
 
     public String getPpoUsuarioCambio() {
         return ppoUsuarioCambio;
+    }
+
+    public void setPpoTerminal(String ppoTerminal) {
+        this.ppoTerminal = ppoTerminal;
+    }
+
+    public String getPpoTerminal() {
+        return ppoTerminal;
     }
 }

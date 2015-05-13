@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ContratoInversionDAOImpl;
 import com.ositran.model.ContratoInversion;
 import com.ositran.service.ContratoInversionService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ContratoInversionVO;
 
 import java.sql.SQLException;
@@ -99,6 +100,7 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
         contratoInversion.setInvUsuarioCambio(contratoInversionVO.getInvUsuarioCambio());
         contratoInversion.setInvFechaBaja(contratoInversionVO.getInvFechaBaja());
         contratoInversion.setInvUsuarioBaja(contratoInversionVO.getInvUsuarioBaja());
+        contratoInversion.setInvTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoInversion;
         
     }

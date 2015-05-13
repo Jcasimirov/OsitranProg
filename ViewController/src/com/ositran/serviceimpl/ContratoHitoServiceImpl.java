@@ -106,6 +106,7 @@ public class ContratoHitoServiceImpl implements ContratoHitoService {
         contratoHito.setHtoUsuarioCambio(contratoHitoVO.getHtoUsuarioCambio());
         contratoHito.setHtoFechaBaja(contratoHitoVO.getHtoFechaBaja());
         contratoHito.setHtoUsuarioBaja(contratoHitoVO.getHtoUsuarioBaja());
+        contratoHito.setHtoTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoHito;
         
     }

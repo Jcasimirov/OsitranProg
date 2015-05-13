@@ -106,6 +106,7 @@ public class ContratoPpoServiceImpl implements ContratoPpoService {
         contratoPpo.setPpoUsuarioCambio(contratoPpoVO.getPpoUsuarioCambio());
         contratoPpo.setPpoFechaBaja(contratoPpoVO.getPpoFechaBaja());
         contratoPpo.setPpoUsuarioBaja(contratoPpoVO.getPpoUsuarioBaja());
+        contratoPpo.setPpoTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoPpo;
         
     }
