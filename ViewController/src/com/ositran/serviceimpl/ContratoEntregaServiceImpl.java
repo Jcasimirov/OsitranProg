@@ -101,6 +101,7 @@ public class ContratoEntregaServiceImpl  implements ContratoEntregaService{
         contratoEntrega.setCenUsuarioCambio(contratoEntregaVO.getCenUsuarioCambio());
         contratoEntrega.setCenFechaBaja(contratoEntregaVO.getCenFechaBaja());
         contratoEntrega.setCenUsuarioBaja(contratoEntregaVO.getCenUsuarioBaja());
+        contratoEntrega.setCenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         return contratoEntrega;
         
     }
