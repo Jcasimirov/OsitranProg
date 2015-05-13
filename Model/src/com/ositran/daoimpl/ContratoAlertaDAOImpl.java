@@ -95,7 +95,7 @@ public class ContratoAlertaDAOImpl implements ContratoAlertaDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query; 
-        query = session.createQuery("FROM ContratoAlerta ca where ca.conId = :busqueda1 and ca.calTipo=4 order by calId DESC");
+        query = session.createQuery("FROM ContratoAlerta ca where ca.calEstado<>0 and ca.conId = :busqueda1 and ca.calTipo=4 order by calId DESC");
         query.setParameter("busqueda1",conId);            
         List<ContratoAlerta> list = query.list();
         session.getTransaction().commit();

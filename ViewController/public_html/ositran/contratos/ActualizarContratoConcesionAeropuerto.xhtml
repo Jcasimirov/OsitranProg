@@ -1703,7 +1703,7 @@
                                         </tr>
                                     </table>
                                     <p:commandButton update=":tab:frmAlerta:tablaAlerta" oncomplete="popupEliminarAlerta.hide()" actionListener="#{actualizarContratoMB.eliminarAlerta}" value="Eliminar">
-                                        <f:attribute name="codigoAlertaE" value="#{actualizarContratoMB.codigoAlerta}"/>
+                                        <f:attribute name="codigoAlertaE" value="#{actualizarContratoMB.contratoAlertaVO}"/>
                                     </p:commandButton>
                                 </h:form>
                             </p:dialog>
