@@ -13,6 +13,8 @@ import java.io.OutputStream;
 
 import java.math.BigDecimal;
 
+import java.net.UnknownHostException;
+
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
@@ -123,7 +125,14 @@ public class Reutilizar {
       return d.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
     public String obtenerIpCliente(){
-        String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr(); 
+        //String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr();
+        String remoteAddr = "";
+        try {
+            remoteAddr = java.net.InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException uhe) {
+            // TODO: Add catch code
+            uhe.printStackTrace();
+        }
         return remoteAddr;
     }
 }
