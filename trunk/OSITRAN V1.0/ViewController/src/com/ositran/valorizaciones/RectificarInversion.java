@@ -426,6 +426,11 @@ public class RectificarInversion {
             readOnlyMontoTipoCambio=false;
         }
     }
+    public void prepararMontosObservados(){
+    invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);  
+    invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);  
+    invVO.setInvIgv(0);
+    }
     public void guardarRectificarReconocimiento(){
         try {     
          if (invAvnVO.getIaeId() == 0) {
@@ -476,6 +481,8 @@ public class RectificarInversion {
 
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId()==Constantes.ESTADORECONOCIMIENTO_DECLARADO?Constantes.ESTADORECONOCIMIENTO_RECTIFICADO:Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 invAvnVO.setIaeId(invVO.getInvEstadoReconocimiento());
+                invAvnVO.setTiaMontoTotalAprobado(invVO.getInvMontoTotalAprobado());  
+                invAvnVO.setTiaMontoTotalReajustado(invVO.getInvMontoTotalReajuste()); 
                 notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
                 listarDeclaraciones(contratoVO.getConId());
                 reseteaCampos();
@@ -609,8 +616,7 @@ public class RectificarInversion {
         if (estadoReconocimiento == 2) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
-            calcularTotalesResumen(listaReajuste);
-            calcularTotalesReconocimiento(listaReconocimiento);
+            prepararMontosObservados();
                 
         } else {
             deshabilitadoxObservado = false;
