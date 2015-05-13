@@ -5,8 +5,11 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+              <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
         <h:body>
+            <f:event listener="#{manteContEmprSupervisora.validarSesion()}" type="postAddToView"></f:event>
+            
             <f:event listener="#{manteContEmprSupervisora.cargarListaInfraestructuraTipo()}" type="postAddToView"></f:event>
              
             <f:event listener="#{manteContEmprSupervisora.cargarListaContratosEmpresaSupervisora()}"
@@ -144,16 +147,16 @@
                                             <tr>
                                                 <td align="left">
                                                     #{cam.numhr}
-                                                    <p:inputText style="width:60px" id="bnum" value="#{manteContEmprSupervisora.nrohr}"/>
+                                                    <p:inputMask style="width:60px" id="bnum" value="#{manteContEmprSupervisora.nrohr}" maxlength="4" mask="9?99"/>
                                                     <p:watermark for="bnum" value="Número"/>
-                                                    <p:inputText style="width:60px" id="bfecha" value="#{manteContEmprSupervisora.añohr}"/>
+                                                    <p:inputMask style="width:60px" id="bfecha" value="#{manteContEmprSupervisora.añohr}" maxlength="4" mask="9999"/>
                                                     <p:watermark for="bfecha" value="Año"/>
                                                     <p:commandButton image="ui-icon-search" actionListener="#{manteContEmprSupervisora.BuscarStd()}"
-                                                                     update=":form:freg :form:asuntohr"/>
+                                                                     update=":form:freg :form:asuntohr :form:mensaje"/>
                                                 </td>
                                                 <td align="left" >
                                                     #{cam.FR}
-                                                    <p:inputText style="width:60px" id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
+                                                    <p:inputText style="width:70px" id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -272,7 +275,7 @@
                                                 </td>
                                                 <td align="left">Moneda:</td>
                                                 <td align="left">
-                                                    <p:inputText value="#{manteContEmprSupervisora.codigoMoneda}"
+                                                    <p:inputText value="#{manteContEmprSupervisora.nombreMoneda}"
                                                                  readonly="true" size="10" />
                                                 </td>
                                             </tr>
@@ -358,7 +361,7 @@
                                                     <p:outputLabel value="Referencia a penalidades"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%"                                                
+                                                    <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)"                                                
                                                                      value="#{manteContEmprSupervisora.cpsPenalidades}"/>
                                                 </td>
                                             </tr>
@@ -368,7 +371,7 @@
                                                     <p:outputLabel  value="Referencia a causales de caducidad"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%" value="#{manteContEmprSupervisora.cpsCaducidad}"/>
+                                                    <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.cpsCaducidad}"/>
                                                 </td>
                                             </tr>
                                              
@@ -377,7 +380,7 @@
                                                     <p:outputLabel value="Garantias a favor de OSITRAN"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%" value="#{manteContEmprSupervisora.cpsGarantias}"/>
+                                                    <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.cpsGarantias}"/>
                                                 </td>
                                             </tr>
                                              
@@ -771,7 +774,7 @@
                                                 </td>
                                                 <td align="left" >
                                                     #{cam.FR}
-                                                    <p:inputText style="width:60px" id="fregE" readonly="true" value="#{manteContEmprSupervisora.fregE}"/>
+                                                    <p:inputText style="width:70px" id="fregE" readonly="true" value="#{manteContEmprSupervisora.fregE}"/>
                                                 </td>
                                             </tr>
                                             <tr>
