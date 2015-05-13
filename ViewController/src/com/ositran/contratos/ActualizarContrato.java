@@ -495,7 +495,7 @@ public class ActualizarContrato {
         if(aplicaAvancedeObra && periodoseleccionado == -1){
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          "El Periodo no puede ser vacio"));
+                                                                          "No ha seleccionado el Periodo"));
         }else if (periodoseleccionado == 0 && contratoVO.getConDiames() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
@@ -503,7 +503,7 @@ public class ActualizarContrato {
         } else if ((aplicaAvancedeObra && periodoseleccionado == 0)  && (contratoVO.getConDiames()!=null && !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          "El Día mes debe ser un numero mayor a cero y menor a 31"));
+                                                                          "El Día mes debe ser un numero mayor a 0 y menor a 31"));
 
         }else if (contratoVO.getConPlazorevision() == null || contratoVO.getConPlazorevision()==0) {
             FacesContext.getCurrentInstance().addMessage(null,
