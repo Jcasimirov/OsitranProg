@@ -55,7 +55,8 @@ public class ContratoInversion implements Serializable {
     private String invUsuarioBaja;
     @Column(name = "INV_USUARIO_CAMBIO", length = 20)
     private String invUsuarioCambio;
-    
+    @Column(name = "INV_TERMINAL", length = 20)
+    private String invTerminal;
     public ContratoInversion() {
     }
 
@@ -172,5 +173,13 @@ public class ContratoInversion implements Serializable {
 
     public String getInvUsuarioCambio() {
         return invUsuarioCambio;
+    }
+
+    public void setInvTerminal(String invTerminal) {
+        this.invTerminal = invTerminal;
+    }
+
+    public String getInvTerminal() {
+        return invTerminal;
     }
 }

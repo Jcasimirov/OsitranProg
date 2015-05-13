@@ -61,7 +61,8 @@ public class ContratoHito implements Serializable {
     private String htoUsuarioBaja;
     @Column(name = "HTO_USUARIO_CAMBIO", length = 20)
     private String htoUsuarioCambio;
-
+    @Column(name = "HTO_TERMINAL", length = 20)
+    private String htoTerminal;
     public ContratoHito() {
     }
 
@@ -187,5 +188,13 @@ public class ContratoHito implements Serializable {
 
     public String getHtoUsuarioCambio() {
         return htoUsuarioCambio;
+    }
+
+    public void setHtoTerminal(String htoTerminal) {
+        this.htoTerminal = htoTerminal;
+    }
+
+    public String getHtoTerminal() {
+        return htoTerminal;
     }
 }
