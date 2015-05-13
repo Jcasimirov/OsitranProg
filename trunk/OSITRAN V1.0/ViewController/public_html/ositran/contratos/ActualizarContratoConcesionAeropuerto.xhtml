@@ -1601,7 +1601,7 @@
                                         <tr>
                                             <td align="left">Plazo</td>
                                             <td align="left">
-                                                <h:panelGrid columns="2" style="padding:0px !important;">
+                                                <h:panelGrid columns="3" style="padding:0px !important;">
                                                     <p:inputText id="plazoAlerta" style="width:90px;" value="#{actualizarContratoMB.plazoAlerta}" onkeypress="return validarNum(event);">
                                                     
                                                     </p:inputText>
@@ -1611,7 +1611,9 @@
                                                         <f:selectItem itemLabel="MES(ES)" itemValue="30"/>
                                                         <f:selectItem itemLabel="AÑO(S)" itemValue="365"/>
                                                     </p:selectOneMenu>
+                                                    <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                                 </h:panelGrid>
+                                                 
                                             </td>
                                             <td></td>
                                         </tr>
@@ -1626,6 +1628,7 @@
                                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="-1"/>
                                                     <f:selectItems value="#{actualizarContratoMB.listarPeriodos}" var="per" itemLabel="#{per.perNombre}" itemValue="#{per.perId}"/>
                                                 </p:selectOneMenu>
+                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1633,6 +1636,7 @@
                                             <td align="left">Dia de Presentaci&#243;n</td>
                                             <td align="left">
                                                 <p:inputText value="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0?'':actualizarContratoMB.conDiamesAlerta}" id="diamesAlerta" disabled="#{actualizarContratoMB.periodoseleccionadoAlerta ne 0}" ></p:inputText>
+                                                 
                                             </td>
                                         </tr>
                                          
