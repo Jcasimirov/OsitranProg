@@ -197,15 +197,19 @@ public class ReportesController {
         String tipoReporte=(String)event.getComponent().getAttributes().get("tiporeporte");
         
         System.out.println("valor entidad = "+nomEntidad);
-        
+        String rutax=ectx.getRealPath("/");
+        // this.getClass().getResource("/").getPath()
+        System.out.println("paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaath del log rutax "+ rutax);
         Map parameterMap = new HashMap();      
-        String path = ectx.getRealPath("/reportes");
+        String path = rutax+"reportes\\";
+        System.out.println("paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaath del log "+ path);
+        //String path = ectx.getRealPath(File.separator + "reportes" + File.separator);
         String extension = "";
         String nomReporte = ""; // "reporte_clientes.xlsx";                
         String nomJasper = ""; // "rptCliente.jasper";
         String nomSubReporte = ""; //este solo debe cambiar cuando el reporte lo requiera, sino queda vacio
-
-        if (tipoReporte.equals("pdf")) {
+        
+ if (tipoReporte.equals("pdf")) {
             extension = ".pdf";
         } else if (tipoReporte.equals("excel")) {
             extension = ".xlsx";
@@ -213,55 +217,55 @@ public class ReportesController {
         
         if (nomEntidad.equals("avanceInvContratosConcesion")) {
             nomReporte = "reporte_avanceInvContratosConcesion" + extension;
-            nomJasper = "/rptAvanceInvContConc_" + tipoReporte + ".jasper";
+            nomJasper = "rptAvanceInvContConc_" + tipoReporte + ".jasper";
             
             parameterMap.put("P_ANNIO", getValuesControlSelectOneMenuView("#{backing_ositran_reports_avanceInvContratosConcesion.annio}"));
             parameterMap.put("P_MES", getValuesControlSelectOneMenuView("#{backing_ositran_reports_avanceInvContratosConcesion.mes}"));            
         } else if (nomEntidad.equals("controlPlazosFlujoValorizacionesSupervision")) {
             nomReporte = "reporte_controlPlazosFlujoValorizacionesSupervision" + extension;
-            nomJasper = "/rptControlPlazosFlujoPagosEmpSup_" + tipoReporte + ".jasper";
+            nomJasper = "rptControlPlazosFlujoPagosEmpSup_" + tipoReporte + ".jasper";
         } else if (nomEntidad.equals("controlPlazosFlujoValorizacionesInversiones")) {
             nomReporte = "reporte_controlPlazosFlujoValorizacionesInversiones" + extension;
-            nomJasper = "/rptControlPlazosFlujoValInv_" + tipoReporte + ".jasper";
+            nomJasper = "rptControlPlazosFlujoValInv_" + tipoReporte + ".jasper";
         } else if (nomEntidad.equals("empresaSupervisoraVSInfraestructura")) {
             int idTipoInfraestructura = Integer.parseInt(getValuesControlSelectOneMenuView("#{backing_ositran_reports_empresaSupervisoraVSInfraestructura.tipoInfraestructura}"));
             if(idTipoInfraestructura==2){
                 //Si es solo Aeropuertos, usar el otro formato
                 nomEntidad = "empresaSupervisoraVSInfraestructuraAeropuertos";
                 nomReporte = "reporte_empresaSupervisoraVSInfraestructuraAeropuertos" + extension;
-                nomJasper = "/rptEmpSupInfAeropuertos_" + tipoReporte + ".jasper"; 
+                nomJasper = "rptEmpSupInfAeropuertos_" + tipoReporte + ".jasper"; 
             }else{
                 nomReporte = "reporte_empresaSupervisoraVsInfraestructura" + extension;
-                nomJasper = "/rptEmpSupInf_" + tipoReporte + ".jasper";
+                nomJasper = "rptEmpSupInf_" + tipoReporte + ".jasper";
             }            
         } else if (nomEntidad.equals("empresaSupervisoraVSInfraestructuraAeropuertos")) {
             nomEntidad = "empresaSupervisoraVSInfraestructuraAeropuertos";
             nomReporte = "reporte_empresaSupervisoraVsInfraestructura" + extension;
-            nomJasper = "/rptEmpSupInf_" + tipoReporte + ".jasper";
+            nomJasper = "rptEmpSupInf_" + tipoReporte + ".jasper";
         }else if (nomEntidad.equals("invPorTipoConcepto")) {
             nomReporte = "reporte_inversionPorTipoConcepto" + extension;
-            nomJasper = "/rptInvTipConcepto_" + tipoReporte + ".jasper";
-            nomSubReporte = "/rptInvTipConcepto_detalle_" + tipoReporte + ".jasper";
+            nomJasper = "rptInvTipConcepto_" + tipoReporte + ".jasper";
+            nomSubReporte = "rptInvTipConcepto_detalle_" + tipoReporte + ".jasper";
             
             parameterMap.put("SUBREPORT_DIR", path + nomSubReporte);
         } else if (nomEntidad.equals("invReconocimContratosConcesionResumen")) {
             nomReporte = "reporte_invReconContConResumen" + extension;
-            nomJasper = "/rptInvReconContConResumen_" + tipoReporte + ".jasper";
+            nomJasper = "rptInvReconContConResumen_" + tipoReporte + ".jasper";
             
             parameterMap.put("P_ANNIO", getValuesControlSelectOneMenuView("#{backing_ositran_reports_invReconocimContratosConcesionResumen.annio}"));
             parameterMap.put("P_MES", getValuesControlSelectOneMenuView("#{backing_ositran_reports_invReconocimContratosConcesionResumen.mes}"));            
         } else if (nomEntidad.equals("trazabilidadPrincipalesEventos")){
             nomReporte = "reporte_trazabilidadPrincipalesEventos" + extension;
-            nomJasper = "/rptTrazabilidadEventos_" + tipoReporte + ".jasper";
+            nomJasper = "rptTrazabilidadEventos_" + tipoReporte + ".jasper";
         } else if (nomEntidad.equals("reporteAlerta")){
             String tipoReporteAlerta = getValuesControlSelectOneMenuView("#{backing_ositran_reports_reporte_alerta.tipoInfraestructura}");
             if (tipoReporteAlerta!=null && tipoReporteAlerta.equals("2") ){
                 nomReporte = "reporte_alertasAeropuertos" + extension;
-                nomJasper = "/rptAlertasAeropuertos_" + tipoReporte + ".jasper";
+                nomJasper = "rptAlertasAeropuertos_" + tipoReporte + ".jasper";
                 
             }else{
                 nomReporte = "reporte_alertas" + extension;
-                nomJasper = "/rptAlertas_" + tipoReporte + ".jasper";
+                nomJasper = "rptAlertas_" + tipoReporte + ".jasper";
             }
             
         } 
@@ -280,13 +284,14 @@ public class ReportesController {
         //Config Reporte - NO es reporte
 
         String rutaJasper = path + nomJasper;
-        parameterMap.put("IMAGE_URL", path + "/logo_200_100.jpg");
+        parameterMap.put("IMAGE_URL", path + "logo_200_100.jpg");
 
         JRDataSource dataSource = getDataSource(nomEntidad, tipoReporte);
         jasperPrint = new JasperPrint();
 
         if (dataSource != null) {
             ServletOutputStream out;
+            System.out.println("RUTAAAAAAAAAAA JASPER ========" + rutaJasper);
             jasperPrint = JasperFillManager.fillReport(rutaJasper, parameterMap, dataSource);
 
             if (tipoReporte.equals("pdf")) {
@@ -319,6 +324,7 @@ public class ReportesController {
             out.flush();
             out.close();
             in.close();
+       
         }
     }
 
