@@ -546,7 +546,7 @@ public class ActualizarContrato {
                 contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
                 contratoVO.setConFechaCambio(new Date());
                 contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
-                contratoVO.setConTerminal(usuario.getUsuTerminal());
+                
                 if (periodoseleccionado != 0) {
                     contratoVO.setConDiames(null);
                 }
@@ -1008,7 +1008,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoNuevaEntregaVO.setCenFechaAlta(fechaActual);
                 contratoNuevaEntregaVO.setCenUsuarioAlta(usuario.getUsuAlias());
-                contratoNuevaEntregaVO.setCenTerminal(usuario.getUsuTerminal());
+                
 
                 /*FIN AUDITORIA*/
                 contratoEntregaServiceImpl.insert(contratoNuevaEntregaVO);
@@ -2928,7 +2928,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             contratoNuevoCompromisoVO.setCcoFechaAlta(fechaActual);
             contratoNuevoCompromisoVO.setCcoUsuarioAlta(usuario.getUsuAlias());
-            contratoNuevoCompromisoVO.setCcoTerminal(usuario.getUsuTerminal());
+            
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoVO);
             listarContratoCompromiso.add(contratoNuevoCompromisoVO);
@@ -2961,7 +2961,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idCompromisoEliminarI.setCcoFechaBaja(fechaActual);
             idCompromisoEliminarI.setCcoUsuarioBaja(usuario.getUsuAlias());
-            idCompromisoEliminarI.setCcoTerminal(usuario.getUsuTerminal());
+
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.update(idCompromisoEliminarI);
             listarContratoCompromiso.remove(idCompromisoEliminarI);
