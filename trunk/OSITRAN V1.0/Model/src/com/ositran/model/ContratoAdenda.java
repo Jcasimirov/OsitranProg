@@ -71,6 +71,8 @@ public class ContratoAdenda implements Serializable {
     private Date cadFechaCambio;
     @Column(name = "CAD_USUARIO_CAMBIO", length = 20)
     private String cadUsuarioCambio;
+    @Column(name = "CAD_TERMINAL", length = 20)
+    private String cadTerminal;
     
     public ContratoAdenda(String cadDescripcion, String cadDocumentoFisico, Date cadFecha, Integer cadId,
                           BigDecimal cadMonto, Integer conId, Integer monId, Integer tadId, Integer cadEstado) {
@@ -219,5 +221,13 @@ public class ContratoAdenda implements Serializable {
 
     public String getCadUsuarioCambio() {
         return cadUsuarioCambio;
+    }
+
+    public void setCadTerminal(String cadTerminal) {
+        this.cadTerminal = cadTerminal;
+    }
+
+    public String getCadTerminal() {
+        return cadTerminal;
     }
 }
