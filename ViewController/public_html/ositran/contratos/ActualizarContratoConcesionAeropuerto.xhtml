@@ -242,7 +242,8 @@
                                                                 <tr>
                                                                     <td align="left">Nota para el Plazo</td>
                                                                     <td align="left">
-                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;"/>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;"
+                                                                        onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                                     </td>
                                                                       <td><p:graphicImage url="../../images/obligatorio.gif"/></td>
                                                                 </tr>
@@ -389,12 +390,16 @@
                             </p:dialog>
                             <p:dialog widgetVar="dlgPDFContrato" appendToBody="true" modal="true" header="Subir Contrato" position="center">
                                 <h:form id="formPdfcontrato" enctype="multipart/form-data">
-                                    <p:fileUpload id="file1" fileUploadListener="#{actualizarContratoMB.subirContratoPDF}" update=":tab:form:conPdfcontrato" auto="true" showButtons="false" mode="advanced" oncomplete="dlgPDFContrato.hide();"></p:fileUpload>
+                                    <p:fileUpload id="file1" fileUploadListener="#{actualizarContratoMB.subirContratoPDF}" 
+                                    update=":tab:form:conPdfcontrato" auto="true" showButtons="false" mode="advanced" 
+                                    oncomplete="dlgPDFContrato.hide();"
+                                    label="Elegir"></p:fileUpload>
                                 </h:form>
                             </p:dialog>
                             <p:dialog widgetVar="dlgFichaResumen" appendToBody="true" modal="true" header="Subir Ficha Resumen" position="center">
                                 <h:form id="formfichaResumen" enctype="multipart/form-data">
-                                    <p:fileUpload id="file2" fileUploadListener="#{actualizarContratoMB.subirFichaResumen}" mode="advanced" update=":tab:form:conFicharesumen" auto="true" showButtons="false" oncomplete="dlgFichaResumen.hide();"/>
+                                    <p:fileUpload id="file2" fileUploadListener="#{actualizarContratoMB.subirFichaResumen}" mode="advanced" update=":tab:form:conFicharesumen" 
+                                    auto="true" showButtons="false" oncomplete="dlgFichaResumen.hide();" label="Elegir"/>
                                 </h:form>
                             </p:dialog>
                         </p:tab>
@@ -1729,7 +1734,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaContratoInversion" value="#{actualizarContratoMB.listContratoInversion}" var="tInversion">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" 
+                                                paginator="true" 
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                                rowsPerPageTemplate="5,10,20" 
+                                                resizableColumns="true" style="font-size:11px;" 
+                                                id="tablaContratoInversion" value="#{actualizarContratoMB.listaConcesionInversion}" var="tInversion">
                                                     <p:column headerText="Aeropuerto" style="width:20%">
                                                         <h:outputText value="#{tInversion.infNombre}"/>
                                                     </p:column>
