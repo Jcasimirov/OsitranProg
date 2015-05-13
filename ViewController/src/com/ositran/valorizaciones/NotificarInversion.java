@@ -73,11 +73,13 @@ public class NotificarInversion {
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
+    private String ipcliente;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
         setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
     }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
@@ -102,6 +104,14 @@ public class NotificarInversion {
 
     public int getTipoInfraestructura() {
         return tipoInfraestructura;
+    }
+
+    public void setIpcliente(String ipcliente) {
+        this.ipcliente = ipcliente;
+    }
+
+    public String getIpcliente() {
+        return ipcliente;
     }
     //---------------------------------------------//
 
@@ -703,7 +713,7 @@ public class NotificarInversion {
                     valorizacionNotificacionVO.setMonId(invAvnVO.getMonId());
                     valorizacionNotificacionVO.setTinId(invAvnVO.getTinId());
                     valorizacionNotificacionVO.setVanFechaAlta(util.getObtenerFechaHoy());
-                    valorizacionNotificacionVO.setVanTerminal(util.obtenerIpCliente());
+                    valorizacionNotificacionVO.setVanTerminal(ipcliente);
                     valorizacionNotificacionVO.setVanEstado(1);
                     valorizacionNotificacionVO.setVanTotalPresentado(invAvnVO.getTiaMontoTotalPresentado());
                     valorizacionNotificacionVO.setVanTotalReconocido(invAvnVO.getTiaMontoTotalReajustado());
