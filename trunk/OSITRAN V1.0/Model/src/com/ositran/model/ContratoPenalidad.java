@@ -64,6 +64,8 @@ public class ContratoPenalidad implements Serializable {
     private String tcpUsuarioBaja;
     @Column(name = "TCP_USUARIO_CAMBIO", length = 20)
     private String tcpUsuarioCambio;
+    @Column(name = "TCP_TERMINAL", length = 20)
+    private String tcpTerminal;
     public ContratoPenalidad() {
     }
 
@@ -197,5 +199,13 @@ public class ContratoPenalidad implements Serializable {
 
     public String getTcpUsuarioCambio() {
         return tcpUsuarioCambio;
+    }
+
+    public void setTcpTerminal(String tcpTerminal) {
+        this.tcpTerminal = tcpTerminal;
+    }
+
+    public String getTcpTerminal() {
+        return tcpTerminal;
     }
 }
