@@ -73,6 +73,8 @@ public class ContratoCompromiso implements Serializable {
     private String ccoUsuarioBaja;
     @Column(name = "CCO_USUARIO_CAMBIO", length = 20)
     private String ccoUsuarioCambio;
+    @Column(name = "CCO_TERMINAL", length = 20)
+    private String ccoTerminal;
     
     public ContratoCompromiso() {
     }
@@ -254,5 +256,13 @@ public class ContratoCompromiso implements Serializable {
 
     public String getCcoUsuarioCambio() {
         return ccoUsuarioCambio;
+    }
+
+    public void setCcoTerminal(String ccoTerminal) {
+        this.ccoTerminal = ccoTerminal;
+    }
+
+    public String getCcoTerminal() {
+        return ccoTerminal;
     }
 }
