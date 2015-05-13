@@ -11,9 +11,6 @@ import org.hibernate.Session;
 
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     InversionTipoDescripcion inversionTipoDescripcion;
-
-
-   
     
     @Override
     public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
@@ -57,23 +54,6 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
            return result;
     }
 
-    @Override
-    public String delete(Integer id) throws SQLException ,Exception {
-        String result=null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            inversionTipoDescripcion=(InversionTipoDescripcion)session.get(InversionTipoDescripcion.class, id);
-            inversionTipoDescripcion.setItdEstado(0);
-            inversionTipoDescripcion.setItdFechaBaja(new Date());
-            session.update(inversionTipoDescripcion);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            result=e.getMessage();
-        }
-        return result;
-    }
 
     @Override
     public String update(InversionTipoDescripcion inversionTipoDes) throws SQLException ,Exception {
