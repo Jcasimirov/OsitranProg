@@ -388,7 +388,7 @@ public class MantenimientoEmpSup {
         }else if (tipoDocumento==2 && nroDoc.matches("[0-9]*") && (nroDoc.trim().length() > 11 ||nroDoc.trim().length() < 11)) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Nro de Documento debe tener 11 caracteres");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarRuc(nroDoc.trim(),tipoDocumento) > 0) {
+        }else if (nroDoc.trim().length() >0 && validarRuc(nroDoc.trim(),tipoDocumento) > 0) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El Nro de Documento Ingresado, ya fue registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }
@@ -398,9 +398,14 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupNombre(nomEmpSup);
                 empSupVO.setSupDireccion(dirEmpSup);
                 empSupVO.setSupRepresentanteLegal(repLegal);
-                empSupVO.setSupTelefono(telefono);
-                empSupVO.setSupNroDocumento(nroDoc);
-                empSupVO.setTdoId(tipoDocumento);
+                empSupVO.setSupTelefono(telefono);                
+                if (tipoDocumento == 0){
+                    empSupVO.setTdoId(null);
+                    empSupVO.setSupNroDocumento(null);
+                }else{
+                    empSupVO.setTdoId(tipoDocumento);
+                    empSupVO.setSupNroDocumento(nroDoc);
+                }                
                 empSupVO.setSupCorreo(correo);
                 empSupVO.setSupSiglas(siglasNom); 
                 empSupVO.setSupEstado(1);
