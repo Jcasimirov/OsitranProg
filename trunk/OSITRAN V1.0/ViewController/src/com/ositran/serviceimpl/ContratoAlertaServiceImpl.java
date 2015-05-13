@@ -141,7 +141,7 @@ public class ContratoAlertaServiceImpl implements ContratoAlertaService {
         
         contratoAlerta.setCalNombreSupervisor(contratoAlertaVO.getCalNombreSupervisor());
 
-        contratoAlerta.setCalTerminal(contratoAlertaVO.getCalTerminal());
+        contratoAlerta.setCalTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         contratoAlerta.setCalCorreo(contratoAlertaVO.getCalCorreo());
 
         
