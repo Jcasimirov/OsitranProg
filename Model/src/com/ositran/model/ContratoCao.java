@@ -61,6 +61,8 @@ public class ContratoCao implements Serializable {
     private String caoUsuarioBaja;
     @Column(name = "CAO_USUARIO_CAMBIO", length = 20)
     private String caoUsuarioCambio;
+    @Column(name = "CAO_TERMINAL", length = 20)
+    private String caoTerminal;
 
     public ContratoCao() {
     }
@@ -187,5 +189,13 @@ public class ContratoCao implements Serializable {
 
     public String getCaoUsuarioCambio() {
         return caoUsuarioCambio;
+    }
+
+    public void setCaoTerminal(String caoTerminal) {
+        this.caoTerminal = caoTerminal;
+    }
+
+    public String getCaoTerminal() {
+        return caoTerminal;
     }
 }
