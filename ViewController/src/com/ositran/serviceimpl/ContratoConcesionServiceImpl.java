@@ -148,7 +148,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contrato.setConPdfcontrato(contratoVO.getConPdfcontrato());
         contrato.setConPlazoconcesion(contratoVO.getConPlazoconcesion());
         contrato.setConPlazorevision(contratoVO.getConPlazorevision());
-        contrato.setConTerminal(contratoVO.getConTerminal());
+        contrato.setConTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         contrato.setConTipodias(contratoVO.getConTipodias());
         contrato.setConUsuarioAlta(contratoVO.getConUsuarioAlta());
         contrato.setConUsuarioBaja(contratoVO.getConUsuarioBaja());
