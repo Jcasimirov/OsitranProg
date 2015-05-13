@@ -1159,7 +1159,22 @@ private int codigoInversion;
      public void Guardar() throws Exception{
          ContratoRespSupVO contrato_Cab = new ContratoRespSupVO();
          int eliminar=0;
-         if(ValidarDatos() == 0){
+         if(codigoContrato == 0 && contratoCompromisoSeleccionado == 0){
+             FacesMessage mensaje =
+                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un Contrato de Concesión y una Etapa o Periodo");
+             FacesContext.getCurrentInstance().addMessage(null, mensaje);
+         }else if (codigoContrato > 0 && contratoCompromisoSeleccionado == 0) {
+                 FacesMessage mensaje =
+                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione una Etapa de Concesion");
+                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+             }else if (listaDetalleAsignacion.size() == 0) {
+                 FacesMessage mensaje =
+                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No Existe Ningun Supervisor Asignado");
+                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
+             }
+             else{
+                 
+            
              try{
                  contrato_Cab = asignarResponsableSupervisionServiceImpl.ValidaCab(contratoRespSupVO.getCsiId(),contratoCompromisoSeleccionado);
                  // Nuevo Registro de Supervisión por etapa                 
