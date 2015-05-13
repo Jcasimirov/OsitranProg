@@ -1165,7 +1165,9 @@ public class DeclararInversion {
     public BigDecimal getTotalMontoReajustado() {
         return totalMontoReajustado;
     }
+    
     public void prepararMontosObservados(){
+    resetCamposIGV();
     invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);  
     invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);  
     invVO.setInvIgv(0);
