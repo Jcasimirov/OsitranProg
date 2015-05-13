@@ -91,7 +91,7 @@
                         </p:column>
                         <p:column headerText="Notificar"  rendered="#{bk_NotificarInversion.rolOpcion.troAgregar eq 1}" style="font-size: 9px">
                             <div style="text-align: center;">
-                                <p:commandButton rendered="#{val.iaeId eq 4}"
+                                <p:commandButton rendered="#{val.iaeId eq 4 or val.iaeId eq 5}"
                                                  actionListener="#{bk_NotificarInversion.notificarDeclaracion}"
                                                  image="ui-icon-pencil" oncomplete="notificar_inv.show();">
                                     <f:attribute id="valorizacion" name="valorizacion" value="#{val}"/>
