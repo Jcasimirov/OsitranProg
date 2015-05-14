@@ -146,7 +146,7 @@
                                         <table style="width:100% ;font-size:11px;" >
                                             <tr>
                                                 <td align="left">
-                                                    #{cam.numhr}
+                                                    #{cam.numhr}(*)
                                                     <p:inputMask style="width:60px" id="bnum" value="#{manteContEmprSupervisora.nrohr}" maxlength="4" mask="9?99"/>
                                                     <p:watermark for="bnum" value="Número"/>
                                                     <p:inputMask style="width:60px" id="bfecha" value="#{manteContEmprSupervisora.añohr}" maxlength="4" mask="9999"/>
@@ -155,15 +155,15 @@
                                                                      update=":form:freg :form:asuntohr :form:mensaje"/>
                                                 </td>
                                                 <td align="left" >
-                                                    #{cam.FR}
+                                                    Fecha Registro:
                                                     <p:inputText style="width:70px" id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2" align="left">
                                                     #{cam.asu}
-                                                    <p:inputTextarea style="width:85%" id="asuntohr" readonly="true"
-                                                                     value="#{manteContEmprSupervisora.asuntohr}"/>
+                                                    <p:inputTextarea style="width:85%" id="asuntohr" readonly="false"
+                                                                     onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.asuntohr}"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -172,7 +172,7 @@
                                         <tr>
                                             <td>
                                                 <p:fieldset style="width:90%" styleClass="fielsetinterno" legend="Criterio de búsqueda">
-                                                    <p:outputLabel value="Buscar Empresa Supervisora:"/>
+                                                    <p:outputLabel value="Buscar Empresa Supervisora: (*)"/>
                                                     <p:commandButton image="ui-icon-search"
                                                                      onclick="panelListaEmpresas.show()"
                                                                      actionListener="#{manteContEmprSupervisora.buscarEmpresaSup()}"
@@ -194,7 +194,7 @@
                                         <table style="margin-bottom:5px;font-size: 11px">
                                             <tr>
                                                 <td align="left" colspan="4">
-                                                    Buscar Contrato Concesion: 
+                                                    Buscar Contrato Concesion: (*)
                                                     <h:inputHidden value="#{manteContEmprSupervisora.contratoConcesion}"
                                                                    readonly="false" id="inputContrato"
                                                                    style="width:300px"/>
@@ -244,7 +244,7 @@
                                     <p:fieldset style="width:90%" styleClass="fielsetinterno" id="datosCompromiso" legend="ETAPA CONCESIÓN">
                                         <table>
                                             <tr>
-                                                <td colspan="1" align="left">#{cam.setapa}</td>
+                                                <td colspan="1" align="left">#{cam.setapa} (*)</td>
                                                 <td colspan="3" align="left">
                                                     <p:selectOneMenu id="listaCompromiso"
                                                                      value="#{manteContEmprSupervisora.contratoCompromisoSeleccionado}">
@@ -290,7 +290,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Nro. de contrato"/>
+                                                    <p:outputLabel value="Nro. de contrato (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
@@ -299,7 +299,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Fecha de inicio del servicio"/>
+                                                    <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:calendar styleClass="calendario"  id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}"/>
@@ -308,13 +308,13 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Fecha de suscripción"/>
+                                                    <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" />
                                                 </td>
                                                 <td>
-                                                    <p:outputLabel value="Plazo de contrato"/>
+                                                    <p:outputLabel value="Plazo de contrato (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsPlazoContrato}"/>
@@ -323,7 +323,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Monto contratado"/>
+                                                    <p:outputLabel value="Monto contratado (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsMontoContratado}"/>
@@ -343,13 +343,13 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Adelanto otorgado"/>
+                                                    <p:outputLabel value="Adelanto otorgado (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsAdelantoOtorgado}"/>
                                                 </td>
                                                 <td>
-                                                    <p:outputLabel value="Fecha adelanto"/>
+                                                    <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:calendar styleClass="calendario" id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}"/>
@@ -358,7 +358,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Referencia a penalidades"/>
+                                                    <p:outputLabel value="Referencia a penalidades (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)"                                                
@@ -368,7 +368,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel  value="Referencia a causales de caducidad"/>
+                                                    <p:outputLabel  value="Referencia a causales de caducidad (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.cpsCaducidad}"/>
@@ -400,11 +400,13 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                    
                                                 <td colspan="4">
                                                 <p:commandButton value="Agregar Adenda"
                                                                  update=":form:mensaje"
                                                                  actionListener="#{manteContEmprSupervisora.tAdenda()}"/>
                                                 </td>
+                                              
                                             </tr>
                                             <tr>
                                             <td colspan="4">
@@ -764,7 +766,7 @@
                                         <table style="width:100% ;font-size:11px;" >
                                             <tr>
                                                 <td align="left">
-                                                    #{cam.numhr}
+                                                    #{cam.numhr}(*)
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.nrohrE}"/>
                                                     <p:watermark for="bnum" value="Número"/>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.añohrE}"/>
@@ -773,15 +775,15 @@
                                                                      update=":form:fregE :form:asuntohrE"/>
                                                 </td>
                                                 <td align="left" >
-                                                    #{cam.FR}
-                                                    <p:inputText style="width:70px" id="fregE" readonly="true" value="#{manteContEmprSupervisora.fregE}"/>
+                                                    Fecha Registro:
+                                                    <p:inputText style="width:70px" id="fregE" readonly="false" value="#{manteContEmprSupervisora.fregE}"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2" align="left">
                                                     #{cam.asu}
-                                                    <p:inputTextarea style="width:85%" id="asuntohrE" readonly="true"
-                                                                     value="#{manteContEmprSupervisora.asuntohrE}"/>
+                                                    <p:inputTextarea style="width:85%" id="asuntohrE" readonly="false"
+                                                                     onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.asuntohrE}"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -790,7 +792,7 @@
                                         <tr>
                                             <td>
                                                 <p:fieldset style="width:90%" styleClass="fielsetinterno" legend="Criterio de búsqueda">
-                                                    <p:outputLabel value="Buscar Empresa Supervisora:"/>
+                                                    <p:outputLabel value="Buscar Empresa Supervisora:(*)"/>
                                                     <p:commandButton image="ui-icon-search"
                                                                      onclick="panelListaEmpresasE.show()"
                                                                      actionListener="#{manteContEmprSupervisora.buscarEmpresaSupE()}"
@@ -813,7 +815,7 @@
                                         <table style="margin-bottom:5px;font-size: 11px">
                                             <tr>
                                                 <td align="left" colspan="4">
-                                                    Buscar Contrato Concesion: 
+                                                    Buscar Contrato Concesion: (*)
                                                     <h:inputHidden value="#{manteContEmprSupervisora.contratoConcesion}"
                                                                    readonly="false" id="inputContratoE" style="width:300px"/>
                                                     <p:commandButton id="searchContratosE" image="ui-icon-search"
@@ -867,7 +869,7 @@
                                     <p:fieldset style="width:90%" styleClass="fielsetinterno" id="datosCompromisoE" legend="ETAPA CONCESIÓN">
                                         <table>
                                             <tr>
-                                                <td colspan="1" align="left">#{cam.setapa}</td>
+                                                <td colspan="1" align="left">#{cam.setapa} (*)</td>
                                                 <td colspan="3" align="left">
                                                     <p:selectOneMenu id="listaCompromisoE"
                                                                      value="#{manteContEmprSupervisora.contratoCompromisoSeleccionadoE}">
@@ -913,7 +915,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Nro. de contrato"/>
+                                                    <p:outputLabel value="Nro. de contrato (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:inputText readonly="true"  style="width:60px" value="#{manteContEmprSupervisora.contratoE}"/>
@@ -922,7 +924,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Fecha de inicio del servicio"/>
+                                                    <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
                                                     <p:calendar styleClass="calendario"  id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}"/>
@@ -931,13 +933,13 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Fecha de suscripción"/>
+                                                    <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNewE"  value="#{manteContEmprSupervisora.fechaSuscripcionE}" />
                                                 </td>
                                                 <td>
-                                                    <p:outputLabel value="Plazo de contrato"/>
+                                                    <p:outputLabel value="Plazo de contrato (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.plazocontrE}"/>
@@ -946,7 +948,7 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Monto contratado"/>
+                                                    <p:outputLabel value="Monto contratado (*)" />
                                                 </td>
                                                 <td>
                                                     <p:inputText style="width:60px" value="#{manteContEmprSupervisora.montocontrE}"/>
@@ -966,13 +968,13 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Adelanto otorgado"/>
+                                                    <p:outputLabel value="Adelanto otorgado (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.adelantoE}"/>
+                                                    <p:inputText style="width:60px" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.adelantoE}"/>
                                                 </td>
                                                 <td>
-                                                    <p:outputLabel value="Fecha adelanto"/>
+                                                    <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
                                                     <p:calendar styleClass="calendario" id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}"/>
@@ -981,29 +983,29 @@
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Referencia a penalidades"/>
+                                                    <p:outputLabel value="Referencia a penalidades (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%"                                                
+                                                    <p:inputTextarea style="width:80%"   onkeyup="pasarMayuscula(this.value,this.id)"                                              
                                                                      value="#{manteContEmprSupervisora.cpsPenalidadesE}"/>
                                                 </td>
                                             </tr>
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel  value="Referencia a causales de caducidad"/>
+                                                    <p:outputLabel  value="Referencia a causales de caducidad (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%" value="#{manteContEmprSupervisora.cpsCaducidadE}"/>
+                                                    <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.cpsCaducidadE}"/>
                                                 </td>
                                             </tr>
                                              
                                             <tr>
                                                 <td>
-                                                    <p:outputLabel value="Garantias a favor de OSITRAN"/>
+                                                    <p:outputLabel value="Garantias a favor de OSITRAN (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputTextarea style="width:80%" value="#{manteContEmprSupervisora.cpsGarantiasE}"/>
+                                                    <p:inputTextarea style="width:80%" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.cpsGarantiasE}"/>
                                                 </td>
                                             </tr>
                                              
