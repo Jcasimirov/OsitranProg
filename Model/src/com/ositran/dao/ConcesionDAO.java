@@ -2,8 +2,6 @@ package com.ositran.dao;
 
 import com.ositran.model.Concesion;
 
-import com.ositran.model.Infraestructura;
-
 import java.sql.SQLException;
 
 import java.util.List;
@@ -22,4 +20,5 @@ public interface ConcesionDAO {
     // Iosusky
     public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException;
     public List<Concesion> listarConcesiones() throws SQLException;
+    public List<Concesion> listarConcesionesxIdConcesion(int idConcesion) throws Exception;
 }

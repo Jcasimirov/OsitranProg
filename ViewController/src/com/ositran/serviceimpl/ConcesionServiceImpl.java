@@ -36,7 +36,11 @@ public class ConcesionServiceImpl implements ConcesionService{
         List<ConcesionVO> listVO=toListConcesionVO(list);
         return listVO;
     }
-
+    public List<ConcesionVO> listarConcesionesxIdConcesion(int codigo) throws Exception{
+        List<Concesion> list=concesionDAOImpl.listarConcesionesxIdConcesion(codigo);
+        List<ConcesionVO> listVO=toListConcesionVO(list);
+        return listVO;
+    }
     @Override
     public String insert(ConcesionVO concesionVO) throws SQLException{
         Concesion concesion=toConcesion(concesionVO);

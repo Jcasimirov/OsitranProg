@@ -157,6 +157,16 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         session.close();
         return list;
     }    
-
+    public List<Concesion> listarConcesionesxIdConcesion(int idConcesion) throws Exception{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        session.beginTransaction();
+        Query query=null;  
+        query =session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId=:idConcesion order by o.csiId");
+        query.setParameter("idConcesion",idConcesion);
+        List lista=query.list();
+        
+        session.close();
+        return (List<Concesion>)lista;
+    }
    
 }
