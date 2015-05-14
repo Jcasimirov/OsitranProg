@@ -22,6 +22,7 @@ public class UsuarioVO{
     private String usuUsuarioCambio;
     private int contador;
     private Integer supInvId;
+    private Integer tinId;
     
     //Atributo Rol
     private String nombreRol;
@@ -29,10 +30,11 @@ public class UsuarioVO{
     public UsuarioVO(){
         }
 
+
     public UsuarioVO(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
                      Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio,
                      Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
-                     String usuUsuarioCambio) {
+                     String usuUsuarioCambio, int contador, Integer supInvId, Integer tinId, String nombreRol) {
         super();
         this.rolId = rolId;
         this.usuAlias = usuAlias;
@@ -50,6 +52,10 @@ public class UsuarioVO{
         this.usuUsuarioAlta = usuUsuarioAlta;
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
+        this.contador = contador;
+        this.supInvId = supInvId;
+        this.tinId = tinId;
+        this.nombreRol = nombreRol;
     }
 
 
@@ -189,6 +195,21 @@ public class UsuarioVO{
         return contador;
     }
 
+    public void setSupInvId(Integer supInvId) {
+        this.supInvId = supInvId;
+    }
+
+    public Integer getSupInvId() {
+        return supInvId;
+    }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
 
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
@@ -196,13 +217,5 @@ public class UsuarioVO{
 
     public String getNombreRol() {
         return nombreRol;
-    }
-
-    public void setSupInvId(Integer supInvId) {
-        this.supInvId = supInvId;
-    }
-
-    public Integer getSupInvId() {
-        return supInvId;
     }
 }
