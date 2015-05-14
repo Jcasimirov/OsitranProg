@@ -63,14 +63,18 @@ public class Usuario implements Serializable {
     private String usuUsuarioCambio;
     @Column(name = "TSI_ID")
     private Integer supInvID;
-
+    @Column(name = "TIN_ID")
+    private Integer tinId;
+    
+    
     public Usuario() {
     }
 
     public Usuario(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
-                   Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja,
-                   Date usuFechaCambio, Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta,
-                   String usuUsuarioBaja, String usuUsuarioCambio) {
+                   Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio,
+                   Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
+                   String usuUsuarioCambio, Integer supInvID, Integer tinId) {
+        super();
         this.rolId = rolId;
         this.usuAlias = usuAlias;
         this.usuContrasenya = usuContrasenya;
@@ -87,88 +91,90 @@ public class Usuario implements Serializable {
         this.usuUsuarioAlta = usuUsuarioAlta;
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
+        this.supInvID = supInvID;
+        this.tinId = tinId;
+    }
+
+
+    public void setRolId(Integer rolId) {
+        this.rolId = rolId;
     }
 
     public Integer getRolId() {
         return rolId;
     }
 
-    public void setRolId(Integer rolId) {
-        this.rolId = rolId;
+    public void setUsuAlias(String usuAlias) {
+        this.usuAlias = usuAlias;
     }
 
     public String getUsuAlias() {
         return usuAlias;
     }
 
-    public void setUsuAlias(String usuAlias) {
-        this.usuAlias = usuAlias;
+    public void setUsuContrasenya(String usuContrasenya) {
+        this.usuContrasenya = usuContrasenya;
     }
 
     public String getUsuContrasenya() {
         return usuContrasenya;
     }
 
-    public void setUsuContrasenya(String usuContrasenya) {
-        this.usuContrasenya = usuContrasenya;
+    public void setUsuCorreo(String usuCorreo) {
+        this.usuCorreo = usuCorreo;
     }
 
     public String getUsuCorreo() {
         return usuCorreo;
     }
 
-    public void setUsuCorreo(String usuCorreo) {
-        this.usuCorreo = usuCorreo;
+    public void setUsuDescripcion(String usuDescripcion) {
+        this.usuDescripcion = usuDescripcion;
     }
 
     public String getUsuDescripcion() {
         return usuDescripcion;
     }
 
-    public void setUsuDescripcion(String usuDescripcion) {
-        this.usuDescripcion = usuDescripcion;
+    public void setUsuEsexterno(Integer usuEsexterno) {
+        this.usuEsexterno = usuEsexterno;
     }
 
     public Integer getUsuEsexterno() {
         return usuEsexterno;
     }
 
-    public void setUsuEsexterno(Integer usuEsexterno) {
-        this.usuEsexterno = usuEsexterno;
+    public void setUsuEstado(Integer usuEstado) {
+        this.usuEstado = usuEstado;
     }
 
     public Integer getUsuEstado() {
         return usuEstado;
     }
 
-    public void setUsuEstado(Integer usuEstado) {
-        this.usuEstado = usuEstado;
+    public void setUsuFechaAlta(Date usuFechaAlta) {
+        this.usuFechaAlta = usuFechaAlta;
     }
 
     public Date getUsuFechaAlta() {
         return usuFechaAlta;
     }
 
-    public void setUsuFechaAlta(Date usuFechaAlta) {
-        this.usuFechaAlta = usuFechaAlta;
+    public void setUsuFechaBaja(Date usuFechaBaja) {
+        this.usuFechaBaja = usuFechaBaja;
     }
 
     public Date getUsuFechaBaja() {
         return usuFechaBaja;
     }
 
-    public void setUsuFechaBaja(Date usuFechaBaja) {
-        this.usuFechaBaja = usuFechaBaja;
+    public void setUsuFechaCambio(Date usuFechaCambio) {
+        this.usuFechaCambio = usuFechaCambio;
     }
 
     public Date getUsuFechaCambio() {
         return usuFechaCambio;
     }
-
-    public void setUsuFechaCambio(Date usuFechaCambio) {
-        this.usuFechaCambio = usuFechaCambio;
-    }
-
 
     public void setUsuId(Integer usuId) {
         this.usuId = usuId;
@@ -178,46 +184,45 @@ public class Usuario implements Serializable {
         return usuId;
     }
 
-    public String getUsuNombre() {
-        return usuNombre;
-    }
-
     public void setUsuNombre(String usuNombre) {
         this.usuNombre = usuNombre;
     }
 
-    public String getUsuTerminal() {
-        return usuTerminal;
+    public String getUsuNombre() {
+        return usuNombre;
     }
 
     public void setUsuTerminal(String usuTerminal) {
         this.usuTerminal = usuTerminal;
     }
 
-    public String getUsuUsuarioAlta() {
-        return usuUsuarioAlta;
+    public String getUsuTerminal() {
+        return usuTerminal;
     }
 
     public void setUsuUsuarioAlta(String usuUsuarioAlta) {
         this.usuUsuarioAlta = usuUsuarioAlta;
     }
 
-    public String getUsuUsuarioBaja() {
-        return usuUsuarioBaja;
+    public String getUsuUsuarioAlta() {
+        return usuUsuarioAlta;
     }
 
     public void setUsuUsuarioBaja(String usuUsuarioBaja) {
         this.usuUsuarioBaja = usuUsuarioBaja;
     }
 
-    public String getUsuUsuarioCambio() {
-        return usuUsuarioCambio;
+    public String getUsuUsuarioBaja() {
+        return usuUsuarioBaja;
     }
 
     public void setUsuUsuarioCambio(String usuUsuarioCambio) {
         this.usuUsuarioCambio = usuUsuarioCambio;
     }
 
+    public String getUsuUsuarioCambio() {
+        return usuUsuarioCambio;
+    }
 
     public void setSupInvID(Integer supInvID) {
         this.supInvID = supInvID;
@@ -226,4 +231,13 @@ public class Usuario implements Serializable {
     public Integer getSupInvID() {
         return supInvID;
     }
+
+    public void setTinId(Integer tinId) {
+        this.tinId = tinId;
+    }
+
+    public Integer getTinId() {
+        return tinId;
+    }
+
 }
