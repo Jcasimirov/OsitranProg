@@ -220,7 +220,7 @@
                                                                 <tr>
                                                                     <td align="left">Fecha de Suscripcion:</td>
                                                                     <td align="left">
-                                                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}" value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"/>
+                                                                        <p:calendar readonly="true"  maxdate="#{actualizarContratoMB.fechaMaxima}" value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"/>
                                                                     </td>
                                                                       <td><p:graphicImage url="../../images/obligatorio.gif"/></td>
                                                                 </tr>
@@ -319,10 +319,10 @@
                                         </p:selectOneMenu>
                                         <p:message for="concesion" display="icon"/>
                                         <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
-                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaInicioBC" widgetVar="_fechaInicioBC" value="#{actualizarContratoMB.fechaInicioSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaInicioBC" widgetVar="_fechaInicioBC" value="#{actualizarContratoMB.fechaInicioSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaInicioBC" display="icon"/>
                                         <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
-                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaFinBC" widgetVar="_fechaFinBC" value="#{actualizarContratoMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaFinBC" widgetVar="_fechaFinBC" value="#{actualizarContratoMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaFinBC" display="icon"/>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
@@ -551,7 +551,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:outputLabel for="cadfecha" value="Fecha"/>
-                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="cadfecha" locale="es" pattern="dd/MM/yyyy" style="width:100% !important;" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"/>
+                                        <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="cadfecha" locale="es" pattern="dd/MM/yyyy" style="width:100% !important;" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"/>
                                         <p:message for="cadfecha" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -592,7 +592,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="fechaEntrega" value="Fecha"/>
-                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaEntrega" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaEntrega" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaEntrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -955,7 +955,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="fechaPenalidad" value="Fecha"/>
-                                        <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaPenalidad" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="fechaPenalidad" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="estado" value="Estado"/>
@@ -1170,7 +1170,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1261,7 +1261,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1335,7 +1335,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1428,7 +1428,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1588,7 +1588,7 @@
                                         <tr>
                                             <td align="left">Fecha de Inicio</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaIniAlerta}"/>
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaIniAlerta}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1597,7 +1597,7 @@
                                         <tr>
                                             <td align="left">Fecha de Fin</td>
                                             <td align="left">
-                                                <p:calendar  maxdate="#{actualizarContratoMB.fechaMaxima}"  id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true" value="#{actualizarContratoMB.fechaFinAlerta}" />
+                                                <p:calendar readonly="true"   maxdate="#{actualizarContratoMB.fechaMaxima}"  id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true" value="#{actualizarContratoMB.fechaFinAlerta}" />
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
