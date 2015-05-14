@@ -17,4 +17,5 @@ public interface ConcesionService {
     public List<ConcesionVO> buscarconcesionfiltro(int codigo, String nombre) throws SQLException;
     //Iosusky
         public List<ConcesionVO> filtrarConcesion(int tipoInfraestructura) throws SQLException;
+    public List<ConcesionVO> listarConcesionesxIdConcesion(int codigo) throws Exception;
 }
