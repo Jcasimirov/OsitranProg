@@ -189,6 +189,7 @@ public class ActualizarContrato {
     List<InfraestructuraVO> listaInfraestructura = new ArrayList<InfraestructuraVO>();
 
     List<ConcesionVO> listaConcesiones = new ArrayList<ConcesionVO>();
+    List<ConcesionVO> listaConcesionInversion = new ArrayList<ConcesionVO>();
 
     List<ModalidadConcesionVO> listaModalidad = new ArrayList<ModalidadConcesionVO>();
 
@@ -305,6 +306,7 @@ public class ActualizarContrato {
     private Integer unidadTiempo;
     private int periodoseleccionadoAlerta;
     private String conDiamesAlerta;
+    private Date fechaMaxima;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -1627,10 +1629,11 @@ public class ActualizarContrato {
         this.listContratoInversion = listContratoInversion;
     }
 
-    public void cargarListaInversiones(int idcontrato) {
+    public void cargarListaInversiones(int idconconcesion) {
         try {
-            System.out.println("idcontrato: " + idcontrato);
-            listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
+            
+            listaConcesionInversion=concesionServiceImpl.listarConcesionesxIdConcesion(idconconcesion);
+            //listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 for (InfraestructuraVO aux : listaInfraestructura) {
                     System.out.println("========aux.getInfNombre():" + aux.getInfNombre());
@@ -1643,7 +1646,7 @@ public class ActualizarContrato {
                     }
                 }
             }
-        } catch (SQLException s) {
+        } catch (Exception s) {
             s.printStackTrace();
         }
     }
@@ -3553,5 +3556,18 @@ public class ActualizarContrato {
 
     public String getConDiamesAlerta() {
         return conDiamesAlerta;
+    }
+
+    public void setListaConcesionInversion(List<ConcesionVO> listaConcesionInversion) {
+        this.listaConcesionInversion = listaConcesionInversion;
+    }
+
+    public List<ConcesionVO> getListaConcesionInversion() {
+        return listaConcesionInversion;
+    }
+
+    public Date getFechaMaxima() {
+      fechaMaxima=  new Date();
+        return fechaMaxima;
     }
 }
