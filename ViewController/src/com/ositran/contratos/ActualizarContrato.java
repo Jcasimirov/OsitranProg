@@ -151,6 +151,8 @@ public class ActualizarContrato {
     @ManagedProperty(value = "#{contratoInversionServiceImpl}")
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
     private List<ContratoInversionVO> listContratoInversion;
+    private List<ContratoInversionVO> listContratoInversionD;
+    private boolean disableCboAeropuerto;
     private boolean updateInversiones;
 
     @ManagedProperty(value = "#{contratoAlertaVO}")
@@ -188,6 +190,8 @@ public class ActualizarContrato {
 
     List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<InfraestructuraTipoVO>();
     List<InfraestructuraVO> listaInfraestructura = new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaInfraestructuraConInversion = new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaInfraestructuraCBO = new ArrayList<InfraestructuraVO>();
 
     List<ConcesionVO> listaConcesiones = new ArrayList<ConcesionVO>();
     List<ConcesionVO> listaConcesionInversion = new ArrayList<ConcesionVO>();
@@ -456,9 +460,20 @@ public class ActualizarContrato {
         listaContratoPenalidad(contratoVO.getConId());
         tabDeshabilitado = false;
         if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
-            /* cargarListaInversiones(contratoVO.getConId()); */            
+            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());           
             RequestContext.getCurrentInstance().update("tab:frmInversion:tablaContratoConcesionInversion");
            
+        }
+    }
+    // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
+    public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
+        try {
+            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);            
+            for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
+                infraestructurasCache.put("" + infraestructuraVO.getInfId(), infraestructuraVO);
+            }          
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public void resetAvanceObra() {
@@ -1566,42 +1581,73 @@ public class ActualizarContrato {
 
        
     }
-    /**Abrir nuevas inversiones setea el objeto**/
+    /**Al Abrir nuevas inversiones setea el objeto**/
     public void cargarNuevasInversiones(){
         infraestructuraId = 0;
         contratoInversionVO=new ContratoInversionVO();
         contratoInversionVO.setInfId(0);
         listContratoInversion=new ArrayList<ContratoInversionVO>();
+        disableCboAeropuerto=false;
         updateInversiones=false;
+        filtrarInfraestructurasSinInversiones();
+        
     }
-    // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
+    public void borrarTodasInversiones(){
+        infraestructuraId = 0;
+        contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO.setInfId(0);
+        listContratoInversion=new ArrayList<ContratoInversionVO>(); 
+        disableCboAeropuerto=updateInversiones?true:false;
+    }
+    public void limpiarCamposyListaInversiones(){      
+        contratoInversionVO.setInvDescripcion("");
+        if(updateInversiones){
+            contratoInversionVO.setInfId(infraestructuraId);
+            disableCboAeropuerto=true;
+        }
+    }
+
     /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
-    public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
+    public void cargarInfraestructurasxContratoInversion(Integer concesionId) {
         try {
-            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
-            for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
-                infraestructurasCache.put("" + infraestructuraVO.getInfId(), infraestructuraVO);
-            }
+            listaInfraestructuraConInversion=infraestructuraServiceImpl.getInfraestructurasInversion(concesionId);
+            filtrarInfraestructurasSinInversiones();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void filtrarInfraestructurasSinInversiones(){
+        HashMap<String,Object> mapp=new HashMap<String,Object>();
+        listaInfraestructuraCBO=new ArrayList<InfraestructuraVO>();
+        for (InfraestructuraVO infconinv : listaInfraestructuraConInversion) {
+            mapp.put(""+infconinv.getInfId(), infconinv);           
+        }
+        for (InfraestructuraVO inf : listaInfraestructura) {
+            /**infraestructurasCache tiene todas las infraestructuras de la concesion 
+             * en el contrato seleccionado**/
+            /**Se valida si la infraestructura con inversion  
+             * no esta en el total de infraestructuras de la 
+             * concesion en el contrato seleccionado**/            
+            if((mapp.get(""+inf.getInfId()) ==null))
+                    listaInfraestructuraCBO.add(inf);        
+        }
+      
     }
     /**II.Se carga al Seleccionar una Concesion: 
      * 1.Carga las inversiones que tiene asignada segun Ids:
      *   Contrato, tipo de infraestructura y la Concesion
      * 2.Se muestra el Dialogo con la lista de Inversiones**/
     public void cargarListaInversiones(ActionEvent event) {
+    try {
         InfraestructuraVO infraestructuraSeleccionada=(InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
-        infraestructuraId = infraestructuraSeleccionada.getInfId();
+        infraestructuraId = infraestructuraSeleccionada.getInfId(); 
+        listaInfraestructuraCBO=(List<InfraestructuraVO>)Reutilizar.getNewInstance().copy(listaInfraestructuraConInversion);
         contratoInversionVO=new ContratoInversionVO();
         contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
-        updateInversiones=true;
-          try {
-            listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
-            for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
-               String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
-               contratoInversionVO.setInfNombre(nombreInfraestructura);
-            }
+        disableCboAeropuerto=true;
+        updateInversiones=true; 
+        
+        listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
         } catch (Exception s) {
             s.printStackTrace();
         } 
@@ -1612,21 +1658,24 @@ public class ActualizarContrato {
         String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
         contratoInversionVO.setInfNombre(nombreInfraestructura);
     }
-    /**IV.Valida que se ingrese correctamente 
+    /**IV.Agrega nueva Inversion y valida que se ingrese correctamente 
      * a la Lista de inversiones Temporal **/
-    public void validarCamposContratoInversion(){
+    public void preAgregarInversion(){
+            disableCboAeropuerto=true;
+      int   infraestructuraId = contratoInversionVO.getInfId();
         if (contratoInversionVO.getInfId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Infraestructura"));
-            RequestContext.getCurrentInstance().update("form:mensaje");
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
-        else if (contratoInversionVO.getInvDescripcion()==null && contratoInversionVO.getInvDescripcion().length()== 0) {
+        else if (contratoInversionVO.getInvDescripcion()==null || contratoInversionVO.getInvDescripcion().length()== 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Nombre de la Inversion"));
-            RequestContext.getCurrentInstance().update("form:mensaje");
-        }else{
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }else{ 
+            listContratoInversion.add(contratoInversionVO);            
             contratoInversionVO=new ContratoInversionVO();
             contratoInversionVO.setInfId(infraestructuraId);
         }
@@ -3579,11 +3628,44 @@ public class ActualizarContrato {
         return fechaMaxima;
     }
 
+
+    public void setDisableCboAeropuerto(boolean disableCboAeropuerto) {
+        this.disableCboAeropuerto = disableCboAeropuerto;
+    }
+
+    public boolean isDisableCboAeropuerto() {
+        return disableCboAeropuerto;
+    }
+
     public void setUpdateInversiones(boolean updateInversiones) {
         this.updateInversiones = updateInversiones;
     }
 
     public boolean isUpdateInversiones() {
         return updateInversiones;
+    }
+
+    public void setListContratoInversionD(List<ContratoInversionVO> listContratoInversionD) {
+        this.listContratoInversionD = listContratoInversionD;
+    }
+
+    public List<ContratoInversionVO> getListContratoInversionD() {
+        return listContratoInversionD;
+    }
+
+    public void setListaInfraestructuraConInversion(List<InfraestructuraVO> listaInfraestructuraConInversion) {
+        this.listaInfraestructuraConInversion = listaInfraestructuraConInversion;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructuraConInversion() {
+        return listaInfraestructuraConInversion;
+    }
+
+    public void setListaInfraestructuraCBO(List<InfraestructuraVO> listaInfraestructuraCBO) {
+        this.listaInfraestructuraCBO = listaInfraestructuraCBO;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructuraCBO() {
+        return listaInfraestructuraCBO;
     }
 }

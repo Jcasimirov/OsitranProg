@@ -1,9 +1,13 @@
 package com.ositran.vo.bean;
 
+import java.io.Serializable;
+
 import java.util.Date;
 
-public class ContratoInversionVO {
-    
+public class ContratoInversionVO implements Serializable{
+    @SuppressWarnings("compatibility:-1061767412791342848")
+    private static final long serialVersionUID = 3243416046688987669L;
+
     private Integer conId;
     private Integer csiId;
     private Integer infId;

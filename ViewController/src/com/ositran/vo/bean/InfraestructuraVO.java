@@ -1,9 +1,13 @@
 
 package com.ositran.vo.bean;
 
+import java.io.Serializable;
+
 import java.util.Date;
 
-public class InfraestructuraVO {
+public class InfraestructuraVO implements Serializable{
+    @SuppressWarnings("compatibility:-4778268853630525484")
+    private static final long serialVersionUID = 3438273668343714903L;
 
     private int csiId;
  
