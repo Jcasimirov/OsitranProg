@@ -1,14 +1,13 @@
 package com.ositran.serviceimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
-import com.ositran.daoimpl.InfraestructuraDAOImpl;
 import com.ositran.model.Infraestructura;
 import com.ositran.service.InfraestructuraService;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class InfraestructuraServiceImpl implements InfraestructuraService{
@@ -133,7 +132,11 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
         return listVO;
     }
-
+    public List<InfraestructuraVO> getInfraestructurasInversion(int codigoConcesion) throws Exception{
+        List<Infraestructura> list =infraestructuraDAOImpl.getInfraestructurasInversion(codigoConcesion);;        
+        List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
+        return listVO;
+    }
 
 
 }

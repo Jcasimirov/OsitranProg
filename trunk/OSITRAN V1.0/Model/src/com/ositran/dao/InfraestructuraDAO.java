@@ -1,6 +1,5 @@
 package com.ositran.dao;
 
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.model.Infraestructura;
 
 import java.sql.SQLException;
@@ -26,5 +25,5 @@ public interface InfraestructuraDAO {
     public Infraestructura get2(Integer id) throws SQLException;
     
     public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) throws SQLException;
-
+    public List<Infraestructura> getInfraestructurasInversion(int codigoConcesion) throws Exception;
 }

@@ -1727,7 +1727,7 @@
                                         <td align="right">
                                          <p:commandButton actionListener="#{actualizarContratoMB.cargarNuevasInversiones}"  
                                          update=":tab:frmAgregarInversion"
-                                         oncomplete="popupAgregarInversion.show();" value="Nuevo">
+                                         oncomplete="popupAgregarInversion.show();" value="Nuevo" icon="ui-icon-circle-plus">
                                         
                                         </p:commandButton>
                                         </td>
@@ -1740,7 +1740,8 @@
                                                 rows="10" paginator="true" 
                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
                                                 rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" 
-                                                id="tablaContratoConcesionInversion" value="#{actualizarContratoMB.listaInfraestructura}" var="tinfra">
+                                                id="tablaContratoConcesionInversion" 
+                                                value="#{actualizarContratoMB.listaInfraestructuraConInversion}" var="tinfra">
                                                 
                                                     <p:column headerText="INFRAESTRUCTURAS">
                                                         <h:outputText value="#{tinfra.infNombre}"/>
@@ -1760,7 +1761,7 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversión" 
+                            <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversiones" 
                                       modal="true" appendToBody="true" position="top" >
                                 <h:form id="frmAgregarInversion" >
                                  
@@ -1770,10 +1771,10 @@
                                             <td>
                                                 <p:selectOneMenu  id="AeropuertoInversion"
                                                                  value="#{actualizarContratoMB.contratoInversionVO.infId}"
-                                                                 style="width:210px" disabled="#{actualizarContratoMB.updateInversiones}">
+                                                                 style="width:210px" disabled="#{actualizarContratoMB.disableCboAeropuerto}">
                                                     <p:ajax listener="#{actualizarContratoMB.cargarDescripcionInfraestructuraEnContratoInversion()}" />
                                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructura}"
+                                                    <f:selectItems value="#{actualizarContratoMB.listaInfraestructuraCBO}"
                                                                    var="inf" itemLabel="#{inf.infNombre}"
                                                                    itemValue="#{inf.infId}"/>
                                                 </p:selectOneMenu>
@@ -1789,14 +1790,19 @@
                                         </tr>
                                         <tr> 
                                         <td align="right" colspan="2">
-                                                <p:commandButton id="btn_reset" value="Limpiar" type="reset"/>
+                                                <p:commandButton id="btn_borrarTodo" value="Borrar Todo" 
+                                                actionListener="#{actualizarContratoMB.borrarTodasInversiones()}" 
+                                                update=":tab:frmAgregarInversion" rendered="#{actualizarContratoMB.updateInversiones?false:true}"/>
+                                                
+                                                <p:commandButton id="btn_reset" value="Limpiar Inversion" 
+                                                actionListener="#{actualizarContratoMB.limpiarCamposyListaInversiones()}" 
+                                                update=":tab:frmAgregarInversion"  icon="ui-icon-trash"/>
                                            
                                                 <p:commandButton id="btn_add" value="Agregar" 
                                                 update=":tab:frmAgregarInversion"
-                                                action="#{actualizarContratoMB.validarCamposContratoInversion()}">
-                                                    <p:collector value="#{actualizarContratoMB.contratoInversionVO}"
-                                                    addTo="#{actualizarContratoMB.listContratoInversion}"                                                    
-                                                    unique="true" />
+                                                actionListener="#{actualizarContratoMB.preAgregarInversion()}"
+                                                icon="ui-icon-circle-plus">
+                                                    
                                                 </p:commandButton>
                                         </td>
                                          </tr>

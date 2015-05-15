@@ -2,7 +2,6 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.InfraestructuraDAO;
 import com.ositran.model.Infraestructura;
-import com.ositran.model.InfraestructuraTipo;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
@@ -146,11 +145,11 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         
         Query query;
-        query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i\n" + 
-                                        "INNER JOIN t_contrato ct \n" + 
-                                        "ON i.CSI_ID = ct.CSI_ID \n" + 
-                                        "AND i.TIN_ID = ct.TIN_ID \n" + 
-                                        "WHERE i.INF_ESTADO <> 0 \n" + 
+        query = session.createSQLQuery("select i.* from T_INFRAESTRUCTURA i " + 
+                                        "INNER JOIN t_contrato ct " + 
+                                        "ON i.CSI_ID = ct.CSI_ID " + 
+                                        "AND i.TIN_ID = ct.TIN_ID " + 
+                                        "WHERE i.INF_ESTADO <> 0 " + 
                                         "AND ct.CON_ID = :busqueda1").addEntity(Infraestructura.class);
         query.setParameter("busqueda1",codigoContrato);
         List<Infraestructura> list = query.list();
@@ -158,7 +157,23 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
         return list; 
     }
+    @Override
+    public List<Infraestructura> getInfraestructurasInversion(int codigoConcesion) throws Exception {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        
+        Query query;
+        query = session.createSQLQuery("select distinct i.* from t_contrato_inversion t " + 
+                                        "inner join  T_INFRAESTRUCTURA i " + 
+                                        "on t.TIN_ID = i.TIN_ID " + 
+                                        "and t.CSI_ID = i.CSI_ID " + 
+                                        "and t.INF_ID = i.INF_ID " + 
+                                        "where i.CSI_ID = :busqueda1 " + 
+                                        "and t.INV_ESTADO=1 " + 
+                                        "and i.INF_ESTADO=1 ").addEntity(Infraestructura.class);
+        query.setParameter("busqueda1",codigoConcesion);
+        List<Infraestructura> list = query.list();
+        
 
-
-   
+        return list; 
+    }
 }
