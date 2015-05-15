@@ -717,12 +717,11 @@ public class NotificarInversion {
                     valorizacionNotificacionVO.setVanEstado(1);
                     valorizacionNotificacionVO.setVanTotalPresentado(invAvnVO.getTiaMontoTotalPresentado());
                     valorizacionNotificacionVO.setVanTotalReconocido(invAvnVO.getTiaMontoTotalReajustado());
-                    valorizacionNotificacionVO.setVanUsuarioAlta(usuario.getUsuNombre());
+                    valorizacionNotificacionVO.setVanUsuarioAlta(usuario.getUsuAlias());
                     //Para Gaurdar Documento
                     Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTANOTIFICACION + rutapdf,
                                                                         invAvnVO.getNombreFile());
-                    invAvnVO.setTiaRutaNot(rutapdf);
-
+                    invAvnVO.setTiaRutaNot(rutapdf);                 
                     notificacionServiceImpl.NotificarInversion(invAvnVO, valorizacionNotificacionVO);
                     FacesMessage mensaje =
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Notifico con Exito");
