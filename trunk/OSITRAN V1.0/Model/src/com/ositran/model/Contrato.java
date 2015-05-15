@@ -66,11 +66,11 @@ public class Contrato implements Serializable {
     private String conTerminal;
     @Column(name = "CON_TIPODIAS")
     private Integer conTipodias;
-    @Column(name = "CON_USUARIO_ALTA", length = 20)
+    @Column(name = "CON_USUARIO_ALTA", length = 100)
     private String conUsuarioAlta;
-    @Column(name = "CON_USUARIO_BAJA", length = 20)
+    @Column(name = "CON_USUARIO_BAJA", length = 100)
     private String conUsuarioBaja;
-    @Column(name = "CON_USUARIO_CAMBIO", length = 20)
+    @Column(name = "CON_USUARIO_CAMBIO", length = 100)
     private String conUsuarioCambio;
     @Column(name = "CSI_ID")
     private Integer csiId;
