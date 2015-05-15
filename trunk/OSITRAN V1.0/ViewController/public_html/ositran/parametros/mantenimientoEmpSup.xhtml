@@ -210,12 +210,14 @@
                         <tr>
                             <td align="left">Tipo Documento</td>
                             <td align="left">
-                                <p:selectOneMenu id="tipoDocumentoMod"
+                            <p:selectOneMenu id="tipoDocumentoMod"
                                                  value="#{backing_ositran_parametros_MantenimientoEmpSup.tipoDocumentoMod}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{backing_ositran_parametros_MantenimientoEmpSup.listaTipoDocumento}"
                                                    var="lisTipoDoc" itemLabel="#{lisTipoDoc.tdoNombre}"
                                                    itemValue="#{lisTipoDoc.tdoId}"/>
                                 </p:selectOneMenu>
+
                             </td>
                             <td align="left">Numero doc Identidad:</td>
                             <td align="left">
