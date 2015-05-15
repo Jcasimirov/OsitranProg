@@ -117,7 +117,7 @@ private int codigoTipoInfraestructurafiltro;
 private int codigoSupervisor;
 private int codigoContrato;
 private int codigoAeropuerto;
-private int codigoInversion;
+private Integer codigoInversion;
 
     Util util = new Util();
 
@@ -163,8 +163,8 @@ private int codigoInversion;
     
     List<ContratoResSupDetalleVO> listaDetalleAsignacion = new ArrayList<ContratoResSupDetalleVO>();
     List<ContratoResSupDetalleVO> listaBd = new ArrayList<ContratoResSupDetalleVO>();
-    private List<InfraestructuraVO> listaAeropuerto = new ArrayList<>();
-    private List<ContratoInversionVO> listaInversiones = new ArrayList<>();
+    private List<InfraestructuraVO> listaAeropuerto = new ArrayList<InfraestructuraVO>();
+    private List<ContratoInversionVO> listaInversionesContrato = new ArrayList<ContratoInversionVO>();
      
      
      // service implement
@@ -609,11 +609,12 @@ private int codigoInversion;
         return codigoAeropuerto;
     }
 
-    public void setCodigoInversion(int codigoInversion) {
+
+    public void setCodigoInversion(Integer codigoInversion) {
         this.codigoInversion = codigoInversion;
     }
 
-    public int getCodigoInversion() {
+    public Integer getCodigoInversion() {
         return codigoInversion;
     }
 
@@ -623,14 +624,6 @@ private int codigoInversion;
 
     public List<InfraestructuraVO> getListaAeropuerto() {
         return listaAeropuerto;
-    }
-
-    public void setListaInversiones(List<ContratoInversionVO> listaInversiones) {
-        this.listaInversiones = listaInversiones;
-    }
-
-    public List<ContratoInversionVO> getListaInversiones() {
-        return listaInversiones;
     }
 
     public void setInfraestructuraServiceImpl(InfraestructuraService infraestructuraServiceImpl) {
@@ -647,6 +640,14 @@ private int codigoInversion;
 
     public ContratoInversionService getContratoInversionServiceImpl() {
         return contratoInversionServiceImpl;
+    }
+
+    public void setListaInversionesContrato(List<ContratoInversionVO> listaInversionesContrato) {
+        this.listaInversionesContrato = listaInversionesContrato;
+    }
+
+    public List<ContratoInversionVO> getListaInversionesContrato() {
+        return listaInversionesContrato;
     }
 
     public void eliminacionConfirmadaResponsable() throws SQLException {
@@ -805,8 +806,8 @@ private int codigoInversion;
                 nombreMoneda = "";           
                 nombreEmpresaSupervisora = "";
                 listaAeropuerto = new ArrayList<>();
-                listaInversiones = new ArrayList<>();
-                listaAeropuerto = infraestructuraServiceImpl.getInfraestructurasContrato(codigoContrato);
+                listaInversionesContrato = new ArrayList<ContratoInversionVO>();
+                listaAeropuerto = infraestructuraServiceImpl.query1(contratoVO.getCsiId());
                 listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
                 listaResponsables=new ArrayList<HashMap<String, Object>>();
                  
@@ -1019,10 +1020,10 @@ private int codigoInversion;
     }
     
     
-    public void cargarInversiones() throws Exception{
+    public void cargarInversiones() {
         try{
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-            listaInversiones = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(), contratoVO.getTinId(), contratoVO.getCsiId(), codigoAeropuerto);
+            listaInversionesContrato = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(), contratoVO.getTinId(), contratoVO.getCsiId(), codigoAeropuerto);
             contratoRespSupVO.setInfId(codigoAeropuerto);
             listaContratoCompromiso=contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
             listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
