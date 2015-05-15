@@ -19,6 +19,7 @@ import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.FechasUtil;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -88,6 +89,7 @@ public class EditarAvanceInversionMB {
     private int codigoInfraValSelecionado;
     private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<>();
     private Date inicioPeriodo;
+    private int tipoInfraestructuraGlobal;
     private Date finPeriodo;
     private BigDecimal montoPrestado;
     private boolean igv;
@@ -198,6 +200,7 @@ public class EditarAvanceInversionMB {
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
     }
 
     public void desDiasHabiles() {
@@ -246,8 +249,11 @@ public class EditarAvanceInversionMB {
                 concesionVO=concesionServiceImpl.get(codigoConcesion);
                 nombreConcecion=concesionVO.getCsiNombre();
                 idTipoInfraestructura=valorizacionInversionAvanceVO.getTinId();
-                infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idTipoInfraestructura);
-                nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();
+           
+                    infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idTipoInfraestructura);
+                    nombreTipoInfraestructura=infraestructuraTipoVO.getTinNombre();
+                
+                
                 idModalidadConcesion=valorizacionInversionAvanceVO.getMcoId();
                 modalidadVO=modalidadServiceImp.get(idModalidadConcesion);
                 nombreModalidadConceción=modalidadVO.getMcoNombre();
@@ -258,8 +264,10 @@ public class EditarAvanceInversionMB {
             monedaVO=monedaServiceImpl.get(contratoCompromisoVO.getMonId());
             nombreMoneda=monedaVO.getMonNombre();
             contratoCompromisoSeleccionado=valorizacionInversionAvanceVO.getCcoId();
-           idTipoInfraestructura=valorizacionInversionAvanceVO.getTinId();
-           codigoInversion=valorizacionInversionAvanceVO.getInvId();
+           if (tipoInfraestructuraGlobal==2){
+                   codigoInversion=valorizacionInversionAvanceVO.getInvId(); 
+               }
+           
             numero=String.valueOf(valorizacionInversionAvanceVO.getTiaHr());
             anio=valorizacionInversionAvanceVO.getTiaAnyo();
             fechaRegistroSDT=valorizacionInversionAvanceVO.getTiaFechaRegistro();
@@ -1292,6 +1300,15 @@ public class EditarAvanceInversionMB {
 
     public List<ValorizacionInversionAvanceDetalleVO> getListValorizacionInversionAvanceDetalleVOA() {
         return listValorizacionInversionAvanceDetalleVOA;
+    }
+
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
     }
 
 }
