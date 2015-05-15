@@ -18,8 +18,8 @@
     </h:head>
     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
     <h:body>
-        <f:event listener="#{asignarResponsableMB.validarSesion()}" type="postAddToView"></f:event>
-        <f:event listener="#{asignarResponsableMB.cargarListaTiposInfraestructura()}" type="postAddToView"></f:event>
+        <f:event listener="#{asignarResponsableMB.validarSesion()}" type="preRenderComponent"></f:event>
+        <f:event listener="#{asignarResponsableMB.cargarListaTiposInfraestructura()}" type="preRenderComponent"></f:event>
          
         <h:form id="form">
         <p:growl id="mensaje" showDetail="true"  life="3000" /> 
@@ -42,11 +42,13 @@
                                                     <p:inputText id="idNombreConcesion"
                                                                  value="#{asignarResponsableMB.nombreContratoConcesion}"
                                                                  style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                     <p:commandButton value="#{btn.btn_buscar}"
                                                                      oncomplete="Dialog_ResultadoBusquedaContratoConcesion.show()"
                                                                      actionListener="#{asignarResponsableMB.cargarListaContratos()}"
                                                                      update=":form:DataTable_ResultadoBusquedaContratosConcesion"/>
                                                 </p:fieldset>
+                                                
                                             </td>
                                         </tr>
                                          
@@ -89,19 +91,21 @@
                                                                 <p:selectOneMenu id="listaAeropuerto"  value="#{asignarResponsableMB.codigoAeropuerto}" style="width:300px;text-transform:uppercase;" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" >
                                                                     <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
                                                                     <f:selectItems  value="#{asignarResponsableMB.listaAeropuerto}" var="aero" itemLabel="#{aero.infNombre}" itemValue="#{aero.infId}" />
-                                                                    <p:ajax event="valueChange" update=":form:listaInversiones :form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarInversiones()}"  />
-                                                                </p:selectOneMenu>
+                                                                    <p:ajax update="listaInversiones :form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarInversiones()}"  />
+                                                                </p:selectOneMenu>                                                               
                                                             </td>
                                                         </tr>
+                                                        
+                                                        
                                                         
                                                         <tr>
                                                            
                                                            <td  align="left"><h:outputText value="Inversión" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/></td>
                                                             <td  align="left">
-                                                                <p:selectOneMenu id="listaInversiones"  value="#{asignarResponsableMB.codigoInversion}" style="width:300px;text-transform:uppercase;" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                                <p:selectOneMenu id="listaInversiones"   value="#{asignarResponsableMB.codigoInversion}" style="width:300px;text-transform:uppercase;" rendered="#{asignarResponsableMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                                     <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
-                                                                    <f:selectItems  value="#{asignarResponsable_AeropuertoMB.listaInversiones}" var="inversion" itemLabel="#{inversion.invDescripcion}" itemValue="#{inversion.invId}" />
-                                                                    <p:ajax event="valueChange" update=":form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarCompromiso()}"  />
+                                                                    <f:selectItems  value="#{asignarResponsableMB.listaInversionesContrato}" var="inversioncontrato" itemLabel="#{inversioncontrato.invDescripcion}" itemValue="#{inversioncontrato.invId}"/>
+                                                                    <p:ajax  update=":form:listaCompromiso :form:listaResponsables" listener="#{asignarResponsableMB.cargarCompromiso()}"  />
                                                                 </p:selectOneMenu>
                                                             </td>
                                                         </tr>
@@ -127,6 +131,7 @@
                                                                     <f:selectItems  value="#{asignarResponsableMB.listaContratoCompromiso}" var="tip2" itemLabel="#{tip2.ccoPeriodo}" itemValue="#{tip2.ccoId}"/>
                                                                     <p:ajax event="valueChange" update=":form:datosCompromiso :form:listaResponsables :form:cbosupervisor" listener="#{asignarResponsableMB.cargarDatosCompromiso()}"  />
                                                                 </p:selectOneMenu>
+                                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                             </td>
                                                         </tr>
                                                         <tr>
