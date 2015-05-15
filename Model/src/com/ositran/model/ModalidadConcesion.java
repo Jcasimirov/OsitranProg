@@ -51,13 +51,13 @@ public class ModalidadConcesion implements Serializable {
     private Integer mcoId;
     @Column(name = "MCO_NOMBRE", nullable = false, length = 100)
     private String mcoNombre;
-    @Column(name = "MCO_TERMINAL", length = 20)
+    @Column(name = "MCO_TERMINAL", length = 100)
     private String mcoTerminal;
-    @Column(name = "MCO_USUARIO_ALTA", length = 20)
+    @Column(name = "MCO_USUARIO_ALTA", length = 100)
     private String mcoUsuarioAlta;
-    @Column(name = "MCO_USUARIO_BAJA", length = 20)
+    @Column(name = "MCO_USUARIO_BAJA", length = 100)
     private String mcoUsuarioBaja;
-    @Column(name = "MCO_USUARIO_CAMBIO", length = 20)
+    @Column(name = "MCO_USUARIO_CAMBIO", length = 100)
     private String mcoUsuarioCambio;
 
     public ModalidadConcesion() {
