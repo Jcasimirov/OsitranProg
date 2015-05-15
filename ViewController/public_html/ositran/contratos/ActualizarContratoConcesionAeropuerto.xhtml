@@ -419,7 +419,7 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Registro de Adendas, Actas entre Otros</td>
                                         <td align="right">
-                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaadenda" actionListener="#{actualizarContratoMB.resetearNuevaAdenda()}" image="ui-icon-document" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"></p:commandButton>
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaadenda" actionListener="#{actualizarContratoMB.resetearNuevaAdenda()}" image="ui-icon-circle-plus" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"></p:commandButton>
                                         </td>
                                     </tr>
                                      
@@ -465,7 +465,7 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Registro de entrega del area de Bienes de Concesion</td>
                                         <td align="right">
-                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaEntrega" image="ui-icon-document" actionListener="#{actualizarContratoMB.resetearNuevaEntrega()}" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"/>
+                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevaEntrega" image="ui-icon-circle-plus" actionListener="#{actualizarContratoMB.resetearNuevaEntrega()}" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"/>
                                         </td>
                                     </tr>
                                      
@@ -631,7 +631,7 @@
                                         <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n Periodo/Etapa - Indicado en el Contrato:</td>
                                         <td align="right">
                                             <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoIndicado" actionListener="#{actualizarContratoMB.resetearNuevoCompromisoInversion()}" update=":tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg
-                                                             :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" onclick="popupAgregarCompromiso.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-document"/>
+                                                             :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg" onclick="popupAgregarCompromiso.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -760,7 +760,7 @@
                                         <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n Periodo/Etapa - Supervisado por Ositran:</td>
                                         <td align="right">
                                             <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoSupervisado" actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}" update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
-                                                             :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg" onclick="popupAgregarCompromisoSupervisado.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-document"/>
+                                                             :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg" onclick="popupAgregarCompromisoSupervisado.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -889,7 +889,7 @@
                                         <td align="left" style="font-weight: bold;">Penalidades</td>
                                         <td align="right">
                                             <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoPenalidad" actionListener="#{actualizarContratoMB.resetearNuevaPenalidad()}" update=":tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg
-                                                             :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg" onclick="popupAgregarPenalidad.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-document"/>
+                                                             :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg" onclick="popupAgregarPenalidad.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -998,7 +998,7 @@
                                             <h:outputText value="CAO" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar CAO" id="nuevoCAO" oncomplete="popupAgregarCAO.show()" update=":tab:frmAgregarCAO" actionListener="#{actualizarContratoMB.limpiarCamposCao()}" image="ui-icon-document" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
+                                            <p:commandButton value="Agregar CAO" id="nuevoCAO" oncomplete="popupAgregarCAO.show()" update=":tab:frmAgregarCAO" actionListener="#{actualizarContratoMB.limpiarCamposCao()}" image="ui-icon-circle-plus" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                     </tr>
                                      
@@ -1053,7 +1053,7 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Hito</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Hito" id="nuevoHito" oncomplete="popupAgregarHito.show()" update=":tab:frmAgregarHito" actionListener="#{actualizarContratoMB.limpiarCamposHito()}" image="ui-icon-document"/>
+                                            <p:commandButton value="Agregar Hito" id="nuevoHito" oncomplete="popupAgregarHito.show()" update=":tab:frmAgregarHito" actionListener="#{actualizarContratoMB.limpiarCamposHito()}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -1115,7 +1115,7 @@
                                             <h:outputText value="PPO" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar PPO" id="nuevoPPO" oncomplete="popupAgregarPPO.show()" update=":tab:frmAgregarPpo" actionListener="#{actualizarContratoMB.limpiarCamposPpo()}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" image="ui-icon-document"/>
+                                            <p:commandButton value="Agregar PPO" id="nuevoPPO" oncomplete="popupAgregarPPO.show()" update=":tab:frmAgregarPpo" actionListener="#{actualizarContratoMB.limpiarCamposPpo()}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -1514,7 +1514,7 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Alertas</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Alerta" id="nuevaAlerta" oncomplete="popupAgregarAlerta.show()" action="#{actualizarContratoMB.limpiarCamposAlerta()}" update=":tab:frmAgregarAlerta" image="ui-icon-document"/>
+                                            <p:commandButton value="Agregar Alerta" id="nuevaAlerta" oncomplete="popupAgregarAlerta.show()" action="#{actualizarContratoMB.limpiarCamposAlerta()}" update=":tab:frmAgregarAlerta" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -1724,6 +1724,9 @@
                             <h:form id="frmInversion">
                                 <table>
                                     <tr>
+                                     <td align="left" style="font-weight: bold;">
+                                        INVERSIONES POR INFRAESTRUCTURA
+                                     </td>
                                         <td align="right">
                                          <p:commandButton actionListener="#{actualizarContratoMB.cargarNuevasInversiones}"  
                                          update=":tab:frmAgregarInversion"
@@ -1750,7 +1753,7 @@
                                                         <center>
                                                             <p:commandButton actionListener="#{actualizarContratoMB.cargarListaInversiones}"
                                                             update=":tab:frmAgregarInversion" oncomplete="popupAgregarInversion.show();"
-                                                            image="ui-icon-pencil" style="width:25px;height:25px;" >
+                                                            image="ui-icon-pencil" style="width:25px;height:25px;" title="Ver Inversiones">
                                                                 <f:attribute name="tinfra" value="#{tinfra}"/>
                                                             </p:commandButton>
                                                         </center>
@@ -1765,7 +1768,7 @@
                                       modal="true" appendToBody="true" position="top" >
                                 <h:form id="frmAgregarInversion" >
                                  
-                                    <table style="font-size:11px;">
+                                    <table style="width:100%;font-size:11px;">
                                         <tr>
                                             <td>Aeropuerto</td>
                                             <td>
