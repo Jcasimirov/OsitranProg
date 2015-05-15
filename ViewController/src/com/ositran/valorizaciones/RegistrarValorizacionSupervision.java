@@ -7,6 +7,7 @@ import com.ositran.service.ContratoCompromisoService;
 import com.ositran.service.ContratoConcesionService;
 import com.ositran.service.DatosStdService;
 import com.ositran.service.InversionService;
+import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.service.ValorizacionSupService;
@@ -23,6 +24,7 @@ import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionSupServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
 import com.ositran.vo.bean.ContratoSupervisoraAdendaVO;
@@ -37,6 +39,7 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionConceptoVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
@@ -71,6 +74,18 @@ public class RegistrarValorizacionSupervision {
     public final int formulario = 35;
     private RolOpcionesVO rolOpcion;
     
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    
+    
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+    }
+    
+    
+    
     
     private String t_conce;
     private int codigoConcesion;
@@ -80,7 +95,6 @@ public class RegistrarValorizacionSupervision {
     private int tccTipo;
     private String nombreConcesion;
     private String contratoConcesion;
-    private String nombreTipoInfraestructura;
     private String t_concesion;
     private String t_modconc;
     private String nrohr;
@@ -96,9 +110,10 @@ public class RegistrarValorizacionSupervision {
     private int conId;
     private String t_tinfra;
     private int codigoInversion;
-    private int tipoInfraestructura;
+    private int codigoContratoCompromiso;
+    private String nombreMoneda;
+    
     private int codigoInfraestructura;
-    private int idTipoInfraestructura;
     private int añohrbus;
     private int nrohrbus;
     private String plazo;
@@ -113,6 +128,8 @@ public class RegistrarValorizacionSupervision {
     private BigDecimal tvsBruto=BigDecimal.ZERO;;
     private BigDecimal tvsIgv=BigDecimal.ZERO; ;
     
+    private int codigoSupervisor;
+    
     ValorizacionSupDetalleServiceImpl valorizacionSupDetalleServiceImpl= new ValorizacionSupDetalleServiceImpl(); 
         
     private List<ContratoVO> listaContratos = new ArrayList<>();
@@ -125,18 +142,18 @@ public class RegistrarValorizacionSupervision {
     private List<ValorizacionConceptoVO> listaConcepto = new ArrayList<>();
     private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
     private List<ValorizacionSupDetalleVO> listaValorizacion = new ArrayList<>();
-
+    
+    MonedaVO monedaVO = new MonedaVO();
+    SupervisorInversionesVO supervisorInversionesVO = new SupervisorInversionesVO();
+    
     ValorizacionSupVO valorizacionSupVO = new ValorizacionSupVO();
     ValorizacionSupService valorizacionSupServiceImpl = new ValorizacionSupServiceImpl();
 
     @ManagedProperty(value = "#{monedaServiceImpl}")
     private MonedaServiceImpl monedaServiceImpl;
-    @ManagedProperty(value = "#{monedaVO}")
-    private MonedaVO monedaVO;
-    @ManagedProperty(value = "#{inversionDescripcionServicesImpl}")
-    private InversionDescripcionServicesImpl inversionDescripcionServicesImpl;
-    @ManagedProperty(value = "#{inversionDescripcionVO}")
-    private InversionDescripcionVO inversionDescripcionVO;
+    
+    
+   
     @ManagedProperty(value = "#{contratoConcesionServiceImp}")
     ContratoConcesionService contratoConcesionServiceImp;
     @ManagedProperty(value = "#{concesionServiceImpl}")
@@ -151,8 +168,8 @@ public class RegistrarValorizacionSupervision {
     ContratoCompromisoService contratoCompromisoServiceImpl;
     @ManagedProperty(value = "#{contratoCompromisoVO}")
     ContratoCompromisoVO contratoCompromisoVO;
-    @ManagedProperty(value = "#{valorizacionConceptoServiceImpl}")
-    ValorizacionConceptoServiceImpl valorizacionConceptoServiceImpl;
+    
+    ValorizacionConceptoServiceImpl valorizacionConceptoServiceImpl= new ValorizacionConceptoServiceImpl();
     @ManagedProperty(value = "#{valorizacionConceptoVO}")
     ValorizacionConceptoVO valorizacionConceptoVO;
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
@@ -178,60 +195,53 @@ public class RegistrarValorizacionSupervision {
     @ManagedProperty(value = "#{contratoVO}")
     ContratoVO contratoVO;
 
-    public void validarSesion() throws IOException {
-
-        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-    }
-
+    @ManagedProperty(value = "#{modalidadVO}")
+    ModalidadConcesionVO modalidadVO;    
+    @ManagedProperty(value = "#{modalidadServiceImp}")
+    ModalidadConcesionService modalidadServiceImp;
 
     public void cargarListaContratos() {
         try {
-            
-            listaContratos = contratoConcesionServiceImp.query();
-            
+            listaContratos = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
+            System.out.println("el codigo es ASDASDASFDSGFDSD");
+
+            System.out.println(tipoInfraestructura);
             for (ContratoVO contra : listaContratos) {
-                concesionVO = concesionServiceImpl.get(contra.getCsiId());
-                contratoVO  = contratoConcesionServiceImp.get(contra.getConId());
-                
-                modalidadConcesionVO = modalidadConcesionServiceImpl.get(contra.getMcoId());
-                infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contra.getTinId());
-                
-                codigoContrato=contratoVO.getConId();
-                
-                contra.setConId(concesionVO.getCsiId());
-                contra.setNombreConcesion(concesionVO.getCsiNombre());
-                
-                contra.setNombreModalidad(modalidadConcesionVO.getMcoNombre());
-                contra.setMcoId(modalidadConcesionVO.getMcoId());
-                
-                contra.setNombreInfraTipo(infraestructuraTipoVO.getTinNombre());
-                contra.setTinId(infraestructuraTipoVO.getTinId());
-                
+                ConcesionVO concesion = new ConcesionVO();
+
+                concesion = concesionServiceImpl.get(contra.getCsiId());
+                contra.setNombreConcesion(concesion.getCsiNombre());
+                contra.setCodigoConcesion(concesion.getCsiId());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void elegirContrato(ContratoVO contrato1) {
+    public void elegirContrato(ContratoVO contratoVO) {
         try {
-            //listanombrerol();
-            codigoContrato = contrato1.getConId();
+            codigoConcesion = contratoVO.getCsiId();
+            concesionVO = concesionServiceImpl.get(codigoConcesion);
+            codigoModalidadConcesion = contratoVO.getMcoId();
+            codigoTipoInfra = concesionVO.getTinId();
+            codigoContrato = contratoVO.getConId();
+            t_conce = concesionVO.getCsiNombre();
+            modalidadVO = modalidadServiceImp.get(codigoModalidadConcesion);
+            t_modconc = modalidadVO.getMcoNombre();
+            infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(codigoTipoInfra);
+            t_tinfra = infraestructuraTipoVO.getTinNombre();
+            listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
+            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
             
-            concesionVO=concesionServiceImpl.get(contrato1.getCncId());
-            listaInfraestructuras=infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromiso=contratoCompromisoServiceImpl.query1(codigoContrato);
+            supervisorInversionesVO = supervisorInversionesServiceImpl.get(codigoTipoInfra);
+            nomSupervisor=supervisorInversionesVO.getTsiNombre();
+            codigoSupervisor=supervisorInversionesVO.getTsiId();
             
-            t_conce=contrato1.getNombreConcesion();
-            codigoConcesion = contrato1.getCsiId();
-                        
-            t_tinfra = contrato1.getNombreInfraTipo();
-            codigoTipoInfra=contrato1.getTinId();
-            
-            t_modconc = contrato1.getNombreModalidad();
-            codigoModalidadConcesion= contrato1.getMcoId();
-           
+            cargarListaconcepto();
         } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                                          "La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
             e.printStackTrace();
         }
     }
@@ -250,40 +260,68 @@ public class RegistrarValorizacionSupervision {
             e.printStackTrace();
         }
     }
-
     public void cargarDatosCompromiso() {
         try {
-           
-           contratoCompromisoVO=contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
-           plazo=contratoCompromisoVO.getCcoPlazo();
-           total=contratoCompromisoVO.getCcoTotal();
-           codigoMoneda=contratoCompromisoVO.getMonId();
-           ccoId=contratoCompromisoVO.getCcoId();
-           tccTipo=contratoCompromisoVO.getTccTipo();
-            
+            contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+            codigoContratoCompromiso = contratoCompromisoVO.getCcoId();
+            plazo = contratoCompromisoVO.getCcoPlazo();
+            total = contratoCompromisoVO.getCcoTotal();
+            codigoMoneda = contratoCompromisoVO.getMonId();
+            monedaVO = monedaServiceImpl.get(codigoMoneda);
+            nombreMoneda = monedaVO.getMonNombre();
+            total = contratoCompromisoVO.getCcoTotal();
+            codigoMoneda = contratoCompromisoVO.getMonId();
+            ccoId = contratoCompromisoVO.getCcoId();
+            tccTipo = contratoCompromisoVO.getTccTipo();
         } catch (Exception e) {
-           System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
-           e.printStackTrace();
-        }        
+            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
+            e.printStackTrace();
+        }   
     }
-
     //--buscar std--//
     public void BuscarStd() throws SQLException {
 
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
-        try {
-            viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
-            if (viewTdInternosVO != null) {
-                freg = dt1.format(viewTdInternosVO.getFechaRegistro());
-                asuntohr = viewTdInternosVO.getAsunto();
-                añohrbus = viewTdInternosVO.getAnyo();
-                nrohrbus = Integer.parseInt(viewTdInternosVO.getNroRegistro());
-            } else {
-                freg = "";
-                asuntohr = "";
+        if (nrohr.trim().equals("")) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (!nrohr.trim().equals("") && Integer.parseInt(nrohr) < 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (añohr.trim().equals("")) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Año de Hoja de Ruta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (!añohr.trim().equals("") && Integer.parseInt(añohr) < 0) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else if (!añohr.trim().equals("") && añohr.length() < 4) {
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        } else {
+
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                viewTdInternosVO = datosStdServiceImpl.BuscaStd(Integer.parseInt(añohr), nrohr);
+                if (viewTdInternosVO != null && viewTdInternosVO.getFechaRegistro() != null) {
+                    freg = dt1.format(viewTdInternosVO.getFechaRegistro());
+                    asuntohr = viewTdInternosVO.getAsunto();
+                    añohr = viewTdInternosVO.getAnyo().toString();
+                    nrohr = viewTdInternosVO.getNroRegistro();
+                } else {
+                    freg = "";
+                    asuntohr = "";
+                    FacesMessage mensaje =
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                    FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
         }
 
     }
@@ -301,7 +339,7 @@ public class RegistrarValorizacionSupervision {
         try {
             listaConcepto = valorizacionConceptoServiceImpl.query();
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
     //--quitar lista---//
@@ -311,73 +349,83 @@ public class RegistrarValorizacionSupervision {
             Map requestMap=context.getExternalContext().getRequestParameterMap();
             Object str=requestMap.get("indexLista");
             int idcodigo=Integer.valueOf(str.toString());            
-                tvsNeto=tvsNeto.subtract(listaValorizacion.get(idcodigo).getNeto());
-                tvsIgv=tvsIgv.subtract(listaValorizacion.get(idcodigo).getIgv());
-                tvsBruto=tvsBruto.subtract(listaValorizacion.get(idcodigo).getTtotal());
+            tvsNeto=tvsNeto.subtract(listaValorizacion.get(idcodigo).getNeto());
+            tvsIgv=tvsIgv.subtract(listaValorizacion.get(idcodigo).getIgv());
+            tvsBruto=tvsBruto.subtract(listaValorizacion.get(idcodigo).getTtotal());
             listaValorizacion.remove(idcodigo);
         }
     //--fin quitar lista--//
     public void guardarTabla() {
-        try {
-            listaMoneda = monedaServiceImpl.query();
-            BigDecimal igv1;
-            MonedaVO monNombre = getMonedaServiceImpl().get(monedaSeleccionada);
-            ValorizacionConceptoVO cvaNombre = valorizacionConceptoServiceImpl.get(conceptoSeleccionada);
-            ValorizacionSupDetalleVO valorizacionSupDetalleVO = new ValorizacionSupDetalleVO();
-            valorizacionSupDetalleVO.setCvaId(conceptoSeleccionada);
-            valorizacionSupDetalleVO.setDescripcionInversion(cvaNombre.getCvaNombre());
-            valorizacionSupDetalleVO.setMonId(monedaSeleccionada);
-            valorizacionSupDetalleVO.setNombreMoneda(monNombre.getMonNombre());
-            valorizacionSupDetalleVO.setNeto(montoTabla);
-            if (igv) {
-                igv1 = new BigDecimal(0.18).setScale(2,BigDecimal.ROUND_UP);
-                valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla));
-            } else {
-                igv1 = new BigDecimal(0).setScale(2,BigDecimal.ROUND_UP);
-                valorizacionSupDetalleVO.setIgv(igv1);
-            }
-            valorizacionSupDetalleVO.setTtotal(montoTabla.add(igv1.setScale(2,BigDecimal.ROUND_UP).multiply(montoTabla).setScale(2,BigDecimal.ROUND_UP)));
+        
+       if(conceptoSeleccionada==0){
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "Seleccionar Concepto"));   
+        }else if(monedaSeleccionada == 0){
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "Seleccionar Moneda"));   
+        } else if(montoTabla==null){
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "Insertar Monto"));  
+        }else{
             
-            listaValorizacion.add(valorizacionSupDetalleVO);
-            tvsNeto = tvsNeto.add(montoTabla);
-            tvsIgv = tvsIgv.add(valorizacionSupDetalleVO.getIgv());
-            tvsBruto = tvsBruto.add(valorizacionSupDetalleVO.getTtotal());
+            try {
+                listaMoneda = monedaServiceImpl.query();
+                listaConcepto=valorizacionConceptoServiceImpl.query();
+                BigDecimal igv1;
+                MonedaVO monNombre = getMonedaServiceImpl().get(monedaSeleccionada);
+                ValorizacionConceptoVO cvaNombre = valorizacionConceptoServiceImpl.get(conceptoSeleccionada);
+                ValorizacionSupDetalleVO valorizacionSupDetalleVO = new ValorizacionSupDetalleVO();
+                valorizacionSupDetalleVO.setCvaId(conceptoSeleccionada);
+                valorizacionSupDetalleVO.setDescripcionInversion(cvaNombre.getCvaNombre());
+                valorizacionSupDetalleVO.setMonId(monedaSeleccionada);
+                valorizacionSupDetalleVO.setNombreMoneda(monNombre.getMonNombre());
+                valorizacionSupDetalleVO.setNeto(montoTabla);
+                if (igv) {
+                    igv1 = new BigDecimal(0.18).setScale(2,BigDecimal.ROUND_UP);
+                    valorizacionSupDetalleVO.setIgv(igv1.multiply(montoTabla));
+                } else {
+                    igv1 = new BigDecimal(0).setScale(2,BigDecimal.ROUND_UP);
+                    valorizacionSupDetalleVO.setIgv(igv1);
+                }
+                valorizacionSupDetalleVO.setTtotal(montoTabla.add(igv1.setScale(2,BigDecimal.ROUND_UP).multiply(montoTabla).setScale(2,BigDecimal.ROUND_UP)));
+                
+                listaValorizacion.add(valorizacionSupDetalleVO);
+                tvsNeto = tvsNeto.add(montoTabla);
+                tvsIgv = tvsIgv.add(valorizacionSupDetalleVO.getIgv());
+                tvsBruto = tvsBruto.add(valorizacionSupDetalleVO.getTtotal());
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-
-        //FALTA VALIDACIONES
-
-
     }
     public void guardar() {
-        if (nrohr=="" || nrohr.equals("")) {
+        if (nrohr.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "INGRESAR NUMERO DE HR."));
-        } else if (añohr=="" || añohr.equals("")) {
+        } else if (añohr.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "INGRESAR AÑO DE HR."));
 
-        } else if (monedaSeleccionada == 0) {
+        }  else if (t_conce=="") {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "SELECCIONAR TIPO DE MONEDA"));
-        } else if (conceptoSeleccionada == 0) {
+                                                                          "SELECCIONAR DATOS DE CONTRATO"));
+        }  else if (contratoCompromisoSeleccionado==0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "SELECCIONAR CONCEPTO"));
-        } /* else if (montoTabla=="" || montoTabla.equals("")) {
+                                                                          "SELECCIONAR ETAPA"));
+        } else if(tvsBruto==null){
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "INGRESAR MONTO"));
-        } */
-
-        else {
+                                                                          "INGRESAR VALORIZACION"));
+        }else {
             try {
                 valorizacionSupVO.setTvsHr(Integer.parseInt(nrohr));
                 valorizacionSupVO.setTvsAnyo(Integer.parseInt(añohr));
@@ -474,13 +522,7 @@ public class RegistrarValorizacionSupervision {
         return contratoConcesion;
     }
 
-    public void setTipoInfraestructura(int tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
-    }
-
-    public int getTipoInfraestructura() {
-        return tipoInfraestructura;
-    }
+  
 
     public void setCodigoInfraestructura(int codigoInfraestructura) {
         this.codigoInfraestructura = codigoInfraestructura;
@@ -677,21 +719,7 @@ public class RegistrarValorizacionSupervision {
         return contratoCompromisoVO;
     }
 
-    public void setNombreTipoInfraestructura(String nombreTipoInfraestructura) {
-        this.nombreTipoInfraestructura = nombreTipoInfraestructura;
-    }
-
-    public String getNombreTipoInfraestructura() {
-        return nombreTipoInfraestructura;
-    }
-
-    public void setIdTipoInfraestructura(int idTipoInfraestructura) {
-        this.idTipoInfraestructura = idTipoInfraestructura;
-    }
-
-    public int getIdTipoInfraestructura() {
-        return idTipoInfraestructura;
-    }
+   
 
     public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
         this.listaInfraestructuras = listaInfraestructuras;
@@ -858,22 +886,7 @@ public class RegistrarValorizacionSupervision {
         return valorizacionSupServiceImpl;
     }
 
-    public void setInversionDescripcionServicesImpl(InversionDescripcionServicesImpl inversionDescripcionServicesImpl) {
-        this.inversionDescripcionServicesImpl = inversionDescripcionServicesImpl;
-    }
-
-    public InversionDescripcionServicesImpl getInversionDescripcionServicesImpl() {
-        return inversionDescripcionServicesImpl;
-    }
-
-    public void setInversionDescripcionVO(InversionDescripcionVO inversionDescripcionVO) {
-        this.inversionDescripcionVO = inversionDescripcionVO;
-    }
-
-    public InversionDescripcionVO getInversionDescripcionVO() {
-        return inversionDescripcionVO;
-    }
-
+   
     public void setInfraestructuraSeleccionada(int infraestructuraSeleccionada) {
         this.infraestructuraSeleccionada = infraestructuraSeleccionada;
     }
@@ -1091,6 +1104,73 @@ public class RegistrarValorizacionSupervision {
 
     public int getTccTipo() {
         return tccTipo;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+    public void setModalidadVO(ModalidadConcesionVO modalidadVO) {
+        this.modalidadVO = modalidadVO;
+    }
+
+    public ModalidadConcesionVO getModalidadVO() {
+        return modalidadVO;
+    }
+
+    public void setModalidadServiceImp(ModalidadConcesionService modalidadServiceImp) {
+        this.modalidadServiceImp = modalidadServiceImp;
+    }
+
+    public ModalidadConcesionService getModalidadServiceImp() {
+        return modalidadServiceImp;
+    }
+
+    public void setCodigoContratoCompromiso(int codigoContratoCompromiso) {
+        this.codigoContratoCompromiso = codigoContratoCompromiso;
+    }
+
+    public int getCodigoContratoCompromiso() {
+        return codigoContratoCompromiso;
+    }
+
+
+    public void setSupervisorInversionesVO(SupervisorInversionesVO supervisorInversionesVO) {
+        this.supervisorInversionesVO = supervisorInversionesVO;
+    }
+
+    public SupervisorInversionesVO getSupervisorInversionesVO() {
+        return supervisorInversionesVO;
+    }
+
+    public void setCodigoSupervisor(int codigoSupervisor) {
+        this.codigoSupervisor = codigoSupervisor;
+    }
+
+    public int getCodigoSupervisor() {
+        return codigoSupervisor;
     }
 
 }
