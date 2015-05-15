@@ -25,6 +25,7 @@ import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.FechasUtil;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoAlertaVO;
@@ -77,6 +78,7 @@ public class RegistrarAvanceInversionMB {
     private int codigoContrato;
     //***************************DATOS SDT******************************//
     private String numero;
+    private int tipoInfraestructuraGlobal;
     private int anio;
     private Date fechaRegistroSDT;
     private String asunto;
@@ -107,22 +109,20 @@ public class RegistrarAvanceInversionMB {
     private RolOpcionesVO rolOpcion;
     private Date fechaVencimiento;
     
-    
     ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();
     ContratoAlertaService contratoAlertaServiceImpl=new ContratoAlertaServiceImpl();
-    
-    
    ContratoSubInversionesServiceImpl contratoSubInversionesService=new ContratoSubInversionesServiceImpl();
    ContratoSubInversionesVO contratoSubInversionesVO=new  ContratoSubInversionesVO();
    SupervisorInversionesVO supervisorInversionesVO=new SupervisorInversionesVO();
     SupervisorInversionesService supervisorInversionesServiceImpl= new SupervisorInversionesServiceImpl();
     
+    
+    
     //CALENDARIO
     private boolean diasCalendario=false;
     private boolean diasHabiles=false;
     MonedaVO monedaVO = new MonedaVO();
-    ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl =
-        new ValorizacionInversionAvanceServiceImpl();
+    ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl = new ValorizacionInversionAvanceServiceImpl();
     List<ContratoSubInversionesVO> listaContratoSupervisor =new ArrayList<>();
     List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
     List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<>();
@@ -215,6 +215,7 @@ public class RegistrarAvanceInversionMB {
 
 
     public void validarSesion() throws IOException {
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
@@ -272,8 +273,6 @@ public class RegistrarAvanceInversionMB {
         totalPresentado = new BigDecimal("0");
         codigoTipoInversion = 0;
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
-        
-        
     }
 
     public void elegirContrato(ContratoVO contratoVO) {
@@ -429,23 +428,24 @@ public class RegistrarAvanceInversionMB {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
                                                                               "DEBE SELECIONAR CONCEPTO"));
-            } else if (codigoInfraestructura == 0) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
-                                                                              "DEBE SELECIONAR AEROPUERTO"));
+            
             } else {
 
                 ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 = new ValorizacionInversionAvanceDetalleVO();
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
-                infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
-                valorizacionInversionAvanceDetalleVO1.setInvId(codigoInversion);
-                valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());
+                if (tipoInfraestructuraGlobal==2){
+                        infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
+                        valorizacionInversionAvanceDetalleVO1.setInvId(codigoInversion);
+                        valorizacionInversionAvanceDetalleVO1.setAeropuertos(infraestructuraVO.getInfNombre());   
+                    }
+                
                 valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
                 inversionDescripcionVO = inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
                 valorizacionInversionAvanceDetalleVO1.setTivId(inversionDescripcionVO.getTivId());
                 valorizacionInversionAvanceDetalleVO1.setCsiId(codigoConcesion);
                 valorizacionInversionAvanceDetalleVO1.setInfId(codigoInfraestructura);
-                valorizacionInversionAvanceDetalleVO1.setTinId(idTipoInfraestructura);
+                valorizacionInversionAvanceDetalleVO1.setTinId(idTipoInfraestructura); 
+               
                 valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
                 valorizacionInversionAvanceDetalleVO1.setIadDescripcion(descripcionValorizacionDetalle);
                 valorizacionInversionAvanceDetalleVO1.setIadFechaInicio(inicioPeriodo);
@@ -1257,6 +1257,15 @@ public class RegistrarAvanceInversionMB {
 
     public SupervisorInversionesService getSupervisorInversionesServiceImpl() {
         return supervisorInversionesServiceImpl;
+    }
+
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
     }
 }
 
