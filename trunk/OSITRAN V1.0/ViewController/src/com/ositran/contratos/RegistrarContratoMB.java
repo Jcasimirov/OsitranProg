@@ -623,7 +623,7 @@ public class RegistrarContratoMB {
         }else{
         try{
             contratoVO.setConTerminal(ipcliente);
-            contratoVO.setConUsuarioAlta(usuario.getUsuNombre());
+            contratoVO.setConUsuarioAlta(usuario.getUsuAlias());
             contratoVO.setConFechaAlta(util.getObtenerFechaHoy());
             contratoVO.setMcoId(modalidad);
             contratoVO.setTinId(tipoinfra);
