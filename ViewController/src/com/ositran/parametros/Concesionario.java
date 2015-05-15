@@ -3,23 +3,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.ositran.service.CargoService;
 import com.ositran.service.ConcesionarioService;
-import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.CargoVO;
 import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
-
-import com.ositran.vo.bean.TipoInversionVO;
-
 import com.ositran.vo.bean.UsuarioVO;
-
 import java.io.IOException;
-
 import java.sql.SQLException;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,14 +21,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 @ManagedBean(name = "concesionarioMB")
@@ -56,6 +42,7 @@ public class Concesionario {
     private String representante;
     private int codigoCargo;
     private int codigoDocumentoFiltro;
+    
     //********************EDITAR***********************************/
     private int codigoConcesionarioE;
     private String nombreE;
@@ -71,13 +58,14 @@ public class Concesionario {
     private int concesionarioId;
     //********************EDITAR***********************************/
     
+    
     public  final int formulario=2;
-    
-    
+    UsuarioVO usuario=new UsuarioVO();
     private RolOpcionesVO rolOpcion;
     
     public void validarSesion() throws IOException{
             rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+            usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         }
     
     private Pattern pattern;
@@ -99,50 +87,45 @@ public class Concesionario {
     ConcesionarioService concesionarioServiceImpl;
     @ManagedProperty(value = "#{cargoServiceImp}")
     CargoService cargoServiceImp;
-
-   
-
-
+    
     public void guardar() {
-        
         cantidad=validarNombre(nombre);
-        
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correo);
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
                                                                               "El nombre que quiere ingresar ya existe"));
             }
         else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe ingresar el nombre"));
         } else if (descripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe ingresar la descripcion"));
         } else if (tipDocumento == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "Debe selecionar tipo documento"));
         } else if (tipDocumento == 2 && numeroDocumento.length() != 11) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "El RUC debe de tener 11 dijitos"));
         } else if (tipDocumento == 1 && numeroDocumento.length() != 8) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           "El DNI debe de tener 8 dijitos"));
         } else if (!correo.equals("") && matcher.find() != true) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                           correo +
                                                                           " No es un formato de correo valido "));
 
         } else if (representante.equals("")){
                           FacesContext.getCurrentInstance().addMessage(null,
-                                                                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                       new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
                                                                                         " Debe ingresar el representante legal ")); 
                       }
         
@@ -152,6 +135,8 @@ public class Concesionario {
                concesionarioVO.setCncDescripcion(descripcion);
                concesionarioVO.setCncDireccion(direccion);
                concesionarioVO.setCncEstado(1);
+                concesionarioVO.setCncTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+                concesionarioVO.setCncUsuarioAlta(usuario.getUsuAlias());
                concesionarioVO.setCncFechaAlta(new Date());
                concesionarioVO.setCncNombre(nombre);
                 concesionarioVO.setCncSiglas(siglasNombre);
@@ -225,32 +210,32 @@ public class Concesionario {
         
         if (cantidad>0 && !nombreE.equals(nombreAntiguo)){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso","El nuevo nombre que quiere ingresar ya existe"));
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia","El nuevo nombre que quiere ingresar ya existe"));
             }
         
         else if (nombreE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe infresar el nombre"));
         } else if (descripcionE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe de Ingresar la Descripcion"));
         } else if (tipDocumentoE == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe selecionar tipo documento"));
         } else if (tipDocumentoE == 2 && numeroDocumentoE.length() != 11) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               "El RUC debe de tener 11 dijitos"));
         } else if (tipDocumentoE == 1 && numeroDocumentoE.length() != 8) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               "El DNI debe de tener 8 dijitos"));
         } else if (!correoE.equals("") && matcher.find() != true) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           correoE +
                                                                           " No es un formato de correo valido "));
 
@@ -258,22 +243,21 @@ public class Concesionario {
         
         else if (representanteE.equals("")){
                                   FacesContext.getCurrentInstance().addMessage(null,
-                                                                               new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                               new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                                 " Debe ingresar el representante legal ")); 
                               }
         
         else {
             
             try {
-                
                 concesionarioVO=concesionarioServiceImpl.get(concesionarioId);
-                System.out.println("hola");
-                System.out.println(concesionarioVO.getCncFechaAlta());
                 concesionarioVO.setCncId(concesionarioId);
                 concesionarioVO.setCncCorreo(correoE);
                 concesionarioVO.setCncDescripcion(descripcionE);
                 concesionarioVO.setCncDireccion(direccionE);
                 concesionarioVO.setCncEstado(1);
+                concesionarioVO.setCncUsuarioCambio(usuario.getUsuAlias());
+                concesionarioVO.setCncTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 concesionarioVO.setCncFechaCambio(new Date());
                 concesionarioVO.setCncNombre(nombreE);
                 concesionarioVO.setCncNroDocumento(numeroDocumentoE);
@@ -354,7 +338,7 @@ public class Concesionario {
                           }}
                       else {
                               FacesContext.getCurrentInstance().addMessage(null,
-                                                                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                           new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                                             correo +
                                                                                             " Debe ingresar criterios de busqueda "));
                           }
@@ -427,17 +411,11 @@ public class Concesionario {
         try {
            FacesContext context=FacesContext.getCurrentInstance();
            Map requestMap=context.getExternalContext().getRequestParameterMap();
-            System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
            Object str=requestMap.get("idEliminar");
-           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
            int idcodigo=Integer.valueOf(str.toString());
-           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
            concesionarioVO=concesionarioServiceImpl.get(idcodigo);
-           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
            descripcion = concesionarioVO.getCncDescripcion();
-           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
            codigoConcesionario = concesionarioVO.getCncId();
-           System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
        } catch (Exception e) {
             
             e.printStackTrace();
@@ -447,7 +425,12 @@ public class Concesionario {
 
     public void eliminar() {
         try {
-           concesionarioServiceImpl.delete(codigoConcesionario);
+            concesionarioVO=concesionarioServiceImpl.get(codigoConcesionario);
+            concesionarioVO.setCncUsuarioBaja(usuario.getUsuAlias());
+            concesionarioVO.setCncEstado(0);
+            concesionarioVO.setCncTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+            concesionarioVO.setCncFechaBaja(new Date());
+            concesionarioServiceImpl.update(concesionarioVO);
            cargarListaConcesionarios();
            FacesContext.getCurrentInstance().addMessage(null,
                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -456,8 +439,7 @@ public class Concesionario {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           correo +
-                                                                          " No se pudo eliminar ")); 
-            
+                                                                          " No se pudo eliminar "));  
         } 
         catch ( Exception e){
                 FacesContext.getCurrentInstance().addMessage(null,

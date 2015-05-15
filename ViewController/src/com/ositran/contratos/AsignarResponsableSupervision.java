@@ -806,7 +806,7 @@ private int codigoInversion;
                 nombreEmpresaSupervisora = "";
                 listaAeropuerto = new ArrayList<>();
                 listaInversiones = new ArrayList<>();
-                listaAeropuerto = infraestructuraServiceImpl.query1(contratoVO.getTinId());
+                listaAeropuerto = infraestructuraServiceImpl.getInfraestructurasContrato(codigoContrato);
                 listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);
                 listaResponsables=new ArrayList<HashMap<String, Object>>();
                  
@@ -1022,7 +1022,7 @@ private int codigoInversion;
     public void cargarInversiones() throws Exception{
         try{
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-            listaInversiones = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getCncId(), contratoVO.getTinId(), contratoVO.getCsiId(), codigoAeropuerto);
+            listaInversiones = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(), contratoVO.getTinId(), contratoVO.getCsiId(), codigoAeropuerto);
             contratoRespSupVO.setInfId(codigoAeropuerto);
             listaContratoCompromiso=contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
             listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);

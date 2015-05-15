@@ -76,11 +76,7 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         return result;
     }
 
-    @Override
-    public String delete(Integer id)  throws SQLException ,Exception{
-        String result=this.concesionarioDAOImpl.delete(id);
-        return result;
-    }
+ 
 
     @Override
     public String update(ConcesionarioVO concesionarioVO)  throws SQLException ,Exception{
