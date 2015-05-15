@@ -214,7 +214,7 @@ public class MantenimientoModalidadConcesionMB {
                 this.modalidadServiceImp.insert(modalidadVO);
                 getQuery();
                 limpiarCampos();
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registro con Exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Registró con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 RequestContext.getCurrentInstance().execute("regModalidad.hide()");
                 
@@ -277,13 +277,13 @@ public class MantenimientoModalidadConcesionMB {
             modalidadVO.setMcoUsuarioBaja(usuario.getUsuAlias());
             this.modalidadServiceImp.update(modalidadVO);
             getQuery();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Eliminó con Éxito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
             modalidadVO.setMcoId(null);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrió un Error" + e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
             
         }
@@ -383,13 +383,13 @@ public class MantenimientoModalidadConcesionMB {
                 this.modalidadServiceImp.update(modalidadVO);
                 getQuery();
                 limpiarCampos();
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo con Exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizó con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);                 
                 RequestContext.getCurrentInstance().execute("modModalidad.hide()");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrio un Error" + e.getMessage());
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrió un Error" + e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
         }
