@@ -1,10 +1,14 @@
 package com.ositran.seguridad;
 
 import com.ositran.service.RolService;
+import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
+import com.ositran.serviceimpl.MonedaServiceImpl;
 import com.ositran.serviceimpl.UsuarioServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.ConcesionarioVO;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
 import com.ositran.vo.bean.UsuarioVO;
@@ -34,6 +38,17 @@ import org.primefaces.context.RequestContext;
 public class MantenimientoUsuario {
     public final int formulario = 4;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+
+    
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+    }
+    
+    
     private String usuAlias;
     private String usuCorreo;
     private String usuContrasenya;
@@ -41,22 +56,27 @@ public class MantenimientoUsuario {
     private int usuEstado;
     private List<RolVO> listaRoles = new ArrayList<>();
     private List<RolVO> listaRoles1 = new ArrayList<>();
+    private List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<>();
     private int codigoROl;
+    private int codigoROl1;
     private int codigoROl2;
     private int codigoE;
     private int usuEsexterno;
-    private int rol;
+
     private int usuEsexternoE;
-    private int rolE;
+
     private int codigoEE;
     private int usuEstadoE;
     private int codigoDocumentoFiltro;
+    private int tinId;
     private String usuAliasE;
     private String usuContrasenyaE;
     private String usuNombreE;
     private String usuCorreoE;
     private String buscar;
     private String nomUserSearch;
+    private int infraestructuraSeleccionada;
+    private int infraestructuraSeleccionadaE;
     private int nomTipoSearch;
     private List<UsuarioVO> listaCon;
     int nomRolSearch;
@@ -76,15 +96,26 @@ public class MantenimientoUsuario {
 
     @ManagedProperty(value = "#{usuarioServiceImpl}")
     private UsuarioServiceImpl usuarioServiceImpl;
-
+    
+    @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
+    InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
+    
     private List<UsuarioVO> listaUsuario;
     Util util = new Util();
     
-    public void listanombrerol(){
-            for (UsuarioVO usu : listaUsuario) {
-                RolVO rol = getRolServiceImpl().get(usu.getRolId());
-                usu.setNombreRol(rol.getRolNombre());
-            }
+    public void listanombrerol() throws Exception{
+        try {
+           for (UsuarioVO usu : listaUsuario) {
+               RolVO rol = getRolServiceImpl().get(usu.getRolId());
+               usu.setNombreRol(rol.getRolNombre());
+               
+               InfraestructuraTipoVO infra = infraestructuraTipoServiceImpl.get(usu.getTinId());
+               usu.setNombreInfra(infra.getTinNombre());
+           }
+           
+       } catch (Exception e) {
+           System.out.println(e);
+        }
         }
     
     
@@ -97,7 +128,21 @@ public class MantenimientoUsuario {
         }
         return listaUsuario;
     }
-
+    
+    
+    public void cargarListaInfraestructura() {
+        try {
+            listaTipoInfraestructura = infraestructuraTipoServiceImpl.query();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
     /*  -----Activar y Desactivar Usuario--------- */
     public void activarUsuario(UsuarioVO usuarioV) throws SQLException, Exception {
         try {
@@ -139,7 +184,7 @@ public class MantenimientoUsuario {
     /*  -----Fin Activar y Desactivar Usuario--------- */
 
     /* Guardar */
-    public void guardarUsuario() {
+    public void guardarUsuario() throws Exception{
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(usuCorreo);
 
@@ -163,23 +208,25 @@ public class MantenimientoUsuario {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar correo de usuario"));
-        } else if (codigoROl == 0) {
+        }   else if (codigoROl == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar rol de usuario"));
-        } else {
+        }  else {
             try {
                 usuEsexterno = getUsuEsexterno();
-                rol = getRol();
+                codigoROl = getCodigoROl();
                 usuarioVO.setUsuEsexterno(usuEsexterno);
                 usuarioVO.setUsuAlias(usuAlias.toUpperCase());
                 usuarioVO.setUsuContrasenya(usuContrasenya);
                 usuarioVO.setUsuNombre(usuNombre.toUpperCase());
                 usuarioVO.setUsuCorreo(usuCorreo);
                 usuarioVO.setRolId(codigoROl);
+                usuarioVO.setTinId(infraestructuraSeleccionada);
                 usuarioVO.setUsuEstado(1);
+                usuarioVO.setUsuUsuarioAlta(usuario.getUsuAlias());
                 usuarioVO.setUsuFechaAlta(util.getObtenerFechaHoy());
-                usuarioVO.setUsuTerminal(util.obtenerIpCliente());
+                usuarioVO.setUsuTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 System.out.println("antes del insetr");
                 getUsuarioServiceImpl().insert(usuarioVO);
 
@@ -208,15 +255,16 @@ public class MantenimientoUsuario {
             Integer idcodigo = Integer.valueOf(str.toString());
             usuarioVO = usuarioServiceImpl.get(idcodigo);
             //fin de de captura de codigo a modificar
-
+            
+            infraestructuraSeleccionadaE=usuarioVO.getTinId();
             codigoEE = usuarioVO.getUsuId();
             usuEsexternoE = usuarioVO.getUsuEsexterno();
-            rolE = usuarioVO.getRolId();
             usuAliasE = usuarioVO.getUsuAlias();
             usuContrasenyaE = usuarioVO.getUsuContrasenya();
             usuNombreE = usuarioVO.getUsuNombre();
             usuCorreoE = usuarioVO.getUsuCorreo();
             usuEstadoE = usuarioVO.getUsuEstado();
+            codigoROl1 = usuarioVO.getRolId();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception s) {
@@ -231,14 +279,16 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuId(codigoEE);
             System.out.println(codigoEE);
             usuarioVO.setUsuEsexterno(usuEsexternoE);
+            usuarioVO.setTinId(infraestructuraSeleccionadaE);
             usuarioVO.setUsuAlias(usuAliasE.toUpperCase());
             usuarioVO.setUsuContrasenya(usuContrasenyaE);
             usuarioVO.setUsuNombre(usuNombreE.toUpperCase());
             usuarioVO.setUsuCorreo(usuCorreoE);
-            usuarioVO.setRolId(rolE);
+            usuarioVO.setRolId(codigoROl1);
             usuarioVO.setUsuEstado(usuEstadoE);
-            usuarioVO.setUsuFechaCambio(new Date());
-            usuarioVO.setUsuTerminal(util.obtenerIpCliente());
+            usuarioVO.setUsuUsuarioCambio(usuario.getUsuAlias());
+            usuarioVO.setUsuFechaCambio(util.getObtenerFechaHoy());
+            usuarioVO.setUsuTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
             listanombrerol();
@@ -383,13 +433,7 @@ public class MantenimientoUsuario {
     }
 
 
-    public void setRolE(int rolE) {
-        this.rolE = rolE;
-    }
-
-    public int getRolE() {
-        return rolE;
-    }
+   
 
     public void setUsuAliasE(String usuAliasE) {
         this.usuAliasE = usuAliasE;
@@ -525,13 +569,7 @@ public class MantenimientoUsuario {
         return usuEsexterno;
     }
 
-    public void setRol(int rol) {
-        this.rol = rol;
-    }
-
-    public int getRol() {
-        return rol;
-    }
+  
 
 
     public void setPattern(Pattern pattern) {
@@ -550,10 +588,7 @@ public class MantenimientoUsuario {
         return matcher;
     }
 
-    public void validarSesion() throws IOException {
-
-        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-    }
+    
 
     public void listarRoles() {
         listaRoles = rolServiceImpl.query();
@@ -630,4 +665,69 @@ public class MantenimientoUsuario {
         return listaCon;
     }
 
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+    public void setListaTipoInfraestructura(List<InfraestructuraTipoVO> listaTipoInfraestructura) {
+        this.listaTipoInfraestructura = listaTipoInfraestructura;
+    }
+
+    public List<InfraestructuraTipoVO> getListaTipoInfraestructura() {
+        return listaTipoInfraestructura;
+    }
+
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
+
+
+    public void setInfraestructuraSeleccionada(int infraestructuraSeleccionada) {
+        this.infraestructuraSeleccionada = infraestructuraSeleccionada;
+    }
+
+    public int getInfraestructuraSeleccionada() {
+        return infraestructuraSeleccionada;
+    }
+
+    public void setTinId(int tinId) {
+        this.tinId = tinId;
+    }
+
+    public int getTinId() {
+        return tinId;
+    }
+
+    public void setCodigoROl1(int codigoROl1) {
+        this.codigoROl1 = codigoROl1;
+    }
+
+    public int getCodigoROl1() {
+        return codigoROl1;
+    }
+
+    public void setInfraestructuraSeleccionadaE(int infraestructuraSeleccionadaE) {
+        this.infraestructuraSeleccionadaE = infraestructuraSeleccionadaE;
+    }
+
+    public int getInfraestructuraSeleccionadaE() {
+        return infraestructuraSeleccionadaE;
+    }
 }
