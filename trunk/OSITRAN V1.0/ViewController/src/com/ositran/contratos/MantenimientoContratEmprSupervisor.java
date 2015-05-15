@@ -562,11 +562,11 @@ public class MantenimientoContratEmprSupervisor {
         } else if (cpsGarantias.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "Ingresar Garantias"));
+                                                                          "Ingresar Garantías"));
         } else if(nrohr.trim().equals("")){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                              "Ingresar Numero HR"));
+                                                                              "Ingresar Número HR"));
             } 
         else if(añohr.trim().equals("")){
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -642,7 +642,7 @@ public class MantenimientoContratEmprSupervisor {
                 cargarListaContratosEmpresaSupervisora();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                              "Se Registro con Exito"));
+                                                                              "Se Registró con Éxito"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -836,7 +836,7 @@ public class MantenimientoContratEmprSupervisor {
             cargarListaContratosEmpresaSupervisora();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                          "Se Modifico con Exito"));
+                                                                          "Se Modificó con Éxito"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -968,7 +968,7 @@ public class MantenimientoContratEmprSupervisor {
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("nroContrato");
         codigoEliminar = Integer.valueOf(str.toString());
-        System.out.println("EL CODIGO ES :     " + codigoEliminar);
+        System.out.println("EL CÓDIGO ES :     " + codigoEliminar);
     }
 
     public void eliminar() throws SQLException {
@@ -977,7 +977,7 @@ public class MantenimientoContratEmprSupervisor {
             cargarListaContratosEmpresaSupervisora();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                          "Se Elimino con Exito"));
+                                                                          "Se Eliminó con Éxito"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1017,7 +1017,7 @@ public class MantenimientoContratEmprSupervisor {
                 contratoSupervisoraAdendaVO = new ContratoSupervisoraAdendaVO();
                 contratoSupervisoraAdendaVO.setCpsNroDeContrato(cpsNroDeContrato);
                 if (dia) {
-                    contratoSupervisoraAdendaVO.setCsaPlazo(adendaPlazo + " " + "dias");
+                    contratoSupervisoraAdendaVO.setCsaPlazo(adendaPlazo + " " + "días");
                 } else if (mes) {
                     contratoSupervisoraAdendaVO.setCsaPlazo(adendaPlazo + " " + "mes");
                 } else if (año) {
@@ -1040,7 +1040,7 @@ public class MantenimientoContratEmprSupervisor {
 
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                              "Se agrego Adenda Correctamente"));
+                                                                              "Se agregó Adenda Correctamente"));
                 //(listaAdenda.add(contratoSupervisoraAdendaVO);
 
                 //contratoEmpresaSupervisoraAdendaServiceImpl.insert(contratoSupervisoraAdendaVO);
