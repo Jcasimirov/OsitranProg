@@ -19,9 +19,9 @@
             <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
             
-                    <div align="center" ><h5 class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR (AEROPUERTO)</h5></div>
+                    <div align="center" ><h5 class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR <h:outputText rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /></h5></div>
 		<table style="font-size: 11px">
-			<tr>
+			<tr>    
                             <td valign="top">
 				<p:fieldset id="principalIzquierdo" legend="Datos Contrato Concesión"> 
 				<p:fieldset styleClass="fielsetinterno" legend="Criterio de Busqueda">
@@ -47,12 +47,12 @@
 									</tr>
 									<tr>
 										<td align="left">Modalidad Concesión</td>
-										<td><p:inputText value="#{derivarReconocimientoSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
+										<td><p:inputText  value="#{derivarReconocimientoSupervisorMB.nombreModalidadConceción}" readonly="true"></p:inputText></td>
 									</tr>
                                                                         <tr>
-										<td align="left">Aeropuerto</td>
+										<td align="left"><h:outputText rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}"  value="Aeropuerto:" /></td>
 										<td>
-                                                                                     <p:selectOneMenu value="#{derivarReconocimientoSupervisorMB.codigoInfraestructura}" >
+                                                                                     <p:selectOneMenu rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}" value="#{derivarReconocimientoSupervisorMB.codigoInfraestructura}" >
 										        <f:selectItem  itemLabel="-Selecione-" itemValue="0" />
                                                                                                 <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInfraestructuras}" var="tip"
                                                                                                         itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
@@ -64,9 +64,9 @@
                                                                                 </td>
 									</tr>	
                                                                         <tr>
-										<td align="left">Inversión</td>
+										<td align="left"><h:outputText rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}"  value="Inversión:" /></td>
 										<td>
-                                                                                     <p:selectOneMenu id="lista1"  value="#{derivarReconocimientoSupervisorMB.codigoInversion}">
+                                                                                     <p:selectOneMenu rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}" id="lista1"  value="#{derivarReconocimientoSupervisorMB.codigoInversion}">
 										        <f:selectItem   itemLabel="-Selecione-" itemValue="0" />
 										        <f:selectItems value="#{derivarReconocimientoSupervisorMB.listaInversiones}" var="tip1"
                                                                                                                itemLabel="#{tip1.invDescripcion}" itemValue="#{tip1.invId}"/>
