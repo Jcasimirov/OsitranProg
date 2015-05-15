@@ -3,7 +3,14 @@ package com.ositran.seguridad;
 import com.ositran.service.RolOpcionesService;
 import com.ositran.serviceimpl.MenServiceImpl;
 import com.ositran.serviceimpl.RolServiceImpl;
+import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.MenVO;
+import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.UsuarioVO;
+
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +49,16 @@ public class OpcionesSistemaMB {
     @ManagedProperty(value = "#{menVO}")
     MenVO menVO;
    
+    public  final int formulario1=5;
+    private RolOpcionesVO rolOpcion;
+    UsuarioVO usuario=new UsuarioVO();
+
+    public void validarSesion() throws IOException{
+      rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario1);
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+    }
+    
+    
     
     
     public void cargarRegistrar(){
@@ -50,8 +67,6 @@ public class OpcionesSistemaMB {
              formularioO="";
               padre=1;
               url="";
-        
-        
         }
     
     public OpcionesSistemaMB() {
@@ -68,6 +83,8 @@ public class OpcionesSistemaMB {
        menVO.setMenPadre(padre);
        menVO.setMenFormulario("1");
        menVO.setMenUrl(url);
+       menVO.setMenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+       menVO.setMenUsuarioAlta(usuario.getUsuAlias());
        menVO.setMenFechaAlta(new Date());
        
        menServiceImpl.insert(menVO);
@@ -109,8 +126,9 @@ public class OpcionesSistemaMB {
             codigoMenu = Integer.parseInt(str.toString());
             menVO=menServiceImpl.get(codigoMenu);
             menVO.setMenEstado(0);   
-            System.out.println("NOMbre");
-            System.out.println(menVO.getMenNombre());
+         menVO.setMenFechaBaja(new Date());
+         menVO.setMenUsuarioBaja(usuario.getUsuAlias());
+         menVO.setMenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         }
     
     
@@ -151,6 +169,8 @@ public class OpcionesSistemaMB {
             menVO.setDescripcion(descripcionE);
             menVO.setMenFormulario("1");
             menVO.setMenFechaCambio(new Date());
+            menVO.setMenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+            menVO.setMenUsuarioCambio(usuario.getUsuAlias());    
             menServiceImpl.update(menVO);
             
             RequestContext.getCurrentInstance().execute("editarPanel.hide()");   
@@ -287,5 +307,22 @@ public class OpcionesSistemaMB {
 
     public String getUrl() {
         return url;
+    }
+
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
     }
 }
