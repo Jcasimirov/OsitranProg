@@ -45,7 +45,10 @@
                                     <f:selectItems  value="#{jefeAreaContratoConcecionMB.listaInfraestructuraTipo}" var="ticc" itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
                                                     />            
                                 <p:ajax event="valueChange" update=":form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
-                                </p:selectOneMenu>		
+                                </p:selectOneMenu>
+                                   <h:outputText value=""/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
+                                
 					</td>
 				</tr>	
 			</table>
@@ -84,6 +87,8 @@
                                         actionListener="#{jefeAreaContratoConcecionMB.cargarListaContratos()}" 
                                         
                                         />
+                                           <h:outputText value=""/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                          <p:tooltip styleClass="tool" id="tool2" for="cargarLista"
                                                           value="Cargar lista de contrato concesion"/>
                                         
@@ -113,7 +118,14 @@
 	 	</div>	
                
                 <table align="center" style="font-size: 11px">	
+                <tr>
+                <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                </tr>
 	 			<tr>  
+                                
 	 				<td align="right"><p:commandButton  onclick="confirmarGuardar.show()"   value="#{btn.btn_guardar}" style="width:80px" /></td>
 	 				<td align="left"><p:commandButton value="#{btn.btn_limpiar}" onclick="confirmarLimpiar.show()" style="width:80px" /></td>
                                 </tr>
