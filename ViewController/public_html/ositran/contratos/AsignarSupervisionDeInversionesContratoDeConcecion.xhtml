@@ -49,6 +49,8 @@
                         <p:ajax event="valueChange" update=":form:listaSupervisores " listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones()}"  />                
                 
                                     </p:selectOneMenu>	
+                                      <h:outputText value=""/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                         </td>
                                         <td align="left">
                                             #{cam.sui}
@@ -63,6 +65,8 @@
                                                     <p:ajax event="valueChange"  update=":form:supervicionDeInversiones"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
 
                                     </p:selectOneMenu>
+                                      <h:outputText value=""/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                         </td>
                                     </tr>
                                 </table>
@@ -102,6 +106,8 @@
                                             <p:watermark value="Presione la lupa para elegir Contrato" for="cb2" />
                 
                                             <p:commandButton   id="buscarContratos" oncomplete="panelListaContratos.show()"  update=":form:panelListaContratos :form:mensaje"  actionListener="#{supervisorContratoConcesionMB.cargarListaContratos}"  image="ui-icon-search"/>
+                                              <h:outputText value=""/>
+                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                              <p:tooltip id="toolTipFade" styleClass="tool" for="buscarContratos" value="Mostrar lista de contratos" />
                                         </td>
                                     </tr>
@@ -141,6 +147,12 @@
                         </div>
                     </div>
                     <table align="center" style="font-size: 11px">
+                     <tr>
+                <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                </tr>
                         <tr>
                             <td align="right">
                                 <p:commandButton styleClass="botones" 
@@ -215,7 +227,6 @@
                                     <p:column headerText="Nombre" style="width:50px">
                                         <h:outputText value="#{lisContratos.nombreConcesion}" />
                                     </p:column>
-                                  
                                     <p:column   headerText="Elegir" style="width:5px" >
                                         <div align="center">
                                             <p:commandButton
@@ -226,11 +237,8 @@
                                                 
                                             </p:commandButton>
                                         </div>
-                                    </p:column>
-                                   
+                                    </p:column>                                   
                                 </p:dataTable>
-                    
-                    
                 </p:dialog>
             </h:form>     
       </h:body>
