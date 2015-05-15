@@ -110,7 +110,7 @@ public class MantenimientoConcesion {
                 concesionVO.setCsiEstado(1);
                 concesionVO.setCsiUsuarioAlta(usuario.getUsuAlias());
                 concesionVO.setCsiFechaAlta(util.getObtenerFechaHoy());
-                concesionVO.setCsiUsuarioAlta(util.obtenerIpCliente());
+                concesionVO.setCsiTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 codigogenerado = getConcesionServicesImpl().idConcesion(concesionVO);
 
 

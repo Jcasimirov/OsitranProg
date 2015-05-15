@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InversionDescripcionServicesImpl implements InversionDescripcionServices {
-
+    
     private InversionDescripcionDAO inversionDescripcionDAOimpl;
     private InversionTipoDescripcion inversionTipoDescripcion;
     private InversionDescripcionVO inversionDescripcionVO;
@@ -50,11 +50,7 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
         return result;      
     }
 
-    @Override
-    public String delete(Integer id)  throws SQLException ,Exception{
-        String result=this.getInversionDescripcionDAOimpl().delete(id);
-        return result;
-    }
+ 
 
     @Override
     public String update(InversionDescripcionVO inversionDescrpcionVO) throws SQLException ,Exception {

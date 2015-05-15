@@ -395,7 +395,7 @@ public class DerivarReconocimientoSupervisorMB {
 
     public void elegirContrato(ContratoVO contratoVO) {
         try {
-            codigoConcesion = contratoVO.getCncId();
+            codigoConcesion = contratoVO.getCsiId();
             concesionVO = concesionServiceImpl.get(codigoConcesion);
             codigoTipoInversion = concesionVO.getTinId();
             idModalidadConcesion = contratoVO.getMcoId();
