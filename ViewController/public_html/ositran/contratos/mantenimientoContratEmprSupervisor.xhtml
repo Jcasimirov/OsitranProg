@@ -306,7 +306,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}" pattern="dd/MM/yyyy" />
+                                                    <p:calendar id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                 </td>
                                             </tr>
                                              
@@ -315,7 +315,7 @@
                                                     <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" pattern="dd/MM/yyyy" />
+                                                    <p:calendar id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato (*)"/>
@@ -356,7 +356,7 @@
                                                     <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}" pattern="dd/MM/yyyy"/>
+                                                    <p:calendar id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario"/>
                                                 </td>
                                             </tr>
                                              
@@ -421,7 +421,7 @@
                                                         <h:outputText value="#{tAdenda.cpsNroDeContrato}"/>
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:15px">
-                                                        <p:calendar styleClass="calendario"  value="#{tAdenda.csaFecha}" pattern="dd/MM/yyyy" />
+                                                        <p:calendar value="#{tAdenda.csaFecha}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:15px">
                                                         <h:outputText value="#{tAdenda.csaMonto}"/>
@@ -509,7 +509,7 @@
                     
                     <tr>
                         <td>Fecha:</td>
-                        <td colspan="2"> <p:calendar styleClass="calendario"  value="#{manteContEmprSupervisora.adendaFecha}" pattern="dd/MM/yyyy" />
+                        <td colspan="2"> <p:calendar value="#{manteContEmprSupervisora.adendaFecha}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                         </td>
                     </tr>
                     
@@ -931,7 +931,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}" pattern="dd/MM/yyyy" />
+                                                    <p:calendar id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                 </td>
                                             </tr>
                                              
@@ -940,7 +940,7 @@
                                                     <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNewE"  value="#{manteContEmprSupervisora.fechaSuscripcionE}" pattern="dd/MM/yyyy" />
+                                                    <p:calendar id="calendarFecSuscripcionNewE"  value="#{manteContEmprSupervisora.fechaSuscripcionE}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato (*)"/>
@@ -981,7 +981,7 @@
                                                     <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}" pattern="dd/MM/yyyy" />
+                                                    <p:calendar id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                 </td>
                                             </tr>
                                              
@@ -1044,7 +1044,7 @@
                                                         <h:outputText value="#{tAdendaE.cpsNroDeContrato}"/>
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:15px">
-                                                        <p:calendar styleClass="calendario"  value="#{tAdendaE.csaFecha}" pattern="dd/MM/yyyy" />
+                                                        <p:calendar value="#{tAdendaE.csaFecha}" pattern="dd/MM/yyyy" locale="es" styleClass="calendario" />
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:15px">
                                                         <h:outputText value="#{tAdendaE.csaMonto}"/>
