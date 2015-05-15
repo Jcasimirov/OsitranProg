@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class TipoInversionServiceImpl implements TipoInversionServices{
+    
     TipoInversionDAO tipoInversionDAOImpl;
     InversionTipo inversionTipo;
     TipoInversionVO tipoInversionVO;
@@ -46,11 +47,7 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         return listVO;
     }
     
-    @Override
-    public String delete(Integer id) throws SQLException ,Exception{
-        String result=this.getTipoInversionDAOImpl().delete(id);
-        return result;
-    }
+
 
     @Override
     public String update(TipoInversionVO tipoInversionVO)  throws SQLException ,Exception{
