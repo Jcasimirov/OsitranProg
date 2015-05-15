@@ -17,7 +17,7 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
-                                <h5 class="titulo5">REGISTRAR AVANCE INVERSI&#211;N (AEROPUERTOS)</h5>
+                                <h5 class="titulo5">REGISTRAR AVANCE INVERSI&#211;N <h:outputText rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /> </h5>
                             </div>
                             <table style="font-size: 11px">
                                 <tr>
@@ -235,10 +235,10 @@
                                                 <br></br>
                                                 <br></br>
                                                 <table style="width:100%">
-                                                    <tr>
-                                                        <td>Aeropuerto:</td>
+                                                    <tr >
+                                                        <td><h:outputText value="Aeropuerto" rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" ></h:outputText></td>
                                                         <td>
-                                                            <p:selectOneMenu style="width:110px"
+                                                            <p:selectOneMenu rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" style="width:110px"
                                                                              value="#{registrarAvanceInversionMB.codigoInfraestructura}"
                                                                              id="aeropuerto">
                                                                 <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
@@ -250,9 +250,9 @@
                                                                 <f:selectItem itemLabel="-Otros-" itemValue="111"/>
                                                             </p:selectOneMenu>
                                                         </td>
-                                                        <td>Inversi&#243;n:</td>
+                                                        <td><h:outputText value="Inversión" rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" ></h:outputText></td>
                                                         <td colspan="2">
-                                                            <p:selectOneMenu style="width:210px" id="lista"
+                                                            <p:selectOneMenu rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" style="width:210px" id="lista"
                                                                              value="#{registrarAvanceInversionMB.codigoInversion}">
                                                                 <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
                                                                 <f:selectItems value="#{registrarAvanceInversionMB.listaInversiones}"
@@ -316,7 +316,7 @@
                                                      emptyMessage="NO SE ENCONTRARON DATOS"
                                                      style="font-size:9px;width:90%" id="tablaVS" var="valSup"
                                                      value="#{registrarAvanceInversionMB.listValorizacionInversionAvanceDetalleVO}">
-                                            <p:column headerText="Aeropuertos">
+                                            <p:column rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" headerText="Aeropuertos">
                                                 <h:outputText style="font-size:9px;" value="#{valSup.aeropuertos}"></h:outputText>
                                             </p:column>
                                             <p:column headerText="Concepto">
@@ -356,10 +356,8 @@
                                                     </p:commandButton>
                                                 </div>
                                             </p:column>
-                                        </p:dataTable>
-                                         
+                                        </p:dataTable>                                        
                                         <br></br>
-                                         
                                         <br></br>
                                         <div align="right" class="negrita">
                                             Total Neto: 
@@ -398,8 +396,7 @@
                                                  :form:plazoContrato 
                                                  :form:diasHabiles 
                                                  :form:diasCalendario" 
-                                             actionListener="#{registrarAvanceInversionMB.guardar()}" value="Guardar"/>
-                             
+                                             actionListener="#{registrarAvanceInversionMB.guardar()}" value="Guardar"/>                            
                             <p:commandButton update=":form:mensaje :form:todoIzquierdo :form:todoDerecho"
                                              actionListener="#{registrarAvanceInversionMB.limpiarTodo()}"
                                              style="width:80px" value="Limpiar"/>
@@ -424,7 +421,6 @@
                                                  image="ui-icon-circle-check" id="selecionarContratos"
                                                  style="width:22px;height:22px"
                                                  update=":form:datosConcesion :form:datosCompromiso :form:aeropuerto :form:plazoContrato :form:diasHabiles :form:diasCalendario"></p:commandButton>
-                                 
                                 <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
                                            value="Selecionar un contrato"/>
                             </div>
