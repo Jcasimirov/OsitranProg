@@ -941,12 +941,12 @@ public class DeclararInversion {
             (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");
         if (reconocimiento.getIvrMontoAprobado() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "El Monto no Puede ser vacio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "El Monto no Puede ser vacío"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else if (reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto Presentado no puede ser mayor al Monto Aprobado"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else {
@@ -976,12 +976,12 @@ public class DeclararInversion {
         InvReajusteVO reajuste = (InvReajusteVO) event.getComponent().getAttributes().get("reajuste");
         if (reajuste.getIrjMontoReajuste() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "El Monto no puede ser vacio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "El Monto no puede ser vacío"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else if (reajuste != null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El monto Aprobado no puede ser mayor al Monto Reajustado"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else {
@@ -1013,11 +1013,11 @@ public class DeclararInversion {
         if (reconocimiento != null &&
             reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El monto Aprobado no puede ser mayor al Monto Presentado"));
         } else if (reajuste != null && reajuste.getIrjMontoAprobado().compareTo(reajuste.getIrjMontoReajuste()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El monto Reajuste no puede ser mayor al Monto Aprobado"));
         } else {
             totalMontoAprobado = BigDecimal.ZERO;
@@ -1200,47 +1200,47 @@ public class DeclararInversion {
 
         if (invVO.getInvEstadoReconocimiento() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Estado de Reconocimiento"));
         } else if (invAvnVO.getTiaObservaciones() == null || invAvnVO.getTiaObservaciones().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado las Observaciones"));
         } else if (invVO.getInvNumeroInforme() == null || invVO.getInvNumeroInforme().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Numero de Informe"));
         } else if (invVO.getInvFechaEmisionInforme() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Fecha de Emisión del Informe"));
         } else if (invVO.getInvRegSalidaInforme() == null || invVO.getInvRegSalidaInforme().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Registro de Salida del Informe"));
         } else if (invVO.getInvNumeroOficio() == null || invVO.getInvNumeroOficio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Numero de Oficio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha ingresado el Número de Oficio"));
         } else if (invVO.getInvFechaEmisionOficio() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Fecha del Oficio"));
         } else if (invVO.getInvRegSalidaOficio() == null || invVO.getInvRegSalidaOficio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Inversión"));
         } else if (invVO.getMonId() == null || invVO.getMonId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ha seleccionado el Tipo de Cambio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha seleccionado el Tipo de Cambio"));
         } else if (invVO.getInvMontoTipoCambio() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Monto"));
         } else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Nota"));
         } else {
             try {
@@ -1266,8 +1266,8 @@ public class DeclararInversion {
                 invServiceImpl.insertDeclaracion(invAvnVO, invVO, listaInvReconocimientoVO, listaInvReajusteVO);
 
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito",
-                                                                              "Se Declaro la Inversión"));
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito",
+                                                                              "Se Declaró la Inversión"));
                 listarInversionesSupervisadas(contratoCompromisoVO.getCcoId());
                 limpiarFormulario();
             } catch (Exception e) {
