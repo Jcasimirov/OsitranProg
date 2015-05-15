@@ -15,6 +15,9 @@
             <f:event listener="#{mantenimientoUsuarioMB.listarRoles}" type="postAddToView"></f:event>
              
             <f:event listener="#{mantenimientoUsuarioMB.listarRoles2}" type="postAddToView"></f:event>
+            
+            <f:event listener="#{mantenimientoUsuarioMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+            
              
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
@@ -120,6 +123,12 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
+                                            <h:outputText value="Infraestructura"/>
+                                        </f:facet>
+                                        <h:outputText value="#{usu.nombreInfra}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
                                             <h:outputText value="Correo"/>
                                         </f:facet>
                                         <h:outputText value="#{usu.usuCorreo}"/>
@@ -182,6 +191,10 @@
                             </div>
                         </div>
                     </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                    </p:layoutUnit>                    
                 </p:layout>
                 <!-- pdialog para boton agregar -->
                 <p:dialog header="Registrar" widgetVar="agregarUsuario" modal="true" resizable="false">
@@ -203,6 +216,19 @@
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
                         </tr>
+                        
+                         <tr>
+                            <td>Tipo Infraestructura:</td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.infraestructuraSeleccionada}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{mantenimientoUsuarioMB.listaTipoInfraestructura}" var="lti"
+                                                   itemLabel="#{lti.tinNombre}" itemValue="#{lti.tinId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        
+                        
                          
                         <tr>
                             <td>
@@ -292,12 +318,11 @@
                         </tr>
                          
                         <tr>
-                            <td>
+                            <td align="center" colspan="2" >
                                 <p:commandButton value="#{btn.btn_guardar}" update=":form:tablaUSU :form:mensaje"
                                                  action="#{mantenimientoUsuarioMB.guardarUsuario()}"
                                                  style="width:70px"/>
-                            </td>
-                            <td>
+                           
                                 <p:commandButton value="#{btn.btn_salir}" oncomplete="agregarUsuario.hide()"/>
                             </td>
                         </tr>
@@ -329,6 +354,17 @@
                                 </p:selectOneMenu>
                             </td>
                         </tr>
+                         
+                        <tr>
+                            <td>Tipo Infraestructura:</td>
+                            <td>
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.infraestructuraSeleccionadaE}">
+                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                    <f:selectItems value="#{mantenimientoUsuarioMB.listaTipoInfraestructura}" var="lti"
+                                                   itemLabel="#{lti.tinNombre}" itemValue="#{lti.tinId}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr> 
                          
                         <tr>
                             <td>
@@ -375,7 +411,7 @@
                                 #{etq.etq_rol}
                             </td>
                             <td>
-                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.codigoROl}">
+                                <p:selectOneMenu value="#{mantenimientoUsuarioMB.codigoROl1}">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{mantenimientoUsuarioMB.listaRoles}" var="tip"
                                                    itemLabel="#{tip.rolNombre}" itemValue="#{tip.rolId}"/>
@@ -390,12 +426,10 @@
                         </tr>
                          
                         <tr>
-                            <td>
+                            <td align="center" colspan="2">
                                 <p:commandButton value="#{btn.btn_modificar}" update=":form:tablaUSU :form:mensaje"
                                                  action="#{mantenimientoUsuarioMB.modificarUsuario}"
                                                  oncomplete="modificarUsuario.hide()" style="width:70px"/>
-                            </td>
-                            <td>
                                 <p:commandButton value="#{btn.btn_salir}" oncomplete="modificarUsuario.hide()"/>
                             </td>
                         </tr>
