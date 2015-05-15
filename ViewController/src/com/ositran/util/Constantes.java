@@ -5,16 +5,21 @@ import java.io.File;
 
 public class Constantes {
     public static String SO = System.getProperty("os.name");
-    public static String UNIDAD="D:";
-    public static String RUTA=SO.toUpperCase().startsWith("W")?UNIDAD+File.separator :File.separator +"usr"+File.separator ;
-    public static String RUTACONTRATOSPDF=RUTA+ File.separator +"filesositran"+File.separator+"temp"+File.separator+"contratos"+File.separator;
-    public static String RUTAFICHASRESUMEN=RUTA+File.separator +"filesositran"+File.separator+"temp"+File.separator +"resumen"+File.separator;
-    public static String RUTAADENDA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"adendas"+File.separator;
-    public static String RUTAADENDAENTREGA=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"entrega"+File.separator;
-    public static String RUTACAO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"cao"+File.separator;
-    public static String RUTAHITO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"hito"+File.separator;
-    public static String RUTAPPO=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"ppo"+File.separator;
-    public static String RUTAPENALIDADES=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"penalidades"+File.separator;
+    public static String FILESEPARATOR=File.separator+File.separator;
+    public static String RAIZWINDOWS="D:"+FILESEPARATOR;
+    public static String RAIZUNIX=File.separator +"usr"+File.separator;
+    public static String DIRECTORIO="filesositran"+FILESEPARATOR+"temp"+FILESEPARATOR;
+    public static String RUTABASE=SO.toUpperCase().startsWith("W")?RAIZWINDOWS+DIRECTORIO:RAIZUNIX+DIRECTORIO;
+    
+    public static String RUTACONTRATOSPDF=RUTABASE+"contratos"+File.separator;
+    public static String RUTAFICHASRESUMEN=RUTABASE+"resumen"+File.separator;
+    public static String RUTAADENDA=RUTABASE+"adendas"+File.separator;
+    public static String RUTAADENDAENTREGA=RUTABASE+"entrega"+File.separator;
+    public static String RUTACAO=RUTABASE+"cao"+File.separator;
+    public static String RUTAHITO=RUTABASE+"hito"+File.separator;
+    public static String RUTAPPO=RUTABASE+"ppo"+File.separator;
+    public static String RUTAPENALIDADES=RUTABASE+"penalidades"+File.separator;
+    public static String RUTANOTIFICACION=RUTABASE+"notificacion"+File.separator ;
 
     public static String ARCHIVONOENCONTRADO = "Archivo no encontrado.";
     public static String EXITOCONTRATOACTUALIZADO = "Contrato Actualizado Satisfactoriamente.";
@@ -29,7 +34,7 @@ public class Constantes {
     public static Integer SUPERVISADOXINDICACION=0;
     public static Integer TIPINFAEROPUERTOS=2;
     
-    public static String RUTANOTIFICACION=RUTA+File.separator +"filesositran"+File.separator +"temp"+File.separator +"notificacion"+File.separator ;
+
     
     public static Integer ESTADORECONOCIMIENTO_OBSERVADO=0;
     public static Integer ESTADORECONOCIMIENTO_DECLARADO=4;

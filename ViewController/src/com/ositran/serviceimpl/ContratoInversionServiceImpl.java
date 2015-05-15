@@ -113,12 +113,7 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
         this.contratoInversionDAOImpl = contratoInversionDAOImpl;
     }
     
-    @Override    
-    public List<ContratoInversionVO> getInversionesContrato(Integer ConId) throws SQLException{
-        List<ContratoInversion> list = contratoInversionDAOImpl.getInversionesContrato(ConId);
-        List<ContratoInversionVO> listVO=toListContratoInversionVO(list);
-        return listVO;
-    }
+
     public List<ContratoInversionVO> getInversionesContratoenRectificacion(Integer conId) throws SQLException{
         List<ContratoInversion> list = contratoInversionDAOImpl.getInversionesContratoenRectificacion(conId);
         List<ContratoInversionVO> listVO=toListContratoInversionVO(list);
