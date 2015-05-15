@@ -1647,7 +1647,8 @@ public class ActualizarContrato {
         disableCboAeropuerto=true;
         updateInversiones=true; 
         
-        listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
+        listContratoInversionD = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
+            listContratoInversion=(List<ContratoInversionVO>)Reutilizar.getNewInstance().copy(listContratoInversionD);
         } catch (Exception s) {
             s.printStackTrace();
         } 
