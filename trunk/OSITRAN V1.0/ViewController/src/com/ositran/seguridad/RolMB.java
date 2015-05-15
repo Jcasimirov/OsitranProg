@@ -3,9 +3,15 @@ package com.ositran.seguridad;
 import com.ositran.service.MenService;
 import com.ositran.service.RolOpcionesService;
 import com.ositran.service.RolService;
+import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.MenVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.RolVO;
+import com.ositran.vo.bean.UsuarioVO;
+
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +74,14 @@ public class RolMB {
 
     @ManagedProperty(value = "#{rolOpcionesServiceImpl}")
     RolOpcionesService rolOpcionesServiceImpl;
+    
+    UsuarioVO usuario=new UsuarioVO();
+    public  final int formulario=1;
+    private RolOpcionesVO rolOpcion;
+    public void validarSesion() throws IOException{
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+            usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        }
 
     public void actualizarTodo(){
         if (actualizarB){
@@ -251,10 +265,8 @@ public void actualizarTodoE(){
            listaMenNueva.get(index).setEliminar(true);
            listaMenNueva.get(index).setLectura(true);
             }
-        else {
-          
-            
-            listaMenNueva.get(index).setActualizar(false);
+        else { 
+           listaMenNueva.get(index).setActualizar(false);
            listaMenNueva.get(index).setCrear(false);
            listaMenNueva.get(index).setEliminar(false);
            listaMenNueva.get(index).setLectura(false);
@@ -263,7 +275,6 @@ public void actualizarTodoE(){
         }
     
       public void menuSeleccionadoE(int index){
-        
         if (listaMenNuevaE.get(index).isTodo()){
            listaMenNuevaE.get(index).setActualizar(true);
            listaMenNuevaE.get(index).setCrear(true);
@@ -271,8 +282,6 @@ public void actualizarTodoE(){
            listaMenNuevaE.get(index).setLectura(true);
             }
         else {
-          
-            
            listaMenNuevaE.get(index).setActualizar(false);
            listaMenNuevaE.get(index).setCrear(false);
            listaMenNuevaE.get(index).setEliminar(false);
@@ -352,7 +361,7 @@ public void actualizarTodoE(){
          rolVO.setRolDescripcion(descripcionE);
          rolVO.setRolEstado(1);
          rolVO.setRolFechaCambio(new Date());
-         rolVO.setRolUsuarioCambio("Abel Huarca E");
+         rolVO.setRolUsuarioCambio(usuario.getUsuAlias());
          rolVO.setRolId(idE);
          rolServiceImpl.update(rolVO);
          listaMenE=menServiceImpl.query();
@@ -538,7 +547,9 @@ public void actualizarTodoE(){
             rolVO.setRolDescripcion(descripcion);
             rolVO.setRolEstado(1);
             rolVO.setRolFechaAlta(new Date());
-            rolVO.setRolUsuarioAlta("Abel Huarca");
+            rolVO.setRolUsuarioAlta(usuario.getUsuAlias());
+          
+            
             codigoRol = rolServiceImpl.getCodigo(rolVO);
 
             for (MenVO menVO : listaMenNueva) {
@@ -830,4 +841,23 @@ public void actualizarTodoE(){
     public String getBuscar() {
         return buscar;
     }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
 }
+
+
