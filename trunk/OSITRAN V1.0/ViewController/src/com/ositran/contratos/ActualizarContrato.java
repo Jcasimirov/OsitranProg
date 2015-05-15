@@ -415,18 +415,7 @@ public class ActualizarContrato {
         contratoInversionVO=new ContratoInversionVO();
     }
    
-    // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
-    /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
-    public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
-        try {
-            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
-            for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
-                infraestructurasCache.put("" + infraestructuraVO.getInfId(), infraestructuraVO);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos() {    
         /**validacion para pintar la tabla del dialogo buscar 
@@ -1585,7 +1574,18 @@ public class ActualizarContrato {
         listContratoInversion=new ArrayList<ContratoInversionVO>();
         updateInversiones=false;
     }
-   
+    // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
+    /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
+    public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
+        try {
+            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
+            for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
+                infraestructurasCache.put("" + infraestructuraVO.getInfId(), infraestructuraVO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**II.Se carga al Seleccionar una Concesion: 
      * 1.Carga las inversiones que tiene asignada segun Ids:
      *   Contrato, tipo de infraestructura y la Concesion
