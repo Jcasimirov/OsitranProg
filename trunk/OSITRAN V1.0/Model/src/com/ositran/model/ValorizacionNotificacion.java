@@ -72,11 +72,11 @@ public class ValorizacionNotificacion implements Serializable {
     private BigDecimal vanTotalPresentado;
     @Column(name = "VAN_TOTAL_RECONOCIDO", nullable = false)
     private BigDecimal vanTotalReconocido;
-    @Column(name = "VAN_USUARIO_ALTA", length = 20)
+    @Column(name = "VAN_USUARIO_ALTA", length = 100)
     private String vanUsuarioAlta;
-    @Column(name = "VAN_USUARIO_BAJA", length = 20)
+    @Column(name = "VAN_USUARIO_BAJA", length = 100)
     private String vanUsuarioBaja;
-    @Column(name = "VAN_USUARIO_CAMBIO", length = 20)
+    @Column(name = "VAN_USUARIO_CAMBIO", length = 100)
     private String vanUsuarioCambio;
 
     public ValorizacionNotificacion() {
