@@ -14,14 +14,14 @@ import javax.persistence.Table;
 @Table(name = "T_VALORIZACION_CONCEPTO")
 public class ValorizacionConcepto implements Serializable {
     private static final long serialVersionUID = 6103162993576008505L;
-    @Column(name = "CVA_DESCRIPCION", nullable = false, length = 100)
+    @Column(name = "CVA_DESCRIPCION",  length = 100)
     private String cvaDescripcion;
-    @Column(name = "CVA_ESTADO", nullable = false)
+    @Column(name = "CVA_ESTADO")
     private Integer cvaEstado;
     @Id
     @Column(name = "CVA_ID", nullable = false)
     private Integer cvaId;
-    @Column(name = "CVA_NOMBRE", nullable = false, length = 100)
+    @Column(name = "CVA_NOMBRE", length = 100)
     private String cvaNombre;
 
     public ValorizacionConcepto() {
