@@ -12,9 +12,6 @@ public interface ContratoInversionService {
     public String delete(Integer id) throws SQLException;
     public String update(ContratoInversionVO contratoInversionVO) throws SQLException;
     public ContratoInversionVO get(Integer id) throws SQLException;
-    public List<ContratoInversionVO> getInversionesContrato(Integer conId) throws SQLException;
-    public List<ContratoInversionVO> getInversionesContratoenRectificacion(Integer conId) throws SQLException;
- 
     public List<ContratoInversionVO> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException;
     
 }

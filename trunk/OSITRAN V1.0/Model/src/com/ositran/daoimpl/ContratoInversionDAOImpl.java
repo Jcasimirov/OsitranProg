@@ -88,20 +88,7 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         session.getTransaction().commit();
         return contratoInversion;
     }
-    @Override
-    public List<ContratoInversion> getInversionesContrato(Integer conId) throws SQLException{
-        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        Query query; 
-        query = session.createQuery("FROM ContratoInversion o where o.invEstado <> 0 and o.conId = :busqueda1 order by o.invId DESC");
-        query.setParameter("busqueda1",conId);            
-        List<ContratoInversion> list = query.list();
-        session.getTransaction().commit();
-        return list;        
-              
-        
-        
-    }   
+  
     public List<ContratoInversion> getInversionesContratoenRectificacion(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();

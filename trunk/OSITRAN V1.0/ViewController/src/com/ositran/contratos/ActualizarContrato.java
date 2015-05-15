@@ -150,7 +150,8 @@ public class ActualizarContrato {
     private ContratoInversionVO contratoInversionVO;
     @ManagedProperty(value = "#{contratoInversionServiceImpl}")
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
-    List<ContratoInversionVO> listContratoInversion;
+    private List<ContratoInversionVO> listContratoInversion;
+    private boolean updateInversiones;
 
     @ManagedProperty(value = "#{contratoAlertaVO}")
     private ContratoAlertaVO contratoAlertaVO;
@@ -267,7 +268,7 @@ public class ActualizarContrato {
     private String nombrePpo2;
     //inversion
     private Integer infraestructuraId = 0;
-    private String descInversion;
+    
     private String nombreInversion;
     private Integer codigoInversion;
 
@@ -415,6 +416,7 @@ public class ActualizarContrato {
     }
    
     // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
+    /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
     public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
         try {
             listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
@@ -465,9 +467,9 @@ public class ActualizarContrato {
         listaContratoPenalidad(contratoVO.getConId());
         tabDeshabilitado = false;
         if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
-            cargarListaInversiones(contratoVO.getConId());
-            RequestContext.getCurrentInstance().update("tab:frmInversion:tablaContratoInversion");
-            RequestContext.getCurrentInstance().update("tab:frmAgregarInversion:AeropuertoInversion");
+            /* cargarListaInversiones(contratoVO.getConId()); */            
+            RequestContext.getCurrentInstance().update("tab:frmInversion:tablaContratoConcesionInversion");
+           
         }
     }
     public void resetAvanceObra() {
@@ -1548,32 +1550,9 @@ public class ActualizarContrato {
         this.infraestructuraId = infraestructuraId;
     }
 
-    public String getDescInversion() {
-        return descInversion;
-    }
-
-    public void setDescInversion(String descInversion) {
-        this.descInversion = descInversion;
-    }
-
     public void guardarContratoInversion() {
-        if (infraestructuraId == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha seleccionado la Infraestructura"));
-        } else if (descInversion.length()==0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado la Inversión"));
-        } else {
+        
             try {
-
-                contratoInversionVO.setConId(contratoVO.getConId());
-                contratoInversionVO.setCsiId(contratoVO.getCsiId());
-                contratoInversionVO.setTinId(contratoVO.getTinId());
-                contratoInversionVO.setInfId(infraestructuraId);
-                contratoInversionVO.setInvDescripcion(descInversion);
-                contratoInversionVO.setInvEstado(1);
                 /*AUDITORIA*/
                 Date fechaActual = new Date();
                 contratoInversionVO.setInvFechaAlta(fechaActual);
@@ -1581,9 +1560,8 @@ public class ActualizarContrato {
                 
                 /*FIN AUDITORIA*/
                 contratoInversionServiceImpl.insert(contratoInversionVO);
-
-                cargarListaInversiones(contratoVO.getConId());
-                limpiarCamposInversion();
+                /* cargarListaInversiones(contratoVO.getConId()); */
+                /* limpiarCamposInversion(); */
                 RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
 
             } catch (SQLException s) {
@@ -1597,13 +1575,64 @@ public class ActualizarContrato {
                                                                               " No se pudo registrar la Inversion "));
             }
 
+       
+    }
+    /**Abrir nuevas inversiones setea el objeto**/
+    public void cargarNuevasInversiones(){
+        infraestructuraId = 0;
+        contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO.setInfId(0);
+        listContratoInversion=new ArrayList<ContratoInversionVO>();
+        updateInversiones=false;
+    }
+   
+    /**II.Se carga al Seleccionar una Concesion: 
+     * 1.Carga las inversiones que tiene asignada segun Ids:
+     *   Contrato, tipo de infraestructura y la Concesion
+     * 2.Se muestra el Dialogo con la lista de Inversiones**/
+    public void cargarListaInversiones(ActionEvent event) {
+        InfraestructuraVO infraestructuraSeleccionada=(InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+        infraestructuraId = infraestructuraSeleccionada.getInfId();
+        contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
+        updateInversiones=true;
+          try {
+            listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
+            for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
+               String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
+               contratoInversionVO.setInfNombre(nombreInfraestructura);
+            }
+        } catch (Exception s) {
+            s.printStackTrace();
+        } 
+    }
+    /**III.Carga el nombre de la infraestructura 
+     * mediante Ajax al seleccionar del combo**/
+    public void cargarDescripcionInfraestructuraEnContratoInversion(){
+        String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
+        contratoInversionVO.setInfNombre(nombreInfraestructura);
+    }
+    /**IV.Valida que se ingrese correctamente 
+     * a la Lista de inversiones Temporal **/
+    public void validarCamposContratoInversion(){
+        if (contratoInversionVO.getInfId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha seleccionado la Infraestructura"));
+            RequestContext.getCurrentInstance().update("form:mensaje");
+        }
+        else if (contratoInversionVO.getInvDescripcion()==null && contratoInversionVO.getInvDescripcion().length()== 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "No ha ingresado el Nombre de la Inversion"));
+            RequestContext.getCurrentInstance().update("form:mensaje");
+        }else{
+            contratoInversionVO=new ContratoInversionVO();
+            contratoInversionVO.setInfId(infraestructuraId);
         }
     }
-
-    public void limpiarCamposInversion() {
-        infraestructuraId = 0;
-        descInversion = null;
-    }
+   
+   
 
     public ContratoInversionVO getContratoInversionVO() {
         return contratoInversionVO;
@@ -1629,28 +1658,7 @@ public class ActualizarContrato {
         this.listContratoInversion = listContratoInversion;
     }
 
-    public void cargarListaInversiones(int idconconcesion) {
-        try {
-            
-            listaConcesionInversion=concesionServiceImpl.listarConcesionesxIdConcesion(idconconcesion);
-            //listContratoInversion = contratoInversionServiceImpl.getInversionesContrato(idcontrato);
-            for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
-                for (InfraestructuraVO aux : listaInfraestructura) {
-                    System.out.println("========aux.getInfNombre():" + aux.getInfNombre());
-                    if (aux.getInfId() == contratoInversionVO.getInfId() &&
-                        aux.getTinId() == contratoInversionVO.getTinId() &&
-                        aux.getCsiId() == contratoInversionVO.getCsiId()) {
-                        contratoInversionVO.setInfNombre(aux.getInfNombre());
-                        System.out.println("========aux.getInfNombre():" + aux.getInfNombre() +
-                                           "=====##############################");
-                    }
-                }
-            }
-        } catch (Exception s) {
-            s.printStackTrace();
-        }
-    }
-
+   
     public List<InfraestructuraVO> getListarInfraestructura() {
         return listarInfraestructura;
     }
@@ -2006,7 +2014,7 @@ public class ActualizarContrato {
         /*FIN AUDITORIA*/
         contratoInversionServiceImpl.update(contratoInversionVO);
         System.out.println("### FIN ELIMINAR INVERSION");
-        cargarListaInversiones(contratoVO.getConId());
+        /*  cargarListaInversiones(contratoVO.getConId()); */
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino la Inversion");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
@@ -3569,5 +3577,13 @@ public class ActualizarContrato {
     public Date getFechaMaxima() {
       fechaMaxima=  new Date();
         return fechaMaxima;
+    }
+
+    public void setUpdateInversiones(boolean updateInversiones) {
+        this.updateInversiones = updateInversiones;
+    }
+
+    public boolean isUpdateInversiones() {
+        return updateInversiones;
     }
 }
