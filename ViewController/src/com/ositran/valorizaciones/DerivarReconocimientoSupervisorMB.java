@@ -28,6 +28,7 @@ import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.FechasUtil;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoAlertaVO;
@@ -73,6 +74,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 public class DerivarReconocimientoSupervisorMB {
     private int fichaRegistro;
     private int codigoInfraestructura;
+    private int tipoInfraestructuraGlobal;
     private String nombreConcecion;
     private String nombreTipoInfraestructura;
     private String nombreModalidadConceción;
@@ -127,6 +129,8 @@ public class DerivarReconocimientoSupervisorMB {
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+
     }
 
     MonedaVO monedaVO = new MonedaVO();
@@ -1370,6 +1374,46 @@ public class DerivarReconocimientoSupervisorMB {
 
     public BigDecimal getTotalTotal() {
         return totalTotal;
+    }
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
+    }
+
+    public void setListaContratoDetalle(List<ContratoResSupDetalleVO> listaContratoDetalle) {
+        this.listaContratoDetalle = listaContratoDetalle;
+    }
+
+    public List<ContratoResSupDetalleVO> getListaContratoDetalle() {
+        return listaContratoDetalle;
+    }
+
+    public void setAsignarResponsableSupervisionServiceImpl(AsignarResponsableSupervisionServiceImpl asignarResponsableSupervisionServiceImpl) {
+        this.asignarResponsableSupervisionServiceImpl = asignarResponsableSupervisionServiceImpl;
+    }
+
+    public AsignarResponsableSupervisionServiceImpl getAsignarResponsableSupervisionServiceImpl() {
+        return asignarResponsableSupervisionServiceImpl;
+    }
+
+    public void setContratoAlertaVO(ContratoAlertaVO contratoAlertaVO) {
+        this.contratoAlertaVO = contratoAlertaVO;
+    }
+
+    public ContratoAlertaVO getContratoAlertaVO() {
+        return contratoAlertaVO;
+    }
+
+    public void setContratoAlertaService(ContratoAlertaService contratoAlertaService) {
+        this.contratoAlertaService = contratoAlertaService;
+    }
+
+    public ContratoAlertaService getContratoAlertaService() {
+        return contratoAlertaService;
     }
 
 }
