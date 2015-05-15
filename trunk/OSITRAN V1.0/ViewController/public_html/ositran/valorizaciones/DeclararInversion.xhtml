@@ -5,7 +5,8 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-          
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
             <script type="text/javascript">
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
@@ -187,7 +188,7 @@
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                                              style="font-size:11px; width:500px"
                                                              id="tablaAvanceInversion"
                                                              value="#{declararInversionMB.listaInvAvnVO}"
@@ -257,7 +258,7 @@
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                                              style="font-size:11px; "
                                                              id="tablaReconocimiento"
                                                              value="#{declararInversionMB.listaInvReconocimientoVO}"
@@ -314,7 +315,7 @@
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                             rowsPerPageTemplate="3,4,10" resizableColumns="true"
+                                                             rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                                              style="font-size:11px;" id="tablaReajuste"
                                                              value="#{declararInversionMB.listaInvReajusteVO}"
 
@@ -413,7 +414,7 @@
                                                     </td>
                                                     <td align="left">Fecha de Emisi&#243;n</td>
                                                     <td align="left">
-                                                        <p:calendar size="10"
+                                                        <p:calendar size="10" readonly="true"
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
                                                                     locale="es" pattern="dd/MM/yyyy"/>
 
@@ -433,7 +434,7 @@
                                                     </td>
                                                   <td align="left">Fecha de Emisi&#243;n</td>
                                                     <td  align="left">
-                                                        <p:calendar size="10"
+                                                        <p:calendar size="10" readonly="true"
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
                                                                     locale="es" pattern="dd/MM/yyyy"/>
 
@@ -491,6 +492,9 @@
                  
             </h:form>
                 </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="false" closable="false" collapsible="false">
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
                 </p:layout>
             <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
                       resizable="false" appendToBody="true" closable="true" width="1250" height="600">
@@ -506,12 +510,12 @@
                         </p:selectOneMenu>
                         <p:message for="concesion" display="icon"/>
                         <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
-                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC"
+                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC" readonly="true"
                                     value="#{declararInversionMB.fechaInicioSuscripcion}" locale="es"
                                     pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                         <p:message for="fechaInicioBC" display="icon"/>
                         <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
-                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC"
+                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC" readonly="true"
                                     value="#{declararInversionMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy"
                                     style="float:left;position:relative;"/>
                         <p:message for="fechaFinBC" display="icon"/>
@@ -522,8 +526,8 @@
                                          actionListener="#{declararInversionMB.buscarContratos()}"
                                          update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
                        
-                        <p:dataTable value="#{declararInversionMB.listaContrato}" id="contrato" var="contrato11"
-                                     style="font-size:11px;width:100% !important;" emptyMessage="No se Encontraron Registros">
+                        <p:dataTable value="#{declararInversionMB.listaContrato}" id="contrato" var="contrato11" rowsPerPageTemplate="5,10,20"
+                                     style="font-size:11px;width:100% !important;" emptyMessage="NO SE ENCONTRARON DATOS">
                             <p:column headerText="Fecha Suscripción" style="width:7%">
                                 <div style="text-align: center;">
                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
