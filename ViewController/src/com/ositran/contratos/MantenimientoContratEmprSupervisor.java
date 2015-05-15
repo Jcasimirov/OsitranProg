@@ -316,23 +316,23 @@ public class MantenimientoContratEmprSupervisor {
 
         if (nrohr.trim().equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Nro de Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!nrohr.trim().equals("") && Integer.parseInt(nrohr) < 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Nro de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (añohr.trim().equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Año de Hoja de Ruta");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese un Año de Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!añohr.trim().equals("") && Integer.parseInt(añohr) < 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Año de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!añohr.trim().equals("") && añohr.length() < 4) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Año de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
 
@@ -348,7 +348,7 @@ public class MantenimientoContratEmprSupervisor {
                     freg = "";
                     asuntohr = "";
                     FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No se Encontraron Registros");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             } catch (Exception e) {
@@ -362,23 +362,23 @@ public class MantenimientoContratEmprSupervisor {
 
         if (nrohrE.trim().equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Nro de Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!nrohrE.trim().equals("") && Integer.parseInt(nrohrE) < 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nro de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Nro de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (añohrE.trim().equals("")) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese un Año de Hoja de Ruta");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese un Año de Hoja de Ruta");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!añohrE.trim().equals("") && Integer.parseInt(añohrE) < 0) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Año de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else if (!añohrE.trim().equals("") && añohrE.length() < 4) {
             FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Año de Hoja de Ruta Válido");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ingrese Año de Hoja de Ruta Válido");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         } else {
 
@@ -394,7 +394,7 @@ public class MantenimientoContratEmprSupervisor {
                     fregE = "";
                     asuntohrE = "";
                     FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se Encontraron Registros");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No se Encontraron Registros");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             } catch (Exception e) {
@@ -441,7 +441,7 @@ public class MantenimientoContratEmprSupervisor {
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
             e.printStackTrace();
         }
@@ -877,7 +877,7 @@ public class MantenimientoContratEmprSupervisor {
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
             e.printStackTrace();
         }
@@ -990,7 +990,7 @@ public class MantenimientoContratEmprSupervisor {
     public void tAdenda() {
         if (cpsNroDeContrato == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar Número de contrato"));
         } else {
             RequestContext.getCurrentInstance().execute("agregarAdenda.show();");
@@ -1001,15 +1001,15 @@ public class MantenimientoContratEmprSupervisor {
     public void guardarTabla() {
         if (adendaPlazo == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar plazo"));
         } else if (adendaMonto == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar Monto"));
         } else if (adendaFecha == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingresar Fecha"));
         } else {
             try {
