@@ -343,25 +343,22 @@ public class RegistrarRevisionSupervisorMB {
 
     public void cargarListaValorizacionDetalle(int detalle) {
         try {
-            System.out.println("HOLA ACA SE CAE");
+            
             valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
-            System.out.println("HOLA ACA SE CAE");
+            
             invAvnDerivadaVO=invAvnDerivadaServiceImpl.get1(valorizacionInversionAvanceVO.getTiaNumero());
-            System.out.println("HOLA ACA SE CAE");
+            /*
             if (invAvnDerivadaVO.getIadTipoSup()==1){
-                    System.out.println("HOLA ACA SE CAE1");
              supervisorInversionesVO=supervisorInversionesServiceImpl.get(invAvnDerivadaVO.getSupID());   
              nombreRevisor=supervisorInversionesVO.getTsiNombre();
-                    System.out.println("HOLA ACA SE CAE1");
                 }
             
             if (invAvnDerivadaVO.getIadTipoSup()==2){
-                    System.out.println("HOLA ACA SE CAE2");
                     empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getSupID());   
                     nombreRevisor=empresaSupervisoraVO.getSupNombre();
                 }
             
-           
+           */
             /*
             invAvnDerivadaVO=invAvnDerivadaServiceImpl.getAvanceInversion(detalle);
             System.out.println(invAvnDerivadaVO.getIadTipoSup());
