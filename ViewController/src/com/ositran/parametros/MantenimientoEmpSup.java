@@ -6,6 +6,7 @@ import com.ositran.serviceimpl.CargoServiceImpl;
 import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import java.util.List;
@@ -54,10 +55,40 @@ public class MantenimientoEmpSup {
     //-----------------SESSION-----------------------//
     public  final int formulario=8;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    private String ipcliente;
 
-    public void validarSesion() throws IOException{              
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        }
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
+        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
+    }
+
+    public void setIpcliente(String ipcliente) {
+        this.ipcliente = ipcliente;
+    }
+
+    public String getIpcliente() {
+        return ipcliente;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
         this.rolOpcion = rolOpcion;
@@ -323,7 +354,10 @@ public class MantenimientoEmpSup {
             empSupVO=this.empSupServiceImp.get(idEliminar);
             empSupVO.setSupEstado(0);
             empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
-            empSupVO.setSupTerminal(util.obtenerIpCliente());
+            empSupVO.setSupTerminal(ipcliente);
+            empSupVO.setSupUsuarioBaja(usuario.getUsuAlias());
+            empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
+            
             this.empSupServiceImp.update(empSupVO);
             //this.empSupServiceImp.delete(idEmpSup);
             getQuery();
@@ -412,7 +446,8 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupJefeSupervision(jefesup);
                 empSupVO.setSupObra(dirObra);
                 empSupVO.setSupFechaAlta(util.getObtenerFechaHoy());
-                empSupVO.setSupTerminal(util.obtenerIpCliente());                
+                empSupVO.setSupTerminal(ipcliente);  
+                empSupVO.setSupUsuarioAlta(usuario.getUsuAlias());
                 this.empSupServiceImp.insert(empSupVO);        
                 getQuery();
                 limpiarCampos();
@@ -634,7 +669,7 @@ public class MantenimientoEmpSup {
         }else if (siglasNomMod.trim().equals("")) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "No ha Ingresado las Siglas del Nombre de la Empresa Supervisora");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-        }else if (validarNombreMod(nomEmpSupMod.trim(),nommod.trim())>0) {
+        }else if (validarNombreMod(nomEmpSupMod.trim(),nomEmpSupMod.trim())>0) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Nombre de Empresa Supervisora ya Registrado");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
         }else if (!telefonoMod.trim().equals("") && !telefonoMod.matches("[0-9]*")) {
@@ -665,18 +700,22 @@ public class MantenimientoEmpSup {
                 empSupVO.setSupDireccion(dirEmpSupMod);
                 empSupVO.setSupRepresentanteLegal(repLegalMod);
                 empSupVO.setSupTelefono(telefonoMod);
-                empSupVO.setSupNroDocumento(nroDocMod);
-                empSupVO.setTdoId(tipoDocumentoMod);
+                if (tipoDocumentoMod == 0){
+                    empSupVO.setTdoId(null);
+                    empSupVO.setSupNroDocumento(null);
+                }else{
+                    empSupVO.setTdoId(tipoDocumentoMod);
+                    empSupVO.setSupNroDocumento(nroDocMod);
+                }                
                 empSupVO.setSupCorreo(correoMod);
                 empSupVO.setSupSiglas(siglasNomMod); 
-                empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());
-                empSupVO.setSupTerminal(util.obtenerIpCliente());
                 empSupVO.setSupId(idMod);
                 empSupVO.setSupEstado(estadoMod);
                 empSupVO.setSupJefeSupervision(jefesupMod);
-                empSupVO.setSupObra(dirObraMod);
-                empSupVO.setSupFechaAlta(this.empSupServiceImp.get(idMod).getSupFechaAlta());
-                empSupVO.setSupTerminal(terminalMod);
+                empSupVO.setSupObra(dirObraMod);            
+                empSupVO.setSupTerminal(ipcliente);
+                empSupVO.setSupUsuarioCambio(usuario.getUsuAlias());
+                empSupVO.setSupFechaCambio(util.getObtenerFechaHoy());                
                 this.empSupServiceImp.update(empSupVO);
                 empSupVO.setSupId(null);
                 getQuery();
