@@ -29,6 +29,7 @@ import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.AvanceInversionWebVO;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoCompromisoVO;
@@ -77,8 +78,10 @@ public class RegistrarRevisionSupervisorMB {
     MonedaVO monedaVO = new MonedaVO();
     public final int formulario = 37;
     private RolOpcionesVO rolOpcion;
+    private int tipoInfraestructuraGlobal;
 
     public void validarSesion() throws IOException {
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
@@ -248,6 +251,8 @@ public class RegistrarRevisionSupervisorMB {
     SupervisorInversionesVO supervisorInversionesVO = new SupervisorInversionesVO();
     EmpresaSupervisoraVO empresaSupervisoraVO = new EmpresaSupervisoraVO();
     EmpresaSupervisoraService empresaSupervisoraService = new EmpresaSupervisoraServiceImpl();
+    
+ 
 
     public void limpiarTodo() {
         fichaRegistro = 0;
@@ -1460,6 +1465,14 @@ public class RegistrarRevisionSupervisorMB {
 
     public List<InvAvnSupervisadaDetalleVO> getListaInvAvnSupervisadaDetalle() {
         return listaInvAvnSupervisadaDetalle;
+    }
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
     }
 
 }
