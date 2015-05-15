@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionConceptoServiceImpl implements ValorizacionConceptoService{
-    ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl;
+    ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl=new ValorizacionConceptoDAOImpl();
 
     public void setValorizacionConceptoDAOImpl(ValorizacionConceptoDAOImpl valorizacionConceptoDAOImpl) {
         this.valorizacionConceptoDAOImpl = valorizacionConceptoDAOImpl;
@@ -27,8 +27,10 @@ public class ValorizacionConceptoServiceImpl implements ValorizacionConceptoServ
 
     @Override
     public List<ValorizacionConceptoVO> query() throws SQLException {
+        System.out.println("HOLAAAAASERVICES");
         List<ValorizacionConcepto> list=  valorizacionConceptoDAOImpl.query();
          List<ValorizacionConceptoVO> lista= toListValorizacionConceptoVO(list);
+        System.out.println("HOLAAAAASERVICES");
           return lista;
     }
 
