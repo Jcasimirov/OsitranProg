@@ -144,7 +144,7 @@
                                                                  mask="9999"/>
                                                      
                                                     <p:watermark for="añohrnot" value="#{cam.iaño}"/>
-                                                     
+                                                     <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                     <p:commandButton image="ui-icon-search"
                                                                      actionListener="#{bk_NotificarInversion.BuscarStd}"
                                                                      update=":frmDialog:freghrnot :frmDialog:asuntohrnot :frmDialog:mensaje2"/>
@@ -161,8 +161,11 @@
                                                      
                                                     <p:inputTextarea style="width:80%" id="asuntohrnot"
                                                                      value="#{bk_NotificarInversion.asuntohrnot}"/>
+                                                                     <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                 </td>
+                                               
                                             </tr>
+                                           
                                         </table>
                                     </p:fieldset>
                                 </td>
@@ -182,6 +185,7 @@
                                                                  mask="9?999"/>
                                                      
                                                     <p:watermark for="nrocargo" value="Ingrese Número"/>
+                                                    <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                 </td>
                                                 <td align="left">
                                                     Aprobado Por:
@@ -194,7 +198,9 @@
                                                                        itemLabel="#{listaaprob.itrDescripcion}"
                                                                        itemValue="#{listaaprob.itrId}"/>
                                                     </p:selectOneMenu>
+                                                    <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                 </td>
+                                                
                                             </tr>
                                              
                                             <tr>
@@ -202,7 +208,9 @@
                                                     Fecha Notificación: <p:calendar locale="es" pattern="dd/MM/yyyy"
                                                                            id="fnotificacion"
                                                                            value="#{bk_NotificarInversion.fnotificacion}"/>
+                                                                           <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                 </td>
+                                                
                                                 <td align="left">
                                                     Adjuntar Archivo: 
                                                      
@@ -242,6 +250,12 @@
                                      </div>
                                     </td>
                                     </tr>
+                                     <tr>
+                            <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
                             
                         </table>
                     </div>
@@ -348,6 +362,7 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                
                                             </table>
                                             
                                             </td>
