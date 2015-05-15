@@ -6,6 +6,8 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
         <h:body>
        
@@ -103,7 +105,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
@@ -176,13 +178,13 @@
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}"></p:inputText>
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}" onkeyup="pasarMayuscula(this.value,this.id)" />
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                 </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}"></p:inputTextarea>
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}" onkeyup="pasarMayuscula(this.value,this.id)" />
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                 </td>
 	 		</tr>
