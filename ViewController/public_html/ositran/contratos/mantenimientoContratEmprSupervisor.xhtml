@@ -5,7 +5,8 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-              <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
             <f:event listener="#{manteContEmprSupervisora.validarSesion()}" type="postAddToView"></f:event>
@@ -80,8 +81,8 @@
                                              value="#{manteContEmprSupervisora.listaContratoSupervisora}" rows="10"
                                              paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" selectionMode="single"
-                                             rowKey="#{cEmpreSup.cpsNroDeContrato}" rowIndexVar="rowIndex">
+                                             rowsPerPageTemplate="5,10,20" selectionMode="single"
+                                             rowKey="#{cEmpreSup.cpsNroDeContrato}" rowIndexVar="rowIndex" emptyMessage="NO SE ENCONTRARON DATOS">
                                     <p:column headerText="N°" style="width:3%">
                                         <h:outputText value="#{rowIndex+1}" style="text-transform:uppercase;"/>
                                     </p:column>
@@ -131,6 +132,9 @@
                             </div>
                         </div>
                     </p:layoutUnit>
+                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="false" closable="false" collapsible="false">
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
                     <h:inputHidden value="#{manteContEmprSupervisora.codigoEliminar}" id="codEliminar"/>
                 </p:layout>
                 <!-- REGISTRAR CONTRATO EMPRESA SUPERVISORA-->
@@ -156,7 +160,7 @@
                                                 </td>
                                                 <td align="left" >
                                                     Fecha Registro:
-                                                    <p:inputText style="width:70px" id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
+                                                    <p:inputText style="width:65px" id="freg" readonly="true" value="#{manteContEmprSupervisora.freg}"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -293,7 +297,7 @@
                                                     <p:outputLabel value="Nro. de contrato (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.cpsNroDeContrato}"/>
                                                 </td>
                                             </tr>
                                              
@@ -302,7 +306,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}"/>
+                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNew" value="#{manteContEmprSupervisora.cpsFechaInicio}" pattern="dd/MM/yyyy" />
                                                 </td>
                                             </tr>
                                              
@@ -311,13 +315,13 @@
                                                     <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" />
+                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNew"  value="#{manteContEmprSupervisora.cpsFechaSuscripcion}" pattern="dd/MM/yyyy" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsPlazoContrato}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.cpsPlazoContrato}"/>
                                                 </td>
                                             </tr>
                                              
@@ -326,7 +330,7 @@
                                                     <p:outputLabel value="Monto contratado (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsMontoContratado}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.cpsMontoContratado}"/>
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Moneda"/>
@@ -346,13 +350,13 @@
                                                     <p:outputLabel value="Adelanto otorgado (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.cpsAdelantoOtorgado}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.cpsAdelantoOtorgado}"/>
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}"/>
+                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNew" value="#{manteContEmprSupervisora.cpsFechaAdelanto}" pattern="dd/MM/yyyy"/>
                                                 </td>
                                             </tr>
                                              
@@ -412,12 +416,12 @@
                                             <td colspan="4">
                                             <p:dataTable rowIndexVar="rowId" emptyMessage="NO SE ENCONTRARON DATOS"
                                                          style="font-size:11px" id="tAdenda" var="tAdenda"
-                                                         value="#{manteContEmprSupervisora.listaAdenda}">
+                                                         value="#{manteContEmprSupervisora.listaAdenda}" rowsPerPageTemplate="5,10,20">
                                             <p:column headerText="Nro.">
                                                         <h:outputText value="#{tAdenda.cpsNroDeContrato}"/>
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:15px">
-                                                        <p:calendar styleClass="calendario"  value="#{tAdenda.csaFecha}" />
+                                                        <p:calendar styleClass="calendario"  value="#{tAdenda.csaFecha}" pattern="dd/MM/yyyy" />
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:15px">
                                                         <h:outputText value="#{tAdenda.csaMonto}"/>
@@ -505,7 +509,7 @@
                     
                     <tr>
                         <td>Fecha:</td>
-                        <td colspan="2"> <p:calendar styleClass="calendario"  value="#{manteContEmprSupervisora.adendaFecha}"/>
+                        <td colspan="2"> <p:calendar styleClass="calendario"  value="#{manteContEmprSupervisora.adendaFecha}" pattern="dd/MM/yyyy" />
                         </td>
                     </tr>
                     
@@ -536,7 +540,7 @@
                 <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
                           id="pListaContratos" resizable="false" style="text-align:center;">
                     <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px"
+                                 paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px"
                                  id="tListaContrato" var="lContrato" value="#{manteContEmprSupervisora.listaContratos}">
                         <p:column headerText="ID" style="width:5px">
                             <h:outputText value="#{lContrato.conId}"/>
@@ -559,7 +563,7 @@
                 <p:dialog width="40%" header="Editar Buscar Contrato de Concesion" widgetVar="pListaContratosE"
                           id="pListaContratosE" resizable="false" style="text-align:center;">
                     <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px"
+                                 paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px"
                                  id="tListaContratoE" var="lContratoE" value="#{manteContEmprSupervisora.listaContratosE}">
                         <p:column headerText="ID" style="width:5px">
                             <h:outputText value="#{lContratoE.conId}"/>
@@ -583,7 +587,7 @@
                 <p:dialog width="40%" header="Lista Empresa Supervisora" widgetVar="panelListaEmpresas"
                           id="panelListaEmpresas" style="text-align:center;">
                     <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px" id="tablaEP"
+                                 paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px" id="tablaEP"
                                  var="empSup" value="#{manteContEmprSupervisora.listaEmpresaSup}">
                         <p:column headerText="ID" style="width:5px">
                             <h:outputText value="#{empSup.supId}"/>
@@ -605,7 +609,7 @@
                 <p:dialog width="40%" header="EDITAR Lista Empresa Supervisora" widgetVar="panelListaEmpresasE"
                           id="panelListaEmpresasE" style="text-align:center;">
                     <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px" id="tablaEPE"
+                                 paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px" id="tablaEPE"
                                  var="empSupE" value="#{manteContEmprSupervisora.listaEmpresaSupE}">
                         <p:column headerText="ID" style="width:5px">
                             <h:outputText value="#{empSupE.supId}"/>
@@ -918,7 +922,7 @@
                                                     <p:outputLabel value="Nro. de contrato (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:inputText readonly="true"  style="width:60px" value="#{manteContEmprSupervisora.contratoE}"/>
+                                                    <p:inputText readonly="true"  style="width:66px" value="#{manteContEmprSupervisora.contratoE}"/>
                                                 </td>
                                             </tr>
                                              
@@ -927,7 +931,7 @@
                                                     <p:outputLabel value="Fecha de inicio del servicio (*)"/>
                                                 </td>
                                                 <td colspan="3">
-                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}"/>
+                                                    <p:calendar styleClass="calendario"  id="calendarFecIniContratoNewE" value="#{manteContEmprSupervisora.fechaInicioE}" pattern="dd/MM/yyyy" />
                                                 </td>
                                             </tr>
                                              
@@ -936,13 +940,13 @@
                                                     <p:outputLabel value="Fecha de suscripción (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNewE"  value="#{manteContEmprSupervisora.fechaSuscripcionE}" />
+                                                    <p:calendar styleClass="calendario"  id="calendarFecSuscripcionNewE"  value="#{manteContEmprSupervisora.fechaSuscripcionE}" pattern="dd/MM/yyyy" />
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Plazo de contrato (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.plazocontrE}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.plazocontrE}"/>
                                                 </td>
                                             </tr>
                                              
@@ -951,7 +955,7 @@
                                                     <p:outputLabel value="Monto contratado (*)" />
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" value="#{manteContEmprSupervisora.montocontrE}"/>
+                                                    <p:inputText style="width:66px" value="#{manteContEmprSupervisora.montocontrE}"/>
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Moneda"/>
@@ -971,13 +975,13 @@
                                                     <p:outputLabel value="Adelanto otorgado (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:inputText style="width:60px" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.adelantoE}"/>
+                                                    <p:inputText style="width:66px" onkeyup="pasarMayuscula(this.value,this.id)" value="#{manteContEmprSupervisora.adelantoE}"/>
                                                 </td>
                                                 <td>
                                                     <p:outputLabel value="Fecha adelanto (*)"/>
                                                 </td>
                                                 <td>
-                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}"/>
+                                                    <p:calendar styleClass="calendario" id="calendarFechaAdelantoNewE" value="#{manteContEmprSupervisora.fechaAdelantoE}" pattern="dd/MM/yyyy" />
                                                 </td>
                                             </tr>
                                              
@@ -1035,12 +1039,12 @@
                                             <td colspan="4">
                                             <p:dataTable rowIndexVar="rowId" emptyMessage="NO SE ENCONTRARON DATOS"
                                                          style="font-size:11px" id="tAdendaE" var="tAdendaE"
-                                                         value="#{manteContEmprSupervisora.listaAdenda1}">
+                                                         value="#{manteContEmprSupervisora.listaAdenda1}" rowsPerPageTemplate="5,10,20">
                                             <p:column headerText="Nro.">
                                                         <h:outputText value="#{tAdendaE.cpsNroDeContrato}"/>
                                                     </p:column>
                                                     <p:column headerText="Fecha" style="width:15px">
-                                                        <p:calendar styleClass="calendario"  value="#{tAdendaE.csaFecha}" />
+                                                        <p:calendar styleClass="calendario"  value="#{tAdendaE.csaFecha}" pattern="dd/MM/yyyy" />
                                                     </p:column>
                                                     <p:column headerText="Monto" style="width:15px">
                                                         <h:outputText value="#{tAdendaE.csaMonto}"/>
