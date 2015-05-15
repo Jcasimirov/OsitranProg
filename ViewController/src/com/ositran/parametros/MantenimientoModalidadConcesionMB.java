@@ -4,6 +4,7 @@ import com.ositran.service.TipoInversionServices;
 import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.util.Util;
 
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
@@ -51,10 +52,41 @@ public class MantenimientoModalidadConcesionMB {
     //-----------------SESSION-----------------------//
     public  final int formulario=22;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    private String ipcliente;
 
-    public void validarSesion() throws IOException{              
-            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        }
+    public void validarSesion() throws IOException {
+        rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
+        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
+    }
+
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+    public void setIpcliente(String ipcliente) {
+        this.ipcliente = ipcliente;
+    }
+
+    public String getIpcliente() {
+        return ipcliente;
+    }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
         this.rolOpcion = rolOpcion;
@@ -176,9 +208,9 @@ public class MantenimientoModalidadConcesionMB {
                 modalidadVO.setMcoDescripcion(descripcionmod);
                 modalidadVO.setMcoNombre(nombremod);
                 modalidadVO.setMcoEstado(1);
-                modalidadVO.setMcoTerminal(util.obtenerIpCliente());
+                modalidadVO.setMcoTerminal(ipcliente);
                 modalidadVO.setMcoFechaAlta(util.getObtenerFechaHoy());
-
+                modalidadVO.setMcoUsuarioAlta(usuario.getUsuAlias());
                 this.modalidadServiceImp.insert(modalidadVO);
                 getQuery();
                 limpiarCampos();
@@ -240,8 +272,9 @@ public class MantenimientoModalidadConcesionMB {
             modalidadVO = this.modalidadServiceImp.get(idEliminar);
             modalidadVO.setMcoEstado(0);
             //this.modalidadServiceImp.delete(idModalidad);
+            modalidadVO.setMcoTerminal(ipcliente);
             modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
-            modalidadVO.setMcoTerminal(util.obtenerIpCliente());
+            modalidadVO.setMcoUsuarioBaja(usuario.getUsuAlias());
             this.modalidadServiceImp.update(modalidadVO);
             getQuery();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Elimino con Exito");
@@ -343,9 +376,10 @@ public class MantenimientoModalidadConcesionMB {
                 modalidadVO.setMcoDescripcion(descripcionmodAct);
                 modalidadVO.setMcoEstado(estadomodAct);
                 modalidadVO.setMcoNombre(nombremodAct);
-                modalidadVO.setMcoId(idmodalidadAct);
+                //modalidadVO.setMcoId(idmodalidadAct);
+                modalidadVO.setMcoTerminal(ipcliente);
                 modalidadVO.setMcoFechaCambio(util.getObtenerFechaHoy());
-                modalidadVO.setMcoTerminal(util.obtenerIpCliente());
+                modalidadVO.setMcoUsuarioCambio(usuario.getUsuAlias());
                 this.modalidadServiceImp.update(modalidadVO);
                 getQuery();
                 limpiarCampos();
