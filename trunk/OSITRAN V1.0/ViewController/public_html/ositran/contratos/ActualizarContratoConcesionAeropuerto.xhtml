@@ -757,7 +757,7 @@
                             <h:form id="frmCompromisoSupervisado">
                                 <table style="width:100% !important;">
                                     <tr>
-                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n Periodo/Etapa - Supervisado por Ositran:</td>
+                                        <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n Periodo/Etapa - Supervisado por OSITRAN:</td>
                                         <td align="right">
                                             <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoSupervisado" actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}" update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
                                                              :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg" onclick="popupAgregarCompromisoSupervisado.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
@@ -826,6 +826,12 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="alcancesup" value="Alcance"/>
                                         <p:inputText id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}" style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:graphicImage url="../../images/obligatorio.gif"/>
+                                         <p:outputLabel for="tipoinversioncomsup" value="Tipo de Inversion"/>
+                                        <p:selectOneMenu id="tipoinversioncomsup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.tivId}" style="width:210px">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItems value="#{actualizarContratoMB.listaTipoInversion}" var="tiv" itemLabel="#{tiv.tivNombre}" itemValue="#{tiv.tivId}"/>
+                                        </p:selectOneMenu>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="monedacompromisocomsup" value="Moneda"/>
                                         <p:selectOneMenu value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId}" id="monedacompromisocomsup" style="width:210px">
