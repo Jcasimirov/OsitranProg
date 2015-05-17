@@ -125,4 +125,27 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
             List<ContratoInversionVO> listVO=toListContratoInversionVO(list);
             return listVO;
         }
+    public String insertListaInversion(List<ContratoInversionVO> lista) throws SQLException {
+        List<ContratoInversion> ci=new ArrayList<ContratoInversion>();
+        for (ContratoInversionVO inversion : lista) {
+           ContratoInversion contratoInversion=toContratoInversion(inversion);
+           ci.add(contratoInversion);          
+       }
+        String result="";
+        result=contratoInversionDAOImpl.insertListaInversion(ci);
+        return result;
+    }
+    public String updateInversionxInfraestructuras(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                   String usuario,String terminal) throws SQLException{
+        String result="";
+        result=contratoInversionDAOImpl.updateInversionxInfraestructuras(contratoId,
+                                                                         csiId, 
+                                                                         tinId,
+                                                                         infId,
+                                                                         usuario,terminal);
+        return result;
+    }
 }

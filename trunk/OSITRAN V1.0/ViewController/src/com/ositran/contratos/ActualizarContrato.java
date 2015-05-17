@@ -152,6 +152,7 @@ public class ActualizarContrato {
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
     private List<ContratoInversionVO> listContratoInversion;
     private List<ContratoInversionVO> listContratoInversionD;
+    private HashMap<String,Object> inversionesIniciales=new HashMap<String,Object>();
     private boolean disableCboAeropuerto;
     private boolean updateInversiones;
 
@@ -312,6 +313,8 @@ public class ActualizarContrato {
     private int periodoseleccionadoAlerta;
     private String conDiamesAlerta;
     private Date fechaMaxima;
+    
+    private InfraestructuraVO infraestructuraVOE;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -1553,39 +1556,68 @@ public class ActualizarContrato {
     public void setInfraestructuraId(Integer infraestructuraId) {
         this.infraestructuraId = infraestructuraId;
     }
-
+    /**Por defecto en el DAO se actualiza las inversiones con el inv_estado 0 
+     * luego con las listas de insert y update
+     * se actualizan o insertan los objetos con el inv_estado 1**/
     public void guardarContratoInversion() {
-        
-            try {
-                /*AUDITORIA*/
-                Date fechaActual = new Date();
-                contratoInversionVO.setInvFechaAlta(fechaActual);
-                contratoInversionVO.setInvUsuarioAlta(usuario.getUsuAlias());
-                
-                /*FIN AUDITORIA*/
-                contratoInversionServiceImpl.insert(contratoInversionVO);
-                /* cargarListaInversiones(contratoVO.getConId()); */
-                /* limpiarCamposInversion(); */
-                RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
+        Date fechaActual = new Date();
+                    try {
+                        for (ContratoInversionVO inv : listContratoInversion) {
+                            /**Lista para objetos para Update con inv_id lleno**/
+                            if(inv.getInvId()!=null){
+                                /*AUDITORIA*/
+                                inv.setInvFechaCambio(fechaActual);
+                                inv.setInvUsuarioCambio(usuario.getUsuAlias());
+                                /*FIN AUDITORIA*/                                   
+                                
+                            }else{                  
+                                /**Lista para objetos a Insertar con inv_id vacio**/
+                                /*FIN AUDITORIA*/
+                                inv.setInvFechaAlta(fechaActual);
+                                inv.setInvUsuarioAlta(usuario.getUsuAlias());
+                                /*FIN AUDITORIA*/
+                                
+                            }  
+                        }
+                    String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
+                    cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+                    RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
+                    } catch (Exception s) {
+                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                      " No se pudo registrar la Inversion "));
 
-            } catch (SQLException s) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Inversion "));
-
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar la Inversion "));
-            }
-
+                    } 
        
     }
-    /**Al Abrir nuevas inversiones setea el objeto**/
+    public void cargarEliminarInfraestructura(ActionEvent event){
+        infraestructuraVOE=(InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+    }
+    public void eliminarInfraestructura(){
+        try {
+            String eliminar =
+                contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
+                                                                              infraestructuraVOE.getCsiId(),
+                                                                              infraestructuraVOE.getTinId(),
+                                                                              infraestructuraVOE.getInfId(),
+                                                                              usuario.getUsuAlias(),
+                                                                              Reutilizar.getNewInstance().obtenerIpCliente());
+            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+            RequestContext.getCurrentInstance().execute("popupEliminarInversion.hide()");
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
+    }
+    /**Al Abrir dialogo inversiones setea el objeto**/
     public void cargarNuevasInversiones(){
         infraestructuraId = 0;
         contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO.setConId(contratoVO.getConId());
+        contratoInversionVO.setTinId(contratoVO.getTinId());
+        contratoInversionVO.setCsiId(contratoVO.getCsiId());
         contratoInversionVO.setInfId(0);
+        contratoInversionVO.setInvEstado(1);   
         listContratoInversion=new ArrayList<ContratoInversionVO>();
         disableCboAeropuerto=false;
         updateInversiones=false;
@@ -1633,7 +1665,8 @@ public class ActualizarContrato {
         }
       
     }
-    /**II.Se carga al Seleccionar una Concesion: 
+    /**II.EDITAR INVERSIONES DE UNA INFRAESTRUCTURA
+     * Se carga al Seleccionar una Infraestructura de la concesion del contrato seleccionado: 
      * 1.Carga las inversiones que tiene asignada segun Ids:
      *   Contrato, tipo de infraestructura y la Concesion
      * 2.Se muestra el Dialogo con la lista de Inversiones**/
@@ -1643,12 +1676,18 @@ public class ActualizarContrato {
         infraestructuraId = infraestructuraSeleccionada.getInfId(); 
         listaInfraestructuraCBO=(List<InfraestructuraVO>)Reutilizar.getNewInstance().copy(listaInfraestructuraConInversion);
         contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO.setConId(contratoVO.getConId());
+        contratoInversionVO.setTinId(contratoVO.getTinId());
+        contratoInversionVO.setCsiId(contratoVO.getCsiId());
+        contratoInversionVO.setInvEstado(1);   
+        System.out.println("contratoVO.getTinId()"+contratoVO.getTinId());
         contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
         disableCboAeropuerto=true;
-        updateInversiones=true; 
-        
-        listContratoInversionD = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());
-            listContratoInversion=(List<ContratoInversionVO>)Reutilizar.getNewInstance().copy(listContratoInversionD);
+        updateInversiones=true;         
+        listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());            
+       for (ContratoInversionVO inversion : listContratoInversion) {
+            inversionesIniciales.put(""+inversion.getInvId(), inversion);
+       }
         } catch (Exception s) {
             s.printStackTrace();
         } 
@@ -1659,11 +1698,12 @@ public class ActualizarContrato {
         String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
         contratoInversionVO.setInfNombre(nombreInfraestructura);
     }
-    /**IV.Agrega nueva Inversion y valida que se ingrese correctamente 
+    /**IV.AGREGA NUEVA INVERSION A LA INFRAESTRUCTURA
+     * y valida que se ingrese correctamente 
      * a la Lista de inversiones Temporal **/
     public void preAgregarInversion(){
-            disableCboAeropuerto=true;
-      int   infraestructuraId = contratoInversionVO.getInfId();
+            disableCboAeropuerto=true;  
+            infraestructuraId=contratoInversionVO.getInfId();
         if (contratoInversionVO.getInfId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -1678,7 +1718,11 @@ public class ActualizarContrato {
         }else{ 
             listContratoInversion.add(contratoInversionVO);            
             contratoInversionVO=new ContratoInversionVO();
+            contratoInversionVO.setConId(contratoVO.getConId());
+            contratoInversionVO.setTinId(contratoVO.getTinId());
+            contratoInversionVO.setCsiId(contratoVO.getCsiId());
             contratoInversionVO.setInfId(infraestructuraId);
+            contratoInversionVO.setInvEstado(1);   
         }
     }
    
@@ -3668,5 +3712,21 @@ public class ActualizarContrato {
 
     public List<InfraestructuraVO> getListaInfraestructuraCBO() {
         return listaInfraestructuraCBO;
+    }
+
+    public void setInversionesIniciales(HashMap<String, Object> inversionesIniciales) {
+        this.inversionesIniciales = inversionesIniciales;
+    }
+
+    public HashMap<String, Object> getInversionesIniciales() {
+        return inversionesIniciales;
+    }
+
+    public void setInfraestructuraVOE(InfraestructuraVO infraestructuraVOE) {
+        this.infraestructuraVOE = infraestructuraVOE;
+    }
+
+    public InfraestructuraVO getInfraestructuraVOE() {
+        return infraestructuraVOE;
     }
 }

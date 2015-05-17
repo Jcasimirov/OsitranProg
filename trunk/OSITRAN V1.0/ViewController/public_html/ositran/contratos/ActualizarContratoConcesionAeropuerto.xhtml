@@ -1758,12 +1758,37 @@
                                                             </p:commandButton>
                                                         </center>
                                                     </p:column>
+                                                      <p:column headerText="Eliminar" style="width:4%">
+                                                        <center>
+                                                            <p:commandButton 
+                                                            actionListener="#{actualizarContratoMB.cargarEliminarInfraestructura}"
+                                                            update=":tab:frmAgregarInversion" 
+                                                            oncomplete="popupEliminarInversion.show();"
+                                                            image="ui-icon-trash" style="width:25px;height:25px;" title="Eliminar">
+                                                                <f:attribute name="tinfra" value="#{tinfra}"/>
+                                                            </p:commandButton>
+                                                        </center>
+                                                    </p:column>
                                                 </p:dataTable>
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
                             </h:form>
+                             <p:dialog widgetVar="popupEliminarInversion" header="Eliminar Infraestructura" 
+                                      modal="true" appendToBody="true" position="center" >
+                                      <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                                      <tr>
+                                      <td>Desea Eliminar el registro?</td>                                      
+                                      </tr>
+                                      <tr>
+                                       <td align="left"><p:commandButton value="Aceptar" actionListener="#{actualizarContratoMB.eliminarInfraestructura}" 
+                                       update=":tab:frmInversion:tablaContratoConcesionInversion"/> </td>
+                                       <td align="right"><p:commandButton value="Cancelar" onclick="popupEliminarInversion.hide();"/> </td>
+                                      </tr>
+                                     
+                                      </table>
+                            </p:dialog>
                             <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversiones" 
                                       modal="true" appendToBody="true" position="top" >
                                 <h:form id="frmAgregarInversion" >
@@ -1845,7 +1870,7 @@
                                             <td colspan="2" align="center">
                                                 <p:commandButton value="Guardar" id="nuevaInversion"
                                                                  actionListener="#{actualizarContratoMB.guardarContratoInversion()}"
-                                                                />
+                                                                update=":tab:frmInversion:tablaContratoConcesionInversion"/>
                                                  
                                                 <p:commandButton value="Salir" onclick="popupAgregarInversion.hide()"
                                                                  type="reset"/>

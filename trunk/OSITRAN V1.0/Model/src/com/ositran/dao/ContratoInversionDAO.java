@@ -14,4 +14,10 @@ public interface ContratoInversionDAO {
     public ContratoInversion get(Integer id) throws SQLException;
     public List<ContratoInversion> getInversionesContratoenRectificacion(Integer conId) throws SQLException;
     public List<ContratoInversion> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException;
+    public String insertListaInversion(List<ContratoInversion> lista) throws SQLException;
+    public String updateInversionxInfraestructuras(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                   String usuario,String terminal) throws SQLException;
 }
