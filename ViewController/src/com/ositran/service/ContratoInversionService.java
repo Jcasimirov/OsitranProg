@@ -13,5 +13,11 @@ public interface ContratoInversionService {
     public String update(ContratoInversionVO contratoInversionVO) throws SQLException;
     public ContratoInversionVO get(Integer id) throws SQLException;
     public List<ContratoInversionVO> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion, int infraestructura) throws SQLException;
-    
+    public String insertListaInversion(List<ContratoInversionVO> lista) throws SQLException;
+    public String updateInversionxInfraestructuras(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                   String usuario,
+                                                   String terminal) throws SQLException;
 }
