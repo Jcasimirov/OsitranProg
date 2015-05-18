@@ -5,8 +5,10 @@
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:p="http://primefaces.org/ui">
 <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<script type="text/javascript"></script>
 	<link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
          <script type="text/javascript">
               function pasarMayuscula(obj, id) {
                   obj = obj.toUpperCase();
@@ -35,7 +37,7 @@
 			<div align="center"  style="font-size: 11px">
 			<div align="center"  style="width:700px" >
 		
-			<p:fieldset  styleClass="fielsetinterno" legend="Selecionar tipo infraestructura" id="tipInfraestructura" >
+			<p:fieldset  styleClass="fielsetinterno" legend="Seleccionar tipo infraestructura" id="tipInfraestructura" >
 				<table  style="font-size: 11px">
 				<tr>
 					<td align="left" >#{cam.STI}</td>
@@ -76,9 +78,9 @@
 			</table>
 		</p:fieldset>
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" id="buscarContratoConcesion" legend="Criterio Busqueda" >
+		<p:fieldset styleClass="fielsetinterno" id="buscarContratoConcesion" legend="Criterio de Búsqueda" >
 			<table  style="margin-bottom:5px;font-size: 11px">
-				<tr>    <td align="left" >Buscar Contrato Concecion: </td>
+				<tr>    <td align="left" >Buscar Contrato de Concesión: </td>
 	 				<td align="left" colspan="3"><p:inputText   value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  readonly="true" id="inputContrato" style="width:390px" /> 
                                         <p:commandButton image="ui-icon-search"  
                                         id="cargarLista"
@@ -97,19 +99,19 @@
 			</table>
 		</p:fieldset>   
 		<br></br>
-		<p:fieldset styleClass="fielsetinterno" id="datosContratoConcesion" legend="Datos Contrato Concesion">
+		<p:fieldset styleClass="fielsetinterno" id="datosContratoConcesion" legend="Datos de Contrato de Concesión">
 			<table  style="margin-bottom:5px;font-size: 11px">
 				<tr>
 	 				<td align="left">#{cam.concesion}</td>
-	 				<td align="left"  colspan="3"><p:inputText  value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  style="width:97.5%" /></td>
+	 				<td align="left"  colspan="3"><p:inputText readonly="true" value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  style="width:97.5%" /></td>
 	 				
 				</tr>
 				
 				<tr>
 	 				<td align="left">#{cam.ti}</td>
-	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.tipoInfraestructuraS}"  /></td>
+	 				<td align="left"><p:inputText readonly="true" value="#{jefeAreaContratoConcecionMB.tipoInfraestructuraS}"  /></td>
 	 				<td align="left">#{cam.mc}</td>
-	 				<td align="left"><p:inputText  value="#{jefeAreaContratoConcecionMB.modalidadConcecion}"  /></td>
+	 				<td align="left"><p:inputText readonly="true" value="#{jefeAreaContratoConcecionMB.modalidadConcecion}"  /></td>
 				</tr>
 				
 			</table>
@@ -137,16 +139,16 @@
                                              paginator="true"
                                              rowStyleClass="#{(jefearea1.cjaEstado eq 1) ? 'activo' : null}"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                              style="font-size:10px;" id="tablaAJ" var="jefearea1"
                                              value="#{jefeAreaContratoConcecionMB.listaJefeArea}">
                                  <p:column headerText="Nro" style="width:2%" >
                                         <h:outputText value="#{jefearea1.contador}"  />
                                     </p:column>
-                                    <p:column headerText="Cod Concesion" >
+                                    <p:column headerText="Cod Concesión" >
                                         <h:outputText value="#{jefearea1.concesionNombre}"/>
                                     </p:column>
-                                    <p:column headerText="Jefe Area" >
+                                    <p:column headerText="Jefe de Área" >
                                         <h:outputText value="#{jefearea1.nombreJefeArea}"/>
                                     </p:column>
                                      <p:column headerText="Documento" style="width:60px" >
@@ -180,6 +182,9 @@
                     </div>
                         
     </p:layoutUnit>
+        <p:layoutUnit position="south" style="border:0px;width:98%" resizable="false" closable="false" collapsible="false">
+            <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+        </p:layoutUnit>
 </p:layout>
 
  <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
@@ -187,7 +192,7 @@
                     
                             <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="lisContratos1"
                                              value="#{jefeAreaContratoConcecionMB.listaContratos}">
                                  <p:column headerText="ID" style="width:5px">
@@ -222,7 +227,7 @@
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Esta seguro que desea limpiar todos los campos?
+                                ¿Está seguro que desea limpiar todos los campos?
                             </td>
                         </tr>
                          
@@ -243,7 +248,7 @@
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
-                                Esta seguro que desea asignar el Jefe de Area?
+                                ¿Está seguro que desea asignar el Jefe de Área?
                             </td>
                         </tr>
                          
