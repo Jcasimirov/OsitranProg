@@ -670,6 +670,8 @@
             <property name="contratoAdendaServiceImpl" ref="contratoAdendaServiceImpl"/>
              <property name="contratoEmpresaSupervisoraServiceImpl" ref="contratoEmpresaSupervisoraServiceImpl"/>
              <property name="contratoEmpresaSupervisoraAdendaServiceImpl" ref="contratoEmpresaSupervisoraAdendaServiceImpl"/>
+             <property name="modalidadVO" ref="modalidadVO"/>
+             <property name="modalidadServiceImp" ref="modalidadServiceImp"/>
     </bean>
     
     <bean id="contratoEmpresaSupervisoraDAOImpl" class="com.ositran.daoimpl.ContratoEmpresaSupervisoraDAOImpl"/>
