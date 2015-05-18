@@ -9,6 +9,7 @@
             }
         </style>
         <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         <script type="text/javascript">
           function pasarMayuscula(obj, id) {
               obj = obj.toUpperCase();
@@ -102,12 +103,12 @@
                                 </p:selectOneMenu>
                                 <p:message for="concesion" display="icon"/>
                                 <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
-                                <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC"
+                                <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC" readonly="true"
                                             value="#{rectificarInversion.fechaInicioSuscripcion}" locale="es"
                                             pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                 <p:message for="fechaInicioBC" display="icon"/>
                                 <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
-                                <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC"
+                                <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC" readonly="true"
                                             value="#{rectificarInversion.fechaFinSuscripcion}" locale="es"
                                             pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                 <p:message for="fechaFinBC" display="icon"/>
@@ -117,7 +118,7 @@
                                                  actionListener="#{rectificarInversion.buscarContratos()}"
                                                  update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
                                 <p:dataTable value="#{rectificarInversion.listaContrato}" id="contrato" var="contrato11"
-                                             style="font-size:11px" emptyMessage="No se Encontraron Registros">
+                                             style="font-size:11px" emptyMessage="NO SE ENCONTRARON DATOS">
                                     <p:column headerText="Fecha Suscripción" style="width:7%">
                                         <div style="text-align: center;">
                                             <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
@@ -244,8 +245,8 @@
                                                                  style="font-size:11px" rows="10" paginator="true"
                                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                                  paginatorPosition="bottom"
-                                                                 rowsPerPageTemplate="5,10,15"
-                                                                 emptyMessage="No se Encontraron Registros">
+                                                                 rowsPerPageTemplate="5,10,20"
+                                                                 emptyMessage="NO SE ENCONTRARON DATOS">
                                                         <p:column headerText="Nro. Val" style="width:5%">
                                                             <h:outputText value="#{val.tiaNumero}"/>
                                                         </p:column>
@@ -398,7 +399,7 @@
                                                                                              id="tblResultadoReconocimiento"
                                                                                              var="reconocimiento"
                                                                                              style="font-size:11px;"
-                                                                                             emptyMessage="No se Encontraron Registros"
+                                                                                             emptyMessage="NO SE ENCONTRARON DATOS"
                                                                                              rowIndexVar="rowIndex" >
                                                                                
                                                                                     <p:column headerText="Nro. Val"
@@ -480,7 +481,7 @@
                                                                                              id="tblReajuste"
                                                                                              var="reajuste"
                                                                                              style="font-size:11px"
-                                                                                             emptyMessage="No se Encontraron Registros">
+                                                                                             emptyMessage="NO SE ENCONTRARON DATOS">
                                                                                     <p:column headerText="Nro. Valorización"
                                                                                               style="width:7%">
                                                                                         <div style="text-align: center;">
@@ -593,7 +594,7 @@
                                                         <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNumeroInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
                                                         <td align="left"><h:outputText value="Fecha de Emision" /></td>                                                      
-                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}" readonly="true" locale="es" /></td>
                                                         
                                                         <td align="left"><h:outputText value="Registro de Salida" /></td>
                                                         <td align="left"><p:inputText value="#{rectificarInversion.invVO.invRegSalidaInforme}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
@@ -604,7 +605,7 @@
                                                         <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNumeroOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
                                                         
                                                         <td align="left"><h:outputText value="Fecha de Emision" /></td>                                                      
-                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
+                                                        <td align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}" readonly="true" locale="es" /></td>
                                                         
                                                         <td align="left"><h:outputText value="Registro de Salida" /></td>
                                                         <td align="left"><p:inputText value="#{rectificarInversion.invVO.invRegSalidaOficio}" disabled="#{rectificarInversion.deshabilitadoxObservado}"/></td>
@@ -639,7 +640,7 @@
                                                         <td align="left"><p:inputText value="#{rectificarInversion.invVO.invNroDocFormalizacion}"/></td>
                                                         
                                                         <td  align="left"><h:outputText value="Fecha Emision" /></td>                                                      
-                                                        <td colspan="3"  align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionDocFomalizacion}"/></td>                                                       
+                                                        <td colspan="3"  align="left"><p:calendar pattern="dd/MM/yyyy" value="#{rectificarInversion.invVO.invFechaEmisionDocFomalizacion}" readonly="true" locale="es" /></td>                                                       
                                                        
                                                         </tr>
                                                         
@@ -677,7 +678,7 @@
             </p:layoutUnit>
             <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                           collapsible="true">
-                <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
+                <div align="center" style="font-size: 10px;font-weight: bold;">#{msg.titulo_PIE_PAGINA}</div>
             </p:layoutUnit>
         </p:layout>
     </h:body>
