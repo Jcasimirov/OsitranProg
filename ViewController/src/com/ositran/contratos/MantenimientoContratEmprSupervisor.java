@@ -72,18 +72,14 @@ public class MantenimientoContratEmprSupervisor {
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
-
+    private int tipoInfraestructuraGlobal;    
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
-        System.out.println("ASDGHJSDVBFGFDF");
-        System.out.println(usuario.getUsuAlias());
-        System.out.println(tipoInfraestructura);
-        
     }
-    
 
     private int codigoEliminar;
     //editar//
@@ -177,6 +173,8 @@ public class MantenimientoContratEmprSupervisor {
     private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private List<MonedaVO> listaMoneda1 = new ArrayList<MonedaVO>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+    
     private List<InfraestructuraVO> listaInfraestructurasE = new ArrayList<InfraestructuraVO>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<InfraestructuraTipoVO>();
     private List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<ContratoSupervisoraVO>();
@@ -184,10 +182,13 @@ public class MantenimientoContratEmprSupervisor {
     private List<ContratoVO> listaContratosE = new ArrayList<ContratoVO>();
     private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
     private List<ContratoCompromisoVO> listaContratoCompromisoE = new ArrayList<ContratoCompromisoVO>();
-    private List<EmpresaSupervisoraVO> listaEmpresaSup;
-    private List<EmpresaSupervisoraVO> listaEmpresaSupE;
+    private List<EmpresaSupervisoraVO> listaEmpresaSup = new ArrayList<EmpresaSupervisoraVO>();
+    private List<EmpresaSupervisoraVO> listaEmpresaSupE = new ArrayList<EmpresaSupervisoraVO>();
     private List<ContratoSupervisoraAdendaVO> listaAdenda = new ArrayList<ContratoSupervisoraAdendaVO>();
     private List<ContratoSupervisoraAdendaVO> listaAdenda1 = new ArrayList<ContratoSupervisoraAdendaVO>();
+    private List<InversionVO> listaInversiones = new ArrayList<InversionVO>();
+    
+    
     Util util = new Util();
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
@@ -281,12 +282,9 @@ public class MantenimientoContratEmprSupervisor {
                 cEmpreSup.setNombreSupervisora(empsup.getSupNombre());
             }
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
-
     }
-
 
     public List<ContratoSupervisoraVO> cargarListaContratosEmpresaSupervisora() throws SQLException {
         try {
@@ -445,6 +443,39 @@ public class MantenimientoContratEmprSupervisor {
                                                                           "La ficha ingresada no existe. Puede hacer el ingreso manualmente"));
             e.printStackTrace();
         }
+    }
+    
+    public void cargarInversion() {
+        try {
+            if (codigoInfraestructura == 111) {
+            } else {
+                infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
+                infraestructura.setCsiId(infraestructuraVO.getCsiId());
+                infraestructura.setInfId(infraestructuraVO.getInfId());
+                infraestructura.setTinId(infraestructuraVO.getTinId());
+                listaInversiones = inversionServiceImpl.query1(infraestructura, codigoContrato);
+            }
+            cargarAeropuertoValoracion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void cargarAeropuertoValoracion() {
+        if (codigoInfraestructura == 111) {
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructuras) {
+                listaInfraestructurasC.add(infraVO);
+            }
+        } else {
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructuras) {
+                if (infraVO.getInfId() == codigoInfraestructura) {
+                    listaInfraestructurasC.add(infraVO);
+                }
+            }
+        }
+
     }
 
     public void cargarDatosCompromiso() {
@@ -672,7 +703,7 @@ public class MantenimientoContratEmprSupervisor {
         cpsFechaSuscripcion = null;
         cpsPlazoContrato = 0;
         cpsMontoContratado = 0;
-        //listaMoneda  = new ArrayList<>();
+        
         cpsAdelantoOtorgado = 0;
         cpsFechaAdelanto = null;
         cpsPenalidades = "";
@@ -1066,6 +1097,248 @@ public class MantenimientoContratEmprSupervisor {
 
 
     // -- -- GETTER AND SETTER  -- //
+
+
+    public void setRolOpcion(RolOpcionesVO rolOpcion) {
+        this.rolOpcion = rolOpcion;
+    }
+
+    public RolOpcionesVO getRolOpcion() {
+        return rolOpcion;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+    public void setCodigoEliminar(int codigoEliminar) {
+        this.codigoEliminar = codigoEliminar;
+    }
+
+    public int getCodigoEliminar() {
+        return codigoEliminar;
+    }
+
+    public void setContratoE(int contratoE) {
+        this.contratoE = contratoE;
+    }
+
+    public int getContratoE() {
+        return contratoE;
+    }
+
+    public void setSupIdE(String supIdE) {
+        this.supIdE = supIdE;
+    }
+
+    public String getSupIdE() {
+        return supIdE;
+    }
+
+    public void setT_modconcE(String t_modconcE) {
+        this.t_modconcE = t_modconcE;
+    }
+
+    public String getT_modconcE() {
+        return t_modconcE;
+    }
+
+    public void setTinIdE(int tinIdE) {
+        this.tinIdE = tinIdE;
+    }
+
+    public int getTinIdE() {
+        return tinIdE;
+    }
+
+    public void setCsiIdE(int csiIdE) {
+        this.csiIdE = csiIdE;
+    }
+
+    public int getCsiIdE() {
+        return csiIdE;
+    }
+
+    public void setAdelantoE(int adelantoE) {
+        this.adelantoE = adelantoE;
+    }
+
+    public int getAdelantoE() {
+        return adelantoE;
+    }
+
+    public void setPlazocontrE(int plazocontrE) {
+        this.plazocontrE = plazocontrE;
+    }
+
+    public int getPlazocontrE() {
+        return plazocontrE;
+    }
+
+    public void setMontocontrE(int montocontrE) {
+        this.montocontrE = montocontrE;
+    }
+
+    public int getMontocontrE() {
+        return montocontrE;
+    }
+
+    public void setNrohrE(String nrohrE) {
+        this.nrohrE = nrohrE;
+    }
+
+    public String getNrohrE() {
+        return nrohrE;
+    }
+
+    public void setAñohrE(String añohrE) {
+        this.añohrE = añohrE;
+    }
+
+    public String getAñohrE() {
+        return añohrE;
+    }
+
+    public void setFregE(String fregE) {
+        this.fregE = fregE;
+    }
+
+    public String getFregE() {
+        return fregE;
+    }
+
+    public void setAsuntohrE(String asuntohrE) {
+        this.asuntohrE = asuntohrE;
+    }
+
+    public String getAsuntohrE() {
+        return asuntohrE;
+    }
+
+    public void setCpsPenalidadesE(String cpsPenalidadesE) {
+        this.cpsPenalidadesE = cpsPenalidadesE;
+    }
+
+    public String getCpsPenalidadesE() {
+        return cpsPenalidadesE;
+    }
+
+    public void setCpsCaducidadE(String cpsCaducidadE) {
+        this.cpsCaducidadE = cpsCaducidadE;
+    }
+
+    public String getCpsCaducidadE() {
+        return cpsCaducidadE;
+    }
+
+    public void setCpsGarantiasE(String cpsGarantiasE) {
+        this.cpsGarantiasE = cpsGarantiasE;
+    }
+
+    public String getCpsGarantiasE() {
+        return cpsGarantiasE;
+    }
+
+    public void setT_concesionE(String t_concesionE) {
+        this.t_concesionE = t_concesionE;
+    }
+
+    public String getT_concesionE() {
+        return t_concesionE;
+    }
+
+    public void setT_tinfraE(String t_tinfraE) {
+        this.t_tinfraE = t_tinfraE;
+    }
+
+    public String getT_tinfraE() {
+        return t_tinfraE;
+    }
+
+    public void setFechaInicioE(Date fechaInicioE) {
+        this.fechaInicioE = fechaInicioE;
+    }
+
+    public Date getFechaInicioE() {
+        return fechaInicioE;
+    }
+
+    public void setFechaSuscripcionE(Date fechaSuscripcionE) {
+        this.fechaSuscripcionE = fechaSuscripcionE;
+    }
+
+    public Date getFechaSuscripcionE() {
+        return fechaSuscripcionE;
+    }
+
+    public void setFechaAdelantoE(Date fechaAdelantoE) {
+        this.fechaAdelantoE = fechaAdelantoE;
+    }
+
+    public Date getFechaAdelantoE() {
+        return fechaAdelantoE;
+    }
+
+    public void setContratoSeleccionado(int contratoSeleccionado) {
+        this.contratoSeleccionado = contratoSeleccionado;
+    }
+
+    public int getContratoSeleccionado() {
+        return contratoSeleccionado;
+    }
+
+    public void setDia(boolean dia) {
+        this.dia = dia;
+    }
+
+    public boolean isDia() {
+        return dia;
+    }
+
+    public void setMes(boolean mes) {
+        this.mes = mes;
+    }
+
+    public boolean isMes() {
+        return mes;
+    }
+
+    public void setAño(boolean año) {
+        this.año = año;
+    }
+
+    public boolean isAño() {
+        return año;
+    }
+
+    public void setCodigoContratoCompromiso(int codigoContratoCompromiso) {
+        this.codigoContratoCompromiso = codigoContratoCompromiso;
+    }
+
+    public int getCodigoContratoCompromiso() {
+        return codigoContratoCompromiso;
+    }
+
+    public void setCodigoContratoCompromisoE(int codigoContratoCompromisoE) {
+        this.codigoContratoCompromisoE = codigoContratoCompromisoE;
+    }
+
+    public int getCodigoContratoCompromisoE() {
+        return codigoContratoCompromisoE;
+    }
+
     public void setSeleccionaTipoInfraestructura(String seleccionaTipoInfraestructura) {
         this.seleccionaTipoInfraestructura = seleccionaTipoInfraestructura;
     }
@@ -1080,46 +1353,6 @@ public class MantenimientoContratEmprSupervisor {
 
     public String getBtnbuscar() {
         return btnbuscar;
-    }
-
-    public void setTipoInfraestructuraSeleccionada(int tipoInfraestructuraSeleccionada) {
-        this.tipoInfraestructuraSeleccionada = tipoInfraestructuraSeleccionada;
-    }
-
-    public int getTipoInfraestructuraSeleccionada() {
-        return tipoInfraestructuraSeleccionada;
-    }
-
-    public void setListaInfraestructuraTipo(List<InfraestructuraTipoVO> listaInfraestructuraTipo) {
-        this.listaInfraestructuraTipo = listaInfraestructuraTipo;
-    }
-
-    public List<InfraestructuraTipoVO> getListaInfraestructuraTipo() {
-        return listaInfraestructuraTipo;
-    }
-
-    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
-        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
-    }
-
-    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
-        return infraestructuraTipoServiceImpl;
-    }
-
-    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
-        this.infraestructuraTipoVO = infraestructuraTipoVO;
-    }
-
-    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
-        return infraestructuraTipoVO;
-    }
-
-    public void setListaContratoSupervisora(List<ContratoSupervisoraVO> listaContratoSupervisora) {
-        this.listaContratoSupervisora = listaContratoSupervisora;
-    }
-
-    public List<ContratoSupervisoraVO> getListaContratoSupervisora() {
-        return listaContratoSupervisora;
     }
 
     public void setNrohr(String nrohr) {
@@ -1154,22 +1387,6 @@ public class MantenimientoContratEmprSupervisor {
         return asuntohr;
     }
 
-    public void setViewTdInternosVO(ViewTdInternosVO viewTdInternosVO) {
-        this.viewTdInternosVO = viewTdInternosVO;
-    }
-
-    public ViewTdInternosVO getViewTdInternosVO() {
-        return viewTdInternosVO;
-    }
-
-    public void setDatosStdServiceImpl(DatosStdService datosStdServiceImpl) {
-        this.datosStdServiceImpl = datosStdServiceImpl;
-    }
-
-    public DatosStdService getDatosStdServiceImpl() {
-        return datosStdServiceImpl;
-    }
-
     public void setContratoConcesion(String contratoConcesion) {
         this.contratoConcesion = contratoConcesion;
     }
@@ -1177,7 +1394,6 @@ public class MantenimientoContratEmprSupervisor {
     public String getContratoConcesion() {
         return contratoConcesion;
     }
-
 
     public void setT_tinfra(String t_tinfra) {
         this.t_tinfra = t_tinfra;
@@ -1195,12 +1411,380 @@ public class MantenimientoContratEmprSupervisor {
         return t_modconc;
     }
 
+    public void setT_conce(String t_conce) {
+        this.t_conce = t_conce;
+    }
+
+    public String getT_conce() {
+        return t_conce;
+    }
+
+    public void setPlazo(String plazo) {
+        this.plazo = plazo;
+    }
+
+    public String getPlazo() {
+        return plazo;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setNombreEmpresaSupervisora(String nombreEmpresaSupervisora) {
+        this.nombreEmpresaSupervisora = nombreEmpresaSupervisora;
+    }
+
+    public String getNombreEmpresaSupervisora() {
+        return nombreEmpresaSupervisora;
+    }
+
+    public void setNombreMoneda(String nombreMoneda) {
+        this.nombreMoneda = nombreMoneda;
+    }
+
+    public String getNombreMoneda() {
+        return nombreMoneda;
+    }
+
+    public void setCodigoEmpresaSupervisora(int codigoEmpresaSupervisora) {
+        this.codigoEmpresaSupervisora = codigoEmpresaSupervisora;
+    }
+
+    public int getCodigoEmpresaSupervisora() {
+        return codigoEmpresaSupervisora;
+    }
+
+    public void setCodigoMoneda(int codigoMoneda) {
+        this.codigoMoneda = codigoMoneda;
+    }
+
+    public int getCodigoMoneda() {
+        return codigoMoneda;
+    }
+
+    public void setContratoCompromisoSeleccionado(int contratoCompromisoSeleccionado) {
+        this.contratoCompromisoSeleccionado = contratoCompromisoSeleccionado;
+    }
+
+    public int getContratoCompromisoSeleccionado() {
+        return contratoCompromisoSeleccionado;
+    }
+
+    public void setContratoCompromisoSeleccionadoE(int contratoCompromisoSeleccionadoE) {
+        this.contratoCompromisoSeleccionadoE = contratoCompromisoSeleccionadoE;
+    }
+
+    public int getContratoCompromisoSeleccionadoE() {
+        return contratoCompromisoSeleccionadoE;
+    }
+
     public void setCodigoContrato(int codigoContrato) {
         this.codigoContrato = codigoContrato;
     }
 
     public int getCodigoContrato() {
         return codigoContrato;
+    }
+
+    public void setCodigoContratoE(int codigoContratoE) {
+        this.codigoContratoE = codigoContratoE;
+    }
+
+    public int getCodigoContratoE() {
+        return codigoContratoE;
+    }
+
+    public void setTipoInfraestructuraSeleccionada(int tipoInfraestructuraSeleccionada) {
+        this.tipoInfraestructuraSeleccionada = tipoInfraestructuraSeleccionada;
+    }
+
+    public int getTipoInfraestructuraSeleccionada() {
+        return tipoInfraestructuraSeleccionada;
+    }
+
+    public void setInfraestructuraSeleccionada(int infraestructuraSeleccionada) {
+        this.infraestructuraSeleccionada = infraestructuraSeleccionada;
+    }
+
+    public int getInfraestructuraSeleccionada() {
+        return infraestructuraSeleccionada;
+    }
+
+    public void setInfraestructuraSeleccionadaE(int infraestructuraSeleccionadaE) {
+        this.infraestructuraSeleccionadaE = infraestructuraSeleccionadaE;
+    }
+
+    public int getInfraestructuraSeleccionadaE() {
+        return infraestructuraSeleccionadaE;
+    }
+
+    public void setInversionSeleccionada(int inversionSeleccionada) {
+        this.inversionSeleccionada = inversionSeleccionada;
+    }
+
+    public int getInversionSeleccionada() {
+        return inversionSeleccionada;
+    }
+
+    public void setInversionSeleccionadaE(int inversionSeleccionadaE) {
+        this.inversionSeleccionadaE = inversionSeleccionadaE;
+    }
+
+    public int getInversionSeleccionadaE() {
+        return inversionSeleccionadaE;
+    }
+
+    public void setMonedaSeleccionada(int monedaSeleccionada) {
+        this.monedaSeleccionada = monedaSeleccionada;
+    }
+
+    public int getMonedaSeleccionada() {
+        return monedaSeleccionada;
+    }
+
+    public void setMonedaSeleccionada1(int monedaSeleccionada1) {
+        this.monedaSeleccionada1 = monedaSeleccionada1;
+    }
+
+    public int getMonedaSeleccionada1() {
+        return monedaSeleccionada1;
+    }
+
+    public void setAdendasTipoSeleccionada(int adendasTipoSeleccionada) {
+        this.adendasTipoSeleccionada = adendasTipoSeleccionada;
+    }
+
+    public int getAdendasTipoSeleccionada() {
+        return adendasTipoSeleccionada;
+    }
+
+    public void setCpsNroDeContrato(int cpsNroDeContrato) {
+        this.cpsNroDeContrato = cpsNroDeContrato;
+    }
+
+    public int getCpsNroDeContrato() {
+        return cpsNroDeContrato;
+    }
+
+    public void setCpsPlazoContrato(int cpsPlazoContrato) {
+        this.cpsPlazoContrato = cpsPlazoContrato;
+    }
+
+    public int getCpsPlazoContrato() {
+        return cpsPlazoContrato;
+    }
+
+    public void setCpsMontoContratado(int cpsMontoContratado) {
+        this.cpsMontoContratado = cpsMontoContratado;
+    }
+
+    public int getCpsMontoContratado() {
+        return cpsMontoContratado;
+    }
+
+    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
+        this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
+    }
+
+    public int getCpsAdelantoOtorgado() {
+        return cpsAdelantoOtorgado;
+    }
+
+    public void setCodigoConcesion(int codigoConcesion) {
+        this.codigoConcesion = codigoConcesion;
+    }
+
+    public int getCodigoConcesion() {
+        return codigoConcesion;
+    }
+
+    public void setCpsPenalidades(String cpsPenalidades) {
+        this.cpsPenalidades = cpsPenalidades;
+    }
+
+    public String getCpsPenalidades() {
+        return cpsPenalidades;
+    }
+
+    public void setCpsCaducidad(String cpsCaducidad) {
+        this.cpsCaducidad = cpsCaducidad;
+    }
+
+    public String getCpsCaducidad() {
+        return cpsCaducidad;
+    }
+
+    public void setCpsGarantias(String cpsGarantias) {
+        this.cpsGarantias = cpsGarantias;
+    }
+
+    public String getCpsGarantias() {
+        return cpsGarantias;
+    }
+
+    public void setCenDocumentoFisico(String cenDocumentoFisico) {
+        this.cenDocumentoFisico = cenDocumentoFisico;
+    }
+
+    public String getCenDocumentoFisico() {
+        return cenDocumentoFisico;
+    }
+
+    public void setEmpresaSupervisora(String empresaSupervisora) {
+        this.empresaSupervisora = empresaSupervisora;
+    }
+
+    public String getEmpresaSupervisora() {
+        return empresaSupervisora;
+    }
+
+    public void setCpsFechaInicio(Date cpsFechaInicio) {
+        this.cpsFechaInicio = cpsFechaInicio;
+    }
+
+    public Date getCpsFechaInicio() {
+        return cpsFechaInicio;
+    }
+
+    public void setCpsFechaSuscripcion(Date cpsFechaSuscripcion) {
+        this.cpsFechaSuscripcion = cpsFechaSuscripcion;
+    }
+
+    public Date getCpsFechaSuscripcion() {
+        return cpsFechaSuscripcion;
+    }
+
+    public void setCpsFechaAdelanto(Date cpsFechaAdelanto) {
+        this.cpsFechaAdelanto = cpsFechaAdelanto;
+    }
+
+    public Date getCpsFechaAdelanto() {
+        return cpsFechaAdelanto;
+    }
+
+    public void setAdendaPlazo(int adendaPlazo) {
+        this.adendaPlazo = adendaPlazo;
+    }
+
+    public int getAdendaPlazo() {
+        return adendaPlazo;
+    }
+
+    public void setAdendaMonto(int adendaMonto) {
+        this.adendaMonto = adendaMonto;
+    }
+
+    public int getAdendaMonto() {
+        return adendaMonto;
+    }
+
+    public void setAdendaFecha(Date adendaFecha) {
+        this.adendaFecha = adendaFecha;
+    }
+
+    public Date getAdendaFecha() {
+        return adendaFecha;
+    }
+
+    public void setAdendaPDF(String adendaPDF) {
+        this.adendaPDF = adendaPDF;
+    }
+
+    public String getAdendaPDF() {
+        return adendaPDF;
+    }
+
+    public void setCodigoTipoInfra(int codigoTipoInfra) {
+        this.codigoTipoInfra = codigoTipoInfra;
+    }
+
+    public int getCodigoTipoInfra() {
+        return codigoTipoInfra;
+    }
+
+    public void setCodigoModalidadConcesion(int codigoModalidadConcesion) {
+        this.codigoModalidadConcesion = codigoModalidadConcesion;
+    }
+
+    public int getCodigoModalidadConcesion() {
+        return codigoModalidadConcesion;
+    }
+
+    public void setCodigoInfraestructura(int codigoInfraestructura) {
+        this.codigoInfraestructura = codigoInfraestructura;
+    }
+
+    public int getCodigoInfraestructura() {
+        return codigoInfraestructura;
+    }
+
+    public void setCcoId(int ccoId) {
+        this.ccoId = ccoId;
+    }
+
+    public int getCcoId() {
+        return ccoId;
+    }
+
+    public void setTccTipo(int tccTipo) {
+        this.tccTipo = tccTipo;
+    }
+
+    public int getTccTipo() {
+        return tccTipo;
+    }
+
+    public void setMonedaVO(MonedaVO monedaVO) {
+        this.monedaVO = monedaVO;
+    }
+
+    public MonedaVO getMonedaVO() {
+        return monedaVO;
+    }
+
+    public void setListarEntregas(List<ContratoSupervisoraVO> listarEntregas) {
+        this.listarEntregas = listarEntregas;
+    }
+
+    public List<ContratoSupervisoraVO> getListarEntregas() {
+        return listarEntregas;
+    }
+
+    public void setListContratoAdenda(List<ContratoAdendaVO> listContratoAdenda) {
+        this.listContratoAdenda = listContratoAdenda;
+    }
+
+    public List<ContratoAdendaVO> getListContratoAdenda() {
+        return listContratoAdenda;
+    }
+
+    public void setListarAdendasTipo(List<AdendaTipoVO> listarAdendasTipo) {
+        this.listarAdendasTipo = listarAdendasTipo;
+    }
+
+    public List<AdendaTipoVO> getListarAdendasTipo() {
+        return listarAdendasTipo;
+    }
+
+    public void setListaMoneda(List<MonedaVO> listaMoneda) {
+        this.listaMoneda = listaMoneda;
+    }
+
+    public List<MonedaVO> getListaMoneda() {
+        return listaMoneda;
+    }
+
+    public void setListaMoneda1(List<MonedaVO> listaMoneda1) {
+        this.listaMoneda1 = listaMoneda1;
+    }
+
+    public List<MonedaVO> getListaMoneda1() {
+        return listaMoneda1;
     }
 
     public void setListaInfraestructuras(List<InfraestructuraVO> listaInfraestructuras) {
@@ -1219,12 +1803,124 @@ public class MantenimientoContratEmprSupervisor {
         return listaInfraestructurasE;
     }
 
+    public void setListaInfraestructuraTipo(List<InfraestructuraTipoVO> listaInfraestructuraTipo) {
+        this.listaInfraestructuraTipo = listaInfraestructuraTipo;
+    }
+
+    public List<InfraestructuraTipoVO> getListaInfraestructuraTipo() {
+        return listaInfraestructuraTipo;
+    }
+
+    public void setListaContratoSupervisora(List<ContratoSupervisoraVO> listaContratoSupervisora) {
+        this.listaContratoSupervisora = listaContratoSupervisora;
+    }
+
+    public List<ContratoSupervisoraVO> getListaContratoSupervisora() {
+        return listaContratoSupervisora;
+    }
+
     public void setListaContratos(List<ContratoVO> listaContratos) {
         this.listaContratos = listaContratos;
     }
 
     public List<ContratoVO> getListaContratos() {
         return listaContratos;
+    }
+
+    public void setListaContratosE(List<ContratoVO> listaContratosE) {
+        this.listaContratosE = listaContratosE;
+    }
+
+    public List<ContratoVO> getListaContratosE() {
+        return listaContratosE;
+    }
+
+    public void setListaContratoCompromiso(List<ContratoCompromisoVO> listaContratoCompromiso) {
+        this.listaContratoCompromiso = listaContratoCompromiso;
+    }
+
+    public List<ContratoCompromisoVO> getListaContratoCompromiso() {
+        return listaContratoCompromiso;
+    }
+
+    public void setListaContratoCompromisoE(List<ContratoCompromisoVO> listaContratoCompromisoE) {
+        this.listaContratoCompromisoE = listaContratoCompromisoE;
+    }
+
+    public List<ContratoCompromisoVO> getListaContratoCompromisoE() {
+        return listaContratoCompromisoE;
+    }
+
+    public void setListaEmpresaSup(List<EmpresaSupervisoraVO> listaEmpresaSup) {
+        this.listaEmpresaSup = listaEmpresaSup;
+    }
+
+    public List<EmpresaSupervisoraVO> getListaEmpresaSup() {
+        return listaEmpresaSup;
+    }
+
+    public void setListaEmpresaSupE(List<EmpresaSupervisoraVO> listaEmpresaSupE) {
+        this.listaEmpresaSupE = listaEmpresaSupE;
+    }
+
+    public List<EmpresaSupervisoraVO> getListaEmpresaSupE() {
+        return listaEmpresaSupE;
+    }
+
+    public void setListaAdenda(List<ContratoSupervisoraAdendaVO> listaAdenda) {
+        this.listaAdenda = listaAdenda;
+    }
+
+    public List<ContratoSupervisoraAdendaVO> getListaAdenda() {
+        return listaAdenda;
+    }
+
+    public void setListaAdenda1(List<ContratoSupervisoraAdendaVO> listaAdenda1) {
+        this.listaAdenda1 = listaAdenda1;
+    }
+
+    public List<ContratoSupervisoraAdendaVO> getListaAdenda1() {
+        return listaAdenda1;
+    }
+
+    public void setUtil(Util util) {
+        this.util = util;
+    }
+
+    public Util getUtil() {
+        return util;
+    }
+
+    public void setInfraestructuraTipoServiceImpl(InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl) {
+        this.infraestructuraTipoServiceImpl = infraestructuraTipoServiceImpl;
+    }
+
+    public InfraestructuraTipoServiceImpl getInfraestructuraTipoServiceImpl() {
+        return infraestructuraTipoServiceImpl;
+    }
+
+    public void setInfraestructuraTipoVO(InfraestructuraTipoVO infraestructuraTipoVO) {
+        this.infraestructuraTipoVO = infraestructuraTipoVO;
+    }
+
+    public InfraestructuraTipoVO getInfraestructuraTipoVO() {
+        return infraestructuraTipoVO;
+    }
+
+    public void setViewTdInternosVO(ViewTdInternosVO viewTdInternosVO) {
+        this.viewTdInternosVO = viewTdInternosVO;
+    }
+
+    public ViewTdInternosVO getViewTdInternosVO() {
+        return viewTdInternosVO;
+    }
+
+    public void setDatosStdServiceImpl(DatosStdService datosStdServiceImpl) {
+        this.datosStdServiceImpl = datosStdServiceImpl;
+    }
+
+    public DatosStdService getDatosStdServiceImpl() {
+        return datosStdServiceImpl;
     }
 
     public void setContratoConcesionServiceImp(ContratoConcesionService contratoConcesionServiceImp) {
@@ -1283,32 +1979,6 @@ public class MantenimientoContratEmprSupervisor {
         return infraestructuraServiceImpl;
     }
 
-    public void setInfraestructuraSeleccionada(int infraestructuraSeleccionada) {
-        this.infraestructuraSeleccionada = infraestructuraSeleccionada;
-    }
-
-    public int getInfraestructuraSeleccionada() {
-        return infraestructuraSeleccionada;
-    }
-
-
-    public void setListaContratoCompromiso(List<ContratoCompromisoVO> listaContratoCompromiso) {
-        this.listaContratoCompromiso = listaContratoCompromiso;
-    }
-
-    public List<ContratoCompromisoVO> getListaContratoCompromiso() {
-        return listaContratoCompromiso;
-    }
-
-
-    public void setListaContratoCompromisoE(List<ContratoCompromisoVO> listaContratoCompromisoE) {
-        this.listaContratoCompromisoE = listaContratoCompromisoE;
-    }
-
-    public List<ContratoCompromisoVO> getListaContratoCompromisoE() {
-        return listaContratoCompromisoE;
-    }
-
     public void setInfraestructuraVO(InfraestructuraVO infraestructuraVO) {
         this.infraestructuraVO = infraestructuraVO;
     }
@@ -1341,47 +2011,6 @@ public class MantenimientoContratEmprSupervisor {
         return contratoCompromisoServiceImpl;
     }
 
-    public void setInversionSeleccionada(int inversionSeleccionada) {
-        this.inversionSeleccionada = inversionSeleccionada;
-    }
-
-    public int getInversionSeleccionada() {
-        return inversionSeleccionada;
-    }
-
-    public void setContratoCompromisoSeleccionado(int contratoCompromisoSeleccionado) {
-        this.contratoCompromisoSeleccionado = contratoCompromisoSeleccionado;
-    }
-
-    public int getContratoCompromisoSeleccionado() {
-        return contratoCompromisoSeleccionado;
-    }
-
-    public void setPlazo(String plazo) {
-        this.plazo = plazo;
-    }
-
-    public String getPlazo() {
-        return plazo;
-    }
-
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setCodigoMoneda(int codigoMoneda) {
-        this.codigoMoneda = codigoMoneda;
-    }
-
-    public int getCodigoMoneda() {
-        return codigoMoneda;
-    }
-
     public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
         this.contratoCompromisoVO = contratoCompromisoVO;
     }
@@ -1389,7 +2018,6 @@ public class MantenimientoContratEmprSupervisor {
     public ContratoCompromisoVO getContratoCompromisoVO() {
         return contratoCompromisoVO;
     }
-
 
     public void setContratoSupervisoraVO(ContratoSupervisoraVO contratoSupervisoraVO) {
         this.contratoSupervisoraVO = contratoSupervisoraVO;
@@ -1399,37 +2027,12 @@ public class MantenimientoContratEmprSupervisor {
         return contratoSupervisoraVO;
     }
 
-
-    public void setContratoEmpresaSupervisoraServiceImpl(ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl) {
-        this.contratoEmpresaSupervisoraServiceImpl = contratoEmpresaSupervisoraServiceImpl;
+    public void setContratoSupervisoraAdendaVO(ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO) {
+        this.contratoSupervisoraAdendaVO = contratoSupervisoraAdendaVO;
     }
 
-    public ContratoEmpresaSupervisoraServiceImpl getContratoEmpresaSupervisoraServiceImpl() {
-        return contratoEmpresaSupervisoraServiceImpl;
-    }
-
-    public void setMonedaSeleccionada(int monedaSeleccionada) {
-        this.monedaSeleccionada = monedaSeleccionada;
-    }
-
-    public int getMonedaSeleccionada() {
-        return monedaSeleccionada;
-    }
-
-    public void setListaMoneda(List<MonedaVO> listaMoneda) {
-        this.listaMoneda = listaMoneda;
-    }
-
-    public List<MonedaVO> getListaMoneda() {
-        return listaMoneda;
-    }
-
-    public void setListaMoneda1(List<MonedaVO> listaMoneda1) {
-        this.listaMoneda1 = listaMoneda1;
-    }
-
-    public List<MonedaVO> getListaMoneda1() {
-        return listaMoneda1;
+    public ContratoSupervisoraAdendaVO getContratoSupervisoraAdendaVO() {
+        return contratoSupervisoraAdendaVO;
     }
 
     public void setMonedaServiceImpl(MonedaServiceImpl monedaServiceImpl) {
@@ -1440,14 +2043,6 @@ public class MantenimientoContratEmprSupervisor {
         return monedaServiceImpl;
     }
 
-    public void setListaEmpresaSup(List<EmpresaSupervisoraVO> listaEmpresaSup) {
-        this.listaEmpresaSup = listaEmpresaSup;
-    }
-
-    public List<EmpresaSupervisoraVO> getListaEmpresaSup() {
-        return listaEmpresaSup;
-    }
-
     public void setEmpresaSupervisoraServiceImpl(EmpresaSupervisoraService empresaSupervisoraServiceImpl) {
         this.empresaSupervisoraServiceImpl = empresaSupervisoraServiceImpl;
     }
@@ -1456,39 +2051,12 @@ public class MantenimientoContratEmprSupervisor {
         return empresaSupervisoraServiceImpl;
     }
 
-
-    public void setNombreEmpresaSupervisora(String nombreEmpresaSupervisora) {
-        this.nombreEmpresaSupervisora = nombreEmpresaSupervisora;
-    }
-
-    public String getNombreEmpresaSupervisora() {
-        return nombreEmpresaSupervisora;
-    }
-
-
     public void setContratoNuevaAdendaVO(ContratoAdendaVO contratoNuevaAdendaVO) {
         this.contratoNuevaAdendaVO = contratoNuevaAdendaVO;
     }
 
     public ContratoAdendaVO getContratoNuevaAdendaVO() {
         return contratoNuevaAdendaVO;
-    }
-
-
-    public void setListContratoAdenda(List<ContratoAdendaVO> listContratoAdenda) {
-        this.listContratoAdenda = listContratoAdenda;
-    }
-
-    public List<ContratoAdendaVO> getListContratoAdenda() {
-        return listContratoAdenda;
-    }
-
-    public void setListarAdendasTipo(List<AdendaTipoVO> listarAdendasTipo) {
-        this.listarAdendasTipo = listarAdendasTipo;
-    }
-
-    public List<AdendaTipoVO> getListarAdendasTipo() {
-        return listarAdendasTipo;
     }
 
     public void setAdendaTipoServiceImpl(AdendaTipoServiceImpl adendaTipoServiceImpl) {
@@ -1507,318 +2075,12 @@ public class MantenimientoContratEmprSupervisor {
         return contratoAdendaServiceImpl;
     }
 
-    public void setAdendasTipoSeleccionada(int adendasTipoSeleccionada) {
-        this.adendasTipoSeleccionada = adendasTipoSeleccionada;
+    public void setContratoEmpresaSupervisoraServiceImpl(ContratoEmpresaSupervisoraServiceImpl contratoEmpresaSupervisoraServiceImpl) {
+        this.contratoEmpresaSupervisoraServiceImpl = contratoEmpresaSupervisoraServiceImpl;
     }
 
-    public int getAdendasTipoSeleccionada() {
-        return adendasTipoSeleccionada;
-    }
-
-    public void setCpsNroDeContrato(int cpsNroDeContrato) {
-        this.cpsNroDeContrato = cpsNroDeContrato;
-    }
-
-    public int getCpsNroDeContrato() {
-        return cpsNroDeContrato;
-    }
-
-    public void setCpsPlazoContrato(int cpsPlazoContrato) {
-        this.cpsPlazoContrato = cpsPlazoContrato;
-    }
-
-    public int getCpsPlazoContrato() {
-        return cpsPlazoContrato;
-    }
-
-    public void setCpsMontoContratado(int cpsMontoContratado) {
-        this.cpsMontoContratado = cpsMontoContratado;
-    }
-
-    public int getCpsMontoContratado() {
-        return cpsMontoContratado;
-    }
-
-    public void setCpsAdelantoOtorgado(int cpsAdelantoOtorgado) {
-        this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
-    }
-
-    public int getCpsAdelantoOtorgado() {
-        return cpsAdelantoOtorgado;
-    }
-
-    public void setCpsPenalidades(String cpsPenalidades) {
-        this.cpsPenalidades = cpsPenalidades;
-    }
-
-    public String getCpsPenalidades() {
-        return cpsPenalidades;
-    }
-
-    public void setCpsCaducidad(String cpsCaducidad) {
-        this.cpsCaducidad = cpsCaducidad;
-    }
-
-    public String getCpsCaducidad() {
-        return cpsCaducidad;
-    }
-
-    public void setCpsGarantias(String cpsGarantias) {
-        this.cpsGarantias = cpsGarantias;
-    }
-
-    public String getCpsGarantias() {
-        return cpsGarantias;
-    }
-
-    public void setEmpresaSupervisora(String empresaSupervisora) {
-        this.empresaSupervisora = empresaSupervisora;
-    }
-
-    public String getEmpresaSupervisora() {
-        return empresaSupervisora;
-    }
-
-    public void setCodigoEliminar(int codigoEliminar) {
-        this.codigoEliminar = codigoEliminar;
-    }
-
-    public int getCodigoEliminar() {
-        return codigoEliminar;
-    }
-
-    //---//
-
-
-    public void setListarEntregas(List<ContratoSupervisoraVO> listarEntregas) {
-        this.listarEntregas = listarEntregas;
-    }
-
-    public List<ContratoSupervisoraVO> getListarEntregas() {
-        return listarEntregas;
-    }
-
-    public void setContratoE(int contratoE) {
-        this.contratoE = contratoE;
-    }
-
-    public int getContratoE() {
-        return contratoE;
-    }
-
-
-    public void setSupIdE(String supIdE) {
-        this.supIdE = supIdE;
-    }
-
-    public String getSupIdE() {
-        return supIdE;
-    }
-
-
-    public void setTinIdE(int tinIdE) {
-        this.tinIdE = tinIdE;
-    }
-
-    public int getTinIdE() {
-        return tinIdE;
-    }
-
-    public void setCsiIdE(int csiIdE) {
-        this.csiIdE = csiIdE;
-    }
-
-    public int getCsiIdE() {
-        return csiIdE;
-    }
-
-    public void setAdelantoE(int adelantoE) {
-        this.adelantoE = adelantoE;
-    }
-
-    public int getAdelantoE() {
-        return adelantoE;
-    }
-
-    public void setPlazocontrE(int plazocontrE) {
-        this.plazocontrE = plazocontrE;
-    }
-
-    public int getPlazocontrE() {
-        return plazocontrE;
-    }
-
-    public void setMontocontrE(int montocontrE) {
-        this.montocontrE = montocontrE;
-    }
-
-    public int getMontocontrE() {
-        return montocontrE;
-    }
-
-
-    public void setUtil(Util util) {
-        this.util = util;
-    }
-
-    public Util getUtil() {
-        return util;
-    }
-
-    public void setCpsPenalidadesE(String cpsPenalidadesE) {
-        this.cpsPenalidadesE = cpsPenalidadesE;
-    }
-
-    public String getCpsPenalidadesE() {
-        return cpsPenalidadesE;
-    }
-
-    public void setCpsCaducidadE(String cpsCaducidadE) {
-        this.cpsCaducidadE = cpsCaducidadE;
-    }
-
-    public String getCpsCaducidadE() {
-        return cpsCaducidadE;
-    }
-
-    public void setCpsGarantiasE(String cpsGarantiasE) {
-        this.cpsGarantiasE = cpsGarantiasE;
-    }
-
-    public String getCpsGarantiasE() {
-        return cpsGarantiasE;
-    }
-
-
-    public void setT_modconcE(String t_modconcE) {
-        this.t_modconcE = t_modconcE;
-    }
-
-    public String getT_modconcE() {
-        return t_modconcE;
-    }
-
-    public void setT_concesionE(String t_concesionE) {
-        this.t_concesionE = t_concesionE;
-    }
-
-    public String getT_concesionE() {
-        return t_concesionE;
-    }
-
-
-    public void setT_tinfraE(String t_tinfraE) {
-        this.t_tinfraE = t_tinfraE;
-    }
-
-    public String getT_tinfraE() {
-        return t_tinfraE;
-    }
-
-    public void setCpsFechaInicio(Date cpsFechaInicio) {
-        this.cpsFechaInicio = cpsFechaInicio;
-    }
-
-    public Date getCpsFechaInicio() {
-        return cpsFechaInicio;
-    }
-
-    public void setCpsFechaSuscripcion(Date cpsFechaSuscripcion) {
-        this.cpsFechaSuscripcion = cpsFechaSuscripcion;
-    }
-
-    public Date getCpsFechaSuscripcion() {
-        return cpsFechaSuscripcion;
-    }
-
-    public void setCpsFechaAdelanto(Date cpsFechaAdelanto) {
-        this.cpsFechaAdelanto = cpsFechaAdelanto;
-    }
-
-    public Date getCpsFechaAdelanto() {
-        return cpsFechaAdelanto;
-    }
-
-    public void setCodigoConcesion(int codigoConcesion) {
-        this.codigoConcesion = codigoConcesion;
-    }
-
-    public int getCodigoConcesion() {
-        return codigoConcesion;
-    }
-
-
-    public void setFechaInicioE(Date fechaInicioE) {
-        this.fechaInicioE = fechaInicioE;
-    }
-
-    public Date getFechaInicioE() {
-        return fechaInicioE;
-    }
-
-    public void setFechaSuscripcionE(Date fechaSuscripcionE) {
-        this.fechaSuscripcionE = fechaSuscripcionE;
-    }
-
-    public Date getFechaSuscripcionE() {
-        return fechaSuscripcionE;
-    }
-
-    public void setFechaAdelantoE(Date fechaAdelantoE) {
-        this.fechaAdelantoE = fechaAdelantoE;
-    }
-
-    public Date getFechaAdelantoE() {
-        return fechaAdelantoE;
-    }
-
-
-    public void setAdendaPlazo(int adendaPlazo) {
-        this.adendaPlazo = adendaPlazo;
-    }
-
-    public int getAdendaPlazo() {
-        return adendaPlazo;
-    }
-
-    public void setAdendaMonto(int adendaMonto) {
-        this.adendaMonto = adendaMonto;
-    }
-
-    public int getAdendaMonto() {
-        return adendaMonto;
-    }
-
-    public void setAdendaFecha(Date adendaFecha) {
-        this.adendaFecha = adendaFecha;
-    }
-
-    public Date getAdendaFecha() {
-        return adendaFecha;
-    }
-
-    public void setAdendaPDF(String adendaPDF) {
-        this.adendaPDF = adendaPDF;
-    }
-
-    public String getAdendaPDF() {
-        return adendaPDF;
-    }
-
-    public void setContratoSupervisoraAdendaVO(ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO) {
-        this.contratoSupervisoraAdendaVO = contratoSupervisoraAdendaVO;
-    }
-
-    public ContratoSupervisoraAdendaVO getContratoSupervisoraAdendaVO() {
-        return contratoSupervisoraAdendaVO;
-    }
-
-    public void setListaAdenda(List<ContratoSupervisoraAdendaVO> listaAdenda) {
-        this.listaAdenda = listaAdenda;
-    }
-
-    public List<ContratoSupervisoraAdendaVO> getListaAdenda() {
-        return listaAdenda;
+    public ContratoEmpresaSupervisoraServiceImpl getContratoEmpresaSupervisoraServiceImpl() {
+        return contratoEmpresaSupervisoraServiceImpl;
     }
 
     public void setContratoEmpresaSupervisoraAdendaServiceImpl(ContratoEmpresaSupervisoraAdendaServiceImpl contratoEmpresaSupervisoraAdendaServiceImpl) {
@@ -1827,220 +2089,6 @@ public class MantenimientoContratEmprSupervisor {
 
     public ContratoEmpresaSupervisoraAdendaServiceImpl getContratoEmpresaSupervisoraAdendaServiceImpl() {
         return contratoEmpresaSupervisoraAdendaServiceImpl;
-    }
-
-
-    public void setListaAdenda1(List<ContratoSupervisoraAdendaVO> listaAdenda1) {
-        this.listaAdenda1 = listaAdenda1;
-    }
-
-    public List<ContratoSupervisoraAdendaVO> getListaAdenda1() {
-        return listaAdenda1;
-    }
-
-    public void setCodigoEmpresaSupervisora(int codigoEmpresaSupervisora) {
-        this.codigoEmpresaSupervisora = codigoEmpresaSupervisora;
-    }
-
-    public int getCodigoEmpresaSupervisora() {
-        return codigoEmpresaSupervisora;
-    }
-
-    public void setDia(boolean dia) {
-        this.dia = dia;
-    }
-
-    public boolean isDia() {
-        return dia;
-    }
-
-    public void setMes(boolean mes) {
-        this.mes = mes;
-    }
-
-    public boolean isMes() {
-        return mes;
-    }
-
-    public void setAño(boolean año) {
-        this.año = año;
-    }
-
-    public boolean isAño() {
-        return año;
-    }
-
-    public void setMonedaSeleccionada1(int monedaSeleccionada1) {
-        this.monedaSeleccionada1 = monedaSeleccionada1;
-    }
-
-    public int getMonedaSeleccionada1() {
-        return monedaSeleccionada1;
-    }
-
-
-    public void setCenDocumentoFisico(String cenDocumentoFisico) {
-        this.cenDocumentoFisico = cenDocumentoFisico;
-    }
-
-    public String getCenDocumentoFisico() {
-        return cenDocumentoFisico;
-    }
-
-    public void setCodigoTipoInfra(int codigoTipoInfra) {
-        this.codigoTipoInfra = codigoTipoInfra;
-    }
-
-    public int getCodigoTipoInfra() {
-        return codigoTipoInfra;
-    }
-
-
-    public void setCodigoModalidadConcesion(int codigoModalidadConcesion) {
-        this.codigoModalidadConcesion = codigoModalidadConcesion;
-    }
-
-    public int getCodigoModalidadConcesion() {
-        return codigoModalidadConcesion;
-    }
-
-    public void setT_conce(String t_conce) {
-        this.t_conce = t_conce;
-    }
-
-    public String getT_conce() {
-        return t_conce;
-    }
-
-    public void setCodigoInfraestructura(int codigoInfraestructura) {
-        this.codigoInfraestructura = codigoInfraestructura;
-    }
-
-    public int getCodigoInfraestructura() {
-        return codigoInfraestructura;
-    }
-
-
-    public void setCcoId(int ccoId) {
-        this.ccoId = ccoId;
-    }
-
-    public int getCcoId() {
-        return ccoId;
-    }
-
-    public void setTccTipo(int tccTipo) {
-        this.tccTipo = tccTipo;
-    }
-
-    public int getTccTipo() {
-        return tccTipo;
-    }
-
-    public void setNrohrE(String nrohrE) {
-        this.nrohrE = nrohrE;
-    }
-
-    public String getNrohrE() {
-        return nrohrE;
-    }
-
-    public void setAñohrE(String añohrE) {
-        this.añohrE = añohrE;
-    }
-
-    public String getAñohrE() {
-        return añohrE;
-    }
-
-
-    public void setFregE(String fregE) {
-        this.fregE = fregE;
-    }
-
-    public String getFregE() {
-        return fregE;
-    }
-
-    public void setAsuntohrE(String asuntohrE) {
-        this.asuntohrE = asuntohrE;
-    }
-
-    public String getAsuntohrE() {
-        return asuntohrE;
-    }
-
-    public void setInfraestructuraSeleccionadaE(int infraestructuraSeleccionadaE) {
-        this.infraestructuraSeleccionadaE = infraestructuraSeleccionadaE;
-    }
-
-    public int getInfraestructuraSeleccionadaE() {
-        return infraestructuraSeleccionadaE;
-    }
-
-    public void setInversionSeleccionadaE(int inversionSeleccionadaE) {
-        this.inversionSeleccionadaE = inversionSeleccionadaE;
-    }
-
-    public int getInversionSeleccionadaE() {
-        return inversionSeleccionadaE;
-    }
-
-    public void setContratoCompromisoSeleccionadoE(int contratoCompromisoSeleccionadoE) {
-        this.contratoCompromisoSeleccionadoE = contratoCompromisoSeleccionadoE;
-    }
-
-    public int getContratoCompromisoSeleccionadoE() {
-        return contratoCompromisoSeleccionadoE;
-    }
-
-    public void setListaContratosE(List<ContratoVO> listaContratosE) {
-        this.listaContratosE = listaContratosE;
-    }
-
-    public List<ContratoVO> getListaContratosE() {
-        return listaContratosE;
-    }
-
-    public void setListaEmpresaSupE(List<EmpresaSupervisoraVO> listaEmpresaSupE) {
-        this.listaEmpresaSupE = listaEmpresaSupE;
-    }
-
-    public List<EmpresaSupervisoraVO> getListaEmpresaSupE() {
-        return listaEmpresaSupE;
-    }
-
-    public void setNombreMoneda(String nombreMoneda) {
-        this.nombreMoneda = nombreMoneda;
-    }
-
-    public String getNombreMoneda() {
-        return nombreMoneda;
-    }
-
-    public void setMonedaVO(MonedaVO monedaVO) {
-        this.monedaVO = monedaVO;
-    }
-
-    public MonedaVO getMonedaVO() {
-        return monedaVO;
-    }
-
-
-    public void setCodigoContratoE(int codigoContratoE) {
-        this.codigoContratoE = codigoContratoE;
-    }
-
-    public int getCodigoContratoE() {
-        return codigoContratoE;
-    }
-
-    public void setRolOpcion(RolOpcionesVO rolOpcion) {
-        this.rolOpcion = rolOpcion;
-    }
-
-    public RolOpcionesVO getRolOpcion() {
-        return rolOpcion;
     }
 
     public void setModalidadVO(ModalidadConcesionVO modalidadVO) {
@@ -2059,44 +2107,28 @@ public class MantenimientoContratEmprSupervisor {
         return modalidadServiceImp;
     }
 
-    public void setCodigoContratoCompromiso(int codigoContratoCompromiso) {
-        this.codigoContratoCompromiso = codigoContratoCompromiso;
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
     }
 
-    public int getCodigoContratoCompromiso() {
-        return codigoContratoCompromiso;
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
     }
 
-    public void setCodigoContratoCompromisoE(int codigoContratoCompromisoE) {
-        this.codigoContratoCompromisoE = codigoContratoCompromisoE;
+    public void setListaInfraestructurasC(List<InfraestructuraVO> listaInfraestructurasC) {
+        this.listaInfraestructurasC = listaInfraestructurasC;
     }
 
-    public int getCodigoContratoCompromisoE() {
-        return codigoContratoCompromisoE;
+    public List<InfraestructuraVO> getListaInfraestructurasC() {
+        return listaInfraestructurasC;
     }
 
-
-    public void setUsuario(UsuarioVO usuario) {
-        this.usuario = usuario;
+    public void setListaInversiones(List<InversionVO> listaInversiones) {
+        this.listaInversiones = listaInversiones;
     }
 
-    public UsuarioVO getUsuario() {
-        return usuario;
+    public List<InversionVO> getListaInversiones() {
+        return listaInversiones;
     }
-
-    public void setTipoInfraestructura(int tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
-    }
-
-    public int getTipoInfraestructura() {
-        return tipoInfraestructura;
-    }
-
-    public void setContratoSeleccionado(int contratoSeleccionado) {
-        this.contratoSeleccionado = contratoSeleccionado;
-    }
-
-    public int getContratoSeleccionado() {
-        return contratoSeleccionado;
-    }
+    
 }
