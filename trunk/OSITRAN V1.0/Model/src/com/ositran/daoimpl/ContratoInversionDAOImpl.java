@@ -98,10 +98,14 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         query.setParameter("busqueda1", conId);
         List<ContratoInversion> list = query.list();
         session.getTransaction().commit();
+
+
         return list;
     }
 
+
     @Override
+
     public List<ContratoInversion> ListaPorAeropuerto(int contrato, int tipoInfraestructura, int concesion,
                                                       int infraestructura) throws SQLException {
         Query query;
@@ -121,6 +125,7 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         session.getTransaction().commit();
         return list;
     }
+
 
     public String insertListaInversion(List<ContratoInversion> lista) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
@@ -152,7 +157,6 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
             e.printStackTrace();
             session.getTransaction().rollback();
         }
-
         session.close();
         return "";
     }
