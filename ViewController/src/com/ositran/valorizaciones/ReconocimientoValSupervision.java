@@ -133,7 +133,7 @@ public class ReconocimientoValSupervision {
     List<TipoDocumentoVO> listaTipoDocumento = new ArrayList<TipoDocumentoVO>();
     List<ValorizacionSupDetalleVO> listaValorizaciondetalle = new ArrayList<ValorizacionSupDetalleVO>();
     List<ValorizacionSupVO> listaValorizacion = new ArrayList<ValorizacionSupVO>();
-    List<ValorizacionConceptoVO> listaConcepto = new ArrayList<>();
+    List<ValorizacionConceptoVO> listaConcepto = new ArrayList<ValorizacionConceptoVO>();
 
 
     //Services
