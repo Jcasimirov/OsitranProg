@@ -435,47 +435,47 @@ public class RectificarInversion {
         try {     
          if (invAvnVO.getIaeId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Estado de Reconocimiento"));
         } else if (invAvnVO.getTiaObservaciones()==null || invAvnVO.getTiaObservaciones().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado las Observaciones"));
         } else if (invVO.getInvNumeroInforme()==null || invVO.getInvNumeroInforme().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Numero de Informe"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha ingresado el Número de Informe"));
         } else if (invVO.getInvFechaEmisionInforme()==null || invVO.getInvFechaEmisionInforme().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Fecha de Emisión del Informe"));
         } else if (invVO.getInvRegSalidaInforme()==null || invVO.getInvRegSalidaInforme().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Registro de Salida del Informe"));
         } else if (invVO.getInvNumeroOficio()==null || invVO.getInvNumeroOficio().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Numero de Oficio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha ingresado el Número de Oficio"));
         } else if (invVO.getInvFechaEmisionOficio()==null || invVO.getInvFechaEmisionOficio().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Fecha del Oficio"));
         } else if (invVO.getInvRegSalidaOficio()==null || invVO.getInvRegSalidaOficio().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Inversión"));
         } else if (invVO.getMonId()==null || invVO.getMonId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ha seleccionado el Tipo de Cambio"));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha seleccionado el Tipo de Cambio"));
         } else if (invVO.getInvMontoTipoCambio()==null || invVO.getInvMontoTipoCambio().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Monto"));
         } else if (invVO.getInvNota()==null || invVO.getInvNota().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Nota"));
         }else{
 
@@ -495,7 +495,7 @@ public class RectificarInversion {
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
                                                                           Constantes.ERRORGUARDAR));
         }
     }
@@ -751,15 +751,15 @@ public class RectificarInversion {
         BigDecimal montoPresentado = Reutilizar.getNewInstance().redondearBigDecimal(rec.getIvrMontoPresentado());
         if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Cero"));
         } else if (montoAprobado.compareTo(BigDecimal.ZERO) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Negativo"));
         }else if (montoAprobado.compareTo(montoPresentado) > 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto Aprobado no puede ser Mayor al Monto Presentado"));
         }else {
             try {
@@ -783,7 +783,7 @@ public class RectificarInversion {
             } catch (Exception e1) {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               Constantes.ERROR,
                                                                               Constantes.ERROR));
             }
@@ -802,15 +802,15 @@ public class RectificarInversion {
         BigDecimal montoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoAprobado());
         if (montoReajuste.compareTo(BigDecimal.ZERO) == 0 || montoReajuste.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Cero"));
         } else if (montoReajuste.compareTo(BigDecimal.ZERO) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Negativo"));
         } else if (montoReajuste.compareTo(montoAprobado) > 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto Reajustado no puede ser Mayor al Monto Aprobado"));
         } else {
             try {
@@ -826,7 +826,7 @@ public class RectificarInversion {
             } catch (Exception e1) {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL,
                                                                               Constantes.ERROR,
                                                                               Constantes.ERROR));
             }
