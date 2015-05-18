@@ -8,6 +8,7 @@
     
         </h:head>
         <h:body>
+         <script src="../../js/validaciones.js" type="text/javascript"></script>
             <f:event listener="#{registrarAvanceInversionMB.cargarMoneda()}" type="postAddToView"></f:event>       
             <f:event listener="#{registrarAvanceInversionMB.validarSesion}" type="preRenderComponent"></f:event>   
             <h:form id="form">
@@ -31,7 +32,7 @@
                                                                  id="cargarContrato" update=":form:panelListaContratos"
                                                                  actionListener="#{registrarAvanceInversionMB.cargarListaContratos}"/>
                                                                  
-                                                                 
+                                                  <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>                 
                                                 <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
                                                            value="Cargar lista de contrato concesión"/>
                                             </p:fieldset>
@@ -83,6 +84,7 @@
                                                                         update=":form:datosCompromiso  :form:inversionDescripcion "
                                                                         listener="#{registrarAvanceInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
+                                                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                                                         </td>
                                                     </tr>
                                                      
@@ -126,7 +128,8 @@
                                                         </td>
                                                         <td>
                                                             Nro: 
-                                                            <p:inputText 
+                                                            <p:inputText onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
                                                                          value="#{registrarAvanceInversionMB.numero}"
                                                                          style="width:60px"/>
                                                              
@@ -135,17 +138,21 @@
                                                         <td>
                                                             A&#241;o: 
                                                             <p:inputText value="#{registrarAvanceInversionMB.anio}"
-                                                                      
+                                                                      onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                                                     onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
                                                                          style="width:60px"/>
                                                              
                                                             <p:commandButton image="ui-icon-search"
                                                                              actionListener="#{registrarAvanceInversionMB.cargarDatosSDT()}"
                                                                              update=":form:datosSDT  :form:fechaVencimiento  :form:mensaje"/>
+                                                                              <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                                                         </td>
                                                         <td>
                                                             <h:outputText style="color:White" value="nn"/>
                                                              Fecha Registro: 
-                                                            <p:calendar value="#{registrarAvanceInversionMB.fechaRegistroSDT}"
+                                                            <p:calendar 
+                                                            readonly="true"
+                                                            value="#{registrarAvanceInversionMB.fechaRegistroSDT}"
                                                                         locale="es" styleClass="calendario1"/>
                                                         </td>
                                                     </tr>
@@ -207,12 +214,14 @@
                                                             <p:calendar locale="es"
                                                                         value="#{registrarAvanceInversionMB.inicioPeriodo}"
                                                                         styleClass="calendario1"/>
+                                                                      
                                                         </td>
                                                         <td>Periodo Ejecuci&#243;n(Fin)</td>
                                                         <td>
                                                             <p:calendar locale="es"
                                                                         value="#{registrarAvanceInversionMB.finPeriodo}"
                                                                         styleClass="calendario1"/>
+                                                                        
                                                         </td>
                                                         <td colspan="2">
                                                             <table>
@@ -228,6 +237,7 @@
                                                                                            itemLabel="#{varMoneda.monNombre}"
                                                                                            itemValue="#{varMoneda.monId}"/>
                                                                         </p:selectOneMenu>
+                                                                        
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -251,6 +261,7 @@
                                                                         listener="#{registrarAvanceInversionMB.cargarInversion()}"/>
                                                                 <f:selectItem itemLabel="-Otros-" itemValue="111"/>
                                                             </p:selectOneMenu>
+                                                             
                                                         </td>
                                                         <td><h:outputText value="Inversión" rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}" ></h:outputText></td>
                                                         <td colspan="2">
@@ -277,11 +288,16 @@
                                                                                itemLabel="#{varInversion.itdNombre}"
                                                                                itemValue="#{varInversion.itdId}"/>
                                                             </p:selectOneMenu>
+                                                             
                                                         </td>
                                                         <td>Monto Presentado</td>
                                                         <td>
-                                                            <p:inputText value="#{registrarAvanceInversionMB.montoPrestado}"
+                                                            <p:inputText
+                                                            onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
+                                                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                                            value="#{registrarAvanceInversionMB.montoPrestado}"
                                                                          style="width:100px"/>
+                                                                         
                                                         </td>
                                                         <td>
                                                             <p:selectBooleanCheckbox value="#{registrarAvanceInversionMB.igv}"/>
@@ -309,7 +325,15 @@
                                             <br></br>
                                         </p:fieldset>
                                     </td>
+                                    
                                 </tr>
+                                   <tr>
+                            <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                        </tr> 
+                                
                                  
                                 <tr>
                                     <td colspan="2">
@@ -364,16 +388,21 @@
                                         <div align="right" class="negrita">
                                             Total Neto: 
                                             <p:inputText id="montosTotales1"
+                                            readonly="true"
                                                          style="font-weight:bold;font-size:13px;width:150px"
                                                          value="#{registrarAvanceInversionMB.totalMonto}"/>
                                              Total Igv: 
                                             <p:inputText id="montosTotales2"
                                                          style="font-weight:bold;font-size:13px;width:150px"
-                                                         value="#{registrarAvanceInversionMB.totalIgv}"/>
+                                                         value="#{registrarAvanceInversionMB.totalIgv}"
+                                                         readonly="true"
+                                                         />
                                              Total Presentado: 
                                             <p:inputText id="montosTotales3"
                                                          style="font-weight:bold;font-size:13px;width:150px"
-                                                         value="#{registrarAvanceInversionMB.totalPresentado}"/>
+                                                         value="#{registrarAvanceInversionMB.totalPresentado}"
+                                                         readonly="true"
+                                                         />
                                         </div>
                                         </div>
                                     </td>
@@ -399,7 +428,21 @@
                                                  :form:diasHabiles 
                                                  :form:diasCalendario" 
                                              actionListener="#{registrarAvanceInversionMB.guardar()}" value="Guardar"/>                            
-                            <p:commandButton update=":form:mensaje :form:todoIzquierdo :form:todoDerecho"
+                            <p:commandButton update=":form:mensaje :form:todoIzquierdo 
+                                             :form:todoDerecho 
+                                             :form:datosCompromiso 
+                                             :form:tablaVS 
+                                              :form:fechaVencimiento
+                                                 :form:diasCalendario
+                                                 :form:diasHabiles
+                                                 :form:montosTotales1
+                                                 :form:montosTotales2
+                                                 :form:montosTotales3
+                                                 :form:datosCompromiso 
+                                                 :form:aeropuerto 
+                                                 :form:plazoContrato 
+                                                 :form:diasHabiles 
+                                                 :form:diasCalendario"
                                              actionListener="#{registrarAvanceInversionMB.limpiarTodo()}"
                                              style="width:80px" value="Limpiar"/>
                         </div>
