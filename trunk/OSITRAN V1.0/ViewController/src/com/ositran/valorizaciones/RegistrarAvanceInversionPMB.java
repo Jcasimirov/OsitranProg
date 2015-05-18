@@ -77,11 +77,11 @@ public class RegistrarAvanceInversionPMB {
     private int codigoInversionDescripcion;
     //*********************DATOS VALORIZACION********************//
     private int codMoneda;
-    private List<MonedaVO> listaMoneda= new ArrayList<>();
+    private List<MonedaVO> listaMoneda= new ArrayList<MonedaVO>();
     private int codigoInfraValSelecionado;
    
-    private List<InversionDescripcionVO> listaDescripcionTipoInversion=new ArrayList<>();
-    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO=new ArrayList<>();
+    private List<InversionDescripcionVO> listaDescripcionTipoInversion=new ArrayList<InversionDescripcionVO>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO=new ArrayList<ValorizacionInversionAvanceVO>();
     private Date inicioPeriodo;
     private Date finPeriodo;
     private BigDecimal montoPrestado;
@@ -107,14 +107,14 @@ public class RegistrarAvanceInversionPMB {
     ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl=new ValorizacionInversionAvanceServiceImpl();
     
     
-    List<InfraestructuraVO> listaInfraestructuras=new ArrayList<>();
-    List<InfraestructuraVO> listaInfraestructurasC=new ArrayList<>();
-    List<ValorizacionSupDetalleVO> listaValorizacionSup=new ArrayList<>();
-    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<>();
+    List<InfraestructuraVO> listaInfraestructuras=new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaInfraestructurasC=new ArrayList<InfraestructuraVO>();
+    List<ValorizacionSupDetalleVO> listaValorizacionSup=new ArrayList<ValorizacionSupDetalleVO>();
+    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService= new  ValorizacionInversionAvanceDetalleServiceImpl(); 
-    List<InversionVO> listaInversiones=new ArrayList<>();
-    List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
-    List<ContratoVO> listaContratos=new ArrayList<>();
+    List<InversionVO> listaInversiones=new ArrayList<InversionVO>();
+    List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<ContratoCompromisoVO>();
+    List<ContratoVO> listaContratos=new ArrayList<ContratoVO>();
   
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO= new  ValorizacionInversionAvanceDetalleVO();                                            
     @ManagedProperty(value = "#{inversionVO}")
@@ -267,13 +267,13 @@ public class RegistrarAvanceInversionPMB {
         }
     public void cargarAeropuertoValoracion(){
         if (codigoInfraestructura==111){
-            listaInfraestructurasC=new ArrayList<>();
+            listaInfraestructurasC=new ArrayList<InfraestructuraVO>();
                 for (InfraestructuraVO infraVO: listaInfraestructuras){
                         listaInfraestructurasC.add(infraVO);                        
                     }
             }
         else {
-                listaInfraestructurasC=new ArrayList<>();           
+                listaInfraestructurasC=new ArrayList<InfraestructuraVO>();           
             for (InfraestructuraVO infraVO: listaInfraestructuras){
                 if (infraVO.getInfId()==codigoInfraestructura){
                     listaInfraestructurasC.add(infraVO);
