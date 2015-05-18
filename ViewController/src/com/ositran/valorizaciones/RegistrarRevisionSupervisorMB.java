@@ -109,10 +109,10 @@ public class RegistrarRevisionSupervisorMB {
     private int codigoInversionDescripcion;
     //*********************DATOS VALORIZACION********************//
     private int codMoneda;
-    private List<MonedaVO> listaMoneda = new ArrayList<>();
+    private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private int codigoInfraValSelecionado;
-    private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<>();
-    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<>();
+    private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<InversionDescripcionVO>();
+    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<ValorizacionInversionAvanceDetalleVO>();
     private BigDecimal montoAjustado;
     private Date inicioPeriodo;
     private Date finPeriodo;
@@ -145,20 +145,20 @@ public class RegistrarRevisionSupervisorMB {
 
     InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO = new InvAvnSupervisadaDetalleVO();
     InvAvnSupervisadaDetalleService invAvnSupervisadaServiceDetalleImpl = new InvAvnSupervisadaDetalleServiceImpl();
-    List<InvAvnSupervisadaDetalleVO> listaInvAvnSupervisadaDetalle= new ArrayList<>();
+    List<InvAvnSupervisadaDetalleVO> listaInvAvnSupervisadaDetalle= new ArrayList<InvAvnSupervisadaDetalleVO>();
     
     
-    List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
-    List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<>();
-    List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<>();
+    List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+    List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<ValorizacionSupDetalleVO>();
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleService =
         new ValorizacionInversionAvanceDetalleServiceImpl();
 
     ValorizacionInversionAvanceDetalleServiceImpl valorizacionInversionAvanceDetalleServiceImpl =
         new ValorizacionInversionAvanceDetalleServiceImpl();
-    List<InversionVO> listaInversiones = new ArrayList<>();
-    List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
-    List<ContratoVO> listaContratos = new ArrayList<>();
+    List<InversionVO> listaInversiones = new ArrayList<InversionVO>();
+    List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+    List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
 
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO =
         new ValorizacionInversionAvanceDetalleVO();
@@ -169,7 +169,7 @@ public class RegistrarRevisionSupervisorMB {
     InvAvnDerivadaService invAvnDerivadaServiceImpl = new InvAvnDerivadaServiceImpl();
 
     ValorizacionInversionAvanceVO valorizacionInversionAvanceVO = new ValorizacionInversionAvanceVO();
-    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO = new ArrayList<>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO = new ArrayList<ValorizacionInversionAvanceVO>();
 
 
     @ManagedProperty(value = "#{inversionDescripcionVO}")
@@ -418,12 +418,12 @@ public class RegistrarRevisionSupervisorMB {
 
     public void cargarAeropuertoValoracion() {
         if (codigoInfraestructura == 111) {
-            listaInfraestructurasC = new ArrayList<>();
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
             for (InfraestructuraVO infraVO : listaInfraestructuras) {
                 listaInfraestructurasC.add(infraVO);
             }
         } else {
-            listaInfraestructurasC = new ArrayList<>();
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
             for (InfraestructuraVO infraVO : listaInfraestructuras) {
                 if (infraVO.getInfId() == codigoInfraestructura) {
                     listaInfraestructurasC.add(infraVO);
