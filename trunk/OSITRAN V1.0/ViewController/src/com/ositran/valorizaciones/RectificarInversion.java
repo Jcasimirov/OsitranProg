@@ -538,7 +538,7 @@ public class RectificarInversion {
         concesion = 0;
         modalidad = 0;
         listaContrato = null;
-        listaContrato = new ArrayList<>();
+        listaContrato = new ArrayList<ContratoVO>();
     }
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException {
