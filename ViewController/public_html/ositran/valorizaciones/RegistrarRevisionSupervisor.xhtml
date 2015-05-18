@@ -30,11 +30,14 @@
                                                    
                                                     Nro: <p:inputText value="#{registrarRevisionSupervisorMB.numero}"  style="width:60px"  />
                                                      <h:outputText style="color:White" value="nnn"/>
+                                                     
                                                     </td>
                                                   <td >Año: <p:inputText value="#{registrarRevisionSupervisorMB.anio}" style="width:60px" />
                                                     <p:commandButton image="ui-icon-search" 
                                                                      actionListener="#{registrarRevisionSupervisorMB.cargarDatosSDT()}"  
-                                                                     update=":form:datosSDT :form:mensaje"/>  </td>
+                                                                     update=":form:datosSDT :form:mensaje"/> 
+                                                                     <img src="../../images/obligatorio.gif"/>
+                                                                     </td>
                                                        
                                                    <td> <h:outputText style="color:White" value="nn"/>
                                                    Fecha Registro: <p:calendar value="#{registrarRevisionSupervisorMB.fechaRegistroSDT}" locale="es" styleClass="calendario"  /></td>
@@ -60,6 +63,7 @@
                                                                 actionListener="#{registrarRevisionSupervisorMB.cargarListaContratos}"
                                                                 
                                                                 />
+                                                                <img src="../../images/obligatorio.gif"/>
                                         <p:tooltip styleClass="tool" id="tool2" for="cargarContrato"
                                                           value="Cargar lista de contrato concesión"/>
                                                                
@@ -100,6 +104,7 @@
                                                                                                 update=":form:datosCompromiso :form:tablaLV" 
                                                                                                 listener="#{registrarRevisionSupervisorMB.cargarDatosCompromiso()}"  /> 
                                                                                     </p:selectOneMenu>
+                                                                                    <img src="../../images/obligatorio.gif"/>
 										</td>
 									</tr>
 									
@@ -110,9 +115,9 @@
 									</tr>
 									<tr>
 										<td align="left">Total:</td>
-										<td align="left" ><p:inputText value="#{registrarRevisionSupervisorMB.total}" size="10"></p:inputText></td>
+										<td align="left" ><p:inputText id="total" value="#{registrarRevisionSupervisorMB.total}" size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
-										<td align="left"><p:inputText value="#{registrarRevisionSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
+										<td align="left"><p:inputText id="nombreMoneda" value="#{registrarRevisionSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
@@ -171,7 +176,7 @@
                                    </table>                                                              
 				</p:fieldset>
                                 <br></br>
-                                <p:fieldset styleClass="fielsetinterno" legend="Resultado Supervición">
+                                <p:fieldset styleClass="fielsetinterno" id="Resultado" legend="Resultado Supervición">
 					<br></br>
 					<table>
                                             <tr>
@@ -185,6 +190,7 @@
                                                                                                 render="tablaDV12" 
                                                                                                 listener="#{registrarRevisionSupervisorMB.ocultarPanel()}"  /> 
                                                                                     </p:selectOneMenu>
+                                                                                    <img src="../../images/obligatorio.gif"/>
                                                  
                                                  
                                                  </td>
@@ -235,7 +241,7 @@
                                 <div class="negrita" align="right">
                                     
                                     <br></br>                                 
-                                   Total Total : <p:inputText id="total" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalTotal}" />
+                                   Total Total : <p:inputText id="total1" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalTotal}" />
                                 <br></br> 
                                     Total Revisado : <p:inputText id="totalAjustado" readonly="true" style="width:70px"  value="#{registrarRevisionSupervisorMB.totalRevisado}" />
                                 </div>
@@ -247,10 +253,6 @@
                                             </tr>                         	
 					</table>
 				</p:fieldset>
-                               
-                            
-                                
-                                
 				</td>
 			</tr>
                         
@@ -259,8 +261,8 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                                 <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
-                                    <p:commandButton style="width:80px" value="Limpiar"/>
+                                 <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
+                                    <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
             </p:layout>
