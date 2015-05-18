@@ -1796,10 +1796,10 @@
                                       </table>
                             </p:dialog>
                             <p:dialog widgetVar="popupAgregarInversion" header="Agregar Inversiones" 
-                                      modal="true" appendToBody="true" position="top" >
+                                      modal="true" appendToBody="true" position="top" width="400" >
                                 <h:form id="frmAgregarInversion" >
                                  
-                                    <table style="width:100%;font-size:11px;">
+                                    <table style="font-size:11px;">
                                         <tr>
                                             <td>Aeropuerto</td>
                                             <td>
@@ -1818,17 +1818,27 @@
                                         <tr>
                                             <td>Inversi&#243;n</td>
                                             <td>
-                                                <p:inputText id="descInversion" style="width:220px; height:50px;"
+                                                <p:inputText id="descInversion" style="width:100%;margin:1px;"
                                                                  value="#{actualizarContratoMB.contratoInversionVO.invDescripcion}"/>
                                             </td>
-                                        </tr>
+                                            <td>
+                                            <p:commandButton icon="ui-icon-check" style="width:25px;height:25px;" title="Verifica Nombre"
+                                            actionListener="#{actualizarContratoMB.validarNombreInversion()}" process="@this,descInversion" update="validaNombre"/>
+                                            </td></tr>
+                                            <tr>
+                                            <td></td>
+                                            <td><h:outputText id="validaNombre" value="#{actualizarContratoMB.mensajeInversionValida}" 
+                                            styleClass="#{actualizarContratoMB.cssInversionValida}"/>
+                                            </td>
+                                            </tr>
+                                       
                                         <tr> 
-                                        <td align="right" colspan="2">
+                                        <td align="right" colspan="3">
                                                 <p:commandButton id="btn_borrarTodo" value="Borrar Todo" 
                                                 actionListener="#{actualizarContratoMB.borrarTodasInversiones()}" 
                                                 update=":tab:frmAgregarInversion" rendered="#{actualizarContratoMB.updateInversiones?false:true}"/>
                                                 
-                                                <p:commandButton id="btn_reset" value="Limpiar Inversion" 
+                                                <p:commandButton id="btn_reset" value="Limpiar Inversión" 
                                                 actionListener="#{actualizarContratoMB.limpiarCamposyListaInversiones()}" 
                                                 update=":tab:frmAgregarInversion"  icon="ui-icon-trash"/>
                                            
@@ -1841,7 +1851,7 @@
                                         </td>
                                          </tr>
                                         <tr>
-                                            <td colspan="2">
+                                            <td colspan="3">
                                                 
                                                     <p:dataTable paginatorPosition="bottom"
                                                                  emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
@@ -1850,7 +1860,7 @@
                                                                  rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                                                  id="tablaContratoInversion"
                                                                  value="#{actualizarContratoMB.listContratoInversion}"
-                                                                 var="tInversion" style="width:300px !important;">
+                                                                 var="tInversion" >
                                                       
                                                         <p:column headerText="Inversion">
                                                             <h:outputText value="#{tInversion.invDescripcion}"/>
