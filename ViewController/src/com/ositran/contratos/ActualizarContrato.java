@@ -3125,7 +3125,7 @@ public class ActualizarContrato {
             String concatenado = contratoNuevoCompromisoVO.getCcoPlazo() + " " + plazoCompromisoIndicado;
             contratoNuevoCompromisoVO.setCcoPlazo(concatenado);
             if (incIgv == 0) {
-                contratoNuevoCompromisoVO.setCcoNeto(null);
+                /* contratoNuevoCompromisoVO.setCcoNeto(null); */
                 contratoNuevoCompromisoVO.setCcoIgv(null);
                 contratoNuevoCompromisoVO.setPorIgv(null);
             }
@@ -3280,11 +3280,11 @@ public class ActualizarContrato {
         try {
             contratoNuevoCompromisoSupervisadoVO.setTccTipo(Constantes.SUPERVISADOXOSITRAN);
             contratoNuevoCompromisoSupervisadoVO.setCcoEstado(1);
-            contratoNuevoCompromisoSupervisadoVO.setTivId(0);
+            /* contratoNuevoCompromisoSupervisadoVO.setTivId(0); */
             String concatenado = contratoNuevoCompromisoSupervisadoVO.getCcoPlazo() + " " + plazoCompromisoSupervisado;
             contratoNuevoCompromisoSupervisadoVO.setCcoPlazo(concatenado);
             if (incIgvSup == 0) {
-                contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null);
+                /* contratoNuevoCompromisoSupervisadoVO.setCcoNeto(null); */
                 contratoNuevoCompromisoSupervisadoVO.setCcoIgv(null);
                 contratoNuevoCompromisoSupervisadoVO.setPorIgv(null);
             }
