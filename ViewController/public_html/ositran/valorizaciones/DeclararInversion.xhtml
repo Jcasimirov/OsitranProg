@@ -89,16 +89,16 @@
               
                         <div align="center">
                             <div align="center">
-                                <h5 >DECLARAR INVERSION</h5>
+                                <h5 >DECLARAR INVERSIÓN</h5>
                             </div>
                             <table style="font-size: 11px;">
                                 <tr>
                                     <td valign="top">
                                         <p:fieldset legend="Datos Contrato Concesión">
                                             <p:fieldset id="fsCriterioBusqueda"  
-                                                        legend="Criterio de Busqueda" >
-                                                <p:inputText id="cb" style="width:200px;position:relative;float:left;"
-                                                             value="#{declararInversionMB.nombreConcesion}"/>
+                                                        legend="Critério de Búsqueda" >
+                                                <p:inputText id="cb" style="width:200px;position:relative;float:left;text-transform:uppercase"
+                                                             value="#{declararInversionMB.nombreConcesion}" onkeyup="pasarMayuscula(this.value,this.id)"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton icon="ui-icon-search" style="position:relative;float:left;"
                                                                  actionListener="#{declararInversionMB.abrirBuscarContratos()}"
@@ -134,7 +134,7 @@
                                                 </table>
                                             </p:fieldset>
                                             <p:fieldset  id="datosCompromiso"
-                                                        legend="ETAPA DE CONSECIÓN">
+                                                        legend="ETAPA DE CONCESIÓN">
                                                 <table>
                                                     <tr>
                                                         <td colspan="1" align="left">
@@ -160,7 +160,7 @@
                                                             <p:inputText value="#{declararInversionMB.contratoCompromisoVO.ccoPlazo}"
                                                                          style="text-align:right; width: 40px"
                                                                          readonly="true" size="10"/>
-                                                             Dia(s)
+                                                             Día(s)
                                                         </td>
                                                     </tr>
                                                      
@@ -243,9 +243,9 @@
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td align="left">Observaci&#243;n</td>
+                                                    <td align="left">Observaci&#243;n:</td>
                                                     <td align="left">
-                                                        <p:inputTextarea id="obsRecf" style="width:400px;"
+                                                        <p:inputTextarea id="obsRecf" style="width:400px;" style="text-transform:uppercase"
                                                                          onkeyup="pasarMayuscula(this.value,this.id)"
                                                                          value="#{declararInversionMB.invAvnVO.tiaObservaciones}"/>
                                                     </td>
@@ -407,7 +407,7 @@
                                             </p:fieldset>
                                             <table>
                                                 <tr>
-                                                    <td align="left">Numero de Informe</td>
+                                                    <td align="left">Número de Informe</td>
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroInforme}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
@@ -427,7 +427,7 @@
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td align="left">Numero de Oficio</td>
+                                                    <td align="left">Número de Oficio</td>
                                                     <td align="left" >
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroOficio}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>

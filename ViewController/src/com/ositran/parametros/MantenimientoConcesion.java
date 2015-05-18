@@ -50,8 +50,8 @@ public class MantenimientoConcesion {
     private int codigoTipoInfraestructuraInsert;
     private int codigoInfraestructura;
     private int codigoCarritoConcesion;
-    List<InfraestructuraVO> listaEliminarInfraestructura = new ArrayList<>();
-    List<InfraestructuraVO> listaAgregarInfraestructura = new ArrayList<>();
+    List<InfraestructuraVO> listaEliminarInfraestructura = new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaAgregarInfraestructura = new ArrayList<InfraestructuraVO>();
     private int codigoConcesionNuevo;
     private String nombreInfraestructuraNueva;
     private String nombreInfraestructura;
@@ -61,13 +61,13 @@ public class MantenimientoConcesion {
     List<InfraestructuraVO> listaInfraestructuras;
     List<InfraestructuraVO> listaInfraestructurasBD;
     List<InfraestructuraVO> lis;
-    private List<String> listaInfra = new ArrayList<>();
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
+    private List<String> listaInfra = new ArrayList<String>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
     private String nombreTipoInfra;
 
     Util util = new Util();
-    List<String> listaAgregarInfra = new ArrayList<>();
-    List<String> listaQuitarInfra = new ArrayList<>();
+    List<String> listaAgregarInfra = new ArrayList<String>();
+    List<String> listaQuitarInfra = new ArrayList<String>();
 
     @ManagedProperty(value = "#{concesionServicesImpl}")
     ConcesionServiceImpl concesionServicesImpl;

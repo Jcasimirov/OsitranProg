@@ -130,14 +130,14 @@ private int codigoInversion;
 
 // Listas
     
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
     private List<EmpresaSupervisoraVO> empresasSupervisoras ;
     private List<SupervisorInversionesVO> listarSupervisoresxInfraestructura;
-    private List<ContratoVO> listaContratos = new ArrayList<>();
-    private List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
-    private List<ContratoVO> listaContratosConcesion = new ArrayList<>();
-    private List<InfraestructuraVO> listaAeropuerto = new ArrayList<>();
-    private List<ContratoInversionVO> listaInversiones = new ArrayList<>();
+    private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
+    private List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<ContratoCompromisoVO>();
+    private List<ContratoVO> listaContratosConcesion = new ArrayList<ContratoVO>();
+    private List<InfraestructuraVO> listaAeropuerto = new ArrayList<InfraestructuraVO>();
+    private List<ContratoInversionVO> listaInversiones = new ArrayList<ContratoInversionVO>();
     
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     List<TipoDocumentoVO> listaTipoDocumento;
