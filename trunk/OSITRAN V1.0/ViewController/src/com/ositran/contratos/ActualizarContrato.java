@@ -152,7 +152,7 @@ public class ActualizarContrato {
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
     private List<ContratoInversionVO> listContratoInversion;
     private List<ContratoInversionVO> listContratoInversionD;
-    private HashMap<String,Object> inversionesIniciales=new HashMap<String,Object>();
+    private HashMap<String, Object> inversionesIniciales = new HashMap<String, Object>();
     private boolean disableCboAeropuerto;
     private boolean updateInversiones;
 
@@ -273,7 +273,7 @@ public class ActualizarContrato {
     private String nombrePpo2;
     //inversion
     private Integer infraestructuraId = 0;
-    
+
     private String nombreInversion;
     private Integer codigoInversion;
 
@@ -313,8 +313,11 @@ public class ActualizarContrato {
     private int periodoseleccionadoAlerta;
     private String conDiamesAlerta;
     private Date fechaMaxima;
-    
+
     private InfraestructuraVO infraestructuraVOE;
+    private String cssInversionValida;
+    private String mensajeInversionValida;
+
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
@@ -324,7 +327,7 @@ public class ActualizarContrato {
     public ActualizarContrato() {
         super();
         resetearCamposBuscarContratos();
-        
+
     }
 
     public void listarTiposAdendas() {
@@ -383,7 +386,8 @@ public class ActualizarContrato {
     }
 
     // Metodo para Filtrar la Lista de Concesión
-    /**Se filtrara siemrpre para tener solamente las concesiones 
+
+    /**Se filtrara siemrpre para tener solamente las concesiones
      * con el tipo de infraestructura del usuario que se logueo**/
     public void filtrarConcesion() {
         try {
@@ -408,26 +412,26 @@ public class ActualizarContrato {
         concesion = 0;
         fechaInicioSuscripcion = null;
         fechaFinSuscripcion = null;
-        concesionarioVO=new ConcesionarioVO();
-        contratoVO=new ContratoVO();
-        aplicaAvancedeObra=false;
-        periodoseleccionado=-1;
-        contratoAdendaVO=new ContratoAdendaVO();
-        contratoEntregaVO=new ContratoEntregaVO();
-        contratoCompromisoVO=new ContratoCompromisoVO();
-        contratoCaoVO=new ContratoCaoVO();
-        contratoHitoVO=new ContratoHitoVO();
-        contratoPpoVO=new ContratoPpoVO();
-        contratoAlertaVO=new ContratoAlertaVO();
-        contratoInversionVO=new ContratoInversionVO();
+        concesionarioVO = new ConcesionarioVO();
+        contratoVO = new ContratoVO();
+        aplicaAvancedeObra = false;
+        periodoseleccionado = -1;
+        contratoAdendaVO = new ContratoAdendaVO();
+        contratoEntregaVO = new ContratoEntregaVO();
+        contratoCompromisoVO = new ContratoCompromisoVO();
+        contratoCaoVO = new ContratoCaoVO();
+        contratoHitoVO = new ContratoHitoVO();
+        contratoPpoVO = new ContratoPpoVO();
+        contratoAlertaVO = new ContratoAlertaVO();
+        contratoInversionVO = new ContratoInversionVO();
     }
-   
-  
+
+
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
-    public void abrirBuscarContratos() {    
-        /**validacion para pintar la tabla del dialogo buscar 
+    public void abrirBuscarContratos() {
+        /**validacion para pintar la tabla del dialogo buscar
          * contrato siempre y cuendo se haya escrito en la caja de buscar contrato-concesion**/
-        if (nombreConcesion.length() != 0) {           
+        if (nombreConcesion.length() != 0) {
             buscarContratos();
         }
     }
@@ -436,14 +440,15 @@ public class ActualizarContrato {
         resetearCamposBuscarContratos();
         try {
             listaContrato =
-                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoInfraestructura,
-                                                                   concesion, fechaInicioSuscripcion,
-                                                                   fechaFinSuscripcion);
+                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),
+                                                                   tipoInfraestructura, concesion,
+                                                                   fechaInicioSuscripcion, fechaFinSuscripcion);
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
         }
     }
+
     public void seleccionarContrato(ActionEvent e) {
         contratoVO = (ContratoVO) e.getComponent().getAttributes().get("idcontrato");
         listarTiposMoneda();
@@ -452,7 +457,7 @@ public class ActualizarContrato {
         cargarListaContratoEntregas(contratoVO.getConId());
         cargarDatosAvanceReportedeObra();
 
-        cargarInfraestructurasxContratoConcesionSeleccionado(contratoVO.getConId());        
+        cargarInfraestructurasxContratoConcesionSeleccionado(contratoVO.getConId());
         cargarListaAlertas(contratoVO.getConId());
         cargarListaCaos(contratoVO.getConId());
         cargarListaHitos(contratoVO.getConId());
@@ -463,22 +468,23 @@ public class ActualizarContrato {
         listaContratoPenalidad(contratoVO.getConId());
         tabDeshabilitado = false;
         if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
-            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());           
+            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
             RequestContext.getCurrentInstance().update("tab:frmInversion:tablaContratoConcesionInversion");
-           
+
         }
     }
     // Metodo Para Listar Infraestructuras para Tab Alertas y Tab Inversiones
     public void cargarInfraestructurasxContratoConcesionSeleccionado(Integer contratoId) {
         try {
-            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);            
+            listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
             for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
                 infraestructurasCache.put("" + infraestructuraVO.getInfId(), infraestructuraVO);
-            }          
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void resetAvanceObra() {
         periodoseleccionado = -1;
         contratoVO.setConDiames(null);
@@ -503,40 +509,42 @@ public class ActualizarContrato {
      * contratoVO.conFicharesumen*/
     public void guardarContrato() {
 
-        if(aplicaAvancedeObra && periodoseleccionado == -1){
+        if (aplicaAvancedeObra && periodoseleccionado == -1) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "No ha seleccionado el Periodo"));
-        }else if (periodoseleccionado == 0 && contratoVO.getConDiames() == null) {
+        } else if (periodoseleccionado == 0 && contratoVO.getConDiames() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Día mes no puede ser vacio"));
-        } else if ((aplicaAvancedeObra && periodoseleccionado == 0)  && (contratoVO.getConDiames()!=null && !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
+        } else if ((aplicaAvancedeObra && periodoseleccionado == 0) &&
+                   (contratoVO.getConDiames() != null &&
+                    !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Día mes debe ser un numero mayor a 0 y menor a 31"));
 
-        }else if (contratoVO.getConPlazorevision() == null || contratoVO.getConPlazorevision()==0) {
+        } else if (contratoVO.getConPlazorevision() == null || contratoVO.getConPlazorevision() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "El Plazo de Revision no puede ser cero o vacio"));
-        } else if (contratoVO.getConFechaSuscripcion() == null ) {
+        } else if (contratoVO.getConFechaSuscripcion() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "La Fecha de Suscripcion no puede ser vacio"));
-        }else if (contratoVO.getConCantidadPlazoconcesion() == null ) {
+        } else if (contratoVO.getConCantidadPlazoconcesion() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "Ingrese el Plazo de concesion"));
-        }else if (contratoVO.getConPdfcontrato() == null || contratoVO.getConPdfcontrato().length()==0) {
+        } else if (contratoVO.getConPdfcontrato() == null || contratoVO.getConPdfcontrato().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "Adjunte un Contrato"));
-        }else if (contratoVO.getConFicharesumen() == null || contratoVO.getConFicharesumen().length()==0) {
+        } else if (contratoVO.getConFicharesumen() == null || contratoVO.getConFicharesumen().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
                                                                           "Adjunte una Ficha Resumen"));
-        }else {
+        } else {
             try {
                 contratoVO.setPerId(periodoseleccionado);
                 contratoVO.setConAvanceobra(aplicaAvancedeObra ? 1 : 0);
@@ -557,22 +565,21 @@ public class ActualizarContrato {
                 contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
                 contratoVO.setConFechaCambio(new Date());
                 contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
-                
+
                 if (periodoseleccionado != 0) {
                     contratoVO.setConDiames(null);
                 }
-                int calTipo=1;
-                ContratoAlertaVO alertaVO = prepararAlerta(contratoVO.getConFechaSuscripcion(), 
-                                                           periodoseleccionado, 
-                                                            
-                                                           contratoVO.getConDiames()!=null?contratoVO.getConDiames():0, 
-                                                           contratoVO.getConPlazoconcesion(), 
-                                                           contratoVO.getConId(), 
-                                                           contratoVO.getTinId(), 
-                                                           contratoVO.getCsiId(), 
-                                                           contratoVO.getMcoId(), 
-                                                           contratoVO.getNombreConcesionario(),
-                                                           calTipo);
+                int calTipo = 1;
+                ContratoAlertaVO alertaVO =
+                    prepararAlerta(contratoVO.getConFechaSuscripcion(),
+                                   periodoseleccionado,
+
+                                                           contratoVO.getConDiames() != null ?
+                                                           contratoVO.getConDiames() : 0,
+                                                                        contratoVO.getConPlazoconcesion(),
+                                                                        contratoVO.getConId(), contratoVO.getTinId(),
+                                                                        contratoVO.getCsiId(), contratoVO.getMcoId(),
+                                                                        contratoVO.getNombreConcesionario(), calTipo);
                 contratoConcesionServiceImp.updateContrato(contratoVO, alertaVO);
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -588,17 +595,10 @@ public class ActualizarContrato {
         }
     }
 
-    public ContratoAlertaVO prepararAlerta(Date fechaSuscripcion,
-                                           int periodoseleccionado,
-                                           
-                                           int diames,
-                                           Date plazoconcesion,
-                                           int conId,
-                                           int tinId,
-                                           int csiId,
-                                           int mcoId,
-                                           String nombreConcesionario,
-                                           int calTipo)throws Exception {
+    public ContratoAlertaVO prepararAlerta(Date fechaSuscripcion, int periodoseleccionado,
+
+                                           int diames, Date plazoconcesion, int conId, int tinId, int csiId, int mcoId,
+                                           String nombreConcesionario, int calTipo) throws Exception {
         try {
             ContratoAlertaVO alerta = new ContratoAlertaVO();
             /*fecha de inicio es igual a la fecha de suscripcion*/
@@ -612,8 +612,8 @@ public class ActualizarContrato {
                  * obtengo la cantidad de dias del periodo selccionado*/
                 cantidadDeDias = (Integer) periodosCache.get(periodoseleccionado);
                 /*Solo se calculara la fecha  solo cuando la opcion sea diferente de Especificar dias y --Seleccione--*/
-                System.out.println("contratoVO.getConFechaSuscripcion():" + fechaSuscripcion +
-                                   " cantidadDeDias:" + cantidadDeDias);
+                System.out.println("contratoVO.getConFechaSuscripcion():" + fechaSuscripcion + " cantidadDeDias:" +
+                                   cantidadDeDias);
                 Date fechaCalculada = fu.adicionaDias(fechaSuscripcion, cantidadDeDias, 0);
                 alerta.setCalFechaLimite(fechaCalculada);
                 alerta.setCalFechaFin(fechaCalculada);
@@ -627,8 +627,7 @@ public class ActualizarContrato {
                 /** para este caso se calcula la fecha de fin y fecha limite
                  * a partir de la fecha suscripcion y se cambia el dia por dia especifico**/
                 Date fechaplazoConcesionconDiaCambiado =
-                    Reutilizar.getNewInstance().cambiarDiaenFecha(fechaSuscripcion,
-                                                                  diames);
+                    Reutilizar.getNewInstance().cambiarDiaenFecha(fechaSuscripcion, diames);
                 alerta.setCalFechaFin(fechaplazoConcesionconDiaCambiado);
                 alerta.setCalFechaLimite(fechaplazoConcesionconDiaCambiado);
                 /*si escojo Especificar Dias el id del periodo sera cero*/
@@ -647,10 +646,10 @@ public class ActualizarContrato {
             alerta.setCalPlazo(plazoconcesion);
             alerta.setCaeId(1);
             alerta.setCalEstado(1);
-            
+
             alerta.setCalUsuarioAlta(usuario.getUsuNombre());
             alerta.setCalFechaAlta(new Date());
-            
+
             alerta.setCalCorreo(usuario.getUsuCorreo());
             return alerta;
 
@@ -670,13 +669,13 @@ public class ActualizarContrato {
     }
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException {
-        contratoVO.setConPdfcontrato("contrato"+contratoVO.getConId()+event.getFile().getFileName());
+        contratoVO.setConPdfcontrato("contrato" + contratoVO.getConId() + event.getFile().getFileName());
         contratoVO.setInputStreamContratoPDF(event.getFile().getInputstream());
 
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
-        contratoVO.setConFicharesumen("fichaResumen"+contratoVO.getConId()+event.getFile().getFileName());
+        contratoVO.setConFicharesumen("fichaResumen" + contratoVO.getConId() + event.getFile().getFileName());
         contratoVO.setInputStreamFichaResumen(event.getFile().getInputstream());
     }
 
@@ -702,9 +701,9 @@ public class ActualizarContrato {
     }
 
     public void cargarDatosAvanceReportedeObra() {
-        if(contratoVO.getConAvanceobra()!=null){
-        aplicaAvancedeObra = contratoVO.getConAvanceobra() == 1 ? true : false;
-        cargarPeriodo();
+        if (contratoVO.getConAvanceobra() != null) {
+            aplicaAvancedeObra = contratoVO.getConAvanceobra() == 1 ? true : false;
+            cargarPeriodo();
         }
     }
 
@@ -752,7 +751,7 @@ public class ActualizarContrato {
     }
 
     public void agregarAdenda() {
-        if (contratoNuevaAdendaVO.getCadNombre().length()==0) {
+        if (contratoNuevaAdendaVO.getCadNombre().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Nombre"));
@@ -760,7 +759,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Tipo de Adenda"));
-        } else if (contratoNuevaAdendaVO.getCadDescripcion().length()==0) {
+        } else if (contratoNuevaAdendaVO.getCadDescripcion().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Objeto"));
@@ -770,7 +769,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Fecha"));
-        } else if (contratoNuevaAdendaVO.getCadDocumentoFisico().length()==0) {
+        } else if (contratoNuevaAdendaVO.getCadDocumentoFisico().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado ningun documento"));
@@ -885,7 +884,7 @@ public class ActualizarContrato {
 
 
     public void subirAdenda(FileUploadEvent event) throws IOException {
-        contratoNuevaAdendaVO.setCadDocumentoFisico("adenda"+event.getFile().getFileName());
+        contratoNuevaAdendaVO.setCadDocumentoFisico("adenda" + event.getFile().getFileName());
         contratoNuevaAdendaVO.setInputStreamNuevaAdenda(event.getFile().getInputstream());
 
     }
@@ -990,11 +989,11 @@ public class ActualizarContrato {
     }
 
     public void agregarEntrega() {
-        if (contratoNuevaEntregaVO.getCenNombre().length()==0) {
+        if (contratoNuevaEntregaVO.getCenNombre().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Nombre"));
-        } else if (contratoNuevaEntregaVO.getCenDescripcion().length()==0) {
+        } else if (contratoNuevaEntregaVO.getCenDescripcion().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Descripcion"));
@@ -1002,7 +1001,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Fecha"));
-        } else if (contratoNuevaEntregaVO.getCenDocumentoFisico().length()==0) {
+        } else if (contratoNuevaEntregaVO.getCenDocumentoFisico().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado ningun documento"));
@@ -1019,7 +1018,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoNuevaEntregaVO.setCenFechaAlta(fechaActual);
                 contratoNuevaEntregaVO.setCenUsuarioAlta(usuario.getUsuAlias());
-                
+
 
                 /*FIN AUDITORIA*/
                 contratoEntregaServiceImpl.insert(contratoNuevaEntregaVO);
@@ -1055,7 +1054,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idEntregaEliminar.setCenFechaBaja(fechaActual);
             idEntregaEliminar.setCenUsuarioBaja(usuario.getUsuAlias());
-            
+
             /*FIN AUDITORIA*/
             contratoEntregaServiceImpl.update(idEntregaEliminar);
             listarEntregas.remove(idEntregaEliminar);
@@ -1074,7 +1073,7 @@ public class ActualizarContrato {
     }
 
     public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
-        contratoNuevaEntregaVO.setCenDocumentoFisico("entrega"+event.getFile().getFileName());
+        contratoNuevaEntregaVO.setCenDocumentoFisico("entrega" + event.getFile().getFileName());
         contratoNuevaEntregaVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
 
     }
@@ -1082,7 +1081,7 @@ public class ActualizarContrato {
 
     public void subirArchivoCao(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoCAO = "cao"+event.getFile().getFileName();
+        documentoCAO = "cao" + event.getFile().getFileName();
         contratoCaoVO.setFileCao(event.getFile().getInputstream());
         System.out.println("documentoCAO: " + documentoCAO);
 
@@ -1090,7 +1089,7 @@ public class ActualizarContrato {
 
     public void subirArchivoHito(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoHito = "hito"+event.getFile().getFileName();
+        documentoHito = "hito" + event.getFile().getFileName();
         getContratoHitoVO().setHtoPdf(documentoHito);
         getContratoHitoVO().setFileHito(event.getFile().getInputstream());
         System.out.println("documentoHito: " + documentoHito);
@@ -1099,7 +1098,7 @@ public class ActualizarContrato {
 
     public void subirArchivoPpo(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoPpo = "ppo"+event.getFile().getFileName();
+        documentoPpo = "ppo" + event.getFile().getFileName();
         getContratoPpoVO().setFilePpo(event.getFile().getInputstream());
         System.out.println("documentoPpo: " + documentoPpo);
 
@@ -1556,44 +1555,77 @@ public class ActualizarContrato {
     public void setInfraestructuraId(Integer infraestructuraId) {
         this.infraestructuraId = infraestructuraId;
     }
-    /**Por defecto en el DAO se actualiza las inversiones con el inv_estado 0 
+
+    public void validarNombreInversion() {
+        try {
+            if (contratoInversionVO.getInvDescripcion() == null ||
+                contratoInversionVO.getInvDescripcion().length() == 0) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "No ha ingresado el Nombre de la Inversion"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            } else {
+                boolean noExiste =
+                    contratoInversionServiceImpl.validaNoExisteNombreInversion(contratoVO.getConId(),
+                                                                               contratoVO.getCsiId(),
+                                                                               contratoVO.getTinId(),
+                                                                               contratoInversionVO.getInfId(),
+                                                                               contratoInversionVO.getInvDescripcion().trim().toUpperCase());
+                if (noExiste) {
+                    mensajeInversionValida = "El nombre de la Inversión es Válida";
+                    cssInversionValida = "inversionValida";
+                } else {
+                    mensajeInversionValida = "El nombre de la Inversión ya Existe Ingrese Otra";
+                    cssInversionValida = "inversionInValida";
+                }
+            }
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+
+    }
+
+    /**Por defecto en el DAO se actualiza las inversiones con el inv_estado 0
      * luego con las listas de insert y update
      * se actualizan o insertan los objetos con el inv_estado 1**/
     public void guardarContratoInversion() {
         Date fechaActual = new Date();
-                    try {
-                        for (ContratoInversionVO inv : listContratoInversion) {
-                            /**Lista para objetos para Update con inv_id lleno**/
-                            if(inv.getInvId()!=null){
-                                /*AUDITORIA*/
-                                inv.setInvFechaCambio(fechaActual);
-                                inv.setInvUsuarioCambio(usuario.getUsuAlias());
-                                /*FIN AUDITORIA*/                                   
-                                
-                            }else{                  
-                                /**Lista para objetos a Insertar con inv_id vacio**/
-                                /*FIN AUDITORIA*/
-                                inv.setInvFechaAlta(fechaActual);
-                                inv.setInvUsuarioAlta(usuario.getUsuAlias());
-                                /*FIN AUDITORIA*/
-                                
-                            }  
-                        }
-                    String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
-                    cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
-                    RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
-                    } catch (Exception s) {
-                        FacesContext.getCurrentInstance().addMessage(null,
-                                                                     new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                                      " No se pudo registrar la Inversion "));
+        try {
+            for (ContratoInversionVO inv : listContratoInversion) {
+                /**Lista para objetos para Update con inv_id lleno**/
+                if (inv.getInvId() != null) {
+                    /*AUDITORIA*/
+                    inv.setInvFechaCambio(fechaActual);
+                    inv.setInvUsuarioCambio(usuario.getUsuAlias());
+                    /*FIN AUDITORIA*/
 
-                    } 
-       
+                } else {
+                    /**Lista para objetos a Insertar con inv_id vacio**/
+                    /*FIN AUDITORIA*/
+                    inv.setInvFechaAlta(fechaActual);
+                    inv.setInvUsuarioAlta(usuario.getUsuAlias());
+                    /*FIN AUDITORIA*/
+
+                }
+            }
+            String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
+            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+            RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
+        } catch (Exception s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          " No se pudo registrar la Inversion "));
+
+        }
+
     }
-    public void cargarEliminarInfraestructura(ActionEvent event){
-        infraestructuraVOE=(InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+
+    public void cargarEliminarInfraestructura(ActionEvent event) {
+        infraestructuraVOE = (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
     }
-    public void eliminarInfraestructura(){
+
+    public void eliminarInfraestructura() {
         try {
             String eliminar =
                 contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
@@ -1609,124 +1641,147 @@ public class ActualizarContrato {
             sqle.printStackTrace();
         }
     }
+
     /**Al Abrir dialogo inversiones setea el objeto**/
-    public void cargarNuevasInversiones(){
+    public void cargarNuevasInversiones() {
         infraestructuraId = 0;
-        contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO = new ContratoInversionVO();
         contratoInversionVO.setConId(contratoVO.getConId());
         contratoInversionVO.setTinId(contratoVO.getTinId());
         contratoInversionVO.setCsiId(contratoVO.getCsiId());
         contratoInversionVO.setInfId(0);
-        contratoInversionVO.setInvEstado(1);   
-        listContratoInversion=new ArrayList<ContratoInversionVO>();
-        disableCboAeropuerto=false;
-        updateInversiones=false;
+        contratoInversionVO.setInvEstado(1);
+        listContratoInversion = new ArrayList<ContratoInversionVO>();
+        disableCboAeropuerto = false;
+        updateInversiones = false;
         filtrarInfraestructurasSinInversiones();
-        
+        mensajeInversionValida = "";
+        cssInversionValida = "";
     }
-    public void borrarTodasInversiones(){
+
+    public void borrarTodasInversiones() {
         infraestructuraId = 0;
-        contratoInversionVO=new ContratoInversionVO();
+        contratoInversionVO = new ContratoInversionVO();
         contratoInversionVO.setInfId(0);
-        listContratoInversion=new ArrayList<ContratoInversionVO>(); 
-        disableCboAeropuerto=updateInversiones?true:false;
+        listContratoInversion = new ArrayList<ContratoInversionVO>();
+        disableCboAeropuerto = updateInversiones ? true : false;
+        mensajeInversionValida = "";
+        cssInversionValida = "";
     }
-    public void limpiarCamposyListaInversiones(){      
+
+    public void limpiarCamposyListaInversiones() {
         contratoInversionVO.setInvDescripcion("");
-        if(updateInversiones){
+        if (updateInversiones) {
             contratoInversionVO.setInfId(infraestructuraId);
-            disableCboAeropuerto=true;
+            disableCboAeropuerto = true;
         }
+        mensajeInversionValida = "";
+        cssInversionValida = "";
     }
 
     /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
     public void cargarInfraestructurasxContratoInversion(Integer concesionId) {
         try {
-            listaInfraestructuraConInversion=infraestructuraServiceImpl.getInfraestructurasInversion(concesionId);
+            listaInfraestructuraConInversion = infraestructuraServiceImpl.getInfraestructurasInversion(concesionId);
             filtrarInfraestructurasSinInversiones();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void filtrarInfraestructurasSinInversiones(){
-        HashMap<String,Object> mapp=new HashMap<String,Object>();
-        listaInfraestructuraCBO=new ArrayList<InfraestructuraVO>();
+
+    public void filtrarInfraestructurasSinInversiones() {
+        HashMap<String, Object> mapp = new HashMap<String, Object>();
+        listaInfraestructuraCBO = new ArrayList<InfraestructuraVO>();
         for (InfraestructuraVO infconinv : listaInfraestructuraConInversion) {
-            mapp.put(""+infconinv.getInfId(), infconinv);           
+            mapp.put("" + infconinv.getInfId(), infconinv);
         }
         for (InfraestructuraVO inf : listaInfraestructura) {
-            /**infraestructurasCache tiene todas las infraestructuras de la concesion 
+            /**infraestructurasCache tiene todas las infraestructuras de la concesion
              * en el contrato seleccionado**/
-            /**Se valida si la infraestructura con inversion  
-             * no esta en el total de infraestructuras de la 
-             * concesion en el contrato seleccionado**/            
-            if((mapp.get(""+inf.getInfId()) ==null))
-                    listaInfraestructuraCBO.add(inf);        
+
+            /**Se valida si la infraestructura con inversion
+             * no esta en el total de infraestructuras de la
+             * concesion en el contrato seleccionado**/
+            if ((mapp.get("" + inf.getInfId()) == null))
+                listaInfraestructuraCBO.add(inf);
         }
-      
+
     }
+
     /**II.EDITAR INVERSIONES DE UNA INFRAESTRUCTURA
-     * Se carga al Seleccionar una Infraestructura de la concesion del contrato seleccionado: 
+     * Se carga al Seleccionar una Infraestructura de la concesion del contrato seleccionado:
      * 1.Carga las inversiones que tiene asignada segun Ids:
      *   Contrato, tipo de infraestructura y la Concesion
      * 2.Se muestra el Dialogo con la lista de Inversiones**/
     public void cargarListaInversiones(ActionEvent event) {
-    try {
-        InfraestructuraVO infraestructuraSeleccionada=(InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
-        infraestructuraId = infraestructuraSeleccionada.getInfId(); 
-        listaInfraestructuraCBO=(List<InfraestructuraVO>)Reutilizar.getNewInstance().copy(listaInfraestructuraConInversion);
-        contratoInversionVO=new ContratoInversionVO();
-        contratoInversionVO.setConId(contratoVO.getConId());
-        contratoInversionVO.setTinId(contratoVO.getTinId());
-        contratoInversionVO.setCsiId(contratoVO.getCsiId());
-        contratoInversionVO.setInvEstado(1);   
-        System.out.println("contratoVO.getTinId()"+contratoVO.getTinId());
-        contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
-        disableCboAeropuerto=true;
-        updateInversiones=true;         
-        listContratoInversion = contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),infraestructuraSeleccionada.getTinId(),infraestructuraSeleccionada.getCsiId(),infraestructuraSeleccionada.getInfId());            
-       for (ContratoInversionVO inversion : listContratoInversion) {
-            inversionesIniciales.put(""+inversion.getInvId(), inversion);
-       }
+        try {
+            InfraestructuraVO infraestructuraSeleccionada =
+                (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+            infraestructuraId = infraestructuraSeleccionada.getInfId();
+            listaInfraestructuraCBO =
+                (List<InfraestructuraVO>) Reutilizar.getNewInstance().copy(listaInfraestructuraConInversion);
+            contratoInversionVO = new ContratoInversionVO();
+            contratoInversionVO.setConId(contratoVO.getConId());
+            contratoInversionVO.setTinId(contratoVO.getTinId());
+            contratoInversionVO.setCsiId(contratoVO.getCsiId());
+            contratoInversionVO.setInvEstado(1);
+            System.out.println("contratoVO.getTinId()" + contratoVO.getTinId());
+            contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
+            disableCboAeropuerto = true;
+            updateInversiones = true;
+            mensajeInversionValida = "";
+            cssInversionValida = "";
+            listContratoInversion =
+                contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),
+                                                                infraestructuraSeleccionada.getTinId(),
+                                                                infraestructuraSeleccionada.getCsiId(),
+                                                                infraestructuraSeleccionada.getInfId());
+            for (ContratoInversionVO inversion : listContratoInversion) {
+                inversionesIniciales.put("" + inversion.getInvId(), inversion);
+            }
         } catch (Exception s) {
             s.printStackTrace();
-        } 
+        }
     }
-    /**III.Carga el nombre de la infraestructura 
+
+    /**III.Carga el nombre de la infraestructura
      * mediante Ajax al seleccionar del combo**/
-    public void cargarDescripcionInfraestructuraEnContratoInversion(){
-        String nombreInfraestructura= ((InfraestructuraVO)infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();                                
+    public void cargarDescripcionInfraestructuraEnContratoInversion() {
+        String nombreInfraestructura =
+            ((InfraestructuraVO) infraestructurasCache.get(contratoInversionVO.getInfId().toString())).getInfNombre();
         contratoInversionVO.setInfNombre(nombreInfraestructura);
     }
+
     /**IV.AGREGA NUEVA INVERSION A LA INFRAESTRUCTURA
-     * y valida que se ingrese correctamente 
+     * y valida que se ingrese correctamente
      * a la Lista de inversiones Temporal **/
-    public void preAgregarInversion(){
-            disableCboAeropuerto=true;  
-            infraestructuraId=contratoInversionVO.getInfId();
+    public void preAgregarInversion() {
+        mensajeInversionValida = "";
+        cssInversionValida = "";
+        disableCboAeropuerto = true;
+        infraestructuraId = contratoInversionVO.getInfId();
         if (contratoInversionVO.getInfId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Infraestructura"));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }
-        else if (contratoInversionVO.getInvDescripcion()==null || contratoInversionVO.getInvDescripcion().length()== 0) {
+        } else if (contratoInversionVO.getInvDescripcion() == null ||
+                   contratoInversionVO.getInvDescripcion().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Nombre de la Inversion"));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }else{ 
-            listContratoInversion.add(contratoInversionVO);            
-            contratoInversionVO=new ContratoInversionVO();
+        } else {
+            listContratoInversion.add(contratoInversionVO);
+            contratoInversionVO = new ContratoInversionVO();
             contratoInversionVO.setConId(contratoVO.getConId());
             contratoInversionVO.setTinId(contratoVO.getTinId());
             contratoInversionVO.setCsiId(contratoVO.getCsiId());
             contratoInversionVO.setInfId(infraestructuraId);
-            contratoInversionVO.setInvEstado(1);   
+            contratoInversionVO.setInvEstado(1);
         }
     }
-   
-   
+
 
     public ContratoInversionVO getContratoInversionVO() {
         return contratoInversionVO;
@@ -1752,7 +1807,7 @@ public class ActualizarContrato {
         this.listContratoInversion = listContratoInversion;
     }
 
-   
+
     public List<InfraestructuraVO> getListarInfraestructura() {
         return listarInfraestructura;
     }
@@ -1815,27 +1870,29 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
     }
-    public void refrescarDiaMesAlerta(){
-        if(periodoseleccionadoAlerta!=0 && periodoseleccionadoAlerta!=-1)
-            conDiamesAlerta=null;
+
+    public void refrescarDiaMesAlerta() {
+        if (periodoseleccionadoAlerta != 0 && periodoseleccionadoAlerta != -1)
+            conDiamesAlerta = null;
     }
+
     public void guardarAlerta() {
-        int conDiames=0;
-        if(conDiamesAlerta!=null && conDiamesAlerta.length()!=0){
-            conDiames=Integer.parseInt(conDiamesAlerta);
-            if(!(conDiames>0 && conDiames<31)){
+        int conDiames = 0;
+        if (conDiamesAlerta != null && conDiamesAlerta.length() != 0) {
+            conDiames = Integer.parseInt(conDiamesAlerta);
+            if (!(conDiames > 0 && conDiames < 31)) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                               "El Dia mes debe ser un numero mayor que 0 y menor a 31"));
                 return;
             }
         }
-        if (infId != null && infId.length()==0) {
+        if (infId != null && infId.length() == 0) {
             System.out.print("nombAeropuerto" + infId);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Aeropuerto"));
-        } else if (descAlerta.length()==0) {
+        } else if (descAlerta.length() == 0) {
             System.out.print("descAlerta" + descAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -1850,47 +1907,42 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Fecha Final"));
-        }else if (plazoAlerta==0) {
+        } else if (plazoAlerta == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "El Plazo no puede ser cero"));
-        }else if (unidadTiempo==0) {
+        } else if (unidadTiempo == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado Mes o Año"));
-        }else if (periodoseleccionadoAlerta==-1) {
+        } else if (periodoseleccionadoAlerta == -1) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Periodo"));
-        }else if (periodoseleccionadoAlerta==0 &&  (conDiamesAlerta==null || conDiamesAlerta.length()==0)) {
+        } else if (periodoseleccionadoAlerta == 0 && (conDiamesAlerta == null || conDiamesAlerta.length() == 0)) {
             System.out.print("diaPresAlerta: " + conDiamesAlerta);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "Ingrese Numero mayor a cero y menor a 31"));
         } else {
             try {
-                int calTipo=4;
-                contratoAlertaVO=prepararAlerta(fechaIniAlerta, 
-                                                periodoseleccionadoAlerta, 
-                                                
-                                                conDiames, 
-                                                fechaFinAlerta, 
-                                                contratoVO.getConId(), 
-                                                contratoVO.getTinId(), 
-                                                contratoVO.getCsiId(), 
-                                                contratoVO.getMcoId(), 
-                                                contratoVO.getNombreConcesionario(),
-                                                calTipo);
-                               
-                
-                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
-                    InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId))); 
+                int calTipo = 4;
+                contratoAlertaVO =
+                    prepararAlerta(fechaIniAlerta, periodoseleccionadoAlerta,
+
+                                                  conDiames, fechaFinAlerta, contratoVO.getConId(),
+                                   contratoVO.getTinId(), contratoVO.getCsiId(), contratoVO.getMcoId(),
+                                   contratoVO.getNombreConcesionario(), calTipo);
+
+
+                if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
+                    InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + infId)));
                     contratoAlertaVO.setCalAeropuerto(inf.getInfNombre());
                     contratoAlertaVO.setInfId(inf.getInfId());
                     contratoAlertaVO.setCsiId(inf.getCsiId());
                     contratoAlertaVO.setTinId(inf.getTinId());
                 }
-                   
+
                 contratoAlertaVO.setAleNombre(descAlerta);
                 contratoAlertaVO.setCalNombreconcesion(descAlerta);
                 contratoAlertaVO.setCalCantidadPlazo(plazoAlerta);
@@ -1929,7 +1981,7 @@ public class ActualizarContrato {
         fechaFinAlerta = new Date();
         descAlerta = null;
         unidadTiempo = 0;
-        periodoseleccionadoAlerta=-1;
+        periodoseleccionadoAlerta = -1;
     }
 
     public int getPlazoAlerta() {
@@ -2048,13 +2100,13 @@ public class ActualizarContrato {
     }
 
     public void activarAlerta(ActionEvent event) throws SQLException {
-        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("alerta");       
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("alerta");
         contratoAlertaVO.setCalEstado(1);
         /* AUDITORIA*/
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaCambio(fechaActual);
         contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
         contratoAlertaServiceImpl.update(contratoAlertaVO);
         cargarListaAlertas(contratoVO.getConId());
@@ -2069,9 +2121,9 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaCambio(fechaActual);
         contratoAlertaVO.setCalUsuarioCambio(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
-        
+
         contratoAlertaServiceImpl.update(contratoAlertaVO);
         cargarListaAlertas(contratoVO.getConId());
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Activo la Alerta");
@@ -2085,7 +2137,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoAlertaVO.setCalFechaBaja(fechaActual);
         contratoAlertaVO.setCalUsuarioBaja(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
         contratoAlertaServiceImpl.update(contratoAlertaVO);
 
@@ -2122,7 +2174,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoCaoVO.setCaoFechaBaja(fechaActual);
         contratoCaoVO.setCaoUsuarioBaja(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
         contratoCaoServiceImpl.update(contratoCaoVO);
         System.out.println("### FIN ELIMINAR CAO");
@@ -2140,7 +2192,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoHitoVO.setHtoFechaBaja(fechaActual);
         contratoHitoVO.setHtoUsuarioBaja(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
         getContratoHitoServiceImpl().update(getContratoHitoVO());
         System.out.println("### FIN ELIMINAR HITO");
@@ -2159,7 +2211,7 @@ public class ActualizarContrato {
         Date fechaActual = new Date();
         contratoPpoVO.setPpoFechaBaja(fechaActual);
         contratoPpoVO.setPpoUsuarioBaja(usuario.getUsuAlias());
-        
+
         /*FIN AUDITORIA*/
         getContratoPpoServiceImpl().update(getContratoPpoVO());
         System.out.println("### FIN ELIMINAR PPO");
@@ -2169,7 +2221,7 @@ public class ActualizarContrato {
     }
 
     public void cargarActivarAlerta(ActionEvent event) throws SQLException {
-        contratoAlertaVO = (ContratoAlertaVO)event.getComponent().getAttributes().get("contratoAlertaA");
+        contratoAlertaVO = (ContratoAlertaVO) event.getComponent().getAttributes().get("contratoAlertaA");
     }
 
     public void cargarDesactivarAlerta(ActionEvent event) throws SQLException {
@@ -2367,7 +2419,7 @@ public class ActualizarContrato {
     public void guardarCAO() {
         System.out.println("############# INI GUARDAR CAO");
 
-        if (nombreCAO.length()==0) {
+        if (nombreCAO.length() == 0) {
             System.out.println("nombreCAO: " + nombreCAO);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2388,7 +2440,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No se ha seleccionado la Moneda"));
-        } else if (documentoCAO.length()==0) {
+        } else if (documentoCAO.length() == 0) {
             System.out.println("documentoCAO: " + documentoCAO);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2420,7 +2472,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoCaoVO.setCaoFechaAlta(fechaActual);
                 contratoCaoVO.setCaoUsuarioAlta(usuario.getUsuAlias());
-                
+
                 /*FIN AUDITORIA*/
                 contratoCaoServiceImpl.insert(contratoCaoVO);
                 System.out.println("guardo ok");
@@ -2457,7 +2509,7 @@ public class ActualizarContrato {
 
     public void guardarPpo() {
         System.out.println("############# INI GUARDAR Ppo");
-        if (nombrePpo.length()==0) {
+        if (nombrePpo.length() == 0) {
             System.out.println("nombrePpo: " + nombrePpo);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2477,7 +2529,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Moneda"));
-        } else if (documentoPpo.length()==0) {
+        } else if (documentoPpo.length() == 0) {
             System.out.println("documentoPpo: " + documentoPpo);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2492,17 +2544,17 @@ public class ActualizarContrato {
                 getContratoPpoVO().setPpoMonto(montoPpo);
                 getContratoPpoVO().setMonId(monedaPpoId);
                 getContratoPpoVO().setPpoFecha(fechaPpo);
-                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
-                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombrePpo))); 
+                if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
+                    InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombrePpo)));
                     getContratoPpoVO().setPpoNombre(inf.getInfNombre());
                 }
-                
+
                 getContratoPpoVO().setPpoArchivoPdf(documentoPpo);
                 /*AUDITORIA*/
                 Date fechaActual = new Date();
                 contratoPpoVO.setPpoFechaAlta(fechaActual);
                 contratoPpoVO.setPpoUsuarioAlta(usuario.getUsuAlias());
-                
+
                 /*FIN AUDITORIA*/
                 getContratoPpoServiceImpl().insert(getContratoPpoVO());
                 cargarListaPpos(contratoVO.getConId());
@@ -2533,7 +2585,7 @@ public class ActualizarContrato {
     }
 
     public void guardarHito() {
-        if (nombreHito!=null && nombreHito.length()==0) {
+        if (nombreHito != null && nombreHito.length() == 0) {
             System.out.println("nombreHito: " + nombreHito);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2553,7 +2605,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha selecionado la Moneda"));
-        } else if (documentoHito.length()==0) {
+        } else if (documentoHito.length() == 0) {
             System.out.println("documentoHito: " + documentoHito);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -2568,9 +2620,9 @@ public class ActualizarContrato {
                 contratoHitoVO.setHtoMonto(montoHito);
                 contratoHitoVO.setMonId(monedaHitoId);
                 contratoHitoVO.setHtoFecha(fechaHito);
-                if(tipoInfraestructura==Constantes.TIPINFAEROPUERTOS){
-                InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombreHito))); 
-                contratoHitoVO.setHtoNombre(inf.getInfNombre());
+                if (tipoInfraestructura == Constantes.TIPINFAEROPUERTOS) {
+                    InfraestructuraVO inf = ((InfraestructuraVO) (infraestructurasCache.get("" + nombreHito)));
+                    contratoHitoVO.setHtoNombre(inf.getInfNombre());
                 }
                 contratoHitoVO.setHtoPdf(documentoHito);
                 /*AUDITORIA*/
@@ -2603,8 +2655,8 @@ public class ActualizarContrato {
 
 
     public void actualizarHito() {
-        if (contratoHitoVO.getHtoNombre()!=null && contratoHitoVO.getHtoNombre().length()==0) {
-             FacesContext.getCurrentInstance().addMessage(null,
+        if (contratoHitoVO.getHtoNombre() != null && contratoHitoVO.getHtoNombre().length() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Aeropuerto"));
         } else if (contratoHitoVO.getHtoFecha() == null) {
@@ -2619,13 +2671,13 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha selecionado la Moneda"));
-        } else if (contratoHitoVO.getHtoPdf().length()==0) {
+        } else if (contratoHitoVO.getHtoPdf().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Documento"));
         } else {
             try {
-                 if (getContratoHitoVO().getFileHito() != null) {
+                if (getContratoHitoVO().getFileHito() != null) {
                     Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAHITO +
                                                                         contratoHitoVO.getHtoPdf(),
                                                                         getContratoHitoVO().getFileHito());
@@ -2636,7 +2688,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoHitoVO.setHtoFechaCambio(fechaActual);
                 contratoHitoVO.setHtoUsuarioCambio(usuario.getUsuAlias());
-                
+
                 /*FIN AUDITORIA*/
                 getContratoHitoServiceImpl().update(getContratoHitoVO());
                 cargarListaHitos(contratoVO.getConId());
@@ -2991,11 +3043,11 @@ public class ActualizarContrato {
 
     public void grabarContratoCompromisoIndicado() {
 
-        if (contratoNuevoCompromisoVO.getCcoPeriodo().length()==0) {
+        if (contratoNuevoCompromisoVO.getCcoPeriodo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Periodo/Etapa"));
-        } else if (contratoNuevoCompromisoVO.getCcoAlcance().length()==0) {
+        } else if (contratoNuevoCompromisoVO.getCcoAlcance().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Alcance"));
@@ -3008,11 +3060,11 @@ public class ActualizarContrato {
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Tipo de Moneda"));
         } else if (contratoNuevoCompromisoVO.getCcoTotal() == null ||
-                   contratoNuevoCompromisoVO.getCcoTotal().compareTo(BigDecimal.ZERO)==0) {
+                   contratoNuevoCompromisoVO.getCcoTotal().compareTo(BigDecimal.ZERO) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Valor Total"));
-        } else if (contratoNuevoCompromisoVO.getCcoPlazo().length()==0) {
+        } else if (contratoNuevoCompromisoVO.getCcoPlazo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Plazo"));
@@ -3047,7 +3099,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             contratoNuevoCompromisoVO.setCcoFechaAlta(fechaActual);
             contratoNuevoCompromisoVO.setCcoUsuarioAlta(usuario.getUsuAlias());
-            
+
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.insert(contratoNuevoCompromisoVO);
             listarContratoCompromiso.add(contratoNuevoCompromisoVO);
@@ -3149,11 +3201,11 @@ public class ActualizarContrato {
     }
 
     public void grabarContratoCompromisoSupervisado() {
-        if (contratoNuevoCompromisoSupervisadoVO.getCcoPeriodo().length()==0) {
+        if (contratoNuevoCompromisoSupervisadoVO.getCcoPeriodo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Periodo/Etapa"));
-        } else if (contratoNuevoCompromisoSupervisadoVO.getCcoAlcance().length()==0) {
+        } else if (contratoNuevoCompromisoSupervisadoVO.getCcoAlcance().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Alcance"));
@@ -3165,7 +3217,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Valor Total"));
-        } else if (contratoNuevoCompromisoSupervisadoVO.getCcoPlazo().length()==0) {
+        } else if (contratoNuevoCompromisoSupervisadoVO.getCcoPlazo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Plazo"));
@@ -3237,7 +3289,7 @@ public class ActualizarContrato {
             Date fechaActual = new Date();
             idCompromisoEliminarS.setCcoFechaBaja(fechaActual);
             idCompromisoEliminarS.setCcoUsuarioBaja(usuario.getUsuAlias());
-            
+
             /*FIN AUDITORIA*/
             contratoCompromisoServiceImpl.update(idCompromisoEliminarS);
             listarContratoCompromisoSupervisado.remove(idCompromisoEliminarS);
@@ -3399,7 +3451,7 @@ public class ActualizarContrato {
     }
 
     public void grabarContratoPenalidad() {
-        if (contratoNuevaPenalidadVO.getTcpMotivo().length()==0) {
+        if (contratoNuevaPenalidadVO.getTcpMotivo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado la Etapa"));
@@ -3420,7 +3472,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado el Estado"));
-        } else if (contratoNuevaPenalidadVO.getTcpDocumentoFisico().length()==0) {
+        } else if (contratoNuevaPenalidadVO.getTcpDocumentoFisico().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado ningun documento"));
@@ -3434,7 +3486,7 @@ public class ActualizarContrato {
                 Date fechaActual = new Date();
                 contratoNuevaPenalidadVO.setTcpFechaAlta(fechaActual);
                 contratoNuevaPenalidadVO.setTcpUsuarioAlta(usuario.getUsuAlias());
-                
+
                 /*FIN AUDITORIA*/
                 contratoPenalidadServiceImpl.insert(contratoNuevaPenalidadVO);
                 listarContratoPenalidad.add(contratoNuevaPenalidadVO);
@@ -3509,7 +3561,7 @@ public class ActualizarContrato {
     }
 
     public void subirArchivoPenalidad(FileUploadEvent event) throws IOException {
-        contratoNuevaPenalidadVO.setTcpDocumentoFisico("penalidad"+event.getFile().getFileName());
+        contratoNuevaPenalidadVO.setTcpDocumentoFisico("penalidad" + event.getFile().getFileName());
         contratoNuevaPenalidadVO.setInputStreamNuevaPenalidad(event.getFile().getInputstream());
 
     }
@@ -3669,7 +3721,7 @@ public class ActualizarContrato {
     }
 
     public Date getFechaMaxima() {
-      fechaMaxima=  new Date();
+        fechaMaxima = new Date();
         return fechaMaxima;
     }
 
@@ -3728,5 +3780,21 @@ public class ActualizarContrato {
 
     public InfraestructuraVO getInfraestructuraVOE() {
         return infraestructuraVOE;
+    }
+
+    public void setMensajeInversionValida(String mensajeInversionValida) {
+        this.mensajeInversionValida = mensajeInversionValida;
+    }
+
+    public String getMensajeInversionValida() {
+        return mensajeInversionValida;
+    }
+
+    public void setCssInversionValida(String cssInversionValida) {
+        this.cssInversionValida = cssInversionValida;
+    }
+
+    public String getCssInversionValida() {
+        return cssInversionValida;
     }
 }
