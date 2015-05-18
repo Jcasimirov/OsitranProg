@@ -34,7 +34,7 @@ public class OpcionesSistemaMB {
     private String descripcionE;
     private int formulario;
     private int codigoMenu;
-    private List<MenVO> listaOpcionesSistema= new ArrayList<>();
+    private List<MenVO> listaOpcionesSistema= new ArrayList<MenVO>();
     
     private String nombre;
     private String descripcion;
