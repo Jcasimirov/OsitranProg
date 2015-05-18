@@ -1556,7 +1556,7 @@ public class ActualizarContrato {
         this.infraestructuraId = infraestructuraId;
     }
 
-    public void validarNombreInversion() {
+    /*    public void validarNombreInversion() {
         try {
             if (contratoInversionVO.getInvDescripcion() == null ||
                 contratoInversionVO.getInvDescripcion().length() == 0) {
@@ -1584,45 +1584,61 @@ public class ActualizarContrato {
             e.printStackTrace();
         }
 
-    }
+    } */
 
     /**Por defecto en el DAO se actualiza las inversiones con el inv_estado 0
      * luego con las listas de insert y update
      * se actualizan o insertan los objetos con el inv_estado 1**/
     public void guardarContratoInversion() {
-        Date fechaActual = new Date();
-        try {
-            for (ContratoInversionVO inv : listContratoInversion) {
-                /**Lista para objetos para Update con inv_id lleno**/
-                if (inv.getInvId() != null) {
-                    /*AUDITORIA*/
-                    inv.setInvFechaCambio(fechaActual);
-                    inv.setInvUsuarioCambio(usuario.getUsuAlias());
-                    /*FIN AUDITORIA*/
-
-                } else {
-                    /**Lista para objetos a Insertar con inv_id vacio**/
-                    /*FIN AUDITORIA*/
-                    inv.setInvFechaAlta(fechaActual);
-                    inv.setInvUsuarioAlta(usuario.getUsuAlias());
-                    /*FIN AUDITORIA*/
-
-                }
-            }
-            String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
-            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
-            RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
-        } catch (Exception s) {
+        if(listContratoInversion.size()==0){
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo registrar la Inversion "));
+                                                                          " Agregue al menos una Inversion "));
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }else{
+            Date fechaActual = new Date();
+            try {
+                for (ContratoInversionVO inv : listContratoInversion) {
+                    /**Lista para objetos para Update con inv_id lleno**/
+                    if (inv.getInvId() != null) {
+                        /*AUDITORIA*/
+                        inv.setInvFechaCambio(fechaActual);
+                        inv.setInvUsuarioCambio(usuario.getUsuAlias());
+                        /*FIN AUDITORIA*/
+
+                    } else {
+                        /**Lista para objetos a Insertar con inv_id vacio**/
+                        /*FIN AUDITORIA*/
+                        inv.setInvFechaAlta(fechaActual);
+                        inv.setInvUsuarioAlta(usuario.getUsuAlias());
+                        /*FIN AUDITORIA*/
+
+                    }
+                }
+                String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
+                cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+                RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
+            } catch (Exception s) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                              " No se pudo registrar la Inversion "));
+
+            }
 
         }
-
+        
     }
 
     public void cargarEliminarInfraestructura(ActionEvent event) {
-        infraestructuraVOE = (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+        try {
+            infraestructuraVOE = (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+            contratoInversionServiceImpl.query();
+            RequestContext.getCurrentInstance().execute("popupEliminarInversion.show();");
+            RequestContext.getCurrentInstance().update("tab:frmAgregarInversion");
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        }
     }
 
     public void eliminarInfraestructura() {
@@ -1760,18 +1776,27 @@ public class ActualizarContrato {
         cssInversionValida = "";
         disableCboAeropuerto = true;
         infraestructuraId = contratoInversionVO.getInfId();
-        if (contratoInversionVO.getInfId() == 0) {
+        boolean existe=validaSiExisteEnMemoria(contratoInversionVO.getInvDescripcion());
+        if(existe){            
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "La inversion ya existe ingrese otra"));
+            RequestContext.getCurrentInstance().update("tab:form:mensaje");
+        }else  if (contratoInversionVO.getInfId() == 0) {
+            disableCboAeropuerto = false;
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha seleccionado la Infraestructura"));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         } else if (contratoInversionVO.getInvDescripcion() == null ||
                    contratoInversionVO.getInvDescripcion().length() == 0) {
+ 
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                                                                           "No ha ingresado el Nombre de la Inversion"));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         } else {
+
             listContratoInversion.add(contratoInversionVO);
             contratoInversionVO = new ContratoInversionVO();
             contratoInversionVO.setConId(contratoVO.getConId());
@@ -1781,7 +1806,16 @@ public class ActualizarContrato {
             contratoInversionVO.setInvEstado(1);
         }
     }
-
+    public boolean validaSiExisteEnMemoria(String descripcionnueva){
+        boolean flag=false;
+        for (ContratoInversionVO cinv : listContratoInversion) {
+           if((descripcionnueva.trim().toUpperCase()).equals(cinv.getInvDescripcion()))
+                flag=true;
+                
+       }       
+        return flag;
+            
+    }
 
     public ContratoInversionVO getContratoInversionVO() {
         return contratoInversionVO;
