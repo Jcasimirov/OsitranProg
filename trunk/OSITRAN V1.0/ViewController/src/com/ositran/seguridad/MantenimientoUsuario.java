@@ -54,9 +54,9 @@ public class MantenimientoUsuario {
     private String usuContrasenya;
     private String usuNombre;
     private int usuEstado;
-    private List<RolVO> listaRoles = new ArrayList<>();
-    private List<RolVO> listaRoles1 = new ArrayList<>();
-    private List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<>();
+    private List<RolVO> listaRoles = new ArrayList<RolVO>();
+    private List<RolVO> listaRoles1 = new ArrayList<RolVO>();
+    private List<InfraestructuraTipoVO> listaTipoInfraestructura = new ArrayList<InfraestructuraTipoVO>();
     private int codigoROl;
     private int codigoROl1;
     private int codigoROl2;
