@@ -174,20 +174,20 @@ public class MantenimientoContratEmprSupervisor {
     private List<ContratoSupervisoraVO> listarEntregas = new ArrayList<ContratoSupervisoraVO>();
     private List<ContratoAdendaVO> listContratoAdenda = new ArrayList<ContratoAdendaVO>();
     private List<AdendaTipoVO> listarAdendasTipo = new ArrayList<AdendaTipoVO>();
-    private List<MonedaVO> listaMoneda = new ArrayList<>();
-    private List<MonedaVO> listaMoneda1 = new ArrayList<>();
-    private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
-    private List<InfraestructuraVO> listaInfraestructurasE = new ArrayList<>();
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
-    private List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<>();
-    private List<ContratoVO> listaContratos = new ArrayList<>();
-    private List<ContratoVO> listaContratosE = new ArrayList<>();
-    private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
-    private List<ContratoCompromisoVO> listaContratoCompromisoE = new ArrayList<>();
+    private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
+    private List<MonedaVO> listaMoneda1 = new ArrayList<MonedaVO>();
+    private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraVO> listaInfraestructurasE = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<InfraestructuraTipoVO>();
+    private List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<ContratoSupervisoraVO>();
+    private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
+    private List<ContratoVO> listaContratosE = new ArrayList<ContratoVO>();
+    private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+    private List<ContratoCompromisoVO> listaContratoCompromisoE = new ArrayList<ContratoCompromisoVO>();
     private List<EmpresaSupervisoraVO> listaEmpresaSup;
     private List<EmpresaSupervisoraVO> listaEmpresaSupE;
-    private List<ContratoSupervisoraAdendaVO> listaAdenda = new ArrayList<>();
-    private List<ContratoSupervisoraAdendaVO> listaAdenda1 = new ArrayList<>();
+    private List<ContratoSupervisoraAdendaVO> listaAdenda = new ArrayList<ContratoSupervisoraAdendaVO>();
+    private List<ContratoSupervisoraAdendaVO> listaAdenda1 = new ArrayList<ContratoSupervisoraAdendaVO>();
     Util util = new Util();
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
@@ -661,9 +661,9 @@ public class MantenimientoContratEmprSupervisor {
         t_conce = "";
         t_tinfra = "";
         t_modconc = "";
-        listaInfraestructuras = new ArrayList<>();
+        listaInfraestructuras = new ArrayList<InfraestructuraVO>();
         nombreMoneda = "";
-        listaContratoCompromiso = new ArrayList<>();
+        listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
         plazo = "";
         total = new BigDecimal("0");
         codigoMoneda = 0;
@@ -679,7 +679,7 @@ public class MantenimientoContratEmprSupervisor {
         cpsCaducidad = "";
         cpsGarantias = "";
         cenDocumentoFisico = "";
-        listaAdenda = new ArrayList<>();
+        listaAdenda = new ArrayList<ContratoSupervisoraAdendaVO>();
 
     }
     //-- fin limpiar campos--//

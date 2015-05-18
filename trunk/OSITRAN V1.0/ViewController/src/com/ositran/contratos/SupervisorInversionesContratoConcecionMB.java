@@ -51,10 +51,10 @@ public class SupervisorInversionesContratoConcecionMB {
     private int codigoContratoP;
     private ContratoSubInversionesVO contratoSupInversionesVO= new ContratoSubInversionesVO();
     private ContratoSupInversiones contratoSupInversiones= new ContratoSupInversiones();
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<>();
-    private List<ContratoVO> listaContratos=new ArrayList<>();
-    private List<SupervisorInversionesVO> listaSupervisor=new ArrayList<>();
-    private List<ContratoSubInversionesVO> listaContratoSupervisor = new ArrayList<>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipo=new ArrayList<InfraestructuraTipoVO>();
+    private List<ContratoVO> listaContratos=new ArrayList<ContratoVO>();
+    private List<SupervisorInversionesVO> listaSupervisor=new ArrayList<SupervisorInversionesVO>();
+    private List<ContratoSubInversionesVO> listaContratoSupervisor = new ArrayList<ContratoSubInversionesVO>();
     private  Infraestructura infraestructura = new Infraestructura();
     
     @ManagedProperty(value = "#{contratoSubInversionesServiceImpl}")

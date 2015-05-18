@@ -151,12 +151,12 @@ private Integer codigoInversion;
 
 // Listas
     
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
     private List<EmpresaSupervisoraVO> empresasSupervisoras ;
     private List<SupervisorInversionesVO> listarSupervisoresxInfraestructura;
-    private List<ContratoVO> listaContratos = new ArrayList<>();
-    private List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<>();
-    private List<ContratoVO> listaContratosConcesion = new ArrayList<>();
+    private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
+    private List<ContratoCompromisoVO> listaContratoCompromiso=new ArrayList<ContratoCompromisoVO>();
+    private List<ContratoVO> listaContratosConcesion = new ArrayList<ContratoVO>();
     List<EmpresaSupervisoraVO> listaEmpresasSup=new ArrayList<EmpresaSupervisoraVO>();
     List<TipoDocumentoVO> listaTipoDocumento;
     List<HashMap<String, Object>>  listaResponsables=new ArrayList<HashMap<String, Object>>();
@@ -805,7 +805,7 @@ private Integer codigoInversion;
                 total="";
                 nombreMoneda = "";           
                 nombreEmpresaSupervisora = "";
-                listaAeropuerto = new ArrayList<>();
+                listaAeropuerto = new ArrayList<InfraestructuraVO>();
                 listaInversionesContrato = new ArrayList<ContratoInversionVO>();
                 listaAeropuerto = infraestructuraServiceImpl.query1(contratoVO.getCsiId());
                 listaDetalleAsignacion = asignarResponsableSupervisionServiceImpl.ListarDetalle(codigoContrato,contratoCompromisoSeleccionado,codigoAeropuerto,codigoInversion);

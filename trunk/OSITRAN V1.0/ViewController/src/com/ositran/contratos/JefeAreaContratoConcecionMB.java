@@ -51,9 +51,9 @@ public class JefeAreaContratoConcecionMB {
     private int codigoConcesion;
     private int codigoContratoP;
     private int codigoContrato;
-    private List<ContratoVO> listaContratos = new ArrayList<>();
-    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<>();
-    private List<ContratoJefeAreaVO> listaJefeArea = new ArrayList<>();
+    private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
+    private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<InfraestructuraTipoVO>();
+    private List<ContratoJefeAreaVO> listaJefeArea = new ArrayList<ContratoJefeAreaVO>();
 
     @ManagedProperty(value = "#{contratoJefeAreaVO}")
     ContratoJefeAreaVO contratoJefeAreaVO;

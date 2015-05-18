@@ -29,8 +29,8 @@ public class Logueo {
     
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
-    private List<UsuarioVO> listaUsuario= new ArrayList<>();
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
+    private List<UsuarioVO> listaUsuario= new ArrayList<UsuarioVO>();
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<RolOpcionesVO>();
     private String password;
     private int codigoRol;
     private String usuario;
