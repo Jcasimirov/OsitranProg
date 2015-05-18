@@ -1759,7 +1759,7 @@
                                                         <center>
                                                             <p:commandButton actionListener="#{actualizarContratoMB.cargarListaInversiones}"
                                                             update=":tab:frmAgregarInversion" oncomplete="popupAgregarInversion.show();"
-                                                            image="ui-icon-pencil" style="width:25px;height:25px;" title="Ver Inversiones">
+                                                            image="ui-icon-pencil" style="width:25px;height:25px;" title="Editar Inversiones">
                                                                 <f:attribute name="tinfra" value="#{tinfra}"/>
                                                             </p:commandButton>
                                                         </center>
@@ -1768,8 +1768,8 @@
                                                         <center>
                                                             <p:commandButton 
                                                             actionListener="#{actualizarContratoMB.cargarEliminarInfraestructura}"
-                                                            update=":tab:frmAgregarInversion" 
-                                                            oncomplete="popupEliminarInversion.show();"
+                                                           
+                                                            
                                                             image="ui-icon-trash" style="width:25px;height:25px;" title="Eliminar">
                                                                 <f:attribute name="tinfra" value="#{tinfra}"/>
                                                             </p:commandButton>
@@ -1819,17 +1819,9 @@
                                             <td>Inversi&#243;n</td>
                                             <td>
                                                 <p:inputText id="descInversion" style="width:100%;margin:1px;"
-                                                                 value="#{actualizarContratoMB.contratoInversionVO.invDescripcion}"/>
+                                                                 value="#{actualizarContratoMB.contratoInversionVO.invDescripcion}" onkeyup="pasarMayuscula(this.value,this.id)"/>
                                             </td>
-                                            <td>
-                                            <p:commandButton icon="ui-icon-check" style="width:25px;height:25px;" title="Verifica Nombre"
-                                            actionListener="#{actualizarContratoMB.validarNombreInversion()}" process="@this,descInversion" update="validaNombre"/>
-                                            </td></tr>
-                                            <tr>
-                                            <td></td>
-                                            <td><h:outputText id="validaNombre" value="#{actualizarContratoMB.mensajeInversionValida}" 
-                                            styleClass="#{actualizarContratoMB.cssInversionValida}"/>
-                                            </td>
+                                          
                                             </tr>
                                        
                                         <tr> 
