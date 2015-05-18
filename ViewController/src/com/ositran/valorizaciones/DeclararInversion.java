@@ -124,13 +124,13 @@ public class DeclararInversion {
 
     @ManagedProperty(value = "#{notificacionServiceImpl}")
     private NotificacionServiceImpl notificacionServiceImpl;
-    private List<InvAvnVO> listaInvAvnVO = new ArrayList<>();
+    private List<InvAvnVO> listaInvAvnVO = new ArrayList<InvAvnVO>();
     @ManagedProperty(value = "#{invAvnVO}")
     private InvAvnVO invAvnVO;
 
     @ManagedProperty(value = "#{inversionAvanceEstadoServiceImpl}")
     private InversionAvanceEstadoServiceImpl inversionAvanceEstadoServiceImpl;
-    private List<InvAvnEstadoVO> listaInvAvnEstadoVO = new ArrayList<>();
+    private List<InvAvnEstadoVO> listaInvAvnEstadoVO = new ArrayList<InvAvnEstadoVO>();
 
     @ManagedProperty(value = "#{invServiceImpl}")
     private InvServiceImpl invServiceImpl;
@@ -286,7 +286,7 @@ public class DeclararInversion {
         concesion = 0;
         modalidad = 0;
         setListaContrato(null);
-        listaContrato = new ArrayList<>();
+        listaContrato = new ArrayList<ContratoVO>();
     }
 
     public void resetearCamposBuscarContratos() {
