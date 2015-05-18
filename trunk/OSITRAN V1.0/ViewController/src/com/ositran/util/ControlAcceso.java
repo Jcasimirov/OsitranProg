@@ -19,8 +19,8 @@ public class ControlAcceso {
     public static ControlAcceso newInstance;   
     private HttpServletRequest httpServletRequest = null;
     private FacesContext faceContext = null;
-    private List<RolOpcionesVO> listaRolOpciones = new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios = new ArrayList<>();
+    private List<RolOpcionesVO> listaRolOpciones = new ArrayList<RolOpcionesVO>();
+    private List<UsuarioVO> listaUsuarios = new ArrayList<UsuarioVO>();
     private boolean parametroValidacion = false;
 
     public RolOpcionesVO validarSesion(int formulario) throws IOException {
