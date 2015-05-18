@@ -165,7 +165,7 @@ public class JefeAreaContratoConcecionMB {
         try {
             if (tipoInfraestructura == 0){
                     FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error","Debe seleccionar tipo infraestructura");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso","Debe seleccionar tipo infraestructura");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             else {
@@ -213,16 +213,16 @@ public class JefeAreaContratoConcecionMB {
                 }
             if (decicion){
                     FacesMessage mensaje =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe deshabilitar el jefe de area actual");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe deshabilitar al jefe de área actual");
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
            else  if (tipoInfraestructura == 0) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar el tipo de infraestructura");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe selecionar el tipo de infraestructura");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else if (codigoConcesion == 0) {
                 FacesMessage mensaje =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe selecionar un contrato");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe selecionar un contrato");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
 
@@ -236,7 +236,7 @@ public class JefeAreaContratoConcecionMB {
                 contratoJefeAreaVO.setTinId(tipoInfraestructuraC);
                 contratoJefeAreaServiceImpl.insert(contratoJefeAreaVO);
                 listarJefeAreaContrato();
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registró con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 limpiar(); 
             }
