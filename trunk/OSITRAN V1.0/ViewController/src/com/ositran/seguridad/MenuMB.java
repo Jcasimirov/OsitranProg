@@ -32,9 +32,9 @@ public class MenuMB {
     private MenuModel model;
     private  HttpServletRequest httpServletRequest=null;
     private  FacesContext faceContext=null;
-    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<>();
-    private List<MenVO> listaMenu=new ArrayList<>();
-    private List<UsuarioVO> listaUsuarios=new ArrayList<>();
+    private List<RolOpcionesVO> listaRolOpciones=new ArrayList<RolOpcionesVO>();
+    private List<MenVO> listaMenu=new ArrayList<MenVO>();
+    private List<UsuarioVO> listaUsuarios=new ArrayList<UsuarioVO>();
     private int padre;
     
     
