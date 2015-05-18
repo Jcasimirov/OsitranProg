@@ -25,7 +25,7 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
-                                <h4 style="color: #003194;">MANTENIMIENTO DE CONTRATO DE EMPRESA SUPERVISORA</h4>
+                                <h4 style="color: #003194;">MANTENIMIENTO DE CONTRATO DE EMPRESA SUPERVISORA <h:outputText rendered="#{regValorizacionSupervisionMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /></h4>
                             </div>
                             <div align="center">
                                 <table style="width:80% ;font-size:11px;">
@@ -140,7 +140,7 @@
                 <!-- REGISTRAR CONTRATO EMPRESA SUPERVISORA-->
                 <p:dialog id="dialogRegConEmpSup" header="REGISTRAR" widgetVar="dialogRegConEmpSup" height="500px" width="1050px">
                     <div align="center">
-                        <h5 class="titulo5">REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA</h5>
+                        <h5 class="titulo5">REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA <h:outputText rendered="#{regValorizacionSupervisionMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /></h5>
                     </div>
                     <table style="font-size:11px;" >
                         <tr>
@@ -239,6 +239,45 @@
                                                                  value="#{manteContEmprSupervisora.t_modconc}"></p:inputText>
                                                 </td>
                                             </tr>
+                                            
+                                            <tr rendered="#{regValorizacionSupervisionMB.tipoInfraestructuraGlobal eq 2}" > 
+                                                        <td>
+                                                            <h:outputText value="Aeropuerto" rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}" />
+                                                        </td>
+                                                        <td>
+                                                            
+                                                            <p:selectOneMenu style="width:180px" rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}"
+                                                                             value="#{manteContEmprSupervisora.codigoInfraestructura}"
+                                                                             id="aeropuerto">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{manteContEmprSupervisora.listaInfraestructuras}"
+                                                                               var="tip" itemLabel="#{tip.infNombre}" itemValue="#{tip.infId}"/>
+                                                                <p:ajax event="valueChange" update=":form:lista"
+                                                                        listener="#{manteContEmprSupervisora.cargarInversion()}"/>
+                                                                <f:selectItem itemLabel="-Otros-" itemValue="111"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                        </td>                                                    
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td >
+                                                            <h:outputText value="Inversiones" rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}" />
+                                                        </td>
+                                                        <td>
+                                                        
+                                                            <p:selectOneMenu style="width:180px" id="lista" rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}"
+                                                                             value="#{regValorizacionSupervisionMB.codigoInversion}">
+                                                                <f:selectItem itemLabel="-Selecione-" itemValue="0"/>
+                                                                <f:selectItems value="#{manteContEmprSupervisora.listaInversiones}"
+                                                                               var="tip1"
+                                                                               itemLabel="#{tip1.invDescripcion}"
+                                                                               itemValue="#{tip1.invId}"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                        </td>                                                    
+                                                    </tr>
+                                            
                                              
                                             
                                         </table>
