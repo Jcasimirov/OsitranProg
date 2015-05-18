@@ -96,9 +96,9 @@ public class DerivarReconocimientoSupervisorMB {
     private int codigoInversionDescripcion;
     //*********************DATOS VALORIZACION********************//
     private int codMoneda;
-    private List<MonedaVO> listaMoneda = new ArrayList<>();
+    private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private int codigoInfraValSelecionado;
-    private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<>();
+    private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<InversionDescripcionVO>();
     private Date inicioPeriodo;
     private Date finPeriodo;
     private BigDecimal montoPrestado;
@@ -140,19 +140,19 @@ public class DerivarReconocimientoSupervisorMB {
         new ValorizacionInversionAvanceDetalleServiceImpl();
     ValorizacionInversionAvanceServiceImpl valorizacionInversionAvanceServiceImpl =
         new ValorizacionInversionAvanceServiceImpl();
-    List<TipoRevisionVO> listaTipoRevision = new ArrayList<>();
+    List<TipoRevisionVO> listaTipoRevision = new ArrayList<TipoRevisionVO>();
     TipoRevisionService tipoRevisionService = new TipoRevisionServiceImpl();
     DerivarReconocimientoSupervisorVO derivarReconocimientoSupervisorVO = new DerivarReconocimientoSupervisorVO();
     DerivarReconocimientoSupervisorService derivarReconocimientoServiceImpl =
         new DerivarReconocimientoSupervisorServiceImpl();
-    List<InfraestructuraVO> listaInfraestructuras = new ArrayList<>();
-    List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<>();
-    List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<>();
-    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<>();
-    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO = new ArrayList<>();
-    List<InversionVO> listaInversiones = new ArrayList<>();
-    List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<>();
-    List<ContratoVO> listaContratos = new ArrayList<>();
+    List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
+    List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+    List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<ValorizacionSupDetalleVO>();
+    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO = new ArrayList<ValorizacionInversionAvanceVO>();
+    List<InversionVO> listaInversiones = new ArrayList<InversionVO>();
+    List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
+    List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
 
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO =
         new ValorizacionInversionAvanceDetalleVO();
@@ -238,10 +238,10 @@ public class DerivarReconocimientoSupervisorMB {
     EmpresaSupervisoraVO empresaSupervisoraVO = new EmpresaSupervisoraVO();
     EmpresaSupervisoraService empresaSupervisoraService = new EmpresaSupervisoraServiceImpl();
 
-    private List<SupervisorInversionesVO> listaSupervisor = new ArrayList<>();
-    private List<EmpresaSupervisoraVO> listaEmpresaSupervisora = new ArrayList<>();
+    private List<SupervisorInversionesVO> listaSupervisor = new ArrayList<SupervisorInversionesVO>();
+    private List<EmpresaSupervisoraVO> listaEmpresaSupervisora = new ArrayList<EmpresaSupervisoraVO>();
     
-    List<ContratoResSupDetalleVO>  listaContratoDetalle=new ArrayList<>();
+    List<ContratoResSupDetalleVO>  listaContratoDetalle=new ArrayList<ContratoResSupDetalleVO>();
     AsignarResponsableSupervisionServiceImpl asignarResponsableSupervisionServiceImpl=new AsignarResponsableSupervisionServiceImpl();
     
     ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();
@@ -477,12 +477,12 @@ public class DerivarReconocimientoSupervisorMB {
 
     public void cargarAeropuertoValoracion() {
         if (codigoInfraestructura == 111) {
-            listaInfraestructurasC = new ArrayList<>();
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
             for (InfraestructuraVO infraVO : listaInfraestructuras) {
                 listaInfraestructurasC.add(infraVO);
             }
         } else {
-            listaInfraestructurasC = new ArrayList<>();
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
             for (InfraestructuraVO infraVO : listaInfraestructuras) {
                 if (infraVO.getInfId() == codigoInfraestructura) {
                     listaInfraestructurasC.add(infraVO);
