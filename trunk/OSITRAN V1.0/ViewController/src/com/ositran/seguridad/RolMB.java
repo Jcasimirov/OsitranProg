@@ -43,14 +43,14 @@ public class RolMB {
     private String buscar;
     private List<MenVO> listaMenSeleccionado;
     private List<MenVO> listaMenSeleccionado2;
-    private List<MenVO> listaMenNueva=new ArrayList<>();
+    private List<MenVO> listaMenNueva=new ArrayList<MenVO>();
     private List<RolOpcionesVO> listaRolOpciones;
     private int codigoRol;
 
     //*******EDITAR************************//
     private List<MenVO> listaMenE;
-    private List<MenVO> listaMenNuevaE=new ArrayList<>();
-    private List<MenVO> listaMenSeleccionadoE=new ArrayList<>();
+    private List<MenVO> listaMenNuevaE=new ArrayList<MenVO>();
+    private List<MenVO> listaMenSeleccionadoE=new ArrayList<MenVO>();
     private List<MenVO> listaMenSeleccionadoE2;
     private Boolean actualizarBE;
     private Boolean leerBE;
