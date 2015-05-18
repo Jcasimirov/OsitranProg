@@ -416,7 +416,8 @@ public class RegistrarValorizacionSupervision {
             try {
                 valorizacionSupVO.setTvsHr(Integer.parseInt(nrohr));
                 valorizacionSupVO.setTvsAnyo(Integer.parseInt(añohr));
-                valorizacionSupVO.setTvsFechaRegistro(new Date(freg));
+                SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+                valorizacionSupVO.setTvsFechaRegistro(dt1.parse(freg));
                 valorizacionSupVO.setTvsAsunto(asuntohr);
                 valorizacionSupVO.setTvsNeto(tvsNeto);
                 valorizacionSupVO.setTvsIgv(tvsIgv);
