@@ -60,13 +60,14 @@ import javax.faces.context.FacesContext;
 public class RegistrarValorizacionSupervision {
     public final int formulario = 35;
     private RolOpcionesVO rolOpcion;
-    
+    private int tipoInfraestructuraGlobal;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
     
     
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
     }
@@ -122,6 +123,7 @@ public class RegistrarValorizacionSupervision {
     private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
     private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
     private List<InfraestructuraTipoVO> listaInfraestructuraTipos = new ArrayList<InfraestructuraTipoVO>();
     private List<InversionVO> listaInversiones = new ArrayList<InversionVO>();
     private List<SupervisorInversionesVO> listaSupervisor = new ArrayList<SupervisorInversionesVO>();
@@ -129,6 +131,7 @@ public class RegistrarValorizacionSupervision {
     private List<ValorizacionConceptoVO> listaConcepto = new ArrayList<ValorizacionConceptoVO>();
     private List<ContratoCompromisoVO> listaContratoCompromiso = new ArrayList<ContratoCompromisoVO>();
     private List<ValorizacionSupDetalleVO> listaValorizacion = new ArrayList<ValorizacionSupDetalleVO>();
+    
     
     MonedaVO monedaVO = new MonedaVO();
     SupervisorInversionesVO supervisorInversionesVO = new SupervisorInversionesVO();
@@ -219,7 +222,6 @@ public class RegistrarValorizacionSupervision {
             t_tinfra = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
             listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
-            
             supervisorInversionesVO = supervisorInversionesServiceImpl.get(codigoTipoInfra);
             nomSupervisor=supervisorInversionesVO.getTsiNombre();
             codigoSupervisor=supervisorInversionesVO.getTsiId();
@@ -235,18 +237,37 @@ public class RegistrarValorizacionSupervision {
 
     public void cargarInversion() {
         try {
-            
-            infraestructuraVO=infraestructuraServiceImpl.get2(infraestructuraSeleccionada);
-            infraestructura.setCsiId(infraestructuraVO.getCsiId());
-            infraestructura.setInfId(infraestructuraVO.getInfId());
-            infraestructura.setTinId(infraestructuraVO.getTinId()); 
-            listaInversiones=inversionServiceImpl.query1(infraestructura,codigoContrato);
-            //contratoSupervisoraVO.setInfId(infraestructuraVO.getInfId());
-            //codigoInfraestructura=infraestructuraVO.getInfId();
+            if (codigoInfraestructura == 111) {
+            } else {
+                infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructura);
+                infraestructura.setCsiId(infraestructuraVO.getCsiId());
+                infraestructura.setInfId(infraestructuraVO.getInfId());
+                infraestructura.setTinId(infraestructuraVO.getTinId());
+                listaInversiones = inversionServiceImpl.query1(infraestructura, codigoContrato);
+            }
+            cargarAeropuertoValoracion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    public void cargarAeropuertoValoracion() {
+        if (codigoInfraestructura == 111) {
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructuras) {
+                listaInfraestructurasC.add(infraVO);
+            }
+        } else {
+            listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructuras) {
+                if (infraVO.getInfId() == codigoInfraestructura) {
+                    listaInfraestructurasC.add(infraVO);
+                }
+            }
+        }
+
+    }
+    
     public void cargarDatosCompromiso() {
         try {
             contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
@@ -431,7 +452,7 @@ public class RegistrarValorizacionSupervision {
                 valorizacionSupVO.setTvsTccTipo(tccTipo);
                 valorizacionSupVO.setTvsMcoId(codigoModalidadConcesion);
                 //valorizacionSupVO.setTvsInfId(codigoInfraestructura);
-                //valorizacionSupVO.setInvId(codigoInversion);
+                //valorizacionSupVO.setTvsInvId(codigoInversion);
                 valorizacionSupVO.setTvsCcoPlazo(plazo);
                 valorizacionSupVO.setTvsCcoTotal(total);
                 
@@ -1161,4 +1182,20 @@ public class RegistrarValorizacionSupervision {
         return codigoSupervisor;
     }
 
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
+    }
+
+    public void setListaInfraestructurasC(List<InfraestructuraVO> listaInfraestructurasC) {
+        this.listaInfraestructurasC = listaInfraestructurasC;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructurasC() {
+        return listaInfraestructurasC;
+    }
 }
