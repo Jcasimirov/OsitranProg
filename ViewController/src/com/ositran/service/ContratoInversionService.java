@@ -20,4 +20,9 @@ public interface ContratoInversionService {
                                                    int infId,
                                                    String usuario,
                                                    String terminal) throws SQLException;
+    public boolean validaNoExisteNombreInversion(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                String nombreInversion)throws Exception;
 }

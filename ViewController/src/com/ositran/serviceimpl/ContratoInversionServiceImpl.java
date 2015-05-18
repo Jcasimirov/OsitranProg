@@ -148,4 +148,16 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
                                                                          usuario,terminal);
         return result;
     }
+    public boolean validaNoExisteNombreInversion(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                String nombreInversion)throws Exception{
+        boolean noExiste=false;
+        noExiste=contratoInversionDAOImpl.validaNoExisteNombreInversion(contratoId,
+                                                                         csiId, 
+                                                                         tinId,
+                                                                         infId,nombreInversion);
+        return noExiste;                                              
+    }
 }

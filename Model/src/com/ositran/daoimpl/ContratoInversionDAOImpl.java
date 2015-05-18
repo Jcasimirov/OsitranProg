@@ -196,4 +196,31 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
         session.close();
         return "";
     }
+    public boolean validaNoExisteNombreInversion(int contratoId,
+                                                   int csiId,
+                                                   int tinId,
+                                                   int infId,
+                                                String nombreInversion)throws Exception{
+        boolean noExiste=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        try {
+            Query query =
+                session.createQuery(" SELECT count(M.invId) FROM ContratoInversion M "+
+                                     " WHERE M.conId = " + contratoId + " " +
+                                     "   AND M.csiId = " + csiId + " " +
+                                     "   AND M.tinId = " + tinId + " " +
+                                     "   AND M.infId = " + infId + " " +
+               " AND upper(trim(M.invDescripcion)) = '" + nombreInversion+"'");
+            Long result=(Long)query.uniqueResult();
+            if(result>0)
+                noExiste=false;
+            else
+                noExiste=true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        session.close();
+        return noExiste;
+    }
 }
