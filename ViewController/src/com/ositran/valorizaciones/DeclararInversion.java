@@ -1230,15 +1230,19 @@ public class DeclararInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Inversión"));
-        } else if (invVO.getMonId() == null || invVO.getMonId() == 0) {
+        } else if (invAvnVO.getMonId() == 1 && invVO.getInvNotaTipoCambio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha seleccionado el Tipo de Cambio"));
+                                                                          "No ha Ingresado la Nota para el Tipo de Cambio"));
         } else if (invVO.getInvMontoTipoCambio() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Monto"));
         } else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "No ha ingresado la Nota"));
+        }else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Nota"));
