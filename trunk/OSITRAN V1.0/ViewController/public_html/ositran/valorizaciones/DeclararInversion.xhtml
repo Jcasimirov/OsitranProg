@@ -441,7 +441,8 @@
                                                     <td  align="left">
                                                            <p:inputText id="tipoCambio"
                                                                          value="#{declararInversionMB.invVO.invNotaTipoCambio}"
-                                                                         disabled="#{declararInversionMB.invAvnVO.monId eq 2}">
+                                                                         disabled="#{declararInversionMB.invAvnVO.monId eq 2}"
+                                                                         onkeyup="pasarMayuscula(this.value,this.id);">
                                                         </p:inputText>
                                                         
                                                    
@@ -495,10 +496,10 @@
                     </p:layoutUnit>
                 </p:layout>
             <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true"
-                      resizable="false" appendToBody="true" closable="true" width="1250" height="600">
+                      resizable="false" appendToBody="true" closable="true" width="1200" height="500" styleClass="dlgContent">
                 <h:form id="frmBuscarContratoDlg">
                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3"
-                                 columnClasses="etiquetas,cajas,validadores">
+                                 columnClasses="etiquetas,cajas,validadores" style="width:100%;">
                        
                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
                         <p:selectOneMenu widgetVar="_cboconcesion" id="concesion" value="#{declararInversionMB.concesion}" style="width:280px;">
@@ -526,28 +527,28 @@
                     </p:panelGrid>
                                         
                     <p:dataTable value="#{declararInversionMB.listaContrato}" id="contrato" var="contrato11" rowsPerPageTemplate="5,10,20"
-                                     style="font-size:11px;width:100% !important;" emptyMessage="NO SE ENCONTRARON DATOS">
-                            <p:column headerText="Fecha Suscripción" style="width:7%">
-                                <div style="text-align: center;">
+                                     emptyMessage="NO SE ENCONTRARON DATOS">
+                            <p:column headerText="Fecha Suscripción" >
+                                
                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
-                                </div>
+                               
                             </p:column>
-                            <p:column headerText="Tipo de Infraestructura" style="width:7%">
+                            <p:column headerText="Tipo de Infraestructura">
                                 <div style="text-align: center;">
                                     <h:outputText value="#{contrato11.nombreTipoInfraestructura}"
                                                   style="text-transform:uppercase;"/>
                                 </div>
                             </p:column>
-                            <p:column headerText="Concesión" style="width:10%">
+                            <p:column headerText="Concesión"  styleClass="tabla-wrap">
                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
                             </p:column>
-                            <p:column headerText="Modalidad" style="width:35%">
+                            <p:column headerText="Modalidad" styleClass="tabla-wrap">
                                 <h:outputText value="#{contrato11.nombreModalidad}"/>
                             </p:column>
-                            <p:column headerText="Concesionario" style="width:35%">
-                                <h:outputText value="#{contrato11.nombreConcesion}" style="text-transform:uppercase;"/>
+                            <p:column headerText="Concesionario" styleClass="tabla-wrap">
+                                <h:outputText value="#{contrato11.nombreConcesion}"/>
                             </p:column>
-                            <p:column headerText="Seleccionar" style="width:4%">
+                            <p:column headerText="Seleccionar" >
                                 <div align="center">
                                     <p:commandButton icon="ui-icon-check"
                                                      actionListener="#{declararInversionMB.seleccionarContrato}" update=":form:datosConcesion

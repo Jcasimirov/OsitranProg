@@ -267,7 +267,8 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true" resizable="false" appendToBody="true" closable="true" width="1340" height="500">
+                            <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true" resizable="false" appendToBody="true" 
+                            closable="true" width="1200" height="500" styleClass="dlgContent">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
@@ -294,18 +295,18 @@
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Tipo de Infraestructura" style="width:10%">
+                                            <p:column headerText="Tipo de Infraestructura" >
                                                 <div style="text-align: center;">
                                                     <h:outputText value="#{contrato11.nombreTipoInfraestructura}" style="text-transform:uppercase;"/>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Concesión" style="width:20%">
+                                            <p:column headerText="Concesión" styleClass="tabla-wrap">
                                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
                                             </p:column>
-                                            <p:column headerText="Modalidad" style="width:10%">
+                                            <p:column headerText="Modalidad" styleClass="tabla-wrap">
                                                 <h:outputText value="#{contrato11.nombreModalidad}"/>
                                             </p:column>
-                                            <p:column headerText="Concesionario" style="width:10%">
+                                            <p:column headerText="Concesionario" styleClass="tabla-wrap">
                                                 <h:outputText value="#{contrato11.nombreConcesionario}" style="text-transform:uppercase;"/>
                                             </p:column>
                                             <p:column headerText="Ver Contrato" style="width:5%">
@@ -322,7 +323,7 @@
                                                     </p:commandButton>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Seleccionar" style="width:4%">
+                                            <p:column headerText="Seleccionar" style="width:6%">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-check" actionListener="#{actualizarContratoMB.seleccionarContrato}" update=":tab:tab1 :tab:tab2 :tab:tab3 :tab:tab4 :tab:tab5 :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg 
                                                                  :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg
