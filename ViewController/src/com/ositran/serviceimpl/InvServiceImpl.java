@@ -93,6 +93,7 @@ public class InvServiceImpl implements InvService {
         invVO.setInvNroDocFormalizacion(inv.getInvNroDocFormalizacion());
         invVO.setInvFechaEmisionDocFomalizacion(inv.getInvFechaEmisionDocFomalizacion());
         invVO.setInvIgv(inv.getInvIgv());
+        invVO.setInvNotaTipoCambio(inv.getInvNotaTipoCambio());
         return invVO;
     }
     
@@ -118,6 +119,7 @@ public class InvServiceImpl implements InvService {
         inv.setInvNroDocFormalizacion(invVO.getInvNroDocFormalizacion());
         inv.setInvFechaEmisionDocFomalizacion(invVO.getInvFechaEmisionDocFomalizacion());
         inv.setInvIgv(invVO.getInvIgv());
+        inv.setInvNotaTipoCambio(invVO.getInvNotaTipoCambio());
         return inv;
         
     }
