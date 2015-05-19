@@ -506,7 +506,7 @@
                             update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje" disabled="#{declararInversionMB.deshabilitadoxDeclaracionNoCargada}"/>
 
                              
-                            <p:commandButton style="width:80px" value="Limpiar"/>
+                            <p:commandButton style="width:80px" value="Limpiar" actionListener="#{declararInversionMB.limpiarFormulario()}" update=":form"/>
                         </div>
                  
             </h:form>
