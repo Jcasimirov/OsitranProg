@@ -1248,7 +1248,7 @@ public class DeclararInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha Ingresado la Nota para el Tipo de Cambio"));
-        } else if (invVO.getInvMontoTipoCambio() == null) {
+        } else if (invAvnVO.getMonId() == 1 && invVO.getInvMontoTipoCambio().compareTo(BigDecimal.ZERO)==0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Monto"));
