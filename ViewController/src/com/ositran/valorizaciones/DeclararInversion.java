@@ -204,7 +204,7 @@ public class DeclararInversion {
     private InvReajusteVO invReajusteVO;
     private boolean mostrarxDeclaracionCargada = false;
     private boolean deshabilitadoxDeclaracionNoCargada = true;
-
+    private Date fechaactual;
     public DeclararInversion() {
         super();
      
@@ -1426,4 +1426,12 @@ public class DeclararInversion {
         return deshabilitadoxDeclaracionNoCargada;
     }
 
+    public void setFechaactual(Date fechaactual) {
+        this.fechaactual = fechaactual;
+    }
+
+    public Date getFechaactual() {
+        fechaactual=new Date();
+        return fechaactual;
+    }
 }
