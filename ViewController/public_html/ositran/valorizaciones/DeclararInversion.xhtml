@@ -411,8 +411,7 @@
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroInforme}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
-                                                    </td>
-                                                    <td align="left">
+                                                   
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                     <td align="left">Fecha de Emisi&#243;n</td>
@@ -421,16 +420,14 @@
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionInforme}"
                                                                     locale="es" pattern="dd/MM/yyyy"/>
 
-                                                    </td>
-                                                    <td align="left">
+                                                    
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                     <td align="left">Reg. de Salida</td>
                                                     <td align="left" >
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaInforme}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
-                                                    </td>
-                                                    <td align="left">
+                                                   
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                 </tr>
@@ -440,8 +437,7 @@
                                                     <td align="left" >
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroOficio}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
-                                                    </td>
-                                                    <td align="left">
+                                                 
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                   <td align="left">Fecha de Emisi&#243;n</td>
@@ -450,16 +446,13 @@
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionOficio}"
                                                                     locale="es" pattern="dd/MM/yyyy"/>
 
-                                                    </td>
-                                                    <td align="left">
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                     <td  align="left">Reg. de Salida</td>
                                                     <td  align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaOficio}"
                                                                      size="10" onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
-                                                    </td>
-                                                    <td align="left">
+                                                    
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
                                                 </tr>
@@ -472,8 +465,7 @@
                                                                          disabled="#{declararInversionMB.invAvnVO.monId eq 2}">
                                                         </p:inputText>
                                                         
-                                                    </td>
-                                                    <td align="left">
+                                                   
                                                         <h:outputText style="color:red;" value="*" rendered="#{declararInversionMB.invAvnVO.monId eq 1}"/>
                                                     </td>
                                                     
@@ -482,8 +474,7 @@
                                                         <p:inputMask id="montodeclaracion" value="#{declararInversionMB.invVO.invMontoTipoCambio}"
                                                                      onkeypress="return ValidarNumFloat(event,this);" mask="9.99"
                                                                      size="10" maxlength="4" disabled="#{declararInversionMB.invAvnVO.monId eq 2}"/>
-                                                    </td>
-                                                    <td align="left" colspan="5">
+                                                   
                                                         <h:outputText style="color:red;" value="*" rendered="#{declararInversionMB.invAvnVO.monId eq 1}"/>
                                                     </td>
                                                 </tr>
@@ -494,8 +485,7 @@
                                                         <p:inputTextarea id="nota" style="width:400px;"
                                                                          value="#{declararInversionMB.invVO.invNota}"
                                                                          onkeyup="pasarMayuscula(this.value,this.id);"/>
-                                                    </td>
-                                                    <td align="left">
+                                                    
                                                         <h:outputText style="color:red;" value="*" />
                                                     </td>
                                                 </tr>
