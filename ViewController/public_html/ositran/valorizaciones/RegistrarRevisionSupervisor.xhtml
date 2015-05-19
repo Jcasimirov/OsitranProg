@@ -261,9 +261,9 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                                 <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
-                                    <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
-                                    </div>
+                     <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
+                     <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
+                      </div>
                 </p:layoutUnit>
             </p:layout>
             
@@ -290,8 +290,7 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarContratos"
                                                 style="width:22px;height:22px"
-                                                update=":form:datosConcesion :form:tablaLV :form:datosCompromiso" >
-                                                                    
+                                                update=":form:datosConcesion :form:tablaLV :form:datosCompromiso" >                                                                  
                                             </p:commandButton>
                                               <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
                                                           value="Selecionar un contrato"/>
@@ -301,7 +300,7 @@
                 </p:dialog>
                 <p:dialog width="40%"  header="Lista Contratos" widgetVar="ajustarMonto" id="ajustarMonto" 
                           style="text-align:center;font-size:11px">
-                  Ingrese nomto ajustado:
+                        Ingrese nomto ajustado:
                   <p:inputText value="#{registrarRevisionSupervisorMB.montoAjustado}"></p:inputText>
                       <br></br>     
                       <p:commandButton  value="Ajustar" oncomplete="ajustarMonto.hide()"   actionListener="#{registrarRevisionSupervisorMB.ajustarMonto()}"
