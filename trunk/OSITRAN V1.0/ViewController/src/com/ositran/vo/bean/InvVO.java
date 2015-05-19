@@ -27,7 +27,7 @@ public class InvVO {
 
     private BigDecimal invConIGV;
     private BigDecimal invPorcentajeIGV;
-
+    private String invNotaTipoCambio;
     private Integer invIgv;
 
     public InvVO() {
@@ -204,4 +204,11 @@ public class InvVO {
         this.invIgv = invIgv;
     }
 
+    public void setInvNotaTipoCambio(String invNotaTipoCambio) {
+        this.invNotaTipoCambio = invNotaTipoCambio;
+    }
+
+    public String getInvNotaTipoCambio() {
+        return invNotaTipoCambio;
+    }
 }
