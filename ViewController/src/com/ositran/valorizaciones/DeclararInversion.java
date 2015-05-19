@@ -735,7 +735,7 @@ public class DeclararInversion {
             listarInversionesSupervisadas(contratoCompromisoVO.getCcoId());
             if (listaInvAvnVO.size() > 0) {
                 deshabilitadoxDeclaracionNoCargada = false;
-                mostrarxDeclaracionCargada = true;
+                
             }
 
         } catch (Exception e) {
@@ -837,7 +837,7 @@ public class DeclararInversion {
 
 
     public void cargarDetalleInversion(SelectEvent event) {
-        System.out.println("codigoInversion: " + ((InvAvnVO) event.getObject()).getTiaNumero());
+        mostrarxDeclaracionCargada = true;
         invAvnVO = (InvAvnVO) event.getObject();
         try {
             System.out.println("INI cargarDetalleInversion");
@@ -1248,19 +1248,15 @@ public class DeclararInversion {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha Ingresado la Nota para el Tipo de Cambio"));
-        } else if (invAvnVO.getMonId() == 1 && invVO.getInvMontoTipoCambio().compareTo(BigDecimal.ZERO)==0) {
+        } else if (invAvnVO.getMonId() == 1 && (invVO.getInvMontoTipoCambio()==null || invVO.getInvMontoTipoCambio().compareTo(BigDecimal.ZERO)==0)) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado el Monto"));
+                                                                          "No ha ingresado el Monto Tipo de Cambio"));
         } else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Nota"));
-        }else if (invVO.getInvNota() == null || invVO.getInvNota().length() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Nota"));
-        } else {
+        }else {
             try {
                 if (renderMostrarIGV) {
                     invVO.setInvIgv(1);
@@ -1307,7 +1303,7 @@ public class DeclararInversion {
         totalirjMontoReajusteI = new BigDecimal(0);
             listaInvAvnVO=new ArrayList<InvAvnVO>();
             deshabilitadoxDeclaracionNoCargada = true;
-
+        resetCamposIGV();
 
     }
     public void limpiarTodo() {
@@ -1325,6 +1321,8 @@ public class DeclararInversion {
         contratoCompromisoId=0;
         contratoCompromisoVO=new ContratoCompromisoVO();
         contratoVO=new ContratoVO();
+        resetCamposIGV();
+        mostrarxDeclaracionCargada = false;
     }
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
         this.totalMontoReajustado = totalMontoReajustado;

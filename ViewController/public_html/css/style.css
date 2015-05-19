@@ -197,3 +197,10 @@ font-size:10px!important;
     float: left !important;
 }
 /*FIN ESTILOS CONTRATO-ADENDA*/
+
+.dlgContent .tabla-wrap {
+    white-space: normal;
+    width: 200px;
+}
+
+
