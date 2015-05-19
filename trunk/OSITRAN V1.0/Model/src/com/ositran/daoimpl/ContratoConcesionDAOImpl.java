@@ -177,7 +177,9 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         session.close();
         return list;
     }
+    
     public List<Object[]> buscarxNombreConcesion(String nombreConcesion,int codTipoInfraestructura,int codConcesion,Date fechaIncioSuscripcion,Date fechafinSuscripcion) throws SQLException{
+        System.out.println("dao tipoInfraestructura, concesion"+codTipoInfraestructura+" "+ codConcesion);
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         StringBuffer querysql= new StringBuffer("Select c.CON_FECHA_SUSCRIPCION," );
                                     querysql.append("tin.TIN_NOMBRE, " );
@@ -216,9 +218,9 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                     if(!nombreConcesion.equals("") && nombreConcesion!=null)
                                         querysql.append(" and  UPPER(TRIM(csi.CSI_NOMBRE)) like :nombre ");
                                     if(codTipoInfraestructura!=0)
-                                        querysql.append(" and  c.TIN_ID like :tinid ");                                    
+                                        querysql.append(" and  c.TIN_ID = :tinid ");                                    
                                     if(codConcesion!=0)
-                                        querysql.append(" and  c.CSI_ID like :csiid ");                                    
+                                        querysql.append(" and  c.CSI_ID = :csiid ");                                    
                                     if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null)
                                         querysql.append(" and  c.CON_FECHA_SUSCRIPCION between :fis and :ffs");
                                     
@@ -226,9 +228,9 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                     if(!nombreConcesion.equals("") && nombreConcesion!=null)
                                         query.setParameter("nombre", "%"+nombreConcesion+"%");
                                     if(codTipoInfraestructura!=0)
-                                        query.setParameter("tinid", "%"+codTipoInfraestructura+"%");                                    
+                                        query.setParameter("tinid", codTipoInfraestructura);                                    
                                     if(codConcesion!=0)
-                                        query.setParameter("csiid", "%"+codConcesion+"%");                                    
+                                        query.setParameter("csiid", codConcesion);                                    
                                     if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null){
                                         query.setParameter("fis", fechaIncioSuscripcion);
                                         query.setParameter("ffs", fechafinSuscripcion);
