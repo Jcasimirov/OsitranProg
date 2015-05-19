@@ -937,34 +937,44 @@ public class DeclararInversion {
     }
 
     public void grabarReconocimiento(ActionEvent event) {
-        InvReconocimientoVO reconocimiento =
+        InvReconocimientoVO reconocimientoSeleccionado =
             (InvReconocimientoVO) event.getComponent().getAttributes().get("reconocimiento");
-        if (reconocimiento.getIvrMontoAprobado() == null) {
+        if (reconocimientoSeleccionado.getIvrMontoAprobado() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no Puede ser vacío"));
             RequestContext.getCurrentInstance().update("form:mensaje");
-        } else if (reconocimiento.getIvrMontoPresentado().compareTo(reconocimiento.getIvrMontoAprobado()) < 0) {
+        } else if (reconocimientoSeleccionado.getIvrMontoPresentado().compareTo(reconocimientoSeleccionado.getIvrMontoAprobado()) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto Presentado no puede ser mayor al Monto Aprobado"));
             RequestContext.getCurrentInstance().update("form:mensaje");
         } else {
             totalMontoAprobado = BigDecimal.ZERO;
+            totalMontoReajustado = BigDecimal.ZERO;
             totalivrMontoAprobadoI = BigDecimal.ZERO;
+            totalirjMontoReajusteI = BigDecimal.ZERO;
             for (InvReconocimientoVO invReconocimientoVO : listaInvReconocimientoVO) {
                 invReconocimientoVO.setIvrMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(invReconocimientoVO.getIvrMontoAprobado()));
                 if (invReconocimientoVO.getIvrMontoAprobado() != null) {
                     totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
-
+                   
                 }
-                for (InvReajusteVO invReajuste : listaInvReajusteVO) {
-                    if (invReajuste.getIadId() == reconocimiento.getIadId()) {
-                        invReajuste.setIrjMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(reconocimiento.getIvrMontoAprobado()));
-                    }
+               
+            }
+            for (InvReajusteVO invReajuste : listaInvReajusteVO) {                
+                if (invReajuste.getIadId().equals(reconocimientoSeleccionado.getIadId())) {
+                    invReajuste.setIrjMontoAprobado(Reutilizar.getNewInstance().redondearBigDecimal(reconocimientoSeleccionado.getIvrMontoAprobado()));
+                    invReajuste.setIrjMontoReajuste(Reutilizar.getNewInstance().redondearBigDecimal(reconocimientoSeleccionado.getIvrMontoAprobado()));
+                   
+                }
+                if (invReajuste.getIrjMontoReajuste() != null) {
+                    totalMontoReajustado = totalMontoReajustado.add(invReajuste.getIrjMontoReajuste());
+                   
                 }
             }
             totalivrMontoAprobadoI = totalivrMontoAprobadoI.add(totalMontoAprobado);
+            totalirjMontoReajusteI = totalirjMontoReajusteI.add(totalMontoReajustado);
             RequestContext.getCurrentInstance().update("form:tablaReconocimiento");
             RequestContext.getCurrentInstance().update("form:tablaReajuste");
             RequestContext.getCurrentInstance().update("form");
@@ -988,7 +998,7 @@ public class DeclararInversion {
             totalMontoReajustado = BigDecimal.ZERO;
             totalirjMontoReajusteI = BigDecimal.ZERO;
             for (InvReajusteVO invReajuste : listaInvReajusteVO) {
-                if (invReajuste.getIadId() == reajuste.getIadId())
+                if (invReajuste.getIadId().equals(reajuste.getIadId()))
                     invReajuste.setIrjMontoReajuste(Reutilizar.getNewInstance().redondearBigDecimal(reajuste.getIrjMontoReajuste()));
                 if (invReajuste.getIrjMontoReajuste() != null)
                     totalMontoReajustado = totalMontoReajustado.add(invReajuste.getIrjMontoReajuste());
