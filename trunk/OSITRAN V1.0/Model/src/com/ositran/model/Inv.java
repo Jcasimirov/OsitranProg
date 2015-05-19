@@ -68,6 +68,8 @@ public class Inv implements Serializable {
     private Date invFechaEmisionDocFomalizacion;
     @Column(name = "INV_IGV") 
     private Integer invIgv;
+    @Column(name = "INV_NOTA_TIPO_CAMBIO") 
+    private String  invNotaTipoCambio;
     public Inv() {
     }
 
@@ -247,5 +249,13 @@ public class Inv implements Serializable {
 
     public void setInvIgv(Integer invIgv) {
         this.invIgv = invIgv;
+    }
+
+    public void setInvNotaTipoCambio(String invNotaTipoCambio) {
+        this.invNotaTipoCambio = invNotaTipoCambio;
+    }
+
+    public String getInvNotaTipoCambio() {
+        return invNotaTipoCambio;
     }
 }
