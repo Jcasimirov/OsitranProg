@@ -113,6 +113,12 @@
 	 				<td align="left">#{cam.mc}</td>
 	 				<td align="left"><p:inputText readonly="true" value="#{jefeAreaContratoConcecionMB.modalidadConcecion}"  /></td>
 				</tr>
+                                 <tr>
+                <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                </tr>
 				
 			</table>
 		</p:fieldset>
@@ -120,12 +126,7 @@
 	 	</div>	
                
                 <table align="center" style="font-size: 11px">	
-                <tr>
-                <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios(
-                                <img src="../../images/obligatorio.gif"/>)
-                            </td>
-                </tr>
+               
 	 			<tr>  
                                 
 	 				<td align="right"><p:commandButton  onclick="confirmarGuardar.show()"   value="#{btn.btn_guardar}" style="width:80px" /></td>
