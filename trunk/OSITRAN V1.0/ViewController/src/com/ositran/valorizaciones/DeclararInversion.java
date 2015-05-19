@@ -255,10 +255,13 @@ public class DeclararInversion {
     }
 
     public void seleccionarContrato(ActionEvent e) {
+        limpiarFormulario();
         monedaVO = null;
         listaInvAvnVO = null;
         listaContratoCompromiso = null;
         contratoCompromisoVO = null;
+        invVO=new InvVO();
+        invAvnVO=new InvAvnVO();
         setContratoVO((ContratoVO) e.getComponent().getAttributes().get("idcontrato"));
         listarTiposMoneda();
         cargarDatosConcesionario(getContratoVO().getCncId());
@@ -724,6 +727,7 @@ public class DeclararInversion {
     public void cargarDatosCompromiso() {
 
         try {
+            limpiarFormulario();
             System.out.println("contratoCompromisoId" + contratoCompromisoId);
             contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoId);
             monedaVO = monedaServiceImpl.get(contratoCompromisoVO.getMonId());
@@ -1301,7 +1305,7 @@ public class DeclararInversion {
         totalMontoPresentado = new BigDecimal(0);
         totalMontoReajustado = new BigDecimal(0);
         totalirjMontoReajusteI = new BigDecimal(0);
-        if (listaInvAvnVO.size() == 0)
+            listaInvAvnVO=new ArrayList<InvAvnVO>();
             deshabilitadoxDeclaracionNoCargada = true;
 
 
