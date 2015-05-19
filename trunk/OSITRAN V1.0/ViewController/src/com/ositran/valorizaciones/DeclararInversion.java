@@ -1310,7 +1310,22 @@ public class DeclararInversion {
 
 
     }
-
+    public void limpiarTodo() {
+        invAvnVO = new InvAvnVO();
+        invVO = new InvVO();
+        listaInvReajusteVO = new ArrayList<InvReajusteVO>();
+        listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>();
+        totalMontoAprobado = new BigDecimal(0);
+        totalivrMontoAprobadoI = new BigDecimal(0);
+        totalMontoPresentado = new BigDecimal(0);
+        totalMontoReajustado = new BigDecimal(0);
+        totalirjMontoReajusteI = new BigDecimal(0);
+            listaInvAvnVO=new ArrayList<InvAvnVO>();
+            deshabilitadoxDeclaracionNoCargada = true;
+        contratoCompromisoId=0;
+        contratoCompromisoVO=new ContratoCompromisoVO();
+        contratoVO=new ContratoVO();
+    }
     public void setTotalMontoReajustado(BigDecimal totalMontoReajustado) {
         this.totalMontoReajustado = totalMontoReajustado;
     }

@@ -37,7 +37,7 @@ public class Inv implements Serializable {
     @GeneratedValue(generator = "generator")
     @Column(name = "INV_ID", nullable = false)
     private Integer invId;
-    @Column(name = "INV_MONTO_TIPO_CAMBIO", nullable = false)
+    @Column(name = "INV_MONTO_TIPO_CAMBIO")
     private BigDecimal invMontoTipoCambio;
     @Column(name = "INV_MONTO_TOTAL_APROBADO", nullable = false)
     private BigDecimal invMontoTotalAprobado;
@@ -55,7 +55,7 @@ public class Inv implements Serializable {
     private String invRegSalidaInforme;
     @Column(name = "INV_REG_SALIDA_OFICIO", length = 100)
     private String invRegSalidaOficio;
-    @Column(name = "MON_ID", nullable = false)
+    @Column(name = "MON_ID")
     private Integer monId;
     //@Id
     @Column(name = "TIA_NUMERO", nullable = false)

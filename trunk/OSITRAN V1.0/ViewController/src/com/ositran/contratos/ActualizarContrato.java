@@ -437,7 +437,7 @@ public class ActualizarContrato {
     }
 
     public void buscarContratos() {
-        resetearCamposBuscarContratos();
+        System.out.println("tipoInfraestructura, concesion"+tipoInfraestructura+" "+ concesion);
         try {
             listaContrato =
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),
