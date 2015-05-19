@@ -125,7 +125,9 @@
                                                                                var="tip2" itemLabel="#{tip2.ccoPeriodo}"
                                                                                itemValue="#{tip2.ccoId}"/>
                                                                 <p:ajax 
-                                                                        update=":form:tablaAvanceInversion"
+                                                                        update=":form:tablaAvanceInversion 
+                                                                        :form:plazoDeclaracion :form:totalcompromiso 
+                                                                        :form:monedacompromiso"
                                                                         listener="#{declararInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
                                                         </td>
@@ -134,7 +136,7 @@
                                                     <tr>
                                                         <td align="left">Plazo:</td>
                                                         <td align="left" colspan="3">
-                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.ccoPlazo}"
+                                                            <p:inputText id="plazoDeclaracion" value="#{declararInversionMB.contratoCompromisoVO.ccoPlazo}"
                                                                          style="text-align:right; width: 40px"
                                                                          readonly="true" size="10"/>
                                                              Día(s)
@@ -144,7 +146,7 @@
                                                     <tr>
                                                         <td align="left">Total:</td>
                                                         <td align="left">
-                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.ccoTotal}"
+                                                            <p:inputText id="totalcompromiso" value="#{declararInversionMB.contratoCompromisoVO.ccoTotal}"
                                                                          style="text-align:right; " readonly="true"
                                                                          size="10"></p:inputText>
                                                         </td>
@@ -152,7 +154,7 @@
                                                             #{cam.mon}
                                                         </td>
                                                         <td align="left">
-                                                            <p:inputText value="#{declararInversionMB.contratoCompromisoVO.monNombre}"
+                                                            <p:inputText id="monedacompromiso" value="#{declararInversionMB.contratoCompromisoVO.monNombre}"
                                                                          readonly="true" size="10"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -483,7 +485,7 @@
                             update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje" disabled="#{declararInversionMB.deshabilitadoxDeclaracionNoCargada}"/>
 
                              
-                            <p:commandButton style="width:80px" value="Limpiar" actionListener="#{declararInversionMB.limpiarFormulario()}" update=":form"/>
+                            <p:commandButton style="width:80px" value="Limpiar" actionListener="#{declararInversionMB.limpiarTodo()}" update=":form"/>
                         </div>
                  
             </h:form>
