@@ -1,70 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <style type="text/css">
-            .ui-dialog-titlebar {
-                font-size: 13px;
-                font-family: sans-serif;
-            }
-        </style>
         <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript">
-          function pasarMayuscula(obj, id) {
-              obj = obj.toUpperCase();
-              document.getElementById(id).value = obj;
-          }
-
-          function pasarMinuscula(obj, id) {
-              obj = obj.toLowerCase();
-              document.getElementById(id).value = obj;
-          }
-
-          function pasarValor(obj, id) {
-              document.getElementById(id).value = obj;
-              alert('hola' + id);
-          }
-
-          function validarNum(e) {
-              tecla = (document.all) ? e.keyCode : e.which;
-              if (tecla == 8)
-                  return true;
-              patron = /\d/;
-              te = String.fromCharCode(tecla);
-              return patron.test(te);
-          }
-
-          function ValidarNumFloat(e, obj) {
-              tecla = (document.all) ? e.keyCode : e.which;
-              if (tecla == 8)
-                  return true;
-
-              Punto = obj.value.split('.');
-              if (Punto.length >= 2) {
-                  //punto.legth tendra valores 0 y 1 si es 2 o mas quiere decir que se intenta escribir numeros invalidos  ejemplo:1000.00.000
-                  patron = /[0-9]/;
-              }
-              else 
-                  patron = /[0-9.]/;
-              te = String.fromCharCode(tecla);
-
-              return patron.test(te);
-          }
-        </script>
-        <meta content="1500" http-equiv="REFRESH"></meta>
-        <script type="text/javascript">
-          PrimeFaces.locales['es'] = {
-              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
-          };
-
-          function limpiarForm() {
-              document.getElementById("frmBuscarContratoDlg").reset();
-          }
-
-          function formReset() {
-              $('#frmBuscarContratoDlg').reset();
-          }
-        </script>
-    </h:head>
+        <script src="../../js/validaciones.js" type="text/javascript"></script>            
+     </h:head>
     <h:body>
         <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
          
@@ -228,7 +167,8 @@
                                                                 <tr>
                                                                     <td align="left">Fecha de Suscripcion:</td>
                                                                     <td align="left">
-                                                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"/>
+                                                                        <p:calendar maxdate="#{actualizarContratoMB.fechaMaxima}" value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"
+                                                                        onkeypress="return validarCalendario(event);"/>
                                                                     </td>
                                                                     <td>
                                                                         <p:graphicImage url="../../images/obligatorio.gif"/>
@@ -331,20 +271,23 @@
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
-                                        <p:selectOneMenu id="concesion" value="#{actualizarContratoMB.concesion}" style="width:280px;">
+                                        <p:selectOneMenu  widgetVar="_cboconcesion" id="concesion" value="#{actualizarContratoMB.concesion}" style="width:280px;">
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listaConcesiones}" var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}" itemValue="#{lisConcesion.csiId}"/>
                                         </p:selectOneMenu>
                                         <p:message for="concesion" display="icon"/>
                                         <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
-                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaInicioBC" widgetVar="_fechaInicioBC" value="#{actualizarContratoMB.fechaInicioSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaInicioBC" widgetVar="_fechaInicioBC" value="#{actualizarContratoMB.fechaInicioSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaInicioBC" display="icon"/>
                                         <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
-                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaFinBC" widgetVar="_fechaFinBC" value="#{actualizarContratoMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaFinBC" widgetVar="_fechaFinBC" value="#{actualizarContratoMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaFinBC" display="icon"/>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
+                                    <p:panelGrid columns="2">
                                         <p:commandButton value="Buscar Contrato" actionListener="#{actualizarContratoMB.buscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
+                                        <p:commandButton value="Limpiar"  onclick="_fechaInicioBC.setDate(null);_fechaFinBC.setDate(null);_cboconcesion.selectValue(value);" update=":tab:frmBuscarContratoDlg:concesion"/>
+                                        </p:panelGrid>
                                         <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" style="font-size:11px" emptyMessage="No se Encontraron Registros" paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true">
                                             <p:column headerText="Fecha Suscripción" style="width:7%">
                                                 <div style="text-align: center;">
@@ -561,7 +504,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:outputLabel for="cadfecha" value="Fecha"/>
-                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="cadfecha" locale="es" pattern="dd/MM/yyyy" style="width:100% !important;" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"/>
+                                        <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="cadfecha" locale="es" pattern="dd/MM/yyyy" style="width:100% !important;" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"/>
                                         <p:message for="cadfecha" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -599,7 +542,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="fechaEntrega" value="Fecha"/>
-                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaEntrega" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaEntrega" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:message for="fechaEntrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -964,7 +907,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="fechaPenalidad" value="Fecha"/>
-                                        <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaPenalidad" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                        <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="fechaPenalidad" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpFecha}" locale="es" pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="estado" value="Estado"/>
@@ -1178,7 +1121,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaCAO}" id="fechaCAO"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1272,7 +1215,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1348,7 +1291,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.contratoHitoVO.htoFecha}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1440,7 +1383,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaPpo}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1602,7 +1545,7 @@
                                         <tr>
                                             <td align="left">Fecha de Inicio</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaIniAlerta}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaIniAlerta}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1611,7 +1554,7 @@
                                         <tr>
                                             <td align="left">Fecha de Fin</td>
                                             <td align="left">
-                                                <p:calendar readonly="true" maxdate="#{actualizarContratoMB.fechaMaxima}" id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true" value="#{actualizarContratoMB.fechaFinAlerta}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="aleCalFin" locale="es" pattern="dd/MM/yyyy" disabled="true" value="#{actualizarContratoMB.fechaFinAlerta}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
