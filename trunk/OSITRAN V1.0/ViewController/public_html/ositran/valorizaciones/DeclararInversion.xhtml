@@ -124,8 +124,8 @@
                                                                 <f:selectItems value="#{declararInversionMB.listaContratoCompromiso}"
                                                                                var="tip2" itemLabel="#{tip2.ccoPeriodo}"
                                                                                itemValue="#{tip2.ccoId}"/>
-                                                                <p:ajax event="valueChange"
-                                                                        update=":form"
+                                                                <p:ajax 
+                                                                        update=":form:tablaAvanceInversion"
                                                                         listener="#{declararInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
                                                         </td>
@@ -419,7 +419,7 @@
                                                     </td>
                                                   <td align="left">Fecha de Emisi&#243;n</td>
                                                     <td  align="left">
-                                                        <p:calendar  maxdate="#{declararInversionMB.fechaactual}" 
+                                                        <p:calendar size="10" maxdate="#{declararInversionMB.fechaactual}" 
                                                                     value="#{declararInversionMB.invVO.invFechaEmisionOficio}" 
                                                                     locale="es" pattern="dd/MM/yyyy" onkeypress="return validarCalendario(event);"/>
 
