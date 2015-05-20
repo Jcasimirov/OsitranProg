@@ -223,6 +223,7 @@ public class MantenimientoUsuario {
                 usuarioVO.setUsuCorreo(usuCorreo);
                 usuarioVO.setRolId(codigoROl);
                 usuarioVO.setTinId(infraestructuraSeleccionada);
+                usuarioVO.setSupInvId(infraestructuraSeleccionada);
                 usuarioVO.setUsuEstado(1);
                 usuarioVO.setUsuUsuarioAlta(usuario.getUsuAlias());
                 usuarioVO.setUsuFechaAlta(util.getObtenerFechaHoy());
