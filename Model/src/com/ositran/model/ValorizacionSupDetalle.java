@@ -23,8 +23,11 @@ public class ValorizacionSupDetalle implements Serializable {
     private static final long serialVersionUID = -6895999228460826945L;
     @Id
     @GeneratedValue(generator = "generator")
+    @Column(name = "VSD_ID", nullable = false)
+    private Integer vsdId;  
+    
     @Column(name = "TVS_ID", nullable = false)
-    private Integer tvsId;     
+    private Integer tvsId; 
     @Column(name = "CVA_ID")    
     private Integer cvaId;
     @Column(name="VSD_IGV")
@@ -41,9 +44,11 @@ public class ValorizacionSupDetalle implements Serializable {
     public ValorizacionSupDetalle() {
     }
 
-    public ValorizacionSupDetalle(Integer tvsId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
-                                  BigDecimal ttotal, BigDecimal totalAprobado) {
+
+    public ValorizacionSupDetalle(Integer vsdId, Integer tvsId, Integer cvaId, BigDecimal igv, Integer monId,
+                                  BigDecimal neto, BigDecimal ttotal, BigDecimal totalAprobado) {
         super();
+        this.vsdId = vsdId;
         this.tvsId = tvsId;
         this.cvaId = cvaId;
         this.igv = igv;
@@ -53,6 +58,14 @@ public class ValorizacionSupDetalle implements Serializable {
         this.totalAprobado = totalAprobado;
     }
 
+
+    public void setVsdId(Integer vsdId) {
+        this.vsdId = vsdId;
+    }
+
+    public Integer getVsdId() {
+        return vsdId;
+    }
 
     public void setTvsId(Integer tvsId) {
         this.tvsId = tvsId;
