@@ -52,6 +52,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -78,7 +79,7 @@ public class DeclararInversion {
     private MonedaService monedaServiceImpl;
     private MonedaVO monedaVO;
     private List<MonedaVO> listaTipoMonedas = new ArrayList<MonedaVO>();
-
+    HashMap<String,Object> monedaDescripcionMemoria=new HashMap<String,Object>();
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
 
@@ -174,6 +175,7 @@ public class DeclararInversion {
     private List<ConcesionVO> listaConcesiones;
     private List<InfraestructuraTipoVO> listaTipoInfraestructura;
     private List<InfraestructuraVO> listaInfraestructura;
+    HashMap<String,Object> infraestructuraMemoria=new HashMap<String,Object>();
     private List<ModalidadConcesionVO> listaModalidad;
 
 
@@ -276,11 +278,8 @@ public class DeclararInversion {
 
     public void cargarInfraestructurasContrato(Integer contratoId) {
         try {
-            System.out.println("INI cargarInfraestructurasContrato");
             listaInfraestructura = getInfraestructuraServiceImpl().getInfraestructurasContrato(contratoId);
-            System.out.println("FIN cargarInfraestructurasContrato");
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
     }
@@ -413,7 +412,10 @@ public class DeclararInversion {
     public void listarTiposMoneda() {
         try {
             listaTipoMonedas = getMonedaServiceImpl().query();
-            System.out.println("##############listaTipoMonedas.size();" + listaTipoMonedas.size());
+            monedaDescripcionMemoria.put("0", "");
+            for (MonedaVO monedaVO : listaTipoMonedas) {
+               monedaDescripcionMemoria.put(""+monedaVO.getMonId(), monedaVO.getMonNombre());
+           }
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -755,9 +757,6 @@ public class DeclararInversion {
         try {
             listaInvAvnVO = notificacionServiceImpl.ListarDeclaracionesSupervContratoCompromiso(contratoCompromiso);
             listaInvAvnEstadoVO = inversionAvanceEstadoServiceImpl.query();
-            System.out.println("TAMAÑO");
-            System.out.println(getListaInvAvnVO().size());
-
             for (InvAvnVO invAvnVO : listaInvAvnVO) {
                 for (InvAvnEstadoVO invAvnEstadoVO : listaInvAvnEstadoVO) {
 
@@ -885,15 +884,10 @@ public class DeclararInversion {
                 invReajusteVO.setMonId(invAvanceDetalleVO.getMonId());
                 invReajusteVO.setIadId(invAvanceDetalleVO.getIad_Id());
                 invReajusteVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
-                for (MonedaVO moneda : listaTipoMonedas) {
-                    if (moneda.getMonId() == invAvanceDetalleVO.getMonId()) {
-                        invReconocimientoVO.setNombreMoneda(moneda.getMonNombre()); // infraestructura
-                        invReajusteVO.setNombreMoneda(moneda.getMonNombre());
-                    }
-                }
+                invReconocimientoVO.setNombreMoneda(monedaDescripcionMemoria.get(""+invAvnVO.getMonId()).toString()); // infraestructura
+                invReajusteVO.setNombreMoneda(monedaDescripcionMemoria.get(""+invAvnVO.getMonId()).toString());
+                   
                 for (InfraestructuraVO infraestructuraVO : listaInfraestructura) {
-                    System.out.println("infraestructuraVO.getInfId();" + infraestructuraVO.getInfId() +
-                                       ";invAvanceDetalleVO.getInfId();" + invAvanceDetalleVO.getInfId());
                     if (infraestructuraVO.getInfId() == invAvanceDetalleVO.getInfId()) {
                         invReconocimientoVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                         invReajusteVO.setNombreInfraestructura(infraestructuraVO.getInfNombre());
@@ -1242,7 +1236,7 @@ public class DeclararInversion {
         } else if (invVO.getInvRegSalidaOficio() == null || invVO.getInvRegSalidaOficio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Inversión"));
+                                                                          "No ha ingresado el Registro de Salida Oficio"));
         } else if (invAvnVO.getMonId() == 1 && invVO.getInvNotaTipoCambio().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",

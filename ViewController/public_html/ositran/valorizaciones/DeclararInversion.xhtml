@@ -168,7 +168,7 @@
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="5,10,20" resizableColumns="true"
-                                                             style="font-size:11px; width:500px"
+                                                             style="font-size:11px; width:500px !important;"
                                                              id="tablaAvanceInversion"
                                                              value="#{declararInversionMB.listaInvAvnVO}"
                                                              var="tInversion" selectionMode="single"
@@ -201,7 +201,7 @@
                                     <td valign="top">
                                         <p:fieldset legend="Datos de Reconocimiento" id="datosDeclaracion"
                                                     rendered="#{declararInversionMB.mostrarxDeclaracionCargada}">
-                                            <table>
+                                            <table >
                                                 <tr>
                                                     <td align="left">Estado del Reconomiento:</td>
                                                     <td align="left">
@@ -232,38 +232,38 @@
                                                 </tr>
                                             </table>
                                             <br></br>
-                                            <p:fieldset id="datosReconoc" legend="RESULTADO DE RECONOCIMIENTO">
+                                            <p:fieldset id="datosReconoc" legend="RESULTADO DE RECONOCIMIENTO" styleClass="fieldContainer">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="5,10,20" resizableColumns="true"
-                                                             style="font-size:11px; " id="tablaReconocimiento"
+                                                              id="tablaReconocimiento"
                                                              value="#{declararInversionMB.listaInvReconocimientoVO}"
                                                              var="tReconocimiento">
-                                                    <p:column headerText="Nro Val">
+                                                    <p:column headerText="Nro Val" styleClass="tabla-wrap-codigo">
                                                         <h:outputText value="#{tReconocimiento.tiaNumero}"/>
                                                     </p:column>
-                                                    <p:column headerText="Inversión">
+                                                    <p:column headerText="Inversión" styleClass="tabla-wrap-desc">
                                                         <h:outputText value="#{tReconocimiento.nombreInversion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Aeropuerto"
+                                                    <p:column headerText="Aeropuerto" styleClass="tabla-wrap-desc"
                                                               rendered="#{declararInversionMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tReconocimiento.nombreInfraestructura}"/>
                                                     </p:column>
-                                                    <p:column headerText="Desc. del Concepto">
+                                                    <p:column headerText="Descripcion del Concepto" styleClass="tabla-wrap-desc">
                                                         <h:outputText value="#{tReconocimiento.desConcepto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda">
+                                                    <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                         <h:outputText value="#{tReconocimiento.nombreMoneda}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto Presentado">
+                                                    <p:column headerText="Monto Presentado" styleClass="tabla-wrap-montos">
                                                         <h:outputText value="#{tReconocimiento.ivrMontoPresentado}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto Aprobado">
+                                                    <p:column headerText="Monto Aprobado" styleClass="tabla-wrap-montos">
                                                         <h:outputText value="#{tReconocimiento.ivrMontoAprobado}"/>
                                                     </p:column>
-                                                    <p:column style="width:32px">
+                                                    <p:column  styleClass="tabla-wrap-boton">
                                                         <p:commandButton icon="ui-icon-pencil"
                                                                          actionListener="#{declararInversionMB.editarReconocimiento}"
                                                                          update=":frmEditarMontoRec"
@@ -287,38 +287,39 @@
                                                 </p:dataTable>
                                             </p:fieldset>
                                             <br></br>
-                                            <p:fieldset id="datosReajuste" legend="REAJUSTE">
+                                            <p:fieldset id="datosReajuste" legend="REAJUSTE" styleClass="fieldContainer">
                                                 <p:dataTable paginatorPosition="bottom"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                              rowsPerPageTemplate="5,10,20" resizableColumns="true"
-                                                             style="font-size:11px;" id="tablaReajuste"
+                                                              id="tablaReajuste"
                                                              value="#{declararInversionMB.listaInvReajusteVO}"
                                                              var="tReajuste">
-                                                    <p:column headerText="Nro Val">
+                                                    <p:column headerText="Nro Val" styleClass="tabla-wrap-codigo">
                                                         <h:outputText value="#{tReajuste.tiaNumero}"/>
                                                     </p:column>
-                                                    <p:column headerText="Inversión">
+                                                    <p:column headerText="Inversión" styleClass="tabla-wrap-desc">
                                                         <h:outputText value="#{tReajuste.nombreInversion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Aeropuerto"
+                                                    <p:column headerText="Aeropuerto" styleClass="tabla-wrap-desc"
                                                               rendered="#{declararInversionMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tReajuste.nombreInfraestructura}"/>
                                                     </p:column>
-                                                    <p:column headerText="Desc. del Concepto">
+                                                    <p:column headerText="Descripcion del Concepto" styleClass="tabla-wrap-desc">
                                                         <h:outputText value="#{tReajuste.desConcepto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda">
+                                                    <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                         <h:outputText value="#{tReajuste.nombreMoneda}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto Aprobado">
+                                                    <p:column headerText="Monto Aprobado" styleClass="tabla-wrap-montos">
                                                         <h:outputText value="#{tReajuste.irjMontoAprobado}"/>
                                                     </p:column>
-                                                    <p:column headerText="Reajuste">
+                                                    <p:column headerText="Reajuste" styleClass="tabla-wrap-montos">
                                                         <h:outputText value="#{tReajuste.irjMontoReajuste}"/>
                                                     </p:column>
-                                                    <p:column style="width:32px;">
+                                                    <p:column styleClass="tabla-wrap-boton">
+                                                    <center>
                                                         <p:commandButton icon="ui-icon-pencil"
                                                                          rendered="#{tReajuste.irjMontoAprobado ne null}"
                                                                          actionListener="#{declararInversionMB.editarReajuste}"
@@ -327,6 +328,7 @@
                                                                          disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                             <f:attribute name="reajuste" value="#{tReajuste}"/>
                                                         </p:commandButton>
+                                                        </center>
                                                     </p:column>
                                                     <p:columnGroup type="footer">
                                                         <p:row>
