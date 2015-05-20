@@ -30,6 +30,7 @@
         <mapping class="com.ositran.model.Concesion"/>
         <mapping class="com.ositran.model.Concesionario"/>
         <mapping class="com.ositran.model.ContratoSupervisora"/>
+        <mapping class="com.ositran.model.ContratoSupervisoraAdenda"/>
         <mapping class="com.ositran.model.EmpresaSupervisora"/>
         <mapping class="com.ositran.model.Infraestructura"/>
         <mapping class="com.ositran.model.InfraestructuraTipo"/>
