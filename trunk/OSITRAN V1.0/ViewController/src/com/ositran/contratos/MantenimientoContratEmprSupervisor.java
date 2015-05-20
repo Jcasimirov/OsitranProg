@@ -146,7 +146,8 @@ public class MantenimientoContratEmprSupervisor {
     private int cpsMontoContratado;
     private int cpsAdelantoOtorgado;
     private int codigoConcesion;
-
+    private int codigoInversion;
+    private int codigoInversionE;
     private String cpsPenalidades;
     private String cpsCaducidad;
     private String cpsGarantias;
@@ -163,6 +164,7 @@ public class MantenimientoContratEmprSupervisor {
     private int codigoTipoInfra;
     private int codigoModalidadConcesion;
     private int codigoInfraestructura;
+    private int codigoInfraestructuraE;
     private int ccoId;
     private int tccTipo;
 
@@ -173,9 +175,10 @@ public class MantenimientoContratEmprSupervisor {
     private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private List<MonedaVO> listaMoneda1 = new ArrayList<MonedaVO>();
     private List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
-    private List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
-    
     private List<InfraestructuraVO> listaInfraestructurasE = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
+    private List<InfraestructuraVO> listaInfraestructurasCE = new ArrayList<InfraestructuraVO>();
+    
     private List<InfraestructuraTipoVO> listaInfraestructuraTipo = new ArrayList<InfraestructuraTipoVO>();
     private List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<ContratoSupervisoraVO>();
     private List<ContratoVO> listaContratos = new ArrayList<ContratoVO>();
@@ -187,6 +190,7 @@ public class MantenimientoContratEmprSupervisor {
     private List<ContratoSupervisoraAdendaVO> listaAdenda = new ArrayList<ContratoSupervisoraAdendaVO>();
     private List<ContratoSupervisoraAdendaVO> listaAdenda1 = new ArrayList<ContratoSupervisoraAdendaVO>();
     private List<InversionVO> listaInversiones = new ArrayList<InversionVO>();
+    private List<InversionVO> listaInversionesE = new ArrayList<InversionVO>();
     
     
     Util util = new Util();
@@ -477,6 +481,41 @@ public class MantenimientoContratEmprSupervisor {
         }
 
     }
+    
+    
+
+    public void cargarInversionE() {
+        try {
+            if (codigoInfraestructuraE == 111) {
+            } else {
+                infraestructuraVO = infraestructuraServiceImpl.get2(codigoInfraestructuraE);
+                infraestructura.setCsiId(infraestructuraVO.getCsiId());
+                infraestructura.setInfId(infraestructuraVO.getInfId());
+                infraestructura.setTinId(infraestructuraVO.getTinId());
+                listaInversionesE = inversionServiceImpl.query1(infraestructura, codigoContrato);
+            }
+            cargarAeropuertoValoracion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+   
+    public void cargarAeropuertoValoracionE() {
+        if (codigoInfraestructuraE == 111) {
+            listaInfraestructurasCE = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructurasE) {
+                listaInfraestructurasCE.add(infraVO);
+            }
+        } else {
+            listaInfraestructurasCE = new ArrayList<InfraestructuraVO>();
+            for (InfraestructuraVO infraVO : listaInfraestructuras) {
+                if (infraVO.getInfId() == codigoInfraestructuraE) {
+                    listaInfraestructurasCE.add(infraVO);
+                }
+            }
+        }
+
+    }
 
     public void cargarDatosCompromiso() {
         try {
@@ -653,8 +692,8 @@ public class MantenimientoContratEmprSupervisor {
                 contratoSupervisoraVO.setCsiId(codigoConcesion); // concesion
                 contratoSupervisoraVO.setTinId(codigoTipoInfra); // tipo infraestructura codigoTipoInfra
                 contratoSupervisoraVO.setMcoId(codigoModalidadConcesion);
-                //contratoSupervisoraVO.setInfId(infraestructuraSeleccionada); //infraestructura (aeropuertos)
-                //contratoSupervisoraVO.setInvId(inversionSeleccionada); // codigo inversion
+                contratoSupervisoraVO.setInfId(codigoInfraestructura); //infraestructura (aeropuertos)
+                contratoSupervisoraVO.setInvId(codigoInversion); // codigo inversion
                 contratoSupervisoraVO.setCcoId(ccoId);
                 contratoSupervisoraVO.setTccTipo(tccTipo);
                 contratoSupervisoraVO.setCcoPlazo(plazo); //plazo
@@ -805,6 +844,9 @@ public class MantenimientoContratEmprSupervisor {
             t_modconc = modalidadConcesionVO.getMcoNombre();
             codigoModalidadConcesion = modalidadConcesionVO.getMcoId();
 
+            codigoInfraestructuraE=contratoSupervisoraVO.getInfId();
+            codigoInversionE=contratoSupervisoraVO.getInvId();
+
             contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoSupervisoraVO.getCcoId());
             plazo = contratoCompromisoVO.getCcoPlazo(); //plazo
             total = contratoCompromisoVO.getCcoTotal(); //total
@@ -850,8 +892,8 @@ public class MantenimientoContratEmprSupervisor {
             contratoSupervisoraVO.setCsiId(codigoConcesion);
             contratoSupervisoraVO.setTinId(codigoTipoInfra);
             contratoSupervisoraVO.setMcoId(codigoModalidadConcesion);
-            //contratoSupervisoraVO.setInfId(1);
-            //contratoSupervisoraVO.setInfId(1);
+            contratoSupervisoraVO.setInfId(codigoInfraestructuraE);
+            contratoSupervisoraVO.setInvId(codigoInversionE);
             contratoSupervisoraVO.setCcoPlazo(plazo); //plazo
             contratoSupervisoraVO.setCcoTotal(total);
             contratoSupervisoraVO.setMonId(codigoMoneda);
@@ -2130,5 +2172,46 @@ public class MantenimientoContratEmprSupervisor {
     public List<InversionVO> getListaInversiones() {
         return listaInversiones;
     }
-    
+
+    public void setCodigoInversion(int codigoInversion) {
+        this.codigoInversion = codigoInversion;
+    }
+
+    public int getCodigoInversion() {
+        return codigoInversion;
+    }
+
+
+    public void setCodigoInversionE(int codigoInversionE) {
+        this.codigoInversionE = codigoInversionE;
+    }
+
+    public int getCodigoInversionE() {
+        return codigoInversionE;
+    }
+
+    public void setCodigoInfraestructuraE(int codigoInfraestructuraE) {
+        this.codigoInfraestructuraE = codigoInfraestructuraE;
+    }
+
+    public int getCodigoInfraestructuraE() {
+        return codigoInfraestructuraE;
+    }
+
+    public void setListaInfraestructurasCE(List<InfraestructuraVO> listaInfraestructurasCE) {
+        this.listaInfraestructurasCE = listaInfraestructurasCE;
+    }
+
+    public List<InfraestructuraVO> getListaInfraestructurasCE() {
+        return listaInfraestructurasCE;
+    }
+
+    public void setListaInversionesE(List<InversionVO> listaInversionesE) {
+        this.listaInversionesE = listaInversionesE;
+    }
+
+    public List<InversionVO> getListaInversionesE() {
+        return listaInversionesE;
+    }
+
 }
