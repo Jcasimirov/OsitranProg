@@ -51,7 +51,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         System.out.println("DAO");
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
-        List list = session.createQuery("select o from Infraestructura o WHERE o.infEstado=1").list();
+        List list = session.createQuery("select o from Infraestructura o WHERE o.infId <> 0 and o.infEstado=1").list();
         
         session.getTransaction().commit();
         return list;

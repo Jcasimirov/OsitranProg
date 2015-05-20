@@ -23,7 +23,7 @@ public class InvReconocimientoVO {
   
     private Integer tinId;
  
-    private Integer infId;
+    private int infId;
 
     private String nombreInfraestructura;
     private String desConcepto;
@@ -74,11 +74,11 @@ public class InvReconocimientoVO {
         return tinId;
     }
 
-    public void setInfId(Integer infId) {
+    public void setInfId(int infId) {
         this.infId = infId;
     }
 
-    public Integer getInfId() {
+    public int getInfId() {
         return infId;
     }
 

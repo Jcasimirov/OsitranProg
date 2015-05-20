@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class InvReajusteVO {
     private Integer csiId;   
-    private Integer infId;
+    private int infId;
     private Integer tinId;
     
     private Integer irjId;
@@ -32,11 +32,11 @@ public class InvReajusteVO {
         return csiId;
     }
 
-    public void setInfId(Integer infId) {
+    public void setInfId(int infId) {
         this.infId = infId;
     }
 
-    public Integer getInfId() {
+    public int getInfId() {
         return infId;
     }
 
