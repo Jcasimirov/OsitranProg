@@ -529,21 +529,21 @@
                         </p:selectOneMenu>
                         <p:message for="concesion" display="icon"/>
                         <p:outputLabel for="fechaInicioBC" value="Fecha Inicio"/>
-                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC"
+                        <p:calendar id="fechaInicioBC" widgetVar="_fechaInicioBC" onkeypress="return validarCalendario(event);"
                                     value="#{declararInversionMB.fechaInicioSuscripcion}" locale="es"
-                                    pattern="dd/MM/yyyy" style="float:left;position:relative;"/>
+                                    pattern="dd/MM/yyyy" style="float:left;position:relative;"  maxdate="#{declararInversionMB.fechaactual}"/>
                         <p:message for="fechaInicioBC" display="icon"/>
                         <p:outputLabel for="fechaFinBC" value="Fecha Fin"/>
-                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC"
+                        <p:calendar id="fechaFinBC" widgetVar="_fechaFinBC" onkeypress="return validarCalendario(event);" maxdate="#{declararInversionMB.fechaactual}"
                                     value="#{declararInversionMB.fechaFinSuscripcion}" locale="es" pattern="dd/MM/yyyy"
-                                    style="float:left;position:relative;"/>
+                                    style="float:left;position:relative;"  />
                         <p:message for="fechaFinBC" display="icon"/>
                     </p:panelGrid>
                     <p:panelGrid id="pnlBuscarContratoBtnDlg" styleClass="pnlEdicion" columns="1" style="width:100%;">
                         <p:panelGrid columns="2">
                             <p:commandButton value="Buscar Contrato"
                                              actionListener="#{declararInversionMB.buscarContratos()}"
-                                             update=":frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
+                                             update="contrato"/>
                             <p:commandButton value="Limpiar"
                                              onclick="_fechaInicioBC.setDate(null);_fechaFinBC.setDate(null);_cboconcesion.selectValue(0);"
                                              update=":frmBuscarContratoDlg:concesion"/>

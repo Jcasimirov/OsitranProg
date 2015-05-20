@@ -98,7 +98,7 @@ public class RectificarInversion {
 
     @ManagedProperty(value = "#{contratoInversionServiceImpl}")
     private ContratoInversionServiceImpl contratoInversionServiceImpl;
-    
+
     @ManagedProperty(value = "#{contratoVO}")
     private ContratoVO contratoVO;
     @ManagedProperty(value = "#{concesionarioVO}")
@@ -113,7 +113,7 @@ public class RectificarInversion {
     @ManagedProperty(value = "#{contratoInversionVO}")
     private ContratoInversionVO contratoInversionVO;
     List<ContratoInversionVO> listContratoInversion;
-    HashMap<String,Object> nombreinversion=new HashMap<String,Object>();
+    HashMap<String, Object> nombreinversion = new HashMap<String, Object>();
     @ManagedProperty(value = "#{invAvnVO}")
     private InvAvnVO invAvnVO;
     @ManagedProperty(value = "#{invVO}")
@@ -134,15 +134,15 @@ public class RectificarInversion {
 
     @ManagedProperty(value = "#{inversionDescripcionServicesImpl}")
     InversionDescripcionServices inversionDescripcionServicesImpl;
-    
+
     @ManagedProperty(value = "#{valorizacionInversionAvanceDetalleServiceImpl}")
     ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServiceImpl;
-    
+
     @ManagedProperty(value = "#{invServiceImpl}")
     InvService invServiceImpl;
     @ManagedProperty(value = "#{valorizacionInversionAvanceServiceImpl}")
     ValorizacionInversionAvanceService valorizacionInversionAvanceServiceImpl;
-    
+
     // Lista Bean VO
     private List<InversionDescripcionVO> listaConceptos = new ArrayList<InversionDescripcionVO>();
     private List<ValorizacionInversionAvanceDetalleVO> listaValorizacionInversionAvanceDetalleVO =
@@ -198,16 +198,17 @@ public class RectificarInversion {
 
     private int estadoReconocimiento;
     private boolean deshabilitadoxObservado;
-    private boolean deshabilitadoxDeclaracionNoCargada=true;
-    private boolean mostrarxDeclaracionCargada=false;
-    private boolean readOnlyMontoTipoCambio=false;
+    private boolean deshabilitadoxDeclaracionNoCargada = true;
+    private boolean mostrarxDeclaracionCargada = false;
+    private boolean readOnlyMontoTipoCambio = false;
+    private Date fechaactual;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-       
-        usuario=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura= Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
-        System.out.println("tipoInfraestructura:"+tipoInfraestructura);
+
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        System.out.println("tipoInfraestructura:" + tipoInfraestructura);
     }
 
     public RectificarInversion() {
@@ -215,14 +216,15 @@ public class RectificarInversion {
 
     }
     /*EN LA TABLA T_INV EL CAMPO INV_ID ES UN SECUENCIAL Y NO ES FK DE T_INV_AVN*/
-    public void cargarInversionesInvxTiaNumero(int tianumero){
+    public void cargarInversionesInvxTiaNumero(int tianumero) {
         try {
-            invVO=invServiceImpl.obtenerInversion(tianumero);
+            invVO = invServiceImpl.obtenerInversion(tianumero);
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
+
     public void listarTiposMoneda() {
         try {
             List<MonedaVO> lista = new ArrayList<MonedaVO>();
@@ -285,7 +287,7 @@ public class RectificarInversion {
         }
     }
 
-    public void listarInfraEstructuras() throws SQLException {
+    public void listarInfraEstructuras()  {
         try {
             listarInfraestructura = infraestructuraServiceImpl.query();
         } catch (Exception e) {
@@ -293,33 +295,32 @@ public class RectificarInversion {
             e.printStackTrace();
         }
     }
-    public void obtenerDeatalleInversionAvanceInvAvn(int tiaNumero){
+
+    public void obtenerDeatalleInversionAvanceInvAvn(int tiaNumero) {
         try {
-            listaValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
-            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listaValorizacionInversionAvanceDetalleVO) {
-                System.out.println("cargando detalle inversion===="+valorizacionInversionAvanceDetalleVO.getInvId());
-           }
+            listaValorizacionInversionAvanceDetalleVO =
+                valorizacionInversionAvanceDetalleServiceImpl.getInvAvanceDetallesInvAvance(tiaNumero);
+
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
         }
     }
+
     public void resetearCamposBuscarContratos() {
-        tipoinfra = 0;
         concesion = 0;
-        fechaInicioSuscripcion = null;
-        fechaFinSuscripcion = null;
+        listaContrato = new ArrayList<ContratoVO>();
     }
 
     public void cargarDescripcionesMoneda(List<InvAvnVO> listaDeclaraciones) {
         for (InvAvnVO invAvn : listaDeclaraciones) {
-            System.out.println("################invAvn.getMonId():"+invAvn.getMonId());
+            System.out.println("################invAvn.getMonId():" + invAvn.getMonId());
             for (MonedaVO moneda : listarTipoMonedas) {
-                if (invAvn.getMonId() == moneda.getMonId()){
+                if (invAvn.getMonId().equals(moneda.getMonId())) {
                     invAvn.setNombreMoneda(moneda.getMonNombre());
-                    System.out.println("################invAvn.getMonId():"+invAvn.getMonId());
+                    System.out.println("################invAvn.getMonId():" + invAvn.getMonId());
                 }
-                   
+
             }
         }
     }
@@ -335,8 +336,8 @@ public class RectificarInversion {
 
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos() {
+        resetearCamposBuscarContratos();
         if (nombreConcesion.length() != 0) {
-            resetearCamposBuscarContratos();
             buscarContratos();
         }
     }
@@ -354,7 +355,7 @@ public class RectificarInversion {
     public void cargarInfraestructurasContrato(Integer contratoId) {
         try {
             listaInfraestructura = infraestructuraServiceImpl.getInfraestructurasContrato(contratoId);
-            System.out.println("listaInfraestructura#########:"+listaInfraestructura.size());
+            System.out.println("listaInfraestructura#########:" + listaInfraestructura.size());
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -363,12 +364,12 @@ public class RectificarInversion {
 
 
     public void buscarContratos() {
- 
+
         try {
             listaContrato =
-                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(), tipoInfraestructura,
-                                                                   concesion, fechaInicioSuscripcion,
-                                                                   fechaFinSuscripcion);
+                contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),
+                                                                   tipoInfraestructura, concesion,
+                                                                   fechaInicioSuscripcion, fechaFinSuscripcion);
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -388,17 +389,17 @@ public class RectificarInversion {
 
     public void listarDeclaraciones(int codigoContrato) {
         try {
-            System.out.println("codigoContrato:"+codigoContrato);
+            System.out.println("codigoContrato:" + codigoContrato);
             listaValorizaciones = notificacionServiceImpl.obtenerDeclaracionesxIdContrato(codigoContrato);
             cargarDescripcionesMoneda(listaValorizaciones);
             cargarEstadosdelAvanceInversion(listaValorizaciones);
-          
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-   
+
     public void seleccionarDeclaracion(ActionEvent e) throws SQLException {
         invAvnVO = (InvAvnVO) e.getComponent().getAttributes().get("idDeclaracion");
         invAvnVO.setNombreConcesion(contratoVO.getNombreConcesion());
@@ -409,89 +410,90 @@ public class RectificarInversion {
         cargarDatosCompromiso(invAvnVO.getCcoId());
         cargarReconocimiento(invAvnVO.getTiaNumero());
         cargarReajuste(invAvnVO.getTiaNumero());
-        deshabilitadoxDeclaracionNoCargada=false;
-        mostrarxDeclaracionCargada=true;
+        deshabilitadoxDeclaracionNoCargada = false;
+        mostrarxDeclaracionCargada = true;
         resetCamposIGV();
     }
-    public void resetCamposIGV(){
-        renderMostrarIGV=invVO.getInvIgv()==1?true:false;;
-        igv=BigDecimal.ZERO;
-        
-    }
-    public void resetTipoCambio(){
-        if(invVO.getMonId()==Constantes.SOLES){
-        invVO.setInvMontoTipoCambio(BigDecimal.ZERO);
-        readOnlyMontoTipoCambio=true;
-        }else{
-            readOnlyMontoTipoCambio=false;
-        }
-    }
-    public void prepararMontosObservados(){
-    invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);  
-    invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);  
-    invVO.setInvIgv(0);
-    }
-    public void guardarRectificarReconocimiento(){
-        try {     
-         if (invAvnVO.getIaeId() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha seleccionado el Estado de Reconocimiento"));
-        } else if (invAvnVO.getTiaObservaciones()==null || invAvnVO.getTiaObservaciones().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado las Observaciones"));
-        } else if (invVO.getInvNumeroInforme()==null || invVO.getInvNumeroInforme().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado el Número de Informe"));
-        } else if (invVO.getInvFechaEmisionInforme()==null || invVO.getInvFechaEmisionInforme().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Fecha de Emisión del Informe"));
-        } else if (invVO.getInvRegSalidaInforme()==null || invVO.getInvRegSalidaInforme().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado el Registro de Salida del Informe"));
-        } else if (invVO.getInvNumeroOficio()==null || invVO.getInvNumeroOficio().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado el Número de Oficio"));
-        } else if (invVO.getInvFechaEmisionOficio()==null || invVO.getInvFechaEmisionOficio().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Fecha del Oficio"));
-        } else if (invVO.getInvRegSalidaOficio()==null || invVO.getInvRegSalidaOficio().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Inversión"));
-        } else if (invVO.getMonId()==null || invVO.getMonId() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha seleccionado el Tipo de Cambio"));
-        } else if (invVO.getInvMontoTipoCambio()==null || invVO.getInvMontoTipoCambio().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado el Monto"));
-        } else if (invVO.getInvNota()==null || invVO.getInvNota().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "No ha ingresado la Nota"));
-        }else{
 
-                invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId()==Constantes.ESTADORECONOCIMIENTO_DECLARADO?Constantes.ESTADORECONOCIMIENTO_RECTIFICADO:Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
+    public void resetCamposIGV() {
+        renderMostrarIGV = invVO.getInvIgv() == 1 ? true : false;
+        ;
+        igv = BigDecimal.ZERO;
+
+    }
+
+
+
+    public void prepararMontosObservados() {
+        invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);
+        invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);
+        invVO.setInvIgv(0);
+    }
+
+    public void guardarRectificarReconocimiento() {
+        try {
+            if (invAvnVO.getIaeId() == 0) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha seleccionado el Estado de Reconocimiento"));
+            } else if (invAvnVO.getTiaObservaciones() == null || invAvnVO.getTiaObservaciones().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado las Observaciones"));
+            } else if (invVO.getInvNumeroInforme() == null || invVO.getInvNumeroInforme().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado el Número de Informe"));
+            } else if (invVO.getInvFechaEmisionInforme() == null || invVO.getInvFechaEmisionInforme().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado la Fecha de Emisión del Informe"));
+            } else if (invVO.getInvRegSalidaInforme() == null || invVO.getInvRegSalidaInforme().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado el Registro de Salida del Informe"));
+            } else if (invVO.getInvNumeroOficio() == null || invVO.getInvNumeroOficio().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado el Número de Oficio"));
+            } else if (invVO.getInvFechaEmisionOficio() == null || invVO.getInvFechaEmisionOficio().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado la Fecha del Oficio"));
+            } else if (invVO.getInvRegSalidaOficio() == null || invVO.getInvRegSalidaOficio().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado la Inversión"));
+            } else if (invVO.getMonId() == null || invVO.getMonId() == 0) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha seleccionado el Tipo de Cambio"));
+            } else if (invVO.getInvMontoTipoCambio() == null || invVO.getInvMontoTipoCambio().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado el Monto"));
+            } else if (invVO.getInvNota() == null || invVO.getInvNota().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "No ha ingresado la Nota"));
+            } else {
+
+                invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId() == Constantes.ESTADORECONOCIMIENTO_DECLARADO ?
+                                                 Constantes.ESTADORECONOCIMIENTO_RECTIFICADO :
+                                                 Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 invAvnVO.setIaeId(invVO.getInvEstadoReconocimiento());
-                invAvnVO.setTiaMontoTotalAprobado(invVO.getInvMontoTotalAprobado());  
-                invAvnVO.setTiaMontoTotalReajustado(invVO.getInvMontoTotalReajuste()); 
-                notificacionServiceImpl.updateRectificacion(invAvnVO,listaReconocimiento,listaReajuste,invVO);
+                invAvnVO.setTiaMontoTotalAprobado(invVO.getInvMontoTotalAprobado());
+                invAvnVO.setTiaMontoTotalReajustado(invVO.getInvMontoTotalReajuste());
+                notificacionServiceImpl.updateRectificacion(invAvnVO, listaReconocimiento, listaReajuste, invVO);
                 listarDeclaraciones(contratoVO.getConId());
                 reseteaCampos();
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                              Constantes.GRABARMENSAJESATISFACTORIO));  
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                              Constantes.EXITO,
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
             }
-            
-           
+
+
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -499,20 +501,22 @@ public class RectificarInversion {
                                                                           Constantes.ERRORGUARDAR));
         }
     }
-    public void reseteaCampos(){
-        invVO=new InvVO();
-        invAvnVO=new InvAvnVO(); 
-        listaReconocimiento=new ArrayList<InvReconocimientoVO>();
-        listaReajuste=new ArrayList<InvReajusteVO>();
-        totalirjMontoAprobado=BigDecimal.ZERO;
-        totalirjMontoReajuste=BigDecimal.ZERO;
-        totalivrMontoAprobado=BigDecimal.ZERO;
-        totalivrMontoPresentado=BigDecimal.ZERO;
-        renderMostrarIGV=false;
-        estadoReconocimiento=0;
-        if(listaValorizaciones.size()==0)
-            deshabilitadoxDeclaracionNoCargada=true;
+
+    public void reseteaCampos() {
+        invVO = new InvVO();
+        invAvnVO = new InvAvnVO();
+        listaReconocimiento = new ArrayList<InvReconocimientoVO>();
+        listaReajuste = new ArrayList<InvReajusteVO>();
+        totalirjMontoAprobado = BigDecimal.ZERO;
+        totalirjMontoReajuste = BigDecimal.ZERO;
+        totalivrMontoAprobado = BigDecimal.ZERO;
+        totalivrMontoPresentado = BigDecimal.ZERO;
+        renderMostrarIGV = false;
+        estadoReconocimiento = 0;
+        if (listaValorizaciones.size() == 0)
+            deshabilitadoxDeclaracionNoCargada = true;
     }
+
     public void cargarDatosCompromiso(int ccoId) {
         try {
             ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
@@ -531,7 +535,7 @@ public class RectificarInversion {
         }
 
     }
- 
+
 
     public void resetDialogoBuscarContrato() {
         tipoinfra = 0;
@@ -576,7 +580,7 @@ public class RectificarInversion {
     public void cargarReconocimiento(int tiaNumero) {
         try {
             listaReconocimiento = invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
-            System.out.println("listaReconocimiento.size():"+listaReconocimiento.size());
+            System.out.println("listaReconocimiento.size():" + listaReconocimiento.size());
             calcularTotalesReconocimiento(listaReconocimiento);
             cargarDescripcionesInfraestructura(listaReconocimiento);
             cargarDescripcionesMonedas(listaReconocimiento);
@@ -602,7 +606,7 @@ public class RectificarInversion {
         try {
 
             listaReajuste = invReajusteServiceImpl.getInvReajustesAvance(tiaNumero);
-            calcularTotalesResumen(listaReajuste);
+            calcularTotalesReajuste(listaReajuste);
             cargarDescripcionesInfraestructura(listaReajuste);
             cargarDescripcionesMonedas(listaReajuste);
             cargarDescripcionesConcepto(listaReajuste);
@@ -612,12 +616,13 @@ public class RectificarInversion {
             sqle.printStackTrace();
         }
     }
+
     public void deshabilitarxObservado() {
         if (estadoReconocimiento == 2) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
             prepararMontosObservados();
-                
+
         } else {
             deshabilitadoxObservado = false;
         }
@@ -637,7 +642,8 @@ public class RectificarInversion {
         invVO.setInvMontoTotalAprobado(invVO.getInvMontoTotalAprobado().add(igv.multiply(invVO.getInvMontoTotalAprobado())));
         invVO.setInvMontoTotalReajuste(invVO.getInvMontoTotalReajuste().add(igv.multiply(invVO.getInvMontoTotalReajuste())));
     }
-    public void calcularTotalesResumen(List<InvReajusteVO> listaReajuste) {
+
+    public void calcularTotalesReajuste(List<InvReajusteVO> listaReajuste) {
         setTotalirjMontoAprobado(BigDecimal.ZERO);
         setTotalirjMontoReajuste(BigDecimal.ZERO);
         invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
@@ -661,7 +667,7 @@ public class RectificarInversion {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
                     if (aux.getInfId() == infraestructuraVO.getInfId()) {
-                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());                       
+                        aux.setNombreInfraestructura(infraestructuraVO.getInfNombre());
                     }
                 }
                 if (item instanceof InvReajusteVO) {
@@ -679,7 +685,7 @@ public class RectificarInversion {
             for (MonedaVO moneda : listarTipoMonedas) {
                 if (item instanceof InvReconocimientoVO) {
                     InvReconocimientoVO aux = ((InvReconocimientoVO) item);
-                    if (aux.getMonId() == moneda.getMonId()) {                        
+                    if (aux.getMonId() == moneda.getMonId()) {
                         aux.setNombreMoneda(moneda.getMonNombre());
                     }
                 }
@@ -692,49 +698,59 @@ public class RectificarInversion {
 
         }
     }
+
     public void cargarListaInversiones(int idcontrato) {
         try {
             listContratoInversion = contratoInversionServiceImpl.getInversionesContratoenRectificacion(idcontrato);
             nombreinversion.put("0", "");
             for (ContratoInversionVO contratoInversionVO : listContratoInversion) {
                 nombreinversion.put(contratoInversionVO.getInvId().toString(), contratoInversionVO.getInvDescripcion());
-           }
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void cargarDescripcionesConcepto(List<?> lista) {
         for (Object item : lista) {
             if (item instanceof InvReconocimientoVO) {
                 InvReconocimientoVO aux = ((InvReconocimientoVO) item);
                 for (ValorizacionInversionAvanceDetalleVO invAvnDetalle : listaValorizacionInversionAvanceDetalleVO) {
-                    System.out.println("invAvnDetalle.getInvId();"+invAvnDetalle.getInvId());
-                    if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() && invAvnDetalle.getIad_Id() == aux.getIadId()) {
+                    System.out.println("invAvnDetalle.getInvId();" + invAvnDetalle.getInvId());
+                    if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() &&
+                        invAvnDetalle.getIad_Id() == aux.getIadId()) {
                         for (InversionDescripcionVO concepto : listaConceptos) {
-                            if (invAvnDetalle.getTivId() == concepto.getTivId()&&invAvnDetalle.getDtiId()==concepto.getItdId()) {
-                                aux.setDesConcepto(concepto.getItdNombre());                               
+                            if (invAvnDetalle.getTivId() == concepto.getTivId() &&
+                                invAvnDetalle.getDtiId() == concepto.getItdId()) {
+                                aux.setDesConcepto(concepto.getItdNombre());
                             }
                         }
-                        System.out.println("InvReconocimientoVO--invAvnDetalle.getInvId()========##"+invAvnDetalle.getInvId());
-                        aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)? (nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
+                        System.out.println("InvReconocimientoVO--invAvnDetalle.getInvId()========##" +
+                                           invAvnDetalle.getInvId());
+                        aux.setNombreInversion((nombreinversion.get("" + invAvnDetalle.getInvId()) != 0) ?
+                                               (nombreinversion.get("" + invAvnDetalle.getInvId()).toString()) : "");
                     }
                 }
             }
             if (item instanceof InvReajusteVO) {
                 InvReajusteVO aux = ((InvReajusteVO) item);
-                    for (ValorizacionInversionAvanceDetalleVO invAvnDetalle : listaValorizacionInversionAvanceDetalleVO) {
-                        System.out.println("invAvnDetalle.getInvId();"+invAvnDetalle.getInvId());
-                        if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() && invAvnDetalle.getIad_Id() == aux.getIadId()) {
-                            for (InversionDescripcionVO concepto : listaConceptos) {
-                                if (invAvnDetalle.getTivId() == concepto.getTivId()&&invAvnDetalle.getDtiId()==concepto.getItdId()) {
-                                    aux.setDesConcepto(concepto.getItdNombre());
-                                    
-                                }
+                for (ValorizacionInversionAvanceDetalleVO invAvnDetalle : listaValorizacionInversionAvanceDetalleVO) {
+                    System.out.println("invAvnDetalle.getInvId();" + invAvnDetalle.getInvId());
+                    if (invAvnDetalle.getTiaNumero() == aux.getTiaNumero() &&
+                        invAvnDetalle.getIad_Id() == aux.getIadId()) {
+                        for (InversionDescripcionVO concepto : listaConceptos) {
+                            if (invAvnDetalle.getTivId() == concepto.getTivId() &&
+                                invAvnDetalle.getDtiId() == concepto.getItdId()) {
+                                aux.setDesConcepto(concepto.getItdNombre());
+
                             }
-                            System.out.println("InvReajusteVO--invAvnDetalle.getInvId()========##"+invAvnDetalle.getInvId());
-                            aux.setNombreInversion((nombreinversion.get(""+invAvnDetalle.getInvId())!=0)?(nombreinversion.get(""+invAvnDetalle.getInvId()).toString()):"");
                         }
+                        System.out.println("InvReajusteVO--invAvnDetalle.getInvId()========##" +
+                                           invAvnDetalle.getInvId());
+                        aux.setNombreInversion((nombreinversion.get("" + invAvnDetalle.getInvId()) != 0) ?
+                                               (nombreinversion.get("" + invAvnDetalle.getInvId()).toString()) : "");
                     }
+                }
             }
         }
     }
@@ -745,36 +761,42 @@ public class RectificarInversion {
     }
 
     public void grabarReconocimiento(ActionEvent e) {
-        InvReconocimientoVO rec = (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
-        Integer idreconocimiento=rec.getIreId();
-        BigDecimal montoAprobado =Reutilizar.getNewInstance().redondearBigDecimal(rec.getIvrMontoAprobado());
-        BigDecimal montoPresentado = Reutilizar.getNewInstance().redondearBigDecimal(rec.getIvrMontoPresentado());
-        if (montoAprobado.compareTo(BigDecimal.ZERO) == 0 || montoAprobado.compareTo(new BigDecimal("0.00")) == 0) {
+        InvReconocimientoVO reconocimientoSeleccionado =
+            (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
+        Integer idreconocimientoSeleccionado = reconocimientoSeleccionado.getIreId();
+        BigDecimal montoAprobadoSeleccionado =
+            Reutilizar.getNewInstance().redondearBigDecimal(reconocimientoSeleccionado.getIvrMontoAprobado());
+        BigDecimal montoPresentadoSeleccionado =
+            Reutilizar.getNewInstance().redondearBigDecimal(reconocimientoSeleccionado.getIvrMontoPresentado());
+        if (montoAprobadoSeleccionado.compareTo(BigDecimal.ZERO) == 0 ||
+            montoAprobadoSeleccionado.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Cero"));
-        } else if (montoAprobado.compareTo(BigDecimal.ZERO) < 0) {
+        } else if (montoAprobadoSeleccionado.compareTo(BigDecimal.ZERO) < 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser Negativo"));
-        }else if (montoAprobado.compareTo(montoPresentado) > 0) {
+        } else if (montoAprobadoSeleccionado.compareTo(montoPresentadoSeleccionado) > 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto Aprobado no puede ser Mayor al Monto Presentado"));
-        }else {
+        } else {
             try {
                 for (InvReconocimientoVO invReconocimientoVO : listaReconocimiento) {
-                    if (idreconocimiento == invReconocimientoVO.getIreId()) {
-                        invReconocimientoVO.setIvrMontoAprobado(montoAprobado);
+                    if (idreconocimientoSeleccionado.equals(invReconocimientoVO.getIreId())) {
+                        invReconocimientoVO.setIvrMontoAprobado(montoAprobadoSeleccionado);
                     }
                 }
                 calcularTotalesReconocimiento(listaReconocimiento);
-                for (InvReajusteVO invReconocimientoVO : listaReajuste) {
-                    if (idreconocimiento == invReconocimientoVO.getIrjId()) {
-                        invReconocimientoVO.setIrjMontoAprobado(montoAprobado);
+                for (InvReajusteVO invReajusteVO : listaReajuste) {
+                    if (idreconocimientoSeleccionado.equals(invReajusteVO.getIrjId())) {
+                        invReajusteVO.setIrjMontoAprobado(montoAprobadoSeleccionado);
+                        invReajusteVO.setIrjMontoReajuste(montoAprobadoSeleccionado);
                     }
                 }
-                calcularTotalesResumen(listaReajuste);              
+                calcularTotalesReconocimiento(listaReconocimiento);
+                calcularTotalesReajuste(listaReajuste);
                 RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
                 RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
@@ -784,8 +806,7 @@ public class RectificarInversion {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                                                                              Constantes.ERROR,
-                                                                              Constantes.ERROR));
+                                                                              Constantes.ERROR, Constantes.ERROR));
             }
         }
     }
@@ -795,9 +816,9 @@ public class RectificarInversion {
     }
 
     public void grabarReajuste(ActionEvent e) {
-        
+
         InvReajusteVO rea = (InvReajusteVO) e.getComponent().getAttributes().get("reajuste");
-        Integer idreajuste=rea.getIrjId();
+        Integer idreajuste = rea.getIrjId();
         BigDecimal montoReajuste = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoReajuste());
         BigDecimal montoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoAprobado());
         if (montoReajuste.compareTo(BigDecimal.ZERO) == 0 || montoReajuste.compareTo(new BigDecimal("0.00")) == 0) {
@@ -819,7 +840,7 @@ public class RectificarInversion {
                         invReconocimientoVO.setIrjMontoReajuste(montoReajuste);
                     }
                 }
-                calcularTotalesResumen(listaReajuste);
+                calcularTotalesReajuste(listaReajuste);
                 RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
                 RequestContext.getCurrentInstance().update("form:resumenMonRea");
@@ -827,11 +848,11 @@ public class RectificarInversion {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                                                                              Constantes.ERROR,
-                                                                              Constantes.ERROR));
+                                                                              Constantes.ERROR, Constantes.ERROR));
             }
         }
     }
+
     public void setContratoId(Integer contratoId) {
         this.contratoId = contratoId;
     }
@@ -1413,5 +1434,14 @@ public class RectificarInversion {
 
     public ContratoInversionServiceImpl getContratoInversionServiceImpl() {
         return contratoInversionServiceImpl;
+    }
+
+    public void setFechaactual(Date fechaactual) {
+        this.fechaactual = fechaactual;
+    }
+
+    public Date getFechaactual() {
+        fechaactual = new Date();
+        return fechaactual;
     }
 }

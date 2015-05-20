@@ -224,9 +224,10 @@ public class DeclararInversion {
     }
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
     public void abrirBuscarContratos() {
-        System.out.println("abrirBuscarContratos() aaa");
         resetearCamposBuscarContratos();
+        if (nombreConcesion.length() != 0) {
         buscarContratos();
+        }
         System.out.println("abrirBuscarContratos()");
     }
     // Metodo para Filtrar la Lista de Concesión
@@ -293,10 +294,8 @@ public class DeclararInversion {
     }
 
     public void resetearCamposBuscarContratos() {
-        setTipoinfra(0);
-        setConcesion(0);
-        setFechaInicioSuscripcion(null);
-        setFechaFinSuscripcion(null);
+        concesion = 0;
+        listaContrato=new ArrayList<ContratoVO>();
     }
 
     public ContratoConcesionServiceImpl getContratoConcesionServiceImp() {
