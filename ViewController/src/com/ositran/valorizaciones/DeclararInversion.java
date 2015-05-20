@@ -884,6 +884,8 @@ public class DeclararInversion {
                 invReajusteVO.setMonId(invAvanceDetalleVO.getMonId());
                 invReajusteVO.setIadId(invAvanceDetalleVO.getIad_Id());
                 invReajusteVO.setTiaNumero(invAvanceDetalleVO.getTiaNumero()); // inversion
+                invReconocimientoVO.setMonId(invAvnVO.getMonId());
+                invReajusteVO.setMonId(invAvnVO.getMonId());
                 invReconocimientoVO.setNombreMoneda(monedaDescripcionMemoria.get(""+invAvnVO.getMonId()).toString()); // infraestructura
                 invReajusteVO.setNombreMoneda(monedaDescripcionMemoria.get(""+invAvnVO.getMonId()).toString());
                    
@@ -1267,6 +1269,7 @@ public class DeclararInversion {
                 if (invVO.getInvEstadoReconocimiento() == 2) {
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 }
+                invVO.setMonId(invAvnVO.getMonId());
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId());
                 invAvnVO.setTiaMontoTotalAprobado(totalivrMontoAprobadoI);
                 invAvnVO.setTiaMontoTotalReajustado(totalirjMontoReajusteI);
