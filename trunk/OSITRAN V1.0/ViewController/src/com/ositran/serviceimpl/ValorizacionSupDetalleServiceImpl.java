@@ -86,6 +86,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
         valorizacionSupDetalleVO.setNeto(valorizacionSupDetalle.getNeto());
         valorizacionSupDetalleVO.setTtotal(valorizacionSupDetalle.getTtotal());
         valorizacionSupDetalleVO.setTotalAprobado(valorizacionSupDetalle.getTotalAprobado());
+        valorizacionSupDetalleVO.setVsdId(valorizacionSupDetalle.getVsdId());
         return valorizacionSupDetalleVO;
     }
     private ValorizacionSupDetalle toValorizacionSupDetalle(ValorizacionSupDetalleVO valorizacionSupDetalleVO){
@@ -97,6 +98,7 @@ public class ValorizacionSupDetalleServiceImpl implements ValorizacionSupDetalle
         valorizacionSupDetalle.setNeto(valorizacionSupDetalleVO.getNeto());
         valorizacionSupDetalle.setTtotal(valorizacionSupDetalleVO.getTtotal());
         valorizacionSupDetalle.setTotalAprobado(valorizacionSupDetalleVO.getTotalAprobado());
+        valorizacionSupDetalle.setVsdId(valorizacionSupDetalleVO.getVsdId());
         return valorizacionSupDetalle;
         
     }
