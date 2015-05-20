@@ -3,6 +3,8 @@ package com.ositran.vo.bean;
 import java.util.Date;
 
 public class ConcesionVO {
+    
+    
     private Integer csiEstado;
     private Date csiFechaAlta;
     private Date csiFechaBaja;
