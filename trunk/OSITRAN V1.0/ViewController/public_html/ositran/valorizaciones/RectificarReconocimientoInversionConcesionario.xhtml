@@ -213,15 +213,15 @@
                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                                     rowsPerPageTemplate="5,10,20" resizableColumns="true"                                                                    
                                                                     selectionMode="single"
-                                                                    rows="10"
-                                                                    style="width:600px;">
+                                                                    rows="10" style="width:500px"
+                                                                    emptyMessage="NO SE ENCONTRARON DATOS">
                                                                                   <p:ajax event="rowSelect"
                                                                                         listener="#{rectificarInversion.seleccionarDeclaracion}"
                                                                                         update=":form:tblResultadoReconocimiento :form:tblReajuste :form"/>
                                                                                  <p:ajax event="rowUnselect"
                                                                                         listener="#{rectificarInversion.reseteaCampos()}"
                                                                                         update=":form:tblResultadoReconocimiento"/>
-                                                                 emptyMessage="NO SE ENCONTRARON DATOS">
+                                                                 
                                                         <p:column headerText="Nro. Val" styleClass="tabla-wrap-codigo">
                                                             <h:outputText value="#{val.tiaNumero}"/>
                                                         </p:column>
@@ -312,12 +312,14 @@
                                                                              style="margin-left:90px;width:200px;"
                                                                              readonly="true"/>
                                                             </td>
+                                                            </tr>
+                                                            <tr>
                                                             <td>
                                                                 <h:outputText value="Moneda:"/>
                                                             </td>
                                                             <td>
                                                                 <p:inputText value="#{rectificarInversion.invAvnVO.nombreMoneda}"
-                                                                             style="width:200px;" readonly="true"/>
+                                                                             style="margin-left:90px;width:200px;" readonly="true"/>
                                                             </td>
                                                         </tr>
                                                     </table>
