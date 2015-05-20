@@ -205,42 +205,43 @@
                                                     </p:commandButton>
                                                 </p:fieldset>
                                                  
-                                                <p:fieldset legend="Expediente de Reconocimiento">
+                                                <p:fieldset legend="Expediente de Reconocimiento" styleClass="fieldContainer">
                                                     <p:dataTable value="#{rectificarInversion.listaValorizaciones}"
-                                                                 id="tablaValorizaciones" var="val"
-                                                                 rowKey="#{val.tiaNumero}" style="font-size:11px"
-                                                                 rows="10" paginator="true"
-                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                 paginatorPosition="bottom"
-                                                                 rowsPerPageTemplate="5,10,20"
+                                                                    id="tablaValorizaciones" var="val"
+                                                                    rowKey="#{val.tiaNumero}" 
+                                                                    paginator="true"
+                                                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                    rowsPerPageTemplate="5,10,20" resizableColumns="true"                                                                    
+                                                                    selectionMode="single"
+                                                                    rows="10"
+                                                                    style="width:600px;">
+                                                                                  <p:ajax event="rowSelect"
+                                                                                        listener="#{rectificarInversion.seleccionarDeclaracion}"
+                                                                                        update=":form:tblResultadoReconocimiento :form:tblReajuste :form"/>
+                                                                                 <p:ajax event="rowUnselect"
+                                                                                        listener="#{rectificarInversion.reseteaCampos()}"
+                                                                                        update=":form:tblResultadoReconocimiento"/>
                                                                  emptyMessage="NO SE ENCONTRARON DATOS">
-                                                        <p:column headerText="Nro. Val" style="width:5%">
+                                                        <p:column headerText="Nro. Val" styleClass="tabla-wrap-codigo">
                                                             <h:outputText value="#{val.tiaNumero}"/>
                                                         </p:column>
-                                                        <p:column headerText="Fecha Registro" style="width:10%">
+                                                        <p:column headerText="Fecha Registro" styleClass="tabla-wrap-fecha">
                                                             <h:outputText value="#{val.tiaFechaRegistroDescripcion}"
                                                                           style="text-transform:uppercase;"/>
                                                         </p:column>
-                                                        <p:column headerText="Moneda" style="width:10%">
+                                                        <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                             <h:outputText value="#{val.nombreMoneda}"
                                                                           style="text-transform:uppercase;"/>
                                                         </p:column>
-                                                        <p:column headerText="Total Presentado" style="width:10%">
+                                                        <p:column headerText="Total Presentado" styleClass="tabla-wrap-montos">
                                                             <h:outputText value="#{val.tiaMontoTotalPresentado}"
                                                                           style="text-transform:uppercase;"/>
                                                         </p:column>
-                                                        <p:column headerText="Estado" style="width:35%">
+                                                        <p:column headerText="Estado" styleClass="tabla-wrap-estado">
                                                             <h:outputText value="#{val.iaeNombreEstado}"
                                                                           style="text-transform:uppercase;"/>
                                                         </p:column>
-                                                        <p:column headerText="Seleccionar" style="width:4%">
-                                                            <div align="center">
-                                                                <p:commandButton icon="ui-icon-check" update=":form"
-                                                                                 actionListener="#{rectificarInversion.seleccionarDeclaracion}">
-                                                                    <f:attribute name="idDeclaracion" value="#{val}"></f:attribute>
-                                                                </p:commandButton>
-                                                            </div>
-                                                        </p:column>
+                                                       
                                                     </p:dataTable>
                                                 </p:fieldset>
                                                  
@@ -346,61 +347,65 @@
                                                         <tr>
                                                             <td align="left" style="width:10px;">Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea style="width:100%;"
+                                                                <p:inputTextarea 
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <p:fieldset legend="Resultado del Reconocimiento">
+                                                    <p:fieldset legend="Resultado del Reconocimiento" styleClass="fieldContainer">
                                                         <table>
                                                             <tr>
                                                                 <td colspan="3">
                                                                     <p:dataTable value="#{rectificarInversion.listaReconocimiento}"
                                                                                  id="tblResultadoReconocimiento"
                                                                                  var="reconocimiento"
-                                                                                 style="font-size:11px;"
                                                                                  emptyMessage="NO SE ENCONTRARON DATOS"
-                                                                                 rowIndexVar="rowIndex">
+                                                                                paginator="true"
+                                                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                                rowsPerPageTemplate="5,10,20" resizableColumns="true"
+                                                                                
+                                                                               
+                                                                                rows="10">
                                                                         <p:column headerText="Nro. Val"
-                                                                                  style="width:7%">
-                                                                            <div style="text-align: center;">
+                                                                                  styleClass="tabla-wrap-codigo">
+                                                                           
                                                                                 <h:outputText value="#{reconocimiento.tiaNumero}"/>
-                                                                            </div>
+                                                                          
                                                                         </p:column>
                                                                         <p:column headerText="Inversion"
-                                                                                  style="width:7%">
-                                                                            <div style="text-align: center;">
+                                                                                  styleClass="tabla-wrap-desc">
+                                                                           
                                                                                 <h:outputText value="#{reconocimiento.nombreInversion}"/>
-                                                                            </div>
+                                                                            
                                                                         </p:column>
-                                                                        <p:column headerText="Aeropuerto"
+                                                                        <p:column headerText="Aeropuerto" styleClass="tabla-wrap-desc"
                                                                                   rendered="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"
-                                                                                  style="width:7%">
-                                                                            <div style="text-align: center;">
+                                                                                  >
+                                                                            
                                                                                 <h:outputText value="#{reconocimiento.nombreInfraestructura}"
                                                                                               style="text-transform:uppercase;"/>
-                                                                            </div>
+                                                                          
                                                                         </p:column>
                                                                         <p:column headerText="Descripcion del Concepto"
-                                                                                  style="width:10%">
+                                                                                  styleClass="tabla-wrap-desc">
                                                                             <h:outputText value="#{reconocimiento.desConcepto}"/>
                                                                         </p:column>
-                                                                        <p:column headerText="Moneda" style="width:35%">
+                                                                        <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                                             <h:outputText value="#{reconocimiento.nombreMoneda}"/>
                                                                         </p:column>
-                                                                        <p:column headerText="MontoPresentado"
-                                                                                  style="width:35%;">
+                                                                        <p:column headerText="Monto Presentado"
+                                                                                 styleClass="tabla-wrap-montos" >
                                                                             <h:outputText value="#{reconocimiento.ivrMontoPresentado}"
                                                                                           style="text-transform:uppercase;"/>
                                                                         </p:column>
-                                                                        <p:column headerText="MontoAprobado"
-                                                                                  style="width:35%;">
+                                                                        <p:column headerText="Monto Aprobado"
+                                                                                 styleClass="tabla-wrap-montos" >
                                                                             <h:outputText value="#{reconocimiento.ivrMontoAprobado}"
                                                                                           style="text-transform:uppercase;"/>
                                                                         </p:column>
-                                                                        <p:column headerText="EditarMonto"
-                                                                                  style="width:4%">
-                                                                            <div align="center">
+                                                                        <p:column headerText="Editar Monto"
+                                                                                  styleClass="tabla-wrap-boton">
+                                                                           <center>
                                                                                 <p:commandButton icon="ui-icon-check"
                                                                                                  disabled="#{rectificarInversion.deshabilitadoxObservado}"
                                                                                                  actionListener="#{rectificarInversion.editarReconocimiento}"
@@ -409,7 +414,7 @@
                                                                                     <f:attribute name="reconocimiento"
                                                                                                  value="#{reconocimiento}"></f:attribute>
                                                                                 </p:commandButton>
-                                                                            </div>
+                                                                           </center>
                                                                         </p:column>
                                                                         <p:columnGroup type="footer">
                                                                             <p:row>
@@ -428,28 +433,34 @@
                                                             </tr>
                                                         </table>
                                                     </p:fieldset>
-                                                    <p:fieldset legend="Reajuste">
+                                                    <p:fieldset legend="Reajuste" styleClass="fieldContainer">
                                                         <table>
                                                             <tr>
                                                                 <td colspan="3">
                                                                     <p:dataTable value="#{rectificarInversion.listaReajuste}"
                                                                                  id="tblReajuste" var="reajuste"
-                                                                                 style="font-size:11px"
-                                                                                 emptyMessage="NO SE ENCONTRARON DATOS">
+                                                                                
+                                                                                 emptyMessage="NO SE ENCONTRARON DATOS"
+                                                                                 paginator="true"
+                                                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                                rowsPerPageTemplate="5,10,20" resizableColumns="true"
+                                                                                
+                                                                                
+                                                                                rows="10">
                                                                         <p:column headerText="Nro. Val"
-                                                                                  style="width:7%">
+                                                                                  styleClass="tabla-wrap-codigo">
                                                                             <div style="text-align: center;">
                                                                                 <h:outputText value="#{reajuste.tiaNumero}"/>
                                                                             </div>
                                                                         </p:column>
                                                                         <p:column headerText="Inversion"
-                                                                                  style="width:7%">
+                                                                                  styleClass="tabla-wrap-desc">
                                                                             <div style="text-align: center;">
                                                                                 <h:outputText value="#{reajuste.nombreInversion}"/>
                                                                             </div>
                                                                         </p:column>
                                                                         <p:column headerText="Aeropuerto"
-                                                                                  style="width:7%"
+                                                                                  styleClass="tabla-wrap-desc"
                                                                                   rendered="#{rectificarInversion.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                                             <div style="text-align: center;">
                                                                                 <h:outputText value="#{reajuste.nombreInfraestructura}"
@@ -457,25 +468,25 @@
                                                                             </div>
                                                                         </p:column>
                                                                         <p:column headerText="Descripcion del Concepto"
-                                                                                  style="width:10%">
+                                                                                  styleClass="tabla-wrap-desc">
                                                                             <h:outputText value="#{reajuste.desConcepto}"/>
                                                                         </p:column>
-                                                                        <p:column headerText="Moneda" style="width:35%">
+                                                                        <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                                             <h:outputText value="#{reajuste.nombreMoneda}"/>
                                                                         </p:column>
-                                                                        <p:column headerText="MontoAprobado"
-                                                                                  style="width:35%">
+                                                                        <p:column headerText="Monto Aprobado"
+                                                                                  styleClass="tabla-wrap-montos">
                                                                             <h:outputText value="#{reajuste.irjMontoAprobado}"
                                                                                           style="text-transform:uppercase;"/>
                                                                         </p:column>
-                                                                        <p:column headerText="MontoReajuste"
-                                                                                  style="width:35%">
+                                                                        <p:column headerText="Monto Reajuste"
+                                                                                  styleClass="tabla-wrap-montos">
                                                                             <h:outputText value="#{reajuste.irjMontoReajuste}"
                                                                                           style="text-transform:uppercase;"/>
                                                                         </p:column>
-                                                                        <p:column headerText="EditarMonto"
-                                                                                  style="width:4%">
-                                                                            <div align="center">
+                                                                        <p:column headerText="Editar Monto"
+                                                                                  styleClass="tabla-wrap-boton">
+                                                                            <center>
                                                                                 <p:commandButton icon="ui-icon-check"
                                                                                                  disabled="#{rectificarInversion.deshabilitadoxObservado}"
                                                                                                  actionListener="#{rectificarInversion.editarReajuste}"
@@ -484,7 +495,7 @@
                                                                                     <f:attribute name="reajuste"
                                                                                                  value="#{reajuste}"></f:attribute>
                                                                                 </p:commandButton>
-                                                                            </div>
+                                                                            </center>
                                                                         </p:column>
                                                                         <p:columnGroup type="footer">
                                                                             <p:row>
@@ -504,7 +515,7 @@
                                                         </table>
                                                     </p:fieldset>
                                                     <p:fieldset legend="RESUMEN">
-                                                        <table style="width:100%;">
+                                                        <table >
                                                             <tr>
                                                                 <td>Monto Total Aprobado</td>
                                                                 <td>
@@ -564,10 +575,10 @@
                                                                 <h:outputText value="Fecha de Emision"/>
                                                             </td>
                                                             <td align="left">
-                                                                <p:calendar size="10" pattern="dd/MM/yyyy"
+                                                                <p:calendar size="10" pattern="dd/MM/yyyy"  maxdate="#{declararInversionMB.fechaactual}"
                                                                             value="#{rectificarInversion.invVO.invFechaEmisionInforme}"
                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
-                                                                            locale="es"/>
+                                                                            locale="es" onkeypress="return validarCalendario(event);"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -600,10 +611,10 @@
                                                                 <h:outputText value="Fecha de Emision"/>
                                                             </td>
                                                             <td align="left">
-                                                                <p:calendar size="10" pattern="dd/MM/yyyy"
+                                                                <p:calendar size="10" pattern="dd/MM/yyyy"  maxdate="#{declararInversionMB.fechaactual}"
                                                                             value="#{rectificarInversion.invVO.invFechaEmisionOficio}"
                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
-                                                                            locale="es"/>
+                                                                            locale="es" onkeypress="return validarCalendario(event);"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -625,7 +636,7 @@
                                                             <td align="left" colspan="3">
                                                                 <p:inputText id="tipoCambio"
                                                                              value="#{rectificarInversion.invVO.invNotaTipoCambio}"
-                                                                             disabled="#{rectificarInversion.invAvnVO.monId eq 2}"
+                                                                             disabled="#{rectificarInversion.invAvnVO.monId ne 1}"
                                                                              onkeyup="pasarMayuscula(this.value,this.id);" style="width:250px !important;" ></p:inputText>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"
@@ -637,7 +648,7 @@
                                                                              value="#{rectificarInversion.invVO.invMontoTipoCambio}"
                                                                              onkeypress="return ValidarNumFloat(event,this);"
                                                                              mask="9.99" size="10" maxlength="4"
-                                                                             disabled="#{rectificarInversion.invAvnVO.monId eq 2}"/>
+                                                                             disabled="#{rectificarInversion.invAvnVO.monId ne 1}"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"
                                                                               rendered="#{rectificarInversion.invAvnVO.monId eq 1}"/>
@@ -650,7 +661,7 @@
                                                             </td>
                                                             <td align="left" colspan="5" >
                                                                 <p:inputTextarea value="#{rectificarInversion.invVO.invNota}"
-                                                                                 disabled="#{rectificarInversion.deshabilitadoxObservado}" style="width:100% !important;"/>
+                                                                                 disabled="#{rectificarInversion.deshabilitadoxObservado}" style="width:400px !important;"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -672,7 +683,8 @@
                                                             <td align="left">
                                                                 <p:calendar size="10" pattern="dd/MM/yyyy"
                                                                             value="#{rectificarInversion.invVO.invFechaEmisionDocFomalizacion}"
-                                                                            locale="es"/>
+                                                                            locale="es"  maxdate="#{declararInversionMB.fechaactual}"
+                                                                            onkeypress="return validarCalendario(event);"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -683,7 +695,7 @@
                                                                 <h:outputText value="Observaciones"/>
                                                             </td>
                                                             <td colspan="5" align="left">
-                                                                <p:inputTextarea value="#{rectificarInversion.invVO.invNota}" style="width:100% !important;"/>
+                                                                <p:inputTextarea value="#{rectificarInversion.invVO.invNota}" style="width:400px !important;"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>

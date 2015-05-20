@@ -202,5 +202,31 @@ font-size:10px!important;
     white-space: normal;
     width: 200px;
 }
-
-
+.fieldContainer .tabla-wrap-desc {
+    white-space: normal;
+    width: 100px;
+}
+.fieldContainer .tabla-wrap-montos{
+    white-space: normal;
+    width: 80px;
+}
+.fieldContainer .tabla-wrap-codigo{
+    white-space: normal;
+    width: 30px;
+}
+.fieldContainer .tabla-wrap-boton{
+    white-space: normal;
+    width: 40px;
+}
+.fieldContainer .tabla-wrap-moneda{
+    white-space: normal;
+    width: 70px;
+}
+.fieldContainer .tabla-wrap-fecha{
+    white-space: normal;
+    width: 70px;
+}
+.fieldContainer .tabla-wrap-estado{
+    white-space: normal;
+    width: 70px;
+}
