@@ -451,8 +451,8 @@ public class RegistrarValorizacionSupervision {
                 valorizacionSupVO.setTvsCcoId(ccoId);
                 valorizacionSupVO.setTvsTccTipo(tccTipo);
                 valorizacionSupVO.setTvsMcoId(codigoModalidadConcesion);
-                //valorizacionSupVO.setTvsInfId(codigoInfraestructura);
-                //valorizacionSupVO.setTvsInvId(codigoInversion);
+                valorizacionSupVO.setTvsInfId(codigoInfraestructura);
+                valorizacionSupVO.setTvsInvId(codigoInversion);
                 valorizacionSupVO.setTvsCcoPlazo(plazo);
                 valorizacionSupVO.setTvsCcoTotal(total);
                 
