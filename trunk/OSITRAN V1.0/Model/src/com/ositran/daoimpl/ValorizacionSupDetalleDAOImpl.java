@@ -32,7 +32,6 @@ public class ValorizacionSupDetalleDAOImpl implements ValorizacionSupDetalleDAO{
     public String insert(ValorizacionSupDetalle valorizacionSupDetalle) throws SQLException {
         
         String result = null;
-        System.out.println(valorizacionSupDetalle.getCvaId());
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
