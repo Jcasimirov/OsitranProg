@@ -14,7 +14,7 @@ public class ValorizacionSupDetalleVO {
     private BigDecimal neto;
     private BigDecimal ttotal;
     private BigDecimal totalAprobado;
-    
+    private Integer vsdId; 
     
     
     private String aeropuertos;
@@ -30,7 +30,7 @@ public class ValorizacionSupDetalleVO {
 
 
     public ValorizacionSupDetalleVO(Integer tvsId, Integer cvaId, BigDecimal igv, Integer monId, BigDecimal neto,
-                                    BigDecimal ttotal, BigDecimal totalAprobado, String aeropuertos,
+                                    BigDecimal ttotal, BigDecimal totalAprobado, Integer vsdId, String aeropuertos,
                                     String descripcionInversion, String nombreMoneda, int contador, int fila) {
         super();
         this.tvsId = tvsId;
@@ -40,6 +40,7 @@ public class ValorizacionSupDetalleVO {
         this.neto = neto;
         this.ttotal = ttotal;
         this.totalAprobado = totalAprobado;
+        this.vsdId = vsdId;
         this.aeropuertos = aeropuertos;
         this.descripcionInversion = descripcionInversion;
         this.nombreMoneda = nombreMoneda;
@@ -104,6 +105,14 @@ public class ValorizacionSupDetalleVO {
         return totalAprobado;
     }
 
+    public void setVsdId(Integer vsdId) {
+        this.vsdId = vsdId;
+    }
+
+    public Integer getVsdId() {
+        return vsdId;
+    }
+
     public void setAeropuertos(String aeropuertos) {
         this.aeropuertos = aeropuertos;
     }
@@ -143,4 +152,5 @@ public class ValorizacionSupDetalleVO {
     public int getFila() {
         return fila;
     }
+
 }
