@@ -1,79 +1,93 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:primefaces-p="http://primefaces.org/ui">
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:primefaces-p="http://primefaces.org/ui" 
+        xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head>
             <title>avanceInvContratosConcesion</title>
         </h:head>
         <h:body>
-            <primefaces-p:layout fullPage="true" style="border:none">
-                <primefaces-p:layoutUnit position="center" style="border:0px">
+            <h:form binding="#{backing_ositran_reports_avanceInvContratosConcesion.formAvanceInversion}"
+                    id="formAvanceInversion">
+                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <div align="center">
+                    <h5>AVANCE CONTRATO DE CONCESION</h5>
                     <div align="center">
-                        <h4 class="titulo">
-                            #{rep.reporte_AVANCECONTRATOCONCESION}
-                        </h4>
                         <div style="width:80%">
                             <div align="center" style="font-size: 11px">
-                                <h:form binding="#{backing_ositran_reports_avanceInvContratosConcesion.formAvanceInversion}"
-                                        id="formAvanceInversion">
-                                    <primefaces-p:panelGrid binding="#{backing_ositran_reports_avanceInvContratosConcesion.pnlgAvanceInversion}"
-                                                            id="pnlgAvanceInversion" columns="6">
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblAnnio}"
-                                                                  id="lblAnnio" value="Año"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectAnnio}"
-                                                                    id="selectAnnio" value="#{backing_ositran_reports_avanceInvContratosConcesion.annio}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.annioSelectItems}"/>                                                                                                                                    
-                                                                    <f:ajax render="selectedItem" event="change" execute="selectAnnio"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblMes}"
-                                                                  id="lblMes" value="Mes"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectMes}"
-                                                                    id="selectMes" value="#{backing_ositran_reports_avanceInvContratosConcesion.mes}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.mesesSelectItems}"/>
-                                                                    <f:ajax render="selectedItemMes" event="change" execute="selectMes"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblTipoInfraestructura}"
-                                                                  id="lblTipoInfraestructura"
-                                                                  value="Tipo de infraestructura"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectTipoInfraestructura}"
-                                                                    id="selectTipoInfraestructura" value="#{backing_ositran_reports_avanceInvContratosConcesion.tipoInfraestructura}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.tipoInfraestructuraSelectItems}"/>
-                                                                    <f:ajax render="selectedItemTipoInfraestructura" event="change" execute="selectTipoInfraestructura"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblConcesion}"
-                                                                  id="lblConcesion" value="Concesión"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectConcesion}"
-                                                                    id="selectConcesion" value="#{backing_ositran_reports_avanceInvContratosConcesion.concesion}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.concesionSelectItems}"/>
-                                                                    <f:ajax render="selectedItemConcesion" event="change" execute="selectConcesion"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblModalidad}"
-                                                                  id="lblModalidad" value="Modalidad"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectModalidad}" 
-                                                                    id="selectModalidad" value="#{backing_ositran_reports_avanceInvContratosConcesion.modalidad}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.modalidadesSelectItems}"/>
-                                                                    <f:ajax render="selectedItemModalidad" event="change" execute="selectModalidad"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
-                                            <f:attribute name="nomentidad" value="avanceInvContratosConcesion" />
-                                            <f:attribute name="tiporeporte" value="excel" />
-                                            <primefaces-p:outputLabel value="Generar"/>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
-                                        </h:commandLink>
-                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
-                                            <f:attribute name="nomentidad" value="avanceInvContratosConcesion" />
-                                            <f:attribute name="tiporeporte" value="pdf" />
-                                            <primefaces-p:outputLabel value="Generar"/>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
-                                        </h:commandLink>
-                                        <h:inputHidden rendered="false" id="selectedItem" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedAnnio}"/> 
-                                        <h:inputHidden rendered="false" id="selectedItemMes" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedMes}"/> 
-                                        <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedTipoInfraestructura}"/>
-                                        <h:inputHidden rendered="false" id="selectedItemConcesion" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedConcesion}"/>
-                                        <h:inputHidden rendered="false" id="selectedItemModalidad" value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedModalidades}"/> 
-                                    </primefaces-p:panelGrid>
-                                </h:form>
+                                <primefaces-p:panelGrid binding="#{backing_ositran_reports_avanceInvContratosConcesion.pnlgAvanceInversion}"
+                                                        id="pnlgAvanceInversion" columns="6">
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblAnnio}"
+                                                              id="lblAnnio" value="Año"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectAnnio}"
+                                                                id="selectAnnio"
+                                                                value="#{backing_ositran_reports_avanceInvContratosConcesion.annio}">
+                                        <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.annioSelectItems}"/>
+                                        <f:ajax render="selectedItem" event="change" execute="selectAnnio"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblMes}"
+                                                              id="lblMes" value="Mes"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectMes}"
+                                                                id="selectMes"
+                                                                value="#{backing_ositran_reports_avanceInvContratosConcesion.mes}">
+                                        <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.mesesSelectItems}"/>
+                                        <f:ajax render="selectedItemMes" event="change" execute="selectMes"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblTipoInfraestructura}"
+                                                              id="lblTipoInfraestructura"
+                                                              value="Tipo de infraestructura"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectTipoInfraestructura}"
+                                                                id="selectTipoInfraestructura"
+                                                                value="#{backing_ositran_reports_avanceInvContratosConcesion.tipoInfraestructura}">
+                                        <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.tipoInfraestructuraSelectItems}"/>
+                                        <f:ajax render="selectedItemTipoInfraestructura" event="change"
+                                                execute="selectTipoInfraestructura"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblConcesion}"
+                                                              id="lblConcesion" value="Concesión"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectConcesion}"
+                                                                id="selectConcesion"
+                                                                value="#{backing_ositran_reports_avanceInvContratosConcesion.concesion}">
+                                        <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.concesionSelectItems}"/>
+                                        <f:ajax render="selectedItemConcesion" event="change"
+                                                execute="selectConcesion"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_avanceInvContratosConcesion.lblModalidad}"
+                                                              id="lblModalidad" value="Modalidad"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_avanceInvContratosConcesion.selectModalidad}"
+                                                                id="selectModalidad"
+                                                                value="#{backing_ositran_reports_avanceInvContratosConcesion.modalidad}">
+                                        <f:selectItems value="#{backing_ositran_reports_avanceInvContratosConcesion.modalidadesSelectItems}"/>
+                                        <f:ajax render="selectedItemModalidad" event="change"
+                                                execute="selectModalidad"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <h:commandLink id="cmdLink_exportExcel"
+                                                   actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                        <f:attribute name="nomentidad" value="avanceInvContratosConcesion"/>
+                                        <f:attribute name="tiporeporte" value="excel"/>
+                                        <primefaces-p:outputLabel value="Generar"/>
+                                        <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                    </h:commandLink>
+                                    <h:commandLink id="cmdLink_exportPdf"
+                                                   actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                        <f:attribute name="nomentidad" value="avanceInvContratosConcesion"/>
+                                        <f:attribute name="tiporeporte" value="pdf"/>
+                                        <primefaces-p:outputLabel value="Generar"/>
+                                        <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                    </h:commandLink>
+                                    <h:inputHidden rendered="false" id="selectedItem"
+                                                   value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedAnnio}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemMes"
+                                                   value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedMes}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura"
+                                                   value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedTipoInfraestructura}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemConcesion"
+                                                   value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedConcesion}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemModalidad"
+                                                   value="#{backing_ositran_reports_avanceInvContratosConcesion.selectedModalidades}"/>
+                                </primefaces-p:panelGrid>
                             </div>
                         </div>
                         <br/>
@@ -81,8 +95,8 @@
                     <!--iframe id="iframeCenter"
                             src="./../../images/reportes/avancedeinversionesenloscontratosdeconcesion.jpg"
                             width="100%" height="100%"></iframe-->
-                </primefaces-p:layoutUnit>
-            </primefaces-p:layout>
+                </div>
+            </h:form>
         </h:body>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_avanceInvContratosConcesion-->
