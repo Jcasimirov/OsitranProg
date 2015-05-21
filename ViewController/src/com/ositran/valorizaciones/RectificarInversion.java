@@ -451,7 +451,7 @@ public class RectificarInversion {
 
     public void guardarRectificarReconocimiento() {
         try {
-            if (invAvnVO.getIaeId() == 0) {
+            if (invAvnVO.getIaeId() == -1) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "No ha seleccionado el Estado de Reconocimiento"));
@@ -687,7 +687,7 @@ public class RectificarInversion {
     }
 
     public void deshabilitarxObservado() {
-        if (estadoReconocimiento == 2) {
+        if (estadoReconocimiento == 0) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
             /* prepararMontosObservados(); */
