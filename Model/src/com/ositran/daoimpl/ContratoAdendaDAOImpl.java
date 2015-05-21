@@ -11,6 +11,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.hibernate.Transaction;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,26 +24,39 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     @Override
     public List<ContratoAdenda> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list=session.createQuery("from ContratoAdenda ca where ca.cadEstado != 0").list();
-        session.getTransaction().commit();
-        return list;      
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list=session.createQuery("from ContratoAdenda ca where ca.cadEstado != 0").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(ContratoAdenda contratoAdenda) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.save(contratoAdenda);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
-        session.flush();
-        session.close();
+        } finally {
+		session.close();
+	}
         return result;
     }
 
@@ -49,15 +64,20 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     public String delete(Integer id) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             ContratoAdenda contratoAdenda=(ContratoAdenda)session.get(ContratoAdenda.class, id);
             session.delete(contratoAdenda);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -65,37 +85,60 @@ public class ContratoAdendaDAOImpl implements ContratoAdendaDAO {
     public String update(ContratoAdenda contratoAdenda) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(contratoAdenda);
-            session.getTransaction().commit();            
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
     @Override
     public ContratoAdenda get(Integer id) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        ContratoAdenda contratoAdenda=(ContratoAdenda)session.get(ContratoAdenda.class, id);
-        session.getTransaction().commit();
-        return contratoAdenda;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            ContratoAdenda contratoAdenda=(ContratoAdenda)session.get(ContratoAdenda.class, id);
+            tx.commit();
+            return contratoAdenda;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
     
     @Override
     public List<ContratoAdenda> getAdendasContrato(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query; 
-        query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.cadId DESC");
-        query.setParameter("busqueda1",conId);            
-        List<ContratoAdenda> list = query.list();    
-        session.close();
-        return list;        
-              
-        
-        
-    }   
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            query = session.createQuery("FROM ContratoAdenda o where o.cadEstado <> 0 and o.conId = :busqueda1 order by o.cadId DESC");
+            query.setParameter("busqueda1",conId);            
+            List<ContratoAdenda> list = query.list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }
