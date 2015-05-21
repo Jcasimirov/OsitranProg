@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -76,6 +78,10 @@ public class ValorizacionInversionAvance implements Serializable {
     private String tiaRutaNot;
     @Column(name = "TIN_ID")
     private int tinId;
+    @Column(name = "TIA_IGV_MONTO")
+    private BigDecimal tiaIgvMonto;
+    @Column(name = "TIA_IGV")
+    private int tiaIgv;
     
 
     public ValorizacionInversionAvance() {
@@ -305,10 +311,21 @@ public class ValorizacionInversionAvance implements Serializable {
     public void setTinId(int tinId) {
         this.tinId = tinId;
     }
-    
-    
-    
-    
-    
+
+    public void setTiaIgvMonto(BigDecimal tiaIgvMonto) {
+        this.tiaIgvMonto = tiaIgvMonto;
+    }
+
+    public BigDecimal getTiaIgvMonto() {
+        return tiaIgvMonto;
+    }
+
+    public void setTiaIgv(int tiaIgv) {
+        this.tiaIgv = tiaIgv;
+    }
+
+    public int getTiaIgv() {
+        return tiaIgv;
+    }
 
 }
