@@ -28,11 +28,15 @@
                                                 <td class="negrita">Nro HR: <h:outputText style="color:White" value="n"/></td>
                                                  <td >
                                                    
-                                                    Nro: <p:inputText value="#{registrarRevisionSupervisorMB.numero}"  style="width:60px"  />
-                                                     <h:outputText style="color:White" value="nnn"/>
+                                                    Nro: <p:inputText value="#{registrarRevisionSupervisorMB.numero}" 
+                                                    onkeypress="return isNumberKey(event)"   
+                                                    style="width:60px"  >
+                                                     </p:inputText>
                                                      
                                                     </td>
-                                                  <td >Año: <p:inputText value="#{registrarRevisionSupervisorMB.anio}" style="width:60px" />
+                                                  <td >Año: <p:inputText 
+                                                  onkeypress="return isNumberKey(event)"  
+                                                  value="#{registrarRevisionSupervisorMB.anio}" style="width:60px" />
                                                     <p:commandButton image="ui-icon-search" 
                                                                      actionListener="#{registrarRevisionSupervisorMB.cargarDatosSDT()}"  
                                                                      update=":form:datosSDT :form:mensaje"/> 
@@ -45,7 +49,9 @@
                                              <tr>
                                                 <td class="negrita">Asunto:</td>
                                                 
-                                                 <td colspan="3"><p:inputTextarea  value="#{registrarRevisionSupervisorMB.asunto}"  style="width:97%;height:25px" /></td>
+                                                 <td colspan="3"><p:inputTextarea  
+                                                 value="#{registrarRevisionSupervisorMB.asunto}"  
+                                                 style="width:97%;height:25px" /></td>
                                                   
                                             </tr>
                                         
@@ -110,14 +116,14 @@
 									
 									<tr>
 										<td align="left">Plazo:</td>
-										<td align="left" colspan="3"><p:inputText value="#{registrarRevisionSupervisorMB.plazo}" size="10"  /></td>
+										<td align="left" colspan="3"><p:inputText readonly="true" value="#{registrarRevisionSupervisorMB.plazo}" size="10"  /></td>
 										
 									</tr>
 									<tr>
 										<td align="left">Total:</td>
-										<td align="left" ><p:inputText id="total" value="#{registrarRevisionSupervisorMB.total}" size="10"></p:inputText></td>
+										<td align="left" ><p:inputText id="total" readonly="true" value="#{registrarRevisionSupervisorMB.total}" size="10"></p:inputText></td>
 										<td align="left">#{cam.mon}</td>
-										<td align="left"><p:inputText id="nombreMoneda" value="#{registrarRevisionSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
+										<td align="left"><p:inputText id="nombreMoneda" readonly="true" value="#{registrarRevisionSupervisorMB.nombreMoneda}"  size="10"></p:inputText></td>
 									</tr>
 								</table>
 							</p:fieldset>
@@ -152,7 +158,7 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarValorizacion"
                                                 style="width:22px;height:22px"
-                                                update=":form:tablaDV :form:nombreSupervisor :form:total :form:totalAjustado">
+                                                update=":form:tablaDV :form:nombreSupervisor :form:total :form:totalAjustado :form:total1">
                                             </p:commandButton>
                                         </div>
                                     </p:column>
@@ -170,7 +176,7 @@
                                    </tr>
                                    <tr >
                                      <td class="negrita" >Nombre:</td>
-                                      <td><p:inputText style="width:300px" id="nombreSupervisor" value="#{registrarRevisionSupervisorMB.nombreRevisor}"></p:inputText></td>
+                                      <td><p:inputText style="width:300px" readonly="true" id="nombreSupervisor" value="#{registrarRevisionSupervisorMB.nombreRevisor}"></p:inputText></td>
                                    
                                    </tr>
                                    </table>                                                              
@@ -191,13 +197,11 @@
                                                                                                 listener="#{registrarRevisionSupervisorMB.ocultarPanel()}"  /> 
                                                                                     </p:selectOneMenu>
                                                                                     <img src="../../images/obligatorio.gif"/>
-                                                 
-                                                 
                                                  </td>
                                             </tr>
                                    	 <tr>
                                                 <td>Observaciones:</td>
-                                                 <td><p:inputTextarea style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
+                                                 <td><p:inputTextarea  onkeyup="pasarMayuscula(this.value,this.id)"    style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
                                             </tr>
                                              
                                              
@@ -250,7 +254,13 @@
                                                 
                                                 </td>
                                                  
-                                            </tr>                         	
+                                            </tr>    
+                                            <tr>
+                                                  <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                            Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                                            </tr>
 					</table>
 				</p:fieldset>
 				</td>
@@ -261,8 +271,8 @@
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
-                     <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
-                     <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
+                     <p:commandButton  style="width:80px"  update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado :form:nombreSupervisor" actionListener="#{registrarRevisionSupervisorMB.guardar()}"  value="Guardar"/>
+                     <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado :form:nombreSupervisor" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
                       </div>
                 </p:layoutUnit>
             </p:layout>
@@ -301,10 +311,10 @@
                 <p:dialog width="40%"  header="Lista Contratos" widgetVar="ajustarMonto" id="ajustarMonto" 
                           style="text-align:center;font-size:11px">
                         Ingrese nomto ajustado:
-                  <p:inputText value="#{registrarRevisionSupervisorMB.montoAjustado}"></p:inputText>
+                  <p:inputText   onkeypress="return isNumberKey(event)"   value="#{registrarRevisionSupervisorMB.montoAjustado}"></p:inputText>
                       <br></br>     
-                      <p:commandButton  value="Ajustar" oncomplete="ajustarMonto.hide()"   actionListener="#{registrarRevisionSupervisorMB.ajustarMonto()}"
-                      update=":form:tablaDV :form:tablaDV12  :form:totalAjustado"
+                      <p:commandButton  value="Ajustar" oncomplete="ajustarMonto.hide()"     actionListener="#{registrarRevisionSupervisorMB.ajustarMonto()}"
+                      update=":form:tablaDV :form:tablaDV12  :form:totalAjustado :form:mensaje"
                       ></p:commandButton>
                 </p:dialog>
             
