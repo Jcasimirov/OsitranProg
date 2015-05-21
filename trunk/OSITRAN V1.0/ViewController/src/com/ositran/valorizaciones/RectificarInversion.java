@@ -688,7 +688,7 @@ public class RectificarInversion {
     }
 
     public void deshabilitarxObservado() {
-        if (invAvnVO.getIaeId() == 0) {
+        if (invAvnVO.getIaeId().equals(new Integer("0"))) {
             deshabilitadoxObservado = true;
         } else {
             deshabilitadoxObservado = false;
