@@ -378,13 +378,13 @@
                                                             <p:inputMask id="igv" value="#{declararInversionMB.igv}"
                                                                          mask="0.99" size="3"
                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                         disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"></p:inputMask>
+                                                                        ></p:inputMask>
                                                              
                                                             <p:commandButton id="dd" icon="ui-icon-refresh"
                                                                              actionListener="#{declararInversionMB.calularMontosconIGV()}"
                                                                              update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen"
                                                                              rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                             disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"/>
+                                                                             />
                                                         </td>
                                                     </tr>
                                                 </table>
