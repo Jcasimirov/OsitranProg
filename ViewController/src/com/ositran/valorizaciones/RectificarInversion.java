@@ -433,6 +433,7 @@ public class RectificarInversion {
         deshabilitadoxDeclaracionNoCargada = false;
         mostrarxDeclaracionCargada = true;
         resetCamposIGV();
+        deshabilitadoxObservado=false;
     }
 
     public void resetCamposIGV() {
@@ -689,11 +690,6 @@ public class RectificarInversion {
     public void deshabilitarxObservado() {
         if (invAvnVO.getIaeId() == 0) {
             deshabilitadoxObservado = true;
-            resetCamposIGV(); 
-            resetMontosconIGV();
-            RequestContext.getCurrentInstance().update("form");
-            /* prepararMontosObservados(); */
-
         } else {
             deshabilitadoxObservado = false;
         }
