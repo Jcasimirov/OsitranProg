@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInversionAvanceService{
@@ -114,19 +113,12 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
        valorizacionInversionAvanceVO1.setTiaRutaNot(valorizacionInversionAvance1.getTiaRutaNot());
        valorizacionInversionAvanceVO1.setTccTipo(valorizacionInversionAvance1.getTccTipo());
        valorizacionInversionAvanceVO1.setTiaAprobadoPor(valorizacionInversionAvance1.getTiaAprobadoPor());
-       
-       
-       
-       
-       
-       
-       
-       
+       valorizacionInversionAvanceVO1.setTiaIgvMonto(valorizacionInversionAvance1.getTiaIgvMonto());
+        valorizacionInversionAvanceVO1.setTiaIgv(valorizacionInversionAvance1.getTiaIgv());
        return valorizacionInversionAvanceVO1;
     }
     private ValorizacionInversionAvance toValorizacionInversionAvance(ValorizacionInversionAvanceVO valorizacionInversionAvanceVO1)  {
        ValorizacionInversionAvance valorizacionInversionAvance1=new ValorizacionInversionAvance();
-       
         valorizacionInversionAvance1.setConId(valorizacionInversionAvanceVO1.getConId());
         valorizacionInversionAvance1.setCsiId(valorizacionInversionAvanceVO1.getCsiId());
         valorizacionInversionAvance1.setInvId(valorizacionInversionAvanceVO1.getInvId());
@@ -151,7 +143,8 @@ public class ValorizacionInversionAvanceServiceImpl implements ValorizacionInver
         valorizacionInversionAvance1.setTiaRutaNot(valorizacionInversionAvanceVO1.getTiaRutaNot());
         valorizacionInversionAvance1.setTccTipo(valorizacionInversionAvanceVO1.getTccTipo());
         valorizacionInversionAvance1.setTiaAprobadoPor(valorizacionInversionAvanceVO1.getTiaAprobadoPor());
-       
+        valorizacionInversionAvance1.setTiaIgvMonto(valorizacionInversionAvanceVO1.getTiaIgvMonto());
+        valorizacionInversionAvance1.setTiaIgv(valorizacionInversionAvanceVO1.getTiaIgv());
        return valorizacionInversionAvance1;
     }
 
