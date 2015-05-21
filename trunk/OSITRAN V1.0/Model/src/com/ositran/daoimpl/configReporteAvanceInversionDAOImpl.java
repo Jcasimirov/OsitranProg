@@ -28,7 +28,7 @@ public class configReporteAvanceInversionDAOImpl implements configReporteAvanceI
             return list;
         } catch (Exception e) {
             if (tx!=null) {
-                session.getTransaction().rollback();
+                tx.rollback();
             }
             throw e;
         } finally {
@@ -59,7 +59,7 @@ public class configReporteAvanceInversionDAOImpl implements configReporteAvanceI
             return list;
         } catch (Exception e) {
             if (tx!=null) {
-                session.getTransaction().rollback();
+                tx.rollback();
             }
             throw e;
         } finally {
@@ -82,7 +82,7 @@ public class configReporteAvanceInversionDAOImpl implements configReporteAvanceI
             return list;
         } catch (Exception e) {
             if (tx!=null) {
-                session.getTransaction().rollback();
+                tx.rollback();
             }
             throw e;
         } finally {
@@ -109,7 +109,7 @@ public class configReporteAvanceInversionDAOImpl implements configReporteAvanceI
             tx.commit();
         } catch (Exception e) {
             if (tx!=null) {
-                session.getTransaction().rollback();
+                tx.rollback();
             }
             throw e;
         } finally {
