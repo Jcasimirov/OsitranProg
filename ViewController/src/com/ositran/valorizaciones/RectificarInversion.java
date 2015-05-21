@@ -687,7 +687,7 @@ public class RectificarInversion {
     }
 
     public void deshabilitarxObservado() {
-        if (estadoReconocimiento == 0) {
+        if (invAvnVO.getIaeId() == 0) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
             /* prepararMontosObservados(); */
