@@ -1,22 +1,21 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:primefaces-p="http://primefaces.org/ui">
+        xmlns:primefaces-p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head>
             <title>invReconocimContratosConcesionResumen</title>
         </h:head>
         <h:body>
-            <primefaces-p:layout fullPage="true" style="border:none">
-                <primefaces-p:layoutUnit position="center" style="border:0px">
+            <h:form binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.form1}"
+                                        id="formReconocimientoContratos">
+            <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+        <div align="center">
                     <div align="center">
-                        <h4 class="titulo">
-                            #{rep.reporte_INVRECONOCIDAS}
-                        </h4>
+                        <h5>REPORTE DE INVERSIONES RECONOCIDAS EN LOS CONTRATOS DE CONCESIÓN (EN US$ E INCLUYE IGV)</h5>
                         <div style="width:80%">
                             <div align="center" style="font-size: 11px">
-                                <h:form binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.form1}"
-                                        id="formReconocimientoContratos">
+                                
                                     <primefaces-p:panelGrid binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.pnlgReconocimientoContratos}"
                                                             id="pnlgReconocimientoContratos" columns="6">
                                         <primefaces-p:outputLabel binding="#{backing_ositran_reports_invReconocimContratosConcesionResumen.lblAnnio}"
@@ -84,7 +83,7 @@
                                                        value="#{backing_ositran_reports_invReconocimContratosConcesionResumen.selectedModalidad}"/>
                                        
                                     </primefaces-p:panelGrid>
-                                </h:form>
+                                
                             </div>
                         </div>
                         <br/>
@@ -92,8 +91,9 @@
                     <!--iframe id="iframeCenter"
                             src="./../../images/reportes/inversionesreconocidasenloscontratosdeconcesionrango.jpg"
                             width="100%" height="100%"></iframe-->
-                </primefaces-p:layoutUnit>
-            </primefaces-p:layout>
+            
+            </div>
+        </h:form>
         </h:body>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_invReconocimContratosConcesionResumen-->
