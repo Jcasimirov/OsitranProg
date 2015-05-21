@@ -1,71 +1,78 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:primefaces-p="http://primefaces.org/ui">
+        xmlns:primefaces-p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head>
             <title>controlPlazosFlujoValorizacionesSupervision</title>
         </h:head>
         <h:body>
-            <primefaces-p:layout fullPage="true" style="border:none">
-                <primefaces-p:layoutUnit position="center" style="border:0px">
+            <h:form binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.formControlPlazosFlujoSupervision}"
+                    id="formControlPlazosFlujoSupervision">
+                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                <div align="center">
+                    <h5>REPORTE DE CONTROL DE PLAZOS DE FLUJO DE VALORIZACION DE PAGOS A REALIZAR A EMPRESA SUPERVISORA</h5>
                     <div align="center">
-                        <h4 class="titulo">
-                            #{rep.reporte_CONTROLSUPERVISOR}
-                        </h4>
                         <div style="width:80%">
                             <div align="center" style="font-size: 11px">
-                                <h:form binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.formControlPlazosFlujoSupervision}"
-                                        id="formControlPlazosFlujoSupervision">
-                                    <primefaces-p:panelGrid binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.pnlgControlPlazosSupervision}"
-                                                            id="pnlgControlPlazosSupervision" columns="8">
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblTipoInfraestructura}"
-                                                                  id="lblTipoInfraestructura" value="Tipo infraestructura"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectTipoInfraestructura}"
-                                                                    id="selectTipoInfraestructura" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructura}">
-                                            <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructuraSelectItems}"/>
-                                            <f:ajax render="selectedItemTipoInfraestructura" event="change"
-                                                    execute="selectTipoInfraestructura"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblAnnio}"
-                                                                  id="lblAnnio" value="Año"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectAnnio}"
-                                                                    id="selectAnnio" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.annio}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.annioSelectItems}"/>
-                                                                    <f:ajax render="selectedItem" event="change" execute="selectAnnio"/>
-                                        </primefaces-p:selectOneMenu>
-                                        <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblMes}"
-                                                                  id="lblMes" value="Mes"/>
-                                        <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectMes}"
-                                                                    id="selectMes" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.mes}">
-                                                                    <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.mesesSelectItems}"/>
-                                                                    <f:ajax render="selectedItemMes" event="change" execute="selectMes"/>
-                                        </primefaces-p:selectOneMenu>                     
-                                        <h:commandLink id="cmdLink_exportExcel" actionListener="#{backing_ositran_reports_reportesController.generarReporte}" >
-                                            <f:attribute name="nomentidad" value="controlPlazosFlujoValorizacionesSupervision" />
-                                            <f:attribute name="tiporeporte" value="excel" />
-                                            <primefaces-p:outputLabel value="Generar"/>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
-                                        </h:commandLink>
-                                        <h:commandLink id="cmdLink_exportPdf" actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
-                                            <f:attribute name="nomentidad" value="controlPlazosFlujoValorizacionesSupervision" />
-                                            <f:attribute name="tiporeporte" value="pdf" />
-                                            <primefaces-p:outputLabel value="Generar"/>
-                                            <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
-                                        </h:commandLink>                                        
-                                        <h:inputHidden rendered="false" id="selectedItem" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedAnnio}"/> 
-                                        <h:inputHidden rendered="false" id="selectedItemMes" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedMes}"/>   
-                                        <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura" value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedTipoInfraestructura}"/>
-                                    </primefaces-p:panelGrid>
-                                </h:form>
+                                <primefaces-p:panelGrid binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.pnlgControlPlazosSupervision}"
+                                                        id="pnlgControlPlazosSupervision" columns="8">
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblTipoInfraestructura}"
+                                                              id="lblTipoInfraestructura" value="Tipo infraestructura"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectTipoInfraestructura}"
+                                                                id="selectTipoInfraestructura"
+                                                                value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructura}">
+                                        <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.tipoInfraestructuraSelectItems}"/>
+                                        <f:ajax render="selectedItemTipoInfraestructura" event="change"
+                                                execute="selectTipoInfraestructura"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblAnnio}"
+                                                              id="lblAnnio" value="Año"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectAnnio}"
+                                                                id="selectAnnio"
+                                                                value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.annio}">
+                                        <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.annioSelectItems}"/>
+                                        <f:ajax render="selectedItem" event="change" execute="selectAnnio"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <primefaces-p:outputLabel binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.lblMes}"
+                                                              id="lblMes" value="Mes"/>
+                                    <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectMes}"
+                                                                id="selectMes"
+                                                                value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.mes}">
+                                        <f:selectItems value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.mesesSelectItems}"/>
+                                        <f:ajax render="selectedItemMes" event="change" execute="selectMes"/>
+                                    </primefaces-p:selectOneMenu>
+                                    <h:commandLink id="cmdLink_exportExcel"
+                                                   actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                        <f:attribute name="nomentidad"
+                                                     value="controlPlazosFlujoValorizacionesSupervision"/>
+                                        <f:attribute name="tiporeporte" value="excel"/>
+                                        <primefaces-p:outputLabel value="Generar"/>
+                                        <primefaces-p:graphicImage value="./../../images/reportes/exportexcel.jpg"/>
+                                    </h:commandLink>
+                                    <h:commandLink id="cmdLink_exportPdf"
+                                                   actionListener="#{backing_ositran_reports_reportesController.generarReporte}">
+                                        <f:attribute name="nomentidad"
+                                                     value="controlPlazosFlujoValorizacionesSupervision"/>
+                                        <f:attribute name="tiporeporte" value="pdf"/>
+                                        <primefaces-p:outputLabel value="Generar"/>
+                                        <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
+                                    </h:commandLink>
+                                    <h:inputHidden rendered="false" id="selectedItem"
+                                                   value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedAnnio}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemMes"
+                                                   value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedMes}"/>
+                                    <h:inputHidden rendered="false" id="selectedItemTipoInfraestructura"
+                                                   value="#{backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision.selectedTipoInfraestructura}"/>
+                                </primefaces-p:panelGrid>
                             </div>
                         </div>
                         <br/>
                     </div>
                     <!--iframe id="iframeCenter" src="./../../images/reportes/controldeplazosdeflujodevaldesup.jpg" width="100%" height="100%">
                     </iframe-->
-                </primefaces-p:layoutUnit>
-            </primefaces-p:layout>        
+                </div>
+            </h:form>
         </h:body>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_controlPlazosFlujoValorizacionesSupervision-->
