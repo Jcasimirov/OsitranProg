@@ -4,12 +4,6 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 public class ValorizacionInversionAvanceVO {
     public ValorizacionInversionAvanceVO() {
         super();
@@ -44,6 +38,8 @@ public class ValorizacionInversionAvanceVO {
     private String  estadoNombre;
     private String contratoConcesionNombre;
     private String concesionNombre;
+    private BigDecimal tiaIgvMonto;
+    private int tiaIgv;
 
     public void setCcoId(int ccoId) {
         this.ccoId = ccoId;
@@ -268,5 +264,22 @@ public class ValorizacionInversionAvanceVO {
 
     public String getConcesionNombre() {
         return concesionNombre;
+    }
+
+
+    public void setTiaIgvMonto(BigDecimal tiaIgvMonto) {
+        this.tiaIgvMonto = tiaIgvMonto;
+    }
+
+    public BigDecimal getTiaIgvMonto() {
+        return tiaIgvMonto;
+    }
+
+    public void setTiaIgv(int tiaIgv) {
+        this.tiaIgv = tiaIgv;
+    }
+
+    public int getTiaIgv() {
+        return tiaIgv;
     }
 }
