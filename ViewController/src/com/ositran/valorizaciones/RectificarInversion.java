@@ -690,7 +690,7 @@ public class RectificarInversion {
         if (estadoReconocimiento == 2) {
             deshabilitadoxObservado = true;
             resetCamposIGV();
-            prepararMontosObservados();
+            /* prepararMontosObservados(); */
 
         } else {
             deshabilitadoxObservado = false;
@@ -708,6 +708,9 @@ public class RectificarInversion {
             invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
             setIgv(BigDecimal.ZERO);
+            deshabilitadoxObservado = false;
+        }else{
+            deshabilitadoxObservado = true;
         }
     }
 
@@ -729,8 +732,8 @@ public class RectificarInversion {
         totalivrMontoAprobado=totalivrMontoAprobado.add(igv.multiply(totalivrMontoAprobado));
         totalirjMontoAprobado=totalirjMontoAprobado.add(igv.multiply(totalirjMontoAprobado));
         totalirjMontoReajuste = totalirjMontoReajuste.add(igv.multiply(totalirjMontoReajuste));
-        invVO.setInvMontoTotalAprobado( invVO.getInvMontoTotalAprobado().add(igv.multiply(invVO.getInvMontoTotalAprobado())));
-        invVO.setInvMontoTotalReajuste( invVO.getInvMontoTotalReajuste().add(igv.multiply(invVO.getInvMontoTotalReajuste())));
+        /* invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
+        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste); */
 
         invVO.setInvMontoTotalAprobado( Reutilizar.redondearBigDecimal(invVO.getInvMontoTotalAprobado()));
         invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(invVO.getInvMontoTotalReajuste()));
@@ -748,8 +751,7 @@ public class RectificarInversion {
         
         invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
         invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
-        invVO.setInvMontoTotalAprobado(invVO.getInvMontoTotalAprobado().add(igv.multiply(invVO.getInvMontoTotalAprobado())));
-        invVO.setInvMontoTotalReajuste(invVO.getInvMontoTotalReajuste().add(igv.multiply(invVO.getInvMontoTotalReajuste())));
+
     }
 
     public void calcularTotalesReajuste(List<InvReajusteVO> listaReajuste) {
@@ -872,7 +874,7 @@ public class RectificarInversion {
     }
 
     public void grabarReconocimiento(ActionEvent e) {
-        
+        resetMontosconIGV();
         InvReconocimientoVO reconocimientoSeleccionado =
             (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
         Integer idreconocimientoSeleccionado = reconocimientoSeleccionado.getIreId();
@@ -912,7 +914,7 @@ public class RectificarInversion {
                 RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
                 RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
-                RequestContext.getCurrentInstance().update("form:resumenMonPre");
+                RequestContext.getCurrentInstance().update("form:resumen");
                 
                 oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalivrMontoAprobado));
                 oldtotalrjMontoReajustado=(BigDecimal)Reutilizar.copy(totalirjMontoReajuste);
