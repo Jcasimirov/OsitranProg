@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
 
+import org.hibernate.Transaction;
+
 import org.springframework.stereotype.Repository;
 @Repository
 public class ContratoAlertaEstadoDAOImpl implements ContratoAlertaEstadoDAO {
@@ -18,24 +20,39 @@ public class ContratoAlertaEstadoDAOImpl implements ContratoAlertaEstadoDAO {
     @Override
     public List<ContratoAlertaEstado> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list=session.createQuery("select o from ContratoAlertaEstado o").list();
-        session.getTransaction().commit();
-        return list;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list=session.createQuery("select o from ContratoAlertaEstado o").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(ContratoAlertaEstado contratoAlertaEstado) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.persist(contratoAlertaEstado);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -43,15 +60,20 @@ public class ContratoAlertaEstadoDAOImpl implements ContratoAlertaEstadoDAO {
     public String delete(Integer id) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             ContratoAlertaEstado contratoAlertaEstado=(ContratoAlertaEstado)session.get(ContratoAlertaEstado.class, id);
             session.delete(contratoAlertaEstado);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -59,23 +81,38 @@ public class ContratoAlertaEstadoDAOImpl implements ContratoAlertaEstadoDAO {
     public String update(ContratoAlertaEstado contratoAlertaEstado) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(contratoAlertaEstado);
-            session.getTransaction().commit();            
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
     @Override
     public ContratoAlertaEstado get(Integer id) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        ContratoAlertaEstado contratoAlertaEstado=(ContratoAlertaEstado)session.get(ContratoAlertaEstado.class, id);
-        session.getTransaction().commit();
-        return contratoAlertaEstado;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            ContratoAlertaEstado contratoAlertaEstado=(ContratoAlertaEstado)session.get(ContratoAlertaEstado.class, id);
+            tx.commit();
+            return contratoAlertaEstado;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }
