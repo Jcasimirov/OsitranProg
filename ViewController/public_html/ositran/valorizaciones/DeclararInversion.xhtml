@@ -268,7 +268,7 @@
                                                                          actionListener="#{declararInversionMB.editarReconocimiento}"
                                                                          update=":frmEditarMontoRec"
                                                                          oncomplete="_dlgEditarReconocimiento.show();"
-                                                                         disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
+                                                                         disabled="#{declararInversionMB.deshabilitadoxObservado}">
                                                             <f:attribute name="reconocimiento"
                                                                          value="#{tReconocimiento}"/>
                                                         </p:commandButton>
@@ -325,7 +325,7 @@
                                                                          actionListener="#{declararInversionMB.editarReajuste}"
                                                                          update=":frmEditarMontoRea"
                                                                          oncomplete="_dlgEditarReajuste.show();"
-                                                                         disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
+                                                                         disabled="#{declararInversionMB.deshabilitadoxObservado}">
                                                             <f:attribute name="reajuste" value="#{tReajuste}"/>
                                                         </p:commandButton>
                                                         </center>
@@ -365,9 +365,9 @@
                                                         <td>
                                                             <p:selectBooleanCheckbox id="igvResumen"
                                                                                      value="#{declararInversionMB.renderMostrarIGV}"
-                                                                                     disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
+                                                                                     >
                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}"
-                                                                        update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen"/>
+                                                                        update=":form"/>
                                                             </p:selectBooleanCheckbox>
                                                         </td>
                                                         <td>
