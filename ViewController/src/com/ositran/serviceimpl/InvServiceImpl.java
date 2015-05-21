@@ -153,7 +153,6 @@ public class InvServiceImpl implements InvService {
         Inv inv = toInv(invVO);
         List<InvReconocimiento> listInvReconocimiento = invReconocimientoServiceImpl.toListInvReconocimiento(listInvReconocimientoVO);
         List<InvReajuste> listInvReajuste = invReajusteServiceImpl.toListInvReajuste(listInvReajusteVO);
-        System.out.println("invAvnVO.getIaeId();"+invAvnVO.getIaeId());
         InvAvn invAvn= notificacionServiceImpl.toInvAvn(invAvnVO);
         String result = invDAOImpl.insertDeclaracion(invAvn,inv,listInvReconocimiento, listInvReajuste);
         return result;

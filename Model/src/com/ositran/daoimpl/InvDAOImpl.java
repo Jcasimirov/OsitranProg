@@ -103,7 +103,8 @@ public class InvDAOImpl implements InvDAO {
     @Override
     public String insertDeclaracion(InvAvn invAvn,Inv inv, List<InvReconocimiento> listInvReconocimiento,List<InvReajuste> listInvReajuste) throws SQLException{
         String result=null;
-        System.out.println("## INI INSERT DECLARACION");
+        System.out.println("totalivrMontoAprobadoI"+invAvn.getTiaMontoTotalAprobado());
+        System.out.println("totalirjMontoReajusteI"+invAvn.getTiaMontoTotalReajustado());
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();   
