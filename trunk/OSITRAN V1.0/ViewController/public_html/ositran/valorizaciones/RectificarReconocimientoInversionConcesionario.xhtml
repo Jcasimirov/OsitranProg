@@ -539,8 +539,8 @@
                                                                 </td>
                                                                 <td>Montos con IGV?</td>
                                                                 <td>
-                                                                    <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}"
-                                                                                             >
+                                                                    <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}" 
+                                                                                             disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}">
                                                                         <p:ajax listener="#{rectificarInversion.resetMontosconIGV()}"
                                                                                 update="form"/>
                                                                     </p:selectBooleanCheckbox>
@@ -553,13 +553,15 @@
                                                                     <p:inputMask id="igv"
                                                                                  value="#{rectificarInversion.igv}"
                                                                                  mask="0.99" size="3"
-                                                                                 rendered="#{rectificarInversion.renderMostrarIGV}"></p:inputMask>
+                                                                                 rendered="#{rectificarInversion.renderMostrarIGV}"
+                                                                                 disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}"></p:inputMask>
                                                                 </td>
                                                                 <td>
                                                                     <p:commandButton icon="ui-icon-refresh"
                                                                                      actionListener="#{rectificarInversion.calularMontosconIGV()}"
                                                                                      update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea"
-                                                                                     rendered="#{rectificarInversion.renderMostrarIGV}"/>
+                                                                                     rendered="#{rectificarInversion.renderMostrarIGV}"
+                                                                                     disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}"/>
                                                                 </td>
                                                             </tr>
                                                         </table>
