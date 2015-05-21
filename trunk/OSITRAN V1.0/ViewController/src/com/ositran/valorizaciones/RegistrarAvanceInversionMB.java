@@ -1,6 +1,5 @@
 package com.ositran.valorizaciones;
 
-import com.ositran.model.ContratoAlerta;
 import com.ositran.model.Infraestructura;
 import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
@@ -273,6 +272,14 @@ public class RegistrarAvanceInversionMB {
         totalPresentado = new BigDecimal("0");
         codigoTipoInversion = 0;
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
+        plazoCompromiso="";
+        nombreMoneda="";
+        diasCalendario=false;
+        diasHabiles=false;
+        fechaVencimiento=null;
+        igv=false;
+        descripcionValorizacionDetalle="";
+        total=new BigDecimal("0");
     }
 
     public void elegirContrato(ContratoVO contratoVO) {
@@ -462,6 +469,7 @@ public class RegistrarAvanceInversionMB {
                     valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(igv1).setScale(2,BigDecimal.ROUND_UP));
                 } else {
                     igv1 = new BigDecimal("0");
+                    valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(igv1).setScale(2,BigDecimal.ROUND_UP));
                 }
                 valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado.subtract(valorizacionInversionAvanceDetalleVO1.getIgv()));
                 valorizacionInversionAvanceDetalleVO1.setMontoPresentado(montoPrestado);
@@ -535,6 +543,14 @@ public class RegistrarAvanceInversionMB {
                 }
             if (diasHabiles){
                     valorizacionInversionAvanceVO.setTiaDiasHabiles(1); 
+                }
+            
+            if (totalIgv==null){
+                    valorizacionInversionAvanceVO.setTiaIgv(0);
+                }
+            else {
+                    valorizacionInversionAvanceVO.setTiaIgv(1);
+                    valorizacionInversionAvanceVO.setTiaIgvMonto(totalIgv);
                 }
             valorizacionInversionAvanceVO.setTiaFechaRegistro(fechaRegistroSDT);
             valorizacionInversionAvanceVO.setTiaFechaVencimientoPlazo(fechaVencimiento);
