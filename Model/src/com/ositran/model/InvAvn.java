@@ -81,6 +81,10 @@ public class InvAvn implements Serializable {
     private Integer ccoId;
     @Column(name = "TIA_OBSERVACIONES")
     private String tiaObservaciones; 
+    
+    @Column(name = "TIA_IGV_MONTO")
+    private BigDecimal tiaIgvMonto;
+    
     public InvAvn() {
     }
 
@@ -306,4 +310,13 @@ public class InvAvn implements Serializable {
     public String getTiaObservaciones() {
         return tiaObservaciones;
     }
+
+    public void setTiaIgvMonto(BigDecimal tiaIgvMonto) {
+        this.tiaIgvMonto = tiaIgvMonto;
+    }
+
+    public BigDecimal getTiaIgvMonto() {
+        return tiaIgvMonto;
+    }
+
 }
