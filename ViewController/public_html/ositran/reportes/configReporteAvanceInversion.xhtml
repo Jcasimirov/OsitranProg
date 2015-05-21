@@ -41,14 +41,21 @@
     <h:body>
         <f:event listener="#{configReporteAvanceInversionMB.validarSesion}" type="preRenderComponent"/>
         <f:event listener="#{configReporteAvanceInversionMB.cargaDatosDelModelo}" type="preRenderComponent"/>
+        
         <p:layout fullPage="true" style="border:none">
+            
             <p:layoutUnit position="center" style="border:0px; font-size:11px">
-                <ui:include src="/ositran/util/menuOpciones.xhtml"/>
-                <div align="center">
-                    <h3 style="color:Black; font-weight:bold; font-family:sans-serif; font-size:21px">
-                        CONFIGURACIÓN DE REPORTE DE AVANCE DE INVERSIÓN
-                    </h3>
+            
+                
+                
+                                    
+
                     <h:form id="formulario_principal">
+                    <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                    <div align="center">
+                    <h5>CONFIGURACIÓN DE REPORTE DE AVANCE DE INVERSIÓN</h5>
+                    
+                    
                             <p:dataTable id="reporteInversion" var="unidadReporteInversion" value="#{configReporteAvanceInversionMB.reporteInversion}"
                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,20" paginatorPosition="bottom"
                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -105,8 +112,9 @@
                         <p:commandButton value="Guardar" action="#{configReporteAvanceInversionMB.guardar}" ajax="false" update="growl"/>
                         
                         <p:growl id="growl" showDetail="true" sticky="true" />
+                    </div>
                     </h:form>
-                </div>
+                
             </p:layoutUnit>
             <p:layoutUnit position="south" style="border:0px;width:98%" resizable="false" closable="false" collapsible="false">
                         <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
