@@ -92,6 +92,7 @@
                                                         <td align="left">Plazo:</td>
                                                         <td align="left" colspan="3">
                                                             <p:inputText readonly="true"
+                                                            
                                                                          value="#{registrarAvanceInversionMB.plazoCompromiso}"
                                                                          size="10"/>
                                                         </td>
@@ -128,8 +129,7 @@
                                                         </td>
                                                         <td>
                                                             Nro: 
-                                                            <p:inputText onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                                            <p:inputText onkeypress="return isNumberKey(event)" 
                                                                          value="#{registrarAvanceInversionMB.numero}"
                                                                          style="width:60px"/>
                                                              
@@ -138,8 +138,7 @@
                                                         <td>
                                                             A&#241;o: 
                                                             <p:inputText value="#{registrarAvanceInversionMB.anio}"
-                                                                      onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                                                     onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                                                      onkeypress="return isNumberKey(event)" 
                                                                          style="width:60px"/>
                                                              
                                                             <p:commandButton image="ui-icon-search"
@@ -169,6 +168,7 @@
                                                         <td class="negrita">Plazo:</td>
                                                         <td>
                                                             <p:inputText 
+                                                            readonly="true"
                                                                          value="#{registrarAvanceInversionMB.plazoContrato}"
                                                                          id="plazoContrato" style="width:70px"/>
                                                         </td>
@@ -293,8 +293,7 @@
                                                         <td>Monto Presentado</td>
                                                         <td>
                                                             <p:inputText
-                                                            onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                                            onkeypress="return isNumberKey(event)" 
                                                             value="#{registrarAvanceInversionMB.montoPrestado}"
                                                                          style="width:100px"/>
                                                                          
