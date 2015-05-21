@@ -11,6 +11,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.hibernate.Transaction;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,26 +23,39 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     public List<Concesion> query() throws SQLException{
         System.out.println("DAO");
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list = session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId <> 0 order by CSI_ID DESC ").list();
-        session.getTransaction().commit();
-
-        
-        return list;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list = session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId <> 0 order by CSI_ID DESC ").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(Concesion concesion) throws SQLException{
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.persist(concesion);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+		session.close();
+	}
         return result;
     }
 
@@ -48,30 +63,41 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     public int idConcesion(Concesion concesion) throws SQLException{
         int result = 0;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.save(concesion);
             result=concesion.getCsiId();
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            
-        }
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+	} finally {
+            session.close();
+	}
         return result;
     }
+    
     @Override
     public String delete(Integer id) throws SQLException{
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             Concesion concesion = (Concesion) session.get(Concesion.class, id);
             session.delete(concesion);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -79,15 +105,19 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     public String update(Concesion concesion) throws SQLException{    
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(concesion);
-            session.getTransaction().commit();
-           
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -96,15 +126,19 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     public String update2(Concesion concesion) throws SQLException{
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(concesion);
-            session.getTransaction().commit();
-           
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -115,58 +149,108 @@ public class ConcesionDAOImpl implements ConcesionDAO {
     @Override
     public Concesion get(Integer id) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Concesion concesion = (Concesion) session.get(Concesion.class, id);
-        session.close();
-        return concesion;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Concesion concesion = (Concesion) session.get(Concesion.class, id);
+            tx.commit();
+            return concesion;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
     //charles
     public List<Concesion> queryfiltro(int codigo, String nombre) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        Query query;  
-        if(codigo < 1 ){
-            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and lower(c.csiNombre) like lower(:busqueda2)");
-        }else{
-            query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
-          
-            query.setInteger("busqueda1",codigo);
-        }        
-        query.setString("busqueda2","%"+nombre+"%");
-        List<Concesion> list = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        Query query;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            if(codigo < 1 ){
+                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and lower(c.csiNombre) like lower(:busqueda2)");
+            }else{
+                query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.tinId like :busqueda1 and lower(c.csiNombre) like lower(:busqueda2)");
+              
+                query.setInteger("busqueda1",codigo);
+            }        
+            query.setString("busqueda2","%"+nombre+"%");
+            List<Concesion> list = query.list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
     
     // Iosusky
-        public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException{
-            Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-          
+    public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException{
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
             Query query=null;  
             query = session.createQuery("FROM Concesion c WHERE c.csiEstado <> 0 and c.tinId <> 0 and c.tinId = :busqueda ");
             query.setParameter("busqueda",tipoInfraestructura);
-            List<Concesion>   list = query.list();
-            session.close();
+            List<Concesion> list=query.list();
+            tx.commit();
             return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+        throw e;
+        } finally {
+            session.close();
         }
+    }
 
     public List<Concesion> listarConcesiones() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List<Concesion> list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by o.csiId").list();
-        session.close();
-        return list;
-    }    
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List<Concesion> list = session.createQuery("select o from Concesion o where o.csiEstado <> 0 order by o.csiId").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+    
     public List<Concesion> listarConcesionesxIdConcesion(int idConcesion) throws Exception{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        Query query=null;  
-        query =session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId=:idConcesion order by o.csiId");
-        query.setParameter("idConcesion",idConcesion);
-        List lista=query.list();
-        
-        session.close();
-        return (List<Concesion>)lista;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId=:idConcesion order by o.csiId");
+            query.setParameter("idConcesion",idConcesion);
+            List lista=query.list();
+            tx.commit();
+            return (List<Concesion>)lista;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
    
 }

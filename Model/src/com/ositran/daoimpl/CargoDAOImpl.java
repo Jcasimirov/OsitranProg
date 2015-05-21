@@ -11,6 +11,8 @@ import com.ositran.model.Cargo;
 
 import org.hibernate.SessionFactory;
 
+import org.hibernate.Transaction;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CargoDAOImpl implements CargoDAO {
@@ -23,24 +25,39 @@ public class CargoDAOImpl implements CargoDAO {
     @Override
     public List<Cargo> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list=session.createQuery("select o from Cargo o").list();
-        session.getTransaction().commit();
-        return list;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list=session.createQuery("select o from Cargo o").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(Cargo cargo) throws SQLException{
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.persist(cargo);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -48,15 +65,20 @@ public class CargoDAOImpl implements CargoDAO {
     public String delete(Integer id) throws SQLException{
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             Cargo cargo=(Cargo)session.get(Cargo.class, id);
             session.delete(cargo);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -64,25 +86,39 @@ public class CargoDAOImpl implements CargoDAO {
     public String update(Cargo cargo) throws SQLException{
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(cargo);
-            session.getTransaction().commit();            
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
     @Override
     public Cargo get(Integer id) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        Cargo cargo=(Cargo)session.get(Cargo.class, id);
-        session.getTransaction().commit();
-        return cargo;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Cargo cargo=(Cargo)session.get(Cargo.class, id);
+            tx.commit();
+            return cargo;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
-    
 }
