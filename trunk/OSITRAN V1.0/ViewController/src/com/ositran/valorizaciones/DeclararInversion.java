@@ -978,6 +978,7 @@ public class DeclararInversion {
             reajustadoPreparandoIGV.setIrjMontoAprobado(reajustadoPreparandoIGV.getIrjMontoAprobado().add(reajustadoPreparandoIGV.getIrjMontoAprobado().multiply(igv)));
             reajustadoPreparandoIGV.setIrjMontoReajuste(reajustadoPreparandoIGV.getIrjMontoReajuste().add(reajustadoPreparandoIGV.getIrjMontoReajuste().multiply(igv)));          
         }
+        setListaInvReconocimientoVO(tmpRec);
         setListaInvReajusteVO(tmpRea);
         
     }
