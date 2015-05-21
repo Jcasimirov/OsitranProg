@@ -240,8 +240,7 @@
                                  <table>
                                 <tr class="negrita">
                                     <td>Nro de Oficio:</td>
-                                    <td><p:inputText onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                                     onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                    <td><p:inputText onkeypress="return isNumberKey(event)"
                                                      value="#{derivarReconocimientoSupervisorMB.numeroOficio}" style="width:50px" />
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                                     </td>
@@ -255,8 +254,7 @@
                                  <tr >
                                     <td class="negrita">Plazo otorgado:</td>
                                      <td><p:inputText value="#{derivarReconocimientoSupervisorMB.plazoOtorgado}" style="width:50px"
-                                     onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                                     onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                     onkeypress="return isNumberKey(event)"
                                      />
                                       <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> </td>
                                     <td colspan="2">
@@ -300,21 +298,15 @@
                                 
                                 
 				</p:fieldset>	
-                                
-                                
-                                
-                                
 				</td>
 			</tr>
 		</table>	
 		</div>               
                   <div style="text-align:center;font-size: 11px">
                                  <p:commandButton  style="width:80px" 
-                                 
                                  update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" 
-                                 
                                  actionListener="#{derivarReconocimientoSupervisorMB.guardar()}"  value="Guardar"/>
-                                    <p:commandButton  actionListener="#{derivarReconocimientoSupervisorMB.limpiarTodo()}"    update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" style="width:80px" value="Limpiar"/>
+                                    <p:commandButton  actionListener="#{derivarReconocimientoSupervisorMB.limpiarTodoM()}"    update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
             </p:layout>
@@ -415,8 +407,6 @@
                                                 style="width:22px;height:22px"
                                                 update=":form:datosConcesion1 :form:datosCompromiso "
                                                 >
-                                                
-                              
                                             </p:commandButton>
                                               <p:tooltip styleClass="tool" id="tool5" for="selecionarContratos"
                                                           value="Selecionar un contrato"/>
