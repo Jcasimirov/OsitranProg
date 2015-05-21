@@ -126,7 +126,7 @@ public class Reutilizar {
         monto1=monto1.divide(monto2);
         return monto1;
     }
-    public BigDecimal redondearBigDecimal(BigDecimal d) {
+    public static BigDecimal redondearBigDecimal(BigDecimal d) {
       return d.setScale(2, RoundingMode.HALF_EVEN);
     }
     public String obtenerIpCliente(){
@@ -140,7 +140,7 @@ public class Reutilizar {
         }
         return remoteAddr;
     }
-    public  Object copy(Object orig) {
+    public Object copyD(Object orig) {
            Object obj = null;
            try {
                // Write the object out to a byte array
@@ -164,4 +164,27 @@ public class Reutilizar {
            }
            return obj;
        }
+    public static <T> T copy( T source )
+      {
+        try
+        {
+          ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+          ObjectOutputStream oostream = new ObjectOutputStream( ostream );
+       
+          oostream.writeObject( source );
+          oostream.flush();
+       
+          byte[] bytes = ostream.toByteArray();
+           
+          InputStream istream = new ByteArrayInputStream( bytes );
+          ObjectInputStream oistream = new ObjectInputStream( istream );
+           
+          return ( T )oistream.readObject();
+        }
+        catch( RuntimeException e )
+          { throw e; }
+        catch( Exception e )
+          { throw new IllegalArgumentException( source.getClass().getName(), e ); }
+      }
+
 }

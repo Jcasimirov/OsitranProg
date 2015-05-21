@@ -878,8 +878,8 @@ public class RectificarInversion {
 
         InvReajusteVO rea = (InvReajusteVO) e.getComponent().getAttributes().get("reajuste");
         Integer idreajuste = rea.getIrjId();
-        BigDecimal montoReajuste = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoReajuste());
-        BigDecimal montoAprobado = Reutilizar.getNewInstance().redondearBigDecimal(rea.getIrjMontoAprobado());
+        BigDecimal montoReajuste = Reutilizar.redondearBigDecimal(rea.getIrjMontoReajuste());
+        BigDecimal montoAprobado = Reutilizar.redondearBigDecimal(rea.getIrjMontoAprobado());
         if (montoReajuste.compareTo(BigDecimal.ZERO) == 0 || montoReajuste.compareTo(new BigDecimal("0.00")) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
