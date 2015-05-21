@@ -1,8 +1,13 @@
 package com.ositran.vo.bean;
 
+import java.io.Serializable;
+
 import java.math.BigDecimal;
 
-public class InvReajusteVO {
+public class InvReajusteVO implements Serializable{
+    @SuppressWarnings("compatibility:-2641056806559016355")
+    private static final long serialVersionUID = 1L;
+
     private Integer csiId;   
     private int infId;
     private Integer tinId;

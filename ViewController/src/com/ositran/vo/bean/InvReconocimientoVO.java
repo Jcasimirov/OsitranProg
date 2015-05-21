@@ -1,10 +1,15 @@
 package com.ositran.vo.bean;
 
+import java.io.Serializable;
+
 import java.math.BigDecimal;
 
 import java.util.Date;
 
-public class InvReconocimientoVO {
+public class InvReconocimientoVO implements Serializable{
+    @SuppressWarnings("compatibility:-6409320412639288448")
+    private static final long serialVersionUID = 1L;
+
     private Integer ireEstado;
 
     private Date ireFechaRegistro;
