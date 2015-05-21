@@ -913,8 +913,7 @@ public class DeclararInversion {
                 invReajusteVO.setNombreInversion(invAvanceDetalleVO.getNombreInversion());
                 listaInvReconocimientoVO.add(invReconocimientoVO);
                 listaInvReajusteVO.add(invReajusteVO);
-                oldListInvReconocimientoVO=Reutilizar.copy(listaInvReconocimientoVO);
-                oldListInvReajusteVO=Reutilizar.copy(listaInvReajusteVO);
+              
             }
             totalivrMontoAprobadoI = totalivrMontoAprobadoI.add(totalMontoAprobado);
             totalirjMontoReajusteI = totalirjMontoReajusteI.add(totalMontoReajustado);
@@ -927,7 +926,8 @@ public class DeclararInversion {
         
         oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalMontoPresentado));
         oldtotalMontoReajustado=(BigDecimal)Reutilizar.copy(totalMontoReajustado);
-       
+        oldListInvReconocimientoVO=Reutilizar.copy(listaInvReconocimientoVO);
+        oldListInvReajusteVO=Reutilizar.copy(listaInvReajusteVO);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -975,8 +975,10 @@ public class DeclararInversion {
             
         }
         for (InvReajusteVO reajustadoPreparandoIGV : tmpRea){
-            reajustadoPreparandoIGV.setIrjMontoAprobado(reajustadoPreparandoIGV.getIrjMontoAprobado().add(reajustadoPreparandoIGV.getIrjMontoAprobado().multiply(igv)));
-            reajustadoPreparandoIGV.setIrjMontoReajuste(reajustadoPreparandoIGV.getIrjMontoReajuste().add(reajustadoPreparandoIGV.getIrjMontoReajuste().multiply(igv)));          
+            BigDecimal tempMA=reajustadoPreparandoIGV.getIrjMontoAprobado();
+            BigDecimal tempMR=reajustadoPreparandoIGV.getIrjMontoReajuste();
+            reajustadoPreparandoIGV.setIrjMontoAprobado(tempMA.add(tempMA.multiply(igv)));
+            reajustadoPreparandoIGV.setIrjMontoReajuste(tempMR.add(tempMR.multiply(igv)));          
         }
         setListaInvReconocimientoVO(tmpRec);
         setListaInvReajusteVO(tmpRea);
