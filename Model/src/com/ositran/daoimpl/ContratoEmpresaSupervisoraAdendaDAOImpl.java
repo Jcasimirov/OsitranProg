@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaSupervisoraAdendaDAO{
     public ContratoEmpresaSupervisoraAdendaDAOImpl() {
@@ -35,24 +36,40 @@ public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaS
     @Override
     public List<ContratoSupervisoraAdenda> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        List list = session.createQuery("select o from ContratoSupervisoraAdenda o").list();
-        return list;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list = session.createQuery("select o from ContratoSupervisoraAdenda o").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(ContratoSupervisoraAdenda contratoSupervisoraAdenda) throws SQLException {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.save(contratoSupervisoraAdenda);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
             e.printStackTrace();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -60,15 +77,20 @@ public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaS
     public String delete(Integer id) throws SQLException {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             ContratoSupervisoraAdenda contratoSupervisoraAdenda = (ContratoSupervisoraAdenda) session.get(ContratoSupervisoraAdenda.class, id);
             session.delete(contratoSupervisoraAdenda);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -76,12 +98,22 @@ public class ContratoEmpresaSupervisoraAdendaDAOImpl implements ContratoEmpresaS
     public List<ContratoSupervisoraAdenda> getContratoSupervisoraAdenda(Integer cpsNroDeContrato) throws SQLException,
                                                                                                          Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Query query; 
-        query = session.createQuery("FROM ContratoSupervisoraAdenda cs where cs.cpsNroDeContrato = :cpsNroDeContrato");
-        query.setParameter("cpsNroDeContrato",cpsNroDeContrato);            
-
-        List<ContratoSupervisoraAdenda> list = query.list();
-        session.close();
-        return list; 
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query; 
+            query = session.createQuery("FROM ContratoSupervisoraAdenda cs where cs.cpsNroDeContrato = :cpsNroDeContrato");
+            query.setParameter("cpsNroDeContrato",cpsNroDeContrato);
+            List<ContratoSupervisoraAdenda> list = query.list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }
