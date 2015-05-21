@@ -37,7 +37,6 @@ import com.ositran.vo.bean.ContratoResSupDetalleVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.DerivarReconocimientoSupervisorVO;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
-import com.ositran.vo.bean.IgvVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.InvAvnDerivadaVO;
@@ -67,7 +66,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 
 @ManagedBean(name = "derivarReconocimientoSupervisorMB")
 @ViewScoped
@@ -247,6 +245,8 @@ public class DerivarReconocimientoSupervisorMB {
     ContratoAlertaVO contratoAlertaVO=new ContratoAlertaVO();
     ContratoAlertaService contratoAlertaService = new ContratoAlertaServiceImpl();
     
+    
+    
     public void limpiarTodo() {
         fichaRegistro = 0;
         codigoInfraestructura = 0;
@@ -284,6 +284,64 @@ public class DerivarReconocimientoSupervisorMB {
         nombreRevisor = "";
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
         listValorizacionInversionAvanceVO = new ArrayList();
+        
+        nombreMoneda="";
+        diasCalendario=false;
+        diasHabiles=false;
+      total=new BigDecimal("0");
+      nombreMoneda="";
+      fechaEmisionDS=null;
+      fechaLimiteDS=null;
+      
+    }
+    public void limpiarTodoM() {
+        fichaRegistro = 0;
+        codigoInfraestructura = 0;
+        nombreConcecion = "";
+        nombreTipoInfraestructura = "";
+        nombreModalidadConceción = "";
+        idModalidadConcesion = 0;
+        codigoConcesion = 0;
+        codigoInversion = 0;
+        idTipoInfraestructura = 0;
+        codigoContrato = 0;
+        numero = "";
+        anio = 0;
+        fechaRegistroSDT = null;
+        asunto = "";
+        contratoCompromisoSeleccionado = 1;
+        plazo = "";
+        codigoMoneda = 0;
+        codigoInversionDescripcion = 0;
+        codMoneda = 0;
+        codigoInfraValSelecionado = 0;
+        inicioPeriodo = null;
+        finPeriodo = null;
+        montoPrestado = new BigDecimal("0");
+        contador = 0;
+        totalTotal = new BigDecimal("0");
+        nombreSupervisor = "";
+        codigoTipoRevision = 0;
+        codigoSupervisor = 0;
+        numeroOficio = "";
+        registroSalida = "";
+        plazoOtorgado = 0;
+        codigoModalidadConcecion = 0;
+        codigoTipoInversion = 0;
+        nombreRevisor = "";
+        listValorizacionInversionAvanceDetalleVO = new ArrayList();
+        listValorizacionInversionAvanceVO = new ArrayList();
+        
+        nombreMoneda="";
+        diasCalendario=false;
+        diasHabiles=false;
+      total=new BigDecimal("0");
+      nombreMoneda="";
+      fechaEmisionDS=null;
+      fechaLimiteDS=null;
+        FacesContext.getCurrentInstance().addMessage(null,
+                                                     new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                      "SE LIMPIO LOS CAMPOS CON EXITO"));
     }
 
     public void cambiarDatos() {
