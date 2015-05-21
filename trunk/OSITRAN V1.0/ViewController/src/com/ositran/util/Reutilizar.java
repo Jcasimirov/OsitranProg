@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import java.net.UnknownHostException;
 
@@ -126,7 +127,7 @@ public class Reutilizar {
         return monto1;
     }
     public BigDecimal redondearBigDecimal(BigDecimal d) {
-      return d.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+      return d.setScale(2, RoundingMode.HALF_EVEN);
     }
     public String obtenerIpCliente(){
         //String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr();

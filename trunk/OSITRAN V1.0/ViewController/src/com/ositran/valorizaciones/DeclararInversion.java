@@ -1206,7 +1206,8 @@ public class DeclararInversion {
     }
 
     public void guardarDeclaracion() {
-
+        System.out.println("totalivrMontoAprobadoI"+totalivrMontoAprobadoI);
+        System.out.println("totalirjMontoReajusteI"+totalirjMontoReajusteI);
         if (invVO.getInvEstadoReconocimiento() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
@@ -1269,8 +1270,11 @@ public class DeclararInversion {
                 if (invVO.getInvEstadoReconocimiento() == 2) {
                     invAvnVO.setIaeId(Constantes.ESTADORECONOCIMIENTO_OBSERVADO);
                 }
+               
                 invVO.setMonId(invAvnVO.getMonId());
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId());
+                invVO.setInvMontoTotalAprobado(totalivrMontoAprobadoI);
+                invVO.setInvMontoTotalReajuste(totalirjMontoReajusteI);
                 invAvnVO.setTiaMontoTotalAprobado(totalivrMontoAprobadoI);
                 invAvnVO.setTiaMontoTotalReajustado(totalirjMontoReajusteI);
                 invServiceImpl.insertDeclaracion(invAvnVO, invVO, listaInvReconocimientoVO, listaInvReajusteVO);
