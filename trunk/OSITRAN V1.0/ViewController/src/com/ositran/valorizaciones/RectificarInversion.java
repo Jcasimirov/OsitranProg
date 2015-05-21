@@ -689,7 +689,9 @@ public class RectificarInversion {
     public void deshabilitarxObservado() {
         if (invAvnVO.getIaeId() == 0) {
             deshabilitadoxObservado = true;
-            resetCamposIGV();
+            resetCamposIGV(); 
+            resetMontosconIGV();
+            RequestContext.getCurrentInstance().update("form");
             /* prepararMontosObservados(); */
 
         } else {
@@ -729,9 +731,9 @@ public class RectificarInversion {
         List<InvReconocimientoVO> tmpRec=Reutilizar.copy(listaReconocimiento);
         List<InvReajusteVO> tmpRea=Reutilizar.copy(listaReajuste);
 
-        totalivrMontoAprobado=totalivrMontoAprobado.add(igv.multiply(totalivrMontoAprobado));
-        totalirjMontoAprobado=totalirjMontoAprobado.add(igv.multiply(totalirjMontoAprobado));
-        totalirjMontoReajuste = totalirjMontoReajuste.add(igv.multiply(totalirjMontoReajuste));
+        totalivrMontoAprobado=Reutilizar.redondearBigDecimal(totalivrMontoAprobado.add(igv.multiply(totalivrMontoAprobado)));
+        totalirjMontoAprobado=Reutilizar.redondearBigDecimal(totalirjMontoAprobado.add(igv.multiply(totalirjMontoAprobado)));
+        totalirjMontoReajuste = Reutilizar.redondearBigDecimal(totalirjMontoReajuste.add(igv.multiply(totalirjMontoReajuste)));
         /* invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
         invVO.setInvMontoTotalReajuste(totalirjMontoReajuste); */
 
@@ -739,12 +741,12 @@ public class RectificarInversion {
         invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(invVO.getInvMontoTotalReajuste()));
         for (InvReconocimientoVO reconocimientoPreparandoIGV : tmpRec){
             BigDecimal temp=reconocimientoPreparandoIGV.getIvrMontoAprobado();
-          reconocimientoPreparandoIGV.setIvrMontoAprobado(temp.add(temp.multiply(igv)));           
+          reconocimientoPreparandoIGV.setIvrMontoAprobado(Reutilizar.redondearBigDecimal(temp.add(temp.multiply(igv))));           
             
         }
         for (InvReajusteVO reajustadoPreparandoIGV : tmpRea){
-            reajustadoPreparandoIGV.setIrjMontoAprobado(reajustadoPreparandoIGV.getIrjMontoAprobado().add(reajustadoPreparandoIGV.getIrjMontoAprobado().multiply(igv)));
-            reajustadoPreparandoIGV.setIrjMontoReajuste(reajustadoPreparandoIGV.getIrjMontoReajuste().add(reajustadoPreparandoIGV.getIrjMontoReajuste().multiply(igv)));          
+            reajustadoPreparandoIGV.setIrjMontoAprobado(Reutilizar.redondearBigDecimal(reajustadoPreparandoIGV.getIrjMontoAprobado().add(reajustadoPreparandoIGV.getIrjMontoAprobado().multiply(igv))));
+            reajustadoPreparandoIGV.setIrjMontoReajuste(Reutilizar.redondearBigDecimal(reajustadoPreparandoIGV.getIrjMontoReajuste().add(reajustadoPreparandoIGV.getIrjMontoReajuste().multiply(igv))));          
         }
         setListaReconocimiento(tmpRec);
         setListaReajuste(tmpRea);
