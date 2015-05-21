@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:primefaces-p="http://primefaces.org/ui" >
+        xmlns:primefaces-p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets" >
     <html xmlns="http://www.w3.org/1999/xhtml">
         <h:head>
             <title>reporteAlerta</title>
         </h:head>
         <h:body>
-            <primefaces-p:layout fullPage="true" style="border:none">
-                <primefaces-p:layoutUnit position="center" style="border:0px">
+        <h:form id="formAlertas" binding="#{backing_ositran_reports_reporte_alerta.form1}">
+        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+        <div align="center">
                     <div align="center">
-                        <h4 class="titulo"></h4>
+                        <h5>REPORTE ALERTAS</h5>
                         <div style="width:80%">
                         <primefaces-p:messages />
                             <div align="center" style="font-size: 11px">
-                                <h:form id="formAlertas" binding="#{backing_ositran_reports_reporte_alerta.form1}">
+                                
                                     <primefaces-p:panelGrid id="pnlgAlerta" columns="6">
                                         <primefaces-p:outputLabel id="lblTipoAlerta" value="Tipo Alerta"/>
                                         <primefaces-p:selectOneMenu binding="#{backing_ositran_reports_reporte_alerta.selectTipoAlerta}" validatorMessage="Error"
@@ -93,13 +94,13 @@
                                             <primefaces-p:graphicImage value="./../../images/reportes/exportpdf.png"/>
                                         </h:commandLink>
                                        </primefaces-p:panelGrid>
-                                </h:form>
+                                
                             </div>
                         </div>
                         <br/>
                     </div>
-                </primefaces-p:layoutUnit>
-            </primefaces-p:layout>
+          </div>
+        </h:form>
         </h:body>
     </html>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_ositran_reports_trazabilidadPrincipalesEventos-->
