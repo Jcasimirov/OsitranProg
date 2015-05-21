@@ -1249,7 +1249,7 @@ public class DeclararInversion {
     }
 
     public void prepararMontosObservados() {
-        if (invVO.getInvEstadoReconocimiento() == 2) {
+        if (invVO.getInvEstadoReconocimiento().equals(new Integer("2"))) {
             
             deshabilitadoxObservado = true;
         } else {
