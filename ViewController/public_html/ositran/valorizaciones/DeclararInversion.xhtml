@@ -207,13 +207,10 @@
                                                     <td align="left">
                                                         <p:selectOneMenu widgetVar="estRecon" id="estRec"
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
-                                                                         style="width:210px">
+                                                                         style="width:210px;">
                                                             <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}"
-                                                                    update=":form:tablaReconocimiento 
-                                                                                                                                                      :form:tablaReajuste
-                                                                                                                                                      :form:resumenMonPre
-                                                                                                                                                      :form:resumenMonRea
-                                                                                                                                                      :form:igvResumen"/>
+                                                                    update=":form"/> 
+                                                                                                                                                      
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
@@ -365,26 +362,27 @@
                                                         <td>
                                                             <p:selectBooleanCheckbox id="igvResumen"
                                                                                      value="#{declararInversionMB.renderMostrarIGV}"
-                                                                                     >
+                                                                                     disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}"
                                                                         update=":form"/>
                                                             </p:selectBooleanCheckbox>
                                                         </td>
                                                         <td>
                                                             <h:outputText value="IGV"
-                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"/>
+                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"
+                                                                          />
                                                         </td>
                                                         <td>
                                                             <p:inputMask id="igv" value="#{declararInversionMB.igv}"
                                                                          mask="0.99" size="3"
                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                        ></p:inputMask>
+                                                                         ></p:inputMask>
                                                              
                                                             <p:commandButton id="dd" icon="ui-icon-refresh"
                                                                              actionListener="#{declararInversionMB.calularMontosconIGV()}"
                                                                              update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen"
                                                                              rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                             />
+                                                                             disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"/>
                                                         </td>
                                                     </tr>
                                                 </table>
