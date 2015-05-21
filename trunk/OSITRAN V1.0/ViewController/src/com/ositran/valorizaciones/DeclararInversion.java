@@ -935,6 +935,7 @@ public class DeclararInversion {
 
     public void resetIGV() {
         if (!renderMostrarIGV) {
+            deshabilitadoxObservado=false;
             totalMontoAprobado=(oldtotalMontoAprobado);
             totalMontoReajustado=(oldtotalMontoReajustado);
             setListaInvReconocimientoVO(oldListInvReconocimientoVO);
@@ -945,6 +946,8 @@ public class DeclararInversion {
             setTotalirjMontoReajusteI(totalMontoReajustado);
             setIgv(BigDecimal.ZERO);
             
+        }else{
+            deshabilitadoxObservado=true;
         }
        
     }
@@ -1247,19 +1250,13 @@ public class DeclararInversion {
 
     public void prepararMontosObservados() {
         if (invVO.getInvEstadoReconocimiento() == 2) {
-            resetCamposIGV();
-            setTotalivrMontoAprobadoI(BigDecimal.ZERO);
-            setTotalirjMontoReajusteI(BigDecimal.ZERO);
-            invAvnVO.setTiaMontoTotalAprobado(BigDecimal.ZERO);
-            invAvnVO.setTiaMontoTotalReajustado(BigDecimal.ZERO);
-            invVO.setInvIgv(0);
+            
+            deshabilitadoxObservado = true;
         } else {
 
-            invAvnVO.setTiaMontoTotalAprobado(totalMontoAprobado);
-            invAvnVO.setTiaMontoTotalReajustado(totalMontoReajustado);
-            setTotalivrMontoAprobadoI(totalMontoAprobado);
-            setTotalirjMontoReajusteI(totalMontoReajustado);
+            deshabilitadoxObservado = false;
         }
+        
     }
 
     public void guardarDeclaracion() {
