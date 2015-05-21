@@ -337,7 +337,7 @@
                                                                                  style="width:210px !important;"
                                                                                  value="#{rectificarInversion.invAvnVO.iaeId}">
                                                                     <p:ajax listener="#{rectificarInversion.deshabilitarxObservado()}"
-                                                                            update="form"></p:ajax>
+                                                                            update=":form"></p:ajax>
                                                                     <f:selectItem itemLabel="--Seleccione--"
                                                                                   itemValue="0"/>
                                                                     <f:selectItem itemLabel="Aprobado" itemValue="4"/>
@@ -516,7 +516,7 @@
                                                             </tr>
                                                         </table>
                                                     </p:fieldset>
-                                                    <p:fieldset legend="RESUMEN">
+                                                    <p:fieldset legend="RESUMEN" id="resumen">
                                                         <table style="width:700px !important;">
                                                             <tr>
                                                                 <td>Monto Total Aprobado</td>
@@ -534,7 +534,7 @@
                                                                 <td>Montos con IGV?</td>
                                                                 <td>
                                                                     <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}"
-                                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}">
+                                                                                             >
                                                                         <p:ajax listener="#{rectificarInversion.resetMontosconIGV()}"
                                                                                 update="form"/>
                                                                     </p:selectBooleanCheckbox>
@@ -565,7 +565,7 @@
                                                             </td>
                                                             <td align="left">
                                                                 <p:inputText value="#{rectificarInversion.invVO.invNumeroInforme}"
-                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                             
                                                                              size="10"
                                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
                                                                  
@@ -577,7 +577,7 @@
                                                             <td align="left">
                                                                 <p:calendar size="10" pattern="dd/MM/yyyy"  maxdate="#{declararInversionMB.fechaactual}"
                                                                             value="#{rectificarInversion.invVO.invFechaEmisionInforme}"
-                                                                            disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                            
                                                                             locale="es" onkeypress="return validarCalendario(event);"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
@@ -587,7 +587,7 @@
                                                             </td>
                                                             <td align="left">
                                                                 <p:inputText value="#{rectificarInversion.invVO.invRegSalidaInforme}"
-                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                             
                                                                              size="10"
                                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
                                                                  
@@ -601,7 +601,7 @@
                                                             </td>
                                                             <td align="left">
                                                                 <p:inputText value="#{rectificarInversion.invVO.invNumeroOficio}"
-                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                             
                                                                              size="10"
                                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
                                                                  
@@ -613,7 +613,7 @@
                                                             <td align="left">
                                                                 <p:calendar size="10" pattern="dd/MM/yyyy"  maxdate="#{declararInversionMB.fechaactual}"
                                                                             value="#{rectificarInversion.invVO.invFechaEmisionOficio}"
-                                                                            disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                            
                                                                             locale="es" onkeypress="return validarCalendario(event);"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
@@ -623,7 +623,7 @@
                                                             </td>
                                                             <td align="left">
                                                                 <p:inputText value="#{rectificarInversion.invVO.invRegSalidaOficio}"
-                                                                             disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                             
                                                                              size="10"
                                                                      onkeyup="pasarMayuscula(this.value,this.id);"/>
                                                                  
@@ -661,7 +661,7 @@
                                                             </td>
                                                             <td align="left" colspan="5" >
                                                                 <p:inputTextarea value="#{rectificarInversion.invVO.invNota}"
-                                                                                 disabled="#{rectificarInversion.deshabilitadoxObservado}" style="width:400px !important;"/>
+                                                                                  style="width:400px !important;"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
