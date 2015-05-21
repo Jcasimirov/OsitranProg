@@ -79,7 +79,12 @@
                                                      update=":frmBuscarContratoDlg:concesion"/>
                                 </p:panelGrid>
                                 <p:dataTable value="#{rectificarInversion.listaContrato}" id="contrato" var="contrato11"
-                                             emptyMessage="NO SE ENCONTRARON DATOS">
+                                             
+                                             paginatorPosition="bottom"
+                                                             emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
+                                                             paginator="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                             rowsPerPageTemplate="5,10,20" resizableColumns="true">
                                     <p:column headerText="Fecha Suscripción">
                                         <div style="text-align: center;">
                                             <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
