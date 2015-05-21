@@ -159,12 +159,12 @@
                                 <p:outputPanel id="books">
                                     <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list"
                                                  id="booksTable" emptyMessage="NO SE ENCONTRARON DATOS">
-                                        <p:column headerText="Title">
+                                        <p:column headerText="Infraestructura">
                                             <h:outputText value="#{list.infNombre}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
-                                        <p:column headerText="Action">
-                                            <p:commandLink value="Remove" update=":form:books" process=":form:books">
+                                        <p:column style="width:70px" headerText="Eliminar">
+                                            <p:commandLink value="Eliminar"  update=":form:books" process=":form:books">
                                                 <p:collector value="#{list}"
                                                              removeFrom="#{mantenimientoconcesionMB.infraestructuras}"
                                                              unique="true"/>
@@ -172,12 +172,16 @@
                                         </p:column>
                                     </p:dataTable>
                                 </p:outputPanel>
-                                 
+                                 <br>
+                                 </br>
+                             
+                                 <div align="center">
                                 <p:commandButton update=":form:tablaES :form:mensaje"
                                                  actionListener="#{mantenimientoconcesionMB.guardar}" style="width:70px"
                                                  value="#{btn.btn_guardar}"/>
                                  
                                 <p:commandButton style="width:70px" value="Salir" onclick="insertarPanel.hide ()"/>
+                                </div>
                             </td>
                         </tr>
                     </table>
