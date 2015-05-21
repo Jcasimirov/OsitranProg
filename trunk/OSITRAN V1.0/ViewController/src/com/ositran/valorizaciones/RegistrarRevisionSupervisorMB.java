@@ -1,7 +1,6 @@
 package com.ositran.valorizaciones;
 
 import com.ositran.model.Infraestructura;
-import com.ositran.model.Inv;
 import com.ositran.service.AvanceInversionWebService;
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoCompromisoService;
@@ -56,8 +55,6 @@ import com.ositran.vo.bean.ViewTdInternosVO;
 import java.io.IOException;
 
 import java.math.BigDecimal;
-
-import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -283,6 +280,12 @@ public class RegistrarRevisionSupervisorMB {
         nombreRevisor = "";
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
         listValorizacionInversionAvanceVO = new ArrayList();
+        nombreRevisor="";
+        observaciones="";
+        estadoRevision=0;
+        total=new BigDecimal("0");
+        nombreMoneda="";
+        totalRevisado=new BigDecimal("0");
     }
 
     public void desDiasHabiles() {
@@ -378,7 +381,7 @@ public class RegistrarRevisionSupervisorMB {
                 }
             */
           
-            
+            nombreRevisor="IVAN OSUSKY";
             anio = valorizacionInversionAvanceVO.getTiaAnyo();
             listValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.query1(detalle);
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 : listValorizacionInversionAvanceDetalleVO) {
@@ -407,9 +410,18 @@ public class RegistrarRevisionSupervisorMB {
 
     public void ajustarMonto() {
         totalRevisado=new BigDecimal("0");
-        for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listValorizacionInversionAvanceDetalleVO) {
+        for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listValorizacionInversionAvanceDetalleVO){
             if (valorizacionInversionAvanceDetalleVO.getIad_Id() == codigoDetalle) {
-                valorizacionInversionAvanceDetalleVO.setIasMontoRevisado(montoAjustado);
+                if (montoAjustado.compareTo(valorizacionInversionAvanceDetalleVO.getMontoPresentado())==1){
+                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                                                      "El monto ajustado no puede ser mayor al monto presentado"));
+                       
+                    }
+                else {
+                        valorizacionInversionAvanceDetalleVO.setIasMontoRevisado(montoAjustado); 
+                    }
+                
             }
             totalRevisado = totalRevisado.add(valorizacionInversionAvanceDetalleVO.getIasMontoRevisado());
             
