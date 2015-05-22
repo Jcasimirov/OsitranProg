@@ -165,6 +165,8 @@ public class NotificacionServiceImpl implements NotificacionService{
             invAvnVO.setTiaRutaNot(invAvn.getTiaRutaNot());
             invAvnVO.setCcoId(invAvn.getCcoId());
             invAvnVO.setTiaObservaciones(invAvn.getTiaObservaciones());
+            invAvnVO.setTiaIgv(invAvn.getTiaIgv());
+            invAvnVO.setTiaIgvMonto(invAvn.getTiaIgvMonto());
             return invAvnVO;
         }
         public InvAvn toInvAvn(InvAvnVO invAvnVO){
@@ -193,7 +195,8 @@ public class NotificacionServiceImpl implements NotificacionService{
             invAvn.setTiaAprobadoPor(invAvnVO.getTiaAprobadoPor());
             invAvn.setTiaRutaNot(invAvnVO.getTiaRutaNot());
             invAvn.setTiaObservaciones(invAvnVO.getTiaObservaciones());
-            
+            invAvn.setTiaIgv(invAvnVO.getTiaIgv());
+            invAvn.setTiaIgvMonto(invAvnVO.getTiaIgvMonto());
             return invAvn;
             
         }

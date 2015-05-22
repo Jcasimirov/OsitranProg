@@ -841,6 +841,9 @@ public class DeclararInversion {
     public void cargarDetalleInversion(SelectEvent event)  {
         mostrarxDeclaracionCargada = true;
         invAvnVO = (InvAvnVO) event.getObject();
+        renderMostrarIGV=invAvnVO.getTiaIgv().compareTo(BigDecimal.ONE)==0?true:false;
+        igv=invAvnVO.getTiaIgvMonto();
+        deshabilitadoxObservado=invAvnVO.getTiaIgv().compareTo(BigDecimal.ONE)==0?true:false;
         try {
             System.out.println("INI cargarDetalleInversion");
             listaInvReconocimientoVO = new ArrayList<InvReconocimientoVO>();
@@ -944,7 +947,7 @@ public class DeclararInversion {
             
             setTotalivrMontoAprobadoI(totalMontoAprobado);
             setTotalirjMontoReajusteI(totalMontoReajustado);
-            setIgv(BigDecimal.ZERO);
+            invAvnVO.setTiaIgv(BigDecimal.ZERO);
             
         }else{
             deshabilitadoxObservado=true;

@@ -51,6 +51,8 @@ public class InvAvnVO{
         private BigDecimal total;
         private String plazo;
         private String tiaObservaciones;
+        private BigDecimal tiaIgvMonto;
+        private BigDecimal tiaIgv;
     public void setTiaRutaNot(String tiaRutaNot) {
         this.tiaRutaNot = tiaRutaNot;
     }
@@ -355,5 +357,21 @@ public class InvAvnVO{
 
     public String getTiaFechaRegistroDescripcion() {
         return tiaFechaRegistroDescripcion;
+    }
+
+    public void setTiaIgvMonto(BigDecimal tiaIgvMonto) {
+        this.tiaIgvMonto = tiaIgvMonto;
+    }
+
+    public BigDecimal getTiaIgvMonto() {
+        return tiaIgvMonto;
+    }
+
+    public void setTiaIgv(BigDecimal tiaIgv) {
+        this.tiaIgv = tiaIgv;
+    }
+
+    public BigDecimal getTiaIgv() {
+        return tiaIgv;
     }
 }
