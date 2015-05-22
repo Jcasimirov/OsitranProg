@@ -81,7 +81,7 @@
                                                                                var="tip2" itemLabel="#{tip2.ccoPeriodo}"
                                                                                itemValue="#{tip2.ccoId}"/>
                                                                 <p:ajax event="valueChange"
-                                                                        update=":form:datosCompromiso  :form:inversionDescripcion "
+                                                                        update=":form:datosCompromiso  :form:inversionDescripcion :form:booleanIgv "
                                                                         listener="#{registrarAvanceInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
                                                              <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
@@ -299,12 +299,12 @@
                                                                          
                                                         </td>
                                                         <td>
-                                                            <p:selectBooleanCheckbox value="#{registrarAvanceInversionMB.igv}"/>
+                                                            <p:selectBooleanCheckbox id="booleanIgv"  disabled="true" value="#{registrarAvanceInversionMB.igv}"/>
                                                              
                                                             <h:outputText style="font-size:9px" value="Con IGV"/>
                                                         </td>
                                                         <td align="right">
-                                                            <p:commandButton value="Agregar"
+                                                            <p:commandButton  value="Agregar"
                                                                              update=":form:tablaVS :form:mensaje :form:montosTotales1 :form:montosTotales2 :form:montosTotales3"
                                                                              actionListener="#{registrarAvanceInversionMB.agregar()}"
                                                                              image="ui-icon-circle-plus"/>
