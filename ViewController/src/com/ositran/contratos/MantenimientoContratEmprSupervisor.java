@@ -409,10 +409,7 @@ public class MantenimientoContratEmprSupervisor {
     //----buscar contrato concesion--//
     public void cargarListaContratos() {
         try {
-            listaContratos = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
-            System.out.println("el codigo es ASDASDASFDSGFDSD");
-
-            System.out.println(tipoInfraestructura);
+            listaContratos = contratoConcesionServiceImp.query(); //buscarContratos1(tipoInfraestructura);
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
 
@@ -699,14 +696,17 @@ public class MantenimientoContratEmprSupervisor {
                 contratoSupervisoraVO.setCcoPlazo(plazo); //plazo
                 contratoSupervisoraVO.setCcoTotal(total); //total
                 contratoSupervisoraVO.setMonId(codigoMoneda); // plazo moneda
+                
+                contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+                
 
-
-                int idCabecera = contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
+                /* int idCabecera = contratoEmpresaSupervisoraServiceImpl.insert(contratoSupervisoraVO);
 
                 for (ContratoSupervisoraAdendaVO contratoSupervisoraAdendaVO : listaAdenda) {
                     contratoSupervisoraAdendaVO.setCpsNroDeContrato(idCabecera);
                     contratoEmpresaSupervisoraAdendaServiceImpl.insert(contratoSupervisoraAdendaVO);
-                }
+                } */
+                
                 RequestContext.getCurrentInstance().execute("dialogRegConEmpSup.hide()");
                 listanombrerol();
                 cargarListaContratosEmpresaSupervisora();
@@ -812,8 +812,8 @@ public class MantenimientoContratEmprSupervisor {
             cpsCaducidadE = contratoSupervisoraVO.getCpsCaducidad();
             cpsGarantiasE = contratoSupervisoraVO.getCpsGarantias();
             //pdf
-            listaAdenda1 =
-                contratoEmpresaSupervisoraAdendaServiceImpl.getContratoSupervisoraAdenda(contratoSupervisoraVO.getCpsNroDeContrato());
+            
+            //listaAdenda1 =contratoEmpresaSupervisoraAdendaServiceImpl.getContratoSupervisoraAdenda(contratoSupervisoraVO.getCpsNroDeContrato());
 
             asuntohrE = contratoSupervisoraVO.getCpsAsunto();
             
@@ -854,8 +854,7 @@ public class MantenimientoContratEmprSupervisor {
             codigoMoneda = monedaVO.getMonId(); //moneda
             nombreMoneda = monedaVO.getMonNombre();
             contratoCompromisoSeleccionadoE = contratoCompromisoVO.getCcoId();
-            System.out.println("asdfgwedfnmsdfljsdm");
-            System.out.println(contratoCompromisoSeleccionadoE);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -918,7 +917,7 @@ public class MantenimientoContratEmprSupervisor {
 
     public void cargarListaContratosE() {
         try {
-            listaContratosE = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
+            listaContratosE = contratoConcesionServiceImp.query(); //buscarContratos1(tipoInfraestructura);
 
             for (ContratoVO contra : listaContratosE) {
                 ConcesionVO concesion = new ConcesionVO();
