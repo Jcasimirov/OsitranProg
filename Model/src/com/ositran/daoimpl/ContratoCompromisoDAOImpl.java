@@ -3,15 +3,11 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ContratoCompromisoDAO;
 import com.ositran.model.ContratoCompromiso;
 import com.ositran.util.HibernateUtil;
-
 import java.sql.SQLException;
-
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import org.springframework.stereotype.Repository;
 
 @Repository
