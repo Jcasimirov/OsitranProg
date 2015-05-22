@@ -34,7 +34,12 @@ public class InvReconocimientoVO implements Serializable{
     private String desConcepto;
     private String nombreMoneda;
     private String nombreInversion;
-
+    
+    private BigDecimal montoAprobadoConIGV;
+    private BigDecimal montoAprobadoSinIGV;
+    private BigDecimal montoPresentadoConIGV;
+    private BigDecimal montoPresentadoSinIGV;
+    
     public void setIreFechaRegistro(Date ireFechaRegistro) {
         this.ireFechaRegistro = ireFechaRegistro;
     }
@@ -160,4 +165,37 @@ public class InvReconocimientoVO implements Serializable{
     public String getNombreInversion() {
         return nombreInversion;
     }
+
+    public void setMontoAprobadoConIGV(BigDecimal montoAprobadoConIGV) {
+        this.montoAprobadoConIGV = montoAprobadoConIGV;
+    }
+
+    public BigDecimal getMontoAprobadoConIGV() {
+        return montoAprobadoConIGV;
+    }
+
+    public void setMontoAprobadoSinIGV(BigDecimal montoAprobadoSinIGV) {
+        this.montoAprobadoSinIGV = montoAprobadoSinIGV;
+    }
+
+    public BigDecimal getMontoAprobadoSinIGV() {
+        return montoAprobadoSinIGV;
+    }
+
+    public void setMontoPresentadoConIGV(BigDecimal montoPresentadoConIGV) {
+        this.montoPresentadoConIGV = montoPresentadoConIGV;
+    }
+
+    public BigDecimal getMontoPresentadoConIGV() {
+        return montoPresentadoConIGV;
+    }
+
+    public void setMontoPresentadoSinIGV(BigDecimal montoPresentadoSinIGV) {
+        this.montoPresentadoSinIGV = montoPresentadoSinIGV;
+    }
+
+    public BigDecimal getMontoPresentadoSinIGV() {
+        return montoPresentadoSinIGV;
+    }
+
 }
