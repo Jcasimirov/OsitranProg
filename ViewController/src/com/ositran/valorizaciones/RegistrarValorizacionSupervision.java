@@ -192,13 +192,9 @@ public class RegistrarValorizacionSupervision {
 
     public void cargarListaContratos() {
         try {
-            listaContratos = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
-            System.out.println("el codigo es ASDASDASFDSGFDSD");
-
-            System.out.println(tipoInfraestructura);
+            listaContratos = contratoConcesionServiceImp.query(); //buscarContratos1(tipoInfraestructura);
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
-
                 concesion = concesionServiceImpl.get(contra.getCsiId());
                 contra.setNombreConcesion(concesion.getCsiNombre());
                 contra.setCodigoConcesion(concesion.getCsiId());
