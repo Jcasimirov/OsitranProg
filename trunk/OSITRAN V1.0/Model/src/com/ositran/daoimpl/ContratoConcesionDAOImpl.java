@@ -310,7 +310,7 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
         try {
             tx=session.beginTransaction();
             Query query;     
-            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1 and c.conEstado =1");
+            query=session.createQuery("FROM Contrato c WHERE c.tinId like :busqueda1");
             query.setParameter("busqueda1",tinfraestructura);
             list= query.list();
             tx.commit();
