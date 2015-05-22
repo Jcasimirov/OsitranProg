@@ -175,10 +175,10 @@
                                                              rowKey="#{tInversion.tiaNumero}">
                                                     <p:ajax event="rowSelect"
                                                             listener="#{declararInversionMB.cargarDetalleInversion}"
-                                                            update=":form:tablaReconocimiento :form:tablaReajuste :form"/>
+                                                            update=":form"/>
                                                     <p:ajax event="rowUnselect"
                                                             listener="#{declararInversionMB.limpiarDatos()}"
-                                                            update=":form:tablaReconocimiento"/>
+                                                            />
                                                     <p:column headerText="Nro. Val">
                                                         <h:outputText value="#{tInversion.tiaNumero}"/>
                                                     </p:column>
@@ -373,14 +373,14 @@
                                                                           />
                                                         </td>
                                                         <td>
-                                                            <p:inputMask id="igv" value="#{declararInversionMB.igv}"
+                                                            <p:inputMask id="igv" value="#{declararInversionMB.invAvnVO.tiaIgvMonto}"
                                                                          mask="0.99" size="3"
                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"
                                                                          ></p:inputMask>
                                                              
                                                             <p:commandButton id="dd" icon="ui-icon-refresh"
                                                                              actionListener="#{declararInversionMB.calularMontosconIGV()}"
-                                                                             update=":form:tablaReconocimiento :form:tablaReajuste :form:datosResumen"
+                                                                             update=":form"
                                                                              rendered="#{declararInversionMB.renderMostrarIGV}"
                                                                              disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"/>
                                                         </td>
