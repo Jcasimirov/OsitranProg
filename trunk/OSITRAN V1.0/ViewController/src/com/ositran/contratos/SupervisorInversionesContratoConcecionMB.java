@@ -9,11 +9,9 @@ import com.ositran.service.InfraestructuraService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
-import com.ositran.serviceimpl.ContratoSubInversionesServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
 import com.ositran.vo.bean.ConcesionVO;
-import com.ositran.vo.bean.ContratoJefeAreaVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
@@ -21,9 +19,11 @@ import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -181,7 +181,6 @@ public class SupervisorInversionesContratoConcecionMB {
                 ConcesionVO concesion=new ConcesionVO();
                 concesion=concesionServiceImpl.get(contra.getCsiId());         
                 contra.setNombreConcesion(concesion.getCsiNombre()); 
-
                 codigoContrato = contra.getConId();
                 codigoContratoP=codigoContrato;
                 infraestructuraVO=infraestructuraServiceImpl.get2(concesion.getTinId());
@@ -201,6 +200,9 @@ public class SupervisorInversionesContratoConcecionMB {
         try {
            contratoConcesion=contrato1.getNombreConcesion();
            tipoInfraestructuraC=contrato1.getTinId();
+            codigoContrato=contrato1.getConId();
+            codigoContratoP=contrato1.getConId();
+            codigoConcesion=contrato1.getCsiId();
                infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contrato1.getTinId());
                modalidadConcesionVO = modalidadServiceImp.get(contrato1.getMcoId());
                tipoInfraestructuraS = infraestructuraTipoVO.getTinDescripcion();
@@ -258,9 +260,9 @@ public class SupervisorInversionesContratoConcecionMB {
             contratoSupInversionesVO.setSivFechaInicial(new Date());
             contratoSupInversionesVO.setSivNombre(nombreSupervisor);
             contratoSubInversionesServiceImpl.insert(contratoSupInversionesVO);
-            
+                listarSupervisionDeInversiones();
             limpiar();
-            listarSupervisionDeInversiones();
+            
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registro con Exito");
             FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 
