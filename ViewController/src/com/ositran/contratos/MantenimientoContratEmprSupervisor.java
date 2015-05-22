@@ -539,7 +539,7 @@ public class MantenimientoContratEmprSupervisor {
     //---fin buscar contrato concesion---//
     //PDF  --//
     public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
-        contratoSupervisoraVO.setCenDocumentoFisico(event.getFile().getFileName());
+        contratoSupervisoraVO.setCenDocumentoFisico("contratoSupervisora" + contratoSupervisoraVO.getConId() + event.getFile().getFileName());
         contratoSupervisoraVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
     }
 
@@ -670,10 +670,11 @@ public class MantenimientoContratEmprSupervisor {
                 contratoSupervisoraVO.setCpsPenalidades(cpsPenalidades);
                 contratoSupervisoraVO.setCpsCaducidad(cpsCaducidad);
                 contratoSupervisoraVO.setCpsGarantias(cpsGarantias);
-                contratoSupervisoraVO.setCenDocumentoFisico(cenDocumentoFisico);
-                Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA +
-                                                                    contratoSupervisoraVO.getCenDocumentoFisico(),
-                                                                    contratoSupervisoraVO.getInputStreamNuevaEntrega());
+                if (contratoSupervisoraVO.getInputStreamNuevaEntrega() != null) {
+                        Reutilizar.getNewInstance().copiarArchivoenServidor(Constantes.RUTAADENDAENTREGA +
+                                                                            contratoSupervisoraVO.getCpsArchivoPdf(),
+                                                                            contratoSupervisoraVO.getInputStreamNuevaEntrega());
+                    }
                 contratoSupervisoraVO.setCpsStd(Integer.parseInt(nrohr));
                 contratoSupervisoraVO.setCpsAnyo(Integer.parseInt(añohr));
                 SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
