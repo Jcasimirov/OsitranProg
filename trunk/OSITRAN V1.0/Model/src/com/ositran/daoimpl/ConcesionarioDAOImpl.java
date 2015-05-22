@@ -30,7 +30,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     @Override
     public int getCanNombres(String nombre) throws SQLException, Exception {
         int cantidad = 0;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         Query query;
         List list;
@@ -73,7 +73,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
     @Override
     public List<Concesionario> queryF(String filtro) throws SQLException, Exception {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         Query query;
         try {
@@ -95,7 +95,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
     @Override
     public List<Concesionario> queryTD(int filtro) throws SQLException, Exception {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         Transaction tx=null;
         try {
@@ -120,7 +120,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     @Override
     public String insert(Concesionario concesionario) throws SQLException, Exception {
         String result = null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
@@ -169,7 +169,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
 
     @Override
     public Concesionario get(Integer id) throws SQLException, Exception {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
@@ -196,7 +196,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
     
     //Ivan
     public List<Concesionario> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception{
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         Transaction tx=null;
         try {
