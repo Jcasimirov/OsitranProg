@@ -1,9 +1,6 @@
 package com.ositran.service;
 
-import com.ositran.model.ContratoSupervisora;
 import com.ositran.vo.bean.ContratoSupervisoraVO;
-
-import com.ositran.vo.bean.UsuarioVO;
 
 import java.sql.SQLException;
 
@@ -11,6 +8,8 @@ import java.util.List;
 
 public interface ContratoEmpresaSupervisoraService {
     public List<ContratoSupervisoraVO> query() throws SQLException;
+    public List<ContratoSupervisoraVO> query1(int codigoInfra) throws SQLException;
+    public List<ContratoSupervisoraVO> query3(int codigoInfra) throws SQLException;
 
     public int insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException;
 
