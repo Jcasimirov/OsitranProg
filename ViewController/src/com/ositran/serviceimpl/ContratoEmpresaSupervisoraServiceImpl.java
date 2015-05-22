@@ -1,30 +1,14 @@
 package com.ositran.serviceimpl;
 
-import com.ositran.dao.ContratoEmpresaSupervisoraAdendaDAO;
-import com.ositran.dao.ContratoEmpresaSupervisoraDAO;
 import com.ositran.daoimpl.ContratoEmpresaSupervisoraDAOImpl;
 import com.ositran.model.ContratoSupervisora;
-import com.ositran.model.ContratoSupervisoraAdenda;
-import com.ositran.model.EmpresaSupervisora;
-
-import com.ositran.model.Usuario;
+import com.ositran.service.ContratoEmpresaSupervisoraService;
+import com.ositran.vo.bean.ContratoSupervisoraVO;
 
 import java.sql.SQLException;
-import com.ositran.service.ContratoEmpresaSupervisoraService;
-import com.ositran.util.HibernateUtil;
-import com.ositran.vo.bean.ContratoSupervisoraAdendaVO;
-import com.ositran.vo.bean.ContratoSupervisoraVO;
-import com.ositran.vo.bean.EmpresaSupervisoraVO;
-
-import com.ositran.vo.bean.UsuarioVO;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import javax.faces.bean.ManagedProperty;
-
-import org.hibernate.Session;
 
 public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSupervisoraService{
 
@@ -40,6 +24,19 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
         return listVO;
     }
 
+    @Override
+    public List<ContratoSupervisoraVO> query1(int codigoInfra) throws SQLException {
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.query1(codigoInfra);
+        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
+        return listVO;
+    }
+
+    @Override
+    public List<ContratoSupervisoraVO> query3(int cosidoInversion) throws SQLException {
+        List<ContratoSupervisora> list=contratoEmpresaSupervisoraDAOImpl.query1(cosidoInversion);
+        List<ContratoSupervisoraVO> listVO=toListContratoSupervisoraVO(list);
+        return listVO;
+    }
     @Override
     public int insert(ContratoSupervisoraVO contratoSupervisoraVO) throws SQLException {
         ContratoSupervisora contratoSupervisora=toContratoSupervisora(contratoSupervisoraVO);
@@ -202,5 +199,6 @@ public class ContratoEmpresaSupervisoraServiceImpl implements ContratoEmpresaSup
     public ContratoSupervisoraVO getContratoSupervisoraVO() {
         return contratoSupervisoraVO;
     }
+
 
 }
