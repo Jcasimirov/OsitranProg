@@ -359,6 +359,8 @@ public class RegistrarAvanceInversionMB {
         try {
            
             contratoCompromisoVO = contratoCompromisoServiceImpl.get(contratoCompromisoSeleccionado);
+         
+            
             tipoComtratoCompromiso = contratoCompromisoVO.getTccTipo();
             plazoCompromiso = contratoCompromisoVO.getCcoPlazo();
             total = contratoCompromisoVO.getCcoTotal();
@@ -367,6 +369,12 @@ public class RegistrarAvanceInversionMB {
             nombreMoneda = monedaVO.getMonNombre();
             codigoInversionDescripcion = contratoCompromisoVO.getTivId();
             listarInversionDescripcion(contratoCompromisoVO.getTivId());
+            if (contratoCompromisoVO.getPorIgv()==null){
+                igv=false;
+                }
+            else {
+                    igv=true;
+                }
             
         } catch (Exception e) {
             System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
@@ -463,14 +471,16 @@ public class RegistrarAvanceInversionMB {
                         valorizacionInversionAvanceDetalleVO1.setNombreMoneda(mon.getMonNombre());
                     }
                 }
+                if (contratoCompromisoVO.getPorIgv()==null){
+                        
+                        valorizacionInversionAvanceDetalleVO1.setIgv(new BigDecimal("0"));
+                    }
+                else {
+                        igv1 = new BigDecimal("0.18");
+                        valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(contratoCompromisoVO.getPorIgv()).setScale(2,BigDecimal.ROUND_UP));
+                    }
                 
-                if (igv) {
-                    igv1 = new BigDecimal("0.18");
-                    valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(igv1).setScale(2,BigDecimal.ROUND_UP));
-                } else {
-                    igv1 = new BigDecimal("0");
-                    valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(igv1).setScale(2,BigDecimal.ROUND_UP));
-                }
+                
                 valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado.subtract(valorizacionInversionAvanceDetalleVO1.getIgv()));
                 valorizacionInversionAvanceDetalleVO1.setMontoPresentado(montoPrestado);
                 
@@ -494,16 +504,16 @@ public class RegistrarAvanceInversionMB {
                                                                                                                BigDecimal.ROUND_UP);
         totalMonto = totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal()).setScale(2,
                                                                                                                       BigDecimal.ROUND_UP);
-        totalIgv =totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv()).setScale(2,
-                                                                                                        BigDecimal.ROUND_UP);
+        totalIgv =totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv()).setScale(2,                                                                                          BigDecimal.ROUND_UP);
         listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
     }
 
 
     public void obtenerSupervisorInversiones(){
         try {
+           
            contratoSubInversionesVO=contratoSubInversionesService.get1(codigoContrato);
-           supervisorInversionesVO=supervisorInversionesServiceImpl.get(contratoSubInversionesVO.getSivId());   
+           supervisorInversionesVO=supervisorInversionesServiceImpl.get(contratoSubInversionesVO.getTsiId());   
            contratoAlertaVO.setCalTipo(2);
             contratoAlertaVO.setConId(codigoContrato);
             contratoAlertaVO.setCalFechaInicio(fechaRegistroSDT);
@@ -514,7 +524,7 @@ public class RegistrarAvanceInversionMB {
             contratoAlertaVO.setCalEstado(1);
             contratoAlertaVO.setCaeId(1);
             contratoAlertaVO.setCalFechaAlta(new Date());
-            contratoAlertaVO.setCalUsuarioAlta("Abel Huarca");
+            contratoAlertaVO.setCalUsuarioAlta(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getUsuAlias());
             contratoAlertaVO.setCalCorreo(supervisorInversionesVO.getTsiCorreo());
            contratoAlertaVO.setCalNombreSupervisor(supervisorInversionesVO.getTsiNombre()); 
         contratoAlertaServiceImpl.insert(contratoAlertaVO);
