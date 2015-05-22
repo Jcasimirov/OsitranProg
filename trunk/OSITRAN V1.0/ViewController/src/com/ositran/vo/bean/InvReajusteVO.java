@@ -28,7 +28,10 @@ public class InvReajusteVO implements Serializable{
     private Integer iadId;
     
     private String nombreInversion;
-    
+    private BigDecimal montoAprobadoConIGV;
+    private BigDecimal montoAprobadoSinIGV;
+    private BigDecimal montoReajusteConIGV;
+    private BigDecimal montoReajusteSinIGV;
     public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
@@ -133,4 +136,38 @@ public class InvReajusteVO implements Serializable{
     public String getNombreInversion() {
         return nombreInversion;
     }
+
+    public void setMontoAprobadoConIGV(BigDecimal montoAprobadoConIGV) {
+        this.montoAprobadoConIGV = montoAprobadoConIGV;
+    }
+
+    public BigDecimal getMontoAprobadoConIGV() {
+        return montoAprobadoConIGV;
+    }
+
+    public void setMontoAprobadoSinIGV(BigDecimal montoAprobadoSinIGV) {
+        this.montoAprobadoSinIGV = montoAprobadoSinIGV;
+    }
+
+    public BigDecimal getMontoAprobadoSinIGV() {
+        return montoAprobadoSinIGV;
+    }
+
+    public void setMontoReajusteConIGV(BigDecimal montoReajusteConIGV) {
+        this.montoReajusteConIGV = montoReajusteConIGV;
+    }
+
+    public BigDecimal getMontoReajusteConIGV() {
+        return montoReajusteConIGV;
+    }
+
+    public void setMontoReajusteSinIGV(BigDecimal montoReajusteSinIGV) {
+        this.montoReajusteSinIGV = montoReajusteSinIGV;
+    }
+
+    public BigDecimal getMontoReajusteSinIGV() {
+        return montoReajusteSinIGV;
+    }
+
+
 }

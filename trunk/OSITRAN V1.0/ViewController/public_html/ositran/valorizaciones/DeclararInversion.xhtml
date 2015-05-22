@@ -175,7 +175,7 @@
                                                              rowKey="#{tInversion.tiaNumero}">
                                                     <p:ajax event="rowSelect"
                                                             listener="#{declararInversionMB.cargarDetalleInversion}"
-                                                            update=":form"/>
+                                                            update=":form:igvResumen :form "/>
                                                     <p:ajax event="rowUnselect"
                                                             listener="#{declararInversionMB.limpiarDatos()}"
                                                             />
@@ -265,7 +265,7 @@
                                                                          actionListener="#{declararInversionMB.editarReconocimiento}"
                                                                          update=":frmEditarMontoRec"
                                                                          oncomplete="_dlgEditarReconocimiento.show();"
-                                                                         disabled="#{declararInversionMB.deshabilitadoxObservado}">
+                                                                         disabled="#{declararInversionMB.deshabilitarEdiciondeMontos}">
                                                             <f:attribute name="reconocimiento"
                                                                          value="#{tReconocimiento}"/>
                                                         </p:commandButton>
@@ -322,7 +322,7 @@
                                                                          actionListener="#{declararInversionMB.editarReajuste}"
                                                                          update=":frmEditarMontoRea"
                                                                          oncomplete="_dlgEditarReajuste.show();"
-                                                                         disabled="#{declararInversionMB.deshabilitadoxObservado}">
+                                                                         disabled="#{declararInversionMB.deshabilitarEdiciondeMontos}">
                                                             <f:attribute name="reajuste" value="#{tReajuste}"/>
                                                         </p:commandButton>
                                                         </center>
@@ -361,29 +361,13 @@
                                                         <td>Montos con IGV?</td>
                                                         <td>
                                                             <p:selectBooleanCheckbox id="igvResumen"
-                                                                                     value="#{declararInversionMB.renderMostrarIGV}"
+                                                                                     value="#{declararInversionMB.calcularIGV}"
                                                                                      disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}"
                                                                         update=":form"/>
                                                             </p:selectBooleanCheckbox>
                                                         </td>
-                                                        <td>
-                                                            <h:outputText value="IGV"
-                                                                          rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                          />
-                                                        </td>
-                                                        <td>
-                                                            <p:inputMask id="igv" value="#{declararInversionMB.invAvnVO.tiaIgvMonto}"
-                                                                         mask="0.99" size="3"
-                                                                         rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                         ></p:inputMask>
-                                                             
-                                                            <p:commandButton id="dd" icon="ui-icon-refresh"
-                                                                             actionListener="#{declararInversionMB.calularMontosconIGV()}"
-                                                                             update=":form"
-                                                                             rendered="#{declararInversionMB.renderMostrarIGV}"
-                                                                             disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"/>
-                                                        </td>
+                                                      
                                                     </tr>
                                                 </table>
                                             </p:fieldset>

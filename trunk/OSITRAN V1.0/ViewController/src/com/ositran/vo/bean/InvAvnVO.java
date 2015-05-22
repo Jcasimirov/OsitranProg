@@ -53,6 +53,9 @@ public class InvAvnVO{
         private String tiaObservaciones;
         private BigDecimal tiaIgvMonto;
         private BigDecimal tiaIgv;
+        
+        private BigDecimal montoAprobadoSinIGV;
+        private BigDecimal montoReajustadoSinIGV;
     public void setTiaRutaNot(String tiaRutaNot) {
         this.tiaRutaNot = tiaRutaNot;
     }
@@ -373,5 +376,21 @@ public class InvAvnVO{
 
     public BigDecimal getTiaIgv() {
         return tiaIgv;
+    }
+
+    public void setMontoAprobadoSinIGV(BigDecimal montoAprobadoSinIGV) {
+        this.montoAprobadoSinIGV = montoAprobadoSinIGV;
+    }
+
+    public BigDecimal getMontoAprobadoSinIGV() {
+        return montoAprobadoSinIGV;
+    }
+
+    public void setMontoReajustadoSinIGV(BigDecimal montoReajustadoSinIGV) {
+        this.montoReajustadoSinIGV = montoReajustadoSinIGV;
+    }
+
+    public BigDecimal getMontoReajustadoSinIGV() {
+        return montoReajustadoSinIGV;
     }
 }
