@@ -6,9 +6,7 @@
      </h:head>
     <h:body>
         <f:event listener="#{actualizarContratoMB.validarSesion}" type="preRenderComponent"/>
-         
-        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderComponent"/>
-         
+        <f:event listener="#{actualizarContratoMB.listarTiposMoneda}" type="preRenderComponent"/>        
         <f:event listener="#{actualizarContratoMB.listarTiposdeInfraestructura}" type="preRenderComponent"/>
          
         <f:event listener="#{actualizarContratoMB.filtrarConcesion}" type="preRenderComponent"/>
@@ -1712,8 +1710,6 @@
                                                         <center>
                                                             <p:commandButton 
                                                             actionListener="#{actualizarContratoMB.cargarEliminarInfraestructura}"
-                                                           
-                                                            
                                                             image="ui-icon-trash" style="width:25px;height:25px;" title="Eliminar">
                                                                 <f:attribute name="tinfra" value="#{tinfra}"/>
                                                             </p:commandButton>
@@ -1733,7 +1729,7 @@
                                       </tr>
                                       <tr>
                                        <td align="left"><p:commandButton value="Aceptar" actionListener="#{actualizarContratoMB.eliminarInfraestructura}" 
-                                       update=":tab:frmInversion:tablaContratoConcesionInversion"/> </td>
+                                       update=":tab:frmInversion:tablaContratoConcesionInversion "/> </td>
                                        <td align="right"><p:commandButton value="Cancelar" onclick="popupEliminarInversion.hide();"/> </td>
                                       </tr>
                                      
