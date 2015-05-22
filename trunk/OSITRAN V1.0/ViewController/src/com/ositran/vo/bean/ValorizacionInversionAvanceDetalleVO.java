@@ -22,7 +22,6 @@ public class ValorizacionInversionAvanceDetalleVO {
     private int csiId;
     private int tinId;
     private int invId;
-    
     private String iadDescripcion;
     private Date iadFechaInicio;
     private Date iadFechaFin;
