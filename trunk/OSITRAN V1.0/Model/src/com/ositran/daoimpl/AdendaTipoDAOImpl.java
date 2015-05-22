@@ -21,7 +21,7 @@ public class AdendaTipoDAOImpl implements AdendaTipoDAO {
     
     @Override
     public List<AdendaTipo> query() throws SQLException {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
