@@ -5,8 +5,11 @@ import com.ositran.daoimpl.ContratoSubInversionesDAOImpl;
 import com.ositran.model.ContratoSupInversiones;
 import com.ositran.service.ContratoSubInversionesService;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
+
 import java.sql.SQLException;
+
 import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class ContratoSubInversionesServiceImpl  implements  ContratoSubInversion
     
     @Override
     public ContratoSubInversionesVO get1(Integer id) throws SQLException, Exception {
-        contratoSupInversiones =contratoSubInversionesDAOImpl.get(id);
+        contratoSupInversiones =contratoSubInversionesDAOImpl.get1(id);
         contratoSupInversionesVO=toContratoSubInversionesVO(contratoSupInversiones);
         return contratoSupInversionesVO;
     }
