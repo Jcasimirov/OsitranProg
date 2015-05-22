@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ValorizacionInversionAvanceDetalleServiceImpl implements ValorizacionInversionAvanceDetalleService{
@@ -17,11 +18,14 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
     ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO=new ValorizacionInversionAvanceDetalleVO();
     ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle=new ValorizacionInversionAvanceDetalle();
 
-  
-    
-
     public List<ValorizacionInversionAvanceDetalleVO> query1(int codigoValorizacion) throws SQLException, Exception {
         List<ValorizacionInversionAvanceDetalle> list=valorizacionInversionAvanceDetalleDAOImpl.query1(codigoValorizacion);
+        List<ValorizacionInversionAvanceDetalleVO> listVO=toValorizacionInversionAvanceDetalleVO(list);
+        return listVO;
+    }
+    
+    public List<ValorizacionInversionAvanceDetalleVO> query3(int codigoInversion) throws SQLException, Exception {
+        List<ValorizacionInversionAvanceDetalle> list=valorizacionInversionAvanceDetalleDAOImpl.query3(codigoInversion);
         List<ValorizacionInversionAvanceDetalleVO> listVO=toValorizacionInversionAvanceDetalleVO(list);
         return listVO;
     }
@@ -155,5 +159,11 @@ public class ValorizacionInversionAvanceDetalleServiceImpl implements Valorizaci
 
     public ValorizacionInversionAvanceDetalleServiceImpl() {
         super();
+    }
+
+    @Override
+    public List<ValorizacionInversionAvanceDetalleVO> query2(int codigoInversion) throws SQLException, Exception {
+        // TODO Implement this method
+        return Collections.emptyList();
     }
 }
