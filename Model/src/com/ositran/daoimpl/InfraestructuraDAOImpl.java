@@ -21,7 +21,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
 
     @Override
     public List<Infraestructura> query1(int codigoC) {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
         query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
@@ -33,11 +33,14 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     
     @Override
     public List<Infraestructura> query2(int codigoC) {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        System.out.println("El codigo C es igual a "+codigoC);
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
         query = session.createQuery("From Infraestructura i WHERE i.infEstado=1 and i.csiId = :busqueda1");
         query.setParameter("busqueda1",codigoC);
+        System.out.println("EL TAMAÑO ES :::::::");
+        System.out.println(query.list().size());
         List<Infraestructura> list = query.list();
         session.getTransaction().commit();
         return list; 
@@ -49,7 +52,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     @Override
     public List<Infraestructura> query() {
         System.out.println("DAO");
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         List list = session.createQuery("select o from Infraestructura o WHERE o.infId <> 0 and o.infEstado=1").list();
         
@@ -61,7 +64,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     public String insert(Infraestructura infraestructura) {
         String result=null;
         System.out.println("DaoInfra");
-           Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+           Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
            try {
                session.beginTransaction();
                session.save(infraestructura);
@@ -85,7 +88,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         
             System.out.println(infraestructura.getInfId());
         String result=null;
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         try {
             session.beginTransaction();
             session.update(infraestructura);
@@ -101,7 +104,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
     
     @Override
     public Infraestructura get2(Integer id) {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Infraestructura infraestructura = (Infraestructura) session.get(Infraestructura.class, id);
         session.getTransaction().commit();
@@ -117,7 +120,7 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
             System.out.println("codigoConcesion:"+codigoConcesion);
             System.out.println("tipoInfra:"+tipoInfraestructura);
         Infraestructura infra=new Infraestructura();
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         session.beginTransaction();
         Query query;
             query=session.createQuery("FROM Infraestructura  E WHERE E.infId=:codifoInfraestructura and E.csiId=:codigoConcesion and E.tinId=:tipoInfraestructura");
