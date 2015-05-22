@@ -482,17 +482,11 @@
                                                 <td>
                                                     <p:outputLabel value="Adjuntar contrato"/>
                                                 </td>
-                                                <td colspan="2">
-                                                    <p:inputText id="docEntrega" style="width:80% !important;"
-                                                                 onblur="if (this.value != '') this.value='';"
-                                                                 disabled="#{not empty manteContEmprSupervisora.contratoSupervisoraVO.inputStreamNuevaEntrega}"
-                                                                 value="#{manteContEmprSupervisora.cenDocumentoFisico}"/>
+                                                <td colspan="3">
+                                                    <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" onclick="dlgPDFContrato.show();"/>
+                                                    <h:outputText id="docEntrega" value="#{manteContEmprSupervisora.contratoSupervisoraVO.cenDocumentoFisico}"/>
                                                 </td>
-                                                <td>
-                                                    <p:fileUpload style="width:70px"
-                                                                  fileUploadListener="#{manteContEmprSupervisora.subirArchivoEntrega}"
-                                                                  update="docEntrega" label="PDF" auto="true"/>
-                                                </td>
+                                                
                                             </tr>
                                              
                                            
@@ -513,6 +507,15 @@
                                          style="width:70px; font-size: 10px"/>
                     </div>
                 </p:dialog>
+                
+                <!-- pdialog agregar contrato-->
+                <p:dialog widgetVar="dlgPDFContrato" appendToBody="true" modal="true" header="Subir Contrato" position="center">
+                <h:form enctype="multipart/form-data">
+                            <p:fileUpload id="file1" fileUploadListener="#{manteContEmprSupervisora.subirArchivoEntrega}"  oncomplete="dlgPDFContrato.hide();"
+                                                     label="Adjuntar"  update=":form:docEntrega" auto="true" mode="advanced" showButtons="false"/>
+                            </h:form>
+                </p:dialog>
+                
                 
                 <!-- pdialog lista y busqueda de contrato concesion-->
                 <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
