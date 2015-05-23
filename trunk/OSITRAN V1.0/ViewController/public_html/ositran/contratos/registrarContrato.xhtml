@@ -3,60 +3,79 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript">
-          PrimeFaces.locales['es'] = {
-              closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'S√≥lo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'D√≠a', allDayText : 'Todo el d√≠a'
-          };
-        </script>
-        
-    </h:head>
-        <h:body>    
-            <f:event listener="#{bk_registrarContrato.ListarInfraestructura}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.filtrarConcesion}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.ListarTipoDocumento}" type="postAddToView"/>
-            <f:event listener="#{bk_registrarContrato.ListarModalidad}" type="postAddToView"/>
-            <h:form binding="#{bk_registrarContrato.form}" id = "form">
-            <p:growl id="mensaje" showDetail="true"  life="3000" /> 
-            <p:layout fullPage="true" style="border:none">
-                <p:layoutUnit position="center" style="border:0px" id="contenido">
-                    <ui:include src="/ositran/util/menuOpciones.xhtml"/>
-                    <div align="center">
-                        <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                            #{msg.tituloRC}
-                        </h3>
-                    </div>
-                    <div align="center" style="font-size: 11px">
-                        <table style="width:80% ;font-size:11px;">
-                            <tr>
-                                <td>
+        <h:head>
+            <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
+            <script type="text/javascript">
+              PrimeFaces.locales['es'] = {
+                  closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'S√≥lo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'D√≠a', allDayText : 'Todo el d√≠a'
+              };
+            </script>
+        </h:head>
+        <h:body>
+            <f:event listener="#{bk_registrarContrato.validarSesion()}" type="preRenderComponent"></f:event>
+             
+            <f:event listener="#{bk_registrarContrato.ListarInfraestructura}" type="preRenderComponent"/>
+             
+            <f:event listener="#{bk_registrarContrato.filtrarConcesion}" type="preRenderComponent"/>
+             
+            <f:event listener="#{bk_registrarContrato.ListarTipoDocumento}" type="preRenderComponent"/>
+             
+            <f:event listener="#{bk_registrarContrato.ListarModalidad}" type="preRenderComponent"/>
+             
+            <h:form binding="#{bk_registrarContrato.form}" id="form">
+                <p:growl id="mensaje" showDetail="true" life="3000"/>
+                <p:layout fullPage="true" style="border:none">
+                    <p:layoutUnit position="center" style="border:0px" id="contenido">
+                        <ui:include src="/ositran/util/menuOpciones.xhtml"/>
+                        <div align="center">
+                            <h3 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                                #{msg.tituloRC}
+                            </h3>
+                        </div>
+                        <div align="center" style="font-size: 11px">
+                            <table style="width:80% ;font-size:11px;">
+                                <tr>
+                                    <td>
                                         <p:fieldset styleClass="fielsetinterno" legend="#{leg.dsdt}">
                                             <table style="width:100% ;font-size:11px;">
                                                 <tr>
                                                     <td align="left">
-                                                    #{cam.numhr}
-                                                        <p:inputMask style="width:100px" id="nrohr" value ="#{bk_registrarContrato.nrohr}" maxlength="4" mask="9?999"/> 
+                                                        #{cam.numhr}
+                                                         
+                                                        <p:inputMask style="width:100px" id="nrohr"
+                                                                     value="#{bk_registrarContrato.nrohr}" maxlength="4"
+                                                                     mask="9?999"/>
                                                          
                                                         <p:watermark for="nrohr" value="#{cam.inum}"/>
-                                                        
-                                                        <p:inputMask style="width:100px" id="aÒohr" value="#{bk_registrarContrato.aÒohr}" maxlength="4" mask="9999"/>
+                                                         
+                                                        <p:inputMask style="width:100px" id="aÒohr"
+                                                                     value="#{bk_registrarContrato.aÒohr}" maxlength="4"
+                                                                     mask="9999"/>
                                                          
                                                         <p:watermark for="aÒohr" value="#{cam.iaÒo}"/>
                                                          
-                                                        <p:commandButton image="ui-icon-search" actionListener="#{bk_registrarContrato.BuscarStd}" update=":form:freghr :form:asuntohr :form:mensaje" />
+                                                        <img src="../../images/obligatorio.gif"
+                                                             style="vertical-align: top;"/>
+                                                         
+                                                        <p:commandButton image="ui-icon-search"
+                                                                         actionListener="#{bk_registrarContrato.BuscarStd}"
+                                                                         update=":form:freghr :form:asuntohr :form:mensaje"/>
                                                     </td>
-                                                    
                                                     <td align="left">
-                                                        #{cam.FR}<p:inputText id="freghr" readonly="true" value="#{bk_registrarContrato.freghr}"/>
+                                                        #{cam.FR}<p:inputText id="freghr" readonly="true"
+                                                                              value="#{bk_registrarContrato.freghr}"/>
                                                     </td>
                                                 </tr>
                                                  
-                                                <tr>                                              
-                                                
+                                                <tr>
                                                     <td colspan="2" align="left">
-                                                    #{cam.asu}
-                                                        <p:inputTextarea style="width:80%" id="asuntohr" value = "#{bk_registrarContrato.asuntohr}"/>
+                                                        #{cam.asu}
+                                                         
+                                                        <p:inputTextarea style="width:80%" id="asuntohr"
+                                                                         value="#{bk_registrarContrato.asuntohr}"/>
+                                                         
+                                                        <img src="../../images/obligatorio.gif"
+                                                             style="vertical-align: top;"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -67,45 +86,52 @@
                                                     #{cam.ti}
                                                 </td>
                                                 <td align="left">
-                                                <p:selectOneMenu id="tipoinfra"
-                                                 value="#{bk_registrarContrato.tipoinfra}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{bk_registrarContrato.listaInfraestructura}"
-                                                   var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
-                                                   itemValue="#{lisinfra.tinId}"/>
-                                                   <p:ajax listener="#{bk_registrarContrato.filtrarConcesion}" update=":form:concesion"/>
-                                </p:selectOneMenu>
-                                                    
+                                                    <p:selectOneMenu id="tipoinfra"
+                                                                     value="#{bk_registrarContrato.tipoinfra}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{bk_registrarContrato.listaInfraestructura}"
+                                                                       var="lisinfra" itemLabel="#{lisinfra.tinNombre}"
+                                                                       itemValue="#{lisinfra.tinId}"/>
+                                                        <p:ajax listener="#{bk_registrarContrato.filtrarConcesion}"
+                                                                update=":form:concesion"/>
+                                                    </p:selectOneMenu>
+                                                     
+                                                    <img src="../../images/obligatorio.gif"
+                                                         style="vertical-align: top;"/>
                                                 </td>
-                                                
-                                                <td align="left">
-                                                    #{cam.mc}
-                                                </td>
-                                                <td align="left">
-                                                   <p:selectOneMenu id="modalidad"
-                                                 value="#{bk_registrarContrato.modalidad}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{bk_registrarContrato.listaModalidad}"
-                                                   var="listamod" itemLabel="#{listamod.mcoNombre}"
-                                                   itemValue="#{listamod.mcoId}"/>
-                                </p:selectOneMenu>
-                                                </td>
-                                               
-                                            </tr>
-                                             
-                                            <tr>
                                                 <td align="left">
                                                     #{cam.concesion}
                                                 </td>
                                                 <td align="left" colspan="3">
                                                     <p:selectOneMenu id="concesion"
-                                                 value="#{bk_registrarContrato.concesion}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{bk_registrarContrato.listaConcesiones}"
-                                                   var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}"
-                                                   itemValue="#{lisConcesion.csiId}"/>
-                                                   
-                                </p:selectOneMenu>
+                                                                     value="#{bk_registrarContrato.concesion}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{bk_registrarContrato.listaConcesiones}"
+                                                                       var="lisConcesion"
+                                                                       itemLabel="#{lisConcesion.csiNombre}"
+                                                                       itemValue="#{lisConcesion.csiId}"/>
+                                                    </p:selectOneMenu>
+                                                     
+                                                    <img src="../../images/obligatorio.gif"
+                                                         style="vertical-align: top;"/>
+                                                </td>
+                                            </tr>
+                                             
+                                            <tr>
+                                                <td align="left">
+                                                    #{cam.mc}
+                                                </td>
+                                                <td align="left">
+                                                    <p:selectOneMenu id="modalidad"
+                                                                     value="#{bk_registrarContrato.modalidad}">
+                                                        <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                                        <f:selectItems value="#{bk_registrarContrato.listaModalidad}"
+                                                                       var="listamod" itemLabel="#{listamod.mcoNombre}"
+                                                                       itemValue="#{listamod.mcoId}"/>
+                                                    </p:selectOneMenu>
+                                                     
+                                                    <img src="../../images/obligatorio.gif"
+                                                         style="vertical-align: top;"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -113,11 +139,18 @@
                                             <table>
                                                 <tr>
                                                     <td colspan="4" align="left">
-                                                        <p:inputText style="width:200px" id="busqueda" value="#{bk_registrarContrato.busqueda}"/>
+                                                        <p:inputText style="width:200px" id="busqueda"
+                                                                     value="#{bk_registrarContrato.busqueda}"/>
                                                          
                                                         <p:watermark for="busqueda" value="#{cam.buscarCon}"/>
                                                          
-                                                        <p:commandButton image="ui-icon-search" actionListener="#{bk_registrarContrato.BusquedaAutomatica}" oncomplete="busconcesionario.show()"  update=":form:busconcesionario"/>
+                                                        <img src="../../images/obligatorio.gif"
+                                                             style="vertical-align: top;"/>
+                                                         
+                                                        <p:commandButton image="ui-icon-search"
+                                                                         actionListener="#{bk_registrarContrato.BusquedaAutomatica}"
+                                                                         oncomplete="busconcesionario.show()"
+                                                                         update=":form:busconcesionario"/>
                                                     </td>
                                                 </tr>
                                                  
@@ -126,13 +159,17 @@
                                                         #{cam.nomConce}
                                                     </td>
                                                     <td align="left">
-                                                        <p:inputText readonly="true" value="#{bk_registrarContrato.nombreConcesionarioBus}" id="nombreConcesionarioBus"/>
+                                                        <p:inputText readonly="true"
+                                                                     value="#{bk_registrarContrato.nombreConcesionarioBus}"
+                                                                     id="nombreConcesionarioBus"/>
                                                     </td>
                                                     <td align="left">
                                                         #{cam.sigNom}
                                                     </td>
                                                     <td align="left">
-                                                        <p:inputText readonly="true" value="#{bk_registrarContrato.siglasConcesionarioBus}" id="siglasConcesionarioBus"/>
+                                                        <p:inputText readonly="true"
+                                                                     value="#{bk_registrarContrato.siglasConcesionarioBus}"
+                                                                     id="siglasConcesionarioBus"/>
                                                     </td>
                                                 </tr>
                                                  
@@ -141,106 +178,131 @@
                                                         #{cam.dir}
                                                     </td>
                                                     <td align="left" colspan="4">
-                                                        <p:inputText style="width:450px" readonly="true" value="#{bk_registrarContrato.direccionConcesionarioBus}" id="direccionConcesionarioBus"/>
+                                                        <p:inputText style="width:450px" readonly="true"
+                                                                     value="#{bk_registrarContrato.direccionConcesionarioBus}"
+                                                                     id="direccionConcesionarioBus"/>
                                                     </td>
-                                                    
                                                 </tr>
                                             </table>
                                         </p:fieldset>
-                                   
-                                </td>
-                            </tr>
-                             
-                            <tr>
-                               
-                                    <td align="center">
-                                        <p:commandButton value="#{btn.btn_guardar}" actionListener="#{bk_registrarContrato.GrabarContratoConcesion}" update=":form:mensaje :form:nrohr :form:aÒohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:busqueda :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
-                                        <p:commandButton value="#{btn.btn_salir}"/>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td align="right"
+                                                    style="font-size: 10px;font-style: oblique; color: Red;">
+                                                    Campos obligatorios( 
+                                                    <img src="../../images/obligatorio.gif"/>)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
                                  
-                               
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </p:layoutUnit>
-            </p:layout>
-            
-            <p:dialog header="Buscar Concesionario" id="busconcesionario" widgetVar="busconcesionario" modal="true"
+                                <tr>
+                                    <td align="center">
+                                        <p:commandButton rendered="#{bk_registrarContrato.rolOpcion.troAgregar eq 1}"
+                                                         value="#{btn.btn_guardar}"
+                                                         actionListener="#{bk_registrarContrato.GrabarContratoConcesion}"
+                                                         update=":form:mensaje :form:nrohr :form:aÒohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:busqueda :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
+                                         
+                                        <p:commandButton value="#{btn.btn_salir}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+                <p:dialog header="Buscar Concesionario" id="busconcesionario" widgetVar="busconcesionario" modal="true"
                           resizable="false" height="450px" width="760px">
-                          <p:growl id="mensaje2" showDetail="true"  life="3000" /> 
-            <div align="center">
-    <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}"  style="margin-bottom:5px;font-size: 11px;width:70%">
-        <table  style="font-size:11px">
-        	<tr>
-        			<td align="left">#{cam.nomConce}</td>
-        			<td align="left" colspan="5"><p:inputText value="#{bk_registrarContrato.nomconcesionario}" ></p:inputText></td>       			
-        	</tr>
-        	<tr>
-        			<td align="left">#{cam.sigNom}</td>
-        			<td  align="left"><p:inputText value="#{bk_registrarContrato.siglasconcesionario}" ></p:inputText></td>
-        			<td>#{cam.tipDoc}</td>
-        			<td style="width: 90px" >
-        					<p:selectOneMenu id="tipodocumento"
-                                                 value="#{bk_registrarContrato.tipodocumento}">
-                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{bk_registrarContrato.listaTipoDocumento}"
-                                                   var="listipo" itemLabel="#{listipo.tdoNombre}"
-                                                   itemValue="#{listipo.tdoId}"/>
-                                </p:selectOneMenu></td>
-        			<td></td>
-        			<td ><p:inputText value="#{bk_registrarContrato.nrodocumento}" id="nrodocumento"></p:inputText>
-                                <p:watermark for="nrodocumento" value="#{cam.numDoc}"/>
-                                </td>        			
-        	</tr>
-        	<tr>
-        		<td colspan="6" align="right" ><p:commandButton value="#{btn.btn_buscar}" actionListener="#{bk_registrarContrato.BusquedaConcesionario()}" update=":form:tablaconcesionario :form:mensaje2"></p:commandButton></td>
-        	</tr>
-        </table>   
-    </p:fieldset>
-    <br></br>
-     <br></br>
-       <p:fieldset  styleClass="fielsetinterno"  legend="#{leg.rb}" style="margin-bottom:5px;font-size: 11px;width:70%">
-			     <p:dataTable value="#{bk_registrarContrato.listaConcesionario}" id="tablaconcesionario"
-                                                 var="conces" selectionMode="single" style="font-size:11px"
-                                                 rowKey="#{conces.cncId}"                                                 
-                                                 emptyMessage="No se Encontraron Registros"
-                                        rowIndexVar="rowIndex">
-                                        <p:column headerText="N∞" style="width:3%">
-                                            <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
-                                        </p:column> 
-                                        <p:column headerText="#{tab.des}" style="width:7%">
-                                        <div style="text-align: center;">
-                                            <h:outputText value="#{conces.cncNombre}" style="text-transform:uppercase;"/>
-                                        </div>                                        
-                                        </p:column>
-                                        <p:column headerText="Nro. Documento" style="width:10%">
-                                            <h:outputText value="#{conces.cncDescripcion}"/>
-                                        </p:column>
-                                        <p:column headerText="#{tab.replegal}" style="width:35%">
-                                            <h:outputText value="#{conces.cncRepresentanteLegal}" style="text-transform:uppercase;"/>
-                                        </p:column>
-                                        
-                                        
-                                        <p:column headerText="AcciÛn" style="width:5%">
-                                        <div style="text-align: center;">
-                                            <p:commandButton actionListener="#{bk_registrarContrato.datosConcesionario()}"
-                                                             image="ui-icon-search" style="width:25px"
-                                                             update=":form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"
-                                                             oncomplete="busconcesionario.hide()">
-                                                             
-                                                <f:param id="id" name="id" value="#{conces.cncId}"/>
-                                            </p:commandButton>
-                                        </div>
-                                        </p:column>
-                                        
-                                        
-                                    </p:dataTable>
-                             
-                             
-    </p:fieldset>
-    </div>
-            </p:dialog>
-            
+                    <p:growl id="mensaje2" showDetail="true" life="3000"/>
+                    <div align="center">
+                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.CB}"
+                                    style="margin-bottom:5px;font-size: 11px;width:70%">
+                            <table style="font-size:11px">
+                                <tr>
+                                    <td align="left">
+                                        #{cam.nomConce}
+                                    </td>
+                                    <td align="left" colspan="5">
+                                        <p:inputText value="#{bk_registrarContrato.nomconcesionario}"></p:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td align="left">
+                                        #{cam.sigNom}
+                                    </td>
+                                    <td align="left">
+                                        <p:inputText value="#{bk_registrarContrato.siglasconcesionario}"></p:inputText>
+                                    </td>
+                                    <td>
+                                        #{cam.tipDoc}
+                                    </td>
+                                    <td style="width: 90px">
+                                        <p:selectOneMenu id="tipodocumento"
+                                                         value="#{bk_registrarContrato.tipodocumento}">
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
+                                            <f:selectItems value="#{bk_registrarContrato.listaTipoDocumento}"
+                                                           var="listipo" itemLabel="#{listipo.tdoNombre}"
+                                                           itemValue="#{listipo.tdoId}"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <p:inputText value="#{bk_registrarContrato.nrodocumento}" id="nrodocumento"></p:inputText>
+                                         
+                                        <p:watermark for="nrodocumento" value="#{cam.numDoc}"/>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td colspan="6" align="right">
+                                        <p:commandButton value="#{btn.btn_buscar}"
+                                                         actionListener="#{bk_registrarContrato.BusquedaConcesionario()}"
+                                                         update=":form:tablaconcesionario :form:mensaje2"></p:commandButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:fieldset>
+                         
+                        <br></br>
+                         
+                        <br></br>
+                         
+                        <p:fieldset styleClass="fielsetinterno" legend="#{leg.rb}"
+                                    style="margin-bottom:5px;font-size: 11px;width:70%">
+                            <p:dataTable value="#{bk_registrarContrato.listaConcesionario}" id="tablaconcesionario"
+                                         var="conces" selectionMode="single" style="font-size:11px"
+                                         rowKey="#{conces.cncId}" emptyMessage="No se Encontraron Registros"
+                                         rowIndexVar="rowIndex">
+                                <p:column headerText="N∞" style="width:3%">
+                                    <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                </p:column>
+                                <p:column headerText="#{tab.des}" style="width:7%">
+                                    <div style="text-align: center;">
+                                        <h:outputText value="#{conces.cncNombre}" style="text-transform:uppercase;"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="Nro. Documento" style="width:10%">
+                                    <h:outputText value="#{conces.cncDescripcion}"/>
+                                </p:column>
+                                <p:column headerText="#{tab.replegal}" style="width:35%">
+                                    <h:outputText value="#{conces.cncRepresentanteLegal}"
+                                                  style="text-transform:uppercase;"/>
+                                </p:column>
+                                <p:column headerText="AcciÛn" style="width:5%">
+                                    <div style="text-align: center;">
+                                        <p:commandButton actionListener="#{bk_registrarContrato.datosConcesionario()}"
+                                                         image="ui-icon-search" style="width:25px"
+                                                         update=":form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"
+                                                         oncomplete="busconcesionario.hide()">
+                                            <f:param id="id" name="id" value="#{conces.cncId}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </div>
+                </p:dialog>
             </h:form>
         </h:body>
     </html>
