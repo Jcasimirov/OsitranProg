@@ -2,24 +2,15 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.InvAvnDerivadaDAO;
 import com.ositran.model.InvAvnDerivada;
-import com.ositran.model.InversionTipo;
-
-import com.ositran.model.Moneda;
 import com.ositran.util.HibernateUtil;
-
-import java.math.BigDecimal;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
 import java.util.List;
-
-import org.eclipse.persistence.internal.oxm.schema.model.Restriction;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 public class InvAvnDerivadaDAOImpl implements InvAvnDerivadaDAO{
@@ -80,7 +71,6 @@ public class InvAvnDerivadaDAOImpl implements InvAvnDerivadaDAO{
 
     @Override
     public InvAvnDerivada get1(Integer id) throws SQLException, Exception {
-        
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Query query;
         List list;
