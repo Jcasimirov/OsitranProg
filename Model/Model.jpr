@@ -140,6 +140,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EJB"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="All-themes-1.0.10.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -148,11 +156,43 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Bcel-5.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="C3p0-0.9.2.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Commons-beanutils-1.9.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-codec-1.5.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-collections-3.2.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Commons-dbcp-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-digester-2.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-javaflow-20060411.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-lang-2.6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-logging-1.1.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -161,6 +201,10 @@
          </hash>
          <hash>
             <value n="id" v="Ehcache-core-2.4.3.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Groovy-all-2.0.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -212,6 +256,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Httpclient-4.3.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Httpcore-4.3.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Infinispan-commons-6.0.0.Final.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -220,7 +272,31 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Itext-pdfa-5.5.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Itextpdf-5.5.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Jandex-1.1.0.Final.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-fonts-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-functions-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-javaflow-6.0.0.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -256,6 +332,22 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-analyzers-common-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-core-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-queryparser-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Mchange-commons-java-0.2.3.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -269,6 +361,30 @@
          </hash>
          <hash>
             <value n="id" v="Org.osgi.core-4.3.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-examples-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-excelant-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-ooxml-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-ooxml-schemas-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-scratchpad-3.11-20141221.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -367,14 +483,6 @@
             <value n="id" v="Spring-webmvc-portlet-3.2.0.RELEASE.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
-         <hash>
-            <value n="id" v="TopLink"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="EJB"/>
-            <value n="isJDK" v="false"/>
-         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -398,6 +506,15 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/bcel-5.2.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Bcel-5.2.jar"/>
+               <value n="id" v="Bcel-5.2.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="../ViewController/public_html/WEB-INF/lib/c3p0-0.9.2.1.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -407,11 +524,74 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-beanutils-1.9.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-beanutils-1.9.0.jar"/>
+               <value n="id" v="Commons-beanutils-1.9.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-codec-1.5.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-codec-1.5.jar"/>
+               <value n="id" v="Commons-codec-1.5.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-collections-3.2.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-collections-3.2.1.jar"/>
+               <value n="id" v="Commons-collections-3.2.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="../ViewController/public_html/WEB-INF/lib/commons-dbcp-1.4.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-dbcp-1.4.jar"/>
                <value n="id" v="Commons-dbcp-1.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-digester-2.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-digester-2.1.jar"/>
+               <value n="id" v="Commons-digester-2.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-javaflow-20060411.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-javaflow-20060411.jar"/>
+               <value n="id" v="Commons-javaflow-20060411.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-lang-2.6.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-lang-2.6.jar"/>
+               <value n="id" v="Commons-lang-2.6.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/commons-logging-1.1.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-logging-1.1.1.jar"/>
+               <value n="id" v="Commons-logging-1.1.1.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -430,6 +610,15 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Ehcache-core-2.4.3.jar"/>
                <value n="id" v="Ehcache-core-2.4.3.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/groovy-all-2.0.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Groovy-all-2.0.1.jar"/>
+               <value n="id" v="Groovy-all-2.0.1.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -542,6 +731,24 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/httpclient-4.3.4.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Httpclient-4.3.4.jar"/>
+               <value n="id" v="Httpclient-4.3.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/httpcore-4.3.2.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Httpcore-4.3.2.jar"/>
+               <value n="id" v="Httpcore-4.3.2.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="../ViewController/public_html/WEB-INF/lib/infinispan-commons-6.0.0.Final.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -560,11 +767,65 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/itext-pdfa-5.5.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Itext-pdfa-5.5.0.jar"/>
+               <value n="id" v="Itext-pdfa-5.5.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/itextpdf-5.5.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Itextpdf-5.5.0.jar"/>
+               <value n="id" v="Itextpdf-5.5.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="../ViewController/public_html/WEB-INF/lib/jandex-1.1.0.Final.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Jandex-1.1.0.Final.jar"/>
                <value n="id" v="Jandex-1.1.0.Final.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/jasperreports-6.0.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jasperreports-6.0.0.jar"/>
+               <value n="id" v="Jasperreports-6.0.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/jasperreports-fonts-6.0.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jasperreports-fonts-6.0.0.jar"/>
+               <value n="id" v="Jasperreports-fonts-6.0.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/jasperreports-functions-6.0.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jasperreports-functions-6.0.0.jar"/>
+               <value n="id" v="Jasperreports-functions-6.0.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/jasperreports-javaflow-6.0.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jasperreports-javaflow-6.0.0.jar"/>
+               <value n="id" v="Jasperreports-javaflow-6.0.0.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -641,6 +902,42 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/log4j-1.2.17.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Log4j-1.2.17.jar"/>
+               <value n="id" v="Log4j-1.2.17.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/lucene-analyzers-common-4.5.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Lucene-analyzers-common-4.5.1.jar"/>
+               <value n="id" v="Lucene-analyzers-common-4.5.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/lucene-core-4.5.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Lucene-core-4.5.1.jar"/>
+               <value n="id" v="Lucene-core-4.5.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/lucene-queryparser-4.5.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Lucene-queryparser-4.5.1.jar"/>
+               <value n="id" v="Lucene-queryparser-4.5.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="../ViewController/public_html/WEB-INF/lib/mchange-commons-java-0.2.3.4.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -673,6 +970,60 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Org.osgi.core-4.3.1.jar"/>
                <value n="id" v="Org.osgi.core-4.3.1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-3.11-20141221.jar"/>
+               <value n="id" v="Poi-3.11-20141221.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-examples-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-examples-3.11-20141221.jar"/>
+               <value n="id" v="Poi-examples-3.11-20141221.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-excelant-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-excelant-3.11-20141221.jar"/>
+               <value n="id" v="Poi-excelant-3.11-20141221.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-ooxml-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-ooxml-3.11-20141221.jar"/>
+               <value n="id" v="Poi-ooxml-3.11-20141221.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-ooxml-schemas-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-ooxml-schemas-3.11-20141221.jar"/>
+               <value n="id" v="Poi-ooxml-schemas-3.11-20141221.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../ViewController/public_html/WEB-INF/lib/poi-scratchpad-3.11-20141221.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-scratchpad-3.11-20141221.jar"/>
+               <value n="id" v="Poi-scratchpad-3.11-20141221.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -903,6 +1254,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EJB"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="All-themes-1.0.10.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -911,11 +1270,43 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Bcel-5.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="C3p0-0.9.2.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Commons-beanutils-1.9.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-codec-1.5.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-collections-3.2.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Commons-dbcp-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-digester-2.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-javaflow-20060411.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-lang-2.6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-logging-1.1.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -924,6 +1315,10 @@
          </hash>
          <hash>
             <value n="id" v="Ehcache-core-2.4.3.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Groovy-all-2.0.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -975,6 +1370,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Httpclient-4.3.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Httpcore-4.3.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Infinispan-commons-6.0.0.Final.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -983,7 +1386,31 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Itext-pdfa-5.5.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Itextpdf-5.5.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Jandex-1.1.0.Final.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-fonts-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-functions-6.0.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jasperreports-javaflow-6.0.0.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -1019,6 +1446,22 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-analyzers-common-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-core-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Lucene-queryparser-4.5.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Mchange-commons-java-0.2.3.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -1032,6 +1475,30 @@
          </hash>
          <hash>
             <value n="id" v="Org.osgi.core-4.3.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-examples-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-excelant-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-ooxml-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-ooxml-schemas-3.11-20141221.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-scratchpad-3.11-20141221.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -1128,14 +1595,6 @@
          </hash>
          <hash>
             <value n="id" v="Spring-webmvc-portlet-3.2.0.RELEASE.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="TopLink"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="EJB"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
