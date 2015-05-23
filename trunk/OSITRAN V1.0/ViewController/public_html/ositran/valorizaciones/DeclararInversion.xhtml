@@ -364,7 +364,7 @@
                                                                                      value="#{declararInversionMB.calcularIGV}"
                                                                                      disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}"
-                                                                        update=":form"/>
+                                                                        update=":form:datosResumen :form:tablaReconocimiento :form:tablaReajuste"/>
                                                             </p:selectBooleanCheckbox>
                                                         </td>
                                                       

@@ -39,7 +39,7 @@ public class InvReconocimientoVO implements Serializable{
     private BigDecimal montoAprobadoSinIGV;
     private BigDecimal montoPresentadoConIGV;
     private BigDecimal montoPresentadoSinIGV;
-    private boolean editado;
+
     public void setIreFechaRegistro(Date ireFechaRegistro) {
         this.ireFechaRegistro = ireFechaRegistro;
     }
@@ -198,11 +198,5 @@ public class InvReconocimientoVO implements Serializable{
         return montoPresentadoSinIGV;
     }
 
-    public void setEditado(boolean editado) {
-        this.editado = editado;
-    }
 
-    public boolean isEditado() {
-        return editado;
-    }
 }

@@ -32,7 +32,7 @@ public class InvReajusteVO implements Serializable{
     private BigDecimal montoAprobadoSinIGV;
     private BigDecimal montoReajusteConIGV;
     private BigDecimal montoReajusteSinIGV;
-    private boolean editado;
+    
     public void setCsiId(Integer csiId) {
         this.csiId = csiId;
     }
@@ -170,12 +170,6 @@ public class InvReajusteVO implements Serializable{
         return montoReajusteSinIGV;
     }
 
-    public void setEditado(boolean editado) {
-        this.editado = editado;
-    }
 
-    public boolean isEditado() {
-        return editado;
-    }
 
 }
