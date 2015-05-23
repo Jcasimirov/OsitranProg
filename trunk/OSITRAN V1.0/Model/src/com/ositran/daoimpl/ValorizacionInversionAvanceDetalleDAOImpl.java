@@ -1,7 +1,6 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.ValorizacionInversionAvanceDetalleDAO;
-import com.ositran.model.InversionTipo;
 import com.ositran.model.ValorizacionInversionAvanceDetalle;
 import com.ositran.util.HibernateUtil;
 
@@ -10,7 +9,6 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +38,24 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
         query.setParameter("busqueda",codigoValorizacion);
         return query.list();
     }
-
+    
+    @Override
+    public List<ValorizacionInversionAvanceDetalle> query2(int codigoInfraestructura) throws SQLException, Exception {
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        query =session.createQuery("FROM ValorizacionInversionAvanceDetalle  E WHERE E.infId=:busqueda");
+        query.setParameter("busqueda",codigoInfraestructura);
+        return query.list();
+    }
+    
+    @Override
+    public List<ValorizacionInversionAvanceDetalle> query3(int codigoInversion) throws SQLException, Exception {
+        Query query;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        query =session.createQuery("FROM ValorizacionInversionAvanceDetalle  E WHERE E.invId=:busqueda");
+        query.setParameter("busqueda",codigoInversion);
+        return query.list();
+    }
     @Override
     public String insert(ValorizacionInversionAvanceDetalle valorizacionInversionAvanceDetalle) throws SQLException,
                                                                                                        Exception {
@@ -162,6 +177,4 @@ public class ValorizacionInversionAvanceDetalleDAOImpl implements ValorizacionIn
 
 
     }
-    
-    
 }
