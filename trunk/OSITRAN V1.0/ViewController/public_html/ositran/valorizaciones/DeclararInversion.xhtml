@@ -209,7 +209,7 @@
                                                                          value="#{declararInversionMB.invVO.invEstadoReconocimiento}"
                                                                          style="width:210px;">
                                                             <p:ajax listener="#{declararInversionMB.prepararMontosObservados()}"
-                                                                    update=":form"/> 
+                                                                    update=":form:datosResumen :form:tablaReconocimiento :form:tablaReajuste"/> 
                                                                                                                                                       
                                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                                             <f:selectItem itemLabel="APROBADO" itemValue="1"/>
