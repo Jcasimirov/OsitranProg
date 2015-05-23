@@ -2,12 +2,14 @@ package com.ositran.contratos;
 
 import com.ositran.service.ConcesionarioService;
 import com.ositran.service.ContratoCompromisoService;
+import com.ositran.service.ContratoEmpresaSupervisoraService;
 import com.ositran.service.ContratoEntregaService;
 import com.ositran.service.ContratoPenalidadEstadoService;
 import com.ositran.service.ContratoPenalidadService;
 import com.ositran.service.MonedaService;
 import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
+import com.ositran.service.ValorizacionInversionAvanceDetalleService;
 import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
@@ -15,12 +17,14 @@ import com.ositran.serviceimpl.ContratoAlertaEstadoServiceImpl;
 import com.ositran.serviceimpl.ContratoAlertaServiceImpl;
 import com.ositran.serviceimpl.ContratoCaoServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
+import com.ositran.serviceimpl.ContratoEmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.ContratoHitoServiceImpl;
 import com.ositran.serviceimpl.ContratoInversionServiceImpl;
 import com.ositran.serviceimpl.ContratoPpoServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
+import com.ositran.serviceimpl.ValorizacionInversionAvanceDetalleServiceImpl;
 import com.ositran.util.Constantes;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.FechasUtil;
@@ -39,6 +43,7 @@ import com.ositran.vo.bean.ContratoInversionVO;
 import com.ositran.vo.bean.ContratoPenalidadEstadoVO;
 import com.ositran.vo.bean.ContratoPenalidadVO;
 import com.ositran.vo.bean.ContratoPpoVO;
+import com.ositran.vo.bean.ContratoSupervisoraVO;
 import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.InfraestructuraVO;
@@ -48,6 +53,7 @@ import com.ositran.vo.bean.PeriodoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
+import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -1642,17 +1648,40 @@ public class ActualizarContrato {
     }
 
     public void eliminarInfraestructura() {
-        try {
-            String eliminar =
-                contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
-                                                                              infraestructuraVOE.getCsiId(),
-                                                                              infraestructuraVOE.getTinId(),
-                                                                              infraestructuraVOE.getInfId(),
-                                                                              usuario.getUsuAlias(),
-                                                                              Reutilizar.getNewInstance().obtenerIpCliente());
-            cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
-            RequestContext.getCurrentInstance().execute("popupEliminarInversion.hide()");
-        } catch (SQLException sqle) {
+            try {
+        /* ******************VALIDACIONES ABEL*****************************/
+        List<ValorizacionInversionAvanceDetalleVO> listaValorizacionDetalle=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+        ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServicesImpl=new ValorizacionInversionAvanceDetalleServiceImpl();
+        listaValorizacionDetalle=valorizacionInversionAvanceDetalleServicesImpl.query2(infraestructuraVOE.getInfId());
+            
+                
+        
+        List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
+        ContratoEmpresaSupervisoraService contratoSupervisoraService = new ContratoEmpresaSupervisoraServiceImpl();
+        listaContratoSupervisora=  contratoSupervisoraService.query1(infraestructuraVOE.getInfId());   
+           
+        /* ******************VALIDACIONES ABEL*****************************/
+       
+                if (listaValorizacionDetalle.size()>0 || listaContratoSupervisora.size()>0){
+                        FacesContext.getCurrentInstance().addMessage(null,
+                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+                        "No se puede borrar el tipo de Inversion porque tiene dependecnia en otras tablas!"));
+                        RequestContext.getCurrentInstance().update("tab:form:mensaje");
+                    }
+                else {
+                        String eliminar =
+                            contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
+                                                                                          infraestructuraVOE.getCsiId(),
+                                                                                          infraestructuraVOE.getTinId(),
+                                                                                          infraestructuraVOE.getInfId(),
+                                                                                          usuario.getUsuAlias(),
+                                                                                          Reutilizar.getNewInstance().obtenerIpCliente());
+                        cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+                        RequestContext.getCurrentInstance().execute("popupEliminarInversion.hide()");
+                    
+                    }
+        
+        } catch (Exception sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
@@ -1694,6 +1723,10 @@ public class ActualizarContrato {
         mensajeInversionValida = "";
         cssInversionValida = "";
     }
+    
+    
+    
+    
 
     /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
     public void cargarInfraestructurasxContratoInversion(Integer concesionId) {
