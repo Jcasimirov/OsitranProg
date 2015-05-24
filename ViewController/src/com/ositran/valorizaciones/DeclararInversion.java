@@ -545,13 +545,16 @@ public class DeclararInversion {
     }
 
     public BigDecimal calcularIgvxItem(BigDecimal monto, boolean subtract) {
+        BigDecimal montoTotal = BigDecimal.ZERO;
+        if(contratoCompromisoVO.getPorIgv()!=null){
         BigDecimal igv=contratoCompromisoVO.getPorIgv();
         BigDecimal mutliplicadoxIGV = monto.multiply(igv);
-        BigDecimal montoTotal = BigDecimal.ZERO;
+
         if (subtract) {
             montoTotal = monto.subtract(mutliplicadoxIGV);
         } else {
             montoTotal = monto.add(mutliplicadoxIGV);
+        }
         }
         montoTotal = Reutilizar.redondearBigDecimal(montoTotal);
         return montoTotal;
