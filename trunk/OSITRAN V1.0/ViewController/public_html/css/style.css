@@ -202,6 +202,10 @@ font-size:10px!important;
     white-space: normal;
     width: 200px;
 }
+.dlgContent .tabla-wrap-boton {
+    white-space: normal;
+    width: 40px;
+}
 .fieldContainer .tabla-wrap-desc {
     white-space: normal;
     width: 100px;
