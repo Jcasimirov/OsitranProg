@@ -737,5 +737,10 @@
         <property name="tipoDocumentoServiceImp" ref="tipoDocumentoServiceImp"/>          
 
     </bean>
+    
+    <bean id="valorizacionConceptoDAOImpl" class="com.ositran.daoimpl.ValorizacionConceptoDAOImpl"/>
+    <bean id="valorizacionConceptoServiceImpl" class="com.ositran.serviceimpl.ValorizacionConceptoServiceImpl">
+        <property name="valorizacionConceptoDAOImpl" ref="valorizacionConceptoDAOImpl"/>
+    </bean>
 
 </beans>
