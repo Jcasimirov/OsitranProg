@@ -489,21 +489,17 @@ public class DeclararInversion {
                     /**Si el monto ya tiene IGV no necesito agregarle en la variable asignada para montos con IGV**/
                     invReconocimientoVO.setMontoAprobadoConIGV(invReconocimientoVO.getIvrMontoAprobado());
                     invReajusteVO.setMontoAprobadoConIGV(invReajusteVO.getIrjMontoAprobado());
-                    invReajusteVO.setMontoReajusteConIGV(invReajusteVO.getIrjMontoReajuste());
-                    invReconocimientoVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),true));
-                    invReajusteVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), true));
-                    invReajusteVO.setMontoReajusteSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), true));
+                    invReajusteVO.setMontoReajusteConIGV(invReajusteVO.getIrjMontoReajuste()); 
                 } else {
                     /**Si el monto no tiene IGV calculo y seteo en las variables montoConIGV**/
                     invReconocimientoVO.setMontoAprobadoConIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),false));
                     invReajusteVO.setMontoAprobadoConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), false));
-                    invReajusteVO.setMontoReajusteConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), false));
-                    /**Si no tiene IGV no necesito restarle el IGV **/
-                    invReconocimientoVO.setMontoAprobadoSinIGV(invReconocimientoVO.getIvrMontoAprobado());
-                    invReajusteVO.setMontoAprobadoSinIGV(invReajusteVO.getIrjMontoAprobado());
-                    invReajusteVO.setMontoReajusteSinIGV(invReajusteVO.getIrjMontoReajuste());
+                    invReajusteVO.setMontoReajusteConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), false));                 
                 }
-              
+                /**Si no tiene IGV no necesito restarle el IGV **/
+                invReconocimientoVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),true));
+                invReajusteVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(),true));
+                invReajusteVO.setMontoReajusteSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(),true));
                 /**Fin Redondea**/
                 totalMontoPresentado = totalMontoPresentado.add(invReconocimientoVO.getIvrMontoPresentado());
                 totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
@@ -549,7 +545,7 @@ public class DeclararInversion {
     }
 
     public BigDecimal calcularIgvxItem(BigDecimal monto, boolean subtract) {
-        BigDecimal igv=contratoCompromisoVO.getPorIgv()!=null?contratoCompromisoVO.getPorIgv():BigDecimal.ONE;
+        BigDecimal igv=contratoCompromisoVO.getPorIgv();
         BigDecimal mutliplicadoxIGV = monto.multiply(igv);
         BigDecimal montoTotal = BigDecimal.ZERO;
         if (subtract) {
