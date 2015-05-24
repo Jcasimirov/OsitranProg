@@ -97,7 +97,7 @@ public class ValorizacionSupDetalleDAOImpl implements ValorizacionSupDetalleDAO{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
         session.beginTransaction();    
         Query query;     
-        query=session.createQuery("from ValorizacionSupDetalle val where val.tvsHr = :busqueda");
+        query=session.createQuery("from ValorizacionSupDetalle val where val.tvsId = :busqueda");
         query.setParameter("busqueda",id);
         List<ValorizacionSupDetalle> Lista= query.list();
         session.getTransaction().commit();
