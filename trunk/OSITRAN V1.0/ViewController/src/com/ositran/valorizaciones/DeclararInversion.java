@@ -490,15 +490,20 @@ public class DeclararInversion {
                     invReconocimientoVO.setMontoAprobadoConIGV(invReconocimientoVO.getIvrMontoAprobado());
                     invReajusteVO.setMontoAprobadoConIGV(invReajusteVO.getIrjMontoAprobado());
                     invReajusteVO.setMontoReajusteConIGV(invReajusteVO.getIrjMontoReajuste());
+                    invReconocimientoVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),true));
+                    invReajusteVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), true));
+                    invReajusteVO.setMontoReajusteSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), true));
                 } else {
-                    /**Si el monto no tiene IGV calculo y seteo en las variables montoSinIGV**/
+                    /**Si el monto no tiene IGV calculo y seteo en las variables montoConIGV**/
                     invReconocimientoVO.setMontoAprobadoConIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),false));
                     invReajusteVO.setMontoAprobadoConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), false));
                     invReajusteVO.setMontoReajusteConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), false));
+                    /**Si no tiene IGV no necesito restarle el IGV **/
+                    invReconocimientoVO.setMontoAprobadoSinIGV(invReconocimientoVO.getIvrMontoAprobado());
+                    invReajusteVO.setMontoAprobadoSinIGV(invReajusteVO.getIrjMontoAprobado());
+                    invReajusteVO.setMontoReajusteSinIGV(invReajusteVO.getIrjMontoReajuste());
                 }
-                invReconocimientoVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),true));
-                invReajusteVO.setMontoAprobadoSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), true));
-                invReajusteVO.setMontoReajusteSinIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), true));
+              
                 /**Fin Redondea**/
                 totalMontoPresentado = totalMontoPresentado.add(invReconocimientoVO.getIvrMontoPresentado());
                 totalMontoAprobado = totalMontoAprobado.add(invReconocimientoVO.getIvrMontoAprobado());
