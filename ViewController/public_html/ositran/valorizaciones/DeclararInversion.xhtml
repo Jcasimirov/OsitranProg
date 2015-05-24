@@ -359,11 +359,12 @@
                                                                          
                                                                          id="resumenMonRea" style="text-align:right"></p:inputText>
                                                         </td>
-                                                        <td>Montos con IGV?</td>
+                                                        <td><h:outputText value="Montos con IGV?" rendered="#{declararInversionMB.contratoCompromisoVO.porIgv ne null}"/></td>
                                                         <td>
                                                             <p:selectBooleanCheckbox id="igvResumen"
                                                                                      value="#{declararInversionMB.calcularIGV}"
-                                                                                     disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}">
+                                                                                     disabled="#{declararInversionMB.invVO.invEstadoReconocimiento eq 2}"
+                                                                                     rendered="#{declararInversionMB.contratoCompromisoVO.porIgv ne null}">
                                                                 <p:ajax listener="#{declararInversionMB.resetIGV()}"
                                                                         update=":form:datosResumen :form:tablaReconocimiento :form:tablaReajuste"/>
                                                             </p:selectBooleanCheckbox>
