@@ -470,7 +470,7 @@ public class DerivarReconocimientoSupervisorMB {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idTipoInfraestructura);
             nombreTipoInfraestructura = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
 
             listarInversionDescripcion();
 
