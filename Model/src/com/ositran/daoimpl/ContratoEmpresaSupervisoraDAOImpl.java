@@ -89,6 +89,10 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
     
     @Override
     public int insert(ContratoSupervisora contratoSupervisora) throws SQLException {
+        System.out.println("VALIDAR DATOS");
+        System.out.println(contratoSupervisora.getCsiId());
+        System.out.println(contratoSupervisora.getTinId());
+        System.out.println(contratoSupervisora.getInfId());
         String result=null;
         System.out.println("Entro al metodo  INSERT");
         int codigoGenerado=0;
