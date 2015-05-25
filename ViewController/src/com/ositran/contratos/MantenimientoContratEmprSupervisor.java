@@ -9,7 +9,6 @@ import com.ositran.service.DatosStdService;
 import com.ositran.service.EmpresaSupervisoraService;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
-import com.ositran.service.ValorizacionInversionAvanceService;
 import com.ositran.serviceimpl.AdendaTipoServiceImpl;
 import com.ositran.serviceimpl.ContratoAdendaServiceImpl;
 import com.ositran.serviceimpl.ContratoEmpresaSupervisoraAdendaServiceImpl;
@@ -18,7 +17,6 @@ import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.MonedaServiceImpl;
-import com.ositran.serviceimpl.ValorizacionInversionAvanceServiceImpl;
 import com.ositran.util.Constantes;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
@@ -37,9 +35,7 @@ import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
-import com.ositran.vo.bean.RolVO;
 import com.ositran.vo.bean.UsuarioVO;
-import com.ositran.vo.bean.ValorizacionSupDetalleVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
 
 import java.io.IOException;
@@ -436,7 +432,7 @@ public class MantenimientoContratEmprSupervisor {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(codigoTipoInfra);
             t_tinfra = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -946,7 +942,7 @@ public class MantenimientoContratEmprSupervisor {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(codigoTipoInfra);
             t_tinfra = infraestructuraTipoVO.getTinNombre();
             listaInfraestructurasE = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromisoE = contratoCompromisoServiceImpl.query1(codigoContratoE);
+            listaContratoCompromisoE = contratoCompromisoServiceImpl.querySupervisado(codigoContratoE);
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
