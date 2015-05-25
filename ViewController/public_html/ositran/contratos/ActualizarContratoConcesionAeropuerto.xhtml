@@ -288,40 +288,40 @@
                                         <p:commandButton value="Limpiar"  onclick="_fechaInicioBC.setDate(null);_fechaFinBC.setDate(null);_cboconcesion.selectValue(value);" update=":tab:frmBuscarContratoDlg:concesion"/>
                                         </p:panelGrid>
                                         <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" style="font-size:11px" emptyMessage="No se Encontraron Registros" paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true">
-                                            <p:column headerText="Fecha Suscripción" style="width:7%">
+                                            <p:column headerText="Fecha Suscripción" styleClass="tabla-wrap-desc">
                                                 <div style="text-align: center;">
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Tipo de Infraestructura" >
+                                            <p:column headerText="Tipo de Infraestructura" styleClass="tabla-wrap-desc">
                                                 <div style="text-align: center;">
-                                                    <h:outputText value="#{contrato11.nombreTipoInfraestructura}" style="text-transform:uppercase;"/>
+                                                    <h:outputText value="#{contrato11.nombreTipoInfraestructura}" />
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Concesión" styleClass="tabla-wrap">
+                                            <p:column headerText="Concesión" styleClass="tabla-wrap-desc">
                                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
                                             </p:column>
-                                            <p:column headerText="Modalidad" styleClass="tabla-wrap">
+                                            <p:column headerText="Modalidad" styleClass="tabla-wrap-desc">
                                                 <h:outputText value="#{contrato11.nombreModalidad}"/>
                                             </p:column>
-                                            <p:column headerText="Concesionario" styleClass="tabla-wrap">
+                                            <p:column headerText="Concesionario" styleClass="tabla-wrap-desc">
                                                 <h:outputText value="#{contrato11.nombreConcesionario}" style="text-transform:uppercase;"/>
                                             </p:column>
-                                            <p:column headerText="Ver Contrato" style="width:5%">
+                                            <p:column headerText="Ver Contrato" styleClass="tabla-wrap-desc">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conPdfcontrato ne null}" actionListener="#{actualizarContratoMB.preDownloadContratoPDF(contrato11.conPdfcontrato)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadContratoPDF}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Ver Ficha" style="width:5%">
+                                            <p:column headerText="Ver Ficha" styleClass="tabla-wrap-desc">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conFicharesumen ne null}" actionListener="#{actualizarContratoMB.preDownloadFichaResumen(contrato11.conFicharesumen)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadFichaResumen}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Seleccionar" style="width:6%">
+                                            <p:column headerText="Seleccionar" styleClass="tabla-wrap-boton">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-check" actionListener="#{actualizarContratoMB.seleccionarContrato}" update=":tab:tab1 :tab:tab2 :tab:tab3 :tab:tab4 :tab:tab5 :tab:frmBuscarContratoDlg:pnlBuscarContratoDlg 
                                                                  :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg
