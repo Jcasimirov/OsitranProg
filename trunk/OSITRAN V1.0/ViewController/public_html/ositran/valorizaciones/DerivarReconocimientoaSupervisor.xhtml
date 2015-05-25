@@ -248,7 +248,7 @@
                                     <td><p:inputText onkeyup="pasarMayuscula(this.value,this.id)"  value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
                                      <img src="../../images/obligatorio.gif"  style="vertical-align: top;"/> </td>
                                     <td colspan="2">Fecha de Emisión:</td>
-                                    <td><p:calendar locale="es" id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
+                                    <td><p:calendar locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> </td>
                                 </tr>
                                  <tr >
@@ -282,7 +282,7 @@
                                         <p:tooltip for="ObtenerFechaLimite" value="Generar Fecha Limite" styleClass="tool" />
                                     </td>
                                     <td class="negrita">Fecha limite de respuesta:</td>
-                                    <td><p:calendar readonly="true" value="#{derivarReconocimientoSupervisorMB.fechaLimiteDS}"   id="fechaLimite" locale="es" styleClass="calendario1"  />
+                                    <td><p:calendar readonly="true" value="#{derivarReconocimientoSupervisorMB.fechaLimiteDS}" pattern="dd/MM/yyyy"   id="fechaLimite" locale="es" styleClass="calendario1"  />
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> </td>
                                    
                                 </tr>
