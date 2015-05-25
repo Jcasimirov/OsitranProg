@@ -415,7 +415,7 @@
                                                                                   styleClass="tabla-wrap-boton">
                                                                            <center>
                                                                                 <p:commandButton icon="ui-icon-check"
-                                                                                                 disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                                                 disabled="#{rectificarInversion.deshabilitarEdiciondeMontos}"
                                                                                                  actionListener="#{rectificarInversion.editarReconocimiento}"
                                                                                                  update=":frmEditarMontoRec"
                                                                                                  oncomplete="_dlgReconocimiento.show();">
@@ -496,7 +496,7 @@
                                                                                   styleClass="tabla-wrap-boton">
                                                                             <center>
                                                                                 <p:commandButton icon="ui-icon-check"
-                                                                                                 disabled="#{rectificarInversion.deshabilitadoxObservado}"
+                                                                                                 disabled="#{rectificarInversion.deshabilitarEdiciondeMontos}"
                                                                                                  actionListener="#{rectificarInversion.editarReajuste}"
                                                                                                  update=":frmEditarMontoRea"
                                                                                                  oncomplete="_dlgRejuste.show();">
@@ -539,30 +539,17 @@
                                                                 </td>
                                                                 <td>Montos con IGV?</td>
                                                                 <td>
-                                                                    <p:selectBooleanCheckbox value="#{rectificarInversion.renderMostrarIGV}" 
+                                                                    <p:selectBooleanCheckbox value="#{rectificarInversion.calcularIGV}" 
                                                                                              disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}">
-                                                                        <p:ajax listener="#{rectificarInversion.resetMontosconIGV()}"
+                                                                        <p:ajax listener="#{rectificarInversion.resetIGV()}"
                                                                                 update="form"/>
                                                                     </p:selectBooleanCheckbox>
                                                                 </td>
                                                                 <td>
                                                                     <h:outputText value="IGV"
-                                                                                  rendered="#{rectificarInversion.renderMostrarIGV}"/>
+                                                                                  rendered="#{rectificarInversion.calcularIGV}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <p:inputMask id="igv"
-                                                                                 value="#{rectificarInversion.igv}"
-                                                                                 mask="0.99" size="3"
-                                                                                 rendered="#{rectificarInversion.renderMostrarIGV}"
-                                                                                 disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}"></p:inputMask>
-                                                                </td>
-                                                                <td>
-                                                                    <p:commandButton icon="ui-icon-refresh"
-                                                                                     actionListener="#{rectificarInversion.calularMontosconIGV()}"
-                                                                                     update=":form:tblResultadoReconocimiento :form:tblReajuste resumenMonPre resumenMonRea"
-                                                                                     rendered="#{rectificarInversion.renderMostrarIGV}"
-                                                                                     disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}"/>
-                                                                </td>
+                                                               
                                                             </tr>
                                                         </table>
                                                     </p:fieldset>

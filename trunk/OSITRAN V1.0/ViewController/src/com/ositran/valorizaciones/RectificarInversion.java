@@ -194,15 +194,19 @@ public class RectificarInversion {
     private BigDecimal totalirjMontoAprobado = BigDecimal.ZERO;
     private BigDecimal totalirjMontoReajuste = BigDecimal.ZERO;
 
+    private List<InvReconocimientoVO> listaInicialInvReconocimientoVO;
+    private List<InvReajusteVO> listaInicialInvReajusteVO;
+    private List<InvReconocimientoVO> listaEstaticaInvReconocimientoVO;
+    private List<InvReajusteVO> listaEstaticaInvReajusteVO;
 
     private InvReconocimientoVO invReconocimientoVO;
     private InvReajusteVO invReajusteVO;
-    private boolean renderMostrarIGV = false;
+    private boolean calcularIGV = false;
     private BigDecimal igv = BigDecimal.ZERO;
 
 
     private int estadoReconocimiento;
-    private boolean deshabilitadoxObservado;
+    private boolean deshabilitarEdiciondeMontos;
     private boolean deshabilitadoxDeclaracionNoCargada = true;
     private boolean mostrarxDeclaracionCargada = false;
     private boolean readOnlyMontoTipoCambio = false;
@@ -212,6 +216,8 @@ public class RectificarInversion {
     private BigDecimal oldtotalMontoAprobado = BigDecimal.ZERO;
     private BigDecimal oldtotalrjMontoReajustado = BigDecimal.ZERO;
     private BigDecimal oldtotalrjMontoAprobado = BigDecimal.ZERO;
+    
+    ContratoCompromisoVO contratoCompromisoVO;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
 
@@ -433,11 +439,25 @@ public class RectificarInversion {
         deshabilitadoxDeclaracionNoCargada = false;
         mostrarxDeclaracionCargada = true;
         resetCamposIGV();
-        deshabilitadoxObservado=false;
+        deshabilitarEdiciondeMontos=false;
     }
+    public BigDecimal calcularIgvxItem(BigDecimal monto, boolean subtract) {
+        
+        if (contratoCompromisoVO.getPorIgv() != null) {
+            BigDecimal igv = contratoCompromisoVO.getPorIgv();
+            BigDecimal mutliplicadoxIGV = monto.multiply(igv);
 
+            if (subtract) {
+                monto = monto.subtract(mutliplicadoxIGV);
+            } else {
+                monto = monto.add(mutliplicadoxIGV);
+            }
+        }
+        monto = Reutilizar.redondearBigDecimal(monto);
+        return monto;
+    }
     public void resetCamposIGV() {
-        renderMostrarIGV = invVO.getInvIgv() == 1 ? true : false;        
+        calcularIGV = invVO.getInvIgv() == 1 ? true : false;        
         igv = BigDecimal.ZERO;
 
     }
@@ -531,7 +551,7 @@ public class RectificarInversion {
         totalirjMontoReajuste = BigDecimal.ZERO;
         totalivrMontoAprobado = BigDecimal.ZERO;
         totalivrMontoPresentado = BigDecimal.ZERO;
-        renderMostrarIGV = false;
+        calcularIGV = false;
         estadoReconocimiento = 0;
         if (listaValorizaciones.size() == 0)
             deshabilitadoxDeclaracionNoCargada = true;
@@ -539,7 +559,7 @@ public class RectificarInversion {
 
     public void cargarDatosCompromiso(int ccoId) {
         try {
-            ContratoCompromisoVO contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
+            contratoCompromisoVO = contratoCompromisoServiceImpl.get(ccoId);
             invAvnVO.setPlazo(contratoCompromisoVO.getCcoPlazo());
             invAvnVO.setTotal(contratoCompromisoVO.getCcoTotal());
             for (MonedaVO moneda : listarTipoMonedas) {
@@ -551,7 +571,7 @@ public class RectificarInversion {
             }
             invAvnVO.setPeriodo(contratoCompromisoVO.getCcoPeriodo());
         } catch (Exception e) {
-            System.out.println("PROBLEMAS AL CARGAR LA LISTA CONTRATOS COMPROMISO");
+            e.printStackTrace();
         }
 
     }
@@ -603,16 +623,36 @@ public class RectificarInversion {
             System.out.println("listaReconocimiento.size():" + listaReconocimiento.size());
             setTotalivrMontoAprobado(BigDecimal.ZERO);
             setTotalivrMontoPresentado(BigDecimal.ZERO);
+            listaInicialInvReconocimientoVO=new ArrayList<InvReconocimientoVO>();
+            listaEstaticaInvReconocimientoVO=new ArrayList<InvReconocimientoVO>();
             for (InvReconocimientoVO invReconocimiento : listaReconocimiento) {
                 if (invReconocimiento.getIvrMontoAprobado() != null)
                     totalivrMontoAprobado = totalivrMontoAprobado.add(invReconocimiento.getIvrMontoAprobado());
                 if (invReconocimiento.getIvrMontoPresentado() != null)
                     totalivrMontoPresentado = totalivrMontoPresentado.add(invReconocimiento.getIvrMontoPresentado());
                 
+                
+                if (calcularIGV) {
+                    /**Si el monto ya tiene IGV no necesito agregarle en la variable asignada para montos con IGV**/
+                    invReconocimiento.setMontoAprobadoConIGV(invReconocimiento.getIvrMontoAprobado());
+
+                } else {
+                    /**Si el monto no tiene IGV calculo y seteo en las variables montoConIGV**/
+                    invReconocimiento.setMontoAprobadoConIGV(calcularIgvxItem(invReconocimiento.getIvrMontoAprobado(),
+                                                                                false));
+                   
+                }
+                /**Si no tiene IGV no necesito restarle el IGV **/
+                invReconocimiento.setMontoAprobadoSinIGV(calcularIgvxItem(invReconocimiento.getIvrMontoAprobado(),
+                                                                            true));
+
                 invReconocimiento.setNombreInfraestructura( infraestructuraMemoria.get(""+invReconocimiento.getInfId()).toString()!=null?infraestructuraMemoria.get(""+invReconocimiento.getInfId()).toString():"");
                 invReconocimiento.setNombreMoneda(monedaMemoria.get(""+invReconocimiento.getMonId()).toString()!=null?monedaMemoria.get(""+invReconocimiento.getMonId()).toString():"");
                 invReconocimiento.setNombreInversion(inversionAvanceDetalleMemoria.get("inversion"+invReconocimiento.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("inversion"+invReconocimiento.getIadId()).toString():"");
                 invReconocimiento.setDesConcepto(inversionAvanceDetalleMemoria.get("concepto"+invReconocimiento.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("concepto"+invReconocimiento.getIadId()).toString():"");
+                listaInicialInvReconocimientoVO.add(invReconocimiento);                
+                listaEstaticaInvReconocimientoVO.add(invReconocimientoVO);
+                
             }
             totalivrMontoAprobado = Reutilizar.redondearBigDecimal(totalivrMontoAprobado);
             totalivrMontoPresentado = Reutilizar.redondearBigDecimal(totalivrMontoPresentado);
@@ -651,6 +691,8 @@ public class RectificarInversion {
             setTotalirjMontoReajuste(BigDecimal.ZERO);
             invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
+            listaInicialInvReajusteVO=new ArrayList<InvReajusteVO>();
+            listaEstaticaInvReajusteVO=new ArrayList<InvReajusteVO>();
             for (InvReajusteVO invReajuste : listaReajuste) {
                 invReajuste.setIrjMontoAprobado(Reutilizar.redondearBigDecimal(invReajuste.getIrjMontoAprobado()));
                 invReajuste.setIrjMontoReajuste(Reutilizar.redondearBigDecimal(invReajuste.getIrjMontoReajuste()));
@@ -661,11 +703,24 @@ public class RectificarInversion {
                 if (invReajuste.getIrjMontoReajuste() != null) {
                     totalirjMontoReajuste = totalirjMontoReajuste.add(invReajuste.getIrjMontoReajuste());
                 }
-                
+                if (calcularIGV) {
+                    /**Si el monto ya tiene IGV no necesito agregarle en la variable asignada para montos con IGV**/
+                    invReajuste.setMontoAprobadoConIGV(invReajuste.getIrjMontoAprobado());
+                    invReajuste.setMontoReajusteConIGV(invReajuste.getIrjMontoReajuste());
+                } else {
+                    /**Si el monto no tiene IGV calculo y seteo en las variables montoConIGV**/
+                    invReajuste.setMontoAprobadoConIGV(calcularIgvxItem(invReajuste.getIrjMontoAprobado(), false));
+                    invReajuste.setMontoReajusteConIGV(calcularIgvxItem(invReajuste.getIrjMontoReajuste(), false));
+                }
+                /**Si no tiene IGV no necesito restarle el IGV **/
+                invReajuste.setMontoAprobadoSinIGV(calcularIgvxItem(invReajuste.getIrjMontoAprobado(), true));
+                invReajuste.setMontoReajusteSinIGV(calcularIgvxItem(invReajuste.getIrjMontoReajuste(), true));
                 invReajuste.setNombreInfraestructura( infraestructuraMemoria.get(""+invReajuste.getInfId()).toString()!=null?infraestructuraMemoria.get(""+invReajuste.getInfId()).toString():"");
                 invReajuste.setNombreMoneda(monedaMemoria.get(""+invReajuste.getMonId()).toString()!=null?monedaMemoria.get(""+invReajuste.getMonId()).toString():"");
                 invReajuste.setNombreInversion(inversionAvanceDetalleMemoria.get("inversion"+invReajuste.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("inversion"+invReajuste.getIadId()).toString():"");
                 invReajuste.setDesConcepto(inversionAvanceDetalleMemoria.get("concepto"+invReajuste.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("concepto"+invReajuste.getIadId()).toString():"");
+                listaInicialInvReajusteVO.add(invReajuste);
+                listaEstaticaInvReajusteVO.add(invReajuste);
             }
             totalirjMontoAprobado = Reutilizar.redondearBigDecimal(totalirjMontoAprobado);
             totalirjMontoReajuste = Reutilizar.redondearBigDecimal(totalirjMontoReajuste);
@@ -676,6 +731,8 @@ public class RectificarInversion {
             oldtotalrjMontoAprobado=(BigDecimal)Reutilizar.copy(totalirjMontoAprobado);
             oldListInvReconocimientoVO=Reutilizar.copy(listaReconocimiento);
             oldListInvReajusteVO=Reutilizar.copy(listaReajuste);
+ 
+           
             /* calcularTotalesReajuste(listaReajuste); */
             /* cargarDescripcionesInfraestructura(listaReajuste);
             cargarDescripcionesMonedas(listaReajuste);
@@ -689,14 +746,55 @@ public class RectificarInversion {
 
     public void deshabilitarxObservado() {
         if (invAvnVO.getIaeId().equals(new Integer("0"))) {
-            deshabilitadoxObservado = true;
+            deshabilitarEdiciondeMontos = true;
         } else {
-            deshabilitadoxObservado = false;
+            deshabilitarEdiciondeMontos = false;
         }
     }
+    public void resetTotales() {
+        totalivrMontoAprobado = BigDecimal.ZERO;
+        totalivrMontoPresentado = BigDecimal.ZERO;
+        totalirjMontoAprobado = BigDecimal.ZERO;
+        totalirjMontoReajuste = BigDecimal.ZERO;
+        invVO.setInvMontoTotalAprobado(BigDecimal.ZERO);
+        invVO.setInvMontoTotalReajuste(BigDecimal.ZERO);
 
+    }
+    public void resetIGV() {
+        resetTotales();
+        deshabilitarEdiciondeMontos = calcularIGV ? true : false;
+        List<InvReconocimientoVO> tmpRec = Reutilizar.copy(listaInicialInvReconocimientoVO);
+        List<InvReajusteVO> tmpRea = Reutilizar.copy(listaInicialInvReajusteVO);
+        for (InvReconocimientoVO reconocimientoPreparandoIGV : tmpRec) {
+            if (!calcularIGV) {
+                reconocimientoPreparandoIGV.setIvrMontoAprobado(reconocimientoPreparandoIGV.getMontoAprobadoSinIGV());
+            } else {
+                reconocimientoPreparandoIGV.setIvrMontoAprobado(reconocimientoPreparandoIGV.getMontoAprobadoConIGV());
+            }
+            totalivrMontoAprobado = totalivrMontoAprobado.add(reconocimientoPreparandoIGV.getIvrMontoAprobado());
+        }
+        for (InvReajusteVO reajustandoPreparandoIGV : tmpRea) {
+            if (!calcularIGV) {
+                reajustandoPreparandoIGV.setIrjMontoAprobado(reajustandoPreparandoIGV.getMontoAprobadoSinIGV());
+                reajustandoPreparandoIGV.setIrjMontoReajuste(reajustandoPreparandoIGV.getMontoReajusteSinIGV());
+            } else {
+                reajustandoPreparandoIGV.setIrjMontoAprobado(reajustandoPreparandoIGV.getMontoAprobadoConIGV());
+                reajustandoPreparandoIGV.setIrjMontoReajuste(reajustandoPreparandoIGV.getMontoReajusteConIGV());
+            }
+            totalirjMontoAprobado=totalirjMontoAprobado.add(reajustandoPreparandoIGV.getIrjMontoAprobado());
+            totalirjMontoReajuste = totalirjMontoReajuste.add(reajustandoPreparandoIGV.getIrjMontoReajuste());
+        }
+
+        setListaReconocimiento(tmpRec);
+        setListaReajuste(tmpRea);
+        calcularTotalesResumen();
+    }
+    public void calcularTotalesResumen() {
+        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoAprobado));
+        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoReajuste));
+    }
     public void resetMontosconIGV() {
-        if (!renderMostrarIGV) {
+        if (!calcularIGV) {
             totalivrMontoAprobado=(oldtotalMontoAprobado);
             totalirjMontoReajuste=(oldtotalrjMontoReajustado);
             totalirjMontoAprobado=(oldtotalrjMontoAprobado);
@@ -706,9 +804,9 @@ public class RectificarInversion {
             invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
             setIgv(BigDecimal.ZERO);
-            deshabilitadoxObservado = false;
+            deshabilitarEdiciondeMontos = false;
         }else{
-            deshabilitadoxObservado = true;
+            deshabilitarEdiciondeMontos = true;
         }
     }
 
@@ -1454,13 +1552,7 @@ public class RectificarInversion {
         return invReajusteVO;
     }
 
-    public void setRenderMostrarIGV(boolean renderMostrarIGV) {
-        this.renderMostrarIGV = renderMostrarIGV;
-    }
 
-    public boolean isRenderMostrarIGV() {
-        return renderMostrarIGV;
-    }
 
     public void setIgv(BigDecimal igv) {
         this.igv = igv;
@@ -1486,13 +1578,7 @@ public class RectificarInversion {
         return estadoReconocimiento;
     }
 
-    public void setDeshabilitadoxObservado(boolean deshabilitadoxObservado) {
-        this.deshabilitadoxObservado = deshabilitadoxObservado;
-    }
 
-    public boolean isDeshabilitadoxObservado() {
-        return deshabilitadoxObservado;
-    }
 
     public void setListaValorizacionInversionAvanceDetalleVO(List<ValorizacionInversionAvanceDetalleVO> listaValorizacionInversionAvanceDetalleVO) {
         this.listaValorizacionInversionAvanceDetalleVO = listaValorizacionInversionAvanceDetalleVO;
@@ -1566,5 +1652,61 @@ public class RectificarInversion {
     public Date getFechaactual() {
         fechaactual = new Date();
         return fechaactual;
+    }
+
+    public void setContratoCompromisoVO(ContratoCompromisoVO contratoCompromisoVO) {
+        this.contratoCompromisoVO = contratoCompromisoVO;
+    }
+
+    public ContratoCompromisoVO getContratoCompromisoVO() {
+        return contratoCompromisoVO;
+    }
+
+    public void setCalcularIGV(boolean calcularIGV) {
+        this.calcularIGV = calcularIGV;
+    }
+
+    public boolean isCalcularIGV() {
+        return calcularIGV;
+    }
+
+    public void setListaInicialInvReconocimientoVO(List<InvReconocimientoVO> listaInicialInvReconocimientoVO) {
+        this.listaInicialInvReconocimientoVO = listaInicialInvReconocimientoVO;
+    }
+
+    public List<InvReconocimientoVO> getListaInicialInvReconocimientoVO() {
+        return listaInicialInvReconocimientoVO;
+    }
+
+    public void setListaInicialInvReajusteVO(List<InvReajusteVO> listaInicialInvReajusteVO) {
+        this.listaInicialInvReajusteVO = listaInicialInvReajusteVO;
+    }
+
+    public List<InvReajusteVO> getListaInicialInvReajusteVO() {
+        return listaInicialInvReajusteVO;
+    }
+
+    public void setListaEstaticaInvReconocimientoVO(List<InvReconocimientoVO> listaEstaticaInvReconocimientoVO) {
+        this.listaEstaticaInvReconocimientoVO = listaEstaticaInvReconocimientoVO;
+    }
+
+    public List<InvReconocimientoVO> getListaEstaticaInvReconocimientoVO() {
+        return listaEstaticaInvReconocimientoVO;
+    }
+
+    public void setListaEstaticaInvReajusteVO(List<InvReajusteVO> listaEstaticaInvReajusteVO) {
+        this.listaEstaticaInvReajusteVO = listaEstaticaInvReajusteVO;
+    }
+
+    public List<InvReajusteVO> getListaEstaticaInvReajusteVO() {
+        return listaEstaticaInvReajusteVO;
+    }
+
+    public void setDeshabilitarEdiciondeMontos(boolean deshabilitarEdiciondeMontos) {
+        this.deshabilitarEdiciondeMontos = deshabilitarEdiciondeMontos;
+    }
+
+    public boolean isDeshabilitarEdiciondeMontos() {
+        return deshabilitarEdiciondeMontos;
     }
 }
