@@ -151,6 +151,7 @@
                                                              Fecha Registro: 
                                                             <p:calendar 
                                                             readonly="true"
+                                                            pattern="dd/MM/yyyy"
                                                             value="#{registrarAvanceInversionMB.fechaRegistroSDT}"
                                                                         locale="es" styleClass="calendario1"/>
                                                         </td>
@@ -199,7 +200,7 @@
                                                         </td>
                                                         <td>
                                                             Vencimiento Plazo: 
-                                                                <p:calendar   value="#{registrarAvanceInversionMB.fechaVencimiento}"  id="fechaVencimiento" readonly="true" locale="es"
+                                                                <p:calendar   value="#{registrarAvanceInversionMB.fechaVencimiento}" pattern="dd/MM/yyyy"  id="fechaVencimiento" readonly="true" locale="es"
                                                                         styleClass="calendario1"/>
                                                         </td>
                                                     </tr>
@@ -211,14 +212,15 @@
                                                     <tr>
                                                         <td>Periodo Ejecuci&#243;n(Inicio)</td>
                                                         <td>
-                                                            <p:calendar locale="es"
+                                                            <p:calendar pattern="dd/MM/yyyy"
+                                                            locale="es"
                                                                         value="#{registrarAvanceInversionMB.inicioPeriodo}"
                                                                         styleClass="calendario1"/>
                                                                       
                                                         </td>
                                                         <td>Periodo Ejecuci&#243;n(Fin)</td>
                                                         <td>
-                                                            <p:calendar locale="es"
+                                                            <p:calendar locale="es" pattern="dd/MM/yyyy"
                                                                         value="#{registrarAvanceInversionMB.finPeriodo}"
                                                                         styleClass="calendario1"/>
                                                                         
