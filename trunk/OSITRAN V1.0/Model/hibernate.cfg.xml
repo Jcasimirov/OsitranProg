@@ -12,7 +12,7 @@
         <property name="connection.username">OSITRAN</property>
         <property name="connection.password">OSITRAN</property>-->
        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
+        <property name="connection.url">jdbc:oracle:thin:@//190.81.47.201:1521/XE</property>
         <property name="connection.username">PRUEBAS</property>
         <property name="connection.password">PRUEBAS</property>
         <property name="connection.pool_size">5</property>
