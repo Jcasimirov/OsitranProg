@@ -92,8 +92,10 @@
                                     <p:column headerText="N°" style="width:3%">
                                         <h:outputText value="#{rowIndex+1}" style="text-transform:uppercase;"/>
                                     </p:column>
-                                    <p:column headerText="N° Contrato" style="width:25%;text-align:center;">
+                                    <p:column headerText="N° Contrato" style="width:50px;text-align:center;">
+                                    <div align="center">
                                         <h:outputText value="#{cEmpreSup.cpsNroDeContrato}"/>
+                                      </div>
                                     </p:column>
                                     <p:column headerText="Empresa supervisora">
                                         <h:outputText value="#{cEmpreSup.nombreSupervisora}"/>
@@ -101,28 +103,30 @@
                                     <p:column headerText="Tipo de infraestructura">
                                         <h:outputText value="#{cEmpreSup.nombreInfraestructura}"/>
                                     </p:column>
-                                    <p:column headerText="Ver">
+                                    <p:column headerText="Ver"  style="width:6%">
                                         <div align="center">
                                             <p:commandButton update=":form:dialogVerContEmpSup" image="ui-icon-search"
                                                              oncomplete="dialogVerContEmpSup.show()"
                                                              styleClass="controles" id="vercontrato"
+                                                             
                                                              action="#{manteContEmprSupervisora.cargarVer(cEmpreSup)}"></p:commandButton>
                                              
                                             <p:tooltip styleClass="tool" id="toolTipFade3" for="vercontrato"
                                                        value="Visualizar contrato de empresa supervisora"/>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Modificar">
+                                    <p:column headerText="Modificar"  style="width:6%">
                                         <div align="center">
                                             <p:commandButton update=":form:popupeditar" styleClass="controles"
                                                              action="#{manteContEmprSupervisora.cargarEditar()}"
+                                                             
                                                              oncomplete="popupeditar.show()" image="ui-icon-pencil">
                                                 <f:param id="idModificar" name="idModificar"
                                                          value="#{cEmpreSup.cpsNroDeContrato}"/>
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eliminar" id="columnEliminar">
+                                    <p:column headerText="Eliminar" id="columnEliminar"  style="width:6%">
                                         <div align="center">
                                             <p:commandButton update=":form:popupeliminar :form:codEliminar"
                                                              styleClass="controles"
