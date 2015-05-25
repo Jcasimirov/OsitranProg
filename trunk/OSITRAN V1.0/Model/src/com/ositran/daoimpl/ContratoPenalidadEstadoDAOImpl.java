@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class ContratoPenalidadEstadoDAOImpl implements ContratoPenalidadEstadoDAO {
     public ContratoPenalidadEstadoDAOImpl() {
@@ -19,10 +20,22 @@ public class ContratoPenalidadEstadoDAOImpl implements ContratoPenalidadEstadoDA
     @Override
     public List<ContratoPenalidadEstado> query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        List<ContratoPenalidadEstado> list = session.createQuery("FROM ContratoPenalidadEstado").list();
-        session.close();
-        return list;  
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List<ContratoPenalidadEstado> list = session.createQuery("FROM ContratoPenalidadEstado").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
+    
     @Override
     public List<ContratoPenalidadEstado> getXContrato() throws SQLException {
         // TODO Implement this method
