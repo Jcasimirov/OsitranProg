@@ -202,12 +202,11 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
 
     @Override
     public List<ContratoSupervisora> queryTD(int filtro) throws SQLException {
-        Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
             Query query;
-            session.beginTransaction();
             query = session.createQuery("FROM ContratoSupervisora  E WHERE upper(E.tinId)= :filtro1 and upper(E.cpsEstado) <> 0");
             query.setParameter("filtro1",  filtro);
             List list = query.list();

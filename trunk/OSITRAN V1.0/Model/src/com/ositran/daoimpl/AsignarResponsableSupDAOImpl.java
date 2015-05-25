@@ -25,6 +25,7 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
         Transaction tx=null;
         try {
             Query query;
+            tx=session.beginTransaction();
             if((codigoAeropuerto != null && codigoAeropuerto != 0) && (codigoInversion!=null && codigoInversion == 0)){
                     query=session.createQuery("select distinct c FROM ContratoResSupDetalle c WHERE c.conId = :contrato and c.ccoId = :etapa  and c.rsdEstado > 0 and c.infId = :aeropuerto");
                     query.setParameter("aeropuerto",codigoAeropuerto);  
