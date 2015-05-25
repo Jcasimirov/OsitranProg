@@ -217,6 +217,10 @@ public class RectificarInversion {
     private BigDecimal oldtotalrjMontoReajustado = BigDecimal.ZERO;
     private BigDecimal oldtotalrjMontoAprobado = BigDecimal.ZERO;
     
+    private BigDecimal montoAprobadoInicial;
+    private BigDecimal montoReajustadoInicial;
+    private BigDecimal montoPresentadoInicial;
+    
     ContratoCompromisoVO contratoCompromisoVO;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
@@ -434,6 +438,8 @@ public class RectificarInversion {
         obtenerDeatalleInversionAvanceInvAvn(invAvnVO.getTiaNumero());
         cargarDatosCompromiso(invAvnVO.getCcoId());
         
+        calcularIGV = contratoCompromisoVO.getPorIgv() != null ? true : false;
+        deshabilitarEdiciondeMontos = contratoCompromisoVO.getPorIgv() != null ? true : false;
         cargarReconocimiento(invAvnVO.getTiaNumero());
          cargarReajuste(invAvnVO.getTiaNumero()); 
         deshabilitadoxDeclaracionNoCargada = false;
@@ -620,7 +626,7 @@ public class RectificarInversion {
     public void cargarReconocimiento(int tiaNumero) {
         try {
             listaReconocimiento = invReconocimientoServiceImpl.getInvReconocimientosAvance(tiaNumero);
-            System.out.println("listaReconocimiento.size():" + listaReconocimiento.size());
+            
             setTotalivrMontoAprobado(BigDecimal.ZERO);
             setTotalivrMontoPresentado(BigDecimal.ZERO);
             listaInicialInvReconocimientoVO=new ArrayList<InvReconocimientoVO>();
@@ -651,19 +657,15 @@ public class RectificarInversion {
                 invReconocimiento.setNombreInversion(inversionAvanceDetalleMemoria.get("inversion"+invReconocimiento.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("inversion"+invReconocimiento.getIadId()).toString():"");
                 invReconocimiento.setDesConcepto(inversionAvanceDetalleMemoria.get("concepto"+invReconocimiento.getIadId()).toString()!=null?inversionAvanceDetalleMemoria.get("concepto"+invReconocimiento.getIadId()).toString():"");
                 listaInicialInvReconocimientoVO.add(invReconocimiento);                
-                listaEstaticaInvReconocimientoVO.add(invReconocimientoVO);
+                listaEstaticaInvReconocimientoVO.add(invReconocimiento);
                 
             }
             totalivrMontoAprobado = Reutilizar.redondearBigDecimal(totalivrMontoAprobado);
             totalivrMontoPresentado = Reutilizar.redondearBigDecimal(totalivrMontoPresentado);
-            oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalivrMontoAprobado));
-            oldListInvReconocimientoVO=Reutilizar.copy(listaReconocimiento);
-
+            calcularTotalesenTablas();
+            totalesIniciales();
+            calcularTotalesResumen();
            
-            /* calcularTotalesReconocimiento(listaReconocimiento); */
-            /* cargarDescripcionesInfraestructura(listaReconocimiento); */
-            /* cargarDescripcionesMonedas(listaReconocimiento); */
-            /* cargarDescripcionesConcepto(listaReconocimiento); */
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -724,41 +726,13 @@ public class RectificarInversion {
             }
             totalirjMontoAprobado = Reutilizar.redondearBigDecimal(totalirjMontoAprobado);
             totalirjMontoReajuste = Reutilizar.redondearBigDecimal(totalirjMontoReajuste);
+            totalesIniciales();
             invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
             invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
-            oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalivrMontoAprobado));
-            oldtotalrjMontoReajustado=(BigDecimal)Reutilizar.copy(totalirjMontoReajuste);
-            oldtotalrjMontoAprobado=(BigDecimal)Reutilizar.copy(totalirjMontoAprobado);
-            oldListInvReconocimientoVO=Reutilizar.copy(listaReconocimiento);
-            oldListInvReajusteVO=Reutilizar.copy(listaReajuste);
- 
-           
-            /* calcularTotalesReajuste(listaReajuste); */
-            /* cargarDescripcionesInfraestructura(listaReajuste);
-            cargarDescripcionesMonedas(listaReajuste);
-            cargarDescripcionesConcepto(listaReajuste); */
-
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
-    }
-
-    public void deshabilitarxObservado() {
-        if (invAvnVO.getIaeId().equals(new Integer("0"))) {
-            deshabilitarEdiciondeMontos = true;
-        } else {
-            deshabilitarEdiciondeMontos = false;
-        }
-    }
-    public void resetTotales() {
-        totalivrMontoAprobado = BigDecimal.ZERO;
-        totalivrMontoPresentado = BigDecimal.ZERO;
-        totalirjMontoAprobado = BigDecimal.ZERO;
-        totalirjMontoReajuste = BigDecimal.ZERO;
-        invVO.setInvMontoTotalAprobado(BigDecimal.ZERO);
-        invVO.setInvMontoTotalReajuste(BigDecimal.ZERO);
-
     }
     public void resetIGV() {
         resetTotales();
@@ -785,71 +759,61 @@ public class RectificarInversion {
             totalirjMontoReajuste = totalirjMontoReajuste.add(reajustandoPreparandoIGV.getIrjMontoReajuste());
         }
 
-        setListaReconocimiento(tmpRec);
-        setListaReajuste(tmpRea);
-        calcularTotalesResumen();
-    }
-    public void calcularTotalesResumen() {
-        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoAprobado));
-        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoReajuste));
-    }
-    public void resetMontosconIGV() {
-        if (!calcularIGV) {
-            totalivrMontoAprobado=(oldtotalMontoAprobado);
-            totalirjMontoReajuste=(oldtotalrjMontoReajustado);
-            totalirjMontoAprobado=(oldtotalrjMontoAprobado);
-            setListaReconocimiento(oldListInvReconocimientoVO);
-            setListaReajuste(oldListInvReajusteVO);    
-            
-            invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
-            invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
-            setIgv(BigDecimal.ZERO);
-            deshabilitarEdiciondeMontos = false;
-        }else{
-            deshabilitarEdiciondeMontos = true;
-        }
-    }
-
-    public void calularMontosconIGV() {
-        //inicializa las listas con la data inicial
-        setListaReconocimiento(Reutilizar.copy(oldListInvReconocimientoVO));
-        setListaReajuste(Reutilizar.copy(oldListInvReajusteVO));
-        //inicializa totales de las tablas
-        totalivrMontoAprobado=(oldtotalMontoAprobado);
-        totalirjMontoAprobado=(oldtotalrjMontoAprobado);
-        totalirjMontoReajuste=(oldtotalrjMontoReajustado);
-        //inicializa totales del resumen
-        invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
-        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
-        //creo listas temporales donde setear valores de las listas de las tablas
-        List<InvReconocimientoVO> tmpRec=Reutilizar.copy(listaReconocimiento);
-        List<InvReajusteVO> tmpRea=Reutilizar.copy(listaReajuste);
-
-        totalivrMontoAprobado=Reutilizar.redondearBigDecimal(totalivrMontoAprobado.add(igv.multiply(totalivrMontoAprobado)));
-        totalirjMontoAprobado=Reutilizar.redondearBigDecimal(totalirjMontoAprobado.add(igv.multiply(totalirjMontoAprobado)));
-        totalirjMontoReajuste = Reutilizar.redondearBigDecimal(totalirjMontoReajuste.add(igv.multiply(totalirjMontoReajuste)));
-        /* invVO.setInvMontoTotalAprobado(totalirjMontoAprobado);
-        invVO.setInvMontoTotalReajuste(totalirjMontoReajuste); */
-
-        invVO.setInvMontoTotalAprobado( Reutilizar.redondearBigDecimal(invVO.getInvMontoTotalAprobado()));
-        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(invVO.getInvMontoTotalReajuste()));
-        for (InvReconocimientoVO reconocimientoPreparandoIGV : tmpRec){
-            BigDecimal temp=reconocimientoPreparandoIGV.getIvrMontoAprobado();
-          reconocimientoPreparandoIGV.setIvrMontoAprobado(Reutilizar.redondearBigDecimal(temp.add(temp.multiply(igv))));           
-            
-        }
-        for (InvReajusteVO reajustadoPreparandoIGV : tmpRea){
-            reajustadoPreparandoIGV.setIrjMontoAprobado(Reutilizar.redondearBigDecimal(reajustadoPreparandoIGV.getIrjMontoAprobado().add(reajustadoPreparandoIGV.getIrjMontoAprobado().multiply(igv))));
-            reajustadoPreparandoIGV.setIrjMontoReajuste(Reutilizar.redondearBigDecimal(reajustadoPreparandoIGV.getIrjMontoReajuste().add(reajustadoPreparandoIGV.getIrjMontoReajuste().multiply(igv))));          
-        }
+       
         setListaReconocimiento(tmpRec);
         setListaReajuste(tmpRea);
         
         invVO.setInvMontoTotalAprobado(totalivrMontoAprobado);
         invVO.setInvMontoTotalReajuste(totalirjMontoReajuste);
+    }
+   
+
+    public void deshabilitarxObservado() {
+        if (invAvnVO.getIaeId().equals(new Integer("0"))) {
+            deshabilitarEdiciondeMontos = true;
+            reset();
+            } else {
+            deshabilitarEdiciondeMontos = !calcularIGV ? false : true;
+            }
+    }
+    public void resetTotales() {
+        totalivrMontoAprobado = BigDecimal.ZERO;
+        totalirjMontoAprobado = BigDecimal.ZERO;
+        totalirjMontoReajuste = BigDecimal.ZERO;
+        invVO.setInvMontoTotalAprobado(BigDecimal.ZERO);
+        invVO.setInvMontoTotalReajuste(BigDecimal.ZERO);
 
     }
+    public void reset() {
+        setListaReconocimiento(listaEstaticaInvReconocimientoVO);
+        setListaReajuste(listaEstaticaInvReajusteVO);
+        setListaInicialInvReconocimientoVO(listaEstaticaInvReconocimientoVO);
+        setListaInicialInvReajusteVO(listaEstaticaInvReajusteVO);
+        setTotalivrMontoAprobado(montoAprobadoInicial);
+        setTotalirjMontoReajuste(montoReajustadoInicial);
+        setTotalivrMontoPresentado(montoPresentadoInicial);
+        invVO.setInvMontoTotalAprobado(montoAprobadoInicial);
+        invVO.setInvMontoTotalReajuste(montoReajustadoInicial);
+        calcularIGV = contratoCompromisoVO.getPorIgv() != null ? true : false;
+    }
+    public void totalesIniciales() {
+        montoAprobadoInicial = Reutilizar.copy(totalivrMontoAprobado);
+        montoReajustadoInicial = Reutilizar.copy(totalirjMontoReajuste);
+        montoPresentadoInicial = Reutilizar.copy(totalivrMontoPresentado);
+    }
 
+    public void calcularTotalesenTablas() {
+        totalivrMontoAprobado = Reutilizar.redondearBigDecimal(totalivrMontoAprobado);
+        totalivrMontoPresentado = Reutilizar.redondearBigDecimal(totalivrMontoPresentado);
+             
+        totalirjMontoAprobado = Reutilizar.redondearBigDecimal(totalirjMontoAprobado);
+        totalirjMontoReajuste = Reutilizar.redondearBigDecimal(totalirjMontoReajuste);
+
+    }
+    public void calcularTotalesResumen() {
+        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoAprobado));
+        invVO.setInvMontoTotalReajuste(Reutilizar.redondearBigDecimal(totalirjMontoReajuste));
+    }
     public void calcularTotalesReajuste(List<InvReajusteVO> listaReajuste) {
         setTotalirjMontoAprobado(BigDecimal.ZERO);
         setTotalirjMontoReajuste(BigDecimal.ZERO);
@@ -970,7 +934,6 @@ public class RectificarInversion {
     }
 
     public void grabarReconocimiento(ActionEvent e) {
-        resetMontosconIGV();
         InvReconocimientoVO reconocimientoSeleccionado =
             (InvReconocimientoVO) e.getComponent().getAttributes().get("reconocimiento");
         Integer idreconocimientoSeleccionado = reconocimientoSeleccionado.getIreId();
@@ -996,6 +959,10 @@ public class RectificarInversion {
                 for (InvReconocimientoVO invReconocimientoVO : listaReconocimiento) {
                     if (idreconocimientoSeleccionado.equals(invReconocimientoVO.getIreId())) {
                         invReconocimientoVO.setIvrMontoAprobado(montoAprobadoSeleccionado);
+                        invReconocimientoVO.setIvrMontoAprobado(Reutilizar.redondearBigDecimal(invReconocimientoVO.getIvrMontoAprobado()));
+                        invReconocimientoVO.setMontoAprobadoConIGV(calcularIgvxItem(invReconocimientoVO.getIvrMontoAprobado(),
+                                                                                    false));
+                        invReconocimientoVO.setMontoAprobadoSinIGV(invReconocimientoVO.getIvrMontoAprobado());
                     }
                 }
                 calcularTotalesReconocimiento(listaReconocimiento);
@@ -1003,20 +970,22 @@ public class RectificarInversion {
                     if (idreconocimientoSeleccionado.equals(invReajusteVO.getIrjId())) {
                         invReajusteVO.setIrjMontoAprobado(montoAprobadoSeleccionado);
                         invReajusteVO.setIrjMontoReajuste(montoAprobadoSeleccionado);
+                        
+                        invReajusteVO.setMontoAprobadoConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoAprobado(), false));
+                        invReajusteVO.setMontoAprobadoSinIGV(invReajusteVO.getIrjMontoAprobado());
+                        invReajusteVO.setMontoReajusteConIGV(calcularIgvxItem(invReajusteVO.getIrjMontoReajuste(), false));
+                        invReajusteVO.setMontoReajusteSinIGV(invReajusteVO.getIrjMontoReajuste());
                     }
                 }
                 calcularTotalesReconocimiento(listaReconocimiento);
                 calcularTotalesReajuste(listaReajuste);
+                listaInicialInvReconocimientoVO = Reutilizar.copy(listaReconocimiento);
+                listaInicialInvReajusteVO = Reutilizar.copy(listaReajuste);
                 RequestContext.getCurrentInstance().execute("_dlgReconocimiento.hide();");
                 RequestContext.getCurrentInstance().update("form:tblResultadoReconocimiento");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
                 RequestContext.getCurrentInstance().update("form:resumen");
-                
-                oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalivrMontoAprobado));
-                oldtotalrjMontoReajustado=(BigDecimal)Reutilizar.copy(totalirjMontoReajuste);
-                oldtotalrjMontoAprobado=(BigDecimal)Reutilizar.copy(totalirjMontoAprobado);
-                oldListInvReconocimientoVO=Reutilizar.copy(listaReconocimiento);
-                oldListInvReajusteVO=Reutilizar.copy(listaReajuste);
+
             } catch (Exception e1) {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -1053,18 +1022,16 @@ public class RectificarInversion {
                 for (InvReajusteVO invReconocimientoVO : listaReajuste) {
                     if (idreajuste.equals(invReconocimientoVO.getIrjId())) {
                         invReconocimientoVO.setIrjMontoReajuste(montoReajuste);
+                        invReconocimientoVO.setMontoReajusteConIGV(calcularIgvxItem(invReconocimientoVO.getIrjMontoReajuste(), false));
+                        invReconocimientoVO.setMontoReajusteSinIGV(invReconocimientoVO.getIrjMontoReajuste());
                     }
                 }
                 calcularTotalesReajuste(listaReajuste);
+                listaInicialInvReajusteVO = Reutilizar.copy(listaReajuste);
                 RequestContext.getCurrentInstance().execute("_dlgRejuste.hide();");
                 RequestContext.getCurrentInstance().update("form:tblReajuste");
                 RequestContext.getCurrentInstance().update("form:resumenMonRea");
                 
-                oldtotalMontoAprobado=((BigDecimal)Reutilizar.copy(totalivrMontoAprobado));
-                oldtotalrjMontoReajustado=(BigDecimal)Reutilizar.copy(totalirjMontoReajuste);
-                oldtotalrjMontoAprobado=(BigDecimal)Reutilizar.copy(totalirjMontoAprobado);
-                oldListInvReconocimientoVO=Reutilizar.copy(listaReconocimiento);
-                oldListInvReajusteVO=Reutilizar.copy(listaReajuste);
             } catch (Exception e1) {
                 e1.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,

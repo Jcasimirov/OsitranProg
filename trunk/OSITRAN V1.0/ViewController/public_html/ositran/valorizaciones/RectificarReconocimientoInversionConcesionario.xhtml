@@ -334,7 +334,7 @@
                                             <td align="top">
                                                 <p:fieldset legend="Solicitud del Concesionario"
                                                             rendered="#{rectificarInversion.mostrarxDeclaracionCargada}">
-                                                    <table style="width:100%;">
+                                                    <table >
                                                         <tr>
                                                             <td align="left" style="width:10px;">Estado del
                                                                                                  Reconocimiento</td>
@@ -353,9 +353,9 @@
                                                         </tr>
                                                          
                                                         <tr>
-                                                            <td align="left" style="width:10px;">Observacion</td>
+                                                            <td align="left" >Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea 
+                                                                <p:inputTextarea cols="50" onkeyup="pasarMayuscula(this.value,this.id);"
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
                                                         </tr>
@@ -523,7 +523,7 @@
                                                         </table>
                                                     </p:fieldset>
                                                     <p:fieldset legend="RESUMEN" id="resumen">
-                                                        <table style="width:700px !important;">
+                                                        <table>
                                                             <tr>
                                                                 <td>Monto Total Aprobado</td>
                                                                 <td>
@@ -663,7 +663,7 @@
                                                         </tr>
                                                          
                                                         <tr>
-                                                            <td align="left">
+                                                            <td align="left" style="white-space:normal;">
                                                                 <h:outputText value="Nro. Documento de Formalizacion"/>
                                                             </td>
                                                             <td align="left">
