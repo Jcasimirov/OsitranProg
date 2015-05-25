@@ -42,18 +42,16 @@ public class AdendaTipoDAOImpl implements AdendaTipoDAO {
     public String insert(AdendaTipo adendaTipo) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Transaction tx=null;
+        
         try {
-            tx=session.beginTransaction();
+           session.beginTransaction();
             session.persist(adendaTipo);
-            tx.commit();
+            
         } catch (Exception e) {
-            if (tx!=null) {
-                tx.rollback();
-            }
+          
             result=e.getMessage();
         } finally {
-            session.close();
+           
         }
         return result;
     }
