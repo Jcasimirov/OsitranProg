@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
 import org.hibernate.Transaction;
 
 import org.springframework.stereotype.Repository;
@@ -283,5 +282,28 @@ public class ContratoInversionDAOImpl implements ContratoInversionDAO {
             session.close();
 	}
         return noExiste;
+    }
+    public boolean validaInversionNoEstaEnUso(Integer idInversion)throws Exception{
+        boolean estaenUso=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query =
+                session.createQuery(" SELECT count(M.invId) FROM ValorizacionInversionAvanceDetalle M "+
+                                     " WHERE M.invId = " + idInversion);
+            Long result=(Long)query.uniqueResult();
+            if(result>0L)
+                estaenUso=true;
+            tx.commit();
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return estaenUso;
     }
 }

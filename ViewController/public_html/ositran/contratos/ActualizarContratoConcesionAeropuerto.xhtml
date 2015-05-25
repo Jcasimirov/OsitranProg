@@ -1697,7 +1697,7 @@
                                                     <p:column headerText="INFRAESTRUCTURAS">
                                                         <h:outputText value="#{tinfra.infNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Editar" style="width:4%">
+                                                    <p:column headerText="Editar" style="width:8%">
                                                         <center>
                                                             <p:commandButton actionListener="#{actualizarContratoMB.cargarListaInversiones}"
                                                             update=":tab:frmAgregarInversion" oncomplete="popupAgregarInversion.show();"
@@ -1706,7 +1706,7 @@
                                                             </p:commandButton>
                                                         </center>
                                                     </p:column>
-                                                      <p:column headerText="Eliminar" style="width:4%">
+                                                      <p:column headerText="Eliminar" style="width:8%">
                                                         <center>
                                                             <p:commandButton 
                                                             actionListener="#{actualizarContratoMB.cargarEliminarInfraestructura}"
@@ -1721,7 +1721,7 @@
                                     </tr>
                                 </table>
                             </h:form>
-                             <p:dialog widgetVar="popupEliminarInversion" header="Eliminar Infraestructura" 
+                             <p:dialog widgetVar="popupEliminarInfraestructuraConInversiones" header="Eliminar Infraestructura" 
                                       modal="true" appendToBody="true" position="center" >
                                       <table style="margin-bottom:5px;font-size:11px;text-align:center">
                                       <tr>
@@ -1730,6 +1730,20 @@
                                       <tr>
                                        <td align="left"><p:commandButton value="Aceptar" actionListener="#{actualizarContratoMB.eliminarInfraestructura}" 
                                        update=":tab:frmInversion:tablaContratoConcesionInversion "/> </td>
+                                       <td align="right"><p:commandButton value="Cancelar" onclick="popupEliminarInversion.hide();"/> </td>
+                                      </tr>
+                                     
+                                      </table>
+                            </p:dialog>
+                            <p:dialog widgetVar="popupEliminarInversion" header="Eliminar Inversion" 
+                                      modal="true" appendToBody="true" position="center" >
+                                      <table style="margin-bottom:5px;font-size:11px;text-align:center">
+                                      <tr>
+                                      <td>Desea Eliminar el registro?</td>                                      
+                                      </tr>
+                                      <tr>
+                                       <td align="left"><p:commandButton value="Aceptar" actionListener="#{actualizarContratoMB.eliminarInversion()}" 
+                                       update=":tab:frmAgregarInversion:tablaContratoInversion :tab:form:mensaje"/> </td>
                                        <td align="right"><p:commandButton value="Cancelar" onclick="popupEliminarInversion.hide();"/> </td>
                                       </tr>
                                      
@@ -1775,7 +1789,7 @@
                                                 update=":tab:frmAgregarInversion"  icon="ui-icon-trash"/>
                                            
                                                 <p:commandButton id="btn_add" value="Agregar" 
-                                                update=":tab:frmAgregarInversion"
+                                                update=":tab:frmAgregarInversion :tab:form:mensaje"
                                                 actionListener="#{actualizarContratoMB.preAgregarInversion()}"
                                                 icon="ui-icon-circle-plus">
                                                     
@@ -1800,12 +1814,11 @@
                                                         <p:column headerText="Eliminar" width="40">
                                                             <center>
                                                                 <p:commandButton title="Eliminar" image="ui-icon-trash"
-                                                                                 style="width:25px;height:25px"
+                                                                                 style="width:25px;height:25px;"
+                                                                                 actionListener="#{actualizarContratoMB.cargarEliminarInversion}"
                                                                                  update=":tab:frmAgregarInversion:tablaContratoInversion"
-                                                                                 process=":tab:frmAgregarInversion:tablaContratoInversion">
-                                                                    <p:collector value="#{tInversion}"
-                                                                                 removeFrom="#{actualizarContratoMB.listContratoInversion}"
-                                                                                 unique="true"/>
+                                                                                 oncomplete="popupEliminarInversion.show();">
+                                                                    <f:attribute name="inversion" value="#{tInversion}" />
                                                                 </p:commandButton>
                                                             </center>
                                                         </p:column>

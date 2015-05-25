@@ -25,4 +25,5 @@ public interface ContratoInversionDAO {
                                                    int tinId,
                                                    int infId,
                                                 String nombreInversion)throws Exception;
+    public boolean validaInversionNoEstaEnUso(Integer idInversion)throws Exception;
 }

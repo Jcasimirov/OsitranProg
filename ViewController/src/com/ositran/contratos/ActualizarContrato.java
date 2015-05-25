@@ -1628,6 +1628,7 @@ public class ActualizarContrato {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               " No se pudo registrar la Inversion "));
+                s.printStackTrace();
 
             }
 
@@ -1639,23 +1640,48 @@ public class ActualizarContrato {
         try {
             infraestructuraVOE = (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
             contratoInversionServiceImpl.query();
-            RequestContext.getCurrentInstance().execute("popupEliminarInversion.show();");
+            RequestContext.getCurrentInstance().execute("popupEliminarInfraestructuraConInversiones.show();");
             RequestContext.getCurrentInstance().update("tab:frmAgregarInversion");
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
-
+    public void cargarEliminarInversion(ActionEvent e) throws SQLException {
+        contratoInversionVO=(ContratoInversionVO)e.getComponent().getAttributes().get("inversion");
+    }
+    public void eliminarInversion(){
+        try {
+            boolean estaEnUso=contratoInversionServiceImpl.validaInversionNoEstaEnUso(contratoInversionVO.getInvId());
+            if(estaEnUso){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                                              "No se pudo Eliminar porque la Inversión esta en uso!"));
+            }else{
+            contratoInversionVO.setInvEstado(0);
+            contratoInversionVO.setInvFechaBaja(Reutilizar.obtenerFechaActual());
+            contratoInversionVO.setInvUsuarioBaja(usuario.getUsuAlias());
+            /* contratoInversionServiceImpl.update(contratoInversionVO); */
+            listContratoInversion.remove(contratoInversionVO);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            }
+        } catch (Exception sqle) {
+            sqle.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          " No se pudo Eliminar la Inversion "));
+            
+        }
+    }
     public void eliminarInfraestructura() {
             try {
         /* ******************VALIDACIONES ABEL*****************************/
         List<ValorizacionInversionAvanceDetalleVO> listaValorizacionDetalle=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
         ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServicesImpl=new ValorizacionInversionAvanceDetalleServiceImpl();
         listaValorizacionDetalle=valorizacionInversionAvanceDetalleServicesImpl.query2(infraestructuraVOE.getInfId());
-            
-                
-        
+
         List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
         ContratoEmpresaSupervisoraService contratoSupervisoraService = new ContratoEmpresaSupervisoraServiceImpl();
         listaContratoSupervisora=  contratoSupervisoraService.query1(infraestructuraVOE.getInfId());   
@@ -1665,10 +1691,9 @@ public class ActualizarContrato {
                 if (listaValorizacionDetalle.size()>0 || listaContratoSupervisora.size()>0){
                         FacesContext.getCurrentInstance().addMessage(null,
                          new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
-                        "No se puede borrar el tipo de Inversion porque tiene dependecnia en otras tablas!"));
+                        "No se puede borrar el tipo de Inversion porque esta en uso!"));
                         RequestContext.getCurrentInstance().update("tab:form:mensaje");
-                    }
-                else {
+                }else {
                         String eliminar =
                             contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
                                                                                           infraestructuraVOE.getCsiId(),
@@ -1805,38 +1830,48 @@ public class ActualizarContrato {
      * y valida que se ingrese correctamente
      * a la Lista de inversiones Temporal **/
     public void preAgregarInversion() {
-        mensajeInversionValida = "";
-        cssInversionValida = "";
-        disableCboAeropuerto = true;
-        infraestructuraId = contratoInversionVO.getInfId();
-        boolean existe=validaSiExisteEnMemoria(contratoInversionVO.getInvDescripcion());
-        if(existe){            
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "La inversion ya existe ingrese otra"));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }else  if (contratoInversionVO.getInfId() == 0) {
-            disableCboAeropuerto = false;
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha seleccionado la Infraestructura"));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        } else if (contratoInversionVO.getInvDescripcion() == null ||
-                   contratoInversionVO.getInvDescripcion().length() == 0) {
- 
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                          "No ha ingresado el Nombre de la Inversion"));
-            RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        } else {
+        try {
+            mensajeInversionValida = "";
+            cssInversionValida = "";
+            disableCboAeropuerto = true;
+            infraestructuraId = contratoInversionVO.getInfId();
+            boolean existe = validaSiExisteEnMemoria(contratoInversionVO.getInvDescripcion());
+            if (existe) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "La inversion ya existe ingrese otra"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            } else if (contratoInversionVO.getInfId() == 0) {
+                disableCboAeropuerto = false;
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "No ha seleccionado la Infraestructura"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            } else if (contratoInversionVO.getInvDescripcion() == null ||
+                       contratoInversionVO.getInvDescripcion().length() == 0) {
 
-            listContratoInversion.add(contratoInversionVO);
-            contratoInversionVO = new ContratoInversionVO();
-            contratoInversionVO.setConId(contratoVO.getConId());
-            contratoInversionVO.setTinId(contratoVO.getTinId());
-            contratoInversionVO.setCsiId(contratoVO.getCsiId());
-            contratoInversionVO.setInfId(infraestructuraId);
-            contratoInversionVO.setInvEstado(1);
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                              "No ha ingresado el Nombre de la Inversion"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            } else {
+                contratoInversionServiceImpl.insert(contratoInversionVO);
+                listContratoInversion.add(contratoInversionVO);
+                contratoInversionVO = new ContratoInversionVO();
+                contratoInversionVO.setConId(contratoVO.getConId());
+                contratoInversionVO.setTinId(contratoVO.getTinId());
+                contratoInversionVO.setCsiId(contratoVO.getCsiId());
+                contratoInversionVO.setInfId(infraestructuraId);
+                contratoInversionVO.setInvEstado(1);
+            }
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+        } catch (SQLException sqle) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                          "Ocurrio un error durante la grabacion, no se grabó!"));
+            sqle.printStackTrace();
         }
     }
     public boolean validaSiExisteEnMemoria(String descripcionnueva){
@@ -2303,22 +2338,7 @@ public class ActualizarContrato {
     }
 
 
-    public void cargarEliminarInversion() throws SQLException {
 
-        //inicio de captura de codigo a modificar
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestMap = context.getExternalContext().getRequestParameterMap();
-        Object str = requestMap.get("idContratoInversionE");
-        Integer idcodigo = Integer.valueOf(str.toString());
-        contratoInversionVO = contratoInversionServiceImpl.get(idcodigo);
-        //fin de de captura de codigo a modificar
-        codigoInversion = contratoInversionVO.getInvId();
-        nombreInversion = contratoInversionVO.getInvDescripcion();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se Elimino con Exito");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
-
-
-    }
 
     public void cargarEliminarCao() throws SQLException {
 

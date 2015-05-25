@@ -160,4 +160,8 @@ public class ContratoInversionServiceImpl implements ContratoInversionService {
                                                                          infId,nombreInversion);
         return noExiste;                                              
     }
+    public boolean validaInversionNoEstaEnUso(Integer idInversion)throws Exception{
+      boolean noEstaEnUso=  contratoInversionDAOImpl.validaInversionNoEstaEnUso(idInversion);
+      return noEstaEnUso;
+    }
 }
