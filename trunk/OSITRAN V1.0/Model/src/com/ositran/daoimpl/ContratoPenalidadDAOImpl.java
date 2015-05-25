@@ -11,6 +11,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.hibernate.Transaction;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,26 +23,40 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
 
     @Override
     public List<ContratoPenalidad> query() throws SQLException {
-        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();    
-        List list=session.createQuery("from ContratoPenalidad cp").list();
-        session.close();
-        return list;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List list=session.createQuery("from ContratoPenalidad cp").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(ContratoPenalidad contratoPenalidad) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.save(contratoPenalidad);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
+        } finally {
+            session.close();
         }
-        session.flush();
-        session.close();
         return result;
     }
 
@@ -48,14 +64,19 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
     public String delete(Integer id) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             ContratoPenalidad contratoPenalidad=(ContratoPenalidad)session.get(ContratoPenalidad.class, id);
             session.delete(contratoPenalidad);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
+        } finally {
+            session.close();
         }
         return result;
     }
@@ -64,40 +85,60 @@ public class ContratoPenalidadDAOImpl implements ContratoPenalidadDAO {
     public String update(ContratoPenalidad contratoPenalidad) throws SQLException {
         String result=null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(contratoPenalidad);
-            session.getTransaction().commit();            
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result=e.getMessage();
+        } finally {
+            session.close();
         }
-        session.flush();
-        session.close();
         return result;
     }
 
     @Override
     public ContratoPenalidad get(Integer id) throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        ContratoPenalidad contratoPenalidad=(ContratoPenalidad)session.get(ContratoPenalidad.class, id);
-        session.getTransaction().commit();
-        return contratoPenalidad;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            ContratoPenalidad contratoPenalidad=(ContratoPenalidad)session.get(ContratoPenalidad.class, id);
+            tx.commit();
+            return contratoPenalidad;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
     
     @Override
     public List<ContratoPenalidad> getPenalidadesContrato(Integer conId) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        session.beginTransaction();
-        Query query; 
-        query = session.createQuery("FROM ContratoPenalidad cp where cp.conId = :busqueda1 and cp.tcpEstado<>0 order by tcpId DESC");
-        query.setParameter("busqueda1",conId);            
-        List<ContratoPenalidad> list = query.list();
-        session.getTransaction().commit();
-        return list;        
-              
-        
-        
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query;
+            query = session.createQuery("FROM ContratoPenalidad cp where cp.conId = :busqueda1 and cp.tcpEstado<>0 order by tcpId DESC");
+            query.setParameter("busqueda1",conId);            
+            List<ContratoPenalidad> list = query.list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }  
 }
