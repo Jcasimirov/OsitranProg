@@ -186,5 +186,8 @@ public class Reutilizar {
         catch( Exception e )
           { throw new IllegalArgumentException( source.getClass().getName(), e ); }
       }
-
+    public static Date obtenerFechaActual(){
+        Date fecha=new Date();
+        return fecha; 
+    }
 }
