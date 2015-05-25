@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     public ContratoJefeAreaDAOImpl() {
@@ -21,22 +22,40 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     @SuppressWarnings("unchecked")
     public List<ContratoJefeArea> query() {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        return session.createCriteria(ContratoJefeArea.class).list();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            List a=session.createCriteria(ContratoJefeArea.class).list();
+            tx.commit();
+            return a;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public String insert(ContratoJefeArea contratoJefeArea) {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.save(contratoJefeArea);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
@@ -50,22 +69,39 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     public String update(ContratoJefeArea contratoJefeArea) {
         String result = null;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
         try {
-            session.beginTransaction();
+            tx=session.beginTransaction();
             session.update(contratoJefeArea);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx!=null) {
+                tx.rollback();
+            }
             result = e.getMessage();
-        }
+        } finally {
+            session.close();
+	}
         return result;
     }
 
     @Override
     public ContratoJefeArea get(Integer id) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-       ContratoJefeArea contratoJefeArea = (ContratoJefeArea) session.get(ContratoJefeArea.class, id);
-        return contratoJefeArea;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            ContratoJefeArea contratoJefeArea = (ContratoJefeArea) session.get(ContratoJefeArea.class, id);
+            tx.commit();
+            return contratoJefeArea;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -83,11 +119,23 @@ public class ContratoJefeAreaDAOImpl implements ContratoJefeAreaDAO{
     @Override
     public List<ContratoJefeArea> query1(int filtro) {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Query query;
-        List list;
-        query=session.createQuery("FROM ContratoJefeArea  E WHERE E.conId=:filtro");
-        query.setParameter("filtro",filtro );
-        list= query.list();   
-        return list;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query;
+            List list;
+            query=session.createQuery("FROM ContratoJefeArea  E WHERE E.conId=:filtro");
+            query.setParameter("filtro",filtro );
+            list= query.list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }
