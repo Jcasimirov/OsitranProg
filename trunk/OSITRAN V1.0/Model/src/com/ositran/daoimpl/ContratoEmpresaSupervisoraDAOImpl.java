@@ -3,10 +3,11 @@ package com.ositran.daoimpl;
 import com.ositran.dao.ContratoEmpresaSupervisoraDAO;
 import com.ositran.model.ContratoSupervisora;
 import com.ositran.util.HibernateUtil;
+
 import java.sql.SQLException;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -43,6 +44,49 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
         return list;
     }
 
+    @Override
+    public List<ContratoSupervisora> query3(int cosigoInversion) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession(); 
+        Query query;
+        List<ContratoSupervisora> list = null;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+           query= session.createQuery("from ContratoSupervisora c where c.cpsEstado <> 0 and c.invId=:codigoInfra");;
+            query.setParameter("codigoInfra",cosigoInversion);
+            return query.list();
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            System.out.println(e);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+    @Override
+    public List<ContratoSupervisora> query1(int codigoInfra) throws SQLException {
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession(); 
+        Query query;
+        List<ContratoSupervisora> list = null;
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+           query= session.createQuery("from ContratoSupervisora c where c.cpsEstado <> 0 and c.infId=:codigoInfra");;
+            query.setParameter("codigoInfra",codigoInfra);
+            return query.list();
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            System.out.println(e);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+    
     @Override
     public int insert(ContratoSupervisora contratoSupervisora) throws SQLException {
         String result=null;
@@ -178,5 +222,7 @@ public class ContratoEmpresaSupervisoraDAOImpl implements ContratoEmpresaSupervi
             session.close();
         }
     }
+
+
 
 }
