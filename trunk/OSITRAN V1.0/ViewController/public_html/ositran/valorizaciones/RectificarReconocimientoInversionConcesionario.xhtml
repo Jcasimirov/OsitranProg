@@ -107,7 +107,7 @@
                                                       style="text-transform:uppercase;"/>
                                     </p:column>
                                     
-                                    <p:column headerText="Seleccionar" style="width:6%">
+                                    <p:column headerText="Seleccionar" >
                                         <div align="center">
                                             <p:commandButton icon="ui-icon-check"
                                                              actionListener="#{rectificarInversion.seleccionarContrato}"
@@ -518,7 +518,7 @@
                                                                 <td>
                                                                     <p:inputText id="resumenMonRea"
                                                                                  value="#{rectificarInversion.invVO.invMontoTotalReajuste}"
-                                                                                 />
+                                                                                 onfocus="this.blur()"/>
                                                                 </td>
                                                                 <td>Montos con IGV?</td>
                                                                 <td>
