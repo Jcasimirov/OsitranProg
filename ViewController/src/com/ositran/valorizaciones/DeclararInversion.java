@@ -370,9 +370,9 @@ public class DeclararInversion {
 
     }
 
-    public void cargarPeriodos() throws Exception {
+    public void cargarPeriodos(){
         try {
-            listaContratoCompromiso = contratoCompromisoServiceImpl.getCompromisosContrato(contratoVO.getConId());
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(contratoVO.getConId());
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
