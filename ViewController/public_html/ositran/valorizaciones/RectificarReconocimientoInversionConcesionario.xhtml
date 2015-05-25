@@ -106,24 +106,7 @@
                                         <h:outputText value="#{contrato11.nombreConcesion}"
                                                       style="text-transform:uppercase;"/>
                                     </p:column>
-                                    <p:column headerText="Ver Contrato" style="width:5%">
-                                        <div align="center">
-                                            <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
-                                                             rendered="#{contrato11.conPdfcontrato ne null}"
-                                                             actionListener="#{rectificarInversion.preDownloadContratoPDF(contrato11.conPdfcontrato)}">
-                                                <p:fileDownload value="#{rectificarInversion.downloadContratoPDF}"></p:fileDownload>
-                                            </p:commandButton>
-                                        </div>
-                                    </p:column>
-                                    <p:column headerText="Ver Ficha" style="width:5%">
-                                        <div align="center">
-                                            <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
-                                                             rendered="#{contrato11.conFicharesumen ne null}"
-                                                             actionListener="#{rectificarInversion.preDownloadFichaResumen(contrato11.conFicharesumen)}">
-                                                <p:fileDownload value="#{rectificarInversion.downloadFichaResumen}"></p:fileDownload>
-                                            </p:commandButton>
-                                        </div>
-                                    </p:column>
+                                    
                                     <p:column headerText="Seleccionar" style="width:6%">
                                         <div align="center">
                                             <p:commandButton icon="ui-icon-check"
@@ -529,7 +512,7 @@
                                                                 <td>
                                                                     <p:inputText id="resumenMonPre"
                                                                                  value="#{rectificarInversion.invVO.invMontoTotalAprobado}"
-                                                                                 />
+                                                                                 onfocus="this.blur()"/>
                                                                 </td>
                                                                 <td>Monto Total con Reajuste</td>
                                                                 <td>
