@@ -355,18 +355,18 @@ public class RegistrarRevisionSupervisorMB {
             valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
             
             invAvnDerivadaVO=invAvnDerivadaServiceImpl.get1(valorizacionInversionAvanceVO.getTiaNumero());
-            /*
+            
             if (invAvnDerivadaVO.getIadTipoSup()==1){
              supervisorInversionesVO=supervisorInversionesServiceImpl.get(invAvnDerivadaVO.getSupID());   
              nombreRevisor=supervisorInversionesVO.getTsiNombre();
                 }
             
             if (invAvnDerivadaVO.getIadTipoSup()==2){
-                    empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getSupID());   
+                    empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getTsiID());   
                     nombreRevisor=empresaSupervisoraVO.getSupNombre();
                 }
             
-           */
+         
             /*
             invAvnDerivadaVO=invAvnDerivadaServiceImpl.getAvanceInversion(detalle);
             System.out.println(invAvnDerivadaVO.getIadTipoSup());
@@ -381,7 +381,7 @@ public class RegistrarRevisionSupervisorMB {
                 }
             */
           
-            nombreRevisor="IVAN OSUSKY";
+            
             anio = valorizacionInversionAvanceVO.getTiaAnyo();
             listValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.query1(detalle);
             for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 : listValorizacionInversionAvanceDetalleVO) {
