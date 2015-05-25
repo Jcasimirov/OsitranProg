@@ -1,10 +1,6 @@
 
               
  function pasarMayuscula(obj, id) {
-                  if (tecla == 8)
-                      return true;// backspace
-                  if (tecla == 32)
-                      return true;// espacio
                   obj = obj.toUpperCase();
                   document.getElementById(id).value = obj;   
               }
