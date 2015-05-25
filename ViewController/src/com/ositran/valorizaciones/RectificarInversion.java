@@ -900,7 +900,7 @@ public class RectificarInversion {
                         }
                         System.out.println("InvReconocimientoVO--invAvnDetalle.getInvId()========##" +
                                            invAvnDetalle.getInvId());
-                        aux.setNombreInversion((nombreInversionMemoria.get("" + invAvnDetalle.getInvId()) != 0) ?
+                        aux.setNombreInversion((nombreInversionMemoria.get("" + invAvnDetalle.getInvId()).toString().length()==0) ?
                                                (nombreInversionMemoria.get("" + invAvnDetalle.getInvId()).toString()) : "");
                     }
                 }
@@ -920,7 +920,7 @@ public class RectificarInversion {
                         }
                         System.out.println("InvReajusteVO--invAvnDetalle.getInvId()========##" +
                                            invAvnDetalle.getInvId());
-                        aux.setNombreInversion((nombreInversionMemoria.get("" + invAvnDetalle.getInvId()) != 0) ?
+                        aux.setNombreInversion((nombreInversionMemoria.get("" + invAvnDetalle.getInvId()).toString().length() == 0) ?
                                                (nombreInversionMemoria.get("" + invAvnDetalle.getInvId()).toString()) : "");
                     }
                 }
