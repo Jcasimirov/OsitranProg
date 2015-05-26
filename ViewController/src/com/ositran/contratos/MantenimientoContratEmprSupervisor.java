@@ -74,7 +74,7 @@ public class MantenimientoContratEmprSupervisor {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        tipoInfraestructura = usuario.getTinId();
     }
 
     private int codigoEliminar;
