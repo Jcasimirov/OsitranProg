@@ -21,7 +21,6 @@ public class UsuarioVO{
     private String usuUsuarioBaja;
     private String usuUsuarioCambio;
     private int contador;
-    private Integer supInvId;
     private Integer tinId;
   
     
@@ -36,7 +35,7 @@ public class UsuarioVO{
     public UsuarioVO(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
                      Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio,
                      Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
-                     String usuUsuarioCambio, int contador, Integer supInvId, Integer tinId, String nombreRol,
+                     String usuUsuarioCambio, int contador, Integer tinId, String nombreRol,
                      String nombreInfra) {
         super();
         this.rolId = rolId;
@@ -56,7 +55,6 @@ public class UsuarioVO{
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
         this.contador = contador;
-        this.supInvId = supInvId;
         this.tinId = tinId;
         this.nombreRol = nombreRol;
         this.nombreInfra = nombreInfra;
@@ -196,14 +194,6 @@ public class UsuarioVO{
 
     public int getContador() {
         return contador;
-    }
-
-    public void setSupInvId(Integer supInvId) {
-        this.supInvId = supInvId;
-    }
-
-    public Integer getSupInvId() {
-        return supInvId;
     }
 
     public void setTinId(Integer tinId) {
