@@ -77,7 +77,7 @@ public class Logueo {
                     session.setAttribute("listaPermisos", listaRolOpciones);
                     session.setAttribute("listaUsuario", listaUsuario);
                     session.setAttribute("atributosUsuario", usuario);
-                    session.setAttribute("atributosEmpleado", supervisorInversionesServiceImpl.getSupervisorInversiones(usuario.getSupInvId()));                   
+                    //session.setAttribute("atributosEmpleado", supervisorInversionesServiceImpl.getSupervisorInversiones(usuario.getSupInvId()));                   
                      String redirectPath = "/faces/ositran/principal.xhtml";
                      externalContext.redirect(servletContext.getContextPath() + redirectPath);
                 }
