@@ -451,4 +451,11 @@ public class MantenimientoModalidadConcesionMB {
     }
 
 
+    public void setUtil(Util util) {
+        this.util = util;
+    }
+
+    public Util getUtil() {
+        return util;
+    }
 }
