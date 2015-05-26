@@ -46,6 +46,7 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
@@ -75,10 +76,12 @@ public class RegistrarRevisionSupervisorMB {
     MonedaVO monedaVO = new MonedaVO();
     public final int formulario = 37;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
     private int tipoInfraestructuraGlobal;
 
     public void validarSesion() throws IOException {
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructuraGlobal = usuario.getTinId();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
@@ -1517,6 +1520,14 @@ public class RegistrarRevisionSupervisorMB {
 
     public int getTipoInfraestructuraGlobal() {
         return tipoInfraestructuraGlobal;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
     }
 
 }
