@@ -224,6 +224,7 @@ public class RectificarInversion {
     ContratoCompromisoVO contratoCompromisoVO;
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         tipoInfraestructura = usuario.getTinId();
         System.out.println("tipoInfraestructura:" + tipoInfraestructura);
