@@ -327,7 +327,7 @@ public class ActualizarContrato {
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        tipoInfraestructura = usuario.getTinId();
     }
 
     public ActualizarContrato() {
