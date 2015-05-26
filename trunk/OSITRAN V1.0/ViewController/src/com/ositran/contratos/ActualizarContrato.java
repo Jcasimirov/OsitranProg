@@ -3260,7 +3260,7 @@ public class ActualizarContrato {
     }
 
     public void actualizarTotalSup(AjaxBehaviorEvent event) {
-        if (incIgv == 1) {
+        if (incIgvSup == 1) {
             calculaTotalSupervisado(event);
         } else {
             contratoNuevoCompromisoSupervisadoVO.setCcoTotal(contratoNuevoCompromisoSupervisadoVO.getCcoNeto());
@@ -3271,6 +3271,7 @@ public class ActualizarContrato {
         if (incIgvSup == 1) {
             activaIGVSup = false;
         } else {
+            contratoNuevoCompromisoSupervisadoVO.setCcoTotal(contratoNuevoCompromisoSupervisadoVO.getCcoNeto());
             contratoNuevoCompromisoSupervisadoVO.setCcoIgv(null);
             contratoNuevoCompromisoSupervisadoVO.setPorIgv(null);
             activaIGVSup = true;
