@@ -2,6 +2,7 @@ package com.ositran.parametros;
 
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.util.ControlAcceso;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.faces.bean.ManagedProperty;
 
 import com.ositran.util.Util;
 import com.ositran.vo.bean.RolOpcionesVO;
+
+import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
 
@@ -38,7 +41,9 @@ public class MantenimientoTipoInfraestructura {
     private String tinDescripcionE;
     public final int formulario = 9;
     private RolOpcionesVO rolOpcion;
-
+    private UsuarioVO usuario;
+    private int tipoInfraestructura;
+    private int tipoInfraestructuraGlobal;  
 
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
@@ -48,8 +53,11 @@ public class MantenimientoTipoInfraestructura {
 
 
     public void validarSesion() throws IOException {
-
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura = usuario.getTinId();
+        
     }
 
 
@@ -100,6 +108,7 @@ public class MantenimientoTipoInfraestructura {
                 infraestructuraTipoVO.setTinEstado(1);
                 infraestructuraTipoVO.setTinFechaAlta(util.getObtenerFechaHoy());
                 infraestructuraTipoVO.setTinTerminal(util.obtenerIpCliente());
+                infraestructuraTipoVO.setTinUsuarioAlta(usuario.getUsuAlias());
                 getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
                 RequestContext.getCurrentInstance().execute("popupagregar.hide()");
                 limpiar();
@@ -137,6 +146,7 @@ public class MantenimientoTipoInfraestructura {
             infraestructuraTipoVO.setTinEstado(1);
             infraestructuraTipoVO.setTinDescripcion(tinDescripcionE.toUpperCase());
             infraestructuraTipoVO.setTinFechaCambio(new Date());
+            infraestructuraTipoVO.setTinUsuarioCambio(usuario.getUsuAlias());
             getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
             ListarInfraestructura();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -159,7 +169,6 @@ public class MantenimientoTipoInfraestructura {
         try {
             listaInfraestructura = getInfraestructuraTipoServiceImpl().query();
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
 
@@ -322,4 +331,27 @@ public class MantenimientoTipoInfraestructura {
         return rolOpcion;
     }
 
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setTipoInfraestructura(int tipoInfraestructura) {
+        this.tipoInfraestructura = tipoInfraestructura;
+    }
+
+    public int getTipoInfraestructura() {
+        return tipoInfraestructura;
+    }
+
+    public void setTipoInfraestructuraGlobal(int tipoInfraestructuraGlobal) {
+        this.tipoInfraestructuraGlobal = tipoInfraestructuraGlobal;
+    }
+
+    public int getTipoInfraestructuraGlobal() {
+        return tipoInfraestructuraGlobal;
+    }
 }
