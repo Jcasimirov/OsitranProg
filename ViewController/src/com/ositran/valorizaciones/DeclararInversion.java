@@ -216,7 +216,7 @@ public class DeclararInversion {
     public void validarSesion() throws IOException {
         setRolOpcion(ControlAcceso.getNewInstance().validarSesion(formulario));
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
-        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        setTipoInfraestructura(usuario.getTinId());
         invVO.setInvEstadoReconocimiento(-1);
     }
     // Metodo para Buscar Contrato de Concesion y llenar los demas tabs
