@@ -3885,4 +3885,72 @@ public class ActualizarContrato {
     public String getCssInversionValida() {
         return cssInversionValida;
     }
+
+    public void setPeriodosCache(HashMap<Integer, Integer> periodosCache) {
+        this.periodosCache = periodosCache;
+    }
+
+    public HashMap<Integer, Integer> getPeriodosCache() {
+        return periodosCache;
+    }
+
+    public void setInfraestructurasCache(HashMap<String, Object> infraestructurasCache) {
+        this.infraestructurasCache = infraestructurasCache;
+    }
+
+    public HashMap<String, Object> getInfraestructurasCache() {
+        return infraestructurasCache;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setIdAdendaEliminar(ContratoAdendaVO idAdendaEliminar) {
+        this.idAdendaEliminar = idAdendaEliminar;
+    }
+
+    public ContratoAdendaVO getIdAdendaEliminar() {
+        return idAdendaEliminar;
+    }
+
+    public void setIdEntregaEliminar(ContratoEntregaVO idEntregaEliminar) {
+        this.idEntregaEliminar = idEntregaEliminar;
+    }
+
+    public ContratoEntregaVO getIdEntregaEliminar() {
+        return idEntregaEliminar;
+    }
+
+    public void setIdCompromisoEliminarI(ContratoCompromisoVO idCompromisoEliminarI) {
+        this.idCompromisoEliminarI = idCompromisoEliminarI;
+    }
+
+    public ContratoCompromisoVO getIdCompromisoEliminarI() {
+        return idCompromisoEliminarI;
+    }
+
+    public void setIdCompromisoEliminarS(ContratoCompromisoVO idCompromisoEliminarS) {
+        this.idCompromisoEliminarS = idCompromisoEliminarS;
+    }
+
+    public ContratoCompromisoVO getIdCompromisoEliminarS() {
+        return idCompromisoEliminarS;
+    }
+
+    public void setIdPenalidadEliminar(ContratoPenalidadVO idPenalidadEliminar) {
+        this.idPenalidadEliminar = idPenalidadEliminar;
+    }
+
+    public ContratoPenalidadVO getIdPenalidadEliminar() {
+        return idPenalidadEliminar;
+    }
+
+    public void setFechaMaxima(Date fechaMaxima) {
+        this.fechaMaxima = fechaMaxima;
+    }
 }
