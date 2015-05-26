@@ -442,8 +442,13 @@ public class RegistrarAvanceInversionMB {
             } else if (codigoInversionDescripcion == 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
-                                                                              "DEBE SELECIONAR CONCEPTO"));
-            
+                                                                        "DEBE SELECIONAR CONCEPTO"));
+            }
+                else if (inicioPeriodo.compareTo(finPeriodo)>=0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "LA FECHA DE FIN DEBE SER MAYOR A LA FECHA DE INICIO"));
+                
             } else {
 
                 ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 = new ValorizacionInversionAvanceDetalleVO();
