@@ -62,11 +62,10 @@ public class AsignarResponsableSupervision {
     private String ipcliente;
 
     public void validarSesion() throws IOException{
-      
-        rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
-        setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
-        setTipoInfraestructura(usuario.getTinId());
-        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
+            rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
+            setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
+            setTipoInfraestructura(usuario.getTinId());
+            
         }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
