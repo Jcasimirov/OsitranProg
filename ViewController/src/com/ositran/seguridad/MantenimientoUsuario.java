@@ -44,8 +44,8 @@ public class MantenimientoUsuario {
     
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        usuario =  Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructura = usuario.getTinId();
     }
     
     
