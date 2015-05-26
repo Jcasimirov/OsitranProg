@@ -4,17 +4,9 @@ function pasarMayuscula(obj, id) {
 }
 
 function pasarMinuscula(obj, id) {
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla == 8)
-        return true;// backspace
-    if (tecla == 32)
-        return true;// espacio
-    if (tecla == 9)
-        return true;// tab
     obj = obj.toLowerCase();
     document.getElementById(id).value = obj;
 }
-
 function validarLetras(e) {
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla == 8)
@@ -113,4 +105,57 @@ $(document).unbind('keydown').bind('keydown', function (event) {
     else {
         return true;
     }
+});
+
+function getCaretPosition(ctrl) {
+    var CaretPos = 0;    // IE Support
+    if (document.selection) {
+        ctrl.focus();
+        var Sel = document.selection.createRange();
+        Sel.moveStart('character', -ctrl.value.length);
+        CaretPos = Sel.text.length;
+    }
+    // Firefox support
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
+        CaretPos = ctrl.selectionStart;
+    }
+
+    return CaretPos;
+}
+
+function setCaretPosition(ctrl, pos) {
+    if (ctrl.setSelectionRange) {
+        ctrl.focus();
+        ctrl.setSelectionRange(pos,pos);
+    }
+    else if (ctrl.createTextRange) {
+        var range = ctrl.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pos);
+        range.moveStart('character', pos);
+        range.select();
+    }
+}
+
+$(function() {
+    $('input').keyup(function(e) {
+    var caretPosition = getCaretPosition(this);
+     tecla = (document.all) ? e.keyCode : e.which;
+    if(tecla == 37 || tecla == 38 || tecla == 39 || tecla == 40 || tecla == 46 || tecla == 32|| tecla == 8) {
+        return;
+    }
+        this.value = this.value.toLocaleUpperCase();
+        setCaretPosition(this, caretPosition);
+    });
+});
+$(function() {
+    $('TEXTAREA').keyup(function(e) {
+    var caretPosition = getCaretPosition(this);
+     tecla = (document.all) ? e.keyCode : e.which;
+    if(tecla == 37 || tecla == 38 || tecla == 39 || tecla == 40 || tecla == 46 || tecla == 32|| tecla == 8) {
+        return;
+    }
+        this.value = this.value.toLocaleUpperCase();
+        setCaretPosition(this, caretPosition);
+    });
 });

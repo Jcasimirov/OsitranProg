@@ -338,7 +338,7 @@
                                                         <tr>
                                                             <td align="left" >Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea cols="50" onkeyup="pasarMayuscula(this.value,this.id);"
+                                                                <p:inputTextarea cols="50" 
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
                                                         </tr>
@@ -545,7 +545,7 @@
                                                                 <p:inputText value="#{rectificarInversion.invVO.invNumeroInforme}"
                                                                              
                                                                              size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                     />
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -567,7 +567,7 @@
                                                                 <p:inputText value="#{rectificarInversion.invVO.invRegSalidaInforme}"
                                                                              
                                                                              size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                     />
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -581,7 +581,7 @@
                                                                 <p:inputText value="#{rectificarInversion.invVO.invNumeroOficio}"
                                                                              
                                                                              size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                     />
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -603,7 +603,7 @@
                                                                 <p:inputText value="#{rectificarInversion.invVO.invRegSalidaOficio}"
                                                                              
                                                                              size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                     />
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -615,7 +615,7 @@
                                                                 <p:inputText id="tipoCambio"
                                                                              value="#{rectificarInversion.invVO.invNotaTipoCambio}"
                                                                              disabled="#{rectificarInversion.invAvnVO.monId ne 1}"
-                                                                             onkeyup="pasarMayuscula(this.value,this.id);" style="width:250px !important;" ></p:inputText>
+                                                                              style="width:250px !important;" ></p:inputText>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"
                                                                               rendered="#{rectificarInversion.invAvnVO.monId eq 1}"/>
@@ -651,7 +651,7 @@
                                                             </td>
                                                             <td align="left">
                                                                 <p:inputText value="#{rectificarInversion.invVO.invNroDocFormalizacion}" size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                     />
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
