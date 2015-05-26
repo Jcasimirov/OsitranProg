@@ -59,6 +59,7 @@ public class RegistrarContratoMB {
     private String ipcliente;
 
     public void validarSesion() throws IOException {
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
         setTipoInfraestructura(usuario.getTinId());
