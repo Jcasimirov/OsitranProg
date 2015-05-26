@@ -60,6 +60,7 @@ public class MantenimientoEmpSup {
     private String ipcliente;
 
     public void validarSesion() throws IOException {
+        
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
         setTipoInfraestructura(usuario.getTinId());
