@@ -153,7 +153,7 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuEstado(1);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuFechaAlta(new Date());
-            usuarioVO.setUsuUsuarioAlta("jim Alta");
+            usuarioVO.setUsuUsuarioAlta(usuario.getUsuAlias());
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
             listanombrerol();
@@ -172,7 +172,7 @@ public class MantenimientoUsuario {
             usuarioVO.setUsuEstado(2);
             usuarioVO.setUsuFechaCambio(new Date());
             usuarioVO.setUsuFechaBaja(new Date());
-            usuarioVO.setUsuUsuarioBaja("jim Baja");
+            usuarioVO.setUsuUsuarioBaja(usuario.getUsuAlias());
             getUsuarioServiceImpl().update(usuarioVO);
             ListarUsuario();
             listanombrerol();
@@ -223,7 +223,6 @@ public class MantenimientoUsuario {
                 usuarioVO.setUsuCorreo(usuCorreo);
                 usuarioVO.setRolId(codigoROl);
                 usuarioVO.setTinId(infraestructuraSeleccionada);
-                usuarioVO.setSupInvId(infraestructuraSeleccionada);
                 usuarioVO.setUsuEstado(1);
                 usuarioVO.setUsuUsuarioAlta(usuario.getUsuAlias());
                 usuarioVO.setUsuFechaAlta(util.getObtenerFechaHoy());
