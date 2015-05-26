@@ -32,6 +32,7 @@ import com.ositran.vo.bean.InversionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
@@ -102,7 +103,8 @@ public class EditarAvanceInversionMB {
     public final int formulario = 32;
     private RolOpcionesVO rolOpcion;
     private Date fechaVencimiento;
-
+    private UsuarioVO usuario;
+    
     //CALENDARIO
     private boolean diasCalendario=false;
     private boolean diasHabiles=false;
@@ -199,8 +201,10 @@ public class EditarAvanceInversionMB {
 
 
     public void validarSesion() throws IOException {
+                
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
+        tipoInfraestructuraGlobal = usuario.getTinId();
     }
 
     public void desDiasHabiles() {
@@ -1309,6 +1313,14 @@ public class EditarAvanceInversionMB {
 
     public int getTipoInfraestructuraGlobal() {
         return tipoInfraestructuraGlobal;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
     }
 
 }
