@@ -5,7 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-         <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+
             </h:head>
     <h:body>    
       <f:event listener="#{derivarReconocimientoSupervisorMB.validarSesion}" type="preRenderComponent"></f:event>
@@ -19,7 +21,7 @@
             <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
             
-                    <div align="center" ><h5 class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR <h:outputText rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /></h5></div>
+                    <div class="titulo5">DERIVAR RECONOCIMIENTO SUPERVISOR <h:outputText rendered="#{derivarReconocimientoSupervisorMB.tipoInfraestructuraGlobal eq 2}"  value="(AEROPUERTO)" /></div>
 		<table style="font-size: 11px">
 			<tr>    
                             <td valign="top">
@@ -177,7 +179,7 @@
                                  <p:dataTable paginatorPosition="bottom"  rows="10"   emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceVO}"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="inversionAvance" >
                                     <p:column headerText="Num Val" style="width:50px">
                                        <h:outputText value="#{inversionAvance.tiaNumero}" />
@@ -215,7 +217,7 @@
                                 
                                  <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaDV" 
                                              var="vaDetalle" 
                                              value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceDetalleVO}">
@@ -245,7 +247,7 @@
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                                     </td>
                                     <td>Reg. Salida</td>
-                                    <td><p:inputText onkeyup="pasarMayuscula(this.value,this.id)"  value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
+                                    <td><p:inputText  value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
                                      <img src="../../images/obligatorio.gif"  style="vertical-align: top;"/> </td>
                                     <td colspan="2">Fecha de Emisión:</td>
                                     <td><p:calendar locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />

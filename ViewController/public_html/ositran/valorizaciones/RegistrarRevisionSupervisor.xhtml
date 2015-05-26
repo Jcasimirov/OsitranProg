@@ -15,7 +15,7 @@
             <p:layoutUnit position="center" style="border:0px">
             <ui:include src="/ositran/util/menuOpciones.xhtml"/>
             <div align="center" >
-            <div align="center" ><h5 class="titulo5">REGISTRAR REVISION SUPERVISOR</h5></div>
+            <div class="titulo5">REGISTRAR REVISION SUPERVISOR</div>
 		<table style="font-size: 11px">
 			<tr>
 				<td valign="top">
@@ -134,7 +134,7 @@
                                  <p:dataTable paginatorPosition="bottom"  rows="10"   emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              value="#{registrarRevisionSupervisorMB.listValorizacionInversionAvanceVO}"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLV" var="inversionAvance1" >
                                     <p:column headerText="Nur Val" style="width:50px">
                                        <h:outputText value="#{inversionAvance1.tiaNumero}" />
@@ -201,7 +201,7 @@
                                             </tr>
                                    	 <tr>
                                                 <td>Observaciones:</td>
-                                                 <td><p:inputTextarea  onkeyup="pasarMayuscula(this.value,this.id)"    style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
+                                                 <td><p:inputTextarea style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
                                             </tr>
                                              
                                              
@@ -275,7 +275,7 @@
                      <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado :form:nombreSupervisor" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
                       </div>
                 </p:layoutUnit>
-                 <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                      <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
                                 <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
@@ -286,7 +286,7 @@
                     
                             <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="lisContratos1"
                                              value="#{registrarRevisionSupervisorMB.listaContratos}">
                                  <p:column headerText="ID" style="width:5px">

@@ -5,10 +5,10 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
         <h:body>
-
-            <script src="../../js/validaciones.js" type="text/javascript"></script>
             <f:event listener="#{registrarAvanceInversionMB.limpiarTodo()}" type="preRenderComponent"></f:event>
             <f:event listener="#{registrarAvanceInversionMB.cargarMoneda()}" type="postAddToView"></f:event>
             <f:event listener="#{registrarAvanceInversionMB.validarSesion}" type="preRenderComponent"></f:event>
@@ -20,12 +20,13 @@
                         <p:growl id="mensaje" showDetail="true" life="10000"/>
                         <div align="center">
                             <div align="center">
-                                <h5 class="titulo5">
+                                <div class="titulo5">
                                     REGISTRAR AVANCE INVERSI&#211;N
                                     <h:outputText rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}"
                                                   value="(AEROPUERTO)"/>
-                                </h5>
+                                </div>
                             </div>
+                            <br></br>
                             <table style="font-size: 11px">
                                 <tr>
                                     <td valign="top">
@@ -325,7 +326,7 @@
                                                     <tr>
                                                         <td>Descripci&#243;n</td>
                                                         <td colspan="5">
-                                                            <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                                            <p:inputText 
                                                                          style="width:345px"
                                                                          value="#{registrarAvanceInversionMB.descripcionValorizacionDetalle}"/>
                                                         </td>
@@ -350,6 +351,7 @@
                                         <div align="center">
                                             <p:dataTable rowIndexVar="rowId" paginatorPosition="bottom" rows="10"
                                                          emptyMessage="NO SE ENCONTRARON DATOS"
+                                                         rowsPerPageTemplate="5,10,20" 
                                                          style="font-size:9px;width:90%" id="tablaVS" var="valSup"
                                                          value="#{registrarAvanceInversionMB.listValorizacionInversionAvanceDetalleVO}">
                                                 <p:column rendered="#{registrarAvanceInversionMB.tipoInfraestructuraGlobal eq 2}"
@@ -464,7 +466,7 @@
                         <p:dialog width="40%" header="Lista Contratos" widgetVar="panelListaContratos"
                                   id="panelListaContratos" style="text-align:center;">
                             <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                         paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px"
+                                         paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px"
                                          id="tablaLC" var="lisContratos1"
                                          value="#{registrarAvanceInversionMB.listaContratos}">
                                 <p:column headerText="ID" style="width:5px">
@@ -489,6 +491,10 @@
                         </p:dialog>
                     </h:form>
                 </p:layoutUnit>
+                 <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
             </p:layout>
         </h:body>
     </html>
