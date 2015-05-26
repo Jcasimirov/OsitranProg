@@ -78,7 +78,7 @@ public class NotificarInversion {
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
-        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        setTipoInfraestructura(usuario.getTinId());
         ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
     }
 
