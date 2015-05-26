@@ -552,7 +552,7 @@ public class RegistrarContratoMB {
         try {
             concesionarioVO = concesionarioServiceImpl.get(idConcesionario);
             nombreConcesionarioBus = concesionarioVO.getCncNombre();
-            siglasConcesionarioBus = concesionarioVO.getCncDescripcion();
+            siglasConcesionarioBus = concesionarioVO.getCncSiglas();
             direccionConcesionarioBus = concesionarioVO.getCncDireccion();
             concesionario = concesionarioVO.getCncId();
         } catch (Exception e) {
