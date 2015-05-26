@@ -54,8 +54,8 @@ public class MantenimientoTipoInfraestructura {
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructuraGlobal = usuario.getTinId(); 
         tipoInfraestructura = usuario.getTinId();
         
     }
