@@ -40,6 +40,7 @@ import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
@@ -212,9 +213,10 @@ public class RegistrarAvanceInversionMB {
     @ManagedProperty(value = "#{igvServiceImpl}")
     IgvService igvServiceImpl;
 
-
+    private UsuarioVO usuario;
     public void validarSesion() throws IOException {
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructuraGlobal = usuario.getTinId();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
@@ -1297,6 +1299,14 @@ public class RegistrarAvanceInversionMB {
 
     public int getTipoInfraestructuraGlobal() {
         return tipoInfraestructuraGlobal;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
     }
 }
 
