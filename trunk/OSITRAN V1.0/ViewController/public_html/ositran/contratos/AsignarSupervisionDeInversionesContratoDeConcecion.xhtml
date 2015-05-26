@@ -5,17 +5,8 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
-            <script type="text/javascript">
-              function pasarMayuscula(obj, id) {
-                  obj = obj.toUpperCase();
-                  document.getElementById(id).value = obj;
-              }
-
-              function pasarMinuscula(obj, id) {
-                  obj = obj.toLowerCase();
-                  document.getElementById(id).value = obj;
-              }
-            </script>
+             <script src="../../js/validaciones.js" type="text/javascript"></script>   
+             <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
          <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
@@ -26,10 +17,11 @@
                
                     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                     <div align="center">
-                        <h5 class="titulo5">
+                        <div class="titulo5">
                            ASIGNAR SUPERVISION DE INVERSIONES A CONTRATO CONCESION
-                        </h5>
+                       </div>
                     </div>
+                    <br></br>
                     <div align="center" style="font-size:11px">
                         <div align="center" style="width:700px">
                             <p:fieldset styleClass="fielsetinterno" legend="Seleccionar inversiones" id="datosGenerales" >
@@ -171,11 +163,14 @@
                         <div align="center">
                         <div style="width:60%">
                                 <br></br>
-                                <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
+                                <p:dataTable paginatorPosition="bottom" rows="10" 
+                                             emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
+                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,20"
                                              rowStyleClass="#{(supervicion1.sivEstado eq 1) ? 'activo':null}"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             resizableColumns="true"
+                                             
                                              style="font-size:10px;" id="tablaSI" var="supervicion1"
                                              value="#{supervisorContratoConcesionMB.listaContratoSupervisor}">
                                  <p:column headerText="Nro" style="width:3%" >
@@ -222,7 +217,7 @@
                     
                       <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
-                                             rowsPerPageTemplate="6,8,10" 
+                                             rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="lisContratos"
                                              value="#{supervisorContratoConcesionMB.listaContratos}">
                                  <p:column headerText="ID" style="width:5px">
