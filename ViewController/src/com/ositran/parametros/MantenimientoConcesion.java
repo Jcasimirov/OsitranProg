@@ -1,32 +1,35 @@
 package com.ositran.parametros;
+
 import com.ositran.service.InfraestructuraService;
 import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
-import com.ositran.vo.bean.ConcesionVO;
-import com.ositran.vo.bean.InfraestructuraVO;
-import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.util.Util;
+import com.ositran.vo.bean.ConcesionVO;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
+import com.ositran.vo.bean.InfraestructuraVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
-
-import javax.servlet.http.HttpServletRequest;
 
 import javax.annotation.PostConstruct;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 
@@ -492,9 +495,13 @@ public class MantenimientoConcesion {
     }
 
     public String reinit() {
-        infraestructura = new InfraestructuraVO();
-
-
+        
+     
+                infraestructura = new InfraestructuraVO();
+           
+       
+        
+    
         return null;
     }
 

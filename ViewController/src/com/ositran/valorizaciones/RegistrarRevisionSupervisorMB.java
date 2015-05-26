@@ -70,7 +70,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "registrarRevisionSupervisorMB")
 @ViewScoped
 public class RegistrarRevisionSupervisorMB {
-    
+
     private String nombreRevisor;
     MonedaVO monedaVO = new MonedaVO();
     public final int formulario = 37;
@@ -109,7 +109,8 @@ public class RegistrarRevisionSupervisorMB {
     private List<MonedaVO> listaMoneda = new ArrayList<MonedaVO>();
     private int codigoInfraValSelecionado;
     private List<InversionDescripcionVO> listaDescripcionTipoInversion = new ArrayList<InversionDescripcionVO>();
-    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO = new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+    List<ValorizacionInversionAvanceDetalleVO> listValorizacionInversionAvanceDetalleVO =
+        new ArrayList<ValorizacionInversionAvanceDetalleVO>();
     private BigDecimal montoAjustado;
     private Date inicioPeriodo;
     private Date finPeriodo;
@@ -119,7 +120,7 @@ public class RegistrarRevisionSupervisorMB {
     private BigDecimal totalMonto = new BigDecimal("0");
     private BigDecimal totalIgv = new BigDecimal("0");
     private BigDecimal totalTotal = new BigDecimal("0");
-    private BigDecimal totalRevisado= new BigDecimal("0");
+    private BigDecimal totalRevisado = new BigDecimal("0");
     private int tipoComtratoCompromiso;
     private String descripcionValorizacionDetalle;
     private int codigoContratoCompromiso;
@@ -142,9 +143,9 @@ public class RegistrarRevisionSupervisorMB {
 
     InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO = new InvAvnSupervisadaDetalleVO();
     InvAvnSupervisadaDetalleService invAvnSupervisadaServiceDetalleImpl = new InvAvnSupervisadaDetalleServiceImpl();
-    List<InvAvnSupervisadaDetalleVO> listaInvAvnSupervisadaDetalle= new ArrayList<InvAvnSupervisadaDetalleVO>();
-    
-    
+    List<InvAvnSupervisadaDetalleVO> listaInvAvnSupervisadaDetalle = new ArrayList<InvAvnSupervisadaDetalleVO>();
+
+
     List<InfraestructuraVO> listaInfraestructuras = new ArrayList<InfraestructuraVO>();
     List<InfraestructuraVO> listaInfraestructurasC = new ArrayList<InfraestructuraVO>();
     List<ValorizacionSupDetalleVO> listaValorizacionSup = new ArrayList<ValorizacionSupDetalleVO>();
@@ -161,12 +162,13 @@ public class RegistrarRevisionSupervisorMB {
         new ValorizacionInversionAvanceDetalleVO();
     @ManagedProperty(value = "#{inversionVO}")
     InversionVO inversionVO;
-    
+
     InvAvnDerivadaVO invAvnDerivadaVO = new InvAvnDerivadaVO();
     InvAvnDerivadaService invAvnDerivadaServiceImpl = new InvAvnDerivadaServiceImpl();
 
     ValorizacionInversionAvanceVO valorizacionInversionAvanceVO = new ValorizacionInversionAvanceVO();
-    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO = new ArrayList<ValorizacionInversionAvanceVO>();
+    List<ValorizacionInversionAvanceVO> listValorizacionInversionAvanceVO =
+        new ArrayList<ValorizacionInversionAvanceVO>();
 
 
     @ManagedProperty(value = "#{inversionDescripcionVO}")
@@ -248,8 +250,7 @@ public class RegistrarRevisionSupervisorMB {
     SupervisorInversionesVO supervisorInversionesVO = new SupervisorInversionesVO();
     EmpresaSupervisoraVO empresaSupervisoraVO = new EmpresaSupervisoraVO();
     EmpresaSupervisoraService empresaSupervisoraService = new EmpresaSupervisoraServiceImpl();
-    
- 
+
 
     public void limpiarTodo() {
         fichaRegistro = 0;
@@ -280,12 +281,12 @@ public class RegistrarRevisionSupervisorMB {
         nombreRevisor = "";
         listValorizacionInversionAvanceDetalleVO = new ArrayList();
         listValorizacionInversionAvanceVO = new ArrayList();
-        nombreRevisor="";
-        observaciones="";
-        estadoRevision=0;
-        total=new BigDecimal("0");
-        nombreMoneda="";
-        totalRevisado=new BigDecimal("0");
+        nombreRevisor = "";
+        observaciones = "";
+        estadoRevision = 0;
+        total = new BigDecimal("0");
+        nombreMoneda = "";
+        totalRevisado = new BigDecimal("0");
     }
 
     public void desDiasHabiles() {
@@ -327,7 +328,7 @@ public class RegistrarRevisionSupervisorMB {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idTipoInfraestructura);
             nombreTipoInfraestructura = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -351,50 +352,37 @@ public class RegistrarRevisionSupervisorMB {
 
     public void cargarListaValorizacionDetalle(int detalle) {
         try {
-            
-            valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
-            
-            invAvnDerivadaVO=invAvnDerivadaServiceImpl.get1(valorizacionInversionAvanceVO.getTiaNumero());
-            
-            if (invAvnDerivadaVO.getIadTipoSup()==1){
-             supervisorInversionesVO=supervisorInversionesServiceImpl.get(invAvnDerivadaVO.getSupID());   
-             nombreRevisor=supervisorInversionesVO.getTsiNombre();
-                }
-            
-            if (invAvnDerivadaVO.getIadTipoSup()==2){
-                    empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getTsiID());   
-                    nombreRevisor=empresaSupervisoraVO.getSupNombre();
-                }
-            
-         
-            /*
-            invAvnDerivadaVO=invAvnDerivadaServiceImpl.getAvanceInversion(detalle);
-            System.out.println(invAvnDerivadaVO.getIadTipoSup());
 
-            if (invAvnDerivadaVO.getIadTipoSup()==1){
-                supervisorInversionesVO=supervisorInversionesServiceImpl.getSupervisorInversiones(invAvnDerivadaVO.getIadIdSup());
-                nombreRevisor=supervisorInversionesVO.getTsiNombre();
-                }
-            if (invAvnDerivadaVO.getIadTipoSup()==2){
-                empresaSupervisoraVO=empresaSupervisoraService.get(invAvnDerivadaVO.getIadIdSup());
-                nombreRevisor=empresaSupervisoraVO.getSupNombre();
-                }
-            */
-          
-            
+            valorizacionInversionAvanceVO = valorizacionInversionAvanceServiceImpl.get(detalle);
+
+            invAvnDerivadaVO = invAvnDerivadaServiceImpl.get1(valorizacionInversionAvanceVO.getTiaNumero());
+
+            if (invAvnDerivadaVO.getIadTipoSup() == 1) {
+                supervisorInversionesVO = supervisorInversionesServiceImpl.get(invAvnDerivadaVO.getSupID());
+                nombreRevisor = supervisorInversionesVO.getTsiNombre();
+            }
+
+            if (invAvnDerivadaVO.getIadTipoSup() == 2) {
+                empresaSupervisoraVO = empresaSupervisoraService.get(invAvnDerivadaVO.getTsiID());
+                nombreRevisor = empresaSupervisoraVO.getSupNombre();
+            }
+
+
             anio = valorizacionInversionAvanceVO.getTiaAnyo();
             listValorizacionInversionAvanceDetalleVO = valorizacionInversionAvanceDetalleServiceImpl.query1(detalle);
-            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 : listValorizacionInversionAvanceDetalleVO) {
-            inversionDescripcionVO = inversionDescripcionServicesImpl.get(valorizacionInversionAvanceDetalleVO1.getDtiId());
-            valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
-            totalTotal = totalTotal.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
-            totalRevisado = totalRevisado.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
-            valorizacionInversionAvanceDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
-            monedaVO=monedaServiceImpl.get(valorizacionInversionAvanceDetalleVO1.getMonId());
-            valorizacionInversionAvanceDetalleVO1.setNombreMoneda(monedaVO.getMonSimbolo());
-               
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 :
+                 listValorizacionInversionAvanceDetalleVO) {
+                inversionDescripcionVO =
+                    inversionDescripcionServicesImpl.get(valorizacionInversionAvanceDetalleVO1.getDtiId());
+                valorizacionInversionAvanceDetalleVO1.setDescripcionInversion(inversionDescripcionVO.getItdNombre());
+                totalTotal = totalTotal.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
+                totalRevisado = totalRevisado.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
+                valorizacionInversionAvanceDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
+                monedaVO = monedaServiceImpl.get(valorizacionInversionAvanceDetalleVO1.getMonId());
+                valorizacionInversionAvanceDetalleVO1.setNombreMoneda(monedaVO.getMonSimbolo());
+
             }
-    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -403,28 +391,28 @@ public class RegistrarRevisionSupervisorMB {
     }
 
     public void actualizarValoresAjustados(int codigoValorizacion) {
-       
+
         montoAjustado = new BigDecimal("0");
         codigoDetalle = codigoValorizacion;
     }
 
     public void ajustarMonto() {
-        totalRevisado=new BigDecimal("0");
-        for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listValorizacionInversionAvanceDetalleVO){
+        totalRevisado = new BigDecimal("0");
+        for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO :
+             listValorizacionInversionAvanceDetalleVO) {
             if (valorizacionInversionAvanceDetalleVO.getIad_Id() == codigoDetalle) {
-                if (montoAjustado.compareTo(valorizacionInversionAvanceDetalleVO.getMontoPresentado())==1){
-                        FacesContext.getCurrentInstance().addMessage(null,
-                                                                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
-                                                                                      "El monto ajustado no puede ser mayor al monto presentado"));
-                       
-                    }
-                else {
-                        valorizacionInversionAvanceDetalleVO.setIasMontoRevisado(montoAjustado); 
-                    }
-                
+                if (montoAjustado.compareTo(valorizacionInversionAvanceDetalleVO.getMontoPresentado()) == 1) {
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                                                  "El monto ajustado no puede ser mayor al monto presentado"));
+
+                } else {
+                    valorizacionInversionAvanceDetalleVO.setIasMontoRevisado(montoAjustado);
+                }
+
             }
             totalRevisado = totalRevisado.add(valorizacionInversionAvanceDetalleVO.getIasMontoRevisado());
-            
+
         }
     }
 
@@ -525,9 +513,10 @@ public class RegistrarRevisionSupervisorMB {
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
                                                                               "DEBE SELECIONAR CONCEPTO"));
             } else {
-                BigDecimal igv1= new BigDecimal("0");
-                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =new ValorizacionInversionAvanceDetalleVO();
-               
+                BigDecimal igv1 = new BigDecimal("0");
+                ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO1 =
+                    new ValorizacionInversionAvanceDetalleVO();
+
                 valorizacionInversionAvanceDetalleVO1.setMonId(codMoneda);
                 valorizacionInversionAvanceDetalleVO1.setDtiId(codigoInversionDescripcion);
                 inversionDescripcionVO = inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
@@ -545,14 +534,16 @@ public class RegistrarRevisionSupervisorMB {
                 }
                 valorizacionInversionAvanceDetalleVO1.setMontoPresentado(new java.math.BigDecimal(String.valueOf(montoPrestado)));
                 if (igv) {
-                    igv1 =new BigDecimal("0.18");
+                    igv1 = new BigDecimal("0.18");
                     valorizacionInversionAvanceDetalleVO1.setIgv(montoPrestado.multiply(igv1));
                 } else {
                     igv1 = new BigDecimal("0");
                 }
                 valorizacionInversionAvanceDetalleVO1.setTiaTotal(montoPrestado.add(montoPrestado.multiply(igv1)));
                 listValorizacionInversionAvanceDetalleVO.add(valorizacionInversionAvanceDetalleVO1);
-                totalMonto = totalMonto.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado()).setScale(2,BigDecimal.ROUND_UP);
+                totalMonto =
+                    totalMonto.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado()).setScale(2,
+                                                                                                        BigDecimal.ROUND_UP);
                 totalIgv = totalIgv.add(valorizacionInversionAvanceDetalleVO1.getIgv());
                 totalTotal = totalTotal.add(valorizacionInversionAvanceDetalleVO1.getMontoPresentado());
             }
@@ -567,9 +558,9 @@ public class RegistrarRevisionSupervisorMB {
         Map requestMap = context.getExternalContext().getRequestParameterMap();
         Object str = requestMap.get("indexLista");
         int idcodigo = Integer.valueOf(str.toString());
-        
+
         totalTotal = totalTotal.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getTiaTotal());
-        totalMonto =totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado());
+        totalMonto = totalMonto.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getMontoPresentado());
         totalIgv = totalIgv.subtract(listValorizacionInversionAvanceDetalleVO.get(idcodigo).getIgv());
         listValorizacionInversionAvanceDetalleVO.remove(idcodigo);
 
@@ -577,7 +568,45 @@ public class RegistrarRevisionSupervisorMB {
 
     public void guardar() {
         try {
-            int codigoSupervisadaCaebcera=0;
+            if (codigoContrato==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE SELECCIONAR EL CONTRATO"));
+                }
+            else if (codigoContratoCompromiso==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE SELECCIONAR ETAPA CONCESIÓN"));
+                }
+          
+            else if (listValorizacionInversionAvanceVO.size()==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "NO EXISTE VALORIZACION PARA LA ETAPA SELECCIONADA"));
+                
+                }
+            
+            else if (listValorizacionInversionAvanceDetalleVO.size()==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "NO EXISTEN ITEMS REGISTRADOS PARA ESTA VALORIZACION"));
+                
+                }
+            else if (numero.equals("")){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "FALTA INGRESAR NÚMERO HR"));
+                
+                }
+            else if (estadoRevision==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "FALTA ELEGIR EL ESTADO DE LA REVISIÓN"));
+                
+                }
+        
+            else  {         
+            int codigoSupervisadaCaebcera = 0;
             invAvnSupervisadaVO.setIasPlazoDias(new java.math.BigDecimal(String.valueOf(valorizacionInversionAvanceVO.getTiaPlazoEnDias())));
             invAvnSupervisadaVO.setTiaNumero(valorizacionInversionAvanceVO.getTiaNumero());
             invAvnSupervisadaVO.setCsiId(new java.math.BigDecimal(String.valueOf(codigoConcesion)));
@@ -598,32 +627,35 @@ public class RegistrarRevisionSupervisorMB {
             valorizacionInversionAvanceVO.setIaeId(3);
             valorizacionInversionAvanceVO.setTiaMontoTotalReajustado(totalRevisado);
             valorizacionInversionAvanceServiceImpl.update(valorizacionInversionAvanceVO);
-            codigoSupervisadaCaebcera=InvAvnSupervisadaServiceImpl.insert(invAvnSupervisadaVO);
-            
-            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO : listValorizacionInversionAvanceDetalleVO) {
-                InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO1 =new InvAvnSupervisadaDetalleVO();
+            codigoSupervisadaCaebcera = InvAvnSupervisadaServiceImpl.insert(invAvnSupervisadaVO);
+
+            for (ValorizacionInversionAvanceDetalleVO valorizacionInversionAvanceDetalleVO :
+                 listValorizacionInversionAvanceDetalleVO) {
+                InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO1 = new InvAvnSupervisadaDetalleVO();
                 invAvnSupervisadaDetalleVO1.setIasNumero(new java.math.BigDecimal(String.valueOf(codigoSupervisadaCaebcera)));
-                invAvnSupervisadaDetalleVO1.setAsdEstado( new BigDecimal("1"));
+                invAvnSupervisadaDetalleVO1.setAsdEstado(new BigDecimal("1"));
                 invAvnSupervisadaDetalleVO1.setAsdFechaRegistro(new Date());
                 invAvnSupervisadaDetalleVO1.setIsdMontoPresentado(valorizacionInversionAvanceDetalleVO.getMontoPresentado());
-                if (valorizacionInversionAvanceDetalleVO.getMontoRevisado()==null){
-                        invAvnSupervisadaDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO.getMontoPresentado());  
-                    }
-                else {
-                        invAvnSupervisadaDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO.getMontoRevisado()); 
-                    }
-                
-                
+                if (valorizacionInversionAvanceDetalleVO.getMontoRevisado() == null) {
+                    invAvnSupervisadaDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO.getMontoPresentado());
+                } else {
+                    invAvnSupervisadaDetalleVO1.setIasMontoRevisado(valorizacionInversionAvanceDetalleVO.getMontoRevisado());
+                }
+
+
                 invAvnSupervisadaDetalleVO1.setMonId(valorizacionInversionAvanceVO.getMonId());
                 invAvnSupervisadaDetalleVO1.setIsdIgv(valorizacionInversionAvanceDetalleVO.getIgv());
-                  listaInvAvnSupervisadaDetalle.add(invAvnSupervisadaDetalleVO1); 
+                listaInvAvnSupervisadaDetalle.add(invAvnSupervisadaDetalleVO1);
             }
-            for (InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO3: listaInvAvnSupervisadaDetalle){
-                    invAvnSupervisadaServiceDetalleImpl.insert(invAvnSupervisadaDetalleVO3);
-                }
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO","SE REGISTRO CON EXITO LA REVISIÓN DE SUPERVISOR"));
-       limpiarTodo();
-       
+            for (InvAvnSupervisadaDetalleVO invAvnSupervisadaDetalleVO3 : listaInvAvnSupervisadaDetalle) {
+                invAvnSupervisadaServiceDetalleImpl.insert(invAvnSupervisadaDetalleVO3);
+            }
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "SE REGISTRO CON EXITO LA REVISIÓN DE SUPERVISOR"));
+            limpiarTodo();
+            }
+           
         } catch (Exception e) {
             e.printStackTrace();
         }

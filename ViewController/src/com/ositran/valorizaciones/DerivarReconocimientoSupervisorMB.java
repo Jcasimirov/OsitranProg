@@ -660,6 +660,61 @@ public class DerivarReconocimientoSupervisorMB {
     public void guardar() {
         try {
             registrarAlerta3();
+            if (codigoContrato==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE SELECCIONAR EL CONTRATO"));
+                }
+            else if (codigoContratoCompromiso==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE SELECCIONAR ETAPA CONCESIÓN"));
+                }
+            else if (codigoTipoRevision==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE SELECCIONAR TIPO SUPRVISIÓN"));
+                }
+            else if (listValorizacionInversionAvanceVO.size()==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "NO EXISTE VALORIZACION PARA LA ETAPA SELECCIONADA"));
+                
+                }
+            else if (numeroOficio.equals(" ")){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE INGRESAR NUMERO DE OFICIO"));
+                } 
+            else if (registroSalida.equals(" ")){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE INGRESAR REGISTRO DE SALIDA"));
+                }    
+            
+            else if (fechaEmisionDS==null){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE INGRESAR FECHA EMISIÓN"));
+                } 
+            else if (fechaLimiteDS==null){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE CALCULAR LA FECHA CALCULADA"));
+                }  
+            else if (fechaLimiteDS==null){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE CALCULAR LA FECHA CALCULADA"));
+                }
+            else if (plazoOtorgado==0){
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "AVISO",
+                                                                                  "DEBE INGRESAR EL PLAZO OTORGADO"));
+                }
+            
+            else 
+            {
             
             invAvnDerivadaVO.setTiaNumero(valorizacionInversionAvanceVO.getTiaNumero());
             invAvnDerivadaVO.setCsiId(new java.math.BigDecimal(String.valueOf(codigoConcesion)));
@@ -705,7 +760,8 @@ public class DerivarReconocimientoSupervisorMB {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "SE REGISTRO EL AVANCE CON EXITO"));
-        } catch (Exception e) {
+        } 
+        }catch (Exception e) {
             e.printStackTrace();
             System.out.println("PROBLEMAS AL GUARDAR AQUI");
         }
