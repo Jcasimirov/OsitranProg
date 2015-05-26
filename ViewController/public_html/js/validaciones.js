@@ -138,7 +138,12 @@ function setCaretPosition(ctrl, pos) {
 }
 
 $(function() {
-    $('input').keyup(function(e) {
+validarMayusculas('input');
+validarMayusculas('TEXTAREA');
+});
+
+function validarMayusculas(nameTag){
+     $(nameTag).keyup(function(e) {
     var caretPosition = getCaretPosition(this);
      tecla = (document.all) ? e.keyCode : e.which;
     if(tecla == 37 || tecla == 38 || tecla == 39 || tecla == 40 || tecla == 46 || tecla == 32|| tecla == 8) {
@@ -147,15 +152,4 @@ $(function() {
         this.value = this.value.toLocaleUpperCase();
         setCaretPosition(this, caretPosition);
     });
-});
-$(function() {
-    $('TEXTAREA').keyup(function(e) {
-    var caretPosition = getCaretPosition(this);
-     tecla = (document.all) ? e.keyCode : e.which;
-    if(tecla == 37 || tecla == 38 || tecla == 39 || tecla == 40 || tecla == 46 || tecla == 32|| tecla == 8) {
-        return;
-    }
-        this.value = this.value.toLocaleUpperCase();
-        setCaretPosition(this, caretPosition);
-    });
-});
+}
