@@ -61,8 +61,6 @@ public class Usuario implements Serializable {
     private String usuUsuarioBaja;
     @Column(name = "USU_USUARIO_CAMBIO", length = 100)
     private String usuUsuarioCambio;
-    @Column(name = "TSI_ID")
-    private Integer supInvID;
     @Column(name = "TIN_ID")
     private Integer tinId;
     
@@ -74,7 +72,7 @@ public class Usuario implements Serializable {
     public Usuario(Integer rolId, String usuAlias, String usuContrasenya, String usuCorreo, String usuDescripcion,
                    Integer usuEsexterno, Integer usuEstado, Date usuFechaAlta, Date usuFechaBaja, Date usuFechaCambio,
                    Integer usuId, String usuNombre, String usuTerminal, String usuUsuarioAlta, String usuUsuarioBaja,
-                   String usuUsuarioCambio, Integer supInvID, Integer tinId) {
+                   String usuUsuarioCambio, Integer tinId) {
         super();
         this.rolId = rolId;
         this.usuAlias = usuAlias;
@@ -92,7 +90,6 @@ public class Usuario implements Serializable {
         this.usuUsuarioAlta = usuUsuarioAlta;
         this.usuUsuarioBaja = usuUsuarioBaja;
         this.usuUsuarioCambio = usuUsuarioCambio;
-        this.supInvID = supInvID;
         this.tinId = tinId;
     }
 
@@ -222,14 +219,6 @@ public class Usuario implements Serializable {
 
     public String getUsuUsuarioCambio() {
         return usuUsuarioCambio;
-    }
-
-    public void setSupInvID(Integer supInvID) {
-        this.supInvID = supInvID;
-    }
-
-    public Integer getSupInvID() {
-        return supInvID;
     }
 
     public void setTinId(Integer tinId) {
