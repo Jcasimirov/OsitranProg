@@ -127,7 +127,8 @@ public class DerivarReconocimientoSupervisorMB {
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
+        System.out.println("EL TIPO ES "+tipoInfraestructuraGlobal);
 
     }
 

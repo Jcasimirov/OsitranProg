@@ -200,7 +200,7 @@ public class EditarAvanceInversionMB {
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
     }
 
     public void desDiasHabiles() {

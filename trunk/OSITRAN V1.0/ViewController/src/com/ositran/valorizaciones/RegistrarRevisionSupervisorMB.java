@@ -78,7 +78,7 @@ public class RegistrarRevisionSupervisorMB {
     private int tipoInfraestructuraGlobal;
 
     public void validarSesion() throws IOException {
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
+        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
     }
 
