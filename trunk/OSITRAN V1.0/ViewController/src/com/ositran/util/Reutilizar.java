@@ -76,13 +76,13 @@ public class Reutilizar {
         System.out.println("usuario que se logueo:"+((UsuarioVO)session.getAttribute("atributosUsuario")).getUsuNombre());
         return ((UsuarioVO)session.getAttribute("atributosUsuario"));
     }
-    public SupervisorInversionesVO obtenerDatosEmpleadoLogueado(){
+    /* public SupervisorInversionesVO obtenerDatosEmpleadoLogueado(){
         FacesContext faceContext=FacesContext.getCurrentInstance();
         HttpServletRequest httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
         HttpSession session = httpServletRequest.getSession();
         System.out.println("usuario que se logueo:"+((SupervisorInversionesVO)session.getAttribute("atributosEmpleado")).getTinId());
         return ((SupervisorInversionesVO)session.getAttribute("atributosEmpleado"));
-    }
+    }  */
     public void borrarArchivos(String ruta){
         File fichero=new File(ruta);
         fichero.delete();
