@@ -69,7 +69,7 @@ public class RegistrarValorizacionSupervision {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId();
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructura = tipoInfraestructura = usuario.getTinId();
+        tipoInfraestructura = usuario.getTinId();
     }
     
     
