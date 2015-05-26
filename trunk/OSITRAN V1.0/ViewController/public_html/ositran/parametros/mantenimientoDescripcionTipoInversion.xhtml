@@ -26,7 +26,7 @@
                                        
                                             <td align="left">
                                                  Buscar: 
-                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
+                                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" value="#{descripcionInversionMB.buscar}" id="buscarT"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton id="buscar" actionListener="#{descripcionInversionMB.busqueda}"
                                                                  update=":form:tabla :form:buscarT"
@@ -56,7 +56,7 @@
                                 </div>
                                 <br></br>
                                  
-                                <p:dataTable paginator="true" paginatorPosition="bottom"
+                                <p:dataTable  paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="6,8,10" rows="10" 
                                              style="font-size:10px;" id="tabla" var="inversionDes"
