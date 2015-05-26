@@ -91,7 +91,6 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioVO.setUsuUsuarioAlta(usuario.getUsuUsuarioAlta());
         usuarioVO.setUsuUsuarioBaja(usuario.getUsuUsuarioBaja());
         usuarioVO.setUsuUsuarioCambio(usuario.getUsuUsuarioCambio());
-        usuarioVO.setSupInvId(usuario.getSupInvID());
         usuarioVO.setTinId(usuario.getTinId());
         return usuarioVO;
     }
@@ -115,7 +114,6 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.setUsuUsuarioBaja(usuarioVO.getUsuUsuarioBaja());
         usuario.setUsuUsuarioCambio(usuarioVO.getUsuUsuarioCambio());
         usuario.setTinId(usuarioVO.getTinId());
-
         return usuario;
     }
 
