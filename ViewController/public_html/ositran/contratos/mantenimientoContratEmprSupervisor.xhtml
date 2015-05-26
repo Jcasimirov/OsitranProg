@@ -5,6 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
             <script src="../../js/validaciones.js" type="text/javascript"></script>
             <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
@@ -25,11 +26,11 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
-                                <h5 class="titulo5">
+                                <div class="titulo5" >
                                     MANTENIMIENTO DE CONTRATO DE EMPRESA SUPERVISORA
                                     <h:outputText rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}"
                                                   value="(AEROPUERTO)"/>
-                                </h5>
+                                </div>
                             </div>
                             <div align="center">
                                 <table style="width:80% ;font-size:11px;">
@@ -153,11 +154,11 @@
                 <p:dialog id="dialogRegConEmpSup" header="REGISTRAR" widgetVar="dialogRegConEmpSup" height="500px"
                           width="1050px">
                     <div align="center">
-                        <h5 class="titulo5">
+                        <div class="titulo5" >
                             REGISTRAR CONTRATO PARA EMPRESA SUPERVISORA
                             <h:outputText rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}"
                                           value="(AEROPUERTO)"/>
-                        </h5>
+                        </div>
                     </div>
                     <table style="font-size:11px;">
                         <tr>
@@ -519,8 +520,6 @@
                                                      label="Adjuntar"  update=":form:docEntrega" auto="true" mode="advanced" showButtons="false"/>
                             </h:form>
                 </p:dialog>
-                
-                
                 <!-- pdialog lista y busqueda de contrato concesion-->
                 <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
                           id="pListaContratos" resizable="false" style="text-align:center;">
@@ -613,7 +612,7 @@
                 <p:dialog id="dialogVerContEmpSup" header="Contrato de Empresa Supervisora"
                           widgetVar="dialogVerContEmpSup" modal="true" resizable="false" height="400px" width="700px">
                     <div align="center">
-                        <h5 class="titulo5">CONTRATO DE EMPRESA SUPERVISORA</h5>
+                        <div class="titulo5" >CONTRATO DE EMPRESA SUPERVISORA</div>
                     </div>
                     <div align="center">
                         <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 300px;width: 600px;">
@@ -776,11 +775,11 @@
                 <!-- MODIFICAR CONTRATO EMPRESA SUPERVISORA-->
                 <p:dialog id="popupeditar" header="MODIFICAR" widgetVar="popupeditar" height="500px" width="1050px">
                     <div align="center">
-                        <h5 class="titulo5">
+                        <div class="titulo5" >
                             MODIFICAR CONTRATO PARA EMPRESA SUPERVISORA
                             <h:outputText rendered="#{manteContEmprSupervisora.tipoInfraestructuraGlobal eq 2}"
                                           value="(AEROPUERTO)"/>
-                        </h5>
+                        </div>
                     </div>
                     <table style="font-size:11px;">
                         <tr>
