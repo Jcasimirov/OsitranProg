@@ -47,6 +47,7 @@ import com.ositran.vo.bean.MonedaVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.TipoRevisionVO;
+import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceVO;
 import com.ositran.vo.bean.ValorizacionSupDetalleVO;
@@ -124,12 +125,12 @@ public class DerivarReconocimientoSupervisorMB {
     private int codigoContratoCompromiso;
     public final int formulario = 33;
     private RolOpcionesVO rolOpcion;
+    private UsuarioVO usuario;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
-        tipoInfraestructuraGlobal = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
-        System.out.println("EL TIPO ES "+tipoInfraestructuraGlobal);
-
+        usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
+        tipoInfraestructuraGlobal = usuario.getTinId();
     }
 
     MonedaVO monedaVO = new MonedaVO();
@@ -1556,6 +1557,13 @@ public class DerivarReconocimientoSupervisorMB {
         return contratoAlertaService;
     }
 
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
 }
 
 
