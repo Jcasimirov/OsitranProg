@@ -217,6 +217,7 @@
                                                             <f:selectItem itemLabel="OBSERVADO" itemValue="2"/>
                                                         </p:selectOneMenu>
                                                     </td>
+                                                    <td> <h:outputText style="color:red;" value="*"/></td>
                                                 </tr>
                                                  
                                                 <tr>
@@ -227,6 +228,7 @@
                                                                          onkeyup="pasarMayuscula(this.value,this.id)"
                                                                          value="#{declararInversionMB.invAvnVO.tiaObservaciones}"/>
                                                     </td>
+                                                    <td> <h:outputText style="color:red;" value="*"/></td>
                                                 </tr>
                                             </table>
                                             <br></br>
@@ -379,7 +381,7 @@
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroInforme}"
                                                                      size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
+                                                                     ></p:inputText>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -397,7 +399,7 @@
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaInforme}"
                                                                      size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
+                                                                     ></p:inputText>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -408,7 +410,7 @@
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invNumeroOficio}"
                                                                      size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
+                                                                     ></p:inputText>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -426,7 +428,7 @@
                                                     <td align="left">
                                                         <p:inputText value="#{declararInversionMB.invVO.invRegSalidaOficio}"
                                                                      size="10"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
+                                                                     ></p:inputText>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -438,7 +440,7 @@
                                                         <p:inputText id="tipoCambio"
                                                                      value="#{declararInversionMB.invVO.invNotaTipoCambio}"
                                                                      disabled="#{declararInversionMB.invAvnVO.monId eq 2}"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id);"></p:inputText>
+                                                                     ></p:inputText>
                                                          
                                                         <h:outputText style="color:red;" value="*"
                                                                       rendered="#{declararInversionMB.invAvnVO.monId eq 1}"/>
@@ -461,7 +463,7 @@
                                                     <td colspan="3" align="left">
                                                         <p:inputTextarea id="nota" style="width:400px;"
                                                                          value="#{declararInversionMB.invVO.invNota}"
-                                                                         onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                                                         />
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>

@@ -193,7 +193,7 @@
                                                                 <tr>
                                                                     <td align="left">Nota para el Plazo</td>
                                                                     <td align="left">
-                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;" />
                                                                     </td>
                                                                     <td>
                                                                         <p:graphicImage url="../../images/obligatorio.gif"/>
@@ -465,7 +465,7 @@
                                 <h:form id="frmNuevaAdendaDlg">
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="5" columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="nombre" value="Nombre Documento"/>
-                                        <p:inputText id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputText id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" />
                                         <p:message for="nombre" display="text"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -478,7 +478,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="objeto" value="Objeto"/>
-                                        <p:inputTextarea id="objeto" style="width:100% !important;height:40px" queryDelay="750" minQueryLength="4" onkeyup="pasarMayuscula(this.value,this.id)" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
+                                        <p:inputTextarea id="objeto" style="width:100% !important;height:40px" queryDelay="750" minQueryLength="4"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
                                         <p:message for="objeto" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -532,12 +532,12 @@
                                 <h:form id="frmNuevaEntregaDlg">
                                     <p:panelGrid id="pnlNuevaEntregaDlg" styleClass="pnlEdicion" columns="5" columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="centrega" value="Entrega"/>
-                                        <p:inputText id="centrega" onkeyup="pasarMayuscula(this.value,this.id)" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenNombre}" style="width:100% !important;"/>
+                                        <p:inputText id="centrega"  value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenNombre}" style="width:100% !important;"/>
                                         <p:message for="centrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="entregadescripcion" value="Descripción"/>
-                                        <p:inputTextarea id="entregadescripcion" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDescripcion}" style="width:100% !important;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputTextarea id="entregadescripcion" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDescripcion}" style="width:100% !important;" />
                                         <p:message for="entregadescripcion" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -627,14 +627,14 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" widgetVar="popupAgregarCompromiso" modal="true" resizable="false" appendToBody="true" closable="true">
+                            <p:dialog header="Agregar Compromiso de Inversion (Indicado)" widgetVar="popupAgregarCompromiso" modal="true" resizable="false" appendToBody="true" closable="true" height="550">
                                 <h:form id="frmNuevoCompromisoDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="periodoetapacom" value="Periodo / Etapa"/>
-                                        <p:inputText id="periodoetapacom" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPeriodo}" onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                        <p:inputText id="periodoetapacom" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoPeriodo}" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="alcancecom" value="Alcance"/>
-                                        <p:inputTextarea id="alcancecom" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoAlcance}" onkeyup="pasarMayuscula(this.value,this.id);"/>
+                                        <p:inputTextarea id="alcancecom" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoAlcance}" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="tipoinversioncom" value="Tipo de Inversion"/>
                                         <p:selectOneMenu id="tipoinversioncom" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.tivId}" style="width:210px">
@@ -765,10 +765,10 @@
                                 <h:form id="frmNuevoCompromisoSupervisadoDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoSupervisadoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="etapasup" value="Etapa/Periodo"/>
-                                        <p:inputText id="etapasup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPeriodo}" style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputText id="etapasup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPeriodo}" style="width:200px;" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="alcancesup" value="Alcance"/>
-                                        <p:inputText id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}" style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputText id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}" style="width:200px;" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                          <p:outputLabel for="tipoinversioncomsup" value="Tipo de Inversion"/>
                                         <p:selectOneMenu id="tipoinversioncomsup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.tivId}" style="width:210px">
@@ -878,7 +878,7 @@
                                     </tr>
                                 </table>
                             </h:form>
-                            <p:dialog widgetVar="dlgEliminarPenalidad" appendToBody="true" modal="true" header="Eliminar Penalidad" position="center" closable="true">
+                            <p:dialog widgetVar="dlgEliminarPenalidad" appendToBody="true" modal="true" header="Eliminar Penalidad" position="center" closable="true" width="550">
                                 <h:form>
                                     <p:panelGrid styleClass="pnlEdicion" columns="2">
                                         <h:outputText value="Esta seguro de eliminar el registro?"/>
@@ -892,7 +892,7 @@
                                 <h:form id="frmNuevoCompromisoPenalidadDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoPenalidadDlg" styleClass="pnlEdicion" columns="4" columnClasses="etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="motivo" value="Etapa"/>
-                                        <p:inputTextarea id="motivo" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpMotivo}" style="width:200px;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                        <p:inputTextarea id="motivo" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpMotivo}" style="width:200px;" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="monedacompromisocompenalidad" value="Moneda"/>
@@ -1112,7 +1112,7 @@
                                         <tr>
                                             <td align="left">Inversi&#243;n</td>
                                             <td align="left">
-                                                <p:inputText value="#{actualizarContratoMB.nombreCAO}" style="width:300px;" id="nombreCAO" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                <p:inputText value="#{actualizarContratoMB.nombreCAO}" style="width:300px;" id="nombreCAO" />
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif"/>
                                             </td>
@@ -1536,7 +1536,7 @@
                                         <tr>
                                             <td align="left">Descripci&#243;n</td>
                                             <td align="left">
-                                                <p:inputTextarea style="width:300px; height:40px" value="#{actualizarContratoMB.descAlerta}" queryDelay="750" minQueryLength="4" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                <p:inputTextarea style="width:300px; height:40px" value="#{actualizarContratoMB.descAlerta}" queryDelay="750" minQueryLength="4" />
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1774,7 +1774,7 @@
                                             <td>Inversi&#243;n</td>
                                             <td>
                                                 <p:inputText id="descInversion" style="width:100%;margin:1px;"
-                                                                 value="#{actualizarContratoMB.contratoInversionVO.invDescripcion}" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                                 value="#{actualizarContratoMB.contratoInversionVO.invDescripcion}" />
                                             </td>
                                           
                                             </tr>
