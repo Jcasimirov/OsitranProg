@@ -137,14 +137,14 @@
                                                      style="width:300px;text-transform:uppercase; " onkeyup="pasarMayuscula(this.value,this.id)"/>
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Infraestructura"></h:outputLabel>
-                                        <p:inputText id="txt_title"
-                                                     value="#{mantenimientoconcesionMB.infraestructura.infNombre}"
+                                        <p:inputText id="txt_title"  requiredMessage="Debe ingresar nombre de Imfraestructura"
+                                                     value="#{mantenimientoconcesionMB.infraestructura.infNombre}" 
                                                      style="width:300px;text-transform:uppercase; " onkeyup="pasarMayuscula(this.value,this.id)"/>
                                         <img src="../../images/obligatorio.gif"/>
                                         <p:commandButton id="btn_reset" value="Limpiar" type="reset"/>
                                         <p:commandButton id="btn_add" value="Agregar Infraestructura"
-                                                         update="books mensaje @parent"
-                                                         action="#{mantenimientoconcesionMB.reinit()}">
+                                                         update="books mensaje @parent form:mensaje"
+                                                         actionListener="#{mantenimientoconcesionMB.reinit()}">
                                             <p:collector value="#{mantenimientoconcesionMB.infraestructura}"
                                                          addTo="#{mantenimientoconcesionMB.infraestructuras}"
                                                          unique="true"/>
