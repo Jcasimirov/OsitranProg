@@ -59,12 +59,14 @@ public class AsignarResponsableSupervision {
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
+    private String ipcliente;
 
     public void validarSesion() throws IOException{
       
         rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
         setUsuario(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado());
-        setTipoInfraestructura(Reutilizar.getNewInstance().obtenerDatosEmpleadoLogueado().getTinId());
+        setTipoInfraestructura(usuario.getTinId());
+        ipcliente = Reutilizar.getNewInstance().obtenerIpCliente();
         }
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
@@ -90,6 +92,14 @@ public class AsignarResponsableSupervision {
 
     public int getTipoInfraestructura() {
         return tipoInfraestructura;
+    }
+
+    public void setIpcliente(String ipcliente) {
+        this.ipcliente = ipcliente;
+    }
+
+    public String getIpcliente() {
+        return ipcliente;
     }
     //---------------------------------------------//
 
