@@ -309,6 +309,10 @@
                                     <p:commandButton  actionListener="#{derivarReconocimientoSupervisorMB.limpiarTodoM()}"    update=":form:mensaje :form:principalIzquierdo :form:principalDerecho" style="width:80px" value="Limpiar"/>
                                     </div>
                 </p:layoutUnit>
+                 <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
             </p:layout>
             
              <p:dialog width="40%"  header="Lista Supervision de Inversiones" widgetVar="panelListaSupervisorInversines" id="panelListaSupervisorInversines" 

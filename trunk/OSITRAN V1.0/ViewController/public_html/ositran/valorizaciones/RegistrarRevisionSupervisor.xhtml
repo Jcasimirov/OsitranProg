@@ -275,6 +275,10 @@
                      <p:commandButton style="width:80px" update=":form:mensaje :form:tablaLV :form:tablaDV :form:datosSDT :form:datosConcesion  :form:datosCompromiso :form:total :form:total1 :form:nombreMoneda :form:Resultado :form:nombreSupervisor" actionListener="#{registrarRevisionSupervisorMB.limpiarTodo()}"   value="Limpiar"/>
                       </div>
                 </p:layoutUnit>
+                 <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
             </p:layout>
             
              <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
