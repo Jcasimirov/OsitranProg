@@ -26,10 +26,10 @@
             <p:layoutUnit position="center" style="border:0px">
                 <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                 <div align="center">
-                    <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
+                    <div class="titulo5">
                         ACTUALIZAR REGISTRO CONTRATO CONCESI&#211;N
                         #{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos?'- AEROPUERTO':''}
-                    </h5>
+                   </div>
                 </div>
                 <div align="center" style="font-size: 11px">
                     <p:tabView style="width: 80%" id="tab" rendered="#{actualizarContratoMB.rolOpcion.troConsultar eq 1}">
@@ -288,7 +288,13 @@
                                         <p:commandButton value="Buscar Contrato" actionListener="#{actualizarContratoMB.buscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg contrato"/>
                                         <p:commandButton value="Limpiar"  onclick="_fechaInicioBC.setDate(null);_fechaFinBC.setDate(null);_cboconcesion.selectValue(value);" update=":tab:frmBuscarContratoDlg:concesion"/>
                                         </p:panelGrid>
-                                        <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" style="font-size:11px" emptyMessage="No se Encontraron Registros" paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true">
+                                        <p:dataTable value="#{actualizarContratoMB.listaContrato}" id="contrato" var="contrato11" style="font-size:11px" emptyMessage="NO SE ENCONTRARON DATOS" 
+                                        paginator="true" 
+                                                paginatorPosition="bottom" 
+                                                rows="10" 
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                                rowsPerPageTemplate="5,10,20" 
+                                                resizableColumns="true">
                                             <p:column headerText="Fecha Suscripción" styleClass="tabla-wrap-desc">
                                                 <div style="text-align: center;">
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
@@ -1846,9 +1852,10 @@
                     </p:tabView>
                 </div>
             </p:layoutUnit>
-            <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true" collapsible="true">
-                <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por AsisTP-2015</div>
-            </p:layoutUnit>
+               <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                                  collapsible="true">
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>
         </p:layout>
     </h:body>
 </html>
