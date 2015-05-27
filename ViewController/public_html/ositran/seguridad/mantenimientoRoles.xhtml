@@ -68,7 +68,7 @@
                                         <p:column headerText="Descripción">
                                             <h:outputText value="#{rol1.rolDescripcion}"/>
                                         </p:column>
-                                        <p:column headerText="Modificar" style="width:4%">
+                                        <p:column headerText="Modificar" style="width:50px">
                                             <div align="center">
                                                 <p:commandButton actionListener="#{rolMB.cargarEditar()}"
                                                                   image="ui-icon-pencil"
@@ -80,7 +80,7 @@
                                                 </p:commandButton>
                                             </div>
                                         </p:column>
-                                        <p:column headerText="Eliminar" style="width:4%">
+                                        <p:column headerText="Eliminar" style="width:50px">
                                             <div align="center">
                                                 <p:commandButton actionListener="#{rolMB.cargarEliminarRol}"
                                                                  update=":form:codEliminar"
@@ -217,15 +217,9 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <p:dataTable 
-                                
-                                paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
-                                                 rows="10" paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,20"
-                                
                                 style="font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="400" id="menuOpciones" var="me" value="#{rolMB.listaMen}"
                                              selection="#{rolMB.listaMenSeleccionado}" rowKey="#{me.menId}">
-                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column selectionMode="multiple"  style="width:16px;text-align:center"/>
                                     <p:column headerText="Opción Menú">
                                         <h:outputText value="#{me.menNombre}"/>
                                     </p:column>
@@ -248,30 +242,25 @@
                             </td>
                             <td align="left" colspan="2">
                                 <p:dataTable style="font-size:10px"
-                                paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
-                                                 rows="10" paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,20"
-                                
-                                            scrollable="true" scrollHeight="250" scrollWidth="700" id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
+                                            scrollable="true" scrollHeight="250" scrollWidth="700"  id="menuOpcionesSe" var="me1" value="#{rolMB.listaMenNueva}"
                                              selection="#{rolMB.listaMenSeleccionado2}"  rowIndexVar="indexRegistrar"   rowKey="#{me1.menId}">
-                                    <p:column style="width:1px"  selectionMode="multiple" />
-                                    <p:column headerText="Opción Menú" style="width:70px" >
+                                    <p:column  style="width:16px;text-align:center"  selectionMode="multiple" />
+                                    <p:column headerText="Opción Menú"  >
                                         <h:outputText value="#{me1.menNombre}" />
                                     </p:column>
-                                    <p:column headerText="R" style="width:1px">
+                                    <p:column headerText="R" style="width:14px">
                                         <p:selectBooleanCheckbox value="#{me1.crear}"/>
                                     </p:column>
-                                    <p:column headerText="A" style="width:1px">
+                                    <p:column headerText="A" style="width:14px">
                                         <p:selectBooleanCheckbox value="#{me1.actualizar}"/>
                                     </p:column>
-                                    <p:column headerText="E" style="width:1px">
+                                    <p:column headerText="E" style="width:14px">
                                         <p:selectBooleanCheckbox value="#{me1.eliminar}"/>
                                     </p:column>
-                                    <p:column headerText="L" style="width:1px">
+                                    <p:column headerText="L" style="width:14px">
                                         <p:selectBooleanCheckbox value="#{me1.lectura}"/>
                                     </p:column>
-                                        <p:column headerText="T" style="width:1px">
+                                        <p:column headerText="T" style="width:14px">
                                         <p:selectBooleanCheckbox  value="#{me1.todo}" >
                                          <p:ajax update=":form:menuOpcionesSe"
                                                         listener="#{rolMB.menuSeleccionado(indexRegistrar)}"/>
@@ -297,7 +286,7 @@
                           <h5 class="titulo5" >MODIFICAR ROL</h5>
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="center" colspan="5">
+                            <td align="left" colspan="5">
                                 <table>
                                     <tr>
                                         <td align="left" class="negrita">Nombre del Rol:</td>
@@ -432,33 +421,33 @@
                             <td align="left" colspan="2">
                                 <p:dataTable  style="text-align:center;font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="700"  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
                                              selection="#{rolMB.listaMenSeleccionadoE2}" rowKey="#{me1E.menId}">
-                                    <p:column selectionMode="multiple" />
-                                    <p:column headerText="Opción Menú" style="width:140px">
+                                    <p:column selectionMode="multiple" style="width:14px" />
+                                    <p:column headerText="Opción Menú" >
                                         <div align="left">
                                         <h:outputText value="#{me1E.menNombre}"/>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="R" style="width:1px">
+                                    <p:column headerText="R" style="width:14px">
                                     <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.crear}"/>
                                          </div>
                                     </p:column>
-                                    <p:column headerText="A" style="width:1px">
+                                    <p:column headerText="A" style="width:14px">
                                     <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.actualizar}"/>
                                          </div>
                                     </p:column>
-                                    <p:column headerText="E" style="width:1px">
+                                    <p:column headerText="E" style="width:14px">
                                     <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.eliminar}"/>
                                          </div>
                                     </p:column>
-                                    <p:column headerText="L" style="width:1px">
+                                    <p:column headerText="L" style="width:14px">
                                     <div align="center">
                                         <p:selectBooleanCheckbox value="#{me1E.lectura}"/>
                                          </div>
                                     </p:column>
-                                     <p:column headerText="T" style="width:1px">
+                                     <p:column headerText="T" style="width:14px">
                                      <div align="center">
                                         <p:selectBooleanCheckbox  value="#{me1E.todo}" >
                                         
