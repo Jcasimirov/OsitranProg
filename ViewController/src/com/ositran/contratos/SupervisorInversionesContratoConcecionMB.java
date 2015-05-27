@@ -161,6 +161,7 @@ public class SupervisorInversionesContratoConcecionMB {
         try {
            contratoSupInversionesVO=contratoSubInversionesServiceImpl.get(codigo);
            contratoSupInversionesVO.setSivEstado(0);
+            contratoSupInversionesVO.setSivFechaFinal(new Date());
            contratoSubInversionesServiceImpl.update(contratoSupInversionesVO); 
            listarSupervisionDeInversiones();
        } catch (Exception e) {
