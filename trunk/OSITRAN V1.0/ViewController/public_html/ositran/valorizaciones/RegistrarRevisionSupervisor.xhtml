@@ -50,6 +50,7 @@
                                                 <td class="negrita">Asunto:</td>
                                                 
                                                  <td colspan="3"><p:inputTextarea  
+                                                 onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                  value="#{registrarRevisionSupervisorMB.asunto}"  
                                                  style="width:97%;height:25px" /></td>
                                                   
@@ -201,7 +202,7 @@
                                             </tr>
                                    	 <tr>
                                                 <td>Observaciones:</td>
-                                                 <td><p:inputTextarea style="width:300px"  value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
+                                                 <td><p:inputTextarea style="width:300px" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"   value="#{registrarRevisionSupervisorMB.observaciones}"  /></td>
                                             </tr>
                                              
                                              
