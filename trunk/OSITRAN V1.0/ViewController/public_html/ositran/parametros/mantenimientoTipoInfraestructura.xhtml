@@ -24,11 +24,7 @@
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
-                        <div align="center">
-                            <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                                #{msg.tituloMTI}
-                            </h5>
-                        </div>
+                        <div class="titulo5">MANTENIMIENTO TIPO INFRAESTRUCTURA</div>
                         <div align="center" style="font-size:11px;">
                             <div id="table" style="width: 100%;">
                                 <table style="width: 80%;" rendered="#{infraestructuraMB.rolOpcion.troConsultar  eq 1}">
@@ -38,9 +34,9 @@
                                                 <tr>
                                                     <td style="width: 10px">Buscar:</td>
                                                     <td style="width: 20px">
-                                                        <p:inputText id="nomInfraSearch" size="35"
+                                                        <p:inputText id="nomInfraSearch" size="35" styleClass="estandar-mayus-minus"
                                                                      value="#{infraestructuraMB.nomInfraSearch}"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                                     onblur="pasarMayuscula(this.value,this.id)"/>
                                                     </td>
                                                     
                                                     <td>

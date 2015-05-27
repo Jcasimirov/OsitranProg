@@ -6,6 +6,7 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
        
@@ -69,7 +70,7 @@
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.listaEmpSup}"
                                              rowIndexVar="rowIndex"> 
                                              
-                                     <p:column headerText="N°" style="width:3%">
+                                     <p:column headerText="Nro" style="width:3%">
                                             <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
                                         </p:column> 
                                         <p:column headerText="Tipo Documento" style="width:7%">
@@ -122,7 +123,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
@@ -175,7 +176,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion:</td>
+                            <td colspan="2" align="left">Dirección:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;"  onkeyup="pasarMayuscula(this.value,this.id)"  id="dirEmpSupMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupMod}" maxlength="20"></p:inputText>
@@ -201,7 +202,7 @@
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
-                            <td align="left">Telefono:</td>
+                            <td align="left">Teléfono:</td>
                             <td align="left">
                                 <p:inputText id="telefonoMod"
                                 
@@ -222,7 +223,7 @@
                                 </p:selectOneMenu>
 
                             </td>
-                            <td align="left">Numero doc Identidad:</td>
+                            <td align="left">Número de Documento:</td>
                             <td align="left">
                                 <p:inputText id="nroDocMod"
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDocMod}" maxlength="20"></p:inputText>
@@ -289,7 +290,7 @@
                         </tr>
                          
                         <tr>
-                            <td colspan="2" align="left">Direccion:</td>
+                            <td colspan="2" align="left">Dirección:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSup"
                                 onkeyup="pasarMayuscula(this.value,this.id)"
@@ -316,7 +317,7 @@
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                             
-                            <td align="left">Telefono:</td>
+                            <td align="left">Teléfono:</td>
                             <td align="left">
                                 <p:inputText id="telefono" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.telefono}" maxlength="15">
@@ -337,7 +338,7 @@
                                                    itemValue="#{lisTipoDoc.tdoId}"/>
                                 </p:selectOneMenu>
                             </td>
-                            <td align="left">Numero doc Identidad:</td>
+                            <td align="left">Número de Documento:</td>
                             <td align="left">
                                 <p:inputText id="nroDoc" 
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDoc}" maxlength="20"></p:inputText>
@@ -399,7 +400,7 @@
                         </tr>
                          
                         <tr>
-                            <td  align="left">Direccion: </td>
+                            <td  align="left">Dirección: </td>
                             <td  align="left">
                                 <h:outputText style="width: 400px;text-transform:uppercase;" id="dirEmpSupVer"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupVer}"/>
@@ -420,7 +421,7 @@
                                 <h:outputText id="siglasNomVer" style="text-transform:uppercase;"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomVer}"/>
                             </td>
-                            <td align="left">Telefono: </td>
+                            <td align="left">Teléfono: </td>
                             <td align="left">
                                 <h:outputText id="telefonoVer" style="text-transform:uppercase;"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.telefonoVer}"/>
@@ -433,7 +434,7 @@
                             <h:outputText id="tipoDocumentoVer" style="text-transform:uppercase;"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.tipoDocumentoVer}"/>                                
                             </td>
-                            <td align="left">Numero doc Identidad: </td>
+                            <td align="left">Número de Documento: </td>
                             <td align="left">
                                 <h:outputText id="nroDocVer" style="text-transform:uppercase;"
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.nroDocVer}"/>

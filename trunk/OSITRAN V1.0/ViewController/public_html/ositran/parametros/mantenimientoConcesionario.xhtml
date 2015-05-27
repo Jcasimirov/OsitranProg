@@ -22,14 +22,14 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h5 class="titulo5">MANTENIMIENTO CONCESIONARIO</h5>
+                            <div class="titulo5" >MANTENIMIENTO CONCESIONARIO</div>
                             <div style="width:80%">
                                 <div  width="100%"  align="left" class="letra11" >
                                     <table width="100%">
                                         <tr>
                                              <td align="left" style="width:35%">
                                                 Buscar: 
-                                                <p:inputText id="buscarT"   onkeyup="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}"/><h:outputText value=" "/>
+                                                <p:inputText id="buscarT"   onblur="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}" styleClass="estandar-mayus-minus"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda}"
                                                                  update=":form:tablaC :form:mensaje"   image="ui-icon-search"/><h:outputText value=" "/>
@@ -309,8 +309,8 @@
                         <tr>
                             <td colspan="1" align="left">Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText  maxlength="50" style="width:90%"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText  maxlength="50" style="width:90%" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
                                              <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
