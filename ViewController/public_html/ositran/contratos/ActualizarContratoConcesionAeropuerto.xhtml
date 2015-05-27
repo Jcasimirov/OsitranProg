@@ -262,7 +262,9 @@
                                      
                                     <tr>
                                         <td align="center" colspan="2">
-                                            <p:commandButton value="#{btn.btn_guardar}" actionListener="#{actualizarContratoMB.guardarContrato()}" update=":tab:form:mensaje" disabled="#{actualizarContratoMB.tabDeshabilitado}"></p:commandButton>
+                                            <p:commandButton value="#{btn.btn_guardar}" actionListener="#{actualizarContratoMB.guardarContrato()}" 
+                                            update=":tab:form:mensaje" disabled="#{actualizarContratoMB.tabDeshabilitado}"
+                                            rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"></p:commandButton>
                                              
                                             <p:commandButton value="#{btn.btn_salir}" disabled="#{actualizarContratoMB.tabDeshabilitado}" action="#{viewcontroller.redirect('ositran/principal.xhtml')}"></p:commandButton>
                                         </td>
@@ -405,7 +407,9 @@
                                                 </p:column>
                                                 <p:column style="width:10%;" headerText="Eliminar">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarAdenda}" oncomplete="dlgEliminarAdenda.show();">
+                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarAdenda}" 
+                                                        oncomplete="dlgEliminarAdenda.show();"
+                                                        rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                             <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -440,7 +444,9 @@
                                                 </p:column>
                                                 <p:column style="width:10%;" headerText="Eliminar">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarEntrega}" oncomplete="dlgEliminarEntrega.show();">
+                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        actionListener="#{actualizarContratoMB.cargarEliminarEntrega}" 
+                                                        oncomplete="dlgEliminarEntrega.show();">
                                                             <f:attribute name="entrega" value="#{entrega}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -617,7 +623,8 @@
                                                 </p:column>
                                                 <p:column headerText="Eliminar" style="width:4%">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarCompromiso}" oncomplete="dlgEliminarCompromisoI.show();">
+                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        actionListener="#{actualizarContratoMB.cargarEliminarCompromiso}" oncomplete="dlgEliminarCompromisoI.show();">
                                                             <f:attribute name="compromiso" value="#{compromiso}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -712,7 +719,8 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Compromiso de Inversi&#243;n Periodo/Etapa - Supervisado por OSITRAN:</td>
                                         <td align="right">
-                                            <p:commandButton value="#{btn.btn_nuevo}" id="nuevoCompromisoSupervisado" actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}" update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
+                                            <p:commandButton value="#{btn.btn_nuevo}" 
+                                            id="nuevoCompromisoSupervisado" actionListener="#{actualizarContratoMB.resetearNuevoCompromisoSupervisado()}" update=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg
                                                              :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg" onclick="popupAgregarCompromisoSupervisado.show();" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
@@ -751,7 +759,8 @@
                                                 </p:column>
                                                 <p:column headerText="Eliminar" style="width:4%">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarCompromisoSupervisado}" onclick="dlgEliminarCompromisoS.show();">
+                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        actionListener="#{actualizarContratoMB.cargarEliminarCompromisoSupervisado}" onclick="dlgEliminarCompromisoS.show();">
                                                             <f:attribute name="comsup" value="#{comsup}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -871,14 +880,16 @@
                                                 </p:column>
                                                 <p:column headerText="Ver" style="width:5%">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" actionListener="#{actualizarContratoMB.preDownloadPenalidades(penalidad.tcpDocumentoFisico)}">
+                                                        <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" 
+                                                        actionListener="#{actualizarContratoMB.preDownloadPenalidades(penalidad.tcpDocumentoFisico)}">
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadPenalidades}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </div>
                                                 </p:column>
                                                 <p:column headerText="Eliminar" style="width:4%">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarElimimarPenalidad}" onclick="dlgEliminarPenalidad.show();">
+                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        actionListener="#{actualizarContratoMB.cargarElimimarPenalidad}" onclick="dlgEliminarPenalidad.show();">
                                                             <f:attribute name="penalidad" value="#{penalidad}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -958,7 +969,7 @@
                                             <h:outputText value="CAO" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar CAO" id="nuevoCAO" oncomplete="popupAgregarCAO.show()" update=":tab:frmAgregarCAO" actionListener="#{actualizarContratoMB.limpiarCamposCao()}" image="ui-icon-circle-plus" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
+                                            <p:commandButton value="Agregar CAO" id="nuevoCAO" oncomplete="popupAgregarCAO.show()" update=":tab:frmAgregarCAO" actionListener="#{actualizarContratoMB.limpiarCamposCao()}" image="ui-icon-circle-plus" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos and actualizarContratoMB.rolOpcion.troAgregar eq 1}"/>
                                         </td>
                                     </tr>
                                      
@@ -989,7 +1000,8 @@
                                                         </p:commandButton>
                                                     </p:column>
                                                     <p:column headerText="Eliminar" style="width:4%">
-                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarCao()}" oncomplete="popupEliminarCAO.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaCAO :tab:formEliminarCAO">
+                                                        <p:commandButton rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        actionListener="#{actualizarContratoMB.cargarEliminarCao()}" oncomplete="popupEliminarCAO.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaCAO :tab:formEliminarCAO">
                                                             <f:param id="idContratoCaoE" name="idContratoCaoE" value="#{tCao.caoId}"/>
                                                         </p:commandButton>
                                                     </p:column>
@@ -1013,7 +1025,8 @@
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Hito</td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar Hito" id="nuevoHito" oncomplete="popupAgregarHito.show()" update=":tab:frmAgregarHito" actionListener="#{actualizarContratoMB.limpiarCamposHito()}" image="ui-icon-circle-plus"/>
+                                            <p:commandButton value="Agregar Hito" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
+                                            id="nuevoHito" oncomplete="popupAgregarHito.show()" update=":tab:frmAgregarHito" actionListener="#{actualizarContratoMB.limpiarCamposHito()}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -1043,13 +1056,14 @@
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadHito}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Modificar" style="width:4%" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
+                                                    <p:column headerText="Modificar" style="width:4%" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos and actualizarContratoMB.rolOpcion.troModificar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarModificarHito()}" oncomplete="popupModificarHito.show()" image="ui-icon-pencil" style="width:25px;height:25px" update=":tab:frmCHP:tablaHito :tab:frmModificarHito">
                                                             <f:param id="idContratoHitoM" name="idContratoHitoM" value="#{tHito.htoId}"/>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%">
-                                                        <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarHito()}" oncomplete="popupEliminarHito.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaHito :tab:formEliminarHito">
+                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                        <p:commandButton 
+                                                        actionListener="#{actualizarContratoMB.cargarEliminarHito()}" oncomplete="popupEliminarHito.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaHito :tab:formEliminarHito">
                                                             <f:param id="idContratoHitoE" name="idContratoHitoE" value="#{tHito.htoId}"/>
                                                         </p:commandButton>
                                                     </p:column>
@@ -1075,7 +1089,7 @@
                                             <h:outputText value="PPO" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}"/>
                                         </td>
                                         <td align="right">
-                                            <p:commandButton value="Agregar PPO" id="nuevoPPO" oncomplete="popupAgregarPPO.show()" update=":tab:frmAgregarPpo" actionListener="#{actualizarContratoMB.limpiarCamposPpo()}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" image="ui-icon-circle-plus"/>
+                                            <p:commandButton value="Agregar PPO" id="nuevoPPO" oncomplete="popupAgregarPPO.show()" update=":tab:frmAgregarPpo" actionListener="#{actualizarContratoMB.limpiarCamposPpo()}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos and actualizarContratoMB.rolOpcion.troAgregar eq 1}" image="ui-icon-circle-plus"/>
                                         </td>
                                     </tr>
                                      
@@ -1105,7 +1119,7 @@
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadPpo}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%">
+                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarPpo()}" oncomplete="popupEliminarPpo.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaPPO :tab:formEliminarPpo">
                                                             <f:param id="idContratoPpoE" name="idContratoPpoE" value="#{tPpo.ppoId}"/>
                                                         </p:commandButton>
@@ -1515,7 +1529,7 @@
                                                             <f:attribute name="contratoAlertaD" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%">
+                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarAlerta}" oncomplete="popupEliminarAlerta.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formEliminarAlerta">
                                                             <f:attribute name="contratoAlertaE" value="#{tAlerta}"/>
                                                         </p:commandButton>
@@ -1689,7 +1703,7 @@
                                      </td>
                                         <td align="right">
                                          <p:commandButton actionListener="#{actualizarContratoMB.cargarNuevasInversiones}"  
-                                         update=":tab:frmAgregarInversion"
+                                         update=":tab:frmAgregarInversion" rendered="#{actualizarContratoMB.rolOpcion.troAgregar eq 1}"
                                          oncomplete="popupAgregarInversion.show();" value="Nuevo" icon="ui-icon-circle-plus">
                                         <f:attribute name="abrirPopup" value="I"/>
                                         </p:commandButton>
