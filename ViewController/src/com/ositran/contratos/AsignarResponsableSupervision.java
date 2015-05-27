@@ -55,7 +55,7 @@ public class AsignarResponsableSupervision {
     
     
     //-----------------SESSION-----------------------//
-    public  final int formulario=24;
+    public  final int formulario=28;
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
@@ -126,7 +126,7 @@ private int codigoTipoInfraestructurafiltro;
 private int codigoSupervisor;
 private int codigoContrato;
 private int codigoAeropuerto;
-private Integer codigoInversion;
+private int codigoInversion;
 
     Util util = new Util();
 
@@ -619,11 +619,11 @@ private Integer codigoInversion;
     }
 
 
-    public void setCodigoInversion(Integer codigoInversion) {
+    public void setCodigoInversion(int codigoInversion) {
         this.codigoInversion = codigoInversion;
     }
 
-    public Integer getCodigoInversion() {
+    public int getCodigoInversion() {
         return codigoInversion;
     }
 
