@@ -400,7 +400,7 @@ public class DeclararInversion {
 
     public void cargarListaCompromisos() {
         try {
-            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(contratoVO.getConId());
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(contratoVO.getConId());
         } catch (Exception e) {
             e.printStackTrace();
         }
