@@ -321,8 +321,7 @@ public class ActualizarContrato {
     private Date fechaMaxima;
 
     private InfraestructuraVO infraestructuraVOE;
-    private String cssInversionValida;
-    private String mensajeInversionValida;
+    private boolean update;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
@@ -443,7 +442,7 @@ public class ActualizarContrato {
     }
 
     public void buscarContratos() {
-        System.out.println("tipoInfraestructura, concesion"+tipoInfraestructura+" "+ concesion);
+        System.out.println("tipoInfraestructura, concesion" + tipoInfraestructura + " " + concesion);
         try {
             listaContrato =
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),
@@ -517,38 +516,38 @@ public class ActualizarContrato {
 
         if (aplicaAvancedeObra && periodoseleccionado == -1) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Periodo"));
         } else if (periodoseleccionado == 0 && contratoVO.getConDiames() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Día mes no puede ser vacio"));
         } else if ((aplicaAvancedeObra && periodoseleccionado == 0) &&
                    (contratoVO.getConDiames() != null &&
                     !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Día mes debe ser un numero mayor a 0 y menor a 31"));
 
         } else if (contratoVO.getConPlazorevision() == null || contratoVO.getConPlazorevision() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Plazo de Revision no puede ser cero o vacio"));
         } else if (contratoVO.getConFechaSuscripcion() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "La Fecha de Suscripcion no puede ser vacio"));
         } else if (contratoVO.getConCantidadPlazoconcesion() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingrese el Plazo de concesion"));
         } else if (contratoVO.getConPdfcontrato() == null || contratoVO.getConPdfcontrato().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Adjunte un Contrato"));
         } else if (contratoVO.getConFicharesumen() == null || contratoVO.getConFicharesumen().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Adjunte una Ficha Resumen"));
         } else {
             try {
@@ -589,14 +588,14 @@ public class ActualizarContrato {
                 contratoConcesionServiceImp.updateContrato(contratoVO, alertaVO);
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
-                                                                              Constantes.EXITOCONTRATOACTUALIZADO));
+                                                                              "Aviso",
+                                                                              "Se Grabo correctamente"));
             } catch (Exception sqle) {
                 sqle.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                              Constantes.ERROR,
-                                                                              Constantes.ERRORGUARDAR));
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                                                              "Error",
+                                                                              "ERROR AL GUARDAR"));
             }
         }
     }
@@ -690,7 +689,7 @@ public class ActualizarContrato {
             downloadContratoPDF = Reutilizar.getNewInstance().preDownload(Constantes.RUTACONTRATOSPDF + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -701,7 +700,7 @@ public class ActualizarContrato {
                 Reutilizar.getNewInstance().preDownload(Constantes.RUTAFICHASRESUMEN + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -759,25 +758,25 @@ public class ActualizarContrato {
     public void agregarAdenda() {
         if (contratoNuevaAdendaVO.getCadNombre().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Nombre"));
         } else if (contratoNuevaAdendaVO.getTadId() == null || contratoNuevaAdendaVO.getTadId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Tipo de Adenda"));
         } else if (contratoNuevaAdendaVO.getCadDescripcion().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Objeto"));
         }
 
         else if (contratoNuevaAdendaVO.getCadFecha() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado la Fecha"));
         } else if (contratoNuevaAdendaVO.getCadDocumentoFisico().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado ningun documento"));
         }
 
@@ -785,15 +784,15 @@ public class ActualizarContrato {
             if (tipoInfraestructura != Constantes.TIPINFAEROPUERTOS) {
                 if (contratoNuevaAdendaVO.getCadMonto() == null || contratoNuevaAdendaVO.getCadMonto().equals("0")) {
                     FacesContext.getCurrentInstance().addMessage(null,
-                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "No ha ingresado el Monto"));
                 } else if (contratoNuevaAdendaVO.getCadCompromisoInversion() == null) {
                     FacesContext.getCurrentInstance().addMessage(null,
-                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "No ha ingresado el Comp. Inv. Concesionario"));
                 } else if (contratoNuevaAdendaVO.getMonId() == null || contratoNuevaAdendaVO.getMonId() == 0) {
                     FacesContext.getCurrentInstance().addMessage(null,
-                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "No ha ingresado el Tipo de Moneda"));
                 } else {
                     ejecutarGrabarAdenda();
@@ -834,14 +833,14 @@ public class ActualizarContrato {
                                                                 contratoNuevaAdendaVO.getCadDocumentoFisico(),
                                                                 contratoNuevaAdendaVO.getInputStreamNuevaAdenda());
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.GRABARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("popupAgregarAdenda.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "ERROR AL GUARDAR"));
         } finally {
 
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
@@ -865,14 +864,14 @@ public class ActualizarContrato {
             contratoAdendaServiceImpl.update(idAdendaEliminar);
             listContratoAdenda.remove(idAdendaEliminar);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("dlgEliminarAdenda.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORBORRAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                                          "ERROR AL BORRAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -900,7 +899,7 @@ public class ActualizarContrato {
             downloadAdendas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDA + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -910,7 +909,7 @@ public class ActualizarContrato {
             downloadCao = Reutilizar.getNewInstance().preDownload(Constantes.RUTACAO + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -920,7 +919,7 @@ public class ActualizarContrato {
             setDownloadHito(Reutilizar.getNewInstance().preDownload(Constantes.RUTAHITO + nombreArchivo));
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -930,7 +929,7 @@ public class ActualizarContrato {
             setDownloadPpo(Reutilizar.getNewInstance().preDownload(Constantes.RUTAPPO + nombreArchivo));
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -1034,15 +1033,15 @@ public class ActualizarContrato {
                                                                     contratoNuevaEntregaVO.getInputStreamNuevaEntrega());
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
+                                                                              "Aviso",
                                                                               Constantes.GRABARMENSAJESATISFACTORIO));
                 RequestContext.getCurrentInstance().execute("popupAgregarEntrega.hide();");
             } catch (SQLException sqle) {
                 sqle.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                              Constantes.ERROR,
-                                                                              Constantes.ERRORGUARDAR));
+                                                                              "Error",
+                                                                              "ERROR AL GUARDAR"));
             } finally {
                 RequestContext.getCurrentInstance().update("tab:form:mensaje");
             }
@@ -1065,14 +1064,14 @@ public class ActualizarContrato {
             contratoEntregaServiceImpl.update(idEntregaEliminar);
             listarEntregas.remove(idEntregaEliminar);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("dlgEliminarEntrega.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORBORRAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR",
+                                                                          "ERROR AL BORRAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -1115,7 +1114,7 @@ public class ActualizarContrato {
             downloadEntregas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDAENTREGA + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -1562,68 +1561,23 @@ public class ActualizarContrato {
         this.infraestructuraId = infraestructuraId;
     }
 
-    /*    public void validarNombreInversion() {
-        try {
-            if (contratoInversionVO.getInvDescripcion() == null ||
-                contratoInversionVO.getInvDescripcion().length() == 0) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                                                                              "No ha ingresado el Nombre de la Inversion"));
-                RequestContext.getCurrentInstance().update("tab:form:mensaje");
-            } else {
-                boolean noExiste =
-                    contratoInversionServiceImpl.validaNoExisteNombreInversion(contratoVO.getConId(),
-                                                                               contratoVO.getCsiId(),
-                                                                               contratoVO.getTinId(),
-                                                                               contratoInversionVO.getInfId(),
-                                                                               contratoInversionVO.getInvDescripcion().trim().toUpperCase());
-                if (noExiste) {
-                    mensajeInversionValida = "El nombre de la Inversión es Válida";
-                    cssInversionValida = "inversionValida";
-                } else {
-                    mensajeInversionValida = "El nombre de la Inversión ya Existe Ingrese Otra";
-                    cssInversionValida = "inversionInValida";
-                }
-            }
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-
-    } */
-
-    /**Por defecto en el DAO se actualiza las inversiones con el inv_estado 0
-     * luego con las listas de insert y update
-     * se actualizan o insertan los objetos con el inv_estado 1**/
+    /**Por defecto en el DAO se hace insert 
+     * se  insertan los objetos con el inv_estado 1**/
     public void guardarContratoInversion() {
-        if(listContratoInversion.size()==0){
+        if (listContratoInversion.size() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           " Agregue al menos una Inversion "));
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
-        }else{
-            Date fechaActual = new Date();
+        } else {
             try {
-                for (ContratoInversionVO inv : listContratoInversion) {
-                    /**Lista para objetos para Update con inv_id lleno**/
-                    if (inv.getInvId() != null) {
-                        /*AUDITORIA*/
-                        inv.setInvFechaCambio(fechaActual);
-                        inv.setInvUsuarioCambio(usuario.getUsuAlias());
-                        /*FIN AUDITORIA*/
-
-                    } else {
-                        /**Lista para objetos a Insertar con inv_id vacio**/
-                        /*FIN AUDITORIA*/
-                        inv.setInvFechaAlta(fechaActual);
-                        inv.setInvUsuarioAlta(usuario.getUsuAlias());
-                        /*FIN AUDITORIA*/
-
-                    }
-                }
                 String insert = contratoInversionServiceImpl.insertListaInversion(listContratoInversion);
                 cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
                 RequestContext.getCurrentInstance().execute("popupAgregarInversion.hide()");
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
             } catch (Exception s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -1631,9 +1585,7 @@ public class ActualizarContrato {
                 s.printStackTrace();
 
             }
-
         }
-        
     }
 
     public void cargarEliminarInfraestructura(ActionEvent event) {
@@ -1642,70 +1594,88 @@ public class ActualizarContrato {
             contratoInversionServiceImpl.query();
             RequestContext.getCurrentInstance().execute("popupEliminarInfraestructuraConInversiones.show();");
             RequestContext.getCurrentInstance().update("tab:frmAgregarInversion");
+
         } catch (SQLException sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
         }
     }
+
     public void cargarEliminarInversion(ActionEvent e) throws SQLException {
-        contratoInversionVO=(ContratoInversionVO)e.getComponent().getAttributes().get("inversion");
+        contratoInversionVO = (ContratoInversionVO) e.getComponent().getAttributes().get("inversion");
     }
-    public void eliminarInversion(){
+
+    public void eliminarInversion() {
         try {
-            boolean estaEnUso=contratoInversionServiceImpl.validaInversionNoEstaEnUso(contratoInversionVO.getInvId());
-            if(estaEnUso){
+
+            boolean estaEnUso = contratoInversionServiceImpl.validaInversionNoEstaEnUso(contratoInversionVO.getInvId());
+            if (estaEnUso) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "No se pudo Eliminar porque la Inversión esta en uso!"));
-            }else{
-            contratoInversionVO.setInvEstado(0);
-            contratoInversionVO.setInvFechaBaja(Reutilizar.obtenerFechaActual());
-            contratoInversionVO.setInvUsuarioBaja(usuario.getUsuAlias());
-            /* contratoInversionServiceImpl.update(contratoInversionVO); */
-            listContratoInversion.remove(contratoInversionVO);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+            } else {
+                if (update) {
+                    contratoInversionVO.setInvEstado(0);
+                    contratoInversionVO.setInvFechaBaja(Reutilizar.obtenerFechaActual());
+                    contratoInversionVO.setInvUsuarioBaja(usuario.getUsuAlias());
+                    contratoInversionServiceImpl.update(contratoInversionVO);
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                                  "Aviso",
+                                                                                  Constantes.GRABARMENSAJESATISFACTORIO));
+                    RequestContext.getCurrentInstance().update("tab:form:mensaje");
+                }
+                listContratoInversion.remove(contratoInversionVO);               
             }
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           " No se pudo Eliminar la Inversion "));
-            
+
         }
     }
-    public void eliminarInfraestructura() {
-            try {
-        /* ******************VALIDACIONES ABEL*****************************/
-        List<ValorizacionInversionAvanceDetalleVO> listaValorizacionDetalle=new ArrayList<ValorizacionInversionAvanceDetalleVO>();
-        ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServicesImpl=new ValorizacionInversionAvanceDetalleServiceImpl();
-        listaValorizacionDetalle=valorizacionInversionAvanceDetalleServicesImpl.query2(infraestructuraVOE.getInfId());
 
-        List<ContratoSupervisoraVO> listaContratoSupervisora=new ArrayList<ContratoSupervisoraVO>();
-        ContratoEmpresaSupervisoraService contratoSupervisoraService = new ContratoEmpresaSupervisoraServiceImpl();
-        listaContratoSupervisora=  contratoSupervisoraService.query1(infraestructuraVOE.getInfId());   
-           
-        /* ******************VALIDACIONES ABEL*****************************/
-       
-                if (listaValorizacionDetalle.size()>0 || listaContratoSupervisora.size()>0){
-                        FacesContext.getCurrentInstance().addMessage(null,
-                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
-                        "No se puede borrar el tipo de Inversion porque esta en uso!"));
-                        RequestContext.getCurrentInstance().update("tab:form:mensaje");
-                }else {
-                        String eliminar =
-                            contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
-                                                                                          infraestructuraVOE.getCsiId(),
-                                                                                          infraestructuraVOE.getTinId(),
-                                                                                          infraestructuraVOE.getInfId(),
-                                                                                          usuario.getUsuAlias(),
-                                                                                          Reutilizar.getNewInstance().obtenerIpCliente());
-                        cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
-                        RequestContext.getCurrentInstance().execute("popupEliminarInversion.hide()");
-                    
-                    }
-        
+    public void eliminarInfraestructura() {
+        try {
+            /* ******************VALIDACIONES ABEL*****************************/
+            List<ValorizacionInversionAvanceDetalleVO> listaValorizacionDetalle =
+                new ArrayList<ValorizacionInversionAvanceDetalleVO>();
+            ValorizacionInversionAvanceDetalleService valorizacionInversionAvanceDetalleServicesImpl =
+                new ValorizacionInversionAvanceDetalleServiceImpl();
+            listaValorizacionDetalle =
+                valorizacionInversionAvanceDetalleServicesImpl.query2(infraestructuraVOE.getInfId());
+
+            List<ContratoSupervisoraVO> listaContratoSupervisora = new ArrayList<ContratoSupervisoraVO>();
+            ContratoEmpresaSupervisoraService contratoSupervisoraService = new ContratoEmpresaSupervisoraServiceImpl();
+            listaContratoSupervisora = contratoSupervisoraService.query1(infraestructuraVOE.getInfId());
+
+            /* ******************VALIDACIONES ABEL*****************************/
+
+            if (listaValorizacionDetalle.size() > 0 || listaContratoSupervisora.size() > 0) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+                                                                              "No se puede borrar el tipo de Inversion porque esta en uso!"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            } else {
+                String eliminar =
+                    contratoInversionServiceImpl.updateInversionxInfraestructuras(contratoVO.getConId(),
+                                                                                  infraestructuraVOE.getCsiId(),
+                                                                                  infraestructuraVOE.getTinId(),
+                                                                                  infraestructuraVOE.getInfId(),
+                                                                                  usuario.getUsuAlias(),
+                                                                                  Reutilizar.getNewInstance().obtenerIpCliente());
+                cargarInfraestructurasxContratoInversion(contratoVO.getCsiId());
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                              "Aviso",
+                                                                              "Se elimino correctamente!"));
+                RequestContext.getCurrentInstance().execute("popupEliminarInfraestructuraConInversiones.hide();");
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+
+            }
+
         } catch (Exception sqle) {
             // TODO: Add catch code
             sqle.printStackTrace();
@@ -1725,8 +1695,7 @@ public class ActualizarContrato {
         disableCboAeropuerto = false;
         updateInversiones = false;
         filtrarInfraestructurasSinInversiones();
-        mensajeInversionValida = "";
-        cssInversionValida = "";
+
     }
 
     public void borrarTodasInversiones() {
@@ -1735,8 +1704,7 @@ public class ActualizarContrato {
         contratoInversionVO.setInfId(0);
         listContratoInversion = new ArrayList<ContratoInversionVO>();
         disableCboAeropuerto = updateInversiones ? true : false;
-        mensajeInversionValida = "";
-        cssInversionValida = "";
+
     }
 
     public void limpiarCamposyListaInversiones() {
@@ -1745,13 +1713,9 @@ public class ActualizarContrato {
             contratoInversionVO.setInfId(infraestructuraId);
             disableCboAeropuerto = true;
         }
-        mensajeInversionValida = "";
-        cssInversionValida = "";
+
     }
-    
-    
-    
-    
+
 
     /**I.CONTRATOINVERSION Se carga al momento de seleccionar el contrato**/
     public void cargarInfraestructurasxContratoInversion(Integer concesionId) {
@@ -1773,6 +1737,7 @@ public class ActualizarContrato {
             /**infraestructurasCache tiene todas las infraestructuras de la concesion
              * en el contrato seleccionado**/
 
+
             /**Se valida si la infraestructura con inversion
              * no esta en el total de infraestructuras de la
              * concesion en el contrato seleccionado**/
@@ -1791,6 +1756,9 @@ public class ActualizarContrato {
         try {
             InfraestructuraVO infraestructuraSeleccionada =
                 (InfraestructuraVO) event.getComponent().getAttributes().get("tinfra");
+            String tipoPopup = event.getComponent().getAttributes().get("abrirPopup").toString();
+            update = (tipoPopup.equals("U")) ? true : false;
+
             infraestructuraId = infraestructuraSeleccionada.getInfId();
             listaInfraestructuraCBO =
                 (List<InfraestructuraVO>) Reutilizar.getNewInstance().copy(listaInfraestructuraConInversion);
@@ -1799,12 +1767,10 @@ public class ActualizarContrato {
             contratoInversionVO.setTinId(contratoVO.getTinId());
             contratoInversionVO.setCsiId(contratoVO.getCsiId());
             contratoInversionVO.setInvEstado(1);
-            System.out.println("contratoVO.getTinId()" + contratoVO.getTinId());
             contratoInversionVO.setInfId(infraestructuraSeleccionada.getInfId());
             disableCboAeropuerto = true;
             updateInversiones = true;
-            mensajeInversionValida = "";
-            cssInversionValida = "";
+
             listContratoInversion =
                 contratoInversionServiceImpl.ListaPorAeropuerto(contratoVO.getConId(),
                                                                 infraestructuraSeleccionada.getTinId(),
@@ -1831,10 +1797,9 @@ public class ActualizarContrato {
      * a la Lista de inversiones Temporal **/
     public void preAgregarInversion() {
         try {
-            mensajeInversionValida = "";
-            cssInversionValida = "";
             disableCboAeropuerto = true;
             infraestructuraId = contratoInversionVO.getInfId();
+            System.out.println("contratoInversionVO.getInvDescripcion():"+contratoInversionVO.getInvDescripcion());
             boolean existe = validaSiExisteEnMemoria(contratoInversionVO.getInvDescripcion());
             if (existe) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -1855,7 +1820,13 @@ public class ActualizarContrato {
                                                                               "No ha ingresado el Nombre de la Inversion"));
                 RequestContext.getCurrentInstance().update("tab:form:mensaje");
             } else {
-                contratoInversionServiceImpl.insert(contratoInversionVO);
+                if (update) {
+                    contratoInversionServiceImpl.insert(contratoInversionVO);
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                                                  "Aviso",
+                                                                                  Constantes.GRABARMENSAJESATISFACTORIO));
+                }
                 listContratoInversion.add(contratoInversionVO);
                 contratoInversionVO = new ContratoInversionVO();
                 contratoInversionVO.setConId(contratoVO.getConId());
@@ -1864,25 +1835,25 @@ public class ActualizarContrato {
                 contratoInversionVO.setInfId(infraestructuraId);
                 contratoInversionVO.setInvEstado(1);
             }
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
-                                                                          Constantes.GRABARMENSAJESATISFACTORIO));
+
+
         } catch (SQLException sqle) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Ocurrio un error durante la grabacion, no se grabó!"));
             sqle.printStackTrace();
         }
     }
-    public boolean validaSiExisteEnMemoria(String descripcionnueva){
-        boolean flag=false;
+
+    public boolean validaSiExisteEnMemoria(String descripcionnueva) {
+        boolean flag = false;
         for (ContratoInversionVO cinv : listContratoInversion) {
-           if((descripcionnueva.trim().toUpperCase()).equals(cinv.getInvDescripcion()))
-                flag=true;
-                
-       }       
+            if ((descripcionnueva.trim().toUpperCase()).equals(cinv.getInvDescripcion().trim().toUpperCase()))
+                flag = true;
+
+        }
         return flag;
-            
+
     }
 
     public ContratoInversionVO getContratoInversionVO() {
@@ -2058,7 +2029,7 @@ public class ActualizarContrato {
                 RequestContext.getCurrentInstance().execute("popupAgregarAlerta.hide()");
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
+                                                                              "Aviso",
                                                                               Constantes.GRABARMENSAJESATISFACTORIO));
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -2336,8 +2307,6 @@ public class ActualizarContrato {
 
 
     }
-
-
 
 
     public void cargarEliminarCao() throws SQLException {
@@ -3192,14 +3161,14 @@ public class ActualizarContrato {
             listarContratoCompromiso.add(contratoNuevoCompromisoVO);
             listarContratoCompromiso = descripciones(listarContratoCompromiso);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.GRABARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("popupAgregarCompromiso.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "ERROR AL GUARDAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -3224,14 +3193,14 @@ public class ActualizarContrato {
             contratoCompromisoServiceImpl.update(idCompromisoEliminarI);
             listarContratoCompromiso.remove(idCompromisoEliminarI);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("dlgEliminarCompromisoI.hide();");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORBORRAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "ERROR AL BORRAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -3352,14 +3321,14 @@ public class ActualizarContrato {
             listarContratoCompromisoSupervisado.add(contratoNuevoCompromisoSupervisadoVO);
             listarContratoCompromisoSupervisado = descripciones(listarContratoCompromisoSupervisado);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.GRABARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("popupAgregarCompromisoSupervisado.hide();");
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORGUARDAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "ERROR AL GUARDAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -3382,14 +3351,14 @@ public class ActualizarContrato {
             contratoCompromisoServiceImpl.update(idCompromisoEliminarS);
             listarContratoCompromisoSupervisado.remove(idCompromisoEliminarS);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("dlgEliminarCompromisoS.hide();");
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORBORRAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
+                                                                          "ERROR AL BORRAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -3541,28 +3510,28 @@ public class ActualizarContrato {
     public void grabarContratoPenalidad() {
         if (contratoNuevaPenalidadVO.getTcpMotivo().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado la Etapa"));
         } else if (contratoNuevaPenalidadVO.getMonId() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Tipo de Moneda"));
         } else if (contratoNuevaPenalidadVO.getTcpTotal() == null ||
                    contratoNuevaPenalidadVO.getTcpTotal().compareTo(BigDecimal.ZERO) == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha ingresado el Monto"));
         } else if (contratoNuevaPenalidadVO.getTcpFecha() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado la Fecha"));
         } else if (contratoNuevaPenalidadVO.getPesId() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Estado"));
         } else if (contratoNuevaPenalidadVO.getTcpDocumentoFisico().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado ningun documento"));
         }
 
@@ -3584,15 +3553,15 @@ public class ActualizarContrato {
                                                                     contratoNuevaPenalidadVO.getInputStreamNuevaPenalidad());
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                                              Constantes.EXITO,
+                                                                              "Aviso",
                                                                               Constantes.GRABARMENSAJESATISFACTORIO));
                 RequestContext.getCurrentInstance().execute("popupAgregarPenalidad.hide();");
             } catch (Exception sqle) {
                 sqle.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                              Constantes.ERROR,
-                                                                              Constantes.ERRORGUARDAR));
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                                                              "Error",
+                                                                              "ERROR AL GUARDAR"));
             } finally {
                 RequestContext.getCurrentInstance().update("tab:form:mensaje");
             }
@@ -3615,14 +3584,14 @@ public class ActualizarContrato {
             contratoPenalidadServiceImpl.update(idPenalidadEliminar);
             listarContratoPenalidad.remove(idPenalidadEliminar);
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, Constantes.EXITO,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           Constantes.ELIMINARMENSAJESATISFACTORIO));
             RequestContext.getCurrentInstance().execute("dlgEliminarPenalidad.hide();");
         } catch (Exception sqle) {
             sqle.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, Constantes.ERROR,
-                                                                          Constantes.ERRORBORRAR));
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          "ERROR AL BORRAR"));
         } finally {
             RequestContext.getCurrentInstance().update("tab:form:mensaje");
         }
@@ -3643,7 +3612,7 @@ public class ActualizarContrato {
             downloadPenalidades = Reutilizar.getNewInstance().preDownload(Constantes.RUTAPENALIDADES + nombreArchivo);
         } catch (FileNotFoundException fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }
     }
@@ -3870,21 +3839,14 @@ public class ActualizarContrato {
         return infraestructuraVOE;
     }
 
-    public void setMensajeInversionValida(String mensajeInversionValida) {
-        this.mensajeInversionValida = mensajeInversionValida;
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 
-    public String getMensajeInversionValida() {
-        return mensajeInversionValida;
+    public boolean isUpdate() {
+        return update;
     }
 
-    public void setCssInversionValida(String cssInversionValida) {
-        this.cssInversionValida = cssInversionValida;
-    }
-
-    public String getCssInversionValida() {
-        return cssInversionValida;
-    }
 
     public void setPeriodosCache(HashMap<Integer, Integer> periodosCache) {
         this.periodosCache = periodosCache;
