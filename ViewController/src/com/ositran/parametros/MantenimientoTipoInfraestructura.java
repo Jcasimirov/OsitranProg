@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import com.ositran.util.Util;
+import com.ositran.vo.bean.ModalidadConcesionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 
 import com.ositran.vo.bean.UsuarioVO;
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import java.util.Date;
+
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -44,13 +47,19 @@ public class MantenimientoTipoInfraestructura {
     private UsuarioVO usuario;
     private int tipoInfraestructura;
     private int tipoInfraestructuraGlobal;  
+    
+    private int idEliminar;
+    
 
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
-
+    
+    
+    //Listas
+    List<InfraestructuraTipoVO> listaMod;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
@@ -130,12 +139,29 @@ public class MantenimientoTipoInfraestructura {
 
 
     /* Editar */
-    public void cargarEditar(InfraestructuraTipoVO infraestructuraTipoV) {
+    public void cargarEditar() {
+        
+        try {
+           //inicio de captura de codigo a modificar
+           FacesContext context = FacesContext.getCurrentInstance();
+           Map requestMap = context.getExternalContext().getRequestParameterMap();
+           Object str = requestMap.get("idModificar");
+           Integer idcodigo = Integer.valueOf(str.toString());
+           infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idcodigo);
+           //fin de de captura de codigo a modificar
+            
+           codigoE = infraestructuraTipoVO.getTinId();
+           tinNombreE = infraestructuraTipoVO.getTinNombre();
+           tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
+                        
+            
+       } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+        
 
-        infraestructuraTipoVO = infraestructuraTipoV;
-        codigoE = infraestructuraTipoVO.getTinId();
-        tinNombreE = infraestructuraTipoVO.getTinNombre();
-        tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
+        
     }
 
     public void editar() throws SQLException {
@@ -174,15 +200,39 @@ public class MantenimientoTipoInfraestructura {
 
         return listaInfraestructura;
     }
-
-    public void cargarEliminar(int codigo, String nombre) {
-        nombreEliminar = nombre;
-        codigoEliminar = codigo;
+    
+    public void getQuery() throws SQLException {
+        listaMod = this.infraestructuraTipoServiceImpl.query();
     }
-
+    
+    public void cargarEliminar() {
+        try {
+            
+           FacesContext context = FacesContext.getCurrentInstance();
+           Map requestMap = context.getExternalContext().getRequestParameterMap();
+           Object str = requestMap.get("idEliminar");
+           Integer idInfra = Integer.valueOf(str.toString());
+           infraestructuraTipoVO = this.infraestructuraTipoServiceImpl.get(idInfra);
+           idEliminar = infraestructuraTipoVO.getTinId();
+           nombreEliminar = infraestructuraTipoVO.getTinNombre().toUpperCase();
+           
+       } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+       
+    }
+    
     public void eliminar() throws SQLException {
         try {
-            getInfraestructuraTipoServiceImpl().delete(codigoEliminar);
+            infraestructuraTipoVO = this.infraestructuraTipoServiceImpl.get(idEliminar);
+            infraestructuraTipoVO.setTinEstado(0);
+            infraestructuraTipoVO.setTinTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+            infraestructuraTipoVO.setTinUsuarioBaja(usuario.getUsuAlias());
+            infraestructuraTipoVO.setTinUsuarioCambio(usuario.getUsuAlias());
+            infraestructuraTipoVO.setTinFechaBaja(util.getObtenerFechaHoy());
+            this.infraestructuraTipoServiceImpl.update(infraestructuraTipoVO);
+            getQuery();
             ListarInfraestructura();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -353,5 +403,21 @@ public class MantenimientoTipoInfraestructura {
 
     public int getTipoInfraestructuraGlobal() {
         return tipoInfraestructuraGlobal;
+    }
+
+    public void setIdEliminar(int idEliminar) {
+        this.idEliminar = idEliminar;
+    }
+
+    public int getIdEliminar() {
+        return idEliminar;
+    }
+
+    public void setListaMod(List<InfraestructuraTipoVO> listaMod) {
+        this.listaMod = listaMod;
+    }
+
+    public List<InfraestructuraTipoVO> getListaMod() {
+        return listaMod;
     }
 }
