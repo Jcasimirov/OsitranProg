@@ -19,6 +19,7 @@ public class AsignarResponsableSupDAOImpl implements AsignarResponsableSupDAO {
     public AsignarResponsableSupDAOImpl() {
         super();
     }
+    
     @Override
     public List<ContratoResSupDetalle> ListarDetalle(Integer codigoContrato, Integer compromiso, Integer codigoAeropuerto, Integer codigoInversion) throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
