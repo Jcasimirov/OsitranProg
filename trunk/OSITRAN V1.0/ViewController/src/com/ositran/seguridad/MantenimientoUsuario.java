@@ -28,12 +28,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "mantenimientoUsuarioMB")
-@RequestScoped
+@ViewScoped
 
 public class MantenimientoUsuario {
     public final int formulario = 4;
@@ -133,6 +134,7 @@ public class MantenimientoUsuario {
     public void cargarListaInfraestructura() {
         try {
             listaTipoInfraestructura = infraestructuraTipoServiceImpl.query();
+            listanombrerol();
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -144,9 +146,17 @@ public class MantenimientoUsuario {
     
     
     /*  -----Activar y Desactivar Usuario--------- */
-    public void activarUsuario(UsuarioVO usuarioV) throws SQLException, Exception {
+    public void activarUsuario() throws SQLException, Exception {
         try {
-            usuarioVO = usuarioV;
+            //inicio de captura de codigo a modificar
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map requestMap = context.getExternalContext().getRequestParameterMap();
+            Object str = requestMap.get("idActivar");
+            Integer idcodigo1 = Integer.valueOf(str.toString());
+            usuarioVO = usuarioServiceImpl.get(idcodigo1);
+            //fin de de captura de codigo a modificar
+            
+            
             codigoE = usuarioVO.getUsuId();
             usuarioVO.setUsuId(codigoE);
             System.out.println(codigoE + " codigo E para activar usuario");
@@ -163,9 +173,17 @@ public class MantenimientoUsuario {
         }
     }
 
-    public void desactivarUsuario(UsuarioVO usuarioV) throws SQLException, Exception {
+    public void desactivarUsuario() throws SQLException, Exception {
         try {
-            usuarioVO = usuarioV;
+            
+            //inicio de captura de codigo a modificar
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map requestMap = context.getExternalContext().getRequestParameterMap();
+            Object str = requestMap.get("idDesactivar");
+            Integer idcodigo2 = Integer.valueOf(str.toString());
+            usuarioVO = usuarioServiceImpl.get(idcodigo2);
+            //fin de de captura de codigo a modificar            
+            
             codigoE = usuarioVO.getUsuId();
             usuarioVO.setUsuId(codigoE);
             System.out.println(codigoE + " codigo E para desactivar usuario");
@@ -308,8 +326,8 @@ public class MantenimientoUsuario {
     /*  -----Buscar--------- */
     public List<UsuarioVO> SearchListaUsuario() throws SQLException {
         try {  
-            listanombrerol();
             listaUsuario = this.usuarioServiceImpl.UserSearch(nomUserSearch);
+            listanombrerol();
         } catch (Exception e) {
             e.printStackTrace();
         }
