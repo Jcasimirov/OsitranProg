@@ -231,8 +231,7 @@
                                                     <td align="left">Observaci&#243;n:</td>
                                                     <td align="left">
                                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="obsRecf"
-                                                                         cols="50"
-                                                                         scrollHeight="300"
+                                                                         style="width:500px;" autoResize="false" rows="10"
                                                                          value="#{declararInversionMB.invAvnVO.tiaObservaciones}"/>
                                                     </td>
                                                     <td> <h:outputText style="color:red;" value="*"/></td>
@@ -467,13 +466,13 @@
                                                  
                                                 <tr>
                                                     <td align="left">Nota</td>
-                                                    <td colspan="3" align="left">
+                                                    <td colspan="5" align="left">
                                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nota" 
-                                                                         value="#{declararInversionMB.invVO.invNota}" scrollHeight="300"
-                                                                         cols="50"/>
+                                                                         value="#{declararInversionMB.invVO.invNota}"  style="width:500px;" autoResize="false" rows="10"/>
                                                          
-                                                        <h:outputText style="color:red;" value="*"/>
+                                                       
                                                     </td>
+                                                    <td> <h:outputText style="color:red;" value="*"/></td>
                                                 </tr>
                                                  
                                                 <tr>

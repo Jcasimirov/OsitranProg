@@ -334,8 +334,7 @@
                                                         <tr>
                                                             <td align="left" >Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  cols="50" 
-                                                                scrollHeight="300"
+                                                                <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"   style="width:500px;" autoResize="false" rows="10"
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
                                                             <td><h:outputText style="color:red;" value="*"/></td>
@@ -637,7 +636,7 @@
                                                             </td>
                                                             <td align="left" colspan="5" >
                                                                 <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}"
-                                                                                  cols="50" scrollHeight="300"/>
+                                                                                  style="width:500px;" autoResize="false" rows="10"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
                                                             </td>
@@ -670,11 +669,12 @@
                                                             <td align="left">
                                                                 <h:outputText value="Observaciones"/>
                                                             </td>
-                                                            <td colspan="5" align="left">
-                                                                <p:inputTextarea cols="50" scrollHeight="300"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}" style="width:400px !important;"/>
-                                                                 
-                                                                <h:outputText style="color:red;" value="*"/>
+                                                            <td  align="left" colspan="5">
+                                                                <p:inputTextarea style="width:500px;" autoResize="false" rows="10"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}" />
+                                                               
+                                                               
                                                             </td>
+                                                            <td>  <h:outputText style="color:red;" value="*"/></td>
                                                         </tr>
                                                     </table>
                                                 </p:fieldset>
