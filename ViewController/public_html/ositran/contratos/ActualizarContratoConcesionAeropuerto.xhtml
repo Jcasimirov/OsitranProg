@@ -928,7 +928,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docPenalidad" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText    id="docPenalidad" onfocus="this.blur();" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}"/>
+                                        <p:inputText  style="width:100%;"  id="docPenalidad" onfocus="this.blur();" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}" update="docPenalidad" label="Adjuntar" auto="true"/>
                                         <h:outputText value=" "/>
@@ -1162,7 +1162,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText    id="docCao" value="#{actualizarContratoMB.documentoCAO}" onfocus="this.blur();" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"/>
+                                                <p:inputText    id="docCao" value="#{actualizarContratoMB.documentoCAO}" onfocus="this.blur();" style="width:200px;" />
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}" update="docCao" label="Adjuntar" auto="true"/>
                                                  
@@ -1226,7 +1226,7 @@
                                         <tr>
                                             <td align="left">Fecha</td>
                                             <td align="left">
-                                                <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
+                                                <p:calendar onkeypress="return validarCalendario(event);" locale="es" pattern="dd/MM/yyyy" value="#{actualizarContratoMB.fechaHito}"/>
                                                  
                                                 <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
@@ -1256,7 +1256,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText  styleClass="estandar-mayus-minus" onfocus="this.blur();"  id="docHito" value="#{actualizarContratoMB.documentoHito}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:inputText  styleClass="estandar-mayus-minus" onfocus="this.blur();"  id="docHito" value="#{actualizarContratoMB.documentoHito}" style="width:200px;" />
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHito" label="Adjuntar" auto="true"/>
                                                  
@@ -1332,7 +1332,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText  onfocus="this.blur();" id="docHitoM" value="#{actualizarContratoMB.contratoHitoVO.htoPdf}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:inputText  onfocus="this.blur();" id="docHitoM" value="#{actualizarContratoMB.contratoHitoVO.htoPdf}" style="width:200px;" />
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHitoM" label="Adjuntar" auto="true"/>
                                                  
