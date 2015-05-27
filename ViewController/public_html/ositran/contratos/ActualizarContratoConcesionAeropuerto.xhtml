@@ -40,7 +40,7 @@
                                     <tr>
                                         <td align="left">
                                             <p:fieldset legend="Criterios de Busqueda">
-                                                <p:inputText id="cb" style="width:200px;" value="#{actualizarContratoMB.nombreConcesion}"/>
+                                                <p:inputText styleClass="estandar-mayus-minus" id="cb" onblur="pasarMayuscula(this.value,this.id)"   style="width:200px;"   value="#{actualizarContratoMB.nombreConcesion}"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato" actionListener="#{actualizarContratoMB.abrirBuscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg" oncomplete="popupBuscarContrato.show();">
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
@@ -193,7 +193,7 @@
                                                                 <tr>
                                                                     <td align="left">Nota para el Plazo</td>
                                                                     <td align="left">
-                                                                        <p:inputText value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;" />
+                                                                        <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" value="#{actualizarContratoMB.contratoVO.conNotaPlazoConcesion}" style="width:200px;" />
                                                                     </td>
                                                                     <td>
                                                                         <p:graphicImage url="../../images/obligatorio.gif"/>
@@ -471,7 +471,7 @@
                                 <h:form id="frmNuevaAdendaDlg">
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="5" columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="nombre" value="Nombre Documento"/>
-                                        <p:inputText id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" />
+                                        <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" />
                                         <p:message for="nombre" display="text"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -484,15 +484,15 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="objeto" value="Objeto"/>
-                                        <p:inputTextarea id="objeto" style="width:100% !important;height:40px" queryDelay="750" minQueryLength="4"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
+                                        <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  id="objeto" style="width:100% !important;height:40px" queryDelay="750" minQueryLength="4"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
                                         <p:message for="objeto" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
-                                        <p:inputText id="montoadenda" style="width:100% !important;" onkeypress="return ValidarNumFloat(event,this);" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  id="montoadenda" style="width:100% !important;" onkeypress="return ValidarNumFloat(event,this);" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:message for="montoadenda" display="icon" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
-                                        <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <h:outputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:outputLabel for="supinvadenda" value="Comp. Inv. Concesionario:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:selectOneRadio id="supinvadenda" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadCompromisoInversion}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
                                             <f:selectItem itemLabel="Si" itemValue="1"/>
