@@ -79,12 +79,12 @@ public class DescripcionTipoInversion {
         cantidad=validarNombre(nombre);
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                               "El nombre que quiere ingresar ya existe"));
             }
         else  if (codigoInversion == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso",
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           "Debe ingresar Tipo de Inversión"));
         } else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -242,7 +242,7 @@ public class DescripcionTipoInversion {
         cantidad=validarNombre(nombreE);
         if (cantidad>0 && !nombreAntiguo.equals(nombreE)){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Advertencia",
+                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                 "El nuevo nombre que quiere ingresar ya existe"));
             }
         else 
@@ -252,11 +252,11 @@ public class DescripcionTipoInversion {
                                                                           "Debe de Selecionar un tipo de Inversión"));
         } else if (nombreE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe de Ingresar el nombre"));
         } else if (descripcionE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe  de ingresar la descripción"));
         }else {
         try {
