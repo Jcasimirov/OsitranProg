@@ -44,7 +44,7 @@
                                                         <p:commandButton image="ui-icon-search" id="buscar"
                                                                          update=":form:tablaUSU"
                                                                          rendered="#{mantenimientoUsuarioMB.rolOpcion.troConsultar  eq 1}"
-                                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario}"/>
+                                                                         action="#{mantenimientoUsuarioMB.SearchListaUsuario()}"/>
                                                          
                                                         <p:tooltip id="toolTipFade" for="buscar" styleClass="tool"
                                                                    value="Buscar por Nombre Descripcion y siglas"/>
@@ -170,9 +170,11 @@
                                             <h:outputText value="Activar"/>
                                         </f:facet>
                                         <div style="text-align: center;">
-                                            <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario(usu)}"
+                                            <p:commandButton action="#{mantenimientoUsuarioMB.activarUsuario()}"
                                                              update=":form:tablaUSU" image="ui-icon-check"
-                                                             styleClass="controles" rendered="#{usu.usuEstado eq 2}"/>
+                                                             styleClass="controles" rendered="#{usu.usuEstado eq 2}">
+                                                <f:param id="idActivar" name="idActivar" value="#{usu.usuId}"/>
+                                            </p:commandButton>
                                         </div>
                                     </p:column>
                                     <p:column width="8"
@@ -181,9 +183,11 @@
                                             <h:outputText value="Desactivar"/>
                                         </f:facet>
                                         <div align="center">
-                                            <p:commandButton action="#{mantenimientoUsuarioMB.desactivarUsuario(usu)}"
+                                            <p:commandButton action="#{mantenimientoUsuarioMB.desactivarUsuario}"
                                                              update=":form:tablaUSU" image="ui-icon-closethick"
-                                                             styleClass="controles" rendered="#{usu.usuEstado eq 1}"/>
+                                                             styleClass="controles" rendered="#{usu.usuEstado eq 1}">
+                                                <f:param id="idDesactivar" name="idDesactivar" value="#{usu.usuId}"/>
+                                            </p:commandButton>
                                         </div>
                                     </p:column>
                                 </p:dataTable>
