@@ -11,7 +11,7 @@ public class MenVO {
     private Date menFechaCambio;
     private String menFormulario;
     private int menId;
-        private String menNombre;
+    private String menNombre;
     private int menPadre;
     private String menTerminal;
     private String menUsuarioAlta;
@@ -19,6 +19,7 @@ public class MenVO {
     private String menUsuarioCambio;
     private String menUrl;
     private int contador;
+    private String nombreFormulario;
     //*************************************************
     private boolean crear;
     private boolean eliminar;
@@ -223,4 +224,14 @@ public class MenVO {
     public String getMenUrl() {
         return menUrl;
     }
+
+
+    public void setNombreFormulario(String nombreFormulario) {
+        this.nombreFormulario = nombreFormulario;
+    }
+
+    public String getNombreFormulario() {
+        return nombreFormulario;
+    }
+
 }

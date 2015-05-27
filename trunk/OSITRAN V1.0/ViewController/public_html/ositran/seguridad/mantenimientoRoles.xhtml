@@ -57,7 +57,7 @@
                                                  rows="10" paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,20" resizableColumns="true"
-                                                 style="font-size:11px;" id="tablaRoles" var="rol1"
+                                                 style="font-size:10px;" id="tablaRoles" var="rol1"
                                                  value="#{rolMB.listaRoles}">
                                         <p:column headerText="N°" style="width:2%">
                                             <h:outputText value="#{rol1.contador}"/>
@@ -231,6 +231,8 @@
                                                  actionListener="#{rolMB.pasarLista()}"/>
                                  
                                 <h:outputText style="font-weight:bold; padding-bottom: 20px;color:White;" value="|"/>
+                                <br></br>
+                                <br></br>
                                  
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
                                  
@@ -238,7 +240,7 @@
                                                  update=":form:menuOpcionesSe :form:menuOpciones"
                                                  actionListener="#{rolMB.quitarLista()}"/>
                                  
-                                <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
+                                <p:tooltip styleClass="tool" for="quitarRol" value="Quitar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
                                 <p:dataTable style="font-size:10px"
@@ -411,12 +413,14 @@
                                 <h:outputText style="font-weight:bold; padding-bottom: 20px;color:White;" value="|"/>
                                  
                                 <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
-                                 
+                                 <br>
+                                 </br>
+                               
                                 <p:commandButton id="quitarRolE" image="ui-icon-triangle-1-w"
                                                  update=":form:menuOpcionesESe :form:menuOpcionesE"
                                                  actionListener="#{rolMB.quitarListaE()}"/>
                                  
-                                <p:tooltip styleClass="tool" for="agregarRol" value="Agregar Opciones del Menú"/>
+                                <p:tooltip styleClass="tool" for="quitarRolE" value="Quitar Opciones del Menú"/>
                             </td>
                             <td align="left" colspan="2">
                                 <p:dataTable  style="text-align:center;font-size:10px" scrollable="true" scrollHeight="250" scrollWidth="700"  rowIndexVar="indexRegistrarE" id="menuOpcionesESe" var="me1E" value="#{rolMB.listaMenNuevaE}"
@@ -466,6 +470,7 @@
                                                  actionListener="#{rolMB.editar()}"
                                                  
                                         />
+                                    
                           <h:outputText styleClass="botones"  value="n" style="color:white" />
                                 <p:commandButton value="Limpiar" onclick="panelEditar.hide()"/>
                             </td>

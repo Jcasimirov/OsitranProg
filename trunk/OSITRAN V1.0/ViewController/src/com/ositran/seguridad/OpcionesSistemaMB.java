@@ -1,8 +1,6 @@
 package com.ositran.seguridad;
 
-import com.ositran.service.RolOpcionesService;
 import com.ositran.serviceimpl.MenServiceImpl;
-import com.ositran.serviceimpl.RolServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.MenVO;
@@ -19,7 +17,6 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -58,9 +55,6 @@ public class OpcionesSistemaMB {
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
     }
     
-    
-    
-    
     public void cargarRegistrar(){
               nombre="";
               descripcion="";
@@ -72,9 +66,7 @@ public class OpcionesSistemaMB {
     public OpcionesSistemaMB() {
         super();
     }
-    
-    
-    
+
     public void guardar(){
        menVO=new MenVO();
        menVO.setMenNombre(nombre);
@@ -104,7 +96,7 @@ public class OpcionesSistemaMB {
         for (int i = 0; i < listaOpcionesSistema.size(); i++) {
             listaOpcionesSistema.get(i).setContador(contador);
             contador++;
-        }
+            }
     }
         }
     
@@ -112,6 +104,21 @@ public class OpcionesSistemaMB {
             int contador = 1;
             listaOpcionesSistema=menServiceImpl.query();
             for (int i = 0; i < listaOpcionesSistema.size(); i++) {
+                if (listaOpcionesSistema.get(i).getMenPadre()==1){
+                    listaOpcionesSistema.get(i).setNombreFormulario("PARAMETROS");
+                    }
+                if (listaOpcionesSistema.get(i).getMenPadre()==2){
+                    listaOpcionesSistema.get(i).setNombreFormulario("SEGURIDAD");
+                    }
+                if (listaOpcionesSistema.get(i).getMenPadre()==3){
+                    listaOpcionesSistema.get(i).setNombreFormulario("CONTRATOS");
+                    }
+                if (listaOpcionesSistema.get(i).getMenPadre()==4){
+                    listaOpcionesSistema.get(i).setNombreFormulario("REPORTES");
+                    }
+                if (listaOpcionesSistema.get(i).getMenPadre()==5){
+                    listaOpcionesSistema.get(i).setNombreFormulario("VALORIZACIONES");
+                    }
                 listaOpcionesSistema.get(i).setContador(contador);
                 contador++;
             }
@@ -120,12 +127,12 @@ public class OpcionesSistemaMB {
         
         }
     public void cargarEliminar(){
-            FacesContext context = FacesContext.getCurrentInstance();
-            Map requestMap = context.getExternalContext().getRequestParameterMap();
-            Object str = requestMap.get("idEliminar");
-            codigoMenu = Integer.parseInt(str.toString());
-            menVO=menServiceImpl.get(codigoMenu);
-            menVO.setMenEstado(0);   
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestMap = context.getExternalContext().getRequestParameterMap();
+        Object str = requestMap.get("idEliminar");
+        codigoMenu = Integer.parseInt(str.toString());
+        menVO=menServiceImpl.get(codigoMenu);
+        menVO.setMenEstado(0);   
          menVO.setMenFechaBaja(new Date());
          menVO.setMenUsuarioBaja(usuario.getUsuAlias());
          menVO.setMenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
@@ -134,12 +141,9 @@ public class OpcionesSistemaMB {
     
     public  void eliminar(){
         menServiceImpl.update(menVO);
-        System.out.println("Llego a eliminar");
-        
             FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
             "Se elimino la Opcion del Sistema"));
-        
         }
 
     public void cargarEditar(){
@@ -151,9 +155,7 @@ public class OpcionesSistemaMB {
             nombreE=menVO.getMenNombre();
             descripcionE=menVO.getDescripcion();       
         }
-    
-    
-   
+      
     public void editar(){
         menVO=getMenServiceImpl().get(codigoMenu);
             if (nombreE.equals("")) {
@@ -171,17 +173,13 @@ public class OpcionesSistemaMB {
             menVO.setMenFechaCambio(new Date());
             menVO.setMenTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
             menVO.setMenUsuarioCambio(usuario.getUsuAlias());    
-            menServiceImpl.update(menVO);
-            
+            menServiceImpl.update(menVO);           
             RequestContext.getCurrentInstance().execute("editarPanel.hide()");   
             listarOpcionesSistema();
             FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
             "Se actulizo la opcion del sistema con Exito"));
-            
-            
             }
-        
         }
     
     
