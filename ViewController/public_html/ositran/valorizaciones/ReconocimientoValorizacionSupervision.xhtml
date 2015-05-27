@@ -44,7 +44,10 @@
                                                             Buscar Empresa Supervisora: 
                                                             <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nombreEmpSup"
                                                                          value="#{ReconocimientoValSupervisionMB.nombreEmpSup}"
-                                                                         style="width:200px;"></p:inputText>
+
+                                                                         style="width:200px;text-transform:uppercase;">
+                                                                         </p:inputText>
+                                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                         </td>
                                                         <td>
                                                             <p:commandButton id="busquedaEmp" value="#{btn.btn_buscar}"
@@ -58,6 +61,7 @@
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
+                                            
                                             <br></br>
                                             <p:fieldset styleClass="fielsetinterno" legend="Datos Empresa Supervisora"
                                                         id="dEmpresaSupervisora">
@@ -123,6 +127,7 @@
                                                                 <f:selectItem itemLabel="Aprobada" itemValue="1"/>
                                                                 <f:selectItem itemLabel="Observada" itemValue="2"/>
                                                             </p:selectOneMenu>
+                                                            <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                         </td>
                                                     </tr>
                                                      
@@ -132,7 +137,9 @@
                                                             <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  style="width:97%;height:35px;"
                                                                              id="observacion"
                                                                              value="#{ReconocimientoValSupervisionMB.observacion}"/>
+                                                                             
                                                         </td>
+                                                      <td>  <img src="../../images/obligatorio.gif" style="vertical-align: top;"  /></td>
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
@@ -204,16 +211,19 @@
                                                         Nro. Oficio : 
                                                         <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nroOficio"
                                                                      value="#{ReconocimientoValSupervisionMB.nroOficio}"></p:inputText>
+                                                                     <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                     </td>
                                                     <td>
                                                         Fecha Emisión :
                                                         <p:calendar locale="es" pattern="dd/MM/yyyy" id="fechaOficio"
                                                                     value="#{ReconocimientoValSupervisionMB.fechaOficio}"/>
+                                                                    <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                     </td>
                                                     <td>
                                                         Reg. Salida : 
                                                         <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="regOficio"
                                                                      value="#{ReconocimientoValSupervisionMB.regOficio}"></p:inputText>
+                                                                     <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                     </td>
                                                 </tr>
                                                  
@@ -244,6 +254,15 @@
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px" value="Guardar" rendered="#{ReconocimientoValSupervisionMB.rolOpcion.troAgregar eq 1}" actionListener="#{ReconocimientoValSupervisionMB.reconocerValorizacion}" update=":form:mensaje :form:dValorizacionesEmpresaSup" />
                         </div>
+                        <table style="width:100%;">
+                                            <tr>
+                                                <td align="right"
+                                                    style="font-size: 10px;font-style: oblique; color: Red;">
+                                                    Campos obligatorios( 
+                                                    <img src="../../images/obligatorio.gif"/>)
+                                                </td>
+                                            </tr>
+                                        </table>
                     </p:layoutUnit>
                 </p:layout>
                 
@@ -295,3 +314,4 @@
             
         </h:body>
     </html>
+    
