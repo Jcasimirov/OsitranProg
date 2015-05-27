@@ -2,12 +2,8 @@ package com.ositran.contratos;
 
 import com.ositran.service.ConcesionService;
 import com.ositran.service.ContratoConcesionService;
-import com.ositran.service.ContratoJefeAreaService;
-import com.ositran.service.InfraestructuraTipoService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.TipoDocumentoService;
-import com.ositran.serviceimpl.ConcesionServiceImpl;
-import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoJefeAreaServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.JefeAreaContratoConcecionServiceImpl;
@@ -17,7 +13,6 @@ import com.ositran.vo.bean.ContratoVO;
 import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.JefeAreaContratoConcecionVO;
 import com.ositran.vo.bean.ModalidadConcesionVO;
-
 import com.ositran.vo.bean.TipoDocumentoVO;
 
 import java.sql.SQLException;
@@ -29,8 +24,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -105,6 +98,20 @@ public class JefeAreaContratoConcecionMB {
         codigoContrato = 0;
         tipoInfraestructuraS="";
     }
+    public void limpiarTodo(){
+            tipoInfraestructura = 0;
+            numeroDocumento = "";
+            tipoDocumento = "";
+            nombreJefeArea = "";
+            contratoConcesion = "";
+            tipoInfraestructuraC = 0;
+            modalidadConcecion = "";
+            codigoConcesion = 0;
+            codigoContrato = 0;
+            tipoInfraestructuraS="";
+            listaJefeArea=new ArrayList<ContratoJefeAreaVO>();
+        
+        }
 
     public void cargarListaInfraestructura() {
         try {
