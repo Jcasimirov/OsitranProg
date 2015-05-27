@@ -686,7 +686,11 @@ public class ActualizarContrato {
     public void preDownloadContratoPDF(String nombreArchivo) {
         try {
             downloadContratoPDF = Reutilizar.getNewInstance().preDownload(Constantes.RUTACONTRATOSPDF + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -697,7 +701,11 @@ public class ActualizarContrato {
         try {
             downloadFichaResumen =
                 Reutilizar.getNewInstance().preDownload(Constantes.RUTAFICHASRESUMEN + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -896,7 +904,11 @@ public class ActualizarContrato {
     public void preDownloadAdendas(String nombreArchivo) {
         try {
             downloadAdendas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDA + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -906,7 +918,11 @@ public class ActualizarContrato {
     public void preDownloadCao(String nombreArchivo) {
         try {
             downloadCao = Reutilizar.getNewInstance().preDownload(Constantes.RUTACAO + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -916,7 +932,11 @@ public class ActualizarContrato {
     public void preDownloadHito(String nombreArchivo) {
         try {
             setDownloadHito(Reutilizar.getNewInstance().preDownload(Constantes.RUTAHITO + nombreArchivo));
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -926,7 +946,11 @@ public class ActualizarContrato {
     public void preDownloadPpo(String nombreArchivo) {
         try {
             setDownloadPpo(Reutilizar.getNewInstance().preDownload(Constantes.RUTAPPO + nombreArchivo));
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -1111,7 +1135,11 @@ public class ActualizarContrato {
     public void preDownloadEntrega(String nombreArchivo) {
         try {
             downloadEntregas = Reutilizar.getNewInstance().preDownload(Constantes.RUTAADENDAENTREGA + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -3609,7 +3637,11 @@ public class ActualizarContrato {
         try {
             System.out.println("nombreArchivo:" + nombreArchivo);
             downloadPenalidades = Reutilizar.getNewInstance().preDownload(Constantes.RUTAPENALIDADES + nombreArchivo);
-        } catch (Exception fnfe) {
+        } catch (IOException io) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                          Constantes.ARCHIVONOENCONTRADO));
+        }catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
