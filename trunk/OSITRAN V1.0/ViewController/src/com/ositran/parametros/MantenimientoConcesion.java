@@ -340,7 +340,7 @@ public class MantenimientoConcesion {
         //fin de de captura de codigo a modificar
         codigoConcesion = concesionVO.getCsiId();
         nombreConcesion = concesionVO.getCsiNombre();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se eliminó con éxito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
         
 
@@ -385,7 +385,7 @@ public class MantenimientoConcesion {
         Object str = requestMap.get("rowId");
         int idcodigo = Integer.valueOf(str.toString());
         listaInfraestructuras.remove(idcodigo);
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con Exito");
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se eliminó con éxito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
@@ -451,7 +451,7 @@ public class MantenimientoConcesion {
 
         ListarConcesiones();
           
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se actualizó con Exito");
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "se actualizó con éxito");
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
