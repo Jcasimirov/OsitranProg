@@ -5,13 +5,10 @@ import com.ositran.model.InversionTipo;
 import com.ositran.model.RolOpciones;
 import com.ositran.util.HibernateUtil;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class RolOpcionesDAOImpl implements RolOpcionesDAO{
     
@@ -43,7 +40,7 @@ public class RolOpcionesDAOImpl implements RolOpcionesDAO{
     public List<RolOpciones> query1(Integer codigoRol) {
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        query =session.createQuery("FROM RolOpciones  E WHERE upper(E.rolId) like  :busqueda");
+        query =session.createQuery("FROM RolOpciones  E WHERE upper(E.rolId) like  :busqueda and E.troEstado<>0");
         query.setParameter("busqueda",codigoRol);
         return query.list();
     }
