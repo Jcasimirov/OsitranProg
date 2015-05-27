@@ -1,6 +1,5 @@
 package com.ositran.util;
 
-import com.ositran.vo.bean.SupervisorInversionesVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.ByteArrayInputStream;
@@ -61,12 +60,16 @@ public class Reutilizar {
     }
     public DefaultStreamedContent preDownload(String rutaOrigen)throws Exception{
 
-  
+
+        try {
             File file = new File(rutaOrigen);
             InputStream input = new FileInputStream(file);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             return (new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
-        
+        } catch (Exception fnfe) {
+           throw fnfe;
+        }
+       
     }
     public UsuarioVO obtenerDatosUsuarioLogueado(){
         FacesContext faceContext=FacesContext.getCurrentInstance();
