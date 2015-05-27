@@ -15,6 +15,7 @@
                   closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
               };
             </script>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
      <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         
@@ -41,9 +42,9 @@
                                                     <tr>
                                                         <td align="left" colspan="4">
                                                             Buscar Empresa Supervisora: 
-                                                            <p:inputText id="nombreEmpSup"
+                                                            <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nombreEmpSup"
                                                                          value="#{ReconocimientoValSupervisionMB.nombreEmpSup}"
-                                                                         style="width:200px;text-transform:uppercase;"></p:inputText>
+                                                                         style="width:200px;"></p:inputText>
                                                         </td>
                                                         <td>
                                                             <p:commandButton id="busquedaEmp" value="#{btn.btn_buscar}"
@@ -64,7 +65,7 @@
                                                     <tr>
                                                         <td align="left">Nombre</td>
                                                         <td>
-                                                            <p:inputText readonly="true" id="nombreEmpSupEncontrada"
+                                                            <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" readonly="true" id="nombreEmpSupEncontrada"
                                                                          value="#{ReconocimientoValSupervisionMB.nombreEmpSupEncontrada}"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -79,20 +80,20 @@
                                  paginatorPosition="bottom" rowsPerPageTemplate="5,10,15"
                                  emptyMessage="No se Encontraron Registros" rowIndexVar="rowIndex">
                                                     <p:column headerText="N°" style="width:3%">
-                                                    <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                                    <h:outputText value=" #{rowIndex+1}" style=""/>
                                                     </p:column>
                                                     
                                                     <p:column headerText="Fecha Registro" style="width:25px">
-                                                       <h:outputText value=" #{val.tvsFechaRegistro}" style="text-transform:uppercase;"/>
+                                                       <h:outputText value=" #{val.tvsFechaRegistro}" style=""/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:15px;text-transform:uppercase;">
-                                                        <h:outputText value=" #{val.nombreMoneda}" style="text-transform:uppercase;"/>
+                                                    <p:column headerText="Moneda" style="width:15px;">
+                                                        <h:outputText value=" #{val.nombreMoneda}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="Total" style="width:15px">
-                                                        <h:outputText value=" #{val.tvsBruto}" style="text-transform:uppercase;"/>
+                                                        <h:outputText value=" #{val.tvsBruto}" style=""/>
                                                     </p:column>
-                                                    <p:column headerText="Estado" style="width:15px;text-transform:uppercase;">
-                                                        <h:outputText value=" #{val.nombreEstado}" style="text-transform:uppercase;"/>
+                                                    <p:column headerText="Estado" style="width:15px;">
+                                                        <h:outputText value=" #{val.nombreEstado}" style=""/>
                                                     </p:column>
                                                    <p:column headerText="Acción" style="width:5%" >
                             <div style="text-align: center;">
@@ -128,7 +129,7 @@
                                                     <tr>
                                                         <td class="negrita">Observación:</td>
                                                         <td colspan="3">
-                                                            <p:inputTextarea style="width:97%;height:35px;"
+                                                            <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  style="width:97%;height:35px;"
                                                                              id="observacion"
                                                                              value="#{ReconocimientoValSupervisionMB.observacion}"/>
                                                         </td>
@@ -144,21 +145,21 @@
                                  paginatorPosition="bottom" rowsPerPageTemplate="5,10,15"
                                  emptyMessage="No se Encontraron Registros" rowIndexVar="rowIndex">
                                   <p:column headerText="N°" style="width:3%">
-                                                    <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                                    <h:outputText value=" #{rowIndex+1}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="Descripción del Concepto"
-                                                              style="width:25px;text-transform:uppercase;">
-                                                        <h:outputText value=" #{det.descripcionInversion}" style="text-transform:uppercase;"/>
+                                                              style="width:25px;">
+                                                        <h:outputText value=" #{det.descripcionInversion}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="Moneda"
-                                                              style="width:15px;text-transform:uppercase;">
-                                                       <h:outputText value=" #{det.nombreMoneda}" style="text-transform:uppercase;"/>
+                                                              style="width:15px;">
+                                                       <h:outputText value=" #{det.nombreMoneda}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="MontoTotalPresentado" style="width:15px">
-                                                        <h:outputText value=" #{det.ttotal}" style="text-transform:uppercase;"/>
+                                                        <h:outputText value=" #{det.ttotal}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="MontoAprobado" style="width:15px">
-                                                        <h:outputText value= "#{det.totalAprobado}" style="text-transform:uppercase;"/>
+                                                        <h:outputText value= "#{det.totalAprobado}" style=""/>
                                                     </p:column>
                                                     <p:column headerText="Editar" style="width:5%" >
                             <div style="text-align: center;">
@@ -183,7 +184,7 @@
                                                 <tr>
                                                     <td>
                                                         Nro. Informe : 
-                                                        <p:inputText id="nroInforme"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nroInforme"
                                                                      value="#{ReconocimientoValSupervisionMB.nroInforme}"></p:inputText>
                                                     </td>
                                                     <td>
@@ -193,7 +194,7 @@
                                                     </td>
                                                     <td>
                                                         Reg. Salida : 
-                                                        <p:inputText id="regInforme"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="regInforme"
                                                                      value="#{ReconocimientoValSupervisionMB.regInforme}"></p:inputText>
                                                     </td>
                                                 </tr>
@@ -201,7 +202,7 @@
                                                 <tr>
                                                     <td>
                                                         Nro. Oficio : 
-                                                        <p:inputText id="nroOficio"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nroOficio"
                                                                      value="#{ReconocimientoValSupervisionMB.nroOficio}"></p:inputText>
                                                     </td>
                                                     <td>
@@ -211,7 +212,7 @@
                                                     </td>
                                                     <td>
                                                         Reg. Salida : 
-                                                        <p:inputText id="regOficio"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="regOficio"
                                                                      value="#{ReconocimientoValSupervisionMB.regOficio}"></p:inputText>
                                                     </td>
                                                 </tr>
@@ -219,7 +220,7 @@
                                                 <tr>
                                                     <td>
                                                         Nro. Meno : 
-                                                        <p:inputText id="nroMemo"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nroMemo"
                                                                      value="#{ReconocimientoValSupervisionMB.nroMemo}"></p:inputText>
                                                     </td>
                                                     <td>
@@ -229,7 +230,7 @@
                                                     </td>
                                                     <td>
                                                         Reg. Salida : 
-                                                        <p:inputText id="regMemo"
+                                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="regMemo"
                                                                      value="#{ReconocimientoValSupervisionMB.regMemo}"></p:inputText>
                                                     </td>
                                                 </tr>
@@ -251,7 +252,7 @@
                 <p:dataTable style="font-size:11px;text-align:center" id="DataTable_ResultadoBusquedaEmpresa"
                              value="#{ReconocimientoValSupervisionMB.listaEmpresasSup}" var="var1">
                     <p:column headerText="emps sup">
-                        <h:outputText value="#{var1.supNombre}" style="width:300px;text-transform:uppercase;"/>
+                        <h:outputText value="#{var1.supNombre}" style="width:300px;"/>
                     </p:column>
                     <p:column headerText="Elegir">
                         <p:commandButton actionListener="#{ReconocimientoValSupervisionMB.seleccionarEmpresa}"
@@ -271,7 +272,7 @@
                             </td>
                         
                             <td>
-                                                                 <p:inputText  id="montoAprobado"
+                                                                 <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="montoAprobado"
                                                                  value="#{ReconocimientoValSupervisionMB.montoIngresado}" maxlength="6"
                                                                  />
                             </td>
