@@ -26,7 +26,6 @@
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
                                         <tr>
-                                        
                                             <td align="left">
                                                 Buscar: 
                                                 <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
@@ -68,7 +67,7 @@
                                              rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                              style="font-size:10px;" id="tablaOpcionesSistema" var="opcSistema"
                                              value="#{opcionesSistemasMB.listaOpcionesSistema}">
-                                 <p:column headerText="N°" style="width:2%">
+                                 <p:column headerText="N°" style="width:15px">
                                         <h:outputText value="#{opcSistema.contador}"/>
                                     </p:column>
                                     <p:column headerText="Nombre" >
@@ -77,12 +76,12 @@
                                     <p:column headerText="Descripción">
                                         <h:outputText value="#{opcSistema.descripcion}"/>
                                     </p:column>
-                                    <p:column headerText="Formulario" style="width:5%">
+                                    <p:column headerText="Formulario" style="width:90px">
                                     <div align="center">
-                                        <h:outputText value="#{opcSistema.menFormulario}"/>
+                                        <h:outputText value="#{opcSistema.nombreFormulario}"/>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Editar" style="width:4%">
+                                    <p:column headerText="Editar" style="width:40px">
                                         <div align="center">
                                             <p:commandButton update=":form:editarPanel :form:codActualizar"
                                             
@@ -94,7 +93,7 @@
                                             </p:commandButton>
                                         </div>
                                     </p:column>
-                                     <p:column headerText="Eliminar" style="width:4%">
+                                     <p:column headerText="Eliminar" style="width:40px">
                                         <div align="center">
                                             <p:commandButton oncomplete="confirEliminar.show()"
                                                              actionListener="#{opcionesSistemasMB.cargarEliminar()}"
