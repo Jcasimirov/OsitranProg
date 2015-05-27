@@ -10,6 +10,8 @@
         </h:head>
         <h:body>
          <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
+         <f:event listener="#{supervisorContratoConcesionMB.limpiar1}" type="preRenderComponent"></f:event>
+         
         <h:form id="form">
         <p:growl id="mensaje" showDetail="true" life="10000"/>
         <p:layout fullPage="true" style="border:none">
@@ -18,7 +20,7 @@
                     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                     <div align="center">
                         <div class="titulo5">
-                           ASIGNAR SUPERVISION DE INVERSIONES A CONTRATO CONCESION
+                           ASIGNAR SUPERVISIÓN DE INVERSIONES A CONTRATO CONCESIÓN
                        </div>
                     </div>
                     <br></br>
@@ -93,7 +95,7 @@
                                 <table style="margin-bottom:5px;font-size: 11px">
                                     <tr>
                                         <td align="left" colspan="4">
-                                             Buscar Contrato Concesion:
+                                             Buscar Contrato Concesión:
                                             <p:inputText  value="#{supervisorContratoConcesionMB.contratoConcesion}"   readonly="true" id="cb2" style="width:300px"/>
                                             <p:watermark value="Presione la lupa para elegir Contrato" for="cb2" />
                 
@@ -133,17 +135,21 @@
                                         <td align="left">
                                             <p:inputText value="#{supervisorContratoConcesionMB.modalidadConcecion}"  readonly="true"  />
                                         </td>
+                               
                                     </tr>
+                                                  <tr>
+                <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
+                                Campos obligatorios(
+                                <img src="../../images/obligatorio.gif"/>)
+                            </td>
+                </tr>
                                 </table>
                             </p:fieldset>
                         </div>
                     </div>
                     <table align="center" style="font-size: 11px">
                      <tr>
-                <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
-                                Campos obligatorios(
-                                <img src="../../images/obligatorio.gif"/>)
-                            </td>
+              
                 </tr>
                         <tr>
                             <td align="right">
@@ -169,13 +175,9 @@
                                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20"
                                              rowStyleClass="#{(supervicion1.sivEstado eq 1) ? 'activo':null}"
-                                             resizableColumns="true"
-                                             
+                                             resizableColumns="true"                                           
                                              style="font-size:10px;" id="tablaSI" var="supervicion1"
                                              value="#{supervisorContratoConcesionMB.listaContratoSupervisor}">
-                                 <p:column headerText="Nro" style="width:3%" >
-                                        <h:outputText value="#{supervicion1.contador}"  />
-                                    </p:column>
                                     <p:column headerText="Cod Concesion" >
                                         <h:outputText value="#{supervicion1.concesionNombre}"/>
                                     </p:column>
@@ -194,7 +196,7 @@
                                         <p:column headerText="Estado" style="width:50px" >
                                         <h:outputText  style="font-size:9px;font-weight:bold;" value="#{supervicion1.estadoNombre}"/>
                                     </p:column>                                      
-                                     <p:column headerText="Activar"    style="width:4%">
+                                     <p:column headerText="Activar"    style="width:30px">
                                      <div align="center"  >
                                         <p:commandButton update=":form:tablaSI"
                                         rendered="#{supervicion1.sivEstado eq 1}"

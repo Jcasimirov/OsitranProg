@@ -14,6 +14,7 @@
 <h:body>
 <h:form id="form">
 <p:growl id="mensaje" showDetail="true" life="10000"/>
+     <f:event listener="#{jefeAreaContratoConcecionMB.limpiarTodo()}" type="preRenderComponent"></f:event>
      <f:event listener="#{jefeAreaContratoConcecionMB.cargarListaInfraestructura()}" type="postAddToView"></f:event>
     <p:layout fullPage="true" style="border:none">
         <p:layoutUnit position="center"   style="border:0px">  
@@ -157,7 +158,7 @@
                                          <h:outputText value="#{jefearea1.estadoDes}"/>
                                          </div >
                                     </p:column>
-                                     <p:column headerText="Baja"   style="width:4%">
+                                     <p:column headerText="Baja"   style="width:30px">
                                      <div align="center">
                                         <p:commandButton rendered="#{jefearea1.cjaEstado eq 1}" update=":form:tablaAJ" 
                                         actionListener="#{jefeAreaContratoConcecionMB.desabilitar(jefearea1.cjaId)}" 
@@ -222,8 +223,8 @@
                          
                         <tr>
                             <td align="right">
-                                    <p:commandButton update=":form:tipInfraestructura :form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:confirmarGuardar" value="Limpiar"
-                                                 actionListener="#{jefeAreaContratoConcecionMB.limpiar()}"
+                                    <p:commandButton update=":form:tipInfraestructura :form:jefeArea :form:tablaAJ :form:buscarContratoConcesion :form:datosContratoConcesion :form:confirmarGuardar" value="Limpiar"
+                                                 actionListener="#{jefeAreaContratoConcecionMB.limpiarTodo()}"
                                                  oncomplete="confirmarLimpiar.hide()"></p:commandButton>
                             </td>
                             <td align="left">
