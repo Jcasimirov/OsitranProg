@@ -28,6 +28,13 @@ function ValidarNumFloat(e, obj) {
         return true;// espacio
     if (tecla == 9)
         return true;// tab
+        var max=obj.value;
+        if(max.length>13){
+            max=max.substring(0,13);
+            obj.value=max;
+            return;
+        }
+            
     Punto = obj.value.split('.');
     if (Punto.length >= 2) {
         patron = /[0-9]/;
