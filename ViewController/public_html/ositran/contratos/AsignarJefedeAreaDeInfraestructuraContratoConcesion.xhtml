@@ -34,11 +34,10 @@
                                     <f:selectItem   itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems  value="#{jefeAreaContratoConcecionMB.listaInfraestructuraTipo}" var="ticc" itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
                                                     />            
-                                <p:ajax event="valueChange" update=":form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
+                                <p:ajax event="valueChange" update=":form:jefeArea :form:buscarContratoConcesion :form:datosContratoConcesion :form:tablaAJ" listener="#{jefeAreaContratoConcecionMB.cargarJefeAreaContratoConcesion}"  />                
                                 </p:selectOneMenu>
                                    <h:outputText value=""/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
-                                
 					</td>
 				</tr>	
 			</table>

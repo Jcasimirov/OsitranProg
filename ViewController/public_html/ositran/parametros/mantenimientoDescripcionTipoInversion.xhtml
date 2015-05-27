@@ -11,7 +11,7 @@
         <h:body>
             <f:event listener="#{descripcionInversionMB.validarSesion}" type="postAddToView"></f:event>
             <f:event listener="#{descripcionInversionMB.cargarListaInversion}" type="postAddToView"></f:event>
-            <f:event listener="#{descripcionInversionMB.cargarListaInversionDescripcion}" type="postAddToView"></f:event>
+            <f:event listener="#{descripcionInversionMB.cargarListaInversionDescripcion}" type="preRenderComponent"></f:event>
              
             <h:form id="form">
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
@@ -76,7 +76,7 @@
                                     </p:column>
                                     <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:4%">
                                         <div align="center">
-                                        <p:commandButton  image="ui-icon-pencil" update=":form:editarPanel :form:nombreAntiguo"
+                                        <p:commandButton  image="ui-icon-pencil" update=":form:editarPanel :form:nombreAntiguo :form:tipoInversionCargada"
                                                          oncomplete="editarPanel.show()"
                                                          actionListener="#{descripcionInversionMB.cargarEditar}"
                                                         styleClass="controles">
@@ -207,7 +207,7 @@
                         <tr>
                             <td align="left">Selecione tipo Inversion:</td>
                             <td align="left">
-                                <p:selectOneMenu   value="#{descripcionInversionMB.codigoInversion1}" style="width:297px">
+                                <p:selectOneMenu id="tipoInversionCargada"  value="#{descripcionInversionMB.codigoInversion1}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
                                                    itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
