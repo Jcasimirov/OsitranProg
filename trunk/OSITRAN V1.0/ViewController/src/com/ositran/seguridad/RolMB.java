@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "rolMB")
@@ -315,7 +316,6 @@ public void actualizarTodoE(){
         for(RolOpcionesVO rolOpciones1 : listaRolOpciones){
               String nombre="";
               MenVO menVO2=new MenVO();
-              
               menVO2.setMenId(rolOpciones1.getMenId());
               nombre =menServiceImpl.getNombre(rolOpciones1.getMenId());
               menVO2.setMenNombre(nombre);
@@ -364,9 +364,12 @@ public void actualizarTodoE(){
          rolVO.setRolUsuarioCambio(usuario.getUsuAlias());
          rolVO.setRolId(idE);
          rolServiceImpl.update(rolVO);
+             for (MenVO menVOQ:   listaMenSeleccionadoE){
+                 
+                 
+                 }  
          listaMenE=menServiceImpl.query();
             for (MenVO menVO : listaMenNuevaE) {
-                
                 RolOpcionesVO rolOpcionesVO = new RolOpcionesVO();
                 rolOpcionesVO.setRolId(idE);
                 rolOpcionesVO.setDescripcion("Descripcion");
