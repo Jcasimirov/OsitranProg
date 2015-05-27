@@ -124,6 +124,8 @@ public class SupervisorInversionesContratoConcecionMB {
             else {
                    
                 }
+            
+            limpiarCasiTodo();
        } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -151,7 +153,7 @@ public class SupervisorInversionesContratoConcecionMB {
                     tipoDocumento="";
                     numeroDocumento="";  
                 }
-            
+           limpiarAbajo();
        } catch (Exception e) {
             e.printStackTrace();
         }
@@ -317,12 +319,12 @@ public class SupervisorInversionesContratoConcecionMB {
     public void limpiar1(){
         codigoSupervisor=0;
         codigoInfraestructura=0;
-        tipoInfraestructura=0;
-        numeroDocumento="";
-        tipoInfraestructuraS="";
-        tipoDocumento="";
-        tipoDocumentoI=0;
-        nombreSupervisor="";
+            tipoInfraestructura=0;
+            numeroDocumento="";
+            tipoInfraestructuraS="";
+            tipoDocumento="";
+            tipoDocumentoI=0;
+            nombreSupervisor="";
         contratoConcesion="";
         tipoInfraestructuraC=0;
           tipoInfraestructuraF=0;
@@ -332,6 +334,41 @@ public class SupervisorInversionesContratoConcecionMB {
           codigoConcesion=0;
           listaContratoSupervisor.clear();
         }
+    
+  public void  limpiarAbajo(){
+            tipoInfraestructuraS="";
+            contratoConcesion="";
+            tipoInfraestructuraC=0;
+              tipoInfraestructuraF=0;
+              modalidadConcecion="";
+              supervisorSelecionado=0;
+              codigoContrato=0;
+              codigoConcesion=0;
+              listaContratoSupervisor.clear();
+        
+        
+        }
+  
+  
+    public void  limpiarCasiTodo(){
+              numeroDocumento="";
+              tipoInfraestructuraS="";
+              tipoDocumento="";
+              tipoDocumentoI=0;
+              nombreSupervisor="";
+              contratoConcesion="";
+              tipoInfraestructuraC=0;
+                tipoInfraestructuraF=0;
+                modalidadConcecion="";
+                supervisorSelecionado=0;
+                codigoContrato=0;
+                codigoConcesion=0;
+                listaContratoSupervisor.clear();
+                
+          
+          
+          }
+    
     public void setTipoInfraestructura(int tipoInfraestructura) {
         this.tipoInfraestructura = tipoInfraestructura;
     }

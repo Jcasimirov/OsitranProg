@@ -40,7 +40,7 @@
                                     <f:selectItems value="#{supervisorContratoConcesionMB.listaInfraestructuraTipo}" var="ticc"
                                                    itemLabel="#{ticc.tinNombre}" itemValue="#{ticc.tinId}"
                                                     />
-                        <p:ajax event="valueChange" update=":form:listaSupervisores " listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones()}"  />                
+                        <p:ajax event="valueChange" update=":form:listaSupervisores :form:  supervicionDeInversiones  :form:busqueda :form:datosContratoConcesion :form:tablaSI  " listener="#{supervisorContratoConcesionMB.cargarListaSupervisorInversiones()}"  />                
                 
                                     </p:selectOneMenu>	
                                       <h:outputText value=""/>
@@ -56,8 +56,7 @@
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
                                     <f:selectItems value="#{supervisorContratoConcesionMB.listaSupervisor}" var="tic"
                                                    itemLabel="#{tic.tsiNombre}" itemValue="#{tic.tsiId}" />
-                                                    <p:ajax event="valueChange"  update=":form:supervicionDeInversiones"  listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
-
+                                                    <p:ajax event="valueChange"  update=":form:supervicionDeInversiones :form:busqueda :form:datosContratoConcesion :form:tablaSI "    listener="#{supervisorContratoConcesionMB.cargarDatosSupervisor()}"  />                
                                     </p:selectOneMenu>
                                       <h:outputText value=""/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
