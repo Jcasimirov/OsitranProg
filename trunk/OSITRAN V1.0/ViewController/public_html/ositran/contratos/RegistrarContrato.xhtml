@@ -59,6 +59,7 @@
                                                     </td>
                                                     <td align="left">
                                                         #{cam.FR}<p:inputText id="freghr" readonly="true"
+                                                        onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                               value="#{bk_registrarContrato.freghr}"/>
                                                     </td>
                                                 </tr>
@@ -68,6 +69,7 @@
                                                         #{cam.asu}
                                                          
                                                         <p:inputTextarea style="width:80%" id="asuntohr"
+                                                        onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                          value="#{bk_registrarContrato.asuntohr}"/>
                                                          
                                                         <img src="../../images/obligatorio.gif"
@@ -136,6 +138,7 @@
                                                 <tr>
                                                     <td colspan="4" align="left">
                                                         <p:inputText style="width:200px" id="busqueda"
+                                                        onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                      value="#{bk_registrarContrato.busqueda}"/>
                                                          
                                                         <p:watermark for="busqueda" value="#{cam.buscarCon}"/>
@@ -223,7 +226,7 @@
                                         #{cam.nomConce}
                                     </td>
                                     <td align="left" colspan="5">
-                                        <p:inputText value="#{bk_registrarContrato.nomconcesionario}"></p:inputText>
+                                        <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  value="#{bk_registrarContrato.nomconcesionario}"></p:inputText>
                                     </td>
                                 </tr>
                                  
@@ -232,7 +235,7 @@
                                         #{cam.sigNom}
                                     </td>
                                     <td align="left">
-                                        <p:inputText value="#{bk_registrarContrato.siglasconcesionario}"></p:inputText>
+                                        <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" value="#{bk_registrarContrato.siglasconcesionario}"></p:inputText>
                                     </td>
                                     <td>
                                         #{cam.tipDoc}
