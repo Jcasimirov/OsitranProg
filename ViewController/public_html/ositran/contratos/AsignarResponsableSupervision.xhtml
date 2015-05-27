@@ -30,9 +30,9 @@
                                         <tr>
                                             <td>
                                                 <p:fieldset legend="Conceción">
-                                                    <p:inputText id="idNombreConcesion"
+                                                    <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  id="idNombreConcesion"
                                                                  value="#{asignarResponsableMB.nombreContratoConcesion}"
-                                                                 style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                ></p:inputText>
                                                                  <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                                     <p:commandButton value="#{btn.btn_buscar}"
                                                                      oncomplete="Dialog_ResultadoBusquedaContratoConcesion.show()"
@@ -53,7 +53,8 @@
                                                             <td>
                                                                 <p:inputText id="idNameConcesion"
                                                                              value="#{asignarResponsableMB.nameContrato}"
-                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                                                             ></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
@@ -62,7 +63,9 @@
                                                             <td>
                                                                 <p:inputText id="idNameTipoInfraestructura"
                                                                              value="#{asignarResponsableMB.nameTipoInfraestructura}"
-                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                                                             
+                                                                             ></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
@@ -71,7 +74,9 @@
                                                             <td>
                                                                 <p:inputText id="idNameModalidadConcecion"
                                                                              value="#{asignarResponsableMB.nameModalidadConcesion}"
-                                                                             style="width:300px;text-transform:uppercase;"></p:inputText>
+                                                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                                                             
+                                                                             ></p:inputText>
                                                             </td>
                                                         </tr>
                                                          
@@ -181,7 +186,9 @@
                                             Nombre Empresa
                                                 <p:inputText  id="idNombreEmpresaSupervisora"
                                                              value="#{asignarResponsableMB.nombreEmpresaSupervisora}"
-                                                             style="width:200px;text-transform:uppercase;"></p:inputText>
+                                                             style="width:200px"
+                                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                                             ></p:inputText>
                                                               <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
                                                              </td><td>
                                           

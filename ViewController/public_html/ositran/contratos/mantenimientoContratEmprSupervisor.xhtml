@@ -221,7 +221,7 @@
                                                             legend="Empresa supervisora"
                                                             id="datosNombreEmpresaSupervisora">
                                                     <p:outputLabel value="Nombre: "/>
-                                                    <p:inputText value="#{manteContEmprSupervisora.nombreEmpresaSupervisora}"/>
+                                                    <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" value="#{manteContEmprSupervisora.nombreEmpresaSupervisora}"/>
                                                 </p:fieldset>
                                             </td>
                                         </tr>
