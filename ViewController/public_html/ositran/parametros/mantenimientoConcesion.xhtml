@@ -68,7 +68,7 @@
                                 <br></br>
                                 <p:dataTable style="font-size:11px; text-align: center" id="tablaES" var="var1"
                                              rowKey="#{var1.csiId}" value="#{mantenimientoconcesionMB.listaConcesiones}"
-                                             rows="10" paginator="true" paginatorPosition="bottom"
+                                             rows="10" paginator="true" paginatorPosition="bottom"  
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20" emptyMessage="NO SE ENCONTRARON DATOS">
                                     <p:column headerText="Nro" style="width:2%">
@@ -108,7 +108,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px" resizable="true" closable="true"
                                   collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">#{msg.titulo_PIE_PAGINA}</div>
+                        <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
                 <!--INICIO REGISTRAR CONCESION CON CLASE ConcesionVO y ConcesionVOO-->
@@ -118,7 +118,7 @@
                             <td>
                                 <p:panel header="Mantenimiento de concesión" style="margin-bottom:20px;align:left">
                                     <h:panelGrid columns="3" cellpadding="5">
-                                        <h:outputLabel value="Seleccionar Tipo de Infraestructura"
+                                        <h:outputLabel value="Tipo de Infraestructura"
                                                        style="align:left; text-align:left"></h:outputLabel>
                                         <p:selectOneMenu value="#{mantenimientoconcesionMB.codigoTipoInfraestructuraInsert}"
                                                          style="width:300px;text-transform:uppercase;width:100% ">
@@ -153,7 +153,7 @@
                                 </p:panel>
                                  
                                 <p:outputPanel id="books">
-                                    <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list"
+                                    <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list" rowsPerPageTemplate="5,10,20"
                                                  id="booksTable" emptyMessage="NO SE ENCONTRARON DATOS">
                                         <p:column headerText="Infraestructura">
                                             <h:outputText value="#{list.infNombre}"
@@ -206,16 +206,14 @@
                           style="text-align:center;">
                     <table id="detalle" style="margin-bottom:5px;font-size:11px;text-align:center">
                         <tr>
-                            <td align="right">TIPO INFRAESTRUCTURA:</td>
+                            <td align="left">Tipo de Infraestructura:</td>
                             <td align="left">
                                 <p:selectOneMenu value="#{mantenimientoconcesionMB.codigoTipoInfraestructura}"
-                                                 style="width:100%" disabled="true">
+                                                 style="width:300px" disabled="true">
                                     <f:selectItem itemValue="0" itemLabel="-Seleccione-"/>
                                     <f:selectItems value="#{mantenimientoconcesionMB.listaInfraestructuraTipos}"
                                                    var="tip" itemValue="#{tip.tinId}" itemLabel="#{tip.tinNombre}"/>
                                 </p:selectOneMenu>
-                            </td>
-                            <td>
                                 <img src="../../images/obligatorio.gif"/>
                             </td>
                         </tr>
@@ -223,22 +221,26 @@
                       
                          
                         <tr>
-                            <td align="left">EDITAR NOMBRE</td>
+                            <td align="left">Nombre:</td>
                             <td align="left">
-                                <p:inputText value="#{mantenimientoconcesionMB.nombreE}" style="width:300px;text-transform:uppercase;" onkeyup="pasarMayuscula(this.value,this.id)"/><img src="../../images/obligatorio.gif"/>
+                                <p:inputText value="#{mantenimientoconcesionMB.nombreE}" style="width:300px;text-transform:uppercase;" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/><img src="../../images/obligatorio.gif"/>
                             </td>
                         </tr>
                          
                         <tr>
-                            <td>Nombre Infaestructura Nueva</td>
+                            <td align="left">Nombre Infraestructura Nueva</td>
                             <td>
                                 <p:inputText id="nombreInf"
-                                             value="#{mantenimientoconcesionMB.nombreInfraestructuraNueva}"
-                                             style="width:300px;text-transform:uppercase;" onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                             value="#{mantenimientoconcesionMB.nombreInfraestructuraNueva}" styleClass="estandar-mayus-minus"
+                                             style="width:300px" onblur="pasarMayuscula(this.value,this.id)"/>
                                  
                                 <img src="../../images/obligatorio.gif"/>
                             </td>
-                            <td>
+                        </tr>
+                         
+                        <tr>
+                        <td></td>
+                        <td>
                                 <p:commandButton update=":form:insertarPanel :form:tablaES2 :form:nombreInf"
                                                  action="#{mantenimientoconcesionMB.agregacionConfirmadaInfraestructura2()}"
                                                  style="width:70px;text-transform:uppercase;" onkeyup="pasarMayuscula(this.value,this.id)" value="Agregar">
@@ -248,9 +250,6 @@
                                              value="#{mantenimientoconcesionMB.codigoT}"/>
                                 </p:commandButton>
                             </td>
-                        </tr>
-                         
-                        <tr>
                             <td>
                                 <div style="font-size: 10px;font-style: oblique; color: Red; text-align: right; float: left;">
                                     Campos obligatorios( 
@@ -260,7 +259,7 @@
                         </tr>
                     </table>
                     <!--Mantenimiento de Infraestructuras-->
-                    <p:dataTable rowIndexVar="rowId" style="font-size:11px;" id="tablaES2" var="var2"
+                    <p:dataTable rowIndexVar="rowId" style="font-size:11px;" id="tablaES2" var="var2" rowsPerPageTemplate="5,10,20"
                                  value="#{mantenimientoconcesionMB.listaInfraestructuras}" emptyMessage="NO SE ENCONTRARON DATOS">
                         <!--p:column headerText="ID">
                             <h:outputText value="#{var2.infId}"/>
@@ -268,7 +267,7 @@
                         <p:column headerText="Infraestructura">
                             <h:outputText value="#{var2.infNombre}"/>
                         </p:column>
-                        <p:column headerText="ELIMINAR"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
+                        <p:column headerText="Eliminar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
                             <p:commandButton actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaInfraestructura2()}"
                                              image="ui-icon-document" style="width:25px;height:25px"
                                              update=":form:tablaES2">

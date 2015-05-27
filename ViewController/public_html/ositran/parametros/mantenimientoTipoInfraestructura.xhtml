@@ -34,7 +34,7 @@
                                                 <tr>
                                                     <td style="width: 10px">Buscar:</td>
                                                     <td style="width: 20px">
-                                                        <p:inputText id="nomInfraSearch" size="35" styleClass="estandar-mayus-minus"
+                                                        <p:inputText id="nomInfraSearch" size="20" styleClass="estandar-mayus-minus"
                                                                      value="#{infraestructuraMB.nomInfraSearch}"
                                                                      onblur="pasarMayuscula(this.value,this.id)"/>
                                                     </td>
@@ -76,11 +76,11 @@
                             <div id="datatable" style="width: 80%">
                                 <p:dataTable style="font-size:10px;" id="tablaMTI" var="mti"
                                              value="#{infraestructuraMB.listaInfraestructura}" rows="10" paginator="true"
-                                             paginatorPosition="bottom"
+                                             paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20" selectionMode="single" rowKey="#{mti.tinId}"
                                              rowIndexVar="rowIndex">
-                                    <p:column headerText="N°" style="width:3%">
+                                    <p:column headerText="Nro" style="width:3%">
                                         <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
                                     </p:column>
                                     <p:column>
@@ -167,7 +167,7 @@
                             </td>
                             <td align="left">
                                 <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
                                 <img src="../../images/obligatorio.gif"/>
@@ -180,8 +180,8 @@
                             </td>
                             <td align="left">
                                 <p:inputText value="#{infraestructuraMB.tinDescripcion}"
-                                             style="width:300px; height:40px"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                             style="width:300px; height:40px" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"/>
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
@@ -227,8 +227,9 @@
                                 </td>
                                 <td align="left">
                                     <p:inputText value="#{infraestructuraMB.tinNombreE}" size="30" maxlength="50"
-                                                 onkeyup="pasarMayuscula(this.value,this.id)"
+                                                 onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                  onkeydown="return validarLetras(event)"/>
+                                    <img src="../../images/obligatorio.gif"/>
                                 </td>
                             </tr>
                              
@@ -237,8 +238,15 @@
                                     #{etq.etq_dtinfra}
                                 </td>
                                 <td align="left">
-                                    <p:inputTextarea value="#{infraestructuraMB.tinDescripcionE}" style="width:250px"
-                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                    <p:inputTextarea value="#{infraestructuraMB.tinDescripcionE}" style="width:250px" styleClass="estandar-mayus-minus" 
+                                                     onblur="pasarMayuscula(this.value,this.id)"/>
+                                                     <img src="../../images/obligatorio.gif"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" colspan="2" style="font-size: 10px;font-style: oblique; color: Red;">
+                                    Campos obligatorios ( 
+                                    <img src="../../images/obligatorio.gif"/>)
                                 </td>
                             </tr>
                              

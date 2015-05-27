@@ -163,8 +163,8 @@
                         <tr>
                             <td colspan="1" align="left">Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText maxlength="50" style="width:92%"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText maxlength="50" style="width:92%" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"/>
                                               <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -174,8 +174,8 @@
                         <tr>
                             <td colspan="1" align="left">Descripción:</td>
                             <td colspan="3" align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:92%"
-                                                 maxlength="50" value="#{concesionarioMB.descripcionE}"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" style="width:92%"
+                                                 maxlength="50" value="#{concesionarioMB.descripcionE}" styleClass="estandar-mayus-minus"
                                                  label="descripcion" id="descripcionE"/>
                                                   <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -185,15 +185,14 @@
                         <tr>
                             <td align="left">Siglas</td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()"
                                              maxlength="10" value="#{concesionarioMB.siglasNombreE}"/>
                             </td>
                             <td align="left">Teléfono:</td>
                             <td align="left">
                                 <p:inputText maxlength="12"
                                              value="#{concesionarioMB.telefonoE}"
-                                             onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                             onkeypress="return isNumberKey(event)" 
                                              />
                             </td>
                         </tr>
@@ -216,10 +215,7 @@
                                 <p:inputText 
                                 id="numeroDE"
                                 widgetVar="numeroDE"
-                                onkeypress="return validarLongitud(this)"
-                                value="#{concesionarioMB.numeroDocumentoE}"
-                                             onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+                                value="#{concesionarioMB.numeroDocumentoE}" onkeypress="return isNumberKey(event)"/>
                                              <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                             </td>
                         </tr>
@@ -227,7 +223,7 @@
                         <tr>
                             <td align="left">Dirección:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText style="width:70%" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{concesionarioMB.direccionE}"/>
                             </td>
                         </tr>
@@ -237,8 +233,8 @@
                         <tr>
                             <td align="left">Representante Legal:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" maxlength="100"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText style="width:70%" maxlength="100" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.representanteE}"/>
                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -248,7 +244,7 @@
                             <td align="left">Correo electrónico:</td>
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" validatorMessage="El Email no es correcto" id="emailE"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{concesionarioMB.correoE}" >
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
@@ -320,8 +316,8 @@
                         <tr>
                             <td colspan="1" align="left">Descripción:</td>
                             <td colspan="3" align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" style="width:90%"
-                                                 maxlength="50" value="#{concesionarioMB.descripcion}"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" style="width:90%"
+                                                 maxlength="50" value="#{concesionarioMB.descripcion}" styleClass="estandar-mayus-minus"
                                                  label="descripcion" id="descripcion"/>
                                                  <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -331,13 +327,12 @@
                         <tr>
                             <td align="left">Siglas:</td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" onkeypress="mostrar()" styleClass="estandar-mayus-minus"
                                              maxlength="6" value="#{concesionarioMB.siglasNombre}"/>
                             </td>
                             <td align="left">Teléfono:</td>
                             <td align="left">
-                                <p:inputText  onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                <p:inputText  onkeypress="return isNumberKey(event)"
                                               id="telefonoE" maxlength="20"
                                              value="#{concesionarioMB.telefono}"
                                             
@@ -361,9 +356,7 @@
                             <td align="left" id="documentos">
                                 <p:inputText id="numeroDR"
                                 widgetVar="numeroDR"
-                                              onkeypress="return validarLongitud(this)"
-                                              onkeydown="this.value=this.value.replace(/[^\d]/,'')"   
-                                              onkeyup="this.value=this.value.replace(/[^\d]/,'')" 
+                                              onkeypress="return isNumberKey(event)"
                                               value="#{concesionarioMB.numeroDocumento}"
                                               maxlength="11"    
                                              />
@@ -374,7 +367,7 @@
                         <tr>
                             <td align="left">Dirección:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText style="width:70%" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{concesionarioMB.direccion}" maxlength="50"/>
                             </td>
                         </tr>
@@ -384,8 +377,8 @@
                         <tr>
                             <td align="left">Representante Legal:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" maxlength="6"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText style="width:70%" maxlength="6" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.representante}"/>
                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -394,8 +387,8 @@
                           <tr>
                             <td align="left">Correo electrónico:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%"    id="email"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                <p:inputText style="width:70%" id="email" styleClass="estandar-mayus-minus"
+                                             onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.correo}" maxlength="50">
                                     
                                 </p:inputText>
