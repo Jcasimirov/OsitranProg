@@ -59,7 +59,7 @@
                                                     <tr>
                                                         <td align="left">Concesion</td>
                                                         <td>
-                                                            <p:inputText readonly="true"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true"
                                                                          value="#{regValorizacionSupervisionMB.t_conce}"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -67,7 +67,7 @@
                                                     <tr>
                                                         <td align="left">Tipo Infraestructura</td>
                                                         <td>
-                                                            <p:inputText readonly="true"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true"
                                                                          value="#{regValorizacionSupervisionMB.t_tinfra}"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -75,7 +75,7 @@
                                                     <tr>
                                                         <td align="left">Modalidad Concesion</td>
                                                         <td>
-                                                            <p:inputText readonly="true"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true"
                                                                          value="#{regValorizacionSupervisionMB.t_modconc}"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -146,7 +146,7 @@
                                                     <tr>
                                                         <td align="left">Plazo:</td>
                                                         <td align="left" colspan="3">
-                                                            <p:inputText value="#{regValorizacionSupervisionMB.plazo}"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{regValorizacionSupervisionMB.plazo}"
                                                                          readonly="true" size="10"/>
                                                         </td>
                                                     </tr>
@@ -154,12 +154,12 @@
                                                     <tr>
                                                         <td align="left">Total:</td>
                                                         <td align="left">
-                                                            <p:inputText value="#{regValorizacionSupervisionMB.total}"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{regValorizacionSupervisionMB.total}"
                                                                          readonly="true" size="10"/>
                                                         </td>
                                                         <td align="left">Moneda:</td>
                                                         <td align="left">
-                                                            <p:inputText value="#{regValorizacionSupervisionMB.nombreMoneda}"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{regValorizacionSupervisionMB.nombreMoneda}"
                                                                          readonly="true" size="10"/>
                                                         </td>
                                                     </tr>
@@ -171,7 +171,7 @@
                                                     <tr>
                                                         <td colspan="2" align="left">Nombre Supervisor</td>
                                                         <td>
-                                                            <p:inputText size="30"
+                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  size="30"
                                                                          value="#{regValorizacionSupervisionMB.nomSupervisor}"
                                                                          readonly="true"/>
                                                         </td>
@@ -196,15 +196,15 @@
                                                 </td>
                                                 <td align="left" >
                                                     Fecha Registro:
-                                                    <p:inputText style="width:70px" id="freg" readonly="true" value="#{regValorizacionSupervisionMB.freg}"/>
+                                                    <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  style="width:70px" id="freg" readonly="true" value="#{regValorizacionSupervisionMB.freg}"/>
                                                 </td>
                                             </tr>
                                                      
                                                     <tr>
                                                 <td colspan="2" align="left">
                                                     #{cam.asu}
-                                                    <p:inputTextarea style="width:85%" id="asuntohr" readonly="false"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id)" value="#{regValorizacionSupervisionMB.asuntohr}"/>
+                                                    <p:inputTextarea  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  style="width:85%" id="asuntohr" readonly="false"
+                                                                      value="#{regValorizacionSupervisionMB.asuntohr}"/>
                                                 </td>
                                             </tr>
                                                 </table>
@@ -289,11 +289,11 @@
                                                 </p:dataTable>
                                                 <div align="right" class="negrita" >
                                                     Total: 
-                                                    <p:inputText readonly="true" id="dato1" value="#{regValorizacionSupervisionMB.tvsNeto}" style="width:100px"/>
+                                                    <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true" id="dato1" value="#{regValorizacionSupervisionMB.tvsNeto}" style="width:100px"/>
                                                      
-                                                    <p:inputText readonly="true" id="dato2" value="#{regValorizacionSupervisionMB.tvsIgv}" style="width:100px"/>
+                                                    <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true" id="dato2" value="#{regValorizacionSupervisionMB.tvsIgv}" style="width:100px"/>
                                                      
-                                                    <p:inputText readonly="true" id="dato3" value="#{regValorizacionSupervisionMB.tvsBruto}" style="width:100px"/>
+                                                    <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true" id="dato3" value="#{regValorizacionSupervisionMB.tvsBruto}" style="width:100px"/>
                                                 </div>
                                             </p:fieldset>
                                             <br></br>
