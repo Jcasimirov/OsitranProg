@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AsignarResponsableSupervisionServiceImpl implements AsignarResponsableSupervisionService{
-    private AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl=new AsignarResponsableSupDAOImpl();
+    private AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl;;
 
 
     public void setAsignarResponsableSupDAOImpl(AsignarResponsableSupDAOImpl asignarResponsableSupDAOImpl) {
