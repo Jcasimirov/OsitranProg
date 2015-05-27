@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>"
+        <link href="#{request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
         <script src="../../js/validaciones.js" type="text/javascript"></script>   
     </h:head>
     <h:body>
@@ -52,9 +52,11 @@
                                                             <td align="left">Nombre de concesión</td>
                                                             <td>
                                                                 <p:inputText id="idNameConcesion"
-                                                                             value="#{asignarResponsableMB.nameContrato}"
+                                                                             value="#{asignarResponsableMB.nameContrato}" readonly="true"
+
                                                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                              ></p:inputText>
+
                                                             </td>
                                                         </tr>
                                                          
@@ -62,10 +64,12 @@
                                                             <td align="left">Tipo de infraestructura</td>
                                                             <td>
                                                                 <p:inputText id="idNameTipoInfraestructura"
-                                                                             value="#{asignarResponsableMB.nameTipoInfraestructura}"
+                                                                             value="#{asignarResponsableMB.nameTipoInfraestructura}" readonly="true"
+
                                                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                              
                                                                              ></p:inputText>
+
                                                             </td>
                                                         </tr>
                                                          
@@ -73,10 +77,12 @@
                                                             <td align="left">Modalidad de Concesión</td>
                                                             <td>
                                                                 <p:inputText id="idNameModalidadConcecion"
-                                                                             value="#{asignarResponsableMB.nameModalidadConcesion}"
+                                                                             value="#{asignarResponsableMB.nameModalidadConcesion}" readonly="true"
+
                                                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                              
                                                                              ></p:inputText>
+
                                                             </td>
                                                         </tr>
                                                          
@@ -198,36 +204,7 @@
                                                                  update=":form:DataTable_ResultadoBusquedaEmpresa :form:mensaje"
                                                                  />
                                                  
-                                                <p:dialog header="EMPRESAS SUPERVISORAS"
-                                                          widgetVar="Dialog_ResultadoBusquedaEmpresa"
-                                                          id="Dialog_ResultadoBusquedaEmpresa" modal="true"
-                                                          style="text-align:center;">
-                                                    <p:dataTable style="font-size:11px;text-align:center"
-                                                                 id="DataTable_ResultadoBusquedaEmpresa"
-                                                                 value="#{asignarResponsableMB.listaEmpresasSup}"
-                                                                 var="var1"
-                                                                 paginator="true" 
-                                                                emptyMessage="NO SE ENCONTRARON DATOS"
-                                                paginatorPosition="bottom" 
-                                                rows="10" 
-                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-                                                rowsPerPageTemplate="5,10,20" 
-                                                                 
-                                                                 >
-                                                        <p:column headerText="emps sup">
-                                                            <h:outputText value="#{var1.supNombre}"
-                                                                          style="width:300px;text-transform:uppercase;"/>
-                                                        </p:column>
-                                                        <p:column headerText="Elegir">
-                                                            <p:commandButton actionListener="#{asignarResponsableMB.seleccionarEmpresa}"
-                                                                             icon="ui-search"
-                                                                             update=":form:listaResponsables :form:mensaje"
-                                                                             oncomplete="Dialog_ResultadoBusquedaEmpresa.hide();">
-                                                                <f:attribute name="empresa" value="#{var1}"></f:attribute>
-                                                            </p:commandButton>
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </p:dialog>
+                                              
                                             </td>
                                         </tr>
                                     </table>
@@ -303,6 +280,13 @@
                             
                         </td>
                     </tr>
+                    <tr>
+                                                <td align="right"
+                                                    style="font-size: 10px;font-style: oblique; color: Red;">
+                                                    Campos obligatorios( 
+                                                    <img src="../../images/obligatorio.gif"/>)
+                                                </td>
+                                            </tr>
                 </table>
                  </div>
                    
@@ -313,7 +297,36 @@
                 </p:layoutUnit>
             </p:layout>
                 
-           
+             <p:dialog header="EMPRESAS SUPERVISORAS"
+                                                          widgetVar="Dialog_ResultadoBusquedaEmpresa"
+                                                          id="Dialog_ResultadoBusquedaEmpresa" modal="true"
+                                                          style="text-align:center;">
+                                                    <p:dataTable style="font-size:11px;text-align:center"
+                                                                 id="DataTable_ResultadoBusquedaEmpresa"
+                                                                 value="#{asignarResponsableMB.listaEmpresasSup}"
+                                                                 var="var1"
+                                                                 paginator="true" 
+                                                                emptyMessage="NO SE ENCONTRARON DATOS"
+                                                paginatorPosition="bottom" 
+                                                rows="10" 
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                                rowsPerPageTemplate="5,10,20" 
+                                                                 
+                                                                 >
+                                                        <p:column headerText="emps sup">
+                                                            <h:outputText value="#{var1.supNombre}"
+                                                                          style="width:300px;text-transform:uppercase;"/>
+                                                        </p:column>
+                                                        <p:column headerText="Elegir">
+                                                            <p:commandButton actionListener="#{asignarResponsableMB.seleccionarEmpresa}"
+                                                                             icon="ui-search"
+                                                                             update=":form:listaResponsables :form:mensaje"
+                                                                             oncomplete="Dialog_ResultadoBusquedaEmpresa.hide();">
+                                                                <f:attribute name="empresa" value="#{var1}"></f:attribute>
+                                                            </p:commandButton>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </p:dialog>
                 <p:dialog header="CONCESIONES" widgetVar="Dialog_ResultadoBusquedaContratoConcesion"
                           id="Dialog_ResultadoBusquedaContratoConcesion" modal="true" style="text-align:center;">
                     <p:dataTable style="font-size:11px;text-align:center"
