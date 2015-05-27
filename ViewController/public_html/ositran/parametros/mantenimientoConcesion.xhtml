@@ -23,11 +23,7 @@
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
-                        <div align="center">
-                            <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">
-                            MANTENIMIENTO CONCESIÓN
-                            </h5>
-                        </div>
+                        <div class="titulo5" >MANTENIMIENTO CONCESIÓN</div>
                         <center>
                             <div style="width:80%;font-size:11px">
                                 <!---->
@@ -35,7 +31,7 @@
                                     <tr  >
                                         <td style="width:25%"  align="left">Buscar:
                                         
-                                            <p:inputText id="nombrebuscar" value="#{mantenimientoconcesionMB.concesionbuscar}" onkeyup="pasarMayuscula(this.value,this.id)" style="text-transform:uppercase;"/>
+                                            <p:inputText id="nombrebuscar" value="#{mantenimientoconcesionMB.concesionbuscar}" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/>
                                                          <h:outputText value=" " style="color:white" />
                                               <p:commandButton actionListener="#{mantenimientoconcesionMB.buscarconcesion()}"
                                                                  update=":form:tablaES"
@@ -134,12 +130,12 @@
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Nombre de la Concesión" style="text-align:left;"></h:outputLabel>
                                         <p:inputText value="#{mantenimientoconcesionMB.nombre}"
-                                                     style="width:300px;text-transform:uppercase; " onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                     style="width:300px;" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/>
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Infraestructura"></h:outputLabel>
                                         <p:inputText id="txt_title"  requiredMessage="Debe ingresar nombre de Imfraestructura"
-                                                     value="#{mantenimientoconcesionMB.infraestructura.infNombre}" 
-                                                     style="width:300px;text-transform:uppercase; " onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                     value="#{mantenimientoconcesionMB.infraestructura.infNombre}" styleClass="estandar-mayus-minus"
+                                                     style="width:300px;text-transform:uppercase; " onblur="pasarMayuscula(this.value,this.id)"/>
                                         <img src="../../images/obligatorio.gif"/>
                                         <p:commandButton id="btn_reset" value="Limpiar" type="reset"/>
                                         <p:commandButton id="btn_add" value="Agregar Infraestructura"
