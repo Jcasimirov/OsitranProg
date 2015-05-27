@@ -326,7 +326,7 @@
                                                     <tr>
                                                         <td>Descripci&#243;n</td>
                                                         <td colspan="5">
-                                                            <p:inputText 
+                                                            <p:inputText  onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                          style="width:345px"
                                                                          value="#{registrarAvanceInversionMB.descripcionValorizacionDetalle}"/>
                                                         </td>
@@ -408,6 +408,7 @@
                                             <div align="right" class="negrita">
                                                 Total Neto: 
                                                 <p:inputText id="montosTotales1" readonly="true"
+                                                
                                                              style="font-weight:bold;font-size:13px;width:150px"
                                                              value="#{registrarAvanceInversionMB.totalMonto}"/>
                                                  Total Igv: 
@@ -417,6 +418,7 @@
                                                              readonly="true"/>
                                                  Total Presentado: 
                                                 <p:inputText id="montosTotales3"
+                                                
                                                              style="font-weight:bold;font-size:13px;width:150px"
                                                              value="#{registrarAvanceInversionMB.totalPresentado}"
                                                              readonly="true"/>

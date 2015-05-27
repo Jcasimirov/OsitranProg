@@ -158,14 +158,14 @@
                                     <p:fieldset  rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 1}"  styleClass="fielsetinterno" legend="cordinador insitu">
                                         <h:outputText value="Nombre:"></h:outputText>
                                         <h:outputText style="color:White" value="n"></h:outputText>
-					<p:inputText id="nombreSupervisor" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
+					<p:inputText id="nombreSupervisor" readonly="true" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
                                                                
 				</p:fieldset>
                                 <p:fieldset  rendered="#{derivarReconocimientoSupervisorMB.codigoTipoRevision eq 2}"  styleClass="fielsetinterno" legend="empresa supervisora">
                                
                                         <h:outputText value="Nombre:"></h:outputText>
                                         <h:outputText style="color:White" value="n"></h:outputText>
-					<p:inputText id="empresa" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
+					<p:inputText  readonly="true"  id="empresa" value="#{derivarReconocimientoSupervisorMB.nombreSupervisor}" style="width:250px"></p:inputText>
                                                                
 				</p:fieldset>                               
                                 </h:panelGroup>                                
@@ -247,10 +247,10 @@
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> 
                                     </td>
                                     <td>Reg. Salida</td>
-                                    <td><p:inputText  value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
+                                    <td><p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"   value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
                                      <img src="../../images/obligatorio.gif"  style="vertical-align: top;"/> </td>
                                     <td colspan="2">Fecha de Emisión:</td>
-                                    <td><p:calendar locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
+                                    <td><p:calendar  readonly="true" locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> </td>
                                 </tr>
                                  <tr >

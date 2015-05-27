@@ -188,6 +188,7 @@
                                                         <td>
                                                             Nro: 
                                                             <p:inputText 
+                                                            
                                                                          value="#{editarAvanceInversionMB.numero}"
                                                                          style="width:60px"/>
                                                              
@@ -342,6 +343,7 @@
                                                         <td>Monto Presentado</td>
                                                         <td>
                                                             <p:inputText value="#{editarAvanceInversionMB.montoPrestado}"
+                                                            onkeypress="return isNumberKey(event)"
                                                                          style="width:100px"/>
                                                         </td>
                                                         <td>
@@ -360,7 +362,7 @@
                                                     <tr>
                                                         <td>Descripci&#243;n</td>
                                                         <td colspan="5">
-                                                            <p:inputText 
+                                                            <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" 
                                                                          style="width:345px"
                                                                          value="#{editarAvanceInversionMB.descripcionValorizacionDetalle}"/>
                                                         </td>
@@ -428,16 +430,21 @@
                                         <div align="right" class="negrita">
                                             Total Neto: 
                                             <p:inputText id="montosTotales1"
+                                            readonly="true"
                                                          style="font-weight:bold;font-size:13px;width:150px"
                                                          value="#{editarAvanceInversionMB.totalMonto}"/>
                                              Total Igv: 
                                             <p:inputText id="montosTotales2"
                                                          style="font-weight:bold;font-size:13px;width:150px"
-                                                         value="#{editarAvanceInversionMB.totalIgv}"/>
+                                                         value="#{editarAvanceInversionMB.totalIgv}"
+                                                          readonly="true"
+                                                         />
                                              Total Presentado: 
                                             <p:inputText id="montosTotales3"
                                                          style="font-weight:bold;font-size:13px;width:150px"
-                                                         value="#{editarAvanceInversionMB.totalPresentado}"/>
+                                                         value="#{editarAvanceInversionMB.totalPresentado}"
+                                                          readonly="true"
+                                                         />
                                         </div>
                                         </div>
                                     </td>
