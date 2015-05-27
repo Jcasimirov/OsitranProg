@@ -405,11 +405,11 @@
                                                         </p:commandButton>
                                                     </div>
                                                 </p:column>
-                                                <p:column style="width:10%;" headerText="Eliminar">
+                                                <p:column style="width:10%;" headerText="Eliminar" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                     <div align="center">
                                                         <p:commandButton icon="ui-icon-trash" actionListener="#{actualizarContratoMB.cargarEliminarAdenda}" 
                                                         oncomplete="dlgEliminarAdenda.show();"
-                                                        rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                        >
                                                             <f:attribute name="adenda" value="#{tAdenda}"></f:attribute>
                                                         </p:commandButton>
                                                     </div>
@@ -442,9 +442,9 @@
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadEntregas}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </p:column>
-                                                <p:column style="width:10%;" headerText="Eliminar">
+                                                <p:column style="width:10%;" headerText="Eliminar" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        <p:commandButton icon="ui-icon-trash" 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarEntrega}" 
                                                         oncomplete="dlgEliminarEntrega.show();">
                                                             <f:attribute name="entrega" value="#{entrega}"></f:attribute>
@@ -621,9 +621,9 @@
                                                 <p:column headerText="Plazo" style="width:4%">
                                                     <h:outputText value="#{compromiso.ccoPlazo}"/>
                                                 </p:column>
-                                                <p:column headerText="Eliminar" style="width:4%">
+                                                <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        <p:commandButton icon="ui-icon-trash" 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarCompromiso}" oncomplete="dlgEliminarCompromisoI.show();">
                                                             <f:attribute name="compromiso" value="#{compromiso}"></f:attribute>
                                                         </p:commandButton>
@@ -757,9 +757,9 @@
                                                 <p:column headerText="Tipo de Cambio" style="width:8%">
                                                     <h:outputText value="#{comsup.ccoTipoCambio}"/>
                                                 </p:column>
-                                                <p:column headerText="Eliminar" style="width:4%">
+                                                <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        <p:commandButton icon="ui-icon-trash" 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarCompromisoSupervisado}" onclick="dlgEliminarCompromisoS.show();">
                                                             <f:attribute name="comsup" value="#{comsup}"></f:attribute>
                                                         </p:commandButton>
@@ -886,9 +886,9 @@
                                                         </p:commandButton>
                                                     </div>
                                                 </p:column>
-                                                <p:column headerText="Eliminar" style="width:4%">
+                                                <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                     <div align="center">
-                                                        <p:commandButton icon="ui-icon-trash" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                        <p:commandButton icon="ui-icon-trash" 
                                                         actionListener="#{actualizarContratoMB.cargarElimimarPenalidad}" onclick="dlgEliminarPenalidad.show();">
                                                             <f:attribute name="penalidad" value="#{penalidad}"></f:attribute>
                                                         </p:commandButton>
@@ -999,8 +999,8 @@
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadCao}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%">
-                                                        <p:commandButton rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}"
+                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                        <p:commandButton 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarCao()}" oncomplete="popupEliminarCAO.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaCAO :tab:formEliminarCAO">
                                                             <f:param id="idContratoCaoE" name="idContratoCaoE" value="#{tCao.caoId}"/>
                                                         </p:commandButton>
@@ -1723,7 +1723,7 @@
                                                     <p:column headerText="INFRAESTRUCTURAS">
                                                         <h:outputText value="#{tinfra.infNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Editar" style="width:8%">
+                                                    <p:column headerText="Editar" style="width:8%" rendered="#{actualizarContratoMB.rolOpcion.troModificar eq 1}">
                                                         <center>
                                                             <p:commandButton actionListener="#{actualizarContratoMB.cargarListaInversiones}"
                                                             update=":tab:frmAgregarInversion" oncomplete="popupAgregarInversion.show();"
@@ -1733,7 +1733,7 @@
                                                             </p:commandButton>
                                                         </center>
                                                     </p:column>
-                                                      <p:column headerText="Eliminar" style="width:8%">
+                                                      <p:column headerText="Eliminar" style="width:8%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <center>
                                                             <p:commandButton 
                                                             actionListener="#{actualizarContratoMB.cargarEliminarInfraestructura}"

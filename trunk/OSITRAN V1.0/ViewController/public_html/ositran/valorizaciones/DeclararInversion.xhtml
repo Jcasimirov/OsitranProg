@@ -85,7 +85,8 @@
                                                                  style="position:relative;float:left;"
                                                                  actionListener="#{declararInversionMB.abrirBuscarContratos()}"
                                                                  update=":frmBuscarContratoDlg:contrato"
-                                                                 oncomplete="popupBuscarContrato.show();"/>
+                                                                 oncomplete="popupBuscarContrato.show();"
+                                                                 rendered="#{declararInversionMB.rolOpcion.troAgregar eq 1}"/>
                                                                  </td></tr></table>
                                             </p:fieldset>
                                             <br></br>
@@ -167,9 +168,10 @@
                                                     </tr>
                                                 </table>
                                             </p:fieldset>
-                                            <br></br>
+                                            
                                             <p:fieldset id="datosExpe" legend="EXPEDIENTE DE  RECONOCIMIENTO">
-                                                <p:dataTable paginatorPosition="bottom"
+                                                <h:outputText value="Seleccionar una fila para ver el detalle"/>
+                                                <p:dataTable paginatorPosition="bottom" 
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
                                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -179,7 +181,7 @@
                                                              value="#{declararInversionMB.listaInvAvnVO}"
                                                              var="tInversion" selectionMode="single"
                                                              rowKey="#{tInversion.tiaNumero}">
-                                                    <p:ajax event="rowSelect"
+                                                    <p:ajax event="rowSelect" 
                                                             listener="#{declararInversionMB.cargarDetalleInversion}"
                                                             update=":form:igvResumen :form "/>
                                                     <p:ajax event="rowUnselect"
@@ -229,8 +231,8 @@
                                                     <td align="left">Observaci&#243;n:</td>
                                                     <td align="left">
                                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="obsRecf"
-                                                                         
-                                                                         
+                                                                         cols="50"
+                                                                         scrollHeight="300"
                                                                          value="#{declararInversionMB.invAvnVO.tiaObservaciones}"/>
                                                     </td>
                                                     <td> <h:outputText style="color:red;" value="*"/></td>
@@ -269,7 +271,7 @@
                                                         <h:outputText value="#{tReconocimiento.ivrMontoAprobado}"/>
                                                     </p:column>
                                                     <p:column  styleClass="tabla-wrap-boton">
-                                                        <p:commandButton icon="ui-icon-pencil"
+                                                        <p:commandButton icon="ui-icon-pencil" title="Editar Monto"
                                                                          actionListener="#{declararInversionMB.editarReconocimiento}"
                                                                          update=":frmEditarMontoRec"
                                                                          oncomplete="_dlgEditarReconocimiento.show();"
@@ -325,7 +327,7 @@
                                                     </p:column>
                                                     <p:column styleClass="tabla-wrap-boton">
                                                     <center>
-                                                        <p:commandButton icon="ui-icon-pencil"
+                                                        <p:commandButton icon="ui-icon-pencil" title="Editar Monto"
                                                                          rendered="#{tReajuste.irjMontoAprobado ne null}"
                                                                          actionListener="#{declararInversionMB.editarReajuste}"
                                                                          update=":frmEditarMontoRea"
@@ -467,8 +469,8 @@
                                                     <td align="left">Nota</td>
                                                     <td colspan="3" align="left">
                                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nota" 
-                                                                         value="#{declararInversionMB.invVO.invNota}"
-                                                                         />
+                                                                         value="#{declararInversionMB.invVO.invNota}" scrollHeight="300"
+                                                                         cols="50"/>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -486,7 +488,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div style="text-align:center;font-size: 11px">
+                        <div style="text-align:center;font-size: 11px;">
                             <p:commandButton style="width:80px" value="Guardar"
                                              actionListener="#{declararInversionMB.guardarDeclaracion()}"
                                              update=":form:tablaAvanceInversion :form:datosDeclaracion :form:mensaje"
