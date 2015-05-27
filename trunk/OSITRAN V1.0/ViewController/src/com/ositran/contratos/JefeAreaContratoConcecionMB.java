@@ -113,6 +113,17 @@ public class JefeAreaContratoConcecionMB {
         
         }
 
+    public void limpiarAbajo    (){
+            contratoConcesion = "";
+            tipoInfraestructuraC = 0;
+            modalidadConcecion = "";
+            codigoConcesion = 0;
+            codigoContrato = 0;
+            tipoInfraestructuraS="";
+            listaJefeArea=new ArrayList<ContratoJefeAreaVO>();
+        
+        }
+
     public void cargarListaInfraestructura() {
         try {
             listaInfraestructuraTipo = infraestructuraTipoServiceImpl.query();
@@ -137,6 +148,7 @@ public class JefeAreaContratoConcecionMB {
                     tipoDocumento = "RUC";
                     tipoDocumentoI=2;
                 }
+                limpiarAbajo();
             }
 
             else {

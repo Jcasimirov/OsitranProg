@@ -448,7 +448,6 @@ public class DerivarReconocimientoSupervisorMB {
 
             for (ContratoVO contra : listaContratos) {
                 ConcesionVO concesion = new ConcesionVO();
-
                 concesion = concesionServiceImpl.get(contra.getCsiId());
                 contra.setNombreConcesion(concesion.getCsiNombre());
                 contra.setCodigoConcesion(concesion.getCsiId());
@@ -475,9 +474,7 @@ public class DerivarReconocimientoSupervisorMB {
             nombreTipoInfraestructura = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
             listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
-
             listarInversionDescripcion();
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso",

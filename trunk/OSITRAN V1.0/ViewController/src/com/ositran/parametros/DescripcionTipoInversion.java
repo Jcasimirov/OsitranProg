@@ -8,31 +8,21 @@ import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InversionDescripcionVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoInversionVO;
-
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
 
 import java.sql.SQLException;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
@@ -184,6 +174,7 @@ public class DescripcionTipoInversion {
             }
         return cantidad;
         }
+    
     public void cargarListaInversion() {
         try {
             listTipoInversion = getTipoInversionServicesImpl().query();
@@ -218,6 +209,8 @@ public class DescripcionTipoInversion {
                 nombreAntiguo=inversionDescripcionVO.getItdNombre();
                 nombreE=inversionDescripcionVO.getItdNombre();
                 descripcionE=inversionDescripcionVO.getItdDescripcion();
+            System.out.println("TIPO DE INSASSSSSSSSSSSSSSSSSS");
+            System.out.println(inversionDescripcionVO.getTivId());
                 codigoInversion1=inversionDescripcionVO.getTivId();
             
               
