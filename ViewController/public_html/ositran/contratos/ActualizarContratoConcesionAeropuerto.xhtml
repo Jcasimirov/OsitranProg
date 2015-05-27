@@ -215,7 +215,10 @@
                                                                 <tr>
                                                                     <td align="left">Descargar Contrato:</td>
                                                                     <td align="left">
-                                                                        <p:commandButton title="descarga archivo" icon="ui-icon-arrowthick-1-s" ajax="false" actionListener="#{actualizarContratoMB.preDownloadContratoPDF(actualizarContratoMB.contratoVO.conPdfcontrato)}" update=":tab:formmensaje">
+                                                                        <p:commandButton title="descarga archivo" icon="ui-icon-arrowthick-1-s" 
+                                                                        ajax="false" 
+                                                                        actionListener="#{actualizarContratoMB.preDownloadContratoPDF(actualizarContratoMB.contratoVO.conPdfcontrato)}" 
+                                                                        update=":tab:form:mensaje">
                                                                             <p:fileDownload value="#{actualizarContratoMB.downloadContratoPDF}"></p:fileDownload>
                                                                         </p:commandButton>
                                                                     </td>

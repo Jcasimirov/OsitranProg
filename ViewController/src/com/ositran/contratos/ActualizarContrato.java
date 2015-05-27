@@ -673,13 +673,13 @@ public class ActualizarContrato {
     }
 
     public void subirContratoPDF(FileUploadEvent event) throws IOException {
-        contratoVO.setConPdfcontrato("contrato" + contratoVO.getConId() + event.getFile().getFileName());
+        contratoVO.setConPdfcontrato("CONTRATO" + contratoVO.getConId() + event.getFile().getFileName().toUpperCase());
         contratoVO.setInputStreamContratoPDF(event.getFile().getInputstream());
 
     }
 
     public void subirFichaResumen(FileUploadEvent event) throws IOException {
-        contratoVO.setConFicharesumen("fichaResumen" + contratoVO.getConId() + event.getFile().getFileName());
+        contratoVO.setConFicharesumen("FICHARESUMEN" + contratoVO.getConId() + event.getFile().getFileName().toUpperCase());
         contratoVO.setInputStreamFichaResumen(event.getFile().getInputstream());
     }
 
@@ -687,10 +687,12 @@ public class ActualizarContrato {
         try {
             downloadContratoPDF = Reutilizar.getNewInstance().preDownload(Constantes.RUTACONTRATOSPDF + nombreArchivo);
         } catch (IOException io) {
+            System.out.println("IO no encontro el archivo");
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
         }catch (Exception fnfe) {
+            System.out.println("no encontro el archivo");
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -896,7 +898,7 @@ public class ActualizarContrato {
 
 
     public void subirAdenda(FileUploadEvent event) throws IOException {
-        contratoNuevaAdendaVO.setCadDocumentoFisico("adenda" + event.getFile().getFileName());
+        contratoNuevaAdendaVO.setCadDocumentoFisico("ADENDA" + event.getFile().getFileName().toUpperCase());
         contratoNuevaAdendaVO.setInputStreamNuevaAdenda(event.getFile().getInputstream());
 
     }
@@ -1101,7 +1103,7 @@ public class ActualizarContrato {
     }
 
     public void subirArchivoEntrega(FileUploadEvent event) throws IOException {
-        contratoNuevaEntregaVO.setCenDocumentoFisico("entrega" + event.getFile().getFileName());
+        contratoNuevaEntregaVO.setCenDocumentoFisico("ENTREGA" + event.getFile().getFileName().toUpperCase());
         contratoNuevaEntregaVO.setInputStreamNuevaEntrega(event.getFile().getInputstream());
 
     }
@@ -1109,7 +1111,7 @@ public class ActualizarContrato {
 
     public void subirArchivoCao(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoCAO = "cao" + event.getFile().getFileName();
+        documentoCAO = "CAO" + event.getFile().getFileName().toUpperCase();
         contratoCaoVO.setFileCao(event.getFile().getInputstream());
         System.out.println("documentoCAO: " + documentoCAO);
 
@@ -1117,7 +1119,7 @@ public class ActualizarContrato {
 
     public void subirArchivoHito(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoHito = "hito" + event.getFile().getFileName();
+        documentoHito = "HITO" + event.getFile().getFileName().toUpperCase();
         getContratoHitoVO().setHtoPdf(documentoHito);
         getContratoHitoVO().setFileHito(event.getFile().getInputstream());
         System.out.println("documentoHito: " + documentoHito);
@@ -1126,7 +1128,7 @@ public class ActualizarContrato {
 
     public void subirArchivoPpo(FileUploadEvent event) throws IOException {
         //contratoCaoVO.setCaoPdf(event.getFile().getFileName());
-        documentoPpo = "ppo" + event.getFile().getFileName();
+        documentoPpo = "PPO" + event.getFile().getFileName().toUpperCase();
         getContratoPpoVO().setFilePpo(event.getFile().getInputstream());
         System.out.println("documentoPpo: " + documentoPpo);
 
@@ -3649,7 +3651,7 @@ public class ActualizarContrato {
     }
 
     public void subirArchivoPenalidad(FileUploadEvent event) throws IOException {
-        contratoNuevaPenalidadVO.setTcpDocumentoFisico("penalidad" + event.getFile().getFileName());
+        contratoNuevaPenalidadVO.setTcpDocumentoFisico("PENALIDAD" + event.getFile().getFileName().toUpperCase());
         contratoNuevaPenalidadVO.setInputStreamNuevaPenalidad(event.getFile().getInputstream());
 
     }
