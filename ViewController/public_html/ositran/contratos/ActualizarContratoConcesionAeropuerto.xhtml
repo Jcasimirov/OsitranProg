@@ -471,7 +471,7 @@
                                 </h:form>
                             </p:dialog>
                             <p:dialog id="dlgadenda" header="Registro de Adenda, Acta u Otros de Acuerdos Relevantes" widgetVar="popupAgregarAdenda" modal="true" 
-                            resizable="false" appendToBody="true" closable="true" height="400" >
+                            resizable="false" appendToBody="true" closable="true" height="500" >
                                 <h:form id="frmNuevaAdendaDlg" >
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="5" columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="nombre" value="Nombre Documento"/>
@@ -491,11 +491,11 @@
                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="objeto" cols="34"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
                                         <p:message for="objeto" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
-                                        <h:outputText value=""/>
+                                     
                                         <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:inputText    id="montoadenda" style="width:100% !important;" onkeypress="return ValidarNumFloat(event,this);" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:message for="montoadenda" display="icon" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
-                                        <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        <h:outputText value=""/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:outputLabel for="supinvadenda" value="Comp. Inv. Concesionario:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:selectOneRadio id="supinvadenda" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadCompromisoInversion}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}">
@@ -519,10 +519,10 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docAdenda" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText    id="docAdenda" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaAdendaVO.inputStreamNuevaAdenda}" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDocumentoFisico}"/>
+                                        <p:inputText    id="docAdenda" style="width:100% !important;"  onfocus="this.blur();"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDocumentoFisico}"/>
                                         <p:message id="filemess" for="docAdenda" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
-                                        <p:fileUpload id="adenda" style="width:100% !important;" fileUploadListener="#{actualizarContratoMB.subirAdenda}" auto="true" update="docAdenda" showButtons="false" label="Adjuntar" dragDropSupport="false"></p:fileUpload>
+                                        <p:fileUpload id="adenda" fileUploadListener="#{actualizarContratoMB.subirAdenda}" auto="true" update="docAdenda" showButtons="false" label="Adjuntar" dragDropSupport="false"></p:fileUpload>
                                         <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
@@ -557,7 +557,7 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docEntrega" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText    id="docEntrega" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaEntregaVO.inputStreamNuevaEntrega}" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
+                                        <p:inputText    id="docEntrega" style="width:100% !important;" onfocus="this.blur();" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDocumentoFisico}"/>
                                         <p:message for="docEntrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoEntrega}" update="docEntrega" label="Adjuntar" auto="true"/>
@@ -771,14 +771,14 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Compromiso (Supervisado)" widgetVar="popupAgregarCompromisoSupervisado" modal="true" resizable="false" appendToBody="true" closable="true" height="550" width="470">
+                            <p:dialog header="Agregar Compromiso (Supervisado)" widgetVar="popupAgregarCompromisoSupervisado" modal="true" resizable="false" appendToBody="true" closable="true" height="550" width="500">
                                 <h:form id="frmNuevoCompromisoSupervisadoDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoSupervisadoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="etapasup" value="Etapa/Periodo"/>
                                         <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="etapasup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoPeriodo}" style="width:200px;" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="alcancesup" value="Alcance"/>
-                                        <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}" style="width:200px;" />
+                                        <p:inputTextarea  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="alcancesup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoAlcance}" style="width:200px;" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                          <p:outputLabel for="tipoinversioncomsup" value="Tipo de Inversion"/>
                                         <p:selectOneMenu id="tipoinversioncomsup" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.tivId}" style="width:210px">
@@ -797,7 +797,7 @@
                                         <p:inputMask id="tipocambiosup" style="width:200px;" disabled="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.monId eq 2}" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoTipoCambio}" mask="9.99" size="3" onkeypress="return validarNum(event);"></p:inputMask>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:outputLabel for="netocomsup" value="Neto"/>
-                                        <p:inputText    id="netocomsup" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}" onkeypress="return ValidarNumFloat(event,this);">
+                                        <p:inputText id="netocomsup" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoSupervisadoVO.ccoNeto}" onkeypress="return ValidarNumFloat(event,this);">
                                             <p:ajax event="keyup" listener="#{actualizarContratoMB.actualizarTotalSup}" process="@this valortotalcomsup" update="valortotalcomsup"/>
                                         </p:inputText>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
@@ -898,7 +898,7 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Compromiso (Penalidad)" widgetVar="popupAgregarPenalidad" modal="true" resizable="false" appendToBody="true" closable="true" height="450" width="470">
+                            <p:dialog header="Agregar Compromiso (Penalidad)" widgetVar="popupAgregarPenalidad" modal="true" resizable="false" appendToBody="true" closable="true" height="390" width="600">
                                 <h:form id="frmNuevoCompromisoPenalidadDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoPenalidadDlg" styleClass="pnlEdicion" columns="4" columnClasses="etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="motivo" value="Etapa"/>
@@ -928,11 +928,12 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="docPenalidad" value="Documento" style="top:-15px !important;position:relative;"/>
-                                        <p:inputText    id="docPenalidad" style="width:100% !important;" onblur="if (this.value != '') this.value='';" disabled="#{not empty actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.tcpDocumentoFisico}"/>
+                                        <p:inputText    id="docPenalidad" onfocus="this.blur();" value="#{actualizarContratoMB.contratoNuevaPenalidadVO.inputStreamNuevaPenalidad}"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}" update="docPenalidad" label="Adjuntar" auto="true"/>
                                         <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
+                                        <h:outputText value=""/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlNuevoCompromisoPenalidadBtnDlg" columns="2" styleClass="pnlEdicion">
@@ -1161,7 +1162,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText    id="docCao" value="#{actualizarContratoMB.documentoCAO}" onblur="if (this.value != '') this.value='';" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"/>
+                                                <p:inputText    id="docCao" value="#{actualizarContratoMB.documentoCAO}" onfocus="this.blur();" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoCaoVO.fileCao}"/>
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoCao}" update="docCao" label="Adjuntar" auto="true"/>
                                                  
@@ -1255,7 +1256,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText  styleClass="estandar-mayus-minus" onblur="if (this.value != '') this.value='';"  id="docHito" value="#{actualizarContratoMB.documentoHito}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:inputText  styleClass="estandar-mayus-minus" onfocus="this.blur();"  id="docHito" value="#{actualizarContratoMB.documentoHito}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHito" label="Adjuntar" auto="true"/>
                                                  
@@ -1331,7 +1332,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText  onblur="if (this.value != '') this.value='';"  id="docHitoM" value="#{actualizarContratoMB.contratoHitoVO.htoPdf}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
+                                                <p:inputText  onfocus="this.blur();" id="docHitoM" value="#{actualizarContratoMB.contratoHitoVO.htoPdf}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoHitoVO.fileHito}"/>
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoHito}" update="docHitoM" label="Adjuntar" auto="true"/>
                                                  
@@ -1423,7 +1424,7 @@
                                         <tr>
                                             <td align="left">Documento</td>
                                             <td align="left">
-                                                <p:inputText  onblur="if (this.value != '') this.value='';"  id="docPpo" value="#{actualizarContratoMB.documentoPpo}" style="width:200px;" disabled="#{not empty actualizarContratoMB.contratoPpoVO.filePpo}"/>
+                                                <p:inputText  onfocus="this.blur();" id="docPpo" value="#{actualizarContratoMB.documentoPpo}" style="width:200px;" />
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPpo}" update="docPpo" label="Adjuntar" auto="true"/>
                                                  
