@@ -102,9 +102,10 @@
                                         <div align="center">
                                             <p:commandButton   id="btnmodificar" 
                                                                 update=":form:popupeditar" styleClass="controles"
-                                                             action="#{infraestructuraMB.cargarEditar(mti)}"
-                                                             oncomplete="popupeditar.show()" image="ui-icon-pencil"
-                                                                />
+                                                             action="#{infraestructuraMB.cargarEditar}"
+                                                             oncomplete="popupeditar.show()" image="ui-icon-pencil">
+                                                <f:param id="idModificar" name="idModificar" value="#{mti.tinId}"/>
+                                            </p:commandButton>
                                             <p:tooltip styleClass="tool"  id="toolTipFade4" for="btnmodificar" value="Modificar la fila" />
                                         </div>
                                     </p:column>
@@ -113,11 +114,12 @@
                                             <h:outputText value="Eliminar"/>
                                         </f:facet>
                                         <div align="center">
-                                            <p:commandButton update=":form:popupeliminar :form:codEliminar" styleClass="controles"
-                                                             actionListener="#{infraestructuraMB.cargarEliminar(mti.tinId,mti.tinNombre)}"
+                                            <p:commandButton update=":form:popupeliminar " styleClass="controles"
+                                                             actionListener="#{infraestructuraMB.cargarEliminar}"
                                                              oncomplete="popupeliminar.show()" image="ui-icon-trash"
-                                                             id="btneliminar"
-                                                             />
+                                                             id="btneliminar">
+                                                    <f:param id="idEliminar" name="idEliminar" value="#{mti.tinId}"/>                 
+                                            </p:commandButton>
                                             <p:tooltip styleClass="tool"  id="toolTipFade5" for="btneliminar" value="Eliminar la fila" />
                                         </div>
                                     </p:column>
@@ -125,7 +127,6 @@
                             </div>
                         </div>
                     </p:layoutUnit>
-                    <h:inputHidden value="#{infraestructuraMB.codigoEliminar}" id="codEliminar"/>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
                         <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
@@ -135,19 +136,23 @@
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
-                            <td colspan="2">
-                                Confirme eliminación del Tipo de Infraestructura: " 
-                                #{infraestructuraMB.nombreEliminar}"
+                            <td>
+                            
+                                <h:inputHidden value="#{infraestructuraMB.idEliminar}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                             <td colspan="2">
+                                Eliminar Tipo de Infraestructura: "#{infraestructuraMB.nombreEliminar}"
                             </td>
                         </tr>
                          
                         <tr>
-                            <td align="right">
+                            <td align="center">
                                 <p:commandButton update=":form:tablaMTI :form:mensaje"
                                                  actionListener="#{infraestructuraMB.eliminar}" value="Eliminar"
                                                  oncomplete="popupeliminar.hide()"/>
-                            </td>
-                            <td align="left">
+                            
                                 <p:commandButton value="Cancelar" onclick="popupeliminar.hide()"/>
                             </td>
                         </tr>
