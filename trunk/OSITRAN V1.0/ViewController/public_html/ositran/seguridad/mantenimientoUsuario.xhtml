@@ -6,6 +6,7 @@
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <script src="../../js/validaciones.js" type="text/javascript"></script>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
         <h:body>
             <f:event listener="#{mantenimientoUsuarioMB.validarSesion}" type="postAddToView"></f:event>
@@ -24,9 +25,7 @@
                 <p:layout fullPage="true">
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
-                        <div align="center">
-                            <h5 style="color:Black;font-weight:bold;font-family: sans-serif;">MANTENIMIENTO DE USUARIO</h5>
-                        </div>
+                            <div class="titulo5">MANTENIMIENTO DE USUARIO</div>
                         <div align="center">
                             <div id="table" style="width: 100%;">
                                 <table style="width:80% ;font-size:11px;">
@@ -39,7 +38,7 @@
                                                         <p:inputText id="usuario"
                                                                      value="#{mantenimientoUsuarioMB.nomUserSearch}"
                                                                      size="30"
-                                                                     onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                                                     onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" />
                                                     </td>
                                                     <td align="left" style="width: 8%;" >
                                                         <p:commandButton image="ui-icon-search" id="buscar"
@@ -104,7 +103,7 @@
                                              value="#{mantenimientoUsuarioMB.listaUsuario}" rows="10" paginator="true"
                                              paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" selectionMode="single" rowKey="#{usu.usuId}"
+                                             rowsPerPageTemplate="5,10,20" selectionMode="single" rowKey="#{usu.usuId}"
                                              rowIndexVar="rowIndex">
                                     <p:column headerText="N°" style="width:3%">
                                         <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
@@ -191,10 +190,10 @@
                             </div>
                         </div>
                     </p:layoutUnit>
-                    <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
+                   <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div class="piePagina">Sistema de Información del Proceso de Inversiones. Desarrollado por Asis TP 2014 - 2015</div>
-                    </p:layoutUnit>                    
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
+                    </p:layoutUnit>                 
                 </p:layout>
                 <!-- pdialog para boton agregar -->
                 <p:dialog header="Registrar" widgetVar="agregarUsuario" modal="true" resizable="false">
@@ -236,7 +235,7 @@
                             </td>
                             <td>
                                 <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAlias}"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -261,7 +260,7 @@
                             </td>
                             <td>
                                 <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombre}"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
@@ -274,6 +273,7 @@
                             </td>
                             <td>
                                 <p:inputText id="correo" style="width:300px"
+                                onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{mantenimientoUsuarioMB.usuCorreo}">
                                     <p:watermark for="correo" value="correo@ositran.gob.pe"/>
                                 </p:inputText>
@@ -372,7 +372,7 @@
                             </td>
                             <td>
                                 <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAliasE}"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                             </td>
                         </tr>
@@ -382,7 +382,7 @@
                                 #{etq.etq_pas}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenyaE}"/>
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenyaE}"/>
                             </td>
                         </tr>
                          
@@ -392,7 +392,7 @@
                             </td>
                             <td>
                                 <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombreE}"
-                                             onkeyup="pasarMayuscula(this.value,this.id)"
+                                             onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                             </td>
                         </tr>
@@ -402,7 +402,7 @@
                                 #{etq.etq_correo}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
                             </td>
                         </tr>
                          

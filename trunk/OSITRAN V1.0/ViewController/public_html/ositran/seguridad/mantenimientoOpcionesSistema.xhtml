@@ -6,6 +6,8 @@
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <script src="../../js/validaciones.js" type="text/javascript"></script>
+        <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+
         </h:head>
         <h:body>
             <f:event listener="#{opcionesSistemasMB.validarSesion}" type="postAddToView"></f:event>
@@ -17,9 +19,9 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h5 class="titulo5">
+                            <div class="titulo5">
                                 MANTENIMIENTO OPCIONES DE SISTEMA
-                            </h5>
+                            </div>
                             <div style="width:80%">
                                 <div align="left" style="font-size: 11px">
                                     <table width="100%">
@@ -27,7 +29,7 @@
                                         
                                             <td align="left">
                                                 Buscar: 
-                                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)"
+                                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                              value="#{opcionesSistemasMB.buscar}" id="buscarOS"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton actionListener="#{opcionesSistemasMB.busqueda}"
@@ -63,7 +65,7 @@
                                 <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="6,8,10" resizableColumns="true"
+                                             rowsPerPageTemplate="5,10,20" resizableColumns="true"
                                              style="font-size:10px;" id="tablaOpcionesSistema" var="opcSistema"
                                              value="#{opcionesSistemasMB.listaOpcionesSistema}">
                                  <p:column headerText="N°" style="width:2%">
@@ -111,8 +113,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" style="border:0px;width:98%" resizable="true" closable="true"
                                   collapsible="true">
-                        <div align="center" style="font-size: 10px;font-weight: bold;">Proyecto Ositran-Developer Por
-                                                                                       AsisTP-2015</div>
+                                <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                     <h:inputHidden value="#{opcionesSistemasMB.codigoMenu}"    id="codActualizar"/>
                     
@@ -132,7 +133,7 @@
                                Nombre:
                             </td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="99"
                                              value="#{opcionesSistemasMB.nombreE}" style="width:300px"/>
                                  
                                 <h:outputText value=" "/>
@@ -146,9 +147,9 @@
                                Descripción:
                             </td>
                             <td align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="100"
-                                                 value="#{opcionesSistemasMB.descripcionE}" style="width:300px"/>
-                                 
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="100"
+                                                 value="#{opcionesSistemasMB.descripcionE}" style="width:300px" />
+    
                                 <h:outputText value=" "/>
                                  
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -208,7 +209,7 @@
                                 Nombre:
                             </td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" maxlength="50"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="50"
                                              value="#{opcionesSistemasMB.nombre}" label="Nombre" id="nombre"
                                              style="width:300px"/>                                
                                 <h:outputText value=" "/>                                 
@@ -221,15 +222,11 @@
                                 Descripción:
                             </td>
                             <td align="left">
-                                <p:inputTextarea onkeyup="pasarMayuscula(this.value,this.id)" maxlength="99"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" maxlength="99"
                                                  value="#{opcionesSistemasMB.descripcion}" style="width:300px"/>                                
                                 <h:outputText value=" "/>                                
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
-                            </td>
-                            
-                         
-                            
-                                   
+                            </td>     
                         </tr>
                         <tr>
                         <td>
@@ -256,7 +253,7 @@
                                 Ingresar Url:
                             </td>
                             <td align="left">
-                                <p:inputText onkeyup="pasarMayuscula(this.value,this.id)" id="url" maxlength="99"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" id="url" maxlength="99"
                                                  value="#{opcionesSistemasMB.url}" style="width:300px"/>        
                                                  <p:watermark for="url" value="Ejm: /faces/ositran/contratos/ModuloNuevo.xhtml" />
                                 <h:outputText value=" "/>   
@@ -327,12 +324,7 @@
                         </tr>
                     </table>
                 </p:dialog>
-                
-                
-                
-                
-                
-                
+
             </h:form>
         </h:body>
     </html>
