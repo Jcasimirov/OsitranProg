@@ -43,7 +43,6 @@ import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.math.BigDecimal;
@@ -605,7 +604,7 @@ public class RectificarInversion {
     public void preDownloadContratoPDF(String nombreArchivo) {
         try {
             downloadContratoPDF = Reutilizar.getNewInstance().preDownload(Constantes.RUTACONTRATOSPDF + nombreArchivo);
-        } catch (FileNotFoundException fnfe) {
+        } catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
                                                                           Constantes.ARCHIVONOENCONTRADO));
@@ -616,7 +615,7 @@ public class RectificarInversion {
         try {
             downloadFichaResumen =
                 Reutilizar.getNewInstance().preDownload(Constantes.RUTAFICHASRESUMEN + nombreArchivo);
-        } catch (FileNotFoundException fnfe) {
+        } catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
                                                                           Constantes.ARCHIVONOENCONTRADO));

@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,14 +59,14 @@ public class Reutilizar {
             System.out.println(e.getMessage());
         }
     }
-    public DefaultStreamedContent preDownload(String rutaOrigen)throws FileNotFoundException{
-      
+    public DefaultStreamedContent preDownload(String rutaOrigen)throws Exception{
+
+  
             File file = new File(rutaOrigen);
             InputStream input = new FileInputStream(file);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             return (new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
         
-         
     }
     public UsuarioVO obtenerDatosUsuarioLogueado(){
         FacesContext faceContext=FacesContext.getCurrentInstance();

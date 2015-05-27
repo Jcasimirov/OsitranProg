@@ -43,7 +43,6 @@ import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
 import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.math.BigDecimal;
@@ -324,7 +323,7 @@ public class DeclararInversion {
         try {
             setDownloadFichaResumen(Reutilizar.getNewInstance().preDownload(Constantes.RUTAFICHASRESUMEN +
                                                                             nombreArchivo));
-        } catch (FileNotFoundException fnfe) {
+        } catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
                                                                           Constantes.ARCHIVONOENCONTRADO));

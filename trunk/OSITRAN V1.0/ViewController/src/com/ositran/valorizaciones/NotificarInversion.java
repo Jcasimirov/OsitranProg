@@ -38,7 +38,6 @@ import com.ositran.vo.bean.ValorizacionInversionAvanceDetalleVO;
 import com.ositran.vo.bean.ValorizacionNotificacionVO;
 import com.ositran.vo.bean.ViewTdInternosVO;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.math.BigDecimal;
@@ -763,7 +762,7 @@ public class NotificarInversion {
     public void preDownloadNotificacion(String nombreArchivo) {
         try {
             downloadNotificacion = Reutilizar.getNewInstance().preDownload(Constantes.RUTANOTIFICACION + nombreArchivo);
-        } catch (FileNotFoundException fnfe) {
+        } catch (Exception fnfe) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, Constantes.ERROR,
                                                                           Constantes.ARCHIVONOENCONTRADO));
