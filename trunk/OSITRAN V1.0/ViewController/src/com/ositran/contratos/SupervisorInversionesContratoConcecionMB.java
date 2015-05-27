@@ -206,16 +206,10 @@ public class SupervisorInversionesContratoConcecionMB {
             codigoConcesion=contrato1.getCsiId();
                infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(contrato1.getTinId());
                modalidadConcesionVO = modalidadServiceImp.get(contrato1.getMcoId());
-               tipoInfraestructuraS = infraestructuraTipoVO.getTinDescripcion();
+                   tipoInfraestructuraS = infraestructuraTipoVO.getTinNombre();
                modalidadConcecion = modalidadConcesionVO.getMcoNombre();
                tipoInfraestructuraC=contrato1.getTinId();
-            if (tipoInfraestructuraC==1){
-                tipoInfraestructuraS="DNI";
-                }
-            else {
-                
-                tipoInfraestructuraS="RUC";
-                    }
+            
             listarSupervisionDeInversiones();
        } catch (Exception e) {
             System.out.println("ERROR EN EL METODO ELEGIR CONTRATO");

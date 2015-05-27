@@ -618,35 +618,22 @@ public class DerivarReconocimientoSupervisorMB {
     
     public void registrarAlerta3(){
         try {
-            System.out.println("HOLA1");
            contratoAlertaVO.setCalFechaAlta(new Date());
-           System.out.println("HOLA2");
            contratoAlertaVO.setCalTipo(3);
-           System.out.println("HOLA3");
            contratoAlertaVO.setConId(codigoContrato);
-           System.out.println("HOLA4");
            contratoAlertaVO.setCalFechaInicio(fechaEmisionDS);
-           System.out.println("HOLA5");
            contratoAlertaVO.setCalFechaFin(fechaLimiteDS);
-           System.out.println("HOLA6");
             contratoAlertaVO.setCalFechaLimite(fechaLimiteDS);
-           System.out.println("HOLA7");
            contratoAlertaVO.setDiaMes(plazoOtorgado);
-           System.out.println("HOLA8");
            contratoAlertaVO.setCalPlazo(fechaLimiteDS);
-           System.out.println("HOLA9");
            contratoAlertaVO.setCaeId(1);
-           System.out.println("HOLA10");
            contratoAlertaVO.setCalEstado(1);
-           System.out.println("HOLA11");
            contratoAlertaVO.setCalUsuarioAlta(Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getUsuAlias());
            
            if (codigoTipoRevision==1){
-                   System.out.println("HOLASUP");
                    contratoAlertaVO.setCalCorreo(supervisorInversionesVO.getTsiCorreo());   
                }
                if (codigoTipoRevision==2){
-                       System.out.println("HOLAEM");
                        contratoAlertaVO.setCalCorreo(empresaSupervisoraVO.getSupCorreo());  
                    
                    }
