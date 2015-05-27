@@ -258,8 +258,10 @@ public class TipoInversion {
             
             
             for(int i=0;i<listaInversiones.size();i++){
+                
               listaInversiones.get(i).setContador(contador);
                 contador++;
+                
                 }
 
         } catch (SQLException s) {
