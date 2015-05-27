@@ -181,7 +181,7 @@
                                              value="#{derivarReconocimientoSupervisorMB.listValorizacionInversionAvanceVO}"
                                              rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="inversionAvance" >
-                                    <p:column headerText="Num Val" style="width:50px">
+                                    <p:column headerText="Nun Val" style="width:50px">
                                        <h:outputText value="#{inversionAvance.tiaNumero}" />
                                     </p:column>
                                   <p:column headerText="Fecha Registro" style="width:50px">
@@ -249,8 +249,8 @@
                                     <td>Reg. Salida</td>
                                     <td><p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"   value="#{derivarReconocimientoSupervisorMB.registroSalida}" style="width:50px"  />
                                      <img src="../../images/obligatorio.gif"  style="vertical-align: top;"/> </td>
-                                    <td colspan="2">Fecha de Emisión:</td>
-                                    <td><p:calendar  readonly="true" locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
+                                    <td align="right" colspan="2">Fecha de Emisión:</td>
+                                    <td><p:calendar  locale="es" pattern="dd/MM/yyyy"  id="fechaEmision" value="#{derivarReconocimientoSupervisorMB.fechaEmisionDS}" styleClass="calendario1"   />
                                      <img src="../../images/obligatorio.gif" style="vertical-align: top;"/> </td>
                                 </tr>
                                  <tr >
