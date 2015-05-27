@@ -79,12 +79,12 @@ public class DescripcionTipoInversion {
         cantidad=validarNombre(nombre);
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "El nombre que quiere ingresar ya existe"));
             }
         else  if (codigoInversion == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe ingresar Tipo de Inversión"));
         } else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -242,13 +242,13 @@ public class DescripcionTipoInversion {
         cantidad=validarNombre(nombreE);
         if (cantidad>0 && !nombreAntiguo.equals(nombreE)){
                 FacesContext.getCurrentInstance().addMessage(null,
-                                 new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                 "El nuevo nombre que quiere ingresar ya existe"));
             }
         else 
         if (codigoInversionE == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe de Selecionar un tipo de Inversión"));
         } else if (nombreE.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -373,6 +373,7 @@ public class DescripcionTipoInversion {
     }
 
     public void setBuscar(String buscar) {
+        
         this.buscar = buscar;
     }
 
