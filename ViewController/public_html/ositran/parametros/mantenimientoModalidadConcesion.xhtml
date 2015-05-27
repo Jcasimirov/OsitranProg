@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -22,14 +21,14 @@
                     <p:layoutUnit position="center" style="border:0px">
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
-                            <h5 class="titulo5">MANTENIMIENTO DE MODALIDAD DE CONCESION</h5>
+                            <div class="titulo5" >MANTENIMIENTO DE MODALIDAD DE CONCESIÓN</div>
                             <div style="width:80%">
                                 <div  width="100%"  align="left" class="letra11" >
                                     <table width="100%">
                                         <tr>
                                              <td align="left" style="width:35%">
                                                 Buscar: 
-                                                <p:inputText id="buscarT"   onkeyup="pasarMayuscula(this.value,this.id)" value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"/><h:outputText value=" "/>
+                                                <p:inputText id="buscarT"   onblur="pasarMayuscula(this.value,this.id)" value="#{backing_mantenimientoModalidadConcesion.nombremodbuscar}"/><h:outputText value=" "/>
                                                  
                                                 <p:commandButton id="buscar" actionListener="#{backing_mantenimientoModalidadConcesion.FiltrarListaModalidad}"
                                                                  update=":form1:tablamodalidad :form1:mensaje"   image="ui-icon-search"/><h:outputText value=" "/>
@@ -70,7 +69,7 @@
                                              value="#{backing_mantenimientoModalidadConcesion.listaMod}"
                                              rowIndexVar="rowIndex"> 
                                                                         
-                                    <p:column headerText="N°" style="width:3%">
+                                    <p:column headerText="Nro" style="width:3%">
                                             <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
                                         </p:column>         
                                         <p:column headerText="Nombre" style="width:30%">
@@ -127,7 +126,7 @@
                 </p:dialog>
                 <p:dialog header="Editar" widgetVar="modModalidad" id="modModalidad" modal="true"
                           style="text-align:center;">
-                          <h5 class="titulo5">MODIFICAR MODALIDAD DE CONCESION</h5>
+                          <div class="titulo5" >MODIFICAR MODALIDAD DE CONCESION</div>
                     <div align="center" style="width: 100%">
 	 	<table  style="margin-bottom:5px;font-size: 11px;text-align:center">
                 <tr>
@@ -172,19 +171,19 @@
             
                 <p:dialog id="regModalidad" header="Registrar" widgetVar="regModalidad" modal="true"
                           style="text-align:center;">
-                           <h5 class="titulo5">REGISTRAR MODALIDAD DE CONCESION</h5>
+                           <div class="titulo5" >REGISTRAR MODALIDAD DE CONCESION</div>
                    <div align="center" style="width: 100%">
 	 	<table  style="margin-bottom:5px;font-size: 11px;text-align:center">
 	 		
 	 		<tr>
 	 			<td align="left">#{etq.etq_nmcon}</td>
-	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}" onkeyup="pasarMayuscula(this.value,this.id)" />
+	 			<td align="left"><p:inputText style="text-transform:uppercase;" id = "nombremod" value="#{backing_mantenimientoModalidadConcesion.nombremod}" onblur="pasarMayuscula(this.value,this.id)" />
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                 </td>
 	 		</tr>
 	 		<tr>
 	 			<td align="left">#{etq.etq_dmcon}</td>
-	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}" onkeyup="pasarMayuscula(this.value,this.id)" />
+	 			<td align="left"><p:inputTextarea style="width:250px;text-transform:uppercase;" id="descripcionmod" value="#{backing_mantenimientoModalidadConcesion.descripcionmod}" onblur="pasarMayuscula(this.value,this.id)" />
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                                 </td>
 	 		</tr>
