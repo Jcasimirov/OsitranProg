@@ -60,6 +60,7 @@ public class AsignarResponsableSupervision {
     private UsuarioVO usuario;
     private int tipoInfraestructura;
     private String ipcliente;
+    
 
     public void validarSesion() throws IOException{
             rolOpcion=ControlAcceso.getNewInstance().validarSesion(formulario);
