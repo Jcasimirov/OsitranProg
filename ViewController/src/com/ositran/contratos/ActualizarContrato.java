@@ -589,7 +589,7 @@ public class ActualizarContrato {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO,
                                                                               "Aviso",
-                                                                              "Se Grabo correctamente"));
+                                                                              Constantes.GRABARMENSAJESATISFACTORIO));
             } catch (Exception sqle) {
                 sqle.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null,
