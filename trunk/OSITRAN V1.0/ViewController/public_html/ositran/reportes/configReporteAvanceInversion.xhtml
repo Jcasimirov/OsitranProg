@@ -84,13 +84,13 @@
                                     <tr>
                                         <td align="left" style="width:35%">
                                             <p:outputLabel for="numeroDocumento" value="Nro. Documento: " />
-                                            <p:inputText id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Nro. Documento&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteNroDocumento}"/>
+                                            <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="numeroDocumento" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiNumeroDeDocumento}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Nro. Documento&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteNroDocumento}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="left" style="width:35%">
                                             <p:outputLabel for="referencia" value="Referencia: " />
-                                            <p:inputText id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Referencia&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteReferencia}"/>
+                                            <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="referencia" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiReferencia}" required="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiId != null}" requiredMessage="Debe ingresar &quot;Referencia&quot;." validator="#{configReporteAvanceInversionMB.verificaDiferenteReferencia}"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -103,7 +103,7 @@
                             </td>
                             <td align="left" style="width:35%">
                                 <p:outputLabel for="motivoCambio" value="Motivo de Cambio: " />
-                                <p:inputTextarea id="motivoCambio" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiMotivoDeCambio}"/>
+                                <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="motivoCambio" value="#{configReporteAvanceInversionMB.cabReporteInversionActivo.caiMotivoDeCambio}"/>
                                 <p:message for="motivoCambio" showDetail="true" showSummary="true" display="both"/>
                             </td>
                         </tr>
