@@ -63,7 +63,7 @@ public class TipoInversion {
         } else if (descripcion.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "Debe de Ingresar la Descripcion"));
+                                                                          "Debe de Ingresar la Descripción"));
         } else {
             try {
                 tipoInversionVO.setTivNombre(nombre);
@@ -78,16 +78,16 @@ public class TipoInversion {
                 ListarInversiones();
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                              "Se Registro con Exito"));
+                                                                              "Se Registró con éxito"));
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar el tipo de inversion "));
+                                                                              " No se pudo registrar el tipo de inversión "));
 
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar el tipo de inversion "));
+                                                                              " No se pudo registrar el tipo de inversión "));
             }
         }
     }
@@ -128,11 +128,11 @@ public class TipoInversion {
        }catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo cargar los datos de edicion "));
+                                                                          " No se pudo cargar los datos de edición "));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          "  No se pudo cargar los datos de edicion"));
+                                                                          "  No se pudo cargar los datos de edición"));
 
         }
 
@@ -154,7 +154,7 @@ public class TipoInversion {
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else if (descripcionE.equals("")) {
                 FacesMessage mensaje =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe Ingresar la Descripcion");
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Debe Ingresar la Descripción");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             } else {
                 tipoInversionVO.setTivId(codigoE);
@@ -166,17 +166,17 @@ public class TipoInversion {
                 getTipoInversionServicesImpl().update(tipoInversionVO);
                 ListarInversiones();
                 RequestContext.getCurrentInstance().execute("editarPanel.hide()");
-                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo con Exito");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizó con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);
             }
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo registrar el tipo de inversion "));
+                                                                          " No se pudo registrar el tipo de inversión "));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo registrar el tipo de inversion "));
+                                                                          " No se pudo registrar el tipo de inversión "));
         }
     }
 
@@ -202,7 +202,7 @@ public class TipoInversion {
         if (buscar.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          " Debe ingresar criterio de busqueda"));
+                                                                          " Debe ingresar criterio de búsqueda"));
         } else {   
             try {
                 listaInversiones.clear();
@@ -217,12 +217,12 @@ public class TipoInversion {
             } catch (SQLException s) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar el tipo de inversion "));
+                                                                              " No se pudo registrar el tipo de inversión "));
 
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                              " No se pudo registrar el tipo de inversion "));
+                                                                              " No se pudo registrar el tipo de inversión "));
             }
         }
     }
@@ -267,12 +267,12 @@ public class TipoInversion {
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo registrar el tipo de inversion "));
+                                                                          " No se pudo registrar el tipo de inversión "));
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
-                                                                          " No se pudo registrar el tipo de inversion "));
+                                                                          " No se pudo registrar el tipo de inversión "));
         }
         return listaInversiones;
     }
