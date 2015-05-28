@@ -74,9 +74,7 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         ContratoCompromiso contratoCompromiso=this.contratoCompromisoDAOImpl.get(id);
                 ContratoCompromisoVO contratoCompromisoVO=toContratoCompromisoVO(contratoCompromiso);
                 return contratoCompromisoVO;
-        
     }
-    
     
     //conversiones
     private List<ContratoCompromisoVO> toListContratoCompromisoVO(List<ContratoCompromiso> list){
@@ -140,10 +138,7 @@ public class ContratoCompromisoServiceImpl implements ContratoCompromisoService 
         
     }
 
-
-
     public List<ContratoCompromisoVO> getCompromisosContrato(Integer conId) throws SQLException{
-        
         List<ContratoCompromiso> list = contratoCompromisoDAOImpl.getCompromisosContrato(conId );
         List<ContratoCompromisoVO> listVO=toListContratoCompromisoVO(list);
         return listVO;
