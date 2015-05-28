@@ -70,7 +70,7 @@ public class ContratoSupervisora implements Serializable {
     @Column(name = "CPS_PENALIDADES" , length = 4000)
     private String cpsPenalidades;
     @Column(name = "CPS_PLAZO_CONTRATO" )
-    private Integer cpsPlazoContrato;
+    private String cpsPlazoContrato;
     @Column(name = "CPS_STD" )
     private Integer cpsStd;
     @Column(name = "CPS_TERMINAL", length = 20)
@@ -106,6 +106,7 @@ public class ContratoSupervisora implements Serializable {
     
     
     
+    
         
     public ContratoSupervisora() {
     }
@@ -116,7 +117,7 @@ public class ContratoSupervisora implements Serializable {
                                Date cpsFechaAlta, Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio,
                                Date cpsFechaRegistro, Date cpsFechaSuscripcion, String cpsGarantias,
                                Integer cpsMontoContratado, Integer cpsNroDeContrato, String cpsPenalidades,
-                               Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
+                               String cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
                                String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
                                Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
                                Integer mcoId, Integer invId, String ccoPlazo, BigDecimal ccoTotal) {
@@ -352,11 +353,12 @@ public class ContratoSupervisora implements Serializable {
         return cpsPenalidades;
     }
 
-    public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
+
+    public void setCpsPlazoContrato(String cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
 
-    public Integer getCpsPlazoContrato() {
+    public String getCpsPlazoContrato() {
         return cpsPlazoContrato;
     }
 
