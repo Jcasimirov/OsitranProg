@@ -97,7 +97,10 @@ public class ConcesionServiceImpl implements ConcesionService{
         ConcesionVO concesionVO=toConcesionVO(concesion);
         return concesionVO;
     }
-    
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+        boolean concesion=concesionDAOImpl.validarCodigoEnUso(csiId);
+        return concesion;
+    }
     
     
     //conversiones
