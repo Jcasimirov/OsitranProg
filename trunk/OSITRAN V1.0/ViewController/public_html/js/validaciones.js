@@ -156,7 +156,9 @@ function validarMayusculas(nameTag){
     if(tecla == 37 || tecla == 38 || tecla == 39 || tecla == 40 || tecla == 46 || tecla == 32|| tecla == 8) {
         return;
     }
-        this.value = this.value.toLocaleUpperCase();
+        var valor = this.value.toUpperCase();
+        
+        document.getElementById(this.getAttribute('ID')).value = valor;
         setCaretPosition(this, caretPosition);
     });
 }
