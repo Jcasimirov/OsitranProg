@@ -135,7 +135,7 @@
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Nombre de la Concesión" style="text-align:left;"></h:outputLabel>
                                         <p:inputText value="#{mantenimientoconcesionMB.nombre}"
-
+                                                        maxlength="50"
                                                      style="width:300px;" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/>
 
                                         <img src="../../images/obligatorio.gif"/>
@@ -144,7 +144,7 @@
                                                      value="#{mantenimientoconcesionMB.infraestructura.infNombre}" styleClass="estandar-mayus-minus"
                                                      style="width:300px;text-transform:uppercase; " onblur="pasarMayuscula(this.value,this.id)"/>
                                         <img src="../../images/obligatorio.gif"/>
-                                        <p:commandButton id="btn_reset" value="Limpiar" type="reset"/>
+                                        
                                         <p:commandButton id="btn_add" value="Agregar Infraestructura"
                                                          update="books mensaje @parent form:mensaje"
                                                          actionListener="#{mantenimientoconcesionMB.reinit()}">
@@ -205,6 +205,7 @@
                     <p:commandButton update=":form:tablaES :form:mensaje" oncomplete="eliminarConcesionPanel.hide()"
                                      actionListener="#{mantenimientoconcesionMB.eliminacionConfirmadaConcesion()}"
                                      style="width:70px;font-size:11px" value="#{btn.btn_eliminar}"/>
+                    <p:commandButton value="Cancelar" style="width:70px;font-size:11px" oncomplete="eliminarConcesionPanel.hide()" />
                 </p:dialog>
                 <!--Mantenimiento de Infraestructuras-->
                 <p:dialog header="Modificar" resizable="false" widgetVar="editarPanel" id="editarPanel" modal="true"
