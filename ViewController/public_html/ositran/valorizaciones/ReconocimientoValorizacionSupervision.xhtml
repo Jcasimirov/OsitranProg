@@ -32,16 +32,21 @@
                                                         legend="Criterio de Busqueda">
                                                 <table style="margin-bottom:5px;font-size: 11px">
                                                     <tr>
-                                                        <td align="left" colspan="4">
+                                                        <td align="left" colspan="1">
                                                             Buscar Empresa Supervisora: 
                                                             <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="nombreEmpSup"
                                                                          value="#{ReconocimientoValSupervisionMB.nombreEmpSup}"
 
                                                                          style="width:200px;text-transform:uppercase;">
                                                                          </p:inputText>
-                                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
+                                                                         
+                                                                
                                                         </td>
                                                         <td>
+                                                        <img src="../../images/obligatorio.gif" style="vertical-align: top;"  />
+                                                        </td>
+                                                        <td>
+                                                        
                                                             <p:commandButton id="busquedaEmp" value="#{btn.btn_buscar}"
                                                                              actionListener="#{ReconocimientoValSupervisionMB.filtrarListaEmpSup}"
                                                                              update=":form:Dialog_ResultadoBusquedaEmpresa"
