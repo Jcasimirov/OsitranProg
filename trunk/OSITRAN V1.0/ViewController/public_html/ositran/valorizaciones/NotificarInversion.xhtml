@@ -1,22 +1,13 @@
 <?xml version='1.0' encoding='windows-1252'?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
-            <style type="text/css">
-                .ui-dialog-titlebar {
-                    font-size: 13px;
-                    font-family: sans-serif;
-                }
-            </style>
-            <link href="#{request.contextPath}/css/diseño.css" rel="stylesheet" type="text/css"/>
-            <script type="text/javascript">
-              PrimeFaces.locales['es'] = {
-                  closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
-              };
-            </script>
+            <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
+            <script src="../../js/validaciones.js" type="text/javascript"></script>
         </h:head>
-     <ui:include src="/ositran/util/menuOpciones.xhtml"/>
         <h:body>
         <f:event listener="#{bk_NotificarInversion.validarSesion}" type="preRenderComponent"></f:event>
             <f:event listener="#{bk_NotificarInversion.listarTipoAprobaciones}" type="preRenderComponent"/>             
@@ -25,8 +16,9 @@
             <f:event listener="#{bk_NotificarInversion.cargarConceptos}" type="preRenderComponent"/>
           
             <p:growl id="mensaje" showDetail="true" life="3000"/>
-            <p:layout style="min-width:400px;min-height:500px;">
-                <p:layoutUnit position="center" minSize="300" visible="true" style="text-aling:center;">
+             <p:layout fullPage="true" style="border:none">
+                <p:layoutUnit position="center" style="border:0px">
+                    <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                   <h:form  id="form" binding="#{bk_NotificarInversion.form}">
                     
                     <div align="center">
@@ -543,3 +535,4 @@
             
         </h:body>
     </html>
+</f:view>
