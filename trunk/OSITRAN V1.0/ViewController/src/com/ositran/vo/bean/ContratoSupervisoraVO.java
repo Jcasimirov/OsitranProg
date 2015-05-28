@@ -324,6 +324,7 @@ public class ContratoSupervisoraVO {
         return cpsPenalidades;
     }
 
+
     public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
