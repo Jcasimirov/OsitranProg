@@ -122,8 +122,10 @@ public class MantenimientoConcesion {
                     infraestructuraVO.setTinId(codigoTipoInfraestructuraInsert);
                     infraestructuraVO.setCsiId(codigogenerado);
                     infraestructuraVO.setInfNombre(infraestructuraVO.getInfNombre());
-                    infraestructuraVO.setInfUsuarioAlta(obtenerIpCliente());
+                    infraestructuraVO.setInfUsuarioAlta(usuario.getUsuAlias());
+                    infraestructuraVO.setInfTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                     infraestructuraVO.setInfFechaAlta(new Date());
+                    
                     infraestructuraVO.setInfEstado(1);
                     infraestructuraServiceImpl.insert(infraestructuraVO);
                 }
@@ -352,7 +354,7 @@ public class MantenimientoConcesion {
         for (InfraestructuraVO infra : listaInfraestructuras) {
             infra.setInfEstado(0);
             infra.setInfFechaBaja(new Date());
-            infra.setInfUsuarioBaja(util.obtenerIpCliente());
+            infra.setInfUsuarioBaja(Reutilizar.getNewInstance().obtenerIpCliente());
             
             infraestructuraServiceImpl.update(infra);
 
@@ -418,7 +420,7 @@ public class MantenimientoConcesion {
                 vo.setCsiId(concesionVO.getCsiId());
                 vo.setInfFechaAlta(util.getObtenerFechaHoy());
                 vo.setInfTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
-                vo.setInfUsuarioAlta("charles");
+                vo.setInfUsuarioAlta(usuario.getUsuAlias());
                 infraestructuraServiceImpl.insert(vo);
             }
         }
@@ -437,8 +439,8 @@ public class MantenimientoConcesion {
 
 
                 concesionVO.setCsiFechaCambio(new Date());
-                concesionVO.setCsiUsuarioCambio(obtenerIpCliente());
-                concesionVO.setCsiUsuarioBaja("charles");
+                concesionVO.setCsiUsuarioCambio(usuario.getUsuAlias());
+                concesionVO.setCsiUsuarioBaja(usuario.getUsuAlias());
                 getConcesionServicesImpl().update(concesionVO);
 
 
