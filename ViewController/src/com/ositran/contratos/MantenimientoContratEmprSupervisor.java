@@ -85,7 +85,7 @@ public class MantenimientoContratEmprSupervisor {
     private int tinIdE;
     private int csiIdE;
     private int adelantoE;
-    private int plazocontrE;
+    private String plazocontrE;
     private int montocontrE;
     private String nrohrE;
     private String añohrE;
@@ -127,6 +127,8 @@ public class MantenimientoContratEmprSupervisor {
     private int codigoMoneda;
     private int contratoCompromisoSeleccionado;
     private int contratoCompromisoSeleccionadoE;
+    private int unidadSeleccionada;
+    
     private int codigoContrato;
     private int codigoContratoE;
     private int tipoInfraestructuraSeleccionada;
@@ -138,7 +140,7 @@ public class MantenimientoContratEmprSupervisor {
     private int monedaSeleccionada1;
     private int adendasTipoSeleccionada;
     private int cpsNroDeContrato;
-    private int cpsPlazoContrato;
+    private String cpsPlazoContrato;
     private int cpsMontoContratado;
     private int cpsAdelantoOtorgado;
     private int codigoConcesion;
@@ -148,6 +150,7 @@ public class MantenimientoContratEmprSupervisor {
     private String cpsCaducidad;
     private String cpsGarantias;
     private String cenDocumentoFisico;
+    private String cenDocumentoFisicoE;
     private String empresaSupervisora;
     private Date cpsFechaInicio;
     private Date cpsFechaSuscripcion;
@@ -600,7 +603,7 @@ public class MantenimientoContratEmprSupervisor {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Monto no puede ser menor al Adelanto"));
-        } else if (cpsPlazoContrato == 0) {
+        } else if (cpsPlazoContrato == "") {
 
 
             FacesContext.getCurrentInstance().addMessage(null,
@@ -737,7 +740,7 @@ public class MantenimientoContratEmprSupervisor {
         cpsNroDeContrato = 0;
         cpsFechaInicio = null;
         cpsFechaSuscripcion = null;
-        cpsPlazoContrato = 0;
+        cpsPlazoContrato = "";
         cpsMontoContratado = 0;
         
         cpsAdelantoOtorgado = 0;
@@ -1217,14 +1220,6 @@ public class MantenimientoContratEmprSupervisor {
         return adelantoE;
     }
 
-    public void setPlazocontrE(int plazocontrE) {
-        this.plazocontrE = plazocontrE;
-    }
-
-    public int getPlazocontrE() {
-        return plazocontrE;
-    }
-
     public void setMontocontrE(int montocontrE) {
         this.montocontrE = montocontrE;
     }
@@ -1609,13 +1604,7 @@ public class MantenimientoContratEmprSupervisor {
         return cpsNroDeContrato;
     }
 
-    public void setCpsPlazoContrato(int cpsPlazoContrato) {
-        this.cpsPlazoContrato = cpsPlazoContrato;
-    }
-
-    public int getCpsPlazoContrato() {
-        return cpsPlazoContrato;
-    }
+  
 
     public void setCpsMontoContratado(int cpsMontoContratado) {
         this.cpsMontoContratado = cpsMontoContratado;
@@ -2210,4 +2199,37 @@ public class MantenimientoContratEmprSupervisor {
         return listaInversionesE;
     }
 
+
+    public void setPlazocontrE(String plazocontrE) {
+        this.plazocontrE = plazocontrE;
+    }
+
+    public String getPlazocontrE() {
+        return plazocontrE;
+    }
+
+    public void setCpsPlazoContrato(String cpsPlazoContrato) {
+        this.cpsPlazoContrato = cpsPlazoContrato;
+    }
+
+    public String getCpsPlazoContrato() {
+        return cpsPlazoContrato;
+    }
+
+
+    public void setUnidadSeleccionada(int unidadSeleccionada) {
+        this.unidadSeleccionada = unidadSeleccionada;
+    }
+
+    public int getUnidadSeleccionada() {
+        return unidadSeleccionada;
+    }
+
+    public void setCenDocumentoFisicoE(String cenDocumentoFisicoE) {
+        this.cenDocumentoFisicoE = cenDocumentoFisicoE;
+    }
+
+    public String getCenDocumentoFisicoE() {
+        return cenDocumentoFisicoE;
+    }
 }
