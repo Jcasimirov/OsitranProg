@@ -791,11 +791,7 @@ public class ActualizarContrato {
 
         else {
             if (tipoInfraestructura != Constantes.TIPINFAEROPUERTOS) {
-                if (contratoNuevaAdendaVO.getCadMonto() == null || contratoNuevaAdendaVO.getCadMonto().equals("0")) {
-                    FacesContext.getCurrentInstance().addMessage(null,
-                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                                  "No ha ingresado el Monto"));
-                } else if (contratoNuevaAdendaVO.getCadCompromisoInversion() == null) {
+               if (contratoNuevaAdendaVO.getCadCompromisoInversion() == null) {
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "No ha ingresado el Comp. Inv. Concesionario"));
