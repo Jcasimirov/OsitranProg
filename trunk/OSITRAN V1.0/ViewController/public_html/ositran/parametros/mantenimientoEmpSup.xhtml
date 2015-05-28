@@ -128,7 +128,7 @@
                         <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
                 </p:layout>
-                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <p:dialog resizable="false" id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                 <tr>
                  <td>
@@ -145,7 +145,7 @@
                                     </tr>
                 </table>
                 </p:dialog>
-                <p:dialog header="Editar" widgetVar="ModEmpSup" id="ModEmpSup" modal="true"
+                <p:dialog resizable="false" header="Editar" widgetVar="ModEmpSup" id="ModEmpSup" modal="true"
                           style="text-align:center;">
                           <div class="titulo5" >MODIFICAR EMPRESA SUPERVISORA</div>
                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;">
@@ -276,7 +276,7 @@
                 </p:dialog>
                 
             
-                <p:dialog id="regEmpSup" header="Registrar" widgetVar="regEmpSup" modal="true"
+                <p:dialog id="regEmpSup" header="Registrar" resizable="false" widgetVar="regEmpSup" modal="true"
                           style="text-align:center;">
                            <div class="titulo5" >REGISTRAR EMPRESA SUPERVISORA</div>
                    <table style="margin-bottom:5px;font-size: 11px;text-align:center;height: 350px;">

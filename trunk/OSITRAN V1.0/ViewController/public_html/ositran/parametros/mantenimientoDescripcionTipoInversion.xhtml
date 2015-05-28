@@ -107,7 +107,7 @@
                         <h:inputHidden value="#{descripcionInversionMB.nombreAntiguo}" id="nombreAntiguo"/>
                     
                 </p:layout>
-                <p:dialog header="Registrar" widgetVar="insertarDesc" id="registrar" modal="true"
+                <p:dialog header="Registrar" resizable="false" widgetVar="insertarDesc" id="registrar" modal="true"
                           style="text-align:center;">
                           <div class="titulo5" >REGISTRAR DESCRIPCIÓN TIPO DE INVERSIÓN</div>
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
@@ -176,7 +176,7 @@
                         </tr>
                     </table>
                 </p:dialog>
-                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <p:dialog id="confirEliminar" resizable="false" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">Confirme eliminación de la descripción del tipo de inversión</td>
@@ -194,7 +194,7 @@
                         </tr>
                     </table>
                 </p:dialog>
-                <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
+                <p:dialog header="Editar" resizable="false" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
                           <div class="titulo5" >MODIFICAR DESCRIPCIÓN TIPO DE INVERSIÓN</div>
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
