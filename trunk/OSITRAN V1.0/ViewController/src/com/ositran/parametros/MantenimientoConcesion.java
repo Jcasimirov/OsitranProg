@@ -399,7 +399,7 @@ public class MantenimientoConcesion {
         concesionVO.setTinId(codigoTipoInfraestructura);
         concesionVO.setCsiFechaCambio(util.getObtenerFechaHoy());
         concesionVO.setCsiUsuarioCambio(usuario.getUsuAlias());
-        concesionVO.setCsiTerminal(util.obtenerIpCliente());
+        concesionVO.setCsiTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
         getConcesionServicesImpl().update(concesionVO);
 
 
@@ -417,7 +417,7 @@ public class MantenimientoConcesion {
                 vo.setTinId(concesionVO.getTinId());
                 vo.setCsiId(concesionVO.getCsiId());
                 vo.setInfFechaAlta(util.getObtenerFechaHoy());
-                vo.setInfTerminal(util.obtenerIpCliente());
+                vo.setInfTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 vo.setInfUsuarioAlta("charles");
                 infraestructuraServiceImpl.insert(vo);
             }
