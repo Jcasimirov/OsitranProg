@@ -481,7 +481,7 @@ public class RectificarInversion {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "No ha seleccionado el Estado de Reconocimiento"));
-            } else if (invAvnVO.getTiaObservaciones() == null || invAvnVO.getTiaObservaciones().equals("")) {
+            } else if (invAvnVO.getIaeId().equals(new Integer("0")) && (invAvnVO.getTiaObservaciones() == null || invAvnVO.getTiaObservaciones().length()==0)) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "No ha ingresado las Observaciones"));
