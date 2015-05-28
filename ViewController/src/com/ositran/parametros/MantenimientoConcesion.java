@@ -235,6 +235,7 @@ public class MantenimientoConcesion {
 
     public void resetear() {
         //   infraestructura.getConcesion().setCsiNombre(""); //para el carrito resetear nombre
+        infraestructura = new InfraestructuraVO();
     }
 
 
@@ -493,15 +494,23 @@ public class MantenimientoConcesion {
 
         }
     }
+int valida_infraestructura;
+
+    public void setValida_infraestructura(int valida_infraestructura) {
+        this.valida_infraestructura = valida_infraestructura;
+    }
+
+    public int getValida_infraestructura() {
+        return valida_infraestructura;
+    }
 
     public String reinit() {
-        
-     
-                infraestructura = new InfraestructuraVO();
-           
-       
-        
-    
+        if (infraestructura.getInfNombre().trim().equals("")){
+            FacesMessage mensaje2 = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese Nombre de Infraestructura");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje2);
+        }else{
+            infraestructuras.add(infraestructura);
+        }           
         return null;
     }
 
