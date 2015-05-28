@@ -494,9 +494,10 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
                                         <p:outputLabel for="objeto" value="Objeto"/>
-                                        <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="objeto" cols="34"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}"/>
+                                        <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="objeto" cols="34"  value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadDescripcion}" maxlength="20"/>
                                         <p:message for="objeto" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
+                                    <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                      
                                         <p:outputLabel for="montoadenda" value="Monto:" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:inputText    id="montoadenda" style="width:100% !important;" onkeypress="return ValidarNumFloat(event,this);" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadMonto}" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
@@ -519,6 +520,8 @@
                                         <p:message for="monedaAdenda" display="icon" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <p:graphicImage url="../../images/obligatorio.gif" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
                                         <h:outputText value="" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos}"/>
+                                        
+                                        
                                         <p:outputLabel for="cadfecha" value="Fecha"/>
                                         <p:calendar onkeypress="return validarCalendario(event);" maxdate="#{actualizarContratoMB.fechaMaxima}" id="cadfecha" locale="es" pattern="dd/MM/yyyy" style="width:100% !important;" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadFecha}"/>
                                         <p:message for="cadfecha" display="icon"/>
@@ -530,10 +533,13 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload id="adenda" fileUploadListener="#{actualizarContratoMB.subirAdenda}" auto="true" update="docAdenda" showButtons="false" label="Adjuntar" dragDropSupport="false"></p:fileUpload>
                                         <h:outputText value=" "/>
+                                        <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
+                                      <div align="center">
                                     <p:panelGrid id="pnlNuevaAdendaBtnDlg" columns="2" styleClass="pnlEdicion">
+                                  
                                         <p:commandButton actionListener="#{actualizarContratoMB.agregarAdenda}" update=":tab:frmAdenda:tablaAdenda 
                                                          :tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg 
                                                          :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg
@@ -541,7 +547,9 @@
                                         <p:commandButton value="#{btn.btn_salir}" update=":tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg  :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg" process="@this" onclick="popupAgregarAdenda.hide();">
                                             <p:resetInput target=":tab:frmNuevaAdendaDlg:pnlNuevaAdendaDlg :tab:frmNuevaAdendaDlg:pnlNuevaAdendaBtnDlg"/>
                                         </p:commandButton>
+                             
                                     </p:panelGrid>
+                                           </div>
                                 </h:form>
                             </p:dialog>
                             <p:dialog header="Agregar Entrega de Bienes de la Concesión y Otros" appendToBody="true" widgetVar="popupAgregarEntrega" modal="true" resizable="false" closable="true" style="text-align:center;" height="350" >
@@ -552,8 +560,8 @@
                                         <p:message for="centrega" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
-                                        <p:outputLabel for="entregadescripcion" value="Descripción"/>
-                                        <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="entregadescripcion" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDescripcion}" cols="40" />
+                                        <h:outputText  value="Descripción"/>
+                                        <p:inputTextarea style="float:relative;margin-left:-30px !important;" onblur="pasarMayuscula(this.value,this.id)" id="entregadescripcion" value="#{actualizarContratoMB.contratoNuevaEntregaVO.cenDescripcion}" cols="40" />
                                         <p:message for="entregadescripcion" display="icon"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
@@ -568,9 +576,11 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoEntrega}" update="docEntrega" label="Adjuntar" auto="true"/>
                                         <h:outputText value=" "/>
+                                         <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
+                                      <div align="center">
                                     <p:panelGrid id="pnlNuevaEntregaBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="btnguradarentrega" actionListener="#{actualizarContratoMB.agregarEntrega()}" update=":tab:frmAdenda:tablaEngrega 
                                                          :tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg  
@@ -580,6 +590,7 @@
                                             <p:resetInput target=":tab:frmNuevaEntregaDlg:pnlNuevaEntregaDlg                                                                    :tab:frmNuevaEntregaDlg:pnlNuevaEntregaBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
+                                    </div>
                                 </h:form>
                             </p:dialog>
                         </p:tab>
@@ -699,9 +710,11 @@
                                         </h:panelGrid>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=" "/>
+                                        <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
+                                     <div align="center">
                                     <p:panelGrid id="pnlNuevoCompromisoBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="grabarcompromiso" value="#{btn.btn_guardar}" actionListener="#{actualizarContratoMB.grabarContratoCompromisoIndicado()}" update=":tab:frmCompromisoIndicado:tablaCompromisoIndicado
                                                          :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoDlg 
@@ -712,6 +725,7 @@
                                                               :tab:frmNuevoCompromisoDlg:pnlNuevoCompromisoBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
+                                    </div>
                                 </h:form>
                             </p:dialog>
                             <h:form id="frmCompromisoSupervisado">
@@ -835,10 +849,13 @@
                                         </h:panelGrid>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=" "/>
+                                        <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
+                                     <div align="center">
                                     <p:panelGrid id="pnlNuevoCompromisoSupervisadoBtnDlg" columns="2" styleClass="pnlEdicion">
+                                    
                                         <p:commandButton id="grabarcompromisosup" value="#{btn.btn_guardar}" actionListener="#{actualizarContratoMB.grabarContratoCompromisoSupervisado()}" update=":tab:frmCompromisoSupervisado:tablaComprmisoSupervisado
                                                          :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
                                                          :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg
@@ -848,7 +865,9 @@
                                             <p:resetInput target=":tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoDlg 
                                                               :tab:frmNuevoCompromisoSupervisadoDlg:pnlNuevoCompromisoSupervisadoBtnDlg"/>
                                         </p:commandButton>
+                                       
                                     </p:panelGrid>
+                                    </div>
                                 </h:form>
                             </p:dialog>
                             <h:form id="frmCompromisoPenalidad">
@@ -909,7 +928,7 @@
                                     </p:panelGrid>
                                 </h:form>
                             </p:dialog>
-                            <p:dialog header="Agregar Compromiso (Penalidad)" widgetVar="popupAgregarPenalidad" modal="true" resizable="false" appendToBody="true" closable="true" height="390" width="600">
+                            <p:dialog header="Agregar Compromiso (Penalidad)" widgetVar="popupAgregarPenalidad" modal="true" resizable="false" appendToBody="true" closable="true" height="400" width="600">
                                 <h:form id="frmNuevoCompromisoPenalidadDlg">
                                     <p:panelGrid id="pnlNuevoCompromisoPenalidadDlg" styleClass="pnlEdicion" columns="4" columnClasses="etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="motivo" value="Etapa"/>
@@ -943,10 +962,12 @@
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPenalidad}" update="docPenalidad" label="Adjuntar" auto="true"/>
                                         <h:outputText value=" "/>
+                                        <h:outputText value=" "/>
                                         <h:outputText value="Campos obligatorios (*)" style="margin:0px;color:red;"/>
                                         <h:outputText value=""/>
                                         <h:outputText value=""/>
                                     </p:panelGrid>
+                                     <div align="center">
                                     <p:panelGrid id="pnlNuevoCompromisoPenalidadBtnDlg" columns="2" styleClass="pnlEdicion">
                                         <p:commandButton id="grabarcompromisopenalidad" value="#{btn.btn_guardar}" actionListener="#{actualizarContratoMB.grabarContratoPenalidad()}" update=":tab:frmCompromisoPenalidad:tablaComprmisoPenalidad
                                                          :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadDlg 
@@ -958,6 +979,7 @@
                                                               :tab:frmNuevoCompromisoPenalidadDlg:pnlNuevoCompromisoPenalidadBtnDlg"/>
                                         </p:commandButton>
                                     </p:panelGrid>
+                                    </div>
                                 </h:form>
                             </p:dialog>
                         </p:tab>
