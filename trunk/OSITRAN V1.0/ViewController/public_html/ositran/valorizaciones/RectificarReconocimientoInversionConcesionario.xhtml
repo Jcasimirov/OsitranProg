@@ -172,6 +172,7 @@
                                         <tr>
                                             <td valign="top">
                                                 <p:fieldset legend="Criterios de Busqueda">
+                                                <div align="left">
                                                     <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="cb"
                                                                  style="width:200px;float:left;position:relative;"
                                                                  value="#{rectificarInversion.nombreConcesion}"/>
@@ -185,10 +186,16 @@
                                                                      rendered="#{rectificarInversion.rolOpcion.troConsultar eq 1}">
                                                         <p:resetInput target=":frmBuscarContratoDlg:pnlBuscarContratoDlg :frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
                                                     </p:commandButton>
+                                                     <h:outputText style="color: Red;" value="*"/>
+                                                     </div>
                                                 </p:fieldset>
                                                  
                                                 <p:fieldset legend="Expediente de Reconocimiento" styleClass="fieldContainer">
+                                                 <div align="left">
                                                     <h:outputText value="Seleccionar una fila para ver el detalle"/>
+                                                   
+                                                    <h:outputText style="color: Red;" value="*"/>
+                                                </div>
                                                     <p:dataTable value="#{rectificarInversion.listaValorizaciones}"
                                                                     id="tablaValorizaciones" var="val"
                                                                     rowKey="#{val.tiaNumero}" 
@@ -307,8 +314,14 @@
                                                             </td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </p:fieldset>
+                                                <div align="right">
+                                                  <h:outputText value="Campos obligatorios (*)"
+                                                                      style="margin:0px;color:red;font-weight:bold;"/>
+                                                </div>
                                             </td>
+                                            
                                             <td align="top">
                                                 <p:fieldset legend="Solicitud del Concesionario"
                                                             rendered="#{rectificarInversion.mostrarxDeclaracionCargada}">
