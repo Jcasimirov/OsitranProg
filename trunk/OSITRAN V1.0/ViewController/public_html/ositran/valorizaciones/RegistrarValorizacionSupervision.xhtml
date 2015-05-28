@@ -5,6 +5,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui">
         <h:head>
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+            <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
             <script type="text/javascript">
               PrimeFaces.locales['es'] = {
                   closeText : 'Cerrar', prevText : 'Anterior', nextText : 'Siguiente', monthNames : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monthNamesShort : ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], dayNames : ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'], dayNamesShort : ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'], dayNamesMin : ['D', 'L', 'M', 'X', 'J', 'V', 'S'], weekHeader : 'Semana', firstDay : 1, isRTL : false, showMonthAfterYear : false, yearSuffix : '', timeOnlyTitle : 'Sólo hora', timeText : 'Tiempo', hourText : 'Hora', minuteText : 'Minuto', secondText : 'Segundo', currentText : 'Fecha actual', ampm : false, month : 'Mes', week : 'Semana', day : 'Día', allDayText : 'Todo el día'
@@ -24,7 +25,7 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div align="center">
-                           <h5 class="titulo5">REGISTRAR VALORIZACION DE SUPERVISION</h5>
+                           <div class="titulo5" >REGISTRAR VALORIZACION DE SUPERVISION</div>
                             </div>
                             <table style="font-size: 11px">
                                 <tr>
@@ -35,7 +36,7 @@
                                                 <table style="margin-bottom:5px;font-size: 11px">
                                                     <tr>
                                                         <td align="left" colspan="4">
-                                                            Buscar Contrato Concesion: 
+                                                            Buscar Contrato Concesion: <img src="../../images/obligatorio.gif"/>
                                                             <h:inputHidden value="#{regValorizacionSupervisionMB.contratoConcesion}"
                                                                            readonly="false" id="inputContrato"
                                                                            style="width:300px"/>
@@ -59,7 +60,7 @@
                                                     <tr>
                                                         <td align="left">Concesion</td>
                                                         <td>
-                                                            <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true"
+                                                            <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  readonly="true"
                                                                          value="#{regValorizacionSupervisionMB.t_conce}"></p:inputText>
                                                         </td>
                                                     </tr>
@@ -127,7 +128,7 @@
                                                 <table>
                                                     <tr>
                                                         <td colspan="1" align="left">
-                                                            #{cam.setapa}
+                                                            #{cam.setapa}: <img src="../../images/obligatorio.gif"/>
                                                         </td>
                                                         <td colspan="3" align="left">
                                                             <p:selectOneMenu id="listaCompromiso"
@@ -169,7 +170,7 @@
                                             <p:fieldset styleClass="fielsetinterno" legend="#{leg.se}" id="supervisor">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2" align="left">Nombre Supervisor</td>
+                                                        <td colspan="2" align="left">Nombre Supervisor : </td>
                                                         <td>
                                                             <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  size="30"
                                                                          value="#{regValorizacionSupervisionMB.nomSupervisor}"
@@ -186,7 +187,7 @@
                                                 <table style="width:100% ;font-size:11px;">
                                                     <tr>
                                                 <td align="left">
-                                                    #{cam.numhr}(*)
+                                                    #{cam.numhr} <img src="../../images/obligatorio.gif"/>
                                                     <p:inputMask style="width:60px" id="bnum" value="#{regValorizacionSupervisionMB.nrohr}" maxlength="4" mask="9?99"/>
                                                     <p:watermark for="bnum" value="Número"/>
                                                     <p:inputMask style="width:60px" id="bfecha" value="#{regValorizacionSupervisionMB.añohr}" maxlength="4" mask="9999"/>
@@ -215,7 +216,7 @@
                                                 <div align="right">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2" align="left">Moneda</td>
+                                                        <td colspan="2" align="left">Moneda: <img src="../../images/obligatorio.gif"/></td>
                                                         <td colspan="2" align="left">
                                                             <p:selectOneMenu value="#{regValorizacionSupervisionMB.monedaSeleccionada}">
                                                                 <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
@@ -230,7 +231,7 @@
 
                                                 <table>
                                                     <tr>
-                                                        <td>Concepto:</td>
+                                                        <td>Concepto: <img src="../../images/obligatorio.gif"/></td>
                                                         <td>
                                                             <p:selectOneMenu id="concepto" value="#{regValorizacionSupervisionMB.conceptoSeleccionada}">
                                                                 <f:selectItem itemLabel="-Seleccione-" itemValue="0"/>
@@ -239,7 +240,7 @@
                                                                                itemValue="#{conc.cvaId}"/>
                                                             </p:selectOneMenu>
                                                         </td>
-                                                        <td>Monto Presentado</td>
+                                                        <td>Monto Presentado: <img src="../../images/obligatorio.gif"/></td>
                                                         <td>
                                                             <p:inputMask style="width:60px" maxlength="12" mask="9?99999999999"
                                                                          value="#{regValorizacionSupervisionMB.montoTabla}"/>
@@ -257,10 +258,13 @@
                                                     </tr>
                                                 </table>
                                                 <p:dataTable rowIndexVar="rowId"
-                                                             resizableColumns="true"
+                                                             resizableColumns="true" rowsPerPageTemplate="5,10,20"
                                                              emptyMessage="NO SE ENCONTRARON DATOS" 
                                                              style="font-size:11px;width:660px" id="tMonto" var="tMonto"
                                                              value="#{regValorizacionSupervisionMB.listaValorizacion}">
+                                                    <p:column headerText="Nro" style="width:3%">
+                                        <h:outputText value=" #{rowIndex+1}" style="text-transform:uppercase;"/>
+                                    </p:column>
                                                     <p:column headerText="Descripción del Concepto" style="width:30%">
                                                         <h:outputText value="#{tMonto.descripcionInversion}"/>
                                                     </p:column>
@@ -304,7 +308,7 @@
                         </div>
                         <div style="text-align:center;font-size: 11px">
                             <p:commandButton style="width:80px"
-                                             update=":form:mensaje :form:std :form:dato1 :form:dato2 form:dato3 :form:dContratoConcesion :form:datosCompromiso :form:supervisor" 
+                                             update=":form:valorizacion :form:mensaje :form:std :form:dato1 :form:dato2 form:dato3 :form:dContratoConcesion :form:datosCompromiso :form:supervisor" 
                                              value="Guardar" 
                                              actionListener="#{regValorizacionSupervisionMB.guardar()}" />
                         </div>
@@ -313,7 +317,7 @@
                 <p:dialog width="40%" header="Buscar Contrato de Concesion" widgetVar="pListaContratos"
                           id="pListaContratos" resizable="false" style="text-align:center;">
                     <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
-                                 paginator="true" rowsPerPageTemplate="6,8,10" style="font-size:11px"
+                                 paginator="true" rowsPerPageTemplate="5,10,20" style="font-size:11px"
                                  id="tListaContrato" var="lContrato"
                                  value="#{regValorizacionSupervisionMB.listaContratos}">
                         <p:column headerText="ID" style="width:5px">
