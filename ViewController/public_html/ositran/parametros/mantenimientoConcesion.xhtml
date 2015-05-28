@@ -10,6 +10,7 @@
                     font-family: sans-serif;
                 }
             </style>
+
             <link href="#{request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
             <link rel="icon" href="#{request.contextPath}#{paramInicio.icono}" type="#{paramInicio.tipo_mime_icono}"/>
         </h:head>
@@ -17,7 +18,11 @@
          <f:event listener="#{mantenimientoconcesionMB.validarSesion}" type="postAddToView"></f:event>
          <f:event listener="#{mantenimientoconcesionMB.listarTipInfraestructura}" type="postAddToView"></f:event>
          <f:event listener="#{mantenimientoconcesionMB.ListarConcesiones}" type="postAddToView"></f:event>
-         <script src="../../js/validaciones.js" type="text/javascript"></script>
+         <script src="../../js/validaciones.js" type="text/javascript">
+         
+         
+         
+         </script>
             <h:form id="form">
                 <p:growl id="mensaje" life="5000" showDetail="true"/>
                 <p:layout fullPage="true" style="border:none">
@@ -130,7 +135,9 @@
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Nombre de la Concesión" style="text-align:left;"></h:outputLabel>
                                         <p:inputText value="#{mantenimientoconcesionMB.nombre}"
+
                                                      style="width:300px;" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/>
+
                                         <img src="../../images/obligatorio.gif"/>
                                         <h:outputLabel value="Infraestructura"></h:outputLabel>
                                         <p:inputText id="txt_title"  requiredMessage="Debe ingresar nombre de Imfraestructura"
@@ -141,9 +148,7 @@
                                         <p:commandButton id="btn_add" value="Agregar Infraestructura"
                                                          update="books mensaje @parent form:mensaje"
                                                          actionListener="#{mantenimientoconcesionMB.reinit()}">
-                                            <p:collector value="#{mantenimientoconcesionMB.infraestructura}"
-                                                         addTo="#{mantenimientoconcesionMB.infraestructuras}"
-                                                         unique="true"/>
+                                         
                                         </p:commandButton>
                                         <div style="font-size: 10px;font-style: oblique; color: Red; text-align: right; float: left;">
                                             Campos obligatorios( 
