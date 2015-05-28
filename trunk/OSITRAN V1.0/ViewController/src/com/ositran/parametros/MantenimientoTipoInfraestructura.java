@@ -116,7 +116,7 @@ public class MantenimientoTipoInfraestructura {
                 infraestructuraTipoVO.setTinDescripcion(tinDescripcion.toUpperCase());
                 infraestructuraTipoVO.setTinEstado(1);
                 infraestructuraTipoVO.setTinFechaAlta(util.getObtenerFechaHoy());
-                infraestructuraTipoVO.setTinTerminal(util.obtenerIpCliente());
+                infraestructuraTipoVO.setTinTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 infraestructuraTipoVO.setTinUsuarioAlta(usuario.getUsuAlias());
                 getInfraestructuraTipoServiceImpl().insert(infraestructuraTipoVO);
                 RequestContext.getCurrentInstance().execute("popupagregar.hide()");
