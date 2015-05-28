@@ -334,7 +334,7 @@
                                                         <tr>
                                                             <td align="left" >Observacion</td>
                                                             <td>
-                                                                <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"   style="width:500px;" autoResize="false" rows="10"
+                                                                <p:inputTextarea maxlength="4000"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"   style="width:500px;" autoResize="false" rows="10"
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
                                                             <td><h:outputText style="color:red;" value="*"/></td>
@@ -520,7 +520,8 @@
                                                                 <td>Montos con IGV?</td>
                                                                 <td>
                                                                     <p:selectBooleanCheckbox value="#{rectificarInversion.calcularIGV}" 
-                                                                                             disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}">
+                                                                                             disabled="#{rectificarInversion.invAvnVO.iaeId eq 0}"
+                                                                                             rendered="#{rectificarInversion.contratoCompromisoVO.porIgv ne null}">
                                                                         <p:ajax listener="#{rectificarInversion.resetIGV()}"
                                                                                 update="form"/>
                                                                     </p:selectBooleanCheckbox>
@@ -635,7 +636,7 @@
                                                                 <h:outputText value="Nota"/>
                                                             </td>
                                                             <td align="left" colspan="5" >
-                                                                <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}"
+                                                                <p:inputTextarea maxlength="4000"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}"
                                                                                   style="width:500px;" autoResize="false" rows="10"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"/>
@@ -670,12 +671,18 @@
                                                                 <h:outputText value="Observaciones"/>
                                                             </td>
                                                             <td  align="left" colspan="5">
-                                                                <p:inputTextarea style="width:500px;" autoResize="false" rows="10"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}" />
+                                                                <p:inputTextarea maxlength="4000" style="width:500px;" autoResize="false" rows="10"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{rectificarInversion.invVO.invNota}" />
                                                                
-                                                               
+                                                               <h:outputText style="color:red;" value="*"/>
                                                             </td>
-                                                            <td>  <h:outputText style="color:red;" value="*"/></td>
+                                                            
                                                         </tr>
+                                                        <tr>
+                                                    <td colspan="5" align="right">
+                                                        <h:outputText value="Campos obligatorios (*)"
+                                                                      style="margin:0px;color:red;font-weight:bold;"/>
+                                                    </td>
+                                                </tr>
                                                     </table>
                                                 </p:fieldset>
                                             </td>

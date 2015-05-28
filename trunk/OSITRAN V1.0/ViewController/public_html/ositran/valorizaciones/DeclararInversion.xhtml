@@ -87,6 +87,7 @@
                                                                  update=":frmBuscarContratoDlg:contrato"
                                                                  oncomplete="popupBuscarContrato.show();"
                                                                  rendered="#{declararInversionMB.rolOpcion.troAgregar eq 1}"/>
+                                                                 <h:outputText style="color: Red;" value="*"/>
                                                                  </td></tr></table>
                                             </p:fieldset>
                                             <br></br>
@@ -94,7 +95,7 @@
                                                 <table>
                                                     <tr>
                                                         <td align="left">Concesi&#243;n</td>
-                                                        <td>
+                                                        <td align="left">
                                                             <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.contratoVO.nombreConcesion}"
                                                                          readonly="true" style="width:260px"></p:inputText>
                                                         </td>
@@ -102,7 +103,7 @@
                                                      
                                                     <tr>
                                                         <td align="left">Tipo Infraestructura</td>
-                                                        <td>
+                                                        <td align="left">
                                                             <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.contratoVO.nombreTipoInfraestructura}"
                                                                          readonly="true" style="width:200px"></p:inputText>
                                                         </td>
@@ -110,7 +111,7 @@
                                                      
                                                     <tr>
                                                         <td align="left">Modalidad Concesi&#243;n</td>
-                                                        <td>
+                                                        <td align="left">
                                                             <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.contratoVO.nombreModalidad}"
                                                                          style="width:200px" readonly="true"></p:inputText>
                                                         </td>
@@ -135,6 +136,7 @@
                                                                         :form:monedacompromiso"
                                                                         listener="#{declararInversionMB.cargarDatosCompromiso()}"/>
                                                             </p:selectOneMenu>
+                                                            <h:outputText style="color: Red;" value="*"/>
                                                         </td>
                                                     </tr>
                                                      
@@ -170,7 +172,10 @@
                                             </p:fieldset>
                                             
                                             <p:fieldset id="datosExpe" legend="EXPEDIENTE DE  RECONOCIMIENTO">
+                                            <div align="left">
                                                 <h:outputText value="Seleccionar una fila para ver el detalle"/>
+                                                <h:outputText style="color: Red;" value="*"/>
+                                            </div>
                                                 <p:dataTable paginatorPosition="bottom" 
                                                              emptyMessage="NO SE ENCONTRARON DATOS" rows="10"
                                                              paginator="true"
@@ -203,6 +208,10 @@
                                                         <h:outputText value="#{tInversion.iaeNombreEstado}"/>
                                                     </p:column>
                                                 </p:dataTable>
+                                               <div align="right">
+                                                <h:outputText value="Campos obligatorios (*)"
+                                                                      style="margin:0px;color:red;font-weight:bold;"/>
+                                               </div>
                                             </p:fieldset>
                                         </p:fieldset>
                                     </td>
@@ -231,7 +240,7 @@
                                                     <td align="left">Observaci&#243;n:</td>
                                                     <td align="left">
                                                         <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="obsRecf"
-                                                                         style="width:500px;" autoResize="false" rows="10"
+                                                                         style="width:500px;" autoResize="false" rows="10" maxlength="4000"
                                                                          value="#{declararInversionMB.invAvnVO.tiaObservaciones}"/>
                                                     </td>
                                                     <td> <h:outputText style="color:red;" value="*"/></td>
@@ -403,9 +412,9 @@
                                                     </td>
                                                     <td align="left">Reg. de Salida</td>
                                                     <td align="left">
-                                                        <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.invVO.invRegSalidaInforme}"
+                                                        <p:inputMask styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.invVO.invRegSalidaInforme}"
                                                                      size="10"
-                                                                     ></p:inputText>
+                                                                   mask="9999-9999"/>
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -432,9 +441,9 @@
                                                     </td>
                                                     <td align="left">Reg. de Salida</td>
                                                     <td align="left">
-                                                        <p:inputText styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.invVO.invRegSalidaOficio}"
+                                                        <p:inputMask styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{declararInversionMB.invVO.invRegSalidaOficio}"
                                                                      size="10"
-                                                                     ></p:inputText>
+                                                                     mask="9999-9999" />
                                                          
                                                         <h:outputText style="color:red;" value="*"/>
                                                     </td>
@@ -467,16 +476,16 @@
                                                 <tr>
                                                     <td align="left">Nota</td>
                                                     <td colspan="5" align="left">
-                                                        <p:inputTextarea styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nota" 
+                                                        <p:inputTextarea maxlength="4000" styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nota" 
                                                                          value="#{declararInversionMB.invVO.invNota}"  style="width:500px;" autoResize="false" rows="10"/>
                                                          
-                                                       
+                                                        <h:outputText style="color:red;" value="*"/>
                                                     </td>
-                                                    <td> <h:outputText style="color:red;" value="*"/></td>
+                                                   
                                                 </tr>
                                                  
                                                 <tr>
-                                                    <td colspan="9">
+                                                    <td colspan="9" align="right">
                                                         <h:outputText value="Campos obligatorios (*)"
                                                                       style="margin:0px;color:red;font-weight:bold;"/>
                                                     </td>
