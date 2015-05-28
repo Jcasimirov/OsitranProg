@@ -332,8 +332,8 @@ public class MantenimientoConcesion {
     ////////////FIN ELIMINAR INFRAESTRUCTURA
     //////////////////////////ELIMINAR CONCESION/////////////////////////
 
-    public void cargarEliminarConcesion() throws SQLException {
-
+    public void cargarEliminarConcesion() throws Exception {
+        
         //inicio de captura de codigo a modificar
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestMap = context.getExternalContext().getRequestParameterMap();
@@ -349,22 +349,41 @@ public class MantenimientoConcesion {
 
     }
 
-    public void eliminacionConfirmadaConcesion() throws SQLException {
-        listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
-        for (InfraestructuraVO infra : listaInfraestructuras) {
-            infra.setInfEstado(0);
-            infra.setInfFechaBaja(new Date());
-            infra.setInfUsuarioBaja(Reutilizar.getNewInstance().obtenerIpCliente());
-            
-            infraestructuraServiceImpl.update(infra);
+    public void eliminacionConfirmadaConcesion()  {
+        try {
+            boolean codigoValido = concesionServicesImpl.validarCodigoEnUso(concesionVO.getCsiId());
+            if (codigoValido) {
+                listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
+                for (InfraestructuraVO infra : listaInfraestructuras) {
+                    infra.setInfEstado(0);
+                    infra.setInfFechaBaja(new Date());
+                    infra.setInfUsuarioBaja(Reutilizar.obtenerIpCliente());
 
+                    infraestructuraServiceImpl.update(infra);
+
+                }
+                concesionVO.setCsiEstado(0);
+                concesionVO.setCsiFechaBaja(Reutilizar.obtenerFechaActual());
+                concesionVO.setCsiUsuarioBaja(Reutilizar.obtenerIpCliente());
+                concesionServicesImpl.update(concesionVO);
+
+                ListarConcesiones();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se eliminó correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque la Concesion esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+            
+        } catch (SQLException sqle) {
+            // TODO: Add catch code
+            sqle.printStackTrace();
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
         }
-        concesionVO.setCsiEstado(0);
-        concesionServicesImpl.update(concesionVO);
-        
-        ListarConcesiones();
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se eliminó correctamente");
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
 
     }
 
