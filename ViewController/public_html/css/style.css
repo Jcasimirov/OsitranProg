@@ -125,9 +125,9 @@ text-transform: uppercase;
 .calendario1 input {
    vertical-align: middle;
    margin-right: 1px;
-   width: 70px;
-       
+   width: 80px;
 }
+
 #desabilitado{
   background-color: #848484;
 
