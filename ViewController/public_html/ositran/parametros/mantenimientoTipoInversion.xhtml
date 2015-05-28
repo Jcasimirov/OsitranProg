@@ -112,7 +112,7 @@
                     <h:inputHidden value="#{tipoInversionMB.codigoEliminar}" id="codEliminar"/>
                     <h:inputHidden value="#{tipoInversionMB.nombreAntiguo}" id="nombreAntiguo"/>
                 </p:layout>
-                <p:dialog id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
+                <p:dialog resizable="false" id="confirEliminar" widgetVar="confirEliminar" header="Confirmar" modal="true">
                     <table style="font-size: 11px">
                         <tr>
                             <td colspan="2">
@@ -135,7 +135,7 @@
                 </p:dialog>
                 
                 
-                <p:dialog id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
+                <p:dialog resizable="false" id="registrar" header="Registrar" widgetVar="insertarPanel" modal="true"
                           style="text-align:center;">
                         <div class="titulo5" >
                                 REGISTRAR TIPO INVERSIÓN
@@ -199,7 +199,7 @@
                     </table>
                 </p:dialog>
                 
-                <p:dialog header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
+                <p:dialog resizable="false" header="Editar" widgetVar="editarPanel" id="editarPanel" modal="true"
                           style="text-align:center;">
                           <div class="titulo5" >
                                 MODIFICAR TIPO INVERSIÓN
