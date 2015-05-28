@@ -32,7 +32,7 @@ public class ContratoSupervisoraVO {
     private Integer cpsMontoContratado;
     private Integer cpsNroDeContrato;
     private String cpsPenalidades;
-    private Integer cpsPlazoContrato;
+    private String cpsPlazoContrato;
     private Integer cpsStd;
     private String cpsTerminal;
     private String cpsUsuarioAlta;
@@ -51,6 +51,7 @@ public class ContratoSupervisoraVO {
     private BigDecimal ccoTotal;
     
     private String cenDocumentoFisico;
+    private String cenDocumentoFisicoE;
     private String cenDocumentoFisicoA;
     private String cenFechaDescripcion;
     private Integer cenEntrega;
@@ -72,7 +73,7 @@ public class ContratoSupervisoraVO {
                                  Date cpsFechaAlta, Date cpsFechaBaja, Date cpsFechaCambio, Date cpsFechaInicio,
                                  Date cpsFechaRegistro, Date cpsFechaSuscripcion, String cpsGarantias,
                                  Integer cpsMontoContratado, Integer cpsNroDeContrato, String cpsPenalidades,
-                                 Integer cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
+                                 String cpsPlazoContrato, Integer cpsStd, String cpsTerminal, String cpsUsuarioAlta,
                                  String cpsUsuarioBaja, String cpsUsuarioCambio, Integer csiId, Integer infId,
                                  Integer supId, Integer tinId, Integer monId, Integer ccoId, Integer tccTipo,
                                  Integer mcoId, Integer invId, String ccoPlazo, BigDecimal ccoTotal,
@@ -80,7 +81,7 @@ public class ContratoSupervisoraVO {
                                  Integer cenEntrega, InputStream inputStreamNuevaEntrega,
                                  InputStream inputStreamNuevaEntregaA, Integer contador, String nombreInfraestructura,
                                  String nombreSupervisora, String nombreMoneda, String nombreConcesion,
-                                 String nombreInfraTipo) {
+                                 String nombreInfraTipo ) {
         super();
         this.conId = conId;
         this.cpsAdelantoOtorgado = cpsAdelantoOtorgado;
@@ -325,11 +326,11 @@ public class ContratoSupervisoraVO {
     }
 
 
-    public void setCpsPlazoContrato(Integer cpsPlazoContrato) {
+    public void setCpsPlazoContrato(String cpsPlazoContrato) {
         this.cpsPlazoContrato = cpsPlazoContrato;
     }
 
-    public Integer getCpsPlazoContrato() {
+    public String getCpsPlazoContrato() {
         return cpsPlazoContrato;
     }
 
@@ -509,4 +510,11 @@ public class ContratoSupervisoraVO {
         return nombreInfraTipo;
     }
 
+    public void setCenDocumentoFisicoE(String cenDocumentoFisicoE) {
+        this.cenDocumentoFisicoE = cenDocumentoFisicoE;
+    }
+
+    public String getCenDocumentoFisicoE() {
+        return cenDocumentoFisicoE;
+    }
 }
