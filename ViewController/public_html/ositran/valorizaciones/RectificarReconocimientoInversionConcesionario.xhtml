@@ -327,8 +327,9 @@
                                                                     <f:selectItem itemLabel="Aprobado" itemValue="4"/>
                                                                     <f:selectItem itemLabel="Observado" itemValue="0"/>
                                                                 </p:selectOneMenu>
+                                                                <h:outputText style="color:red;" value="*"/>
                                                             </td>
-                                                            <td><h:outputText style="color:red;" value="*"/></td>
+                                                            
                                                         </tr>
                                                          
                                                         <tr>
@@ -337,7 +338,7 @@
                                                                 <p:inputTextarea maxlength="4000"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"   style="width:500px;" autoResize="false" rows="10"
                                                                                  value="#{rectificarInversion.invAvnVO.tiaObservaciones}"/>
                                                             </td>
-                                                            <td><h:outputText style="color:red;" value="*"/></td>
+                                                            
                                                         </tr>
                                                     </table>
                                                     <p:fieldset legend="Resultado del Reconocimiento" styleClass="fieldContainer">
@@ -610,10 +611,10 @@
                                                         <tr>
                                                             <td align="left">Nota Tipo de Cambio</td>
                                                             <td align="left" colspan="3">
-                                                                <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="tipoCambio"
+                                                                <p:inputTextarea   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="tipoCambio"
                                                                              value="#{rectificarInversion.invVO.invNotaTipoCambio}"
                                                                              disabled="#{rectificarInversion.invAvnVO.monId ne 1}"
-                                                                              style="width:250px !important;" ></p:inputText>
+                                                                              style="width:300px !important;" maxlength="4000" rows="10"/>
                                                                  
                                                                 <h:outputText style="color:red;" value="*"
                                                                               rendered="#{rectificarInversion.invAvnVO.monId eq 1}"/>
