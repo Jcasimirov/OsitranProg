@@ -521,6 +521,15 @@ public class RectificarInversion {
                     FacesContext.getCurrentInstance().addMessage(null,
                                                                  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                                   "No ha ingresado la Nota"));
+                }else if (invVO.getInvNroDocFormalizacion() == null || invVO.getInvNroDocFormalizacion().length() == 0) {
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                                  "No ha ingresado el Nro. Documento de Formalizacion"));
+                }
+                else if (invVO.getInvFechaEmisionDocFomalizacion() == null ) {
+                                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                                                  "No ha ingresado la Fecha Emision del Nro. Documento de Formalizacion"));
                 }else {
 
                 invVO.setInvEstadoReconocimiento(invAvnVO.getIaeId() == Constantes.ESTADORECONOCIMIENTO_DECLARADO ?
