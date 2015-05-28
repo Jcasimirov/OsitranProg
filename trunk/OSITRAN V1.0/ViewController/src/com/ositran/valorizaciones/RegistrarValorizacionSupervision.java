@@ -9,6 +9,7 @@ import com.ositran.service.DatosStdService;
 import com.ositran.service.InversionService;
 import com.ositran.service.ModalidadConcesionService;
 import com.ositran.service.ValorizacionSupService;
+import com.ositran.serviceimpl.ContratoCompromisoServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
@@ -156,7 +157,7 @@ public class RegistrarValorizacionSupervision {
     @ManagedProperty(value = "#{datosStdServiceImpl}")
     DatosStdService datosStdServiceImpl;
     @ManagedProperty(value = "#{contratoCompromisoServiceImpl}")
-    ContratoCompromisoService contratoCompromisoServiceImpl;
+    ContratoCompromisoServiceImpl contratoCompromisoServiceImpl;
     @ManagedProperty(value = "#{contratoCompromisoVO}")
     ContratoCompromisoVO contratoCompromisoVO;
     
@@ -218,7 +219,7 @@ public class RegistrarValorizacionSupervision {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(codigoTipoInfra);
             t_tinfra = infraestructuraTipoVO.getTinNombre();
             listaInfraestructuras = infraestructuraServiceImpl.query2(concesionVO.getCsiId());
-            listaContratoCompromiso = contratoCompromisoServiceImpl.query1(codigoContrato);
+            listaContratoCompromiso = contratoCompromisoServiceImpl.querySupervisado(codigoContrato);
             supervisorInversionesVO = supervisorInversionesServiceImpl.get(codigoTipoInfra);
             nomSupervisor=supervisorInversionesVO.getTsiNombre();
             codigoSupervisor=supervisorInversionesVO.getTsiId();
@@ -409,7 +410,15 @@ public class RegistrarValorizacionSupervision {
         }
     }
     public void guardar() {
-        if (nrohr.trim().equals("")) {
+        if (codigoConcesion==0){
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "SELECCIONAR CONTRATO"));            
+        } else if (contratoCompromisoSeleccionado==0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
+                                                                          "SELECCIONAR ETAPA"));
+        }else if (nrohr.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "INGRESAR NUMERO DE HR."));
@@ -418,18 +427,10 @@ public class RegistrarValorizacionSupervision {
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
                                                                           "INGRESAR AÑO DE HR."));
 
-        }  else if (t_conce=="") {
+        } else if(listaValorizacion.size()==0){
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "SELECCIONAR DATOS DE CONTRATO"));
-        }  else if (contratoCompromisoSeleccionado==0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "SELECCIONAR ETAPA"));
-        } else if(tvsBruto==null){
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "AVISO",
-                                                                          "INGRESAR VALORIZACION"));
+                                                                          "INGRESAR VALORIZACIÓN"));
         }else {
             try {
                 valorizacionSupVO.setTvsHr(Integer.parseInt(nrohr));
@@ -478,10 +479,13 @@ public class RegistrarValorizacionSupervision {
         añohr = "";
         freg = "";
         asuntohr = "";
+        
         listaMoneda = new ArrayList<MonedaVO>();
         montoTabla= BigDecimal.ZERO;
         listaConcepto = new ArrayList<ValorizacionConceptoVO>();
         listaValorizacion = new ArrayList<ValorizacionSupDetalleVO>();
+        
+        nombreMoneda="";
         tvsNeto= BigDecimal.ZERO;
         tvsIgv= BigDecimal.ZERO;
         tvsBruto= BigDecimal.ZERO;
@@ -709,11 +713,11 @@ public class RegistrarValorizacionSupervision {
     }
 
 
-    public void setContratoCompromisoServiceImpl(ContratoCompromisoService contratoCompromisoServiceImpl) {
+    public void setContratoCompromisoServiceImpl(ContratoCompromisoServiceImpl contratoCompromisoServiceImpl) {
         this.contratoCompromisoServiceImpl = contratoCompromisoServiceImpl;
     }
 
-    public ContratoCompromisoService getContratoCompromisoServiceImpl() {
+    public ContratoCompromisoServiceImpl getContratoCompromisoServiceImpl() {
         return contratoCompromisoServiceImpl;
     }
 
