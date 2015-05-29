@@ -1,6 +1,5 @@
 package com.ositran.service;
 
-import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.TipoInversionVO;
 
 import java.sql.SQLException;
@@ -16,5 +15,5 @@ public interface TipoInversionServices {
         public TipoInversionVO get(Integer id) throws SQLException ,Exception ;
         public List<TipoInversionVO> query1(String buscar) throws SQLException ,Exception;
          public int getCanNombres(String nombre)  throws SQLException ,Exception;
-                
+        public boolean validarCodigoEnUso(Integer csiId) throws Exception;         
 }

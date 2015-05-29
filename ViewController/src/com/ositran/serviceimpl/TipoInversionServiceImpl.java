@@ -30,7 +30,10 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
         return listVO;
     }
     
-
+    public boolean validarCodigoEnUso(Integer tivId) throws Exception{
+        boolean valido=tipoInversionDAOImpl.validarCodigoEnUso(tivId);
+        return valido;
+    }
     @Override
     public String insert(TipoInversionVO tipoInversionVO) throws SQLException ,Exception{
         InversionTipo inversionTipo=toTipoInversion(tipoInversionVO);
@@ -131,5 +134,6 @@ public class TipoInversionServiceImpl implements TipoInversionServices{
     public TipoInversionVO getTipoInversionVO() {
         return tipoInversionVO;
     }
+
 
 }
