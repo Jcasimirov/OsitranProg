@@ -1,7 +1,9 @@
 package com.ositran.dao;
 
 import com.ositran.model.Concesionario;
+
 import java.sql.SQLException;
+
 import java.util.List;
 
 public interface ConcesionarioDAO {
@@ -14,4 +16,5 @@ public interface ConcesionarioDAO {
         public int getCanNombres(String nombre)  throws SQLException ,Exception;
     //Ivan
         public List<Concesionario> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception;
+        public boolean validarCodigoEnUso(Integer Id) throws Exception;
 }
