@@ -103,10 +103,17 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
             query =session.createQuery("Select count(o.tivId) From ContratoCompromiso o where o.ccoEstado = 1 and o.tivId=:tivId");
             query.setParameter("tivId",tivId);
             Long contador=(Long)query.uniqueResult();
-            valido=(contador>0)?false:true;            
+            valido=(contador>0)?false:true;
+            if (contador==0) {
+                query = session.createQuery("Select count(o.tivId) From InversionTipoDescripcion o where o.itdEstado = 1 and o.tivId=:tivId");
+                query.setParameter("tivId", tivId);
+                Long contador2 = (Long) query.uniqueResult();
+                valido = (contador2 > 0) ? false : true;
+            }
             tx.commit();
             return valido;
         } catch (Exception e) {
+            e.printStackTrace();
             if (tx!=null) {
                 tx.rollback();
             }
