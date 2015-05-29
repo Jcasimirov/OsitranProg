@@ -317,4 +317,8 @@ font-weight: bold;
     font-size: 9px;
     backface-visibility: hidden;
     background-color: transparent;
+
+}
+.ui-menubar .ui-menu-child {
+    width: 300px !important;
 }
