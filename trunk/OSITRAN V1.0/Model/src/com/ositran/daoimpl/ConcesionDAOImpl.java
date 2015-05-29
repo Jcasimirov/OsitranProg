@@ -25,7 +25,7 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
-            List list = session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId <> 0 order by CSI_ID DESC ").list();
+            List list = session.createQuery("From Concesion o where o.csiEstado <> 0 and o.csiId <> 0 order by csiFechaAlta desc ").list();
             tx.commit();
             return list;
         } catch (Exception e) {
