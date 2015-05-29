@@ -6,11 +6,11 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class TipoInversionDAOImpl implements TipoInversionDAO {
     InversionTipo inversionTipo;
@@ -93,6 +93,27 @@ public class TipoInversionDAOImpl implements TipoInversionDAO {
     public InversionTipo getInversionTipo() {
         return inversionTipo;
     }
-
+    public boolean validarCodigoEnUso(Integer tivId) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("Select count(o.tivId) From ContratoCompromiso o where o.ccoEstado = 1 and o.tivId=:tivId");
+            query.setParameter("tivId",tivId);
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
    
 }

@@ -8,16 +8,19 @@ import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipoInversionMB")
@@ -230,10 +233,19 @@ public class TipoInversion {
 
     public void eliminar() {
         try {
-            tipoInversionServicesImpl.update(tipoInversionVO);
-            ListarInversiones();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            boolean codigoValido = tipoInversionServicesImpl.validarCodigoEnUso(tipoInversionVO.getTivId());
+            if (codigoValido) {
+                tipoInversionServicesImpl.update(tipoInversionVO);
+                ListarInversiones();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque el Tipo de Inversion esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+           
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
