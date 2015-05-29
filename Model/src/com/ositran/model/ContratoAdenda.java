@@ -36,7 +36,7 @@ public class ContratoAdenda implements Serializable {
     @GeneratedValue(generator = "generator")
     @Column(name = "CAD_ID", nullable = false)
     private Integer cadId;
-    @Column(name = "CAD_MONTO", nullable = false)
+    @Column(name = "CAD_MONTO")
     private BigDecimal cadMonto;
     //@Id
     @Column(name = "CON_ID", nullable = false)
