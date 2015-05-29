@@ -1,6 +1,5 @@
 package com.ositran.parametros;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import com.ositran.service.CargoService;
 import com.ositran.service.ConcesionarioService;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
@@ -11,11 +10,16 @@ import com.ositran.vo.bean.ConcesionarioVO;
 import com.ositran.vo.bean.RolOpcionesVO;
 import com.ositran.vo.bean.TipoDocumentoVO;
 import com.ositran.vo.bean.UsuarioVO;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +28,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "concesionarioMB")
 @RequestScoped
 public class Concesionario {
@@ -425,16 +430,24 @@ public class Concesionario {
 
     public void eliminar() {
         try {
-            concesionarioVO=concesionarioServiceImpl.get(codigoConcesionario);
-            concesionarioVO.setCncUsuarioBaja(usuario.getUsuAlias());
-            concesionarioVO.setCncEstado(0);
-            concesionarioVO.setCncTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
-            concesionarioVO.setCncFechaBaja(new Date());
-            concesionarioServiceImpl.update(concesionarioVO);
-           cargarListaConcesionarios();
-           FacesContext.getCurrentInstance().addMessage(null,
-                                                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                         "Se eliminó correctamente"));
+            boolean codigoValido=concesionarioServiceImpl.validarCodigoEnUso(codigoConcesionario);
+            if(codigoValido){
+                    concesionarioVO=concesionarioServiceImpl.get(codigoConcesionario);
+                    concesionarioVO.setCncUsuarioBaja(usuario.getUsuAlias());
+                    concesionarioVO.setCncEstado(0);
+                    concesionarioVO.setCncTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+                    concesionarioVO.setCncFechaBaja(new Date());
+                    concesionarioServiceImpl.update(concesionarioVO);
+                   cargarListaConcesionarios();
+                   FacesContext.getCurrentInstance().addMessage(null,
+                                                                new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                                 "Se eliminó correctamente"));
+            } else {
+                    FacesMessage mensaje =
+                               new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                "No se puede Eliminar porque el Concesionario esta en Uso!");
+                           FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
        }  catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",

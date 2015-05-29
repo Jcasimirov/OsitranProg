@@ -1,7 +1,5 @@
 package com.ositran.service;
 
-import com.ositran.model.Concesionario;
-
 import com.ositran.vo.bean.ConcesionarioVO;
 
 import java.sql.SQLException;
@@ -18,4 +16,5 @@ public interface ConcesionarioService {
     public int getCanNombres(String nombre)  throws SQLException ,Exception;
     //Ivan
     public List<ConcesionarioVO> BusquedaConcesionario(String nombre, String Siglas, int tipodoc, String nrodoc)  throws SQLException ,Exception;
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception;
 }

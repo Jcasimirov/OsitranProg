@@ -3,14 +3,11 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ConcesionarioDAOImpl;
 import com.ositran.model.Concesionario;
 import com.ositran.service.ConcesionarioService;
-
-
 import com.ositran.vo.bean.ConcesionarioVO;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ConcesionarioServiceImpl implements ConcesionarioService{
@@ -189,6 +186,9 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
             return listVO;
         }
 
-  
+    public boolean validarCodigoEnUso(Integer Id) throws Exception{
+        boolean concesion=concesionarioDAOImpl.validarCodigoEnUso(Id);
+        return concesion;
+    }
 }
 

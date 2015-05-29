@@ -2,23 +2,16 @@ package com.ositran.daoimpl;
 
 import com.ositran.dao.ConcesionarioDAO;
 import com.ositran.model.Concesionario;
-import com.ositran.model.InversionTipo;
-import com.ositran.model.Men;
 import com.ositran.util.Entity;
 import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 
 
 public class ConcesionarioDAOImpl implements ConcesionarioDAO {
@@ -215,6 +208,28 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
             List<Concesionario> list = query.list();
             tx.commit();
             return list;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+    public boolean validarCodigoEnUso(Integer id) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("Select count(o.cncId) From Contrato o where o.conEstado = 1 and o.cncId=:id");
+            query.setParameter("id",id);
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
         } catch (Exception e) {
             if (tx!=null) {
                 tx.rollback();
