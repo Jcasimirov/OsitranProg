@@ -13,7 +13,7 @@
             <f:event listener="#{descripcionInversionMB.cargarListaInversion}" type="postAddToView"></f:event>
             <f:event listener="#{descripcionInversionMB.cargarListaInversionDescripcion}" type="preRenderComponent"></f:event>
              
-            <h:form id="form">
+            <h:form id="form" >
                 <p:growl id="mensaje" showDetail="true" life="10000"/>
                 <p:layout fullPage="true" style="border:none">
                     <p:layoutUnit position="center" style="border:0px">
@@ -21,8 +21,8 @@
                         <div align="center">
                             <div class="titulo5" >MANTENIMIENTO DESCRIPCIÓN TIPO DE INVERSIÓN</div>
                             <div style="width:80%" align="center">
-                                <div align="left" style="font-size: 11px">
-                                    <table width="100%">
+                                <div align="left" style="font-size:11px">
+                                    <table width="100%" >
                                         <tr>
                                        
                                             <td align="left">
@@ -57,12 +57,14 @@
                                 </div>
                                 <br></br>
                                  
-                                <p:dataTable  paginator="true" paginatorPosition="bottom"
+                                <p:dataTable 
+                                resizableColumns="true" 
+                                paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20" rows="10" 
                                              style="font-size:10px;" id="tabla" var="inversionDes"
                                              value="#{descripcionInversionMB.listaInversionDescripcion}" emptyMessage="NO SE ENCONTRARON DATOS">
-                                     <p:column headerText="Nro" style="width:2%">
+                                     <p:column headerText="Nro" style="width:10px">
                                         <h:outputText value="#{inversionDes.contador}"/>
                                     </p:column>
                                     <p:column headerText="Nombre">
@@ -74,7 +76,7 @@
                                     <p:column headerText="Tipo Inversión">
                                         <h:outputText value="#{inversionDes.nombreTI}"/>
                                     </p:column>
-                                    <p:column headerText="Editar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:4%">
+                                    <p:column headerText="Modificar" rendered="#{descripcionInversionMB.rolOpcion.troModificar eq 1}"  style="width:45px">
                                         <div align="center">
                                         <p:commandButton  image="ui-icon-pencil" update=":form:editarPanel :form:nombreAntiguo :form:tipoInversionCargada"
                                                          oncomplete="editarPanel.show()"
@@ -84,7 +86,7 @@
                                                          </p:commandButton>
                                         </div>
                                     </p:column>
-                                    <p:column headerText="Eliminar"  rendered="#{descripcionInversionMB.rolOpcion.troEliminar eq 1}"  style="width:4%">
+                                    <p:column headerText="Eliminar"  rendered="#{descripcionInversionMB.rolOpcion.troEliminar eq 1}"  style="width:45px">
                                       <div align="center">
                                     <p:commandButton update=":form:codEliminar"
                                                          actionListener="#{descripcionInversionMB.cargarEliminar}"
@@ -209,8 +211,8 @@
                             <td align="left">
                                 <p:selectOneMenu id="tipoInversionCargada"  value="#{descripcionInversionMB.codigoInversion1}" style="width:297px">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{descripcionInversionMB.listTipoInversion}" var="tip"
-                                                   itemLabel="#{tip.tivDescripcion}" itemValue="#{tip.tivId}"/>
+                                    <f:selectItems value="#{descripcionInversionMB.listTipoInversion1}" var="tip"
+                                                   itemLabel="#{tip.tivNombre}" itemValue="#{tip.tivId}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align:top;" />

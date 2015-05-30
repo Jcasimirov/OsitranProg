@@ -23,45 +23,27 @@
                         <ui:include src="/ositran/util/menuOpciones.xhtml"/>
                         <div align="center">
                             <div class="titulo5" >MANTENIMIENTO CONCESIONARIO</div>
-                            <div style="width:80%">
-                                <div  width="100%"  align="left" class="letra11" >
+                            <div style="width:80%" >
+                            
+                                <div   class="letra11" >
                                     <table width="100%">
                                         <tr>
-                                             <td align="left" style="width:35%">
+                                             <td align="left" >
                                                 Buscar: 
                                                 <p:inputText id="buscarT"   onblur="pasarMayuscula(this.value,this.id)" value="#{concesionarioMB.buscar}" styleClass="estandar-mayus-minus"/><h:outputText value=" "/>
                                                  
-                                                <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda}"
+                                                <p:commandButton id="buscar" actionListener="#{concesionarioMB.busqueda()}"
                                                                  update=":form:tablaC :form:mensaje"   image="ui-icon-search"/><h:outputText value=" "/>
                                                  <p:tooltip styleClass="tool"  id="toolTipFade"   for="buscar" value="Búsqueda por nombre descripción siglas" />
                                                 
-                                                <p:commandButton image="ui-icon-arrowreturnthick-1-s" actionListener="#{concesionarioMB.cargarListaConcesionarios}"
-                                                              update=":form:tablaC"  id="buscarTodos" ></p:commandButton>
+                                                <p:commandButton image="ui-icon-arrowreturnthick-1-s" actionListener="#{concesionarioMB.cargarListaConcesionarios()}"
+                                                              update=":form:tablaC :form:buscarT"  id="buscarTodos" ></p:commandButton>
                                                 <p:tooltip styleClass="tool"  id="toolTipFade1" for="buscarTodos" value="Ver la lista completa de concesionarios" />
                                              </td>
-                                             <td>
-                                             </td>
-                                                    <td style="width:10%">
-                                                     Tipo Documento: 
-                                                    </td>
-                                                    <td>
-                                                        <p:selectOneMenu 
-                                                
-                                                                id="tipoDocumentoRE"
-                                                                 value="#{concesionarioMB.codigoDocumentoFiltro}" >
-                                                    <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                                    <f:selectItems value="#{concesionarioMB.listaTipDoc1}" var="tip1"
-                                                                   itemLabel="#{tip1.tdoNombre}" itemValue="#{tip1.tdoId}"
-                                                                    />
-                                                                    <p:ajax listener="#{concesionarioMB.buscarTipoDocumento}"  update=":form:tablaC" event="valueChange" />
-                                                </p:selectOneMenu>   
-                                            </td>
-                                            <td align="left" >
-                                             
-                                            </td>
-                                           <td aling="left">
-                                            </td>
-                                            <td align="right">
+                                           
+                                        
+                                        
+                                            <td align="right" >
                                                 <p:commandButton id="nuevo" styleClass="botones"
                                                 rendered="#{concesionarioMB.rolOpcion.troAgregar eq 1}"
                                                 actionListener="#{concesionarioMB.limpiarCampos}"
@@ -76,7 +58,8 @@
                                     </table>
                                 </div>
                                 <br></br>                               
-                                <p:dataTable paginatorPosition="bottom"
+                                <p:dataTable paginatorPosition="bottom"  
+                                resizableColumns="true" 
                                 emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20" 
@@ -97,10 +80,10 @@
                                     <p:column headerText="Representante Legal" >
                                         <h:outputText value="#{conc1.cncRepresentanteLegal}"/>
                                     </p:column>
-                                    <p:column headerText="N° de Documento" style="width:10%">
+                                    <p:column headerText="N° de Documento" style="width:115px">
                                         <h:outputText value="#{conc1.cncNroDocumento}"></h:outputText>
                                     </p:column>
-                                    <p:column style="width:4%" headerText="Modificar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" >                                   
+                                    <p:column style="width:45px" headerText="Modificar" rendered="#{concesionarioMB.rolOpcion.troModificar eq 1}" >                                   
                                     <div align="center" >
                                                 <p:commandButton id="btnmodificar"
                                                         oncomplete="editarPanel.show()"
@@ -112,7 +95,7 @@
                                                 <p:tooltip styleClass="tool"  id="toolTipFade4" for="btnmodificar" value="Modificar la fila" />
                                                                  </div>                   
                                     </p:column>
-                                    <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar eq 1}" headerText="Eliminar" style="width:4%" >
+                                    <p:column rendered="#{concesionarioMB.rolOpcion.troEliminar eq 1}" headerText="Eliminar" style="width:45px" >
                                     
                                      <div align="center" >
                                                 
