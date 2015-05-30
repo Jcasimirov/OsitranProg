@@ -31,6 +31,7 @@ import org.primefaces.context.RequestContext;
 public class DescripcionTipoInversion {
     private String nombreAntiguo;
     private List<TipoInversionVO> listTipoInversion;
+    private List<TipoInversionVO> listTipoInversion1;
     private List<InversionDescripcionVO> listaInversionDescripcion;
     private String mensaje;
     private int tipoMensaje;
@@ -187,9 +188,6 @@ public class DescripcionTipoInversion {
     public void cargarListaInversion() {
         try {
             listTipoInversion = getTipoInversionServicesImpl().query();
-            
-            
-
         } catch (SQLException s) {
             s.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,
@@ -208,22 +206,18 @@ public class DescripcionTipoInversion {
 
     public void cargarEditar() {
         try {
-                
                FacesContext context=FacesContext.getCurrentInstance();
                Map requestMap=context.getExternalContext().getRequestParameterMap();
                Object str=requestMap.get("idModificar");
                Integer idcodigo=Integer.valueOf(str.toString());
                inversionDescripcionVO=inversionDescripcionServicesImpl.get(idcodigo);
-                codigoInversionE=inversionDescripcionVO.getItdId();
+                codigoInversionE=inversionDescripcionVO.getTivId();
                 nombreAntiguo=inversionDescripcionVO.getItdNombre();
                 nombreE=inversionDescripcionVO.getItdNombre();
                 descripcionE=inversionDescripcionVO.getItdDescripcion();
-            System.out.println("TIPO DE INSASSSSSSSSSSSSSSSSSS");
-            System.out.println(inversionDescripcionVO.getTivId());
                 codigoInversion1=inversionDescripcionVO.getTivId();
-            
-              
-            
+                listTipoInversion1=tipoInversionServicesImpl.query();
+  
        }
         catch (SQLException s) {
                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -510,5 +504,22 @@ public class DescripcionTipoInversion {
 
     public RolOpcionesVO getRolOpcion() {
         return rolOpcion;
+    }
+
+
+    public void setListTipoInversion1(List<TipoInversionVO> listTipoInversion1) {
+        this.listTipoInversion1 = listTipoInversion1;
+    }
+
+    public List<TipoInversionVO> getListTipoInversion1() {
+        return listTipoInversion1;
+    }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
     }
 }

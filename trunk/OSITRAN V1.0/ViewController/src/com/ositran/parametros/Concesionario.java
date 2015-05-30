@@ -333,7 +333,14 @@ public class Concesionario {
     public void busqueda() {
        
                 try {
-                    
+                    if (buscar==""){
+                            
+                                       FacesContext.getCurrentInstance().addMessage(null,
+                                                                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                                                     correo +
+                                                                                                     " Debe ingresar un criterio de busqueda "));
+                        }
+                    else {
                       if (!buscar.equals("")){
                       int contador=1;
                       listaCon = concesionarioServiceImpl.queryF(buscar);
@@ -348,7 +355,7 @@ public class Concesionario {
                                                                                             " Debe ingresar criterios de búsqueda "));
                           }
                     
-                    
+                    }
                   } catch (SQLException s) {
                       FacesContext.getCurrentInstance().addMessage(null,
                                                                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
@@ -393,6 +400,7 @@ public class Concesionario {
               listaCon.get(i).setContador(contador);
                 contador++;
                 }
+            buscar="";
        }
         catch (SQLException s) {
             s.printStackTrace();

@@ -19,7 +19,7 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public List<InversionTipoDescripcion> query()  throws SQLException ,Exception{
         Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
         session.beginTransaction();
-        List list=session.createQuery("from InversionTipoDescripcion E WHERE E.itdEstado <> 0").list();
+        List list=session.createQuery("from InversionTipoDescripcion E WHERE E.itdEstado <> 0 order by itdFechaAlta desc").list();
         session.getTransaction().commit();
         return list;
     }

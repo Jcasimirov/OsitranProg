@@ -51,7 +51,7 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         Transaction tx=null;
         try {
             tx=session.beginTransaction();
-            List list = session.createQuery("From Concesionario o where o.cncEstado <> 0 ORDER BY o.cncId DESC").list();
+            List list = session.createQuery("From Concesionario o where o.cncEstado <> 0 ORDER BY o.cncFechaAlta DESC").list();
             tx.commit();
             return  list;
         } catch (Exception e) {
