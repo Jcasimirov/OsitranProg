@@ -2,8 +2,6 @@ package com.ositran.service;
 
 
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
-import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 
 import java.sql.SQLException;
 
@@ -21,5 +19,6 @@ public interface EmpresaSupervisoraService {
         public int ValidaRuc(String atributo, int documento) throws SQLException;
         public int ValidarRucMod(String atributo, String Nombre, int documento) throws SQLException;
         public List<EmpresaSupervisoraVO> BuscarEmpresaPorContrato(Integer contratoConcesion, Integer etapaContrato, String nombreEmpresa) throws SQLException;
+        public boolean validarCodigoEnUso(Integer supId) throws Exception;
 }
    

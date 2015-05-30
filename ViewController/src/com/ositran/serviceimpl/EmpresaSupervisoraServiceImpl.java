@@ -5,8 +5,6 @@ import com.ositran.model.EmpresaSupervisora;
 import com.ositran.service.EmpresaSupervisoraService;
 import com.ositran.vo.bean.EmpresaSupervisoraVO;
 
-import com.ositran.vo.bean.InfraestructuraTipoVO;
-
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -179,5 +177,8 @@ public class EmpresaSupervisoraServiceImpl implements EmpresaSupervisoraService{
         }
         return listVO;        
     }
-    
+    public boolean validarCodigoEnUso(Integer supId) throws Exception{
+        boolean concesion=empresaSupervisoraDAOImpl.validarCodigoEnUso(supId);
+        return concesion;
+    }
 }

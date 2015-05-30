@@ -1,14 +1,18 @@
 package com.ositran.daoimpl;
 
 import com.ositran.dao.EmpresaSupervisoraDAO;
+import com.ositran.model.EmpresaSupervisora;
+import com.ositran.util.HibernateUtil;
+
+import java.sql.SQLException;
 
 import java.util.List;
-import org.hibernate.Session;
-import org.springframework.stereotype.Repository;
+
 import org.hibernate.Query;
-import java.sql.SQLException;
-import com.ositran.util.HibernateUtil;
-import com.ositran.model.EmpresaSupervisora;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO { 
@@ -229,6 +233,28 @@ public class EmpresaSupervisoraDAOImpl implements EmpresaSupervisoraDAO {
         }
         session.close();
         return list;
+    }
+    public boolean validarCodigoEnUso(Integer supId) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("Select count(o.supId) From ContratoSupervisora o where o.cpsEstado = 1 and o.supId=:supId");
+            query.setParameter("supId",supId);
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
 }
