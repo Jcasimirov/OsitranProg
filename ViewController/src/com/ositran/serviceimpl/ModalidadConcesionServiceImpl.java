@@ -139,6 +139,9 @@ public class ModalidadConcesionServiceImpl implements ModalidadConcesionService{
         return respuesta;
         
     }
-
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+        boolean concesion=modalidadConcesionDAOImpl.validarCodigoEnUso(csiId);
+        return concesion;
+    }
     
 }
