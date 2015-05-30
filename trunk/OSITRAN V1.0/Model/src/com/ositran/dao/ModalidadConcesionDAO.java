@@ -15,4 +15,6 @@ public interface ModalidadConcesionDAO {
         public List<ModalidadConcesion> FiltrarModalidad(String atributo) throws SQLException;
         public int  ValidarNombre(String atributo) throws SQLException;
         public int  ValidarNombreMod(String atributo, String NombreMod) throws SQLException;
+        public boolean validarCodigoEnUso(Integer csiId) throws Exception;
+        
 }

@@ -1,45 +1,26 @@
 package com.ositran.parametros;
 
-import com.ositran.service.TipoInversionServices;
-import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
 import com.ositran.util.Util;
-
-import com.ositran.vo.bean.EmpresaSupervisoraVO;
-
 import com.ositran.vo.bean.ModalidadConcesionVO;
-
 import com.ositran.vo.bean.RolOpcionesVO;
-import com.ositran.vo.bean.TipoInversionVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
 
 import java.sql.SQLException;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Map;
-
-import javax.annotation.Generated;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
@@ -268,18 +249,26 @@ public class MantenimientoModalidadConcesionMB {
 
     public void EliminarModalidad() throws SQLException {
         try {
-            
-            modalidadVO = this.modalidadServiceImp.get(idEliminar);
-            modalidadVO.setMcoEstado(0);
-            //this.modalidadServiceImp.delete(idModalidad);
-            modalidadVO.setMcoTerminal(ipcliente);
-            modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
-            modalidadVO.setMcoUsuarioBaja(usuario.getUsuAlias());
-            this.modalidadServiceImp.update(modalidadVO);
-            getQuery();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Eliminó con Éxito");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
-            modalidadVO.setMcoId(null);
+            boolean codigoValido = modalidadServiceImp.validarCodigoEnUso(idEliminar);
+            if (codigoValido) {
+                modalidadVO = this.modalidadServiceImp.get(idEliminar);
+                modalidadVO.setMcoEstado(0);
+                //this.modalidadServiceImp.delete(idModalidad);
+                modalidadVO.setMcoTerminal(ipcliente);
+                modalidadVO.setMcoFechaBaja(util.getObtenerFechaHoy());
+                modalidadVO.setMcoUsuarioBaja(usuario.getUsuAlias());
+                modalidadServiceImp.update(modalidadVO);
+                getQuery();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Eliminó con Éxito");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                modalidadVO.setMcoId(null);
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque la Concesion esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+          
         } catch (Exception e) {
             System.out.println(e.getMessage());
             FacesMessage mensaje =
