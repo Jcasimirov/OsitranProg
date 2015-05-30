@@ -5,6 +5,8 @@ import com.ositran.dao.ModalidadConcesionDAO;
 import com.ositran.model.ModalidadConcesion;
 import com.ositran.util.HibernateUtil;
 
+import java.math.BigDecimal;
+
 import java.sql.SQLException;
 
 import java.util.List;
@@ -161,7 +163,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
             }
             if(valido){
             query =session.createQuery("Select count(o.mcoId) From InvAvnDerivada o where o.iasEstado=1 and o.mcoId=:mcoId");
-            query.setParameter("mcoId",mcoId);
+            query.setParameter("mcoId",new BigDecimal(""+mcoId));
             Long contador2=(Long)query.uniqueResult();
             valido=(contador2>0)?false:true; 
             }
