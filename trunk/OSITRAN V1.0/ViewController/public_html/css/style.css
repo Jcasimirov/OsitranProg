@@ -315,8 +315,6 @@ font-weight: bold;
 
 .ui-menubar .ui-menu-child .ui-menuitem {
     font-size: 9px;
-    backface-visibility: hidden;
-    background-color: transparent;
 
 }
 .ui-menubar .ui-menu-child {
