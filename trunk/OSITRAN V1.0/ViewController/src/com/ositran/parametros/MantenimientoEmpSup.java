@@ -1,47 +1,33 @@
 package com.ositran.parametros;
 
-import com.ositran.model.EmpresaSupervisora;
-import com.ositran.model.TipoDocumento;
 import com.ositran.serviceimpl.CargoServiceImpl;
 import com.ositran.serviceimpl.EmpresaSupervisoraServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
-import com.ositran.vo.bean.EmpresaSupervisoraVO;
-import com.ositran.vo.bean.TipoDocumentoVO;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Generated;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIParameter;
-import javax.faces.component.html.HtmlForm;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
 import com.ositran.util.Util;
 import com.ositran.vo.bean.CargoVO;
-
+import com.ositran.vo.bean.EmpresaSupervisoraVO;
 import com.ositran.vo.bean.RolOpcionesVO;
+import com.ositran.vo.bean.TipoDocumentoVO;
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
 
 import java.sql.SQLException;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Generated;
 
 import javax.faces.application.FacesMessage;
-
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpSession;
+import javax.faces.component.html.HtmlForm;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
@@ -351,20 +337,29 @@ public class MantenimientoEmpSup {
     }
     
     public String EmpSupDel() throws SQLException{
-        try{            
-            empSupVO=this.empSupServiceImp.get(idEliminar);
-            empSupVO.setSupEstado(0);
-            empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
-            empSupVO.setSupTerminal(ipcliente);
-            empSupVO.setSupUsuarioBaja(usuario.getUsuAlias());
-            empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
-            
-            this.empSupServiceImp.update(empSupVO);
-            //this.empSupServiceImp.delete(idEmpSup);
-            getQuery();
-            empSupVO.setSupId(null);
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
-                                                        FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        try{        
+            boolean codigoValido = empSupServiceImp.validarCodigoEnUso(idEliminar);
+            if (codigoValido) {
+                empSupVO=this.empSupServiceImp.get(idEliminar);
+                empSupVO.setSupEstado(0);
+                empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
+                empSupVO.setSupTerminal(ipcliente);
+                empSupVO.setSupUsuarioBaja(usuario.getUsuAlias());
+                empSupVO.setSupFechaBaja(util.getObtenerFechaHoy());
+                
+                this.empSupServiceImp.update(empSupVO);
+                //this.empSupServiceImp.delete(idEmpSup);
+                getQuery();
+                empSupVO.setSupId(null);
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", "Se Elimino con Exito");
+                                                            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque la Empresa Supervisora esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+           
            
                                                     
         }catch(Exception e){

@@ -18,4 +18,5 @@ public interface EmpresaSupervisoraDAO {
         public int  ValidarRuc(String atributo,int documento) throws SQLException;
         public int ValidarNombreMod(String atributo, String NombreMod) throws SQLException;
         public List<Object[]> BuscarEmpresaPorContrato (Integer contratoConcesion, Integer etapaContrato, String nombreEmpresa) throws SQLException;
+        public boolean validarCodigoEnUso(Integer supId) throws Exception;
 }
