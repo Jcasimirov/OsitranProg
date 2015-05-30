@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import org.springframework.stereotype.Repository;
 
@@ -110,5 +111,26 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         return nombre;
     }
     
-
+    public boolean validarCodigoEnUso(Integer tinId) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("Select count(o.tinId) From Contrato o where o.conEstado = 1 and o.tinId=:tinId");
+            query.setParameter("tinId",tinId);
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }

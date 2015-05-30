@@ -149,5 +149,8 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         return nombre;
     }
     
-    
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+        boolean concesion=infraestructuraTipoDAOImpl.validarCodigoEnUso(csiId);
+        return concesion;
+    }
 }
