@@ -3,17 +3,9 @@ package com.ositran.parametros;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.util.ControlAcceso;
 import com.ositran.util.Reutilizar;
-import com.ositran.vo.bean.InfraestructuraTipoVO;
-
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-
 import com.ositran.util.Util;
-import com.ositran.vo.bean.ModalidadConcesionVO;
+import com.ositran.vo.bean.InfraestructuraTipoVO;
 import com.ositran.vo.bean.RolOpcionesVO;
-
 import com.ositran.vo.bean.UsuarioVO;
 
 import java.io.IOException;
@@ -21,10 +13,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import java.util.Date;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -46,27 +40,27 @@ public class MantenimientoTipoInfraestructura {
     private RolOpcionesVO rolOpcion;
     private UsuarioVO usuario;
     private int tipoInfraestructura;
-    private int tipoInfraestructuraGlobal;  
-    
+    private int tipoInfraestructuraGlobal;
+
     private int idEliminar;
-    
+
 
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
 
     @ManagedProperty(value = "#{infraestructuraTipoServiceImpl}")
     private InfraestructuraTipoServiceImpl infraestructuraTipoServiceImpl;
-    
-    
+
+
     //Listas
     List<InfraestructuraTipoVO> listaMod;
 
     public void validarSesion() throws IOException {
         rolOpcion = ControlAcceso.getNewInstance().validarSesion(formulario);
         usuario = Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado();
-        tipoInfraestructuraGlobal = usuario.getTinId(); 
+        tipoInfraestructuraGlobal = usuario.getTinId();
         tipoInfraestructura = usuario.getTinId();
-        
+
     }
 
 
@@ -140,28 +134,27 @@ public class MantenimientoTipoInfraestructura {
 
     /* Editar */
     public void cargarEditar() {
-        
+
         try {
-           //inicio de captura de codigo a modificar
-           FacesContext context = FacesContext.getCurrentInstance();
-           Map requestMap = context.getExternalContext().getRequestParameterMap();
-           Object str = requestMap.get("idModificar");
-           Integer idcodigo = Integer.valueOf(str.toString());
-           infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idcodigo);
-           //fin de de captura de codigo a modificar
-            
-           codigoE = infraestructuraTipoVO.getTinId();
-           tinNombreE = infraestructuraTipoVO.getTinNombre();
-           tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
-                        
-            
-       } catch (Exception e) {
+            //inicio de captura de codigo a modificar
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map requestMap = context.getExternalContext().getRequestParameterMap();
+            Object str = requestMap.get("idModificar");
+            Integer idcodigo = Integer.valueOf(str.toString());
+            infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idcodigo);
+            //fin de de captura de codigo a modificar
+
+            codigoE = infraestructuraTipoVO.getTinId();
+            tinNombreE = infraestructuraTipoVO.getTinNombre();
+            tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
+
+
+        } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
         }
-        
 
-        
+
     }
 
     public void editar() throws SQLException {
@@ -200,51 +193,64 @@ public class MantenimientoTipoInfraestructura {
 
         return listaInfraestructura;
     }
-    
+
     public void getQuery() throws SQLException {
         listaMod = this.infraestructuraTipoServiceImpl.query();
     }
-    
+
     public void cargarEliminar() {
         try {
-            
-           FacesContext context = FacesContext.getCurrentInstance();
-           Map requestMap = context.getExternalContext().getRequestParameterMap();
-           Object str = requestMap.get("idEliminar");
-           Integer idInfra = Integer.valueOf(str.toString());
-           infraestructuraTipoVO = this.infraestructuraTipoServiceImpl.get(idInfra);
-           idEliminar = infraestructuraTipoVO.getTinId();
-           nombreEliminar = infraestructuraTipoVO.getTinNombre().toUpperCase();
-           
-       } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-       
-    }
-    
-    public void eliminar() throws SQLException {
-        try {
-            infraestructuraTipoVO = this.infraestructuraTipoServiceImpl.get(idEliminar);
-            infraestructuraTipoVO.setTinEstado(0);
-            infraestructuraTipoVO.setTinTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
-            infraestructuraTipoVO.setTinUsuarioBaja(usuario.getUsuAlias());
-            infraestructuraTipoVO.setTinUsuarioCambio(usuario.getUsuAlias());
-            infraestructuraTipoVO.setTinFechaBaja(util.getObtenerFechaHoy());
-            this.infraestructuraTipoServiceImpl.update(infraestructuraTipoVO);
-            getQuery();
-            ListarInfraestructura();
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-                                                                          "Se eliminó correctamente"));
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            Map requestMap = context.getExternalContext().getRequestParameterMap();
+            Object str = requestMap.get("idEliminar");
+            Integer idInfra = Integer.valueOf(str.toString());
+            infraestructuraTipoVO = this.infraestructuraTipoServiceImpl.get(idInfra);
+            idEliminar = infraestructuraTipoVO.getTinId();
+            nombreEliminar = infraestructuraTipoVO.getTinNombre().toUpperCase();
+
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
         }
 
     }
-    
-    
+
+    public void eliminar() throws SQLException {
+        try {
+            boolean codigoValido = infraestructuraTipoServiceImpl.validarCodigoEnUso(idEliminar);
+            if (codigoValido) {
+                infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idEliminar);
+                infraestructuraTipoVO.setTinEstado(0);
+                infraestructuraTipoVO.setTinTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+                infraestructuraTipoVO.setTinUsuarioBaja(usuario.getUsuAlias());
+                infraestructuraTipoVO.setTinUsuarioCambio(usuario.getUsuAlias());
+                infraestructuraTipoVO.setTinFechaBaja(util.getObtenerFechaHoy());
+                this.infraestructuraTipoServiceImpl.update(infraestructuraTipoVO);
+                getQuery();
+                ListarInfraestructura();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+                                                                              "Se eliminó correctamente"));
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque el Tipo de Infraestructura esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            FacesMessage mensaje =
+                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ocurrió un Error" + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+
+        }
+
+
+    }
+
+
     public void cargarTodo() {
         try {
             int contador = 1;
@@ -357,7 +363,6 @@ public class MantenimientoTipoInfraestructura {
     public String getNomInfraSearch() {
         return nomInfraSearch;
     }
-
 
 
     public List<InfraestructuraTipoVO> SearchListaInfra() throws SQLException {

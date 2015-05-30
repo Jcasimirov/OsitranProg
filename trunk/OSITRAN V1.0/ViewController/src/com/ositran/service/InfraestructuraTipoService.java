@@ -2,7 +2,9 @@ package com.ositran.service;
 
 
 import com.ositran.vo.bean.InfraestructuraTipoVO;
+
 import java.sql.SQLException;
+
 import java.util.List;
 
 public interface InfraestructuraTipoService {
@@ -13,5 +15,6 @@ public interface InfraestructuraTipoService {
         public InfraestructuraTipoVO get(Integer id) throws SQLException;
         public List<InfraestructuraTipoVO> AllSearch(String a)throws SQLException;
         public String getNombre(int codigo) throws SQLException;
+        public boolean validarCodigoEnUso(Integer csiId) throws Exception;
 }
    
