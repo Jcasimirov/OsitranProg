@@ -135,14 +135,23 @@ public class DescripcionTipoInversion {
 
     public void eliminar() {
         try {
-            inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
-            inversionDescripcionVO.setItdFechaBaja(new Date());
-            inversionDescripcionVO.setItdUsuarioBaja(usuario.getUsuAlias());
-            inversionDescripcionVO.setItdEstado(0);
-            inversionDescripcionServicesImpl.update(inversionDescripcionVO);
-            busqueda();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
-            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            boolean codigoValido = inversionDescripcionServicesImpl.validarCodigoEnUso(inversionDescripcionVO);
+            if (codigoValido) {
+                inversionDescripcionVO=inversionDescripcionServicesImpl.get(codigoInversionDescripcion);
+                inversionDescripcionVO.setItdFechaBaja(new Date());
+                inversionDescripcionVO.setItdUsuarioBaja(usuario.getUsuAlias());
+                inversionDescripcionVO.setItdEstado(0);
+                inversionDescripcionServicesImpl.update(inversionDescripcionVO);
+                busqueda();
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            } else {
+                FacesMessage mensaje =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                     "No se puede Eliminar porque la Descripcion del Tipo de Inversion esta en Uso!");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+            
         } catch (SQLException s) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_FATAL,

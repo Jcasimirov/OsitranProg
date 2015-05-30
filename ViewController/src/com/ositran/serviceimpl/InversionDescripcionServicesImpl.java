@@ -140,7 +140,11 @@ public class InversionDescripcionServicesImpl implements InversionDescripcionSer
     public InversionDescripcionVO getInversionDescripcionVO() {
         return inversionDescripcionVO;
     }
-
+    public boolean validarCodigoEnUso(InversionDescripcionVO inversionDescrpcionVO) throws Exception{
+       InversionTipoDescripcion tipoDescripcion= inversionTipoDescripcion(inversionDescripcionVO);
+        boolean concesion=inversionDescripcionDAOimpl.validarCodigoEnUso(tipoDescripcion);
+        return concesion;
+    }
 
    
 }

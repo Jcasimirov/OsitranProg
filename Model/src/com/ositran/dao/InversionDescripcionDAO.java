@@ -17,6 +17,7 @@ public interface InversionDescripcionDAO {
         public List<InversionTipoDescripcion> query1(String buscar) throws SQLException ,Exception;
         public int getCanNombres(String nombre)  throws SQLException ,Exception;    
         public List<InversionTipoDescripcion> queryAllIdtEstado()  throws SQLException ,Exception;
+        public boolean validarCodigoEnUso(InversionTipoDescripcion inversionDescrpcionVO) throws Exception;
 }
 
 

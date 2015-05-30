@@ -6,11 +6,11 @@ import com.ositran.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     InversionTipoDescripcion inversionTipoDescripcion;
@@ -121,7 +121,33 @@ public class InversionDescripcionDAOImpl implements InversionDescripcionDAO{
     public InversionTipoDescripcion getInversionTipoDescripcion() {
         return inversionTipoDescripcion;
     }
-
+    public boolean validarCodigoEnUso(InversionTipoDescripcion des) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery(" Select count(o.dtiId) " +
+                                       " From ValorizacionInversionAvanceDetalle o " +
+                                       " where o.tivId=:tivId " +
+                                       "   and o.dtiId=:itdId ");
+            query.setParameter("tivId",des.getTivId());
+            query.setParameter("itdId",des.getItdId());
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 
     
 }
