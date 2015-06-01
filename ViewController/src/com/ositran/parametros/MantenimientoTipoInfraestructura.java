@@ -44,7 +44,12 @@ public class MantenimientoTipoInfraestructura {
 
     private int idEliminar;
 
-
+    /* buscar  */
+    String nomInfraSearch;
+    private String buscar;
+    private List<InfraestructuraTipoVO> filtrar;
+    
+    
     @ManagedProperty(value = "#{infraestructuraTipoVO}")
     private InfraestructuraTipoVO infraestructuraTipoVO;
 
@@ -134,6 +139,8 @@ public class MantenimientoTipoInfraestructura {
 
     /* Editar */
     public void cargarEditar() {
+        
+        
 
         try {
             //inicio de captura de codigo a modificar
@@ -158,7 +165,15 @@ public class MantenimientoTipoInfraestructura {
     }
 
     public void editar() throws SQLException {
-
+        if (tinNombre.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "Debe ingresar el nombre"));
+        } else if (tinDescripcion.equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                          "Debe ingresar la descripción"));
+        } else{
         try {
             infraestructuraTipoVO.setTinId(codigoE);
             infraestructuraTipoVO.setTinNombre(tinNombreE.toUpperCase());
@@ -175,7 +190,7 @@ public class MantenimientoTipoInfraestructura {
             // TODO: Add catch code
             e.printStackTrace();
         }
-
+        }
     }
     /* Fin Editar */
 
@@ -269,6 +284,27 @@ public class MantenimientoTipoInfraestructura {
         }
 
     }
+    
+    
+    public List<InfraestructuraTipoVO> SearchListaInfra() throws SQLException {
+        if(nomInfraSearch.trim().equals("")){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "Ingresar criterio de busqueda"));
+            }
+        else{
+        try {
+            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+        }
+        }
+
+        return listaInfraestructura;
+        
+    }
+
 
     public void setTinNombre(String tinNombre) {
         this.tinNombre = tinNombre;
@@ -335,10 +371,7 @@ public class MantenimientoTipoInfraestructura {
         return codigoE;
     }
 
-    /* buscar  */
-    String nomInfraSearch;
-    private String buscar;
-    private List<InfraestructuraTipoVO> filtrar;
+    
 
     public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
         this.filtrar = filtrar;
@@ -365,18 +398,7 @@ public class MantenimientoTipoInfraestructura {
     }
 
 
-    public List<InfraestructuraTipoVO> SearchListaInfra() throws SQLException {
-        try {
-            listaInfraestructura = this.infraestructuraTipoServiceImpl.AllSearch(nomInfraSearch);
-        } catch (Exception e) {
-            // TODO: Add catch code
-            e.printStackTrace();
-        }
-
-
-        return listaInfraestructura;
-    }
-
+    
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
         this.rolOpcion = rolOpcion;
