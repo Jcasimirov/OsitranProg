@@ -40,7 +40,7 @@
                                     <tr>
                                         <td align="left">
                                             <p:fieldset legend="Criterios de Busqueda">
-                                                <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="cb" style="width:200px;" value="#{actualizarContratoMB.nombreConcesion}"/>
+                                                <p:inputText maxlength="50"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="cb" style="width:200px;" value="#{actualizarContratoMB.nombreConcesion}"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato" actionListener="#{actualizarContratoMB.abrirBuscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg" oncomplete="popupBuscarContrato.show();">
                                                     <p:resetInput target=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg"/>
@@ -127,7 +127,7 @@
                                                                 <tr>
                                                                     <td align="left">Dia Mes:</td>
                                                                     <td align="left">
-                                                                        <p:inputText    value="#{actualizarContratoMB.periodoseleccionado ne 0?null:actualizarContratoMB.contratoVO.conDiames}" id="diames" style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}" onkeypress="return validarNum(event);"></p:inputText>
+                                                                        <p:inputText maxlength="2"   value="#{actualizarContratoMB.periodoseleccionado ne 0?null:actualizarContratoMB.contratoVO.conDiames}" id="diames" style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}" onkeypress="return validarNum(event);"></p:inputText>
                                                                     </td>
                                                                 </tr>
                                                             </table>
