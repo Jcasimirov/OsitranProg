@@ -983,7 +983,7 @@
                             </p:dialog>
                         </p:tab>
                         <p:tab id="tab3" title="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos?'CAO - Hito - POO':'Hito'}" disabled="#{actualizarContratoMB.tabDeshabilitado}">
-                            <h:form id="frmCHP">
+                            <h:form id="frmCHP" styleClass="frmContainer">
                                 <table>
                                     <tr>
                                         <td align="left" style="font-weight: bold;">
@@ -1000,27 +1000,27 @@
                                         <td colspan="2">
                                             <div style="text-align: center;">
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaCAO" var="tCao" value="#{actualizarContratoMB.listContratoCaoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
-                                                    <p:column headerText="Inversión">
+                                                    <p:column headerText="Inversión" styleClass="tabla-wrap-aeropuerto">
                                                         <h:outputText value="#{tCao.caoNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Nro" style="width:12%">
+                                                    <p:column headerText="Nro" styleClass="tabla-wrap-numero">
                                                         <h:outputText value="#{tCao.caoId}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha" style="width:10%">
+                                                    <p:column headerText="Fecha" styleClass="tabla-wrap-fecha">
                                                         <h:outputText value="#{tCao.caoFechaDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto" style="width:4%">
+                                                    <p:column headerText="Monto" styleClass="tabla-wrap-monto">
                                                         <h:outputText value="#{tCao.caoMonto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:8%">
+                                                    <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                         <h:outputText value="#{tCao.monNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Ver" style="width:4%">
+                                                    <p:column headerText="Ver" styleClass="tabla-wrap-btn">
                                                         <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" actionListener="#{actualizarContratoMB.preDownloadCao(tCao.caoPdf)}">
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadCao}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                    <p:column headerText="Eliminar" styleClass="tabla-wrap-btn" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarCao()}" oncomplete="popupEliminarCAO.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaCAO :tab:formEliminarCAO">
                                                             <f:param id="idContratoCaoE" name="idContratoCaoE" value="#{tCao.caoId}"/>
@@ -1057,32 +1057,32 @@
                                         <td colspan="2">
                                             <div style="text-align: center;">
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaHito" var="tHito" value="#{actualizarContratoMB.listContratoHitoVO}">
-                                                    <p:column headerText="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                    <p:column headerText="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}" styleClass="tabla-wrap-aeropuerto">
                                                         <h:outputText value="#{tHito.htoNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Nro" style="width:12%">
+                                                    <p:column headerText="Nro" styleClass="tabla-wrap-numero">
                                                         <h:outputText value="#{tHito.htoId}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha" style="width:10%">
+                                                    <p:column headerText="Fecha" styleClass="tabla-wrap-fecha">
                                                         <h:outputText value="#{tHito.htoFechaDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto" style="width:4%">
+                                                    <p:column headerText="Monto" styleClass="tabla-wrap-monto">
                                                         <h:outputText value="#{tHito.htoMonto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:8%; text-align:">
+                                                    <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                         <h:outputText value="#{tHito.monNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Ver" style="width:4%">
+                                                    <p:column headerText="Ver" styleClass="tabla-wrap-btn">
                                                         <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" actionListener="#{actualizarContratoMB.preDownloadHito(tHito.htoPdf)}">
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadHito}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Modificar" style="width:4%" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos and actualizarContratoMB.rolOpcion.troModificar eq 1}">
+                                                    <p:column headerText="Modificar" styleClass="tabla-wrap-btn" rendered="#{actualizarContratoMB.tipoInfraestructura ne paramInicio.tipinfaeropuertos and actualizarContratoMB.rolOpcion.troModificar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarModificarHito()}" oncomplete="popupModificarHito.show()" image="ui-icon-pencil" style="width:25px;height:25px" update=":tab:frmCHP:tablaHito :tab:frmModificarHito">
                                                             <f:param id="idContratoHitoM" name="idContratoHitoM" value="#{tHito.htoId}"/>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                    <p:column headerText="Eliminar" styleClass="tabla-wrap-btn" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton 
                                                         actionListener="#{actualizarContratoMB.cargarEliminarHito()}" oncomplete="popupEliminarHito.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaHito :tab:formEliminarHito">
                                                             <f:param id="idContratoHitoE" name="idContratoHitoE" value="#{tHito.htoId}"/>
@@ -1118,29 +1118,29 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <div style="text-align: center;">
+                                            <div >
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaPPO" var="tPpo" value="#{actualizarContratoMB.listContratoPpoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
-                                                    <p:column headerText="Aeropuerto">
+                                                    <p:column headerText="Aeropuerto" styleClass="tabla-wrap-aeropuerto">
                                                         <h:outputText value="#{tPpo.ppoNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Nro" style="width:12%">
+                                                    <p:column headerText="Nro" styleClass="tabla-wrap-numero">
                                                         <h:outputText value="#{tPpo.ppoId}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha" style="width:10%">
+                                                    <p:column headerText="Fecha" styleClass="tabla-wrap-fecha">
                                                         <h:outputText value="#{tPpo.ppoFechaDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Monto" style="width:4%">
+                                                    <p:column headerText="Monto" styleClass="tabla-wrap-monto">
                                                         <h:outputText value="#{tPpo.ppoMonto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Moneda" style="width:8%">
+                                                    <p:column headerText="Moneda" styleClass="tabla-wrap-moneda">
                                                         <h:outputText value="#{tPpo.monNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Ver" style="width:4%">
+                                                    <p:column headerText="Ver" styleClass="tabla-wrap-btn">
                                                         <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" actionListener="#{actualizarContratoMB.preDownloadPpo(tPpo.ppoArchivoPdf)}">
                                                             <p:fileDownload value="#{actualizarContratoMB.downloadPpo}"></p:fileDownload>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                    <p:column headerText="Eliminar" styleClass="tabla-wrap-btn" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarPpo()}" oncomplete="popupEliminarPpo.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmCHP:tablaPPO :tab:formEliminarPpo">
                                                             <f:param id="idContratoPpoE" name="idContratoPpoE" value="#{tPpo.ppoId}"/>
                                                         </p:commandButton>
@@ -1412,7 +1412,7 @@
                                 </h:form>
                             </p:dialog>
                             <p:dialog header="Agregar PPO" widgetVar="popupAgregarPPO" modal="true" appendToBody="true">
-                                <h:form id="frmAgregarPpo">
+                                <h:form id="frmAgregarPpo" styleClass="frmContainer">
                                     <p:growl id="msjPpo" showDetail="true" life="10000"/>
                                     <table style="margin-bottom:5px;font-size: 11px;text-align:center">
                                         <tr>
@@ -1464,7 +1464,10 @@
                                                  
                                                 <p:fileUpload fileUploadListener="#{actualizarContratoMB.subirArchivoPpo}" update="docPpo" label="Adjuntar" auto="true"/>
                                                  
-                                                <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
+                                                
+                                            </td>
+                                            <td>
+                                            <p:graphicImage url="../../images/obligatorio.gif" style="top: 10px"/>
                                             </td>
                                         </tr>
                                          
@@ -1505,7 +1508,7 @@
                             </p:dialog>
                         </p:tab>
                         <p:tab id="tab4" title="Alertas Personalizadas" disabled="#{actualizarContratoMB.tabDeshabilitado}">
-                            <h:form id="frmAlerta">
+                            <h:form id="frmAlerta" styleClass="frmContainer">
                                 <table>
                                     <tr>
                                         <td align="left" style="font-weight: bold;">Alertas</td>
@@ -1520,38 +1523,38 @@
                                         <td colspan="2">
                                             <div>
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
-                                                    <p:column headerText="Aeropuerto" style="width:14%" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                    <p:column headerText="Aeropuerto" styleClass="tabla-wrap-desc" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tAlerta.calAeropuerto}"/>
                                                     </p:column>
-                                                    <p:column headerText="Descripcion">
+                                                    <p:column headerText="Descripción" styleClass="tabla-wrap-desc">
                                                         <h:outputText value="#{tAlerta.calNombreconcesion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha Inicio" style="width:6%">
+                                                    <p:column headerText="Fecha Inicio" styleClass="tabla-wrap-fechas">
                                                         <h:outputText value="#{tAlerta.calFechaInicioDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Fecha Fin" style="width:6%">
+                                                    <p:column headerText="Fecha Fin" styleClass="tabla-wrap-fechas">
                                                         <h:outputText value="#{tAlerta.calFechaFinDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Plazo" style="width:4%">
+                                                    <p:column headerText="Plazo" styleClass="tabla-wrap-plazo">
                                                         <h:outputText value="#{tAlerta.calPlazoDescripcion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Dia de Presentación" style="width:11%">
+                                                    <p:column headerText="Dia de Presentación" styleClass="tabla-wrap-dia">
                                                         <h:outputText value="#{tAlerta.calDiaPresentacion}"/>
                                                     </p:column>
-                                                    <p:column headerText="Estado" style="width:4%">
+                                                    <p:column headerText="Estado" styleClass="tabla-wrap-estado">
                                                         <h:outputText value="#{tAlerta.caeNombre}"/>
                                                     </p:column>
-                                                    <p:column headerText="Activar" style="width:4%">
+                                                    <p:column headerText="Activar" styleClass="tabla-wrap-botones">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarActivarAlerta}" oncomplete="popupActivarAlerta.show()" image="ui-icon-play" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formActivarAlerta" rendered="#{tAlerta.calEstado eq 2}">
                                                             <f:attribute name="contratoAlertaA" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Desactivar" style="width:5%">
+                                                    <p:column headerText="Desactivar" styleClass="tabla-wrap-botones">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarDesactivarAlerta}" oncomplete="popupDesactivarAlerta.show()" image="ui-icon-stop" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formDesactivarAlerta" rendered="#{tAlerta.calEstado eq 1}">
                                                             <f:attribute name="contratoAlertaD" value="#{tAlerta}"/>
                                                         </p:commandButton>
                                                     </p:column>
-                                                    <p:column headerText="Eliminar" style="width:4%" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
+                                                    <p:column headerText="Eliminar" styleClass="tabla-wrap-botones" rendered="#{actualizarContratoMB.rolOpcion.troEliminar eq 1}">
                                                         <p:commandButton actionListener="#{actualizarContratoMB.cargarEliminarAlerta}" oncomplete="popupEliminarAlerta.show()" image="ui-icon-trash" style="width:25px;height:25px" update=":tab:frmAlerta:tablaAlerta :tab:formEliminarAlerta">
                                                             <f:attribute name="contratoAlertaE" value="#{tAlerta}"/>
                                                         </p:commandButton>
