@@ -238,7 +238,7 @@
                                 #{etq.etq_usu}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAlias}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAlias}" maxlength="20"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
@@ -252,7 +252,7 @@
                             </td>
                             <td>
                                 <p:password style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenya}"
-                                            onkeyup="pasarMayuscula(this.value,this.id)"/>
+                                            onkeyup="pasarMayuscula(this.value,this.id)" maxlength="4000"/>
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
@@ -263,7 +263,7 @@
                                 #{etq.etq_nombre}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombre}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombre}" maxlength="100"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
@@ -276,7 +276,7 @@
                                 #{etq.etq_correo}
                             </td>
                             <td>
-                                <p:inputText id="correo" style="width:300px"
+                                <p:inputText id="correo" style="width:300px" maxlength="100"
                                 onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{mantenimientoUsuarioMB.usuCorreo}">
                                     <p:watermark for="correo" value="correo@ositran.gob.pe"/>
@@ -375,7 +375,7 @@
                                 #{etq.etq_usu}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAliasE}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuAliasE}" maxlength="20"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                             </td>
@@ -386,7 +386,7 @@
                                 #{etq.etq_pas}
                             </td>
                             <td>
-                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenyaE}"/>
+                                <p:inputText maxlength="4000" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuContrasenyaE}"/>
                             </td>
                         </tr>
                          
@@ -395,7 +395,7 @@
                                 #{etq.etq_nombre}
                             </td>
                             <td>
-                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombreE}"
+                                <p:inputText style="width:300px" value="#{mantenimientoUsuarioMB.usuNombreE}" maxlength="100"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                             </td>
@@ -406,7 +406,7 @@
                                 #{etq.etq_correo}
                             </td>
                             <td>
-                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
+                                <p:inputText maxlength="100" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  style="width:300px" value="#{mantenimientoUsuarioMB.usuCorreoE}"/>
                             </td>
                         </tr>
                          

@@ -132,7 +132,7 @@
                                Nombre:
                             </td>
                             <td align="left">
-                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="99"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="100"
                                              value="#{opcionesSistemasMB.nombreE}" style="width:300px"/>
                                  
                                 <h:outputText value=" "/>
@@ -146,7 +146,7 @@
                                Descripción:
                             </td>
                             <td align="left">
-                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="100"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="255"
                                                  value="#{opcionesSistemasMB.descripcionE}" style="width:300px" />
     
                                 <h:outputText value=" "/>
@@ -198,7 +198,7 @@
                     <table style="margin-bottom:5px;font-size:11px;text-align:center">
                      <tr>
                             <td colspan="2" style="color:#2121ff;font-style: italic;font-weight: bold;">
-                                ¡Cuidado los cambios que realisen desde aqui podrian dañar la aplicación.!
+                                ¡Cuidado los cambios que realizen desde aqui podrian dañar la aplicación.!
                             </td>
                            
                         </tr>
@@ -208,7 +208,7 @@
                                 Nombre:
                             </td>
                             <td align="left">
-                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="50"
+                                <p:inputText onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"  maxlength="100"
                                              value="#{opcionesSistemasMB.nombre}" label="Nombre" id="nombre"
                                              style="width:300px"/>                                
                                 <h:outputText value=" "/>                                 
@@ -221,7 +221,7 @@
                                 Descripción:
                             </td>
                             <td align="left">
-                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" maxlength="99"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus" maxlength="255"
                                                  value="#{opcionesSistemasMB.descripcion}" style="width:300px"/>                                
                                 <h:outputText value=" "/>                                
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>

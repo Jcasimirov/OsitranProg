@@ -129,7 +129,7 @@
                             <td align="left" >Ingrese Nombre:</td>
                             <td align="left">
                                 <p:inputText onblur="pasarMayuscula(this.value,this.id)" style="width:290px"
-                                             value="#{descripcionInversionMB.nombre}"/>
+                                             value="#{descripcionInversionMB.nombre}" maxlength="100"/>
                                                <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif"  />
                             </td>
@@ -139,7 +139,7 @@
                             <td align="left">Ingrese Descripcion:</td>
                             <td align="left">
                                 <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" style="width:290px"
-                                                 value="#{descripcionInversionMB.descripcion}"/>
+                                                 value="#{descripcionInversionMB.descripcion}" maxlength="100"/>
                                                   <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
                             </td>
@@ -224,7 +224,7 @@
                             </td>
                             <td align="left">
                                 <p:inputText onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{descripcionInversionMB.nombreE}" style="width:290px"/>
+                                             value="#{descripcionInversionMB.nombreE}" style="width:290px" maxlength="100"/>
                                                <h:outputText value=" "/>
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
                             </td>
@@ -235,7 +235,7 @@
                                 #{etq.etq_rti_idti}
                             </td>
                             <td align="left">
-                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)"
+                                <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" maxlength="100"
                                                  value="#{descripcionInversionMB.descripcionE}" style="width:290px"/>
                                                    <h:outputText value=" "/>
                                     <img src="../../images/obligatorio.gif" style="vertical-align: top;" />
