@@ -140,6 +140,8 @@ public class OpcionesSistemaMB {
     
     
     public  void eliminar(){
+        menVO.setMenUsuarioBaja(usuario.getUsuAlias());
+        menVO.setMenFechaBaja(new Date());
         menServiceImpl.update(menVO);
             FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
