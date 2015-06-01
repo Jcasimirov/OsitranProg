@@ -85,7 +85,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         query =
-            session.createQuery("FROM InfraestructuraTipo I WHERE lower(I.tinNombre) like lower(:busqueda) or lower(I.tinDescripcion) like lower(:busqueda)  order by TIN_ID asc");
+            session.createQuery("FROM InfraestructuraTipo I WHERE (lower(I.tinNombre) like lower(:busqueda) or lower(I.tinDescripcion)like lower(:busqueda) )  and ( I.tinEstado<>0  and  I.tinId>0)  order by TIN_ID asc");
         query.setParameter("busqueda", "%" + a + "%");
         return query.list();
     }
