@@ -30,7 +30,7 @@ public class ModalidadConcesionDAOImpl implements ModalidadConcesionDAO {
     public List<ModalidadConcesion> query() throws SQLException{
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
 
-        List<ModalidadConcesion> list= session.createQuery("From ModalidadConcesion o where o.mcoEstado<> 0").list();            
+        List<ModalidadConcesion> list= session.createQuery("From ModalidadConcesion o where o.mcoEstado<> 0 order by MCO_ID desc").list();            
         System.out.println("LISTA = "+list);
 
         session.close();

@@ -126,8 +126,10 @@ public class MantenimientoTipoInfraestructura {
                                                              new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                               "Se agregó exitosamente"));
             } catch (SQLException e) {
-
                 e.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error",
+                                                                              " No se pudo guardar el tipo de infraestructura "));
             }
 
         }
@@ -140,8 +142,6 @@ public class MantenimientoTipoInfraestructura {
     /* Editar */
     public void cargarEditar() {
         
-        
-
         try {
             //inicio de captura de codigo a modificar
             FacesContext context = FacesContext.getCurrentInstance();
@@ -150,26 +150,20 @@ public class MantenimientoTipoInfraestructura {
             Integer idcodigo = Integer.valueOf(str.toString());
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idcodigo);
             //fin de de captura de codigo a modificar
-
             codigoE = infraestructuraTipoVO.getTinId();
             tinNombreE = infraestructuraTipoVO.getTinNombre();
             tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
-
-
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
         }
-
-
     }
 
-    public void editar() throws SQLException {
-        if (tinNombre.equals("")) {
+    public void editar() {
+        if (tinNombreE.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe ingresar el nombre"));
-        } else if (tinDescripcion.equals("")) {
+        } else if (tinDescripcionE.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe ingresar la descripción"));
@@ -182,13 +176,16 @@ public class MantenimientoTipoInfraestructura {
             infraestructuraTipoVO.setTinFechaCambio(new Date());
             infraestructuraTipoVO.setTinUsuarioCambio(usuario.getUsuAlias());
             getInfraestructuraTipoServiceImpl().update(infraestructuraTipoVO);
+            RequestContext.getCurrentInstance().execute("popupeditar.hide()");
             ListarInfraestructura();
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
                                                                           "Se actualizó correctamente"));
         } catch (Exception e) {
-            // TODO: Add catch code
             e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error",
+                                                                          " No se pudo editar el tipo de infraestructura "));
         }
         }
     }
