@@ -235,6 +235,7 @@ public class TipoInversion {
         try {
             boolean codigoValido = tipoInversionServicesImpl.validarCodigoEnUso(tipoInversionVO.getTivId());
             if (codigoValido) {
+                tipoInversionVO.setTivUsuarioBaja(usuario.getUsuAlias());
                 tipoInversionServicesImpl.update(tipoInversionVO);
                 ListarInversiones();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se elimino con Exito");
