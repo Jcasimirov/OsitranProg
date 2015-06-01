@@ -435,6 +435,10 @@ public class ActualizarContrato {
     public void abrirBuscarContratos() {
         /**validacion para pintar la tabla del dialogo buscar
          * contrato siempre y cuendo se haya escrito en la caja de buscar contrato-concesion**/
+        concesion=-1;
+        fechaInicioSuscripcion=null;
+        fechaFinSuscripcion=null;
+        listaContrato=new ArrayList<ContratoVO>();
         if (nombreConcesion.length() != 0) {
             buscarContratos();
         }

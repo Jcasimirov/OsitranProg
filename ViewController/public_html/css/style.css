@@ -175,11 +175,12 @@ text-transform: uppercase;
 
 .dlgContent .tabla-wrap {
     white-space: normal;
-    width: 200px;
+    width:40px;
 }
 .dlgContent .tabla-wrap-boton {
     white-space: normal;
-    width: 100px;
+    width: 50px;
+    padding: 2px;
 }
 .dlgContent .tabla-wrap-desc {
     white-space: normal;
