@@ -14,13 +14,12 @@ import java.util.List;
 
 public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoService{
     
-    InfraestructuraTipoDAO infraestructuraTipoDAOImpl;
     InfraestructuraTipo infraestructuraTipo;
     InfraestructuraTipoVO infraestructuraTipoVO;
-    InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl1=new InfraestructuraTipoDAOImpl();
+    InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl=new InfraestructuraTipoDAOImpl();
     
     public List<InfraestructuraTipoVO> query1() throws SQLException{
-        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl1.query();
+        List<InfraestructuraTipo> list=infraestructuraTipoDAOImpl.query();
         List<InfraestructuraTipoVO> listVO=toListInfraestructuraTiposVO(list);
         return listVO;
     }  
@@ -111,11 +110,11 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
     }
 
 
-    public void setInfraestructuraTipoDAOImpl(InfraestructuraTipoDAO infraestructuraTipoDAOImpl) {
+    public void setInfraestructuraTipoDAOImpl(InfraestructuraTipoDAOImpl infraestructuraTipoDAOImpl) {
         this.infraestructuraTipoDAOImpl = infraestructuraTipoDAOImpl;
     }
 
-    public InfraestructuraTipoDAO getInfraestructuraTipoDAOImpl() {
+    public InfraestructuraTipoDAOImpl getInfraestructuraTipoDAOImpl() {
         return infraestructuraTipoDAOImpl;
     }
 
