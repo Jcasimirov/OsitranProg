@@ -145,8 +145,8 @@
                                                      style="width:300px;text-transform:uppercase; " onblur="pasarMayuscula(this.value,this.id)"/>
                                         <img src="../../images/obligatorio.gif"/>
                                         
-                                        <p:commandButton id="btn_add" value="Agregar Infraestructura"
-                                                         update="books mensaje @parent form:mensaje"
+                                        <p:commandButton id="btn_add" value="Agregar"
+                                                         update="tblconcesion txt_title"
                                                          actionListener="#{mantenimientoconcesionMB.reinit()}">
                                          
                                         </p:commandButton>
@@ -154,25 +154,26 @@
                                             Campos obligatorios( 
                                             <img src="../../images/obligatorio.gif"/>)
                                         </div>
+                                        
                                     </h:panelGrid>
                                 </p:panel>
                                  
-                                <p:outputPanel id="books">
+                             
                                     <p:dataTable value="#{mantenimientoconcesionMB.infraestructuras}" var="list" rowsPerPageTemplate="5,10,20"
-                                                 id="booksTable" emptyMessage="NO SE ENCONTRARON DATOS">
+                                                 id="tblconcesion" emptyMessage="NO SE ENCONTRARON DATOS">
                                         <p:column headerText="Infraestructura">
                                             <h:outputText value="#{list.infNombre}"
                                                           style="width:300px;text-transform:uppercase; "/>
                                         </p:column>
                                         <p:column style="width:70px" headerText="Eliminar">
-                                            <p:commandButton icon="ui-icon-trash" title="Eliminar"  update=":form:books" process=":form:books">
+                                            <p:commandButton icon="ui-icon-trash" title="Eliminar"  update=":form:tblconcesion" >
                                                 <p:collector value="#{list}"
                                                              removeFrom="#{mantenimientoconcesionMB.infraestructuras}"
                                                              unique="true"/>
                                             </p:commandButton>
                                         </p:column>
                                     </p:dataTable>
-                                </p:outputPanel>
+                              
                                  <br>
                                  </br>
                              
@@ -245,18 +246,18 @@
                         </tr>
                          
                         <tr>
-                        <td></td>
-                        <td align="right">
+                        
+                        <td >
                                 <p:commandButton update=":form:insertarPanel :form:tablaES2 :form:nombreInf"
                                                  action="#{mantenimientoconcesionMB.agregacionConfirmadaInfraestructura2()}"
-                                                  onkeyup="pasarMayuscula(this.value,this.id)" value="Agregar">
+                                                  onkeyup="pasarMayuscula(this.value,this.id)" value="Agregar Infraestructura">
                                     <f:param id="codNuevoConcesion2" name="codNuevoConcesion2"
                                              value="#{mantenimientoconcesionMB.codigoE}"/>
                                     <f:param id="codNuevoConcesion3" name="codNuevoConcesion3"
                                              value="#{mantenimientoconcesionMB.codigoT}"/>
                                 </p:commandButton>
                             </td>
-                            <td>
+                            <td colspan="2">
                                 <div style="font-size: 10px;font-style: oblique; color: Red; text-align: right; float: left;">
                                     Campos obligatorios( 
                                     <img src="../../images/obligatorio.gif"/>)
