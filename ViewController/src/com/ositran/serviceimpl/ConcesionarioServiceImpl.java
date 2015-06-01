@@ -67,6 +67,18 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
     }
     
     @Override
+    public int getCanSiglas(String nombre) throws SQLException, Exception {
+        cantidad =concesionarioDAOImpl.getCanSiglas(nombre);
+        return cantidad;
+    }
+    
+    @Override
+    public int getCanRuc(String nombre) throws SQLException, Exception {
+        cantidad =concesionarioDAOImpl.getCanRuc(nombre);
+        return cantidad;
+    }
+    
+    @Override
     public String insert(ConcesionarioVO concesionarioVO)  throws SQLException ,Exception{
         Concesionario concesionario=toConcesionario(concesionarioVO);
         String result=concesionarioDAOImpl.insert(concesionario);
@@ -190,5 +202,8 @@ public class ConcesionarioServiceImpl implements ConcesionarioService{
         boolean concesion=concesionarioDAOImpl.validarCodigoEnUso(Id);
         return concesion;
     }
+
+
+   
 }
 

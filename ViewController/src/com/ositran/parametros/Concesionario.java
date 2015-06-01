@@ -76,6 +76,8 @@ public class Concesionario {
     private Pattern pattern;
     private Matcher matcher;
     int cantidad;
+    int cantidadSiglas;
+    int cantidadRuc;
 
     private static final String EMAIL_PATTERN =
         "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -95,12 +97,28 @@ public class Concesionario {
     
     public void guardar() {
         cantidad=validarNombre(nombre);
+        cantidadRuc=validarRuc(numeroDocumento);
+        cantidadSiglas=validarSiglas(siglasNombre);
+        
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correo);
+        
+        
         if (cantidad>0){
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                               "El nombre que quiere ingresar ya existe"));
+            }
+        else if (cantidadSiglas>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "La siglas ingresadas ya existen"));
+            
+            }
+       else  if (cantidadRuc>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "El número RUC ya existe"));
             }
         else if (nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -114,14 +132,10 @@ public class Concesionario {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe selecionar tipo documento"));
-        } else if (tipDocumento == 2 && numeroDocumento.length() != 11) {
+        } else if ( numeroDocumento.length() != 11) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El RUC debe de tener 11 dijitos"));
-        } else if (tipDocumento == 1 && numeroDocumento.length() != 8) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "El DNI debe de tener 8 dijitos"));
         } else if (!correo.equals("") && matcher.find() != true) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
@@ -209,7 +223,7 @@ public class Concesionario {
      
     
     public void editar() {
-        cantidad=validarNombre(nombreE);
+        cantidad=validarNombre(nombreE);    
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(correoE);
         
@@ -471,9 +485,48 @@ public class Concesionario {
             }
  
     }
+    
+    public int validarRuc(String nombre){
+            int cantidad=0;
+        try {
+           cantidad=concesionarioServiceImpl.getCanRuc(nombre);
+       } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                        
+                                                                          " No se pudo validar el ruc "));  
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                             
+                                                                              " No se pudo validar el ruc "));
+            }
+        return cantidad;
+        }
+    
+    public int validarSiglas(String nombre){
+            int cantidad=0;
+        try {
+           cantidad=concesionarioServiceImpl.getCanSiglas(nombre);
+       } catch (SQLException s) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                        
+                                                                          " No se pudo validar SIGLAS "));  
+        } 
+        catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",
+                                                                             
+                                                                              " No se pudo validar SIGLAS "));
+            }
+        return cantidad;
+        }
+    
+    
     public int validarNombre(String nombre){
             int cantidad=0;
-
         try {
            cantidad=concesionarioServiceImpl.getCanNombres(nombre);
        } catch (SQLException s) {
@@ -490,6 +543,9 @@ public class Concesionario {
             }
         return cantidad;
         }
+    
+    
+    
     public void limpiarCampos() {
         buscar = "";
         codigoConcesionario = 0;
@@ -824,4 +880,21 @@ public class Concesionario {
     public List<TipoDocumentoVO> getListaTipDoc1() {
         return listaTipDoc1;
     }
+
+    public void setUsuario(UsuarioVO usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioVO getUsuario() {
+        return usuario;
+    }
+
+    public void setCantidadSiglas(int cantidadSiglas) {
+        this.cantidadSiglas = cantidadSiglas;
+    }
+
+    public int getCantidadSiglas() {
+        return cantidadSiglas;
+    }
+
 }
