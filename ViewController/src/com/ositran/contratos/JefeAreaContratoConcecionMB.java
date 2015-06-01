@@ -164,6 +164,7 @@ public class JefeAreaContratoConcecionMB {
     
 
     public void desabilitar(int codigo){
+            contratoJefeAreaVO=new ContratoJefeAreaVO();
         contratoJefeAreaVO=contratoJefeAreaServiceImpl.get(codigo);
         contratoJefeAreaVO.setCjaEstado(0);
         contratoJefeAreaVO.setCjaFechaFinal(new Date());
@@ -173,6 +174,7 @@ public class JefeAreaContratoConcecionMB {
     
     
     public void activar(int codigo){
+            contratoJefeAreaVO=new ContratoJefeAreaVO();
         contratoJefeAreaVO=contratoJefeAreaServiceImpl.get(codigo);
         contratoJefeAreaVO.setCjaEstado(0);
         contratoJefeAreaVO.setCjaFechaFinal(new Date());
@@ -190,13 +192,15 @@ public class JefeAreaContratoConcecionMB {
             else {
             
                     listaContratos = contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
-                    System.out.println(listaContratos.size());
+                    int numero =1;
                     for (ContratoVO contra : listaContratos) {
                         ConcesionVO concesion = new ConcesionVO();
-
+                        
                         concesion = concesionServiceImpl.get(contra.getCsiId());
+                        contra.setCorrela(numero);
                         contra.setNombreConcesion(concesion.getCsiNombre());
                         contra.setCodigoConcesion(concesion.getCsiId());
+                        numero++;
                 }
             }
         } catch (Exception e) {
@@ -222,6 +226,7 @@ public class JefeAreaContratoConcecionMB {
     }
 
     public void registrarContrato() {
+        contratoJefeAreaVO=new ContratoJefeAreaVO();
         try {
             boolean decicion=false;
             
@@ -254,6 +259,7 @@ public class JefeAreaContratoConcecionMB {
                 contratoJefeAreaVO.setCjaNroDocumento(numeroDocumento);
                 contratoJefeAreaVO.setTinId(tipoInfraestructuraC);
                 contratoJefeAreaServiceImpl.insert(contratoJefeAreaVO);
+                
                 listarJefeAreaContrato();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registró con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, mensaje);

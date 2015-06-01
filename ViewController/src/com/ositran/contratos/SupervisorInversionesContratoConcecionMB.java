@@ -11,6 +11,7 @@ import com.ositran.service.SupervisorInversionesService;
 import com.ositran.service.TipoDocumentoService;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.SupervisorInversionesServiceImpl;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 import com.ositran.vo.bean.ContratoSubInversionesVO;
 import com.ositran.vo.bean.ContratoVO;
@@ -179,17 +180,21 @@ public class SupervisorInversionesContratoConcecionMB {
                     FacesContext.getCurrentInstance().addMessage(null, mensaje);
                 }
             else {
+                int numero=1;
            listaContratos=contratoConcesionServiceImp.buscarContratos1(tipoInfraestructura);
             for (ContratoVO contra: listaContratos){ 
                 ConcesionVO concesion=new ConcesionVO();
+                
                 concesion=concesionServiceImpl.get(contra.getCsiId());         
                 contra.setNombreConcesion(concesion.getCsiNombre()); 
+                contra.setCorrela(numero);
                 codigoContrato = contra.getConId();
                 codigoContratoP=codigoContrato;
                 infraestructuraVO=infraestructuraServiceImpl.get2(concesion.getTinId());
                 tipoInfraestructuraF=infraestructuraVO.getTinId();
                 codigoConcesion=infraestructuraVO.getCsiId();
-                codigoInfraestructura=infraestructuraVO.getInfId();                
+                codigoInfraestructura=infraestructuraVO.getInfId();     
+                numero++;
                 }
             }
        } catch (Exception e) {
@@ -314,6 +319,7 @@ public class SupervisorInversionesContratoConcecionMB {
           supervisorSelecionado=0;
           codigoContrato=0;
           codigoConcesion=0;
+            tipoInfraestructura=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
         }
     
     public void limpiar1(){
@@ -333,6 +339,8 @@ public class SupervisorInversionesContratoConcecionMB {
           codigoContrato=0;
           codigoConcesion=0;
           listaContratoSupervisor.clear();
+          listaSupervisor.clear();
+            tipoInfraestructura=Reutilizar.getNewInstance().obtenerDatosUsuarioLogueado().getTinId();
         }
     
   public void  limpiarAbajo(){
