@@ -45,6 +45,56 @@ public class ConcesionarioDAOImpl implements ConcesionarioDAO {
         }
     }
 
+
+   
+    public int getCanRuc(String nombre) throws SQLException, Exception {
+        int cantidad = 0;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        Query query;
+        List list;
+        try {
+            tx=session.beginTransaction();
+            query = session.createQuery("FROM Concesionario  E WHERE  E.cncNroDocumento like :nombre and E.cncEstado <> 0");
+            query.setParameter("nombre", nombre);
+            list = query.list();
+            cantidad = list.size();
+            tx.commit();
+            return cantidad;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+    
+    public int getCanSiglas(String nombre) throws SQLException, Exception {
+        int cantidad = 0;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        Query query;
+        List list;
+        try {
+            tx=session.beginTransaction();
+            query = session.createQuery("FROM Concesionario  E WHERE  E.cncSiglas like :nombre and E.cncEstado <> 0");
+            query.setParameter("nombre", nombre);
+            list = query.list();
+            cantidad = list.size();
+            tx.commit();
+            return cantidad;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
     @Override
     public List<Concesionario> query() throws SQLException, Exception {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
