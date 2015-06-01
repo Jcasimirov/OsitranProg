@@ -532,7 +532,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "El Plazo de Revision no puede ser cero o vacio"));
-        } else if (contratoVO.getConFechaSuscripcion() == null) {
+        } else if ((aplicaAvancedeObra && periodoseleccionado != -1 ) && contratoVO.getConFechaSuscripcion() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "La Fecha de Suscripcion no puede ser vacio"));
@@ -540,15 +540,7 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Ingrese el Plazo de concesion"));
-        } else if (contratoVO.getConPdfcontrato() == null || contratoVO.getConPdfcontrato().length() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "Adjunte un Contrato"));
-        } else if (contratoVO.getConFicharesumen() == null || contratoVO.getConFicharesumen().length() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "Adjunte una Ficha Resumen"));
-        } else {
+        }else {
             try {
                 contratoVO.setPerId(periodoseleccionado);
                 contratoVO.setConAvanceobra(aplicaAvancedeObra ? 1 : 0);
