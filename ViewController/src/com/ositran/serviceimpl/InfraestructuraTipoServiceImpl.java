@@ -152,4 +152,11 @@ public class InfraestructuraTipoServiceImpl implements InfraestructuraTipoServic
         boolean concesion=infraestructuraTipoDAOImpl.validarCodigoEnUso(csiId);
         return concesion;
     }
+
+    @Override
+    public int getCanNombres(String tinNombre) throws Exception {
+        int cantidad;
+        cantidad =infraestructuraTipoDAOImpl.getCanNombres(tinNombre);
+        return cantidad;
+    }
 }
