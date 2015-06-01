@@ -146,9 +146,11 @@
                         <tr>
                             <td colspan="1" align="left">Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText maxlength="50" style="width:92%" styleClass="estandar-mayus-minus"
+                                <p:inputText maxlength="100" style="width:92%" styleClass="estandar-mayus-minus"
                                              onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"/>
+                                             value="#{concesionarioMB.nombreE}" label="Nombre" id="nombreE"
+                                             
+                                             />
                                               <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
@@ -158,7 +160,7 @@
                             <td colspan="1" align="left">Descripción:</td>
                             <td colspan="3" align="left">
                                 <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" style="width:92%"
-                                                 maxlength="50" value="#{concesionarioMB.descripcionE}" styleClass="estandar-mayus-minus"
+                                                 maxlength="100" value="#{concesionarioMB.descripcionE}" styleClass="estandar-mayus-minus"
                                                  label="descripcion" id="descripcionE"/>
                                                   <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -206,7 +208,9 @@
                         <tr>
                             <td align="left">Dirección:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                <p:inputText style="width:70%" 
+                                maxlength="100"
+                                onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              value="#{concesionarioMB.direccionE}"/>
                             </td>
                         </tr>
@@ -228,7 +232,8 @@
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" validatorMessage="El Email no es correcto" id="emailE"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
-                                             value="#{concesionarioMB.correoE}" >
+                                             value="#{concesionarioMB.correoE}"
+                                             maxlength="100" >
                                     <p:watermark for="email" value="juanp@gmail.com"/>
                                 </p:inputText>
                             </td>
@@ -288,7 +293,7 @@
                         <tr>
                             <td colspan="1" align="left">Nombre:</td>
                             <td colspan="3" align="left">
-                                <p:inputText  maxlength="50" style="width:90%" styleClass="estandar-mayus-minus"
+                                <p:inputText  maxlength="100" style="width:90%" styleClass="estandar-mayus-minus"
                                              onblur="pasarMayuscula(this.value,this.id)"
                                              value="#{concesionarioMB.nombre}" label="Nombre" id="nombre"/>
                                              <h:outputText value=" "/>      
@@ -300,7 +305,7 @@
                             <td colspan="1" align="left">Descripción:</td>
                             <td colspan="3" align="left">
                                 <p:inputTextarea onblur="pasarMayuscula(this.value,this.id)" style="width:90%"
-                                                 maxlength="50" value="#{concesionarioMB.descripcion}" styleClass="estandar-mayus-minus"
+                                                 maxlength="100" value="#{concesionarioMB.descripcion}" styleClass="estandar-mayus-minus"
                                                  label="descripcion" id="descripcion"/>
                                                  <h:outputText value=" "/>      
                                 <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
@@ -350,8 +355,8 @@
                         <tr>
                             <td align="left">Dirección:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
-                                             value="#{concesionarioMB.direccion}" maxlength="50"/>
+                                <p:inputText style="width:70%"   onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
+                                             value="#{concesionarioMB.direccion}" maxlength="100"/>
                             </td>
                         </tr>
                          
@@ -360,9 +365,11 @@
                         <tr>
                             <td align="left">Representante Legal:</td>
                             <td colspan="3" align="left">
-                                <p:inputText style="width:70%" maxlength="6" styleClass="estandar-mayus-minus"
+                                <p:inputText style="width:70%" maxlength="50" styleClass="estandar-mayus-minus"
                                              onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.representante}"/>
+                                             value="#{concesionarioMB.representante}"
+                                             
+                                             />
                                                <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
@@ -372,7 +379,7 @@
                             <td colspan="3" align="left">
                                 <p:inputText style="width:70%" id="email" styleClass="estandar-mayus-minus"
                                              onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{concesionarioMB.correo}" maxlength="50">
+                                             value="#{concesionarioMB.correo}" maxlength="100">
                                     
                                 </p:inputText>
                             </td>
