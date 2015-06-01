@@ -478,7 +478,7 @@
                                 <h:form id="frmNuevaAdendaDlg" >
                                     <p:panelGrid id="pnlNuevaAdendaDlg" styleClass="pnlEdicion" columns="5" columnClasses=" etiquetas,cajas,validadores,nomarchivo">
                                         <p:outputLabel for="nombre" value="Nombre Documento"/>
-                                        <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" />
+                                        <p:inputText   styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="nombre" value="#{actualizarContratoMB.contratoNuevaAdendaVO.cadNombre}" />
                                         <p:message for="nombre" display="text"/>
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
                                         <h:outputText value=""/>
