@@ -663,7 +663,7 @@
                                         <p:outputLabel for="alcancecom" value="Alcance"/>
                                         <p:inputTextarea maxlength="4000" styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)" id="alcancecom" style="width:200px;" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.ccoAlcance}" />
                                         <p:graphicImage url="../../images/obligatorio.gif"/>
-                                        <p:outputLabel for="tipoinversioncom" value="Tipo de Inversion"/>
+                                        <p:outputLabel for="tipoinversioncom" value="Tipo de Inversión"/>
                                         <p:selectOneMenu id="tipoinversioncom" value="#{actualizarContratoMB.contratoNuevoCompromisoVO.tivId}" style="width:210px">
                                             <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
                                             <f:selectItems value="#{actualizarContratoMB.listaTipoInversion}" var="tiv" itemLabel="#{tiv.tivNombre}" itemValue="#{tiv.tivId}"/>
