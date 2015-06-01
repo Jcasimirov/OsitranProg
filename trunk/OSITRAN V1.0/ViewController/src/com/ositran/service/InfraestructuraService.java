@@ -18,4 +18,5 @@ public interface InfraestructuraService {
     public List<InfraestructuraVO> query2(int CodigoC)throws SQLException;
     public List<InfraestructuraVO> getInfraestructurasContrato(int codigoContrato) throws SQLException;
     public List<InfraestructuraVO> getInfraestructurasInversion(int codigoConcesion) throws Exception;
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception;
 }
