@@ -258,8 +258,7 @@
                             <tr>
                                 <td align="center" colspan="2">
                                     <p:commandButton update=":form:tablaMTI :form:mensaje"
-                                                     oncomplete="popupeditar.hide()"
-                                                     action="#{infraestructuraMB.editar}" style="width:70px"
+                                                     action="#{infraestructuraMB.editar()}" style="width:70px"
                                                      value="Guardar"/>
                                      
                                     <p:commandButton value="#{btn.btn_salir}" oncomplete="popupeditar.hide()"/>
