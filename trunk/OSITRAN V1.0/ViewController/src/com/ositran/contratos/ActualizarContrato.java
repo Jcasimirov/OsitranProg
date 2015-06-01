@@ -447,12 +447,19 @@ public class ActualizarContrato {
         listaContrato=new ArrayList<ContratoVO>();
     }
     public void buscarContratos() {
-        System.out.println("tipoInfraestructura, concesion" + tipoInfraestructura + " " + concesion);
+        
         try {
+            if(fechaInicioSuscripcion!=null && fechaFinSuscripcion!=null && (fechaInicioSuscripcion.after(fechaFinSuscripcion))){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "La fecha de inicio no puede ser mayor a la fecha fin"));
+                RequestContext.getCurrentInstance().update("tab:form:mensaje");
+            }else{
             listaContrato =
                 contratoConcesionServiceImp.buscarxNombreConcesion(nombreConcesion.toUpperCase().trim(),
                                                                    tipoInfraestructura, concesion,
                                                                    fechaInicioSuscripcion, fechaFinSuscripcion);
+            }
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -561,7 +568,7 @@ public class ActualizarContrato {
                 Date conPlazoConcesionCalculado =
                     fu.adicionaDias(contratoVO.getConFechaSuscripcion(), cantidadDeDias, 0);
                 contratoVO.setConPlazoconcesion(conPlazoConcesionCalculado);
-                contratoVO.setConFechaCambio(new Date());
+                contratoVO.setConFechaCambio(Reutilizar.obtenerFechaActual());
                 contratoVO.setConUsuarioCambio(usuario.getUsuAlias());
 
                 if (periodoseleccionado != 0) {

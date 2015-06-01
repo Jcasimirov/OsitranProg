@@ -273,22 +273,34 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                         if(codTipoInfraestructura!=0)
                                             querysql.append(" and  c.TIN_ID = :tinid ");                                    
                                         if(codConcesion!=-1)
-                                            querysql.append(" and  c.CSI_ID = :csiid ");                                    
+                                            querysql.append(" and  c.CSI_ID = :csiid ");
+                                        if(fechaIncioSuscripcion!=null && fechafinSuscripcion==null)
+                                            querysql.append(" and  c.CON_FECHA_SUSCRIPCION >= :fis ");
+                                        if(fechaIncioSuscripcion==null && fechafinSuscripcion!=null)
+                                            querysql.append(" and  c.CON_FECHA_SUSCRIPCION <= :ffs");
                                         if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null)
                                             querysql.append(" and  c.CON_FECHA_SUSCRIPCION between :fis and :ffs");
                                         
-                               Query query=session.createSQLQuery(querysql.toString());
+                               Query query=session.createSQLQuery(querysql.toString()+" order by c.CON_FECHA_ALTA DESC");
                                         if(nombreConcesion.length()!=0 && nombreConcesion!=null)
                                             query.setParameter("nombre", "%"+nombreConcesion+"%");
                                         if(codTipoInfraestructura!=0)
                                             query.setParameter("tinid", codTipoInfraestructura);                                    
                                         if(codConcesion!=-1)
-                                            query.setParameter("csiid", codConcesion);                                    
+                                            query.setParameter("csiid", codConcesion); 
+                                        if(fechaIncioSuscripcion!=null && fechafinSuscripcion==null){
+                                            query.setParameter("fis", fechaIncioSuscripcion);
+                                           
+                                        }
+                                        if(fechaIncioSuscripcion==null && fechafinSuscripcion!=null){
+                                            query.setParameter("ffs", fechafinSuscripcion);
+                                           
+                                        }
                                         if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null){
                                             query.setParameter("fis", fechaIncioSuscripcion);
                                             query.setParameter("ffs", fechafinSuscripcion);
                                         }
-                                    
+                                        
             List<Object[]> list=(List<Object[]>)query.list(); 
             tx.commit();
             return list;
