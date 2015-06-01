@@ -181,7 +181,7 @@
                             <td colspan="2" align="left">Dirección:</td>
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;"  onblur="pasarMayuscula(this.value,this.id)"  id="dirEmpSupMod"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupMod}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSupMod}" maxlength="200"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
@@ -189,8 +189,8 @@
                         <tr>
                             <td colspan="2" align="left">Representante Legal:</td>
                             <td colspan="2" align="left">
-                                <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegalMod"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegalMod}" onblur="pasarMayuscula(this.value,this.id)"  maxlength="20"></p:inputText>
+                                <p:inputText style="width: 400px;text-transform:uppercase;" id="repLegalMod" maxlength="100"
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.repLegalMod}" onblur="pasarMayuscula(this.value,this.id)"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
@@ -201,7 +201,7 @@
                                 <p:inputText
                                 onblur="pasarMayuscula(this.value,this.id)"
                                 id="siglasNomMod" style="text-transform:uppercase;"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="20"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNomMod}" maxlength="10"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                             <td align="left">Teléfono:</td>
@@ -236,7 +236,6 @@
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="jefesupMod"
                                 onblur="pasarMayuscula(this.value,this.id)"
-                                
                                              value="#{backing_ositran_parametros_MantenimientoEmpSup.jefesupMod}" maxlength="100"></p:inputText>
                             </td>
                         </tr>
@@ -257,7 +256,7 @@
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirObraMod"
                                 onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObraMod}" maxlength="100"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObraMod}" maxlength="200"></p:inputText>
                             </td>
                         </tr>
                          <tr>
@@ -295,7 +294,7 @@
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirEmpSup"
                                 onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="100"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirEmpSup}" maxlength="200"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                         </tr>
@@ -314,7 +313,7 @@
                             <td align="left">
                                 <p:inputText id="siglasNom" style="text-transform:uppercase;"
                                 onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="15"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.siglasNom}" maxlength="10"></p:inputText>
                             <img src="../../images/obligatorio.gif" style="vertical-align: top;"/>
                             </td>
                             
@@ -370,7 +369,7 @@
                             <td colspan="2" align="left">
                                 <p:inputText style="width: 400px;text-transform:uppercase;" id="dirObra"
                                 onblur="pasarMayuscula(this.value,this.id)"
-                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObra}" maxlength="100"></p:inputText>
+                                             value="#{backing_ositran_parametros_MantenimientoEmpSup.dirObra}" maxlength="200"></p:inputText>
                             </td>
                         </tr>
                         
@@ -395,7 +394,7 @@
                         <tr>
                             <td  align="left">Nombre de la Empresa Supervisora: </td>
                             <td  align="left">
-                                <h:outputText style="width:400px;text-transform:uppercase;" id="nomEmpSupVer"
+                                <h:outputText style="width:400px;text-transform:uppercase;" id="nomEmpSupVer" 
                                               value="#{backing_ositran_parametros_MantenimientoEmpSup.nomEmpSupVer}"/>
                             </td>
                         </tr>
