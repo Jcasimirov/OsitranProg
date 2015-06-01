@@ -75,7 +75,6 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
 
     public List query() throws SQLException {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-
         List list = session.createQuery("From InfraestructuraTipo o WHERE o.tinId > 0 and o.tinEstado<>0 order by TIN_ID asc").list();
         session.close();
         return list;
@@ -86,7 +85,7 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
         Query query;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         query =
-            session.createQuery("FROM InfraestructuraTipo  I WHERE lower(I.tinNombre) like  lower(:busqueda) or lower(I.tinDescripcion) like lower(:busqueda)  order by TIN_ID asc");
+            session.createQuery("FROM InfraestructuraTipo I WHERE lower(I.tinNombre) like lower(:busqueda) or lower(I.tinDescripcion) like lower(:busqueda)  order by TIN_ID asc");
         query.setParameter("busqueda", "%" + a + "%");
         return query.list();
     }
