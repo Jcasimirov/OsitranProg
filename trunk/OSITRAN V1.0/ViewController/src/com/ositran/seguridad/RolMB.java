@@ -363,6 +363,7 @@ public void actualizarTodoE(){
          rolVO.setRolFechaCambio(new Date());
          rolVO.setRolUsuarioCambio(usuario.getUsuAlias());
          rolVO.setRolId(idE);
+         rolVO.setRolTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
          rolServiceImpl.update(rolVO);
              for (MenVO menVOQ:   listaMenSeleccionadoE){
                  
@@ -380,6 +381,7 @@ public void actualizarTodoE(){
                 rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
                 rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
                 rolOpcionesVO.setTroModificar((menVO.isActualizar()) ? 1 : 0);
+                rolOpcionesVO.setTroTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 rolOpcionesServiceImpl.insertOrUpdate(rolOpcionesVO);
                 RequestContext.getCurrentInstance().execute("panelEditar.hide()");
                 cargarListaRoles();
@@ -551,8 +553,7 @@ public void actualizarTodoE(){
             rolVO.setRolEstado(1);
             rolVO.setRolFechaAlta(new Date());
             rolVO.setRolUsuarioAlta(usuario.getUsuAlias());
-          
-            
+            rolVO.setRolTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
             codigoRol = rolServiceImpl.getCodigo(rolVO);
 
             for (MenVO menVO : listaMenNueva) {
@@ -566,6 +567,7 @@ public void actualizarTodoE(){
                 rolOpcionesVO.setTroConsultar((menVO.isLectura()) ? 1 : 0);
                 rolOpcionesVO.setTroEliminar((menVO.isEliminar()) ? 1 : 0);
                 rolOpcionesVO.setTroModificar((menVO.isActualizar()) ? 1 : 0);
+                rolOpcionesVO.setTroTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
                 rolOpcionesServiceImpl.insert(rolOpcionesVO);
                 RequestContext.getCurrentInstance().execute("insertarPanel.hide()");
                 cargarListaRoles();
