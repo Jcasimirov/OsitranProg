@@ -34,7 +34,7 @@
                                 <!---->
                                 <table width="100%" >
                                     <tr  >
-                                        <td style="width:25%"  align="left">Buscar:
+                                        <td style="width:35%"  align="left">Buscar:
                                         
                                             <p:inputText id="nombrebuscar" value="#{mantenimientoconcesionMB.concesionbuscar}" onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"/>
                                                          <h:outputText value=" " style="color:white" />
@@ -43,7 +43,10 @@
                                                                  image="ui-icon-search" id="buscar"/>
                                                  
                                                 <p:tooltip styleClass="tool" id="tool1" for="buscar"
-                                                           value="Busqueda por nombre"/>                                        
+                                                           value="Busqueda por nombre"/>    
+                                                            <p:commandButton image="ui-icon-arrowreturnthick-1-s" actionListener="#{mantenimientoconcesionMB.ListarConcesiones()}"
+                                                              update=":form:tablaES"  id="buscarTodos" ></p:commandButton>
+                                                <p:tooltip styleClass="tool"  id="toolTipFade1" for="buscarTodos" value="Ver la lista completa de concesiones" />
                                         </td>
                                         
                                        <td align="left" style="width:12%">
@@ -71,14 +74,16 @@
                                     </tr>
                                 </table>
                                 <br></br>
-                                <p:dataTable style="font-size:11px; text-align: center" id="tablaES" var="var1"
+                                <p:dataTable style="font-size:10px" id="tablaES" var="var1"
                                              rowKey="#{var1.csiId}" value="#{mantenimientoconcesionMB.listaConcesiones}"
                                              rows="10" paginator="true" paginatorPosition="bottom"  
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20" emptyMessage="NO SE ENCONTRARON DATOS">
-                                    <p:column headerText="Nro" style="width:2%">
+                                    <p:column headerText="Nro" style="width:2px">
+                                          <div align="center">
                                         <h:outputText value="#{var1.correla}"
                                                       style="width:300px"/>
+                                                      </div>
                                     </p:column>
                                     <p:column headerText="Concesión">
                                         <h:outputText value="#{var1.csiNombre}"
@@ -89,23 +94,28 @@
                                                       style="width:300px"/>
                                     </p:column>
                                     <p:column style="width:4%" headerText="Modificar"  rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
+                                    <div align="center">
                                         <p:commandButton id="botonModificar" actionListener="#{mantenimientoconcesionMB.cargarEditar()}"
                                                          oncomplete="editarPanel.show()" image="ui-icon-pencil"
                                                          styleClass="controles" update=":form:editarPanel">
                                             <f:param id="idModificar" name="idModificar" value="#{var1.csiId}"/>
                                         </p:commandButton>
                                         <p:tooltip for="botonModificar" value="Modificar la fila" styleClass="tool"/>
+                                    </div>
                                     </p:column>
                                     
                                     <p:column headerText="Eliminar" style="width:4%" rendered="#{mantenimientoconcesionMB.rolOpcion.troAgregar eq 1}">
+                                          <div align="center">
                                         <p:commandButton id="botonEliminar" actionListener="#{mantenimientoconcesionMB.cargarEliminarConcesion()}"
                                                          oncomplete="eliminarConcesionPanel.show()"
                                                          image="ui-icon-trash" styleClass="controles"
+                                                      
                                                          update=":form:tablaES :form:eliminarConcesionPanel">
                                             <f:param id="idEliminarConcesion" name="idEliminarConcesion"
                                                      value="#{var1.csiId}"/>
                                         </p:commandButton>
                                         <p:tooltip for="botonEliminar" value="Eliminar la fila" styleClass="tool"/>
+                                        </div>
                                     </p:column>
                                 </p:dataTable>
                             </div>

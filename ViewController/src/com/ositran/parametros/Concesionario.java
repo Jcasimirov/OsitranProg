@@ -394,6 +394,7 @@ public class Concesionario {
 
     public void cargarListaConcesionarios() {
         try {
+           
             int contador=1;
            listaCon = concesionarioServiceImpl.query();
             for(int i=0;i<listaCon.size();i++){
