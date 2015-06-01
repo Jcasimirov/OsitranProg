@@ -39,7 +39,7 @@
                                 <table>
                                     <tr>
                                         <td align="left">
-                                            <p:fieldset legend="Criterios de Busqueda">
+                                            <p:fieldset legend="Criterios de Búsqueda">
                                                 <p:inputText maxlength="50"  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  id="cb" style="width:200px;" value="#{actualizarContratoMB.nombreConcesion}"/>
                                                 <p:watermark for="cb" value="Buscar Contrato Concesión"/>
                                                 <p:commandButton image="ui-icon-search" id="btnBuscarContrato" actionListener="#{actualizarContratoMB.abrirBuscarContratos()}" update=":tab:frmBuscarContratoDlg:pnlBuscarContratoDlg :tab:frmBuscarContratoDlg:pnlBuscarContratoBtnDlg" oncomplete="popupBuscarContrato.show();">
