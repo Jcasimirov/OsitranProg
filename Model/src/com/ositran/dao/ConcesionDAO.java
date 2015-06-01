@@ -21,5 +21,5 @@ public interface ConcesionDAO {
     public List<Concesion> filtrarConcesion(int tipoInfraestructura) throws SQLException;
     public List<Concesion> listarConcesiones() throws SQLException;
     public List<Concesion> listarConcesionesxIdConcesion(int idConcesion) throws Exception;
-    public boolean validarCodigoEnUso(Integer csiId) throws Exception;
+    public boolean validarCodigoEnUso(Integer csiId,Integer tinId) throws Exception;
 }
