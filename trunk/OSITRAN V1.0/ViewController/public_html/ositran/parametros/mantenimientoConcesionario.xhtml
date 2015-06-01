@@ -65,7 +65,7 @@
                                              rowsPerPageTemplate="5,10,20" 
                                               id="tablaC" var="conc1" style="font-size:10px"
                                              value="#{concesionarioMB.listaCon}">                                            
-                                     <p:column headerText="Nro"  style="width:2%">
+                                     <p:column headerText="Nro"  style="width:12px">
                                         <h:outputText value="#{conc1.contador}"/>
                                     </p:column>         
                                     <p:column headerText="Nombre" >
@@ -194,9 +194,7 @@
                                 widgetVar="tipoDocumentoRE" id="tipoDocumentoRE1"
                                                  value="#{concesionarioMB.tipDocumentoE}" style="width:100%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
-                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"
-                                                    />
+                                     <f:selectItem itemLabel="RUC" itemValue="1" />
                                 </p:selectOneMenu>
                             </td>
                             <td align="left">Nro Documento:</td>
@@ -339,8 +337,8 @@
                                                 widgetVar="tipoDocumentoR" id="tipoDocumentoR"
                                                  value="#{concesionarioMB.tipDocumento}" style="width:90%">
                                     <f:selectItem itemLabel="-Seleccionar-" itemValue="0"/>
-                                    <f:selectItems value="#{concesionarioMB.listaTipoDoc}" var="tip"
-                                                   itemLabel="#{tip.tdoNombre}" itemValue="#{tip.tdoId}"/>
+                                    <f:selectItem itemLabel="RUC" itemValue="1"/>
+                                  
                                 </p:selectOneMenu>
                                 
                             </td>
