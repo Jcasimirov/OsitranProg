@@ -66,9 +66,10 @@
 		</p:fieldset>
 		<br></br>
 		<p:fieldset styleClass="fielsetinterno" id="buscarContratoConcesion" legend="Criterio de Búsqueda" >
-			<table  style="margin-bottom:5px;font-size: 11px">
-				<tr>    <td align="left" >Buscar Contrato de Concesión: </td>
-	 				<td align="left" colspan="3"><p:inputText   value="#{jefeAreaContratoConcecionMB.contratoConcesion}"  readonly="true" id="inputContrato" style="width:390px" /> 
+			<table  style="margin-bottom:5px;font-size: 11px;width:82%"    >
+				<tr>   
+                                    <td align="left" >
+                                        Buscar Contrato de Concesión: 
                                         <p:commandButton image="ui-icon-search"  
                                         id="cargarLista"
                                         update=":form:panelListaContratos :form:mensaje "
@@ -177,21 +178,21 @@
 </p:layout>
 
  <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
-                          style="text-align:center;">
+                          >
                     
                             <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="lisContratos1"
                                              value="#{jefeAreaContratoConcecionMB.listaContratos}">
-                                 <p:column headerText="ID" style="width:5px">
-                                        <h:outputText value="#{lisContratos1.conId}" />
+                                 <p:column headerText="Nro" style="width:3px">
+                                        <h:outputText value="#{lisContratos1.correla}" />
                                     </p:column>
                                     <p:column headerText="Nombre" style="width:50px">
                                         <h:outputText value="#{lisContratos1.nombreConcesion}" />
                                     </p:column>
                                   
-                                    <p:column   headerText="Elegir" style="width:5px" >
+                                    <p:column   headerText="Elegir" style="width:3px" >
                                         <div align="center">
                                             <p:commandButton
                                                 oncomplete="panelListaContratos.hide()" 
@@ -199,10 +200,8 @@
                                                 image="ui-icon-circle-check"  
                                                 id="selecionarContratos"
                                                 style="width:22px;height:22px"
-                                                update=":form:datosContratoConcesion :form:inputContrato :form:tablaAJ"
+                                                update=":form:datosContratoConcesion :form:tablaAJ"
                                                 >
-                                                
-                                                
                                             </p:commandButton>
                                               <p:tooltip styleClass="tool" id="tool3" for="selecionarContratos"
                                                           value="Selecionar un contrato"/>

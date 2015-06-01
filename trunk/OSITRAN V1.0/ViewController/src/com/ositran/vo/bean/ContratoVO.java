@@ -50,6 +50,7 @@ public class ContratoVO {
     private Integer conMesoAnioPlazoconcesion;
     private String conNotaPlazoConcesion;
     
+    private int correla;
     public void setCncId(Integer cncId) {
         this.cncId = cncId;
     }
@@ -369,5 +370,14 @@ public class ContratoVO {
 
     public String getNombreInfraTipo() {
         return nombreInfraTipo;
+    }
+
+
+    public void setCorrela(int correla) {
+        this.correla = correla;
+    }
+
+    public int getCorrela() {
+        return correla;
     }
 }

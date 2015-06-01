@@ -11,7 +11,6 @@
         <h:body>
          <f:event listener="#{supervisorContratoConcesionMB.cargarListaInfraestructura}" type="postAddToView"></f:event>
          <f:event listener="#{supervisorContratoConcesionMB.limpiar1}" type="preRenderComponent"></f:event>
-         
         <h:form id="form">
         <p:growl id="mensaje" showDetail="true" life="10000"/>
         <p:layout fullPage="true" style="border:none">
@@ -119,8 +118,7 @@
                                         <td align="left" colspan="3">
                                             <p:inputText value="#{supervisorContratoConcesionMB.contratoConcesion}" readonly="true" style="width:97.5%"/>
                                         </td>
-                                    </tr>
-                                     
+                                    </tr>                                     
                                     <tr>
                                         <td align="left">
                                             Tipo Infraestructura:
@@ -133,8 +131,7 @@
                                         </td>
                                         <td align="left">
                                             <p:inputText value="#{supervisorContratoConcesionMB.modalidadConcecion}"  readonly="true"  />
-                                        </td>
-                               
+                                        </td>                              
                                     </tr>
                                                   <tr>
                 <td align="right" colspan="4" style="font-size: 10px;font-style: oblique; color: Red;">
@@ -214,15 +211,15 @@
         </p:layout>
         
         <p:dialog width="40%"  header="Lista Contratos" widgetVar="panelListaContratos" id="panelListaContratos" 
-                          style="text-align:center;">
+                         >
                     
                       <p:dataTable paginatorPosition="bottom" rows="10" emptyMessage="NO SE ENCONTRARON DATOS"
                                              paginator="true"
                                              rowsPerPageTemplate="5,10,20" 
                                              style="font-size:11px" id="tablaLC" var="lisContratos"
                                              value="#{supervisorContratoConcesionMB.listaContratos}">
-                                 <p:column headerText="ID" style="width:5px">
-                                        <h:outputText value="#{lisContratos.conId}" />
+                                 <p:column headerText="Nro" style="width:2px">
+                                        <h:outputText value="#{lisContratos.correla}" />
                                     </p:column>
                                     <p:column headerText="Nombre" style="width:50px">
                                         <h:outputText value="#{lisContratos.nombreConcesion}" />
