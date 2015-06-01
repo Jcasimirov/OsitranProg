@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.dao.InfraestructuraDAO;
 import com.ositran.model.Infraestructura;
 import com.ositran.service.InfraestructuraService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.InfraestructuraVO;
 
 import java.sql.SQLException;
@@ -107,7 +108,7 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         infraestructura.setInfFechaAlta(infraestructuraVO.getInfFechaAlta());
         infraestructura.setInfFechaBaja(infraestructuraVO.getInfFechaBaja());
         infraestructura.setInfNombre(infraestructuraVO.getInfNombre());
-        infraestructura.setInfTerminal(infraestructuraVO.getInfTerminal());
+        infraestructura.setInfTerminal(Reutilizar.obtenerIpCliente());
         infraestructura.setInfUsuarioAlta(infraestructuraVO.getInfUsuarioAlta());
         infraestructura.setInfUsuarioBaja(infraestructuraVO.getInfUsuarioBaja());
         infraestructura.setInfUsuarioCambio(infraestructuraVO.getInfUsuarioCambio());
@@ -137,7 +138,10 @@ public class InfraestructuraServiceImpl implements InfraestructuraService{
         List<InfraestructuraVO> listVO=toListInfraestructuraVO(list);
         return listVO;
     }
-
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+        boolean concesion=infraestructuraDAOImpl.validarCodigoEnUso(csiId);
+        return concesion;
+    }
 
 }
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import org.springframework.stereotype.Repository;
 
@@ -95,9 +96,13 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
             session.getTransaction().commit();
             
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if(session.getTransaction()!=null)
+                session.getTransaction().rollback();
             result=e.getMessage();
+        }finally{
+            session.close();
         }
+        
         return result;
     }
 
@@ -178,5 +183,27 @@ public class InfraestructuraDAOImpl implements InfraestructuraDAO{
         
 
         return list; 
+    }
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+        boolean valido=false;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Transaction tx=null;
+        try {
+            tx=session.beginTransaction();
+            Query query=null;  
+            query =session.createQuery("Select count(o.csiId) From Contrato o where o.conEstado = 1 and o.csiId=:idConcesion order by o.csiId");
+            query.setParameter("idConcesion",csiId);
+            Long contador=(Long)query.uniqueResult();
+            valido=(contador>0)?false:true;            
+            tx.commit();
+            return valido;
+        } catch (Exception e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }

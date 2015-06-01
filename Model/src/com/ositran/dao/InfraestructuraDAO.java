@@ -26,4 +26,5 @@ public interface InfraestructuraDAO {
     
     public List<Infraestructura> getInfraestructurasContrato(int codigoContrato) throws SQLException;
     public List<Infraestructura> getInfraestructurasInversion(int codigoConcesion) throws Exception;
+    public boolean validarCodigoEnUso(Integer csiId) throws Exception;
 }
