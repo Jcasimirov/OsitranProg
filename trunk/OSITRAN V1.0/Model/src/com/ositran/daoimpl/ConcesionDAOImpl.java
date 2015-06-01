@@ -106,12 +106,12 @@ public class ConcesionDAOImpl implements ConcesionDAO {
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
         Transaction tx=null;
         try {
-            tx=session.beginTransaction();
+            session.beginTransaction();
             session.update(concesion);
-            tx.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (tx!=null) {
-                tx.rollback();
+            if (session.getTransaction()!=null) {
+                session.getTransaction().rollback();
             }
             result = e.getMessage();
         } finally {
@@ -251,27 +251,29 @@ public class ConcesionDAOImpl implements ConcesionDAO {
             session.close();
         }
     }
-    public boolean validarCodigoEnUso(Integer csiId) throws Exception{
+    public boolean validarCodigoEnUso(Integer csiId,Integer tinId) throws Exception{
         boolean valido=false;
         Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
-        Transaction tx=null;
+        
         try {
-            tx=session.beginTransaction();
+            session.beginTransaction();
             Query query=null;  
-            query =session.createQuery("Select count(o.csiId) From Contrato o where o.conEstado = 1 and o.csiId=:idConcesion order by o.csiId");
+            query =session.createQuery("Select count(o.csiId) From Contrato o where o.conEstado = 1 and o.csiId=:idConcesion and o.tinId=:idTipoInf");
             query.setParameter("idConcesion",csiId);
+            query.setParameter("idTipoInf",tinId);
+
             Long contador=(Long)query.uniqueResult();
-            valido=(contador>0)?false:true;            
-            tx.commit();
-            return valido;
+            valido=(contador>0)?false:true; 
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (tx!=null) {
-                tx.rollback();
+            if (session.getTransaction()!=null) {
+                session.getTransaction().rollback();
             }
             throw e;
         } finally {
             session.close();
         }
+        return valido;
     }
    
 }
