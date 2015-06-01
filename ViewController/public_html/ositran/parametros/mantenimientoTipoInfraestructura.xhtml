@@ -35,14 +35,14 @@
                                                     <td style="width: 10px">Buscar:</td>
                                                     <td style="width: 20px">
                                                         <p:inputText id="nomInfraSearch" size="20" styleClass="estandar-mayus-minus"
-                                                                     value="#{infraestructuraMB.nomInfraSearch}"
+                                                                     value="#{infraestructuraMB.nomInfraSearch}" 
                                                                      onblur="pasarMayuscula(this.value,this.id)"/>
                                                     </td>
                                                     
                                                     <td>
                                                         <p:commandButton image="ui-icon-search" id="buscartodos"
-                                                                         update=":form:tablaMTI" 
-                                                                         action="#{infraestructuraMB.SearchListaInfra}"/>
+                                                                         update=":form:tablaMTI :form:mensaje" 
+                                                                         action="#{infraestructuraMB.SearchListaInfra()}"/>
                                                          
                                                         <p:tooltip styleClass="tool" id="tool1" for="buscartodos"
                                                                    value="Buscar por Nombre / Descripción del tipo de Infraestructura"/>
@@ -171,7 +171,7 @@
                                 #{etq.etq_ntinfra}
                             </td>
                             <td align="left">
-                                <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px"
+                                <p:inputText value="#{infraestructuraMB.tinNombre}" style="width:300px" maxlength="50"
                                              onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                              onkeydown="return validarLetras(event)"/>
                                  
@@ -184,9 +184,9 @@
                                 #{etq.etq_dtinfra}
                             </td>
                             <td align="left">
-                                <p:inputText value="#{infraestructuraMB.tinDescripcion}"
-                                             style="width:300px; height:40px" styleClass="estandar-mayus-minus"
-                                             onblur="pasarMayuscula(this.value,this.id)"/>
+                                <p:inputTextarea value="#{infraestructuraMB.tinDescripcion}" maxlength="100"
+                                                style="width:300px; height:40px" styleClass="estandar-mayus-minus"
+                                                onblur="pasarMayuscula(this.value,this.id)" autoResize="false" />
                                  
                                 <img src="../../images/obligatorio.gif" style="top: 10px"/>
                             </td>
@@ -243,8 +243,8 @@
                                     #{etq.etq_dtinfra}
                                 </td>
                                 <td align="left">
-                                    <p:inputTextarea value="#{infraestructuraMB.tinDescripcionE}" style="width:250px" styleClass="estandar-mayus-minus" 
-                                                     onblur="pasarMayuscula(this.value,this.id)"/>
+                                    <p:inputTextarea value="#{infraestructuraMB.tinDescripcionE}" style="width:300px; height:40px"  styleClass="estandar-mayus-minus" 
+                                                     onblur="pasarMayuscula(this.value,this.id)" maxlength="100" autoResize="false"/>
                                                      <img src="../../images/obligatorio.gif"/>
                                 </td>
                             </tr>
