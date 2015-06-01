@@ -214,11 +214,72 @@ text-transform: uppercase;
 }
 .fieldContainer .tabla-wrap-estado{
     white-space: normal;
-    width: 70px;
+    width: 50px;
+    text-align: center;
+}
+
+.frmContainer .tabla-wrap-botones {
+    white-space: normal;
+    width:35px;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-dia {
+    white-space: normal;
+    width:60px;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-plazo {
+    white-space: normal;
+    width:50px;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-desc {
+    white-space: normal;
+    width:110px;
+    text-align: center;
+}
+
+.frmContainer .tabla-wrap-aeropuerto {
+    white-space: normal;
+    width:45%;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-numero {
+    white-space: normal;
+    width:5%;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-fecha {
+    white-space: normal;
+    width:8%;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-monto {
+    white-space: normal;
+    width:10%;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-moneda {
+    white-space: normal;
+    width:8%;
+    text-align: center;
+}
+.frmContainer .tabla-wrap-btn {
+    white-space: normal;
+    width:5%;
+    text-align: center;
 }
 
 
-
+.frmContainer .tabla-wrap-estado {
+    white-space: normal;
+    width:55px;
+    text-align: left;
+}
+.frmContainer .tabla-wrap-fechas {
+    white-space: normal;
+    width:40px;
+}
 .ui-dialog-titlebar{
     font-size: 13px;
     font-family: sans-serif;
