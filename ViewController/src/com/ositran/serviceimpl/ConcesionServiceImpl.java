@@ -3,6 +3,7 @@ package com.ositran.serviceimpl;
 import com.ositran.daoimpl.ConcesionDAOImpl;
 import com.ositran.model.Concesion;
 import com.ositran.service.ConcesionService;
+import com.ositran.util.Reutilizar;
 import com.ositran.vo.bean.ConcesionVO;
 
 import java.sql.SQLException;
@@ -135,7 +136,7 @@ public class ConcesionServiceImpl implements ConcesionService{
         concesion.setCsiFechaAlta(concesionVO.getCsiFechaAlta());
         concesion.setCsiFechaBaja(concesionVO.getCsiFechaBaja());
         concesion.setCsiFechaCambio(concesionVO.getCsiFechaCambio());
-        concesion.setCsiTerminal(concesionVO.getCsiTerminal());
+        concesion.setCsiTerminal(Reutilizar.obtenerIpCliente());
         concesion.setCsiUsuarioAlta(concesionVO.getCsiUsuarioAlta());
         concesion.setCsiUsuarioBaja(concesionVO.getCsiUsuarioBaja());
         concesion.setCsiUsuarioCambio(concesionVO.getCsiUsuarioCambio());

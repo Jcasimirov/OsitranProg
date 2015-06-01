@@ -347,19 +347,20 @@ public class MantenimientoConcesion {
         try {
             boolean codigoValido =
                 concesionServicesImpl.validarCodigoEnUso(concesionVO.getCsiId(), concesionVO.getTinId());
+            System.out.println("concesionVO.getCsiId(), concesionVO.getTinId()"+concesionVO.getCsiId()+ concesionVO.getTinId());
             if (codigoValido) {
                 listaInfraestructuras = infraestructuraServiceImpl.query1(concesionVO.getCsiId());
                 for (InfraestructuraVO infra : listaInfraestructuras) {
                     infra.setInfEstado(0);
                     infra.setInfFechaBaja(new Date());
-                    infra.setInfUsuarioBaja(Reutilizar.obtenerIpCliente());
+                    infra.setInfUsuarioBaja(usuario.getUsuAlias());
 
                     infraestructuraServiceImpl.update(infra);
 
                 }
                 concesionVO.setCsiEstado(0);
                 concesionVO.setCsiFechaBaja(Reutilizar.obtenerFechaActual());
-                concesionVO.setCsiUsuarioBaja(Reutilizar.obtenerIpCliente());
+                concesionVO.setCsiUsuarioBaja(usuario.getUsuAlias());
                 concesionServicesImpl.update(concesionVO);
 
                 ListarConcesiones();
