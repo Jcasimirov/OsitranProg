@@ -759,6 +759,16 @@ public class ActualizarContrato {
     }
 
     public void agregarAdenda() {
+      
+        for (ContratoAdendaVO ad: listContratoAdenda) {
+            if(ad.getCadNombre().trim().equals(contratoNuevaAdendaVO.getCadNombre().trim())){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "El Nombre de la adenda ya exite ingrese otra"));
+                return;
+            }
+                
+       }
         if (contratoNuevaAdendaVO.getCadNombre().length() == 0) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
