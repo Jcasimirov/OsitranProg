@@ -28,8 +28,6 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 
 public class MantenimientoModalidadConcesionMB {
-    
-    
     //-----------------SESSION-----------------------//
     public  final int formulario=22;
     private RolOpcionesVO rolOpcion;
