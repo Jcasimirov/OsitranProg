@@ -54,10 +54,10 @@
                                      
                                     <tr>
                                         <td>
-                                            <p:fieldset legend="Datos Basicos">
+                                            <p:fieldset legend="Datos Básicos">
                                                 <table>
                                                     <tr>
-                                                        <td align="left">Tipo De Infraestuctura:</td>
+                                                        <td align="left">Tipo de Infraestuctura:</td>
                                                         <td>
                                                             <p:inputText  styleClass="estandar-mayus-minus" onblur="pasarMayuscula(this.value,this.id)"  value="#{actualizarContratoMB.contratoVO.nombreTipoInfraestructura}" readonly="true"></p:inputText>
                                                         </td>
@@ -125,7 +125,7 @@
                                                                 </tr>
                                                                  
                                                                 <tr>
-                                                                    <td align="left">Dia Mes:</td>
+                                                                    <td align="left">Día Mes:</td>
                                                                     <td align="left">
                                                                         <p:inputText maxlength="2"   value="#{actualizarContratoMB.periodoseleccionado ne 0?null:actualizarContratoMB.contratoVO.conDiames}" id="diames" style="width:97.5%" disabled="#{actualizarContratoMB.periodoseleccionado ne 0}" onkeypress="return validarNum(event);"></p:inputText>
                                                                     </td>
@@ -138,12 +138,12 @@
                                                         <p:fieldset legend="Plazos de Revisión de Ositran">
                                                             <table>
                                                                 <tr>
-                                                                    <td align="left" style="width:120px">Plazo de revisi&#243;n de valorizacion y/o reconocimiento:</td>
+                                                                    <td align="left" style="width:120px">Plazo de revisi&#243;n de valorización y/o reconocimiento:</td>
                                                                     <td style="width:120px" align="right">
                                                                         <p:inputText    value="#{actualizarContratoMB.contratoVO.conPlazorevision}" onkeypress="return validarNum(event);" style="width:50px"></p:inputText>
                                                                     </td>
                                                                     <td>
-                                                                        <h:outputText value="(dias)"/>
+                                                                        <h:outputText value="(días)"/>
                                                                     </td>
                                                                     <td>
                                                                         <p:graphicImage url="../../images/obligatorio.gif"/>
@@ -153,8 +153,8 @@
                                                                 <tr>
                                                                     <td colspan="3" align="right">
                                                                         <p:selectOneRadio id="Dias" value="#{actualizarContratoMB.contratoVO.conTipodias}">
-                                                                            <f:selectItem itemLabel="Dias Calendario" itemValue="0"/>
-                                                                            <f:selectItem itemLabel="Dias Habiles" itemValue="1"/>
+                                                                            <f:selectItem itemLabel="Días Calendario" itemValue="0"/>
+                                                                            <f:selectItem itemLabel="Días Hábiles" itemValue="1"/>
                                                                         </p:selectOneRadio>
                                                                     </td>
                                                                     <td>
@@ -167,7 +167,7 @@
                                                         <p:fieldset legend="Otros Datos">
                                                             <table>
                                                                 <tr>
-                                                                    <td align="left">Fecha de Suscripcion:</td>
+                                                                    <td align="left">Fecha de Suscripción:</td>
                                                                     <td align="left">
                                                                         <p:calendar maxdate="#{actualizarContratoMB.fechaMaxima}" value="#{actualizarContratoMB.contratoVO.conFechaSuscripcion}" locale="es" pattern="dd/MM/yyyy"
                                                                         onkeypress="return validarCalendario(event);"/>
@@ -204,7 +204,7 @@
                                                                 <tr>
                                                                     <td align="left">Adjuntar Contrato:</td>
                                                                     <td align="left">
-                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivos" update=":tab:formPdfcontrato" onclick="dlgPDFContrato.show();"/>
+                                                                        <p:commandButton icon="ui-icon-arrowthick-1-n" title="subir archivo" update=":tab:formPdfcontrato" onclick="dlgPDFContrato.show();"/>
                                                                          
                                                                         <h:outputText id="conPdfcontrato" value="#{actualizarContratoMB.contratoVO.conPdfcontrato}"/>
                                                                     </td>
