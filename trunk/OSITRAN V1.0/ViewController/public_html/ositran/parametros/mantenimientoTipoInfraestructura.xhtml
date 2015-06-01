@@ -101,7 +101,7 @@
                                         </f:facet>
                                         <div align="center">
                                             <p:commandButton   id="btnmodificar" 
-                                                                update=":form:popupeditar" styleClass="controles"
+                                                                update=":form:popupeditar :form:nombreAntiguo" styleClass="controles"
                                                              action="#{infraestructuraMB.cargarEditar}"
                                                              oncomplete="popupeditar.show()" image="ui-icon-pencil">
                                                 <f:param id="idModificar" name="idModificar" value="#{mti.tinId}"/>
@@ -131,6 +131,7 @@
                                   collapsible="true">
                         <div class="piePagina">#{msg.titulo_PIE_PAGINA}</div>
                     </p:layoutUnit>
+                    <h:inputHidden value="#{infraestructuraMB.nombreAntiguo}" id="nombreAntiguo"/>
                 </p:layout>
                 <!-- pdialog para boton eliminar -->
                 <p:dialog id="popupeliminar" widgetVar="popupeliminar" resizable="false" header="Confirmar" modal="true">

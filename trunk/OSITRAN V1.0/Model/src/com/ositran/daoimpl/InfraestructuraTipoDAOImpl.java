@@ -132,4 +132,17 @@ public class InfraestructuraTipoDAOImpl implements InfraestructuraTipoDAO {
             session.close();
         }
     }
+
+    @Override
+    public int getCanNombres(String tinNombre) throws Exception {
+        int cantidad=0;
+        Session session = HibernateUtil.getSessionAnnotationFactory().openSession();
+        Query query;
+        List list;
+        query=session.createQuery("FROM InfraestructuraTipo  E WHERE upper(E.tinNombre)  like :tinNombre and upper(E.tinEstado) <> 0 ");
+        query.setParameter("tinNombre",tinNombre );
+        list= query.list();   
+        cantidad=list.size();
+        return cantidad;
+    }
 }

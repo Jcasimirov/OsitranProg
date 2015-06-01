@@ -28,7 +28,7 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 
 public class MantenimientoTipoInfraestructura {
-
+    private String nombreAntiguo;
     private String tinNombre;
     private String tinDescripcion;
     private int codigoEliminar;
@@ -98,9 +98,26 @@ public class MantenimientoTipoInfraestructura {
 
 
     /* Guardar */
-    public void guardar() {
+    public int validarNombre(String tinNombre){
+            int cantidad=0;
 
-        if (tinNombre.equals("")) {
+        try {
+           cantidad=infraestructuraTipoServiceImpl.getCanNombres(tinNombre);
+       } catch ( Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error",                                                                           
+                                                                              " No se pudo validar el nombre de tipo de infraestructura "));
+            }
+        return cantidad;
+        }
+    public void guardar() {
+        int cantidad;
+        cantidad=validarNombre(tinNombre);
+        if (cantidad>0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "El tipo de Infraestructura que quiere ingresar ya existe"));
+        } else if (tinNombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe ingresar el nombre"));
@@ -134,8 +151,6 @@ public class MantenimientoTipoInfraestructura {
 
         }
     }
-
-
     /* Fin Guardar */
 
 
@@ -151,6 +166,7 @@ public class MantenimientoTipoInfraestructura {
             infraestructuraTipoVO = infraestructuraTipoServiceImpl.get(idcodigo);
             //fin de de captura de codigo a modificar
             codigoE = infraestructuraTipoVO.getTinId();
+            nombreAntiguo = infraestructuraTipoVO.getTinNombre();
             tinNombreE = infraestructuraTipoVO.getTinNombre();
             tinDescripcionE = infraestructuraTipoVO.getTinDescripcion();
         } catch (Exception e) {
@@ -159,7 +175,13 @@ public class MantenimientoTipoInfraestructura {
     }
 
     public void editar() {
-        if (tinNombreE.trim().equals("")) {
+        int cantidad;
+        cantidad=validarNombre(tinNombreE);        
+        if (cantidad>0 && !nombreAntiguo.equals(tinNombreE)){
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
+                                                                              "El nombre de tipo Infraestructura que quiere ingresar ya existe"));
+        }else if (tinNombreE.trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "Debe ingresar el nombre"));
@@ -299,8 +321,7 @@ public class MantenimientoTipoInfraestructura {
         }
 
         return listaInfraestructura;
-        
-    }
+  }
 
 
     public void setTinNombre(String tinNombre) {
@@ -359,7 +380,6 @@ public class MantenimientoTipoInfraestructura {
         return tinDescripcionE;
     }
 
-
     public void setCodigoE(int codigoE) {
         this.codigoE = codigoE;
     }
@@ -367,8 +387,6 @@ public class MantenimientoTipoInfraestructura {
     public int getCodigoE() {
         return codigoE;
     }
-
-    
 
     public void setFiltrar(List<InfraestructuraTipoVO> filtrar) {
         this.filtrar = filtrar;
@@ -393,9 +411,6 @@ public class MantenimientoTipoInfraestructura {
     public String getNomInfraSearch() {
         return nomInfraSearch;
     }
-
-
-    
 
     public void setRolOpcion(RolOpcionesVO rolOpcion) {
         this.rolOpcion = rolOpcion;
@@ -444,4 +459,13 @@ public class MantenimientoTipoInfraestructura {
     public List<InfraestructuraTipoVO> getListaMod() {
         return listaMod;
     }
+
+    public void setNombreAntiguo(String nombreAntiguo) {
+        this.nombreAntiguo = nombreAntiguo;
+    }
+
+    public String getNombreAntiguo() {
+        return nombreAntiguo;
+    }
+
 }

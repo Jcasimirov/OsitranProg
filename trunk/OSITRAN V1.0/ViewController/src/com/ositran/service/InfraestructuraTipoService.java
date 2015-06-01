@@ -16,5 +16,6 @@ public interface InfraestructuraTipoService {
         public List<InfraestructuraTipoVO> AllSearch(String a)throws SQLException;
         public String getNombre(int codigo) throws SQLException;
         public boolean validarCodigoEnUso(Integer csiId) throws Exception;
+        public int getCanNombres(String tinNombre)  throws Exception;
 }
    
