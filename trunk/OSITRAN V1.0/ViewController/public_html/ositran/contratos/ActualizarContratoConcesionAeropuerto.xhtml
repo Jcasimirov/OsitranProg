@@ -275,12 +275,12 @@
                                 </table>
                             </h:form>
                             <p:dialog id="dlgcon" widgetVar="popupBuscarContrato" header="Buscar Contrato" modal="true" resizable="false" appendToBody="true" 
-                            closable="true" width="1200" height="500" styleClass="dlgContent">
+                            closable="true" width="950" height="400" styleClass="dlgContent">
                                 <h:form id="frmBuscarContratoDlg">
                                     <p:panelGrid id="pnlBuscarContratoDlg" styleClass="pnlEdicion" columns="3" columnClasses="etiquetas,cajas,validadores">
                                         <p:outputLabel for="concesion" value="#{cam.concesion}"/>
                                         <p:selectOneMenu  widgetVar="_cboconcesion" id="concesion" value="#{actualizarContratoMB.concesion}" style="width:280px;">
-                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="-Seleccionar-" itemValue="-1"/>
                                             <f:selectItems value="#{actualizarContratoMB.listaConcesiones}" var="lisConcesion" itemLabel="#{lisConcesion.csiNombre}" itemValue="#{lisConcesion.csiId}"/>
                                         </p:selectOneMenu>
                                         <p:message for="concesion" display="icon"/>
@@ -303,15 +303,15 @@
                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
                                                 rowsPerPageTemplate="5,10,20" 
                                                 resizableColumns="true">
-                                            <p:column headerText="Fecha Suscripción" styleClass="tabla-wrap-desc">
-                                                <div style="text-align: center;">
+                                            <p:column headerText="Fecha Suscripción" styleClass="tabla-wrap">
+                                                
                                                     <h:outputText value="#{contrato11.conFechaSuscripcionDescripcion}"/>
-                                                </div>
+                                               
                                             </p:column>
                                             <p:column headerText="Tipo de Infraestructura" styleClass="tabla-wrap-desc">
-                                                <div style="text-align: center;">
+                                                
                                                     <h:outputText value="#{contrato11.nombreTipoInfraestructura}" />
-                                                </div>
+                                              
                                             </p:column>
                                             <p:column headerText="Concesión" styleClass="tabla-wrap-desc">
                                                 <h:outputText value="#{contrato11.nombreConcesion}"/>
@@ -322,14 +322,14 @@
                                             <p:column headerText="Concesionario" styleClass="tabla-wrap-desc">
                                                 <h:outputText value="#{contrato11.nombreConcesionario}" style="text-transform:uppercase;"/>
                                             </p:column>
-                                            <p:column headerText="Ver Contrato" styleClass="tabla-wrap-desc">
+                                            <p:column headerText="Ver Contrato" styleClass="tabla-wrap-boton">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conPdfcontrato ne null}" actionListener="#{actualizarContratoMB.preDownloadContratoPDF(contrato11.conPdfcontrato)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadContratoPDF}"></p:fileDownload>
                                                     </p:commandButton>
                                                 </div>
                                             </p:column>
-                                            <p:column headerText="Ver Ficha" styleClass="tabla-wrap-desc">
+                                            <p:column headerText="Ver Ficha" styleClass="tabla-wrap-boton">
                                                 <div align="center">
                                                     <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{contrato11.conFicharesumen ne null}" actionListener="#{actualizarContratoMB.preDownloadFichaResumen(contrato11.conFicharesumen)}">
                                                         <p:fileDownload value="#{actualizarContratoMB.downloadFichaResumen}"></p:fileDownload>
