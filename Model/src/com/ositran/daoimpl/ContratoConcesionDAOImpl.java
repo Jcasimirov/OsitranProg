@@ -261,7 +261,8 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                         querysql.append("C.CON_ASUNTO, " );                                                          
                                         querysql.append("C.CON_CANTIDAD_PLAZOCONCESION, " ); 
                                         querysql.append("C.CON_MESOANIO_PLAZOCONCESION, " ); 
-                                        querysql.append("C.CON_NOTA_PLAZOCONCESION " ); 
+                                        querysql.append("C.CON_NOTA_PLAZOCONCESION," ); 
+                                        querysql.append("C.CON_USUARIO_ALTA " ); 
                                         querysql.append("From T_CONTRATO c " );
                                         querysql.append("left join T_CONCESION csi on c.CSI_ID=csi.CSI_ID " );
                                         querysql.append("left join T_MODALIDAD_CONCESION  mco on c.MCO_ID=mco.MCO_ID " );
