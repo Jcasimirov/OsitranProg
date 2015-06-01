@@ -129,6 +129,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         return contratoVO;
     }
     private Contrato toContrato(ContratoVO contratoVO){
+        System.out.println("contratoVO.getConFechaCambio():"+contratoVO.getConFechaCambio()+" contratoVO.getConUsuarioCambio():"+contratoVO.getConUsuarioCambio());
         Contrato contrato=new Contrato();
         contrato.setCncId(contratoVO.getCncId());
         contrato.setConAnyo(contratoVO.getConAnyo());
@@ -148,7 +149,7 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
         contrato.setConPdfcontrato(contratoVO.getConPdfcontrato());
         contrato.setConPlazoconcesion(contratoVO.getConPlazoconcesion());
         contrato.setConPlazorevision(contratoVO.getConPlazorevision());
-        contrato.setConTerminal(Reutilizar.getNewInstance().obtenerIpCliente());
+        contrato.setConTerminal(Reutilizar.obtenerIpCliente());
         contrato.setConTipodias(contratoVO.getConTipodias());
         contrato.setConUsuarioAlta(contratoVO.getConUsuarioAlta());
         contrato.setConUsuarioBaja(contratoVO.getConUsuarioBaja());
@@ -199,6 +200,8 @@ public class ContratoConcesionServiceImpl implements ContratoConcesionService{
             con.setConCantidadPlazoconcesion(columna[24]!=null?new Integer(columna[24].toString()):null);
             con.setConMesoAnioPlazoconcesion(columna[25]!=null?new Integer(columna[25].toString()):null);
             con.setConNotaPlazoConcesion(columna[26]!=null?columna[26].toString():null);
+            con.setConUsuarioAlta(columna[27]!=null?columna[27].toString():null);
+             
             lstBusquedaxNombreConcesion.add(con);
            // System.out.println("*********SERVICE*******buscarContratoxNombreConcesion():"+((Date)columna[0])+"-"+columna[1].toString()+"-"+columna[2].toString()+"-"+columna[3].toString()+"-"+columna[4].toString()+"-"+columna[5].toString()+"-"+columna[6].toString());
        }
