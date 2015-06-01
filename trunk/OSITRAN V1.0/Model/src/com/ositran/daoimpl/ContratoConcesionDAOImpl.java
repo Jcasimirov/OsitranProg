@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
 import org.hibernate.Transaction;
 
 import org.springframework.stereotype.Repository;
@@ -269,21 +268,21 @@ public class ContratoConcesionDAOImpl implements ContratoConcesionDAO {
                                         querysql.append("left join T_CONCESIONARIO        cnc on c.CNC_ID=cnc.CNC_ID " ); 
                                         querysql.append("left join T_INFRAESTRUCTURA_TIPO tin on c.TIN_ID=tin.TIN_ID " );
                                         querysql.append("where 1=1 ");
-                                        if(!nombreConcesion.equals("") && nombreConcesion!=null)
+                                        if(nombreConcesion.length()!=0 && nombreConcesion!=null)
                                             querysql.append(" and  UPPER(TRIM(csi.CSI_NOMBRE)) like :nombre ");
                                         if(codTipoInfraestructura!=0)
                                             querysql.append(" and  c.TIN_ID = :tinid ");                                    
-                                        if(codConcesion!=0)
+                                        if(codConcesion!=-1)
                                             querysql.append(" and  c.CSI_ID = :csiid ");                                    
                                         if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null)
                                             querysql.append(" and  c.CON_FECHA_SUSCRIPCION between :fis and :ffs");
                                         
                                Query query=session.createSQLQuery(querysql.toString());
-                                        if(!nombreConcesion.equals("") && nombreConcesion!=null)
+                                        if(nombreConcesion.length()!=0 && nombreConcesion!=null)
                                             query.setParameter("nombre", "%"+nombreConcesion+"%");
                                         if(codTipoInfraestructura!=0)
                                             query.setParameter("tinid", codTipoInfraestructura);                                    
-                                        if(codConcesion!=0)
+                                        if(codConcesion!=-1)
                                             query.setParameter("csiid", codConcesion);                                    
                                         if(fechaIncioSuscripcion!=null && fechafinSuscripcion!=null){
                                             query.setParameter("fis", fechaIncioSuscripcion);
