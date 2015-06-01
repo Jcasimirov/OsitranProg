@@ -4,7 +4,6 @@ import com.ositran.service.ConcesionarioService;
 import com.ositran.service.DatosStdService;
 import com.ositran.serviceimpl.ConcesionServiceImpl;
 import com.ositran.serviceimpl.ContratoConcesionServiceImpl;
-import com.ositran.serviceimpl.DatosStdServiceImpl;
 import com.ositran.serviceimpl.InfraestructuraTipoServiceImpl;
 import com.ositran.serviceimpl.ModalidadConcesionServiceImpl;
 import com.ositran.serviceimpl.TipoDocumentoServiceImpl;
@@ -28,24 +27,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Generated;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlForm;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "bk_registrarContrato")
 @ViewScoped
@@ -507,6 +497,11 @@ public class RegistrarContratoMB {
     }
     // Cargar Campo de Busqueda
     public void BusquedaAutomatica() throws SQLException {
+        busqueda="";
+        listaConcesionario=new ArrayList<ConcesionarioVO>();
+        nomconcesionario="";
+        nrodocumento="";
+        /*
         nomconcesionario = busqueda;
         if (busqueda != null && !busqueda.trim().equals("")) {
             try {
@@ -516,6 +511,7 @@ public class RegistrarContratoMB {
                 e.printStackTrace();
             }
         }
+*/
     }
 
     public void BusquedaConcesionario() throws SQLException {

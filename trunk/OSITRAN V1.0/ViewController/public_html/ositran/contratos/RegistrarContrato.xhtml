@@ -68,7 +68,7 @@
                                                     <td colspan="2" align="left">
                                                         #{cam.asu}
                                                          
-                                                        <p:inputTextarea style="width:80%" id="asuntohr"
+                                                        <p:inputTextarea style="width:80%" id="asuntohr" maxlength="300" scrollHeight="1"
                                                         onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
                                                                          value="#{bk_registrarContrato.asuntohr}"/>
                                                          
@@ -137,17 +137,13 @@
                                             <table>
                                                 <tr>
                                                     <td colspan="4" align="left">
-                                                        <p:inputText style="width:200px" id="busqueda"
-                                                        onblur="pasarMayuscula(this.value,this.id)" styleClass="estandar-mayus-minus"
-                                                                     value="#{bk_registrarContrato.busqueda}"/>
-                                                         
-                                                        <p:watermark for="busqueda" value="#{cam.buscarCon}"/>
+                                                     Buscar Contrato:
                                                          
                                                         <img src="../../images/obligatorio.gif"
                                                              style="vertical-align: top;"/>
                                                          
                                                         <p:commandButton image="ui-icon-search"
-                                                                         actionListener="#{bk_registrarContrato.BusquedaAutomatica}"
+                                                                         actionListener="#{bk_registrarContrato.BusquedaAutomatica()}"
                                                                          oncomplete="busconcesionario.show()"
                                                                          update=":form:busconcesionario"/>
                                                     </td>
@@ -198,12 +194,12 @@
                                  
                                 <tr>
                                     <td align="center">
-                                        <p:commandButton rendered="#{bk_registrarContrato.rolOpcion.troAgregar eq 1}"
+                                        <p:commandButton styleClass="botones" rendered="#{bk_registrarContrato.rolOpcion.troAgregar eq 1}"
                                                          value="#{btn.btn_guardar}"
                                                          actionListener="#{bk_registrarContrato.GrabarContratoConcesion}"
-                                                         update=":form:mensaje :form:nrohr :form:añohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:busqueda :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
+                                                         update=":form:mensaje :form:nrohr :form:añohr :form:freghr :form:asuntohr :form:tipoinfra :form:modalidad :form:concesion :form:nombreConcesionarioBus :form:siglasConcesionarioBus :form:direccionConcesionarioBus"/>
                                          
-                                        <p:commandButton value="#{btn.btn_salir}"/>
+                                        <p:commandButton styleClass="botones" value="#{btn.btn_salir}"  action="#{viewcontroller.redirect('ositran/principal.xhtml')}" />
                                     </td>
                                 </tr>
                             </table>
@@ -272,13 +268,15 @@
                         <br></br>
                          
                         <p:fieldset styleClass="fielsetinterno" legend="#{leg.rb}"
-                                    style="margin-bottom:5px;font-size: 11px;width:70%">
+                                    style="margin-bottom:5px;font-size:10px;width:70%">
                             <p:dataTable value="#{bk_registrarContrato.listaConcesionario}" id="tablaconcesionario"
-                                         var="conces" selectionMode="single" style="font-size:11px"
+                                         var="conces" selectionMode="single" style="font-size:10px;text-align:left"
                                          rowKey="#{conces.cncId}" 
                                          rowIndexVar="rowIndex"
                                            emptyMessage="NO SE ENCONTRARON DATOS"
+                                        paginatorPosition="bottom"
                                              paginator="true"
+                                             rows="10"
                                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,20"
                                          
@@ -292,7 +290,7 @@
                                     </div>
                                 </p:column>
                                 <p:column headerText="Nro. Documento" style="width:10%">
-                                    <h:outputText value="#{conces.cncDescripcion}"/>
+                                    <h:outputText value="#{conces.cncNroDocumento}"/>
                                 </p:column>
                                 <p:column headerText="#{tab.replegal}" style="width:35%">
                                     <h:outputText value="#{conces.cncRepresentanteLegal}"
