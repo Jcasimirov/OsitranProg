@@ -443,7 +443,9 @@ public class ActualizarContrato {
             buscarContratos();
         }
     }
-
+    public void limpiar(){
+        listaContrato=new ArrayList<ContratoVO>();
+    }
     public void buscarContratos() {
         System.out.println("tipoInfraestructura, concesion" + tipoInfraestructura + " " + concesion);
         try {
