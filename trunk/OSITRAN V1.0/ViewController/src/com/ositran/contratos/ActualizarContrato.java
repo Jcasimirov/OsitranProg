@@ -521,10 +521,6 @@ public class ActualizarContrato {
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
                                                                           "No ha seleccionado el Periodo"));
-        } else if (periodoseleccionado == 0 && contratoVO.getConDiames() == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                          "El Día mes no puede ser vacio"));
         } else if ((aplicaAvancedeObra && periodoseleccionado == 0) &&
                    (contratoVO.getConDiames() != null &&
                     !((contratoVO.getConDiames() > 0 && contratoVO.getConDiames() < 31)))) {
