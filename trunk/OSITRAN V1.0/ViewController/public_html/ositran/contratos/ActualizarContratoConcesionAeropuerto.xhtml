@@ -606,8 +606,8 @@
                                      
                                     <tr>
                                         <td colspan="2">
-                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;width:100%;" id="tablaCompromisoIndicado" value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
-                                                <p:column headerText="Periodo/Etapa" style="width:4%">
+                                            <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;width:100%;text-align:left !important;" id="tablaCompromisoIndicado" value="#{actualizarContratoMB.listarContratoCompromiso}" var="compromiso">
+                                                <p:column headerText="Periodo/Etapa" style="width:4%" >
                                                     <h:outputText value="#{compromiso.ccoPeriodo}"/>
                                                 </p:column>
                                                 <p:column headerText="Alcance" style="width:10%">
@@ -999,7 +999,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaCAO" var="tCao" value="#{actualizarContratoMB.listContratoCaoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaCAO" var="tCao" value="#{actualizarContratoMB.listContratoCaoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Inversión">
                                                         <h:outputText value="#{tCao.caoNombre}"/>
                                                     </p:column>
@@ -1056,7 +1056,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaHito" var="tHito" value="#{actualizarContratoMB.listContratoHitoVO}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaHito" var="tHito" value="#{actualizarContratoMB.listContratoHitoVO}">
                                                     <p:column headerText="Aeropuerto" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tHito.htoNombre}"/>
                                                     </p:column>
@@ -1119,7 +1119,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="text-align: center;">
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaPPO" var="tPpo" value="#{actualizarContratoMB.listContratoPpoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaPPO" var="tPpo" value="#{actualizarContratoMB.listContratoPpoVO}" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                     <p:column headerText="Aeropuerto">
                                                         <h:outputText value="#{tPpo.ppoNombre}"/>
                                                     </p:column>
@@ -1519,7 +1519,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div>
-                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
+                                                <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" id="tablaAlerta" var="tAlerta" value="#{actualizarContratoMB.listContratoAlerta}">
                                                     <p:column headerText="Aeropuerto" style="width:14%" rendered="#{actualizarContratoMB.tipoInfraestructura eq paramInicio.tipinfaeropuertos}">
                                                         <h:outputText value="#{tAlerta.calAeropuerto}"/>
                                                     </p:column>
@@ -1738,7 +1738,7 @@
                                                 <p:dataTable paginatorPosition="bottom" emptyMessage="NO SE ENCONTRARON DATOS" 
                                                 rows="10" paginator="true" 
                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-                                                rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;" 
+                                                rowsPerPageTemplate="5,10,20" resizableColumns="true" style="font-size:11px;text-align:left !important;" 
                                                 id="tablaContratoConcesionInversion" 
                                                 value="#{actualizarContratoMB.listaInfraestructuraConInversion}" var="tinfra">
                                                 
