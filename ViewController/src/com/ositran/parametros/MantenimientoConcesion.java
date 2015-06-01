@@ -578,7 +578,7 @@ public class MantenimientoConcesion {
             }else if (infraestructura.getInfNombre().trim().length() == 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
                                                              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso",
-                                                                              "Ingrese el nombre de la concesion"));
+                                                                              "Ingrese el nombre de la Infraestrutura"));
                 RequestContext.getCurrentInstance().update("form:mensaje");
             } else {
                 infraestructuras.add(infraestructura);
