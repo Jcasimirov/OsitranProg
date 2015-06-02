@@ -6,6 +6,7 @@ import com.ositran.service.ContratoEmpresaSupervisoraService;
 import com.ositran.service.ContratoEntregaService;
 import com.ositran.service.ContratoPenalidadEstadoService;
 import com.ositran.service.ContratoPenalidadService;
+import com.ositran.service.ContratoSubInversionesService;
 import com.ositran.service.MonedaService;
 import com.ositran.service.PeriodoService;
 import com.ositran.service.TipoInversionServices;
@@ -165,6 +166,8 @@ public class ActualizarContrato {
     private ContratoAlertaVO contratoAlertaVO;
     @ManagedProperty(value = "#{contratoAlertaServiceImpl}")
     private ContratoAlertaServiceImpl contratoAlertaServiceImpl;
+    @ManagedProperty(value = "#{contratoSupInversionesServiceImpl}")
+    private ContratoSubInversionesService contratoSubInversionesServiceImpl;
     List<ContratoAlertaVO> listContratoAlerta;
 
     @ManagedProperty(value = "#{contratoAlertaEstadoVO}")
@@ -2174,7 +2177,7 @@ public class ActualizarContrato {
         }
     }
 
-    /**jose**/
+    /**ALERTAS**/
     public void cargarListaAlertas(int idcontrato) {
         try {
             System.out.println("idcontrato: " + idcontrato);
@@ -2187,7 +2190,16 @@ public class ActualizarContrato {
                     }
                 }
             }
-        } catch (SQLException s) {
+         /*  List<ContratoSubInversionesVO> lista=   contratoSubInversionesServiceImpl.obtenerSupervisorInversionesActivo(idcontrato); 
+            for (ContratoSubInversionesVO supervisor : lista) {
+                if(supervisor.getTsiId()!=0){
+                    
+                }else{
+                    
+                }
+           }
+         */
+        } catch (Exception s) {
             s.printStackTrace();
         }
     }
@@ -3954,5 +3966,13 @@ public class ActualizarContrato {
 
     public void setFechaMaxima(Date fechaMaxima) {
         this.fechaMaxima = fechaMaxima;
+    }
+
+    public void setContratoSubInversionesServiceImpl(ContratoSubInversionesService contratoSubInversionesServiceImpl) {
+        this.contratoSubInversionesServiceImpl = contratoSubInversionesServiceImpl;
+    }
+
+    public ContratoSubInversionesService getContratoSubInversionesServiceImpl() {
+        return contratoSubInversionesServiceImpl;
     }
 }
